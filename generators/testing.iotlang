@@ -1,0 +1,23 @@
+thing Hello {
+	statechart myStatechart init one {
+		state one {
+			on entry do print "Hello world" end 
+		}
+	}
+
+}
+
+thing Hello2 {
+	statechart myStatechart init one {
+		state one {
+			on entry do print "Hello world" end 
+		}
+	}
+
+}
+
+configuration helloexec 
+{
+	instance hello:Hello
+	instance hello2:Hello2
+}
