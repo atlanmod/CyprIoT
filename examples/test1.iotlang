@@ -1,0 +1,51 @@
+thing Temperature {
+	// Arduino that senses the temperature
+}
+//thing fragment msgAndPorts{
+//	message sensorData (value : Int16);
+//	required port AnalogInput 
+//    {	
+//		sends sensorData
+//		receives sensorData
+//	}
+//}
+
+thing AirConditionner {
+	// Android that handles the air conditionner
+}
+
+thing AndroidUser {
+	// Simple android application that give the user the possibility to select the temperature
+}
+
+bus MqttBus {
+	topic room1 = "myRoom"
+}
+
+policy roomPolicy {
+	rule Temperature allow:receive AirConditionner
+	rule AirConditionner allow:receive Temperature
+	rule Temperature deny:send AirConditionner
+}
+
+//configuration AndroidConf {
+//	instance myAndroid:AndroidUser
+//}
+//configuration AirConditionnerConf {
+//	instance myAirConditionner:AirConditionner
+//	
+//}
+//configuration TemperatureConf {
+//	instance mytemperature:Temperature
+//}
+
+networkConfiguration wsnConfiguration {
+	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
+	instancePolicy mypolicy:roomPolicy
+	enforce mypolicy	 // Will check if the configuration respect the policy, if there is any 
+						//conflict with the configuration the policy will override it
+	instanceThing instanceTemp[10]:Temperature //@platform "*:*"
+	instanceBus mqtt:MqttBus //@platform "*:*"
+	instanceBus mqttBus:MqttBus //@platform "*:*"
+	bind instanceTemp => mqtt{room1}
+}
