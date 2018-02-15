@@ -11,8 +11,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
-import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
@@ -20,16 +18,10 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class IotlangSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected IotlangGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Message_SemicolonKeyword_6_q;
-	protected AbstractElementAlias match_ObjectType_SemicolonKeyword_3_q;
-	protected AbstractElementAlias match_PrimitiveType_SemicolonKeyword_6_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (IotlangGrammarAccess) access;
-		match_Message_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getMessageAccess().getSemicolonKeyword_6());
-		match_ObjectType_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getObjectTypeAccess().getSemicolonKeyword_3());
-		match_PrimitiveType_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getPrimitiveTypeAccess().getSemicolonKeyword_6());
 	}
 	
 	@Override
@@ -44,51 +36,8 @@ public class IotlangSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_Message_SemicolonKeyword_6_q.equals(syntax))
-				emit_Message_SemicolonKeyword_6_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ObjectType_SemicolonKeyword_3_q.equals(syntax))
-				emit_ObjectType_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_PrimitiveType_SemicolonKeyword_6_q.equals(syntax))
-				emit_PrimitiveType_SemicolonKeyword_6_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else acceptNodes(getLastNavigableState(), syntaxNodes);
+			acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     annotations+=PlatformAnnotation (ambiguity) (rule end)
-	 *     name=ID '(' ')' (ambiguity) (rule end)
-	 *     parameters+=Parameter ')' (ambiguity) (rule end)
-	 */
-	protected void emit_Message_SemicolonKeyword_6_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     annotations+=PlatformAnnotation (ambiguity) (rule end)
-	 *     name=ID (ambiguity) (rule end)
-	 */
-	protected void emit_ObjectType_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ';'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     ByteSize=INT '>' (ambiguity) (rule end)
-	 *     annotations+=PlatformAnnotation (ambiguity) (rule end)
-	 */
-	protected void emit_PrimitiveType_SemicolonKeyword_6_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
 }

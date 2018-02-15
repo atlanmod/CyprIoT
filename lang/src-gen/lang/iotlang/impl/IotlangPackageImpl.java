@@ -3,96 +3,23 @@
  */
 package lang.iotlang.impl;
 
-import lang.iotlang.AbstractConnector;
-import lang.iotlang.Action;
-import lang.iotlang.ActionBlock;
-import lang.iotlang.AndExpression;
-import lang.iotlang.AnnotatedElement;
-import lang.iotlang.ArrayIndex;
-import lang.iotlang.BooleanLiteral;
-import lang.iotlang.Bus;
-import lang.iotlang.CastExpression;
+import lang.iotlang.Bind;
 import lang.iotlang.Channel;
-import lang.iotlang.Channeling;
-import lang.iotlang.CompositeState;
-import lang.iotlang.ConditionalAction;
-import lang.iotlang.ConfigPropertyAssign;
-import lang.iotlang.Configuration;
-import lang.iotlang.Connector;
-import lang.iotlang.Decrement;
-import lang.iotlang.DivExpression;
 import lang.iotlang.Domain;
-import lang.iotlang.DoubleLiteral;
-import lang.iotlang.EnumLiteralRef;
-import lang.iotlang.Enumeration;
-import lang.iotlang.EnumerationLiteral;
-import lang.iotlang.EqualsExpression;
-import lang.iotlang.ErrorAction;
-import lang.iotlang.Event;
-import lang.iotlang.EventReference;
-import lang.iotlang.Expression;
-import lang.iotlang.ExpressionGroup;
-import lang.iotlang.ExternExpression;
-import lang.iotlang.ExternStatement;
-import lang.iotlang.ExternalConnector;
-import lang.iotlang.FinalState;
-import lang.iotlang.Function;
-import lang.iotlang.FunctionCallExpression;
-import lang.iotlang.FunctionCallStatement;
-import lang.iotlang.Gateway;
-import lang.iotlang.GreaterExpression;
-import lang.iotlang.GreaterOrEqualExpression;
-import lang.iotlang.Handler;
-import lang.iotlang.Increment;
-import lang.iotlang.Instance;
-import lang.iotlang.InstanceGateway;
-import lang.iotlang.IntegerLiteral;
-import lang.iotlang.InternalPort;
-import lang.iotlang.InternalTransition;
+import lang.iotlang.InstanceBus;
+import lang.iotlang.InstancePolicy;
+import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.IotlangFactory;
 import lang.iotlang.IotlangPackage;
-import lang.iotlang.LocalVariable;
-import lang.iotlang.LoopAction;
-import lang.iotlang.LowerExpression;
-import lang.iotlang.LowerOrEqualExpression;
 import lang.iotlang.Message;
-import lang.iotlang.MinusExpression;
-import lang.iotlang.ModExpression;
-import lang.iotlang.NamedElement;
-import lang.iotlang.NotEqualsExpression;
-import lang.iotlang.NotExpression;
-import lang.iotlang.ObjectType;
-import lang.iotlang.OrExpression;
-import lang.iotlang.Parameter;
+import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.PlatformAnnotation;
-import lang.iotlang.PlusExpression;
-import lang.iotlang.Port;
-import lang.iotlang.PrimitiveType;
-import lang.iotlang.PrintAction;
-import lang.iotlang.Property;
-import lang.iotlang.PropertyAssign;
-import lang.iotlang.PropertyReference;
+import lang.iotlang.Policy;
 import lang.iotlang.Protocol;
-import lang.iotlang.ProvidedPort;
-import lang.iotlang.ReceiveMessage;
-import lang.iotlang.Region;
-import lang.iotlang.RequiredPort;
-import lang.iotlang.ReturnAction;
-import lang.iotlang.SendAction;
-import lang.iotlang.Session;
-import lang.iotlang.StartSession;
-import lang.iotlang.State;
-import lang.iotlang.StateContainer;
-import lang.iotlang.StringLiteral;
+import lang.iotlang.Rule;
 import lang.iotlang.Thing;
-import lang.iotlang.TimesExpression;
-import lang.iotlang.Transition;
-import lang.iotlang.Type;
-import lang.iotlang.TypeRef;
-import lang.iotlang.UnaryMinus;
-import lang.iotlang.Variable;
-import lang.iotlang.VariableAssignment;
+import lang.iotlang.Topic;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -128,406 +55,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass namedElementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass annotatedElementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass typeRefEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass typeEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass primitiveTypeEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass objectTypeEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass enumerationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass enumerationLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass thingEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyAssignEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass protocolEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass functionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass messageEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass parameterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass portEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass requiredPortEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass providedPortEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass internalPortEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass stateEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass handlerEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass transitionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass internalTransitionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass compositeStateEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass sessionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass regionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass finalStateEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass stateContainerEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eventEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass receiveMessageEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass actionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass actionBlockEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass externStatementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass localVariableEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass sendActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableAssignmentEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass incrementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass decrementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass loopActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass conditionalActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass returnActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass printActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass errorActionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass startSessionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass functionCallStatementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass expressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass externExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass enumLiteralRefEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass integerLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass booleanLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass stringLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass doubleLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eventReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass functionCallExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass gatewayEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass busEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -541,7 +69,35 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass configurationEClass = null;
+  private EClass policyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass protocolEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass messageEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass topicEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ruleEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -555,175 +111,35 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass instanceEClass = null;
+  private EClass instanceThingEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass instanceGatewayEClass = null;
+  private EClass instanceBusEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass configPropertyAssignEClass = null;
+  private EClass instancePolicyEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass abstractConnectorEClass = null;
+  private EClass networkConfigurationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass connectorEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass externalConnectorEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass channelingEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass castExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass orExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass andExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass equalsExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass notEqualsExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass greaterExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass lowerExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass greaterOrEqualExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass lowerOrEqualExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass plusExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass minusExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass timesExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass divExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass modExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass expressionGroupEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass notExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass unaryMinusEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass arrayIndexEClass = null;
+  private EClass bindEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -803,9 +219,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getIoTLangModel_ImportURI()
+  public EReference getIoTLangModel_Things()
   {
-    return (EAttribute)ioTLangModelEClass.getEStructuralFeatures().get(0);
+    return (EReference)ioTLangModelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -813,7 +229,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIoTLangModel_Types()
+  public EReference getIoTLangModel_Policies()
   {
     return (EReference)ioTLangModelEClass.getEStructuralFeatures().get(1);
   }
@@ -823,7 +239,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getIoTLangModel_Protocols()
+  public EReference getIoTLangModel_Channels()
   {
     return (EReference)ioTLangModelEClass.getEStructuralFeatures().get(2);
   }
@@ -873,176 +289,6 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getNamedElement()
-  {
-    return namedElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNamedElement_Name()
-  {
-    return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAnnotatedElement()
-  {
-    return annotatedElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAnnotatedElement_Annotations()
-  {
-    return (EReference)annotatedElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getVariable()
-  {
-    return variableEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariable_TypeRef()
-  {
-    return (EReference)variableEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getTypeRef()
-  {
-    return typeRefEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTypeRef_Type()
-  {
-    return (EReference)typeRefEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTypeRef_IsArray()
-  {
-    return (EAttribute)typeRefEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTypeRef_Cardinality()
-  {
-    return (EReference)typeRefEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getType()
-  {
-    return typeEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPrimitiveType()
-  {
-    return primitiveTypeEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getPrimitiveType_ByteSize()
-  {
-    return (EAttribute)primitiveTypeEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getObjectType()
-  {
-    return objectTypeEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEnumeration()
-  {
-    return enumerationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEnumeration_Literals()
-  {
-    return (EReference)enumerationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEnumerationLiteral()
-  {
-    return enumerationLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getThing()
   {
     return thingEClass;
@@ -1053,7 +299,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getThing_Fragment()
+  public EAttribute getThing_Name()
   {
     return (EAttribute)thingEClass.getEStructuralFeatures().get(0);
   }
@@ -1063,1249 +309,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getThing_Includes()
+  public EReference getThing_Annotations()
   {
     return (EReference)thingEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Messages()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Ports()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Properties()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Functions()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Assign()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getThing_Behaviour()
-  {
-    return (EReference)thingEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPropertyAssign()
-  {
-    return propertyAssignEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropertyAssign_Property()
-  {
-    return (EReference)propertyAssignEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropertyAssign_Index()
-  {
-    return (EReference)propertyAssignEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropertyAssign_Init()
-  {
-    return (EReference)propertyAssignEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getProtocol()
-  {
-    return protocolEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFunction()
-  {
-    return functionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunction_Parameters()
-  {
-    return (EReference)functionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunction_TypeRef()
-  {
-    return (EReference)functionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunction_Body()
-  {
-    return (EReference)functionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getFunction_Abstract()
-  {
-    return (EAttribute)functionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getProperty()
-  {
-    return propertyEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getProperty_Readonly()
-  {
-    return (EAttribute)propertyEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getProperty_Init()
-  {
-    return (EReference)propertyEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getMessage()
-  {
-    return messageEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getMessage_Parameters()
-  {
-    return (EReference)messageEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getParameter()
-  {
-    return parameterEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPort()
-  {
-    return portEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPort_Sends()
-  {
-    return (EReference)portEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPort_Receives()
-  {
-    return (EReference)portEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getRequiredPort()
-  {
-    return requiredPortEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getRequiredPort_Optional()
-  {
-    return (EAttribute)requiredPortEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getProvidedPort()
-  {
-    return providedPortEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getInternalPort()
-  {
-    return internalPortEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getState()
-  {
-    return stateEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getState_Properties()
-  {
-    return (EReference)stateEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getState_Entry()
-  {
-    return (EReference)stateEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getState_Exit()
-  {
-    return (EReference)stateEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getState_Internal()
-  {
-    return (EReference)stateEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getState_Outgoing()
-  {
-    return (EReference)stateEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getHandler()
-  {
-    return handlerEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getHandler_Event()
-  {
-    return (EReference)handlerEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getHandler_Guard()
-  {
-    return (EReference)handlerEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getHandler_Action()
-  {
-    return (EReference)handlerEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getTransition()
-  {
-    return transitionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTransition_Target()
-  {
-    return (EReference)transitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getInternalTransition()
-  {
-    return internalTransitionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getCompositeState()
-  {
-    return compositeStateEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCompositeState_Region()
-  {
-    return (EReference)compositeStateEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCompositeState_Session()
-  {
-    return (EReference)compositeStateEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSession()
-  {
-    return sessionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSession_MaxInstances()
-  {
-    return (EReference)sessionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getRegion()
-  {
-    return regionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFinalState()
-  {
-    return finalStateEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStateContainer()
-  {
-    return stateContainerEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStateContainer_Initial()
-  {
-    return (EReference)stateContainerEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getStateContainer_History()
-  {
-    return (EAttribute)stateContainerEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStateContainer_Substate()
-  {
-    return (EReference)stateContainerEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEvent()
-  {
-    return eventEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getReceiveMessage()
-  {
-    return receiveMessageEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getReceiveMessage_Port()
-  {
-    return (EReference)receiveMessageEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getReceiveMessage_Message()
-  {
-    return (EReference)receiveMessageEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAction()
-  {
-    return actionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getActionBlock()
-  {
-    return actionBlockEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getActionBlock_Actions()
-  {
-    return (EReference)actionBlockEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getExternStatement()
-  {
-    return externStatementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getExternStatement_Statement()
-  {
-    return (EAttribute)externStatementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getExternStatement_Segments()
-  {
-    return (EReference)externStatementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getLocalVariable()
-  {
-    return localVariableEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getLocalVariable_Readonly()
-  {
-    return (EAttribute)localVariableEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLocalVariable_Init()
-  {
-    return (EReference)localVariableEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSendAction()
-  {
-    return sendActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSendAction_Port()
-  {
-    return (EReference)sendActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSendAction_Message()
-  {
-    return (EReference)sendActionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSendAction_Parameters()
-  {
-    return (EReference)sendActionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getVariableAssignment()
-  {
-    return variableAssignmentEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariableAssignment_Property()
-  {
-    return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariableAssignment_Index()
-  {
-    return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariableAssignment_Expression()
-  {
-    return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIncrement()
-  {
-    return incrementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getIncrement_Var()
-  {
-    return (EReference)incrementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDecrement()
-  {
-    return decrementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDecrement_Var()
-  {
-    return (EReference)decrementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getLoopAction()
-  {
-    return loopActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLoopAction_Condition()
-  {
-    return (EReference)loopActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLoopAction_Action()
-  {
-    return (EReference)loopActionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getConditionalAction()
-  {
-    return conditionalActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionalAction_Condition()
-  {
-    return (EReference)conditionalActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionalAction_Action()
-  {
-    return (EReference)conditionalActionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionalAction_ElseAction()
-  {
-    return (EReference)conditionalActionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getReturnAction()
-  {
-    return returnActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getReturnAction_Exp()
-  {
-    return (EReference)returnActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPrintAction()
-  {
-    return printActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPrintAction_Msg()
-  {
-    return (EReference)printActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getErrorAction()
-  {
-    return errorActionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getErrorAction_Msg()
-  {
-    return (EReference)errorActionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStartSession()
-  {
-    return startSessionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStartSession_Session()
-  {
-    return (EReference)startSessionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFunctionCallStatement()
-  {
-    return functionCallStatementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionCallStatement_Function()
-  {
-    return (EReference)functionCallStatementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionCallStatement_Parameters()
-  {
-    return (EReference)functionCallStatementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getExpression()
-  {
-    return expressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getExternExpression()
-  {
-    return externExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getExternExpression_Expression()
-  {
-    return (EAttribute)externExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getExternExpression_Segments()
-  {
-    return (EReference)externExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEnumLiteralRef()
-  {
-    return enumLiteralRefEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEnumLiteralRef_Enum()
-  {
-    return (EReference)enumLiteralRefEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEnumLiteralRef_Literal()
-  {
-    return (EReference)enumLiteralRefEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIntegerLiteral()
-  {
-    return integerLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getIntegerLiteral_IntValue()
-  {
-    return (EAttribute)integerLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBooleanLiteral()
-  {
-    return booleanLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getBooleanLiteral_BoolValue()
-  {
-    return (EAttribute)booleanLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStringLiteral()
-  {
-    return stringLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getStringLiteral_StringValue()
-  {
-    return (EAttribute)stringLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDoubleLiteral()
-  {
-    return doubleLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getDoubleLiteral_DoubleValue()
-  {
-    return (EAttribute)doubleLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPropertyReference()
-  {
-    return propertyReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropertyReference_Property()
-  {
-    return (EReference)propertyReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEventReference()
-  {
-    return eventReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEventReference_ReceiveMsg()
-  {
-    return (EReference)eventReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEventReference_Parameter()
-  {
-    return (EReference)eventReferenceEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFunctionCallExpression()
-  {
-    return functionCallExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionCallExpression_Function()
-  {
-    return (EReference)functionCallExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionCallExpression_Parameters()
-  {
-    return (EReference)functionCallExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGateway()
-  {
-    return gatewayEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGateway_Buses()
-  {
-    return (EReference)gatewayEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBus()
-  {
-    return busEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getBus_Name()
-  {
-    return (EAttribute)busEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getBus_Channels()
-  {
-    return (EReference)busEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2333,9 +339,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getChannel_ChannelId()
+  public EReference getChannel_Topics()
   {
-    return (EAttribute)channelEClass.getEStructuralFeatures().get(1);
+    return (EReference)channelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2343,9 +349,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConfiguration()
+  public EClass getPolicy()
   {
-    return configurationEClass;
+    return policyEClass;
   }
 
   /**
@@ -2353,9 +359,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Domain()
+  public EAttribute getPolicy_Name()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)policyEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2363,9 +369,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Channelings()
+  public EReference getPolicy_Rules()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(1);
+    return (EReference)policyEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2373,9 +379,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Instancegateways()
+  public EClass getProtocol()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(2);
+    return protocolEClass;
   }
 
   /**
@@ -2383,9 +389,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Instances()
+  public EAttribute getProtocol_Name()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)protocolEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2393,9 +399,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Connectors()
+  public EClass getMessage()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(4);
+    return messageEClass;
   }
 
   /**
@@ -2403,9 +409,109 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfiguration_Propassigns()
+  public EAttribute getMessage_Name()
   {
-    return (EReference)configurationEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)messageEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTopic()
+  {
+    return topicEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTopic_Name()
+  {
+    return (EAttribute)topicEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTopic_Type()
+  {
+    return (EAttribute)topicEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTopic_Messages()
+  {
+    return (EReference)topicEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getRule()
+  {
+    return ruleEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRule_Name()
+  {
+    return (EAttribute)ruleEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRule_Things()
+  {
+    return (EReference)ruleEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRule_Permission()
+  {
+    return (EAttribute)ruleEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRule_Action()
+  {
+    return (EAttribute)ruleEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRule_Res()
+  {
+    return (EReference)ruleEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2433,9 +539,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getInstance()
+  public EClass getInstanceThing()
   {
-    return instanceEClass;
+    return instanceThingEClass;
   }
 
   /**
@@ -2443,9 +549,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInstance_Type()
+  public EAttribute getInstanceThing_Name()
   {
-    return (EReference)instanceEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)instanceThingEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2453,9 +559,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getInstanceGateway()
+  public EAttribute getInstanceThing_Number()
   {
-    return instanceGatewayEClass;
+    return (EAttribute)instanceThingEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2463,9 +569,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getInstanceGateway_TypeGate()
+  public EReference getInstanceThing_Type()
   {
-    return (EReference)instanceGatewayEClass.getEStructuralFeatures().get(0);
+    return (EReference)instanceThingEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2473,9 +579,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConfigPropertyAssign()
+  public EReference getInstanceThing_Annotations()
   {
-    return configPropertyAssignEClass;
+    return (EReference)instanceThingEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2483,9 +589,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfigPropertyAssign_Instance()
+  public EClass getInstanceBus()
   {
-    return (EReference)configPropertyAssignEClass.getEStructuralFeatures().get(0);
+    return instanceBusEClass;
   }
 
   /**
@@ -2493,9 +599,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfigPropertyAssign_Property()
+  public EAttribute getInstanceBus_Name()
   {
-    return (EReference)configPropertyAssignEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)instanceBusEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2503,9 +609,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfigPropertyAssign_Index()
+  public EAttribute getInstanceBus_Number()
   {
-    return (EReference)configPropertyAssignEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)instanceBusEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2513,9 +619,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfigPropertyAssign_Init()
+  public EReference getInstanceBus_TypeChannel()
   {
-    return (EReference)configPropertyAssignEClass.getEStructuralFeatures().get(3);
+    return (EReference)instanceBusEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2523,9 +629,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConfigPropertyAssign_Annotations()
+  public EReference getInstanceBus_Protocol()
   {
-    return (EReference)configPropertyAssignEClass.getEStructuralFeatures().get(4);
+    return (EReference)instanceBusEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2533,9 +639,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAbstractConnector()
+  public EReference getInstanceBus_Annotations()
   {
-    return abstractConnectorEClass;
+    return (EReference)instanceBusEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2543,9 +649,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConnector()
+  public EClass getInstancePolicy()
   {
-    return connectorEClass;
+    return instancePolicyEClass;
   }
 
   /**
@@ -2553,9 +659,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConnector_Cli()
+  public EAttribute getInstancePolicy_Name()
   {
-    return (EReference)connectorEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)instancePolicyEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2563,9 +669,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConnector_Required()
+  public EReference getInstancePolicy_TypePolicy()
   {
-    return (EReference)connectorEClass.getEStructuralFeatures().get(1);
+    return (EReference)instancePolicyEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2573,9 +679,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConnector_Srv()
+  public EReference getInstancePolicy_Annotations()
   {
-    return (EReference)connectorEClass.getEStructuralFeatures().get(2);
+    return (EReference)instancePolicyEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2583,9 +689,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConnector_Provided()
+  public EClass getNetworkConfiguration()
   {
-    return (EReference)connectorEClass.getEStructuralFeatures().get(3);
+    return networkConfigurationEClass;
   }
 
   /**
@@ -2593,9 +699,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getExternalConnector()
+  public EAttribute getNetworkConfiguration_Name()
   {
-    return externalConnectorEClass;
+    return (EAttribute)networkConfigurationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2603,9 +709,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExternalConnector_Inst()
+  public EReference getNetworkConfiguration_Annotations()
   {
-    return (EReference)externalConnectorEClass.getEStructuralFeatures().get(0);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2613,9 +719,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExternalConnector_Port()
+  public EReference getNetworkConfiguration_Domain()
   {
-    return (EReference)externalConnectorEClass.getEStructuralFeatures().get(1);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2623,9 +729,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getExternalConnector_Protocol()
+  public EReference getNetworkConfiguration_Binds()
   {
-    return (EReference)externalConnectorEClass.getEStructuralFeatures().get(2);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2633,9 +739,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getChanneling()
+  public EReference getNetworkConfiguration_Instances()
   {
-    return channelingEClass;
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2643,9 +749,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getChanneling_Name()
+  public EReference getNetworkConfiguration_InstancesBus()
   {
-    return (EAttribute)channelingEClass.getEStructuralFeatures().get(0);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2653,9 +759,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Thinginst()
+  public EReference getNetworkConfiguration_Enforces()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(1);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -2663,9 +769,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Port()
+  public EReference getNetworkConfiguration_InstPolicies()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(2);
+    return (EReference)networkConfigurationEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -2673,9 +779,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getChanneling_Direction()
+  public EClass getBind()
   {
-    return (EAttribute)channelingEClass.getEStructuralFeatures().get(3);
+    return bindEClass;
   }
 
   /**
@@ -2683,9 +789,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Srv()
+  public EAttribute getBind_Name()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)bindEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2693,9 +799,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Buses()
+  public EReference getBind_Thinginst()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(5);
+    return (EReference)bindEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2703,9 +809,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Channels()
+  public EAttribute getBind_Direction()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)bindEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2713,9 +819,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChanneling_Annotations()
+  public EReference getBind_BusInst()
   {
-    return (EReference)channelingEClass.getEStructuralFeatures().get(7);
+    return (EReference)bindEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2723,9 +829,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCastExpression()
+  public EReference getBind_Channels()
   {
-    return castExpressionEClass;
+    return (EReference)bindEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2733,509 +839,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCastExpression_Term()
+  public EReference getBind_Annotations()
   {
-    return (EReference)castExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCastExpression_Type()
-  {
-    return (EReference)castExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getCastExpression_IsArray()
-  {
-    return (EAttribute)castExpressionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getOrExpression()
-  {
-    return orExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOrExpression_Lhs()
-  {
-    return (EReference)orExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOrExpression_Rhs()
-  {
-    return (EReference)orExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAndExpression()
-  {
-    return andExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAndExpression_Lhs()
-  {
-    return (EReference)andExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAndExpression_Rhs()
-  {
-    return (EReference)andExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEqualsExpression()
-  {
-    return equalsExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEqualsExpression_Lhs()
-  {
-    return (EReference)equalsExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEqualsExpression_Rhs()
-  {
-    return (EReference)equalsExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNotEqualsExpression()
-  {
-    return notEqualsExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNotEqualsExpression_Lhs()
-  {
-    return (EReference)notEqualsExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNotEqualsExpression_Rhs()
-  {
-    return (EReference)notEqualsExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGreaterExpression()
-  {
-    return greaterExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGreaterExpression_Lhs()
-  {
-    return (EReference)greaterExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGreaterExpression_Rhs()
-  {
-    return (EReference)greaterExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getLowerExpression()
-  {
-    return lowerExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLowerExpression_Lhs()
-  {
-    return (EReference)lowerExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLowerExpression_Rhs()
-  {
-    return (EReference)lowerExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGreaterOrEqualExpression()
-  {
-    return greaterOrEqualExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGreaterOrEqualExpression_Lhs()
-  {
-    return (EReference)greaterOrEqualExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGreaterOrEqualExpression_Rhs()
-  {
-    return (EReference)greaterOrEqualExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getLowerOrEqualExpression()
-  {
-    return lowerOrEqualExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLowerOrEqualExpression_Lhs()
-  {
-    return (EReference)lowerOrEqualExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getLowerOrEqualExpression_Rhs()
-  {
-    return (EReference)lowerOrEqualExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPlusExpression()
-  {
-    return plusExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPlusExpression_Lhs()
-  {
-    return (EReference)plusExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPlusExpression_Rhs()
-  {
-    return (EReference)plusExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getMinusExpression()
-  {
-    return minusExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getMinusExpression_Lhs()
-  {
-    return (EReference)minusExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getMinusExpression_Rhs()
-  {
-    return (EReference)minusExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getTimesExpression()
-  {
-    return timesExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTimesExpression_Lhs()
-  {
-    return (EReference)timesExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTimesExpression_Rhs()
-  {
-    return (EReference)timesExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDivExpression()
-  {
-    return divExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDivExpression_Lhs()
-  {
-    return (EReference)divExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDivExpression_Rhs()
-  {
-    return (EReference)divExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getModExpression()
-  {
-    return modExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getModExpression_Lhs()
-  {
-    return (EReference)modExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getModExpression_Rhs()
-  {
-    return (EReference)modExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getExpressionGroup()
-  {
-    return expressionGroupEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getExpressionGroup_Term()
-  {
-    return (EReference)expressionGroupEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNotExpression()
-  {
-    return notExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNotExpression_Term()
-  {
-    return (EReference)notExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getUnaryMinus()
-  {
-    return unaryMinusEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getUnaryMinus_Term()
-  {
-    return (EReference)unaryMinusEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getArrayIndex()
-  {
-    return arrayIndexEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getArrayIndex_Array()
-  {
-    return (EReference)arrayIndexEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getArrayIndex_Index()
-  {
-    return (EReference)arrayIndexEClass.getEStructuralFeatures().get(1);
+    return (EReference)bindEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -3269,337 +875,83 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
 
     // Create classes and their features
     ioTLangModelEClass = createEClass(IO_TLANG_MODEL);
-    createEAttribute(ioTLangModelEClass, IO_TLANG_MODEL__IMPORT_URI);
-    createEReference(ioTLangModelEClass, IO_TLANG_MODEL__TYPES);
-    createEReference(ioTLangModelEClass, IO_TLANG_MODEL__PROTOCOLS);
+    createEReference(ioTLangModelEClass, IO_TLANG_MODEL__THINGS);
+    createEReference(ioTLangModelEClass, IO_TLANG_MODEL__POLICIES);
+    createEReference(ioTLangModelEClass, IO_TLANG_MODEL__CHANNELS);
     createEReference(ioTLangModelEClass, IO_TLANG_MODEL__CONFIGS);
 
     platformAnnotationEClass = createEClass(PLATFORM_ANNOTATION);
     createEAttribute(platformAnnotationEClass, PLATFORM_ANNOTATION__NAME);
     createEAttribute(platformAnnotationEClass, PLATFORM_ANNOTATION__VALUE);
 
-    namedElementEClass = createEClass(NAMED_ELEMENT);
-    createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
-
-    annotatedElementEClass = createEClass(ANNOTATED_ELEMENT);
-    createEReference(annotatedElementEClass, ANNOTATED_ELEMENT__ANNOTATIONS);
-
-    variableEClass = createEClass(VARIABLE);
-    createEReference(variableEClass, VARIABLE__TYPE_REF);
-
-    typeRefEClass = createEClass(TYPE_REF);
-    createEReference(typeRefEClass, TYPE_REF__TYPE);
-    createEAttribute(typeRefEClass, TYPE_REF__IS_ARRAY);
-    createEReference(typeRefEClass, TYPE_REF__CARDINALITY);
-
-    typeEClass = createEClass(TYPE);
-
-    primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
-    createEAttribute(primitiveTypeEClass, PRIMITIVE_TYPE__BYTE_SIZE);
-
-    objectTypeEClass = createEClass(OBJECT_TYPE);
-
-    enumerationEClass = createEClass(ENUMERATION);
-    createEReference(enumerationEClass, ENUMERATION__LITERALS);
-
-    enumerationLiteralEClass = createEClass(ENUMERATION_LITERAL);
-
     thingEClass = createEClass(THING);
-    createEAttribute(thingEClass, THING__FRAGMENT);
-    createEReference(thingEClass, THING__INCLUDES);
-    createEReference(thingEClass, THING__MESSAGES);
-    createEReference(thingEClass, THING__PORTS);
-    createEReference(thingEClass, THING__PROPERTIES);
-    createEReference(thingEClass, THING__FUNCTIONS);
-    createEReference(thingEClass, THING__ASSIGN);
-    createEReference(thingEClass, THING__BEHAVIOUR);
-
-    propertyAssignEClass = createEClass(PROPERTY_ASSIGN);
-    createEReference(propertyAssignEClass, PROPERTY_ASSIGN__PROPERTY);
-    createEReference(propertyAssignEClass, PROPERTY_ASSIGN__INDEX);
-    createEReference(propertyAssignEClass, PROPERTY_ASSIGN__INIT);
-
-    protocolEClass = createEClass(PROTOCOL);
-
-    functionEClass = createEClass(FUNCTION);
-    createEReference(functionEClass, FUNCTION__PARAMETERS);
-    createEReference(functionEClass, FUNCTION__TYPE_REF);
-    createEReference(functionEClass, FUNCTION__BODY);
-    createEAttribute(functionEClass, FUNCTION__ABSTRACT);
-
-    propertyEClass = createEClass(PROPERTY);
-    createEAttribute(propertyEClass, PROPERTY__READONLY);
-    createEReference(propertyEClass, PROPERTY__INIT);
-
-    messageEClass = createEClass(MESSAGE);
-    createEReference(messageEClass, MESSAGE__PARAMETERS);
-
-    parameterEClass = createEClass(PARAMETER);
-
-    portEClass = createEClass(PORT);
-    createEReference(portEClass, PORT__SENDS);
-    createEReference(portEClass, PORT__RECEIVES);
-
-    requiredPortEClass = createEClass(REQUIRED_PORT);
-    createEAttribute(requiredPortEClass, REQUIRED_PORT__OPTIONAL);
-
-    providedPortEClass = createEClass(PROVIDED_PORT);
-
-    internalPortEClass = createEClass(INTERNAL_PORT);
-
-    stateEClass = createEClass(STATE);
-    createEReference(stateEClass, STATE__PROPERTIES);
-    createEReference(stateEClass, STATE__ENTRY);
-    createEReference(stateEClass, STATE__EXIT);
-    createEReference(stateEClass, STATE__INTERNAL);
-    createEReference(stateEClass, STATE__OUTGOING);
-
-    handlerEClass = createEClass(HANDLER);
-    createEReference(handlerEClass, HANDLER__EVENT);
-    createEReference(handlerEClass, HANDLER__GUARD);
-    createEReference(handlerEClass, HANDLER__ACTION);
-
-    transitionEClass = createEClass(TRANSITION);
-    createEReference(transitionEClass, TRANSITION__TARGET);
-
-    internalTransitionEClass = createEClass(INTERNAL_TRANSITION);
-
-    compositeStateEClass = createEClass(COMPOSITE_STATE);
-    createEReference(compositeStateEClass, COMPOSITE_STATE__REGION);
-    createEReference(compositeStateEClass, COMPOSITE_STATE__SESSION);
-
-    sessionEClass = createEClass(SESSION);
-    createEReference(sessionEClass, SESSION__MAX_INSTANCES);
-
-    regionEClass = createEClass(REGION);
-
-    finalStateEClass = createEClass(FINAL_STATE);
-
-    stateContainerEClass = createEClass(STATE_CONTAINER);
-    createEReference(stateContainerEClass, STATE_CONTAINER__INITIAL);
-    createEAttribute(stateContainerEClass, STATE_CONTAINER__HISTORY);
-    createEReference(stateContainerEClass, STATE_CONTAINER__SUBSTATE);
-
-    eventEClass = createEClass(EVENT);
-
-    receiveMessageEClass = createEClass(RECEIVE_MESSAGE);
-    createEReference(receiveMessageEClass, RECEIVE_MESSAGE__PORT);
-    createEReference(receiveMessageEClass, RECEIVE_MESSAGE__MESSAGE);
-
-    actionEClass = createEClass(ACTION);
-
-    actionBlockEClass = createEClass(ACTION_BLOCK);
-    createEReference(actionBlockEClass, ACTION_BLOCK__ACTIONS);
-
-    externStatementEClass = createEClass(EXTERN_STATEMENT);
-    createEAttribute(externStatementEClass, EXTERN_STATEMENT__STATEMENT);
-    createEReference(externStatementEClass, EXTERN_STATEMENT__SEGMENTS);
-
-    localVariableEClass = createEClass(LOCAL_VARIABLE);
-    createEAttribute(localVariableEClass, LOCAL_VARIABLE__READONLY);
-    createEReference(localVariableEClass, LOCAL_VARIABLE__INIT);
-
-    sendActionEClass = createEClass(SEND_ACTION);
-    createEReference(sendActionEClass, SEND_ACTION__PORT);
-    createEReference(sendActionEClass, SEND_ACTION__MESSAGE);
-    createEReference(sendActionEClass, SEND_ACTION__PARAMETERS);
-
-    variableAssignmentEClass = createEClass(VARIABLE_ASSIGNMENT);
-    createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__PROPERTY);
-    createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__INDEX);
-    createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__EXPRESSION);
-
-    incrementEClass = createEClass(INCREMENT);
-    createEReference(incrementEClass, INCREMENT__VAR);
-
-    decrementEClass = createEClass(DECREMENT);
-    createEReference(decrementEClass, DECREMENT__VAR);
-
-    loopActionEClass = createEClass(LOOP_ACTION);
-    createEReference(loopActionEClass, LOOP_ACTION__CONDITION);
-    createEReference(loopActionEClass, LOOP_ACTION__ACTION);
-
-    conditionalActionEClass = createEClass(CONDITIONAL_ACTION);
-    createEReference(conditionalActionEClass, CONDITIONAL_ACTION__CONDITION);
-    createEReference(conditionalActionEClass, CONDITIONAL_ACTION__ACTION);
-    createEReference(conditionalActionEClass, CONDITIONAL_ACTION__ELSE_ACTION);
-
-    returnActionEClass = createEClass(RETURN_ACTION);
-    createEReference(returnActionEClass, RETURN_ACTION__EXP);
-
-    printActionEClass = createEClass(PRINT_ACTION);
-    createEReference(printActionEClass, PRINT_ACTION__MSG);
-
-    errorActionEClass = createEClass(ERROR_ACTION);
-    createEReference(errorActionEClass, ERROR_ACTION__MSG);
-
-    startSessionEClass = createEClass(START_SESSION);
-    createEReference(startSessionEClass, START_SESSION__SESSION);
-
-    functionCallStatementEClass = createEClass(FUNCTION_CALL_STATEMENT);
-    createEReference(functionCallStatementEClass, FUNCTION_CALL_STATEMENT__FUNCTION);
-    createEReference(functionCallStatementEClass, FUNCTION_CALL_STATEMENT__PARAMETERS);
-
-    expressionEClass = createEClass(EXPRESSION);
-
-    externExpressionEClass = createEClass(EXTERN_EXPRESSION);
-    createEAttribute(externExpressionEClass, EXTERN_EXPRESSION__EXPRESSION);
-    createEReference(externExpressionEClass, EXTERN_EXPRESSION__SEGMENTS);
-
-    enumLiteralRefEClass = createEClass(ENUM_LITERAL_REF);
-    createEReference(enumLiteralRefEClass, ENUM_LITERAL_REF__ENUM);
-    createEReference(enumLiteralRefEClass, ENUM_LITERAL_REF__LITERAL);
-
-    integerLiteralEClass = createEClass(INTEGER_LITERAL);
-    createEAttribute(integerLiteralEClass, INTEGER_LITERAL__INT_VALUE);
-
-    booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
-    createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__BOOL_VALUE);
-
-    stringLiteralEClass = createEClass(STRING_LITERAL);
-    createEAttribute(stringLiteralEClass, STRING_LITERAL__STRING_VALUE);
-
-    doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
-    createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__DOUBLE_VALUE);
-
-    propertyReferenceEClass = createEClass(PROPERTY_REFERENCE);
-    createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__PROPERTY);
-
-    eventReferenceEClass = createEClass(EVENT_REFERENCE);
-    createEReference(eventReferenceEClass, EVENT_REFERENCE__RECEIVE_MSG);
-    createEReference(eventReferenceEClass, EVENT_REFERENCE__PARAMETER);
-
-    functionCallExpressionEClass = createEClass(FUNCTION_CALL_EXPRESSION);
-    createEReference(functionCallExpressionEClass, FUNCTION_CALL_EXPRESSION__FUNCTION);
-    createEReference(functionCallExpressionEClass, FUNCTION_CALL_EXPRESSION__PARAMETERS);
-
-    gatewayEClass = createEClass(GATEWAY);
-    createEReference(gatewayEClass, GATEWAY__BUSES);
-
-    busEClass = createEClass(BUS);
-    createEAttribute(busEClass, BUS__NAME);
-    createEReference(busEClass, BUS__CHANNELS);
+    createEAttribute(thingEClass, THING__NAME);
+    createEReference(thingEClass, THING__ANNOTATIONS);
 
     channelEClass = createEClass(CHANNEL);
     createEAttribute(channelEClass, CHANNEL__NAME);
-    createEAttribute(channelEClass, CHANNEL__CHANNEL_ID);
+    createEReference(channelEClass, CHANNEL__TOPICS);
 
-    configurationEClass = createEClass(CONFIGURATION);
-    createEReference(configurationEClass, CONFIGURATION__DOMAIN);
-    createEReference(configurationEClass, CONFIGURATION__CHANNELINGS);
-    createEReference(configurationEClass, CONFIGURATION__INSTANCEGATEWAYS);
-    createEReference(configurationEClass, CONFIGURATION__INSTANCES);
-    createEReference(configurationEClass, CONFIGURATION__CONNECTORS);
-    createEReference(configurationEClass, CONFIGURATION__PROPASSIGNS);
+    policyEClass = createEClass(POLICY);
+    createEAttribute(policyEClass, POLICY__NAME);
+    createEReference(policyEClass, POLICY__RULES);
+
+    protocolEClass = createEClass(PROTOCOL);
+    createEAttribute(protocolEClass, PROTOCOL__NAME);
+
+    messageEClass = createEClass(MESSAGE);
+    createEAttribute(messageEClass, MESSAGE__NAME);
+
+    topicEClass = createEClass(TOPIC);
+    createEAttribute(topicEClass, TOPIC__NAME);
+    createEAttribute(topicEClass, TOPIC__TYPE);
+    createEReference(topicEClass, TOPIC__MESSAGES);
+
+    ruleEClass = createEClass(RULE);
+    createEAttribute(ruleEClass, RULE__NAME);
+    createEReference(ruleEClass, RULE__THINGS);
+    createEAttribute(ruleEClass, RULE__PERMISSION);
+    createEAttribute(ruleEClass, RULE__ACTION);
+    createEReference(ruleEClass, RULE__RES);
 
     domainEClass = createEClass(DOMAIN);
     createEAttribute(domainEClass, DOMAIN__NAME);
 
-    instanceEClass = createEClass(INSTANCE);
-    createEReference(instanceEClass, INSTANCE__TYPE);
+    instanceThingEClass = createEClass(INSTANCE_THING);
+    createEAttribute(instanceThingEClass, INSTANCE_THING__NAME);
+    createEAttribute(instanceThingEClass, INSTANCE_THING__NUMBER);
+    createEReference(instanceThingEClass, INSTANCE_THING__TYPE);
+    createEReference(instanceThingEClass, INSTANCE_THING__ANNOTATIONS);
 
-    instanceGatewayEClass = createEClass(INSTANCE_GATEWAY);
-    createEReference(instanceGatewayEClass, INSTANCE_GATEWAY__TYPE_GATE);
+    instanceBusEClass = createEClass(INSTANCE_BUS);
+    createEAttribute(instanceBusEClass, INSTANCE_BUS__NAME);
+    createEAttribute(instanceBusEClass, INSTANCE_BUS__NUMBER);
+    createEReference(instanceBusEClass, INSTANCE_BUS__TYPE_CHANNEL);
+    createEReference(instanceBusEClass, INSTANCE_BUS__PROTOCOL);
+    createEReference(instanceBusEClass, INSTANCE_BUS__ANNOTATIONS);
 
-    configPropertyAssignEClass = createEClass(CONFIG_PROPERTY_ASSIGN);
-    createEReference(configPropertyAssignEClass, CONFIG_PROPERTY_ASSIGN__INSTANCE);
-    createEReference(configPropertyAssignEClass, CONFIG_PROPERTY_ASSIGN__PROPERTY);
-    createEReference(configPropertyAssignEClass, CONFIG_PROPERTY_ASSIGN__INDEX);
-    createEReference(configPropertyAssignEClass, CONFIG_PROPERTY_ASSIGN__INIT);
-    createEReference(configPropertyAssignEClass, CONFIG_PROPERTY_ASSIGN__ANNOTATIONS);
+    instancePolicyEClass = createEClass(INSTANCE_POLICY);
+    createEAttribute(instancePolicyEClass, INSTANCE_POLICY__NAME);
+    createEReference(instancePolicyEClass, INSTANCE_POLICY__TYPE_POLICY);
+    createEReference(instancePolicyEClass, INSTANCE_POLICY__ANNOTATIONS);
 
-    abstractConnectorEClass = createEClass(ABSTRACT_CONNECTOR);
+    networkConfigurationEClass = createEClass(NETWORK_CONFIGURATION);
+    createEAttribute(networkConfigurationEClass, NETWORK_CONFIGURATION__NAME);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__ANNOTATIONS);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__DOMAIN);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__BINDS);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__INSTANCES);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__INSTANCES_BUS);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__ENFORCES);
+    createEReference(networkConfigurationEClass, NETWORK_CONFIGURATION__INST_POLICIES);
 
-    connectorEClass = createEClass(CONNECTOR);
-    createEReference(connectorEClass, CONNECTOR__CLI);
-    createEReference(connectorEClass, CONNECTOR__REQUIRED);
-    createEReference(connectorEClass, CONNECTOR__SRV);
-    createEReference(connectorEClass, CONNECTOR__PROVIDED);
-
-    externalConnectorEClass = createEClass(EXTERNAL_CONNECTOR);
-    createEReference(externalConnectorEClass, EXTERNAL_CONNECTOR__INST);
-    createEReference(externalConnectorEClass, EXTERNAL_CONNECTOR__PORT);
-    createEReference(externalConnectorEClass, EXTERNAL_CONNECTOR__PROTOCOL);
-
-    channelingEClass = createEClass(CHANNELING);
-    createEAttribute(channelingEClass, CHANNELING__NAME);
-    createEReference(channelingEClass, CHANNELING__THINGINST);
-    createEReference(channelingEClass, CHANNELING__PORT);
-    createEAttribute(channelingEClass, CHANNELING__DIRECTION);
-    createEReference(channelingEClass, CHANNELING__SRV);
-    createEReference(channelingEClass, CHANNELING__BUSES);
-    createEReference(channelingEClass, CHANNELING__CHANNELS);
-    createEReference(channelingEClass, CHANNELING__ANNOTATIONS);
-
-    castExpressionEClass = createEClass(CAST_EXPRESSION);
-    createEReference(castExpressionEClass, CAST_EXPRESSION__TERM);
-    createEReference(castExpressionEClass, CAST_EXPRESSION__TYPE);
-    createEAttribute(castExpressionEClass, CAST_EXPRESSION__IS_ARRAY);
-
-    orExpressionEClass = createEClass(OR_EXPRESSION);
-    createEReference(orExpressionEClass, OR_EXPRESSION__LHS);
-    createEReference(orExpressionEClass, OR_EXPRESSION__RHS);
-
-    andExpressionEClass = createEClass(AND_EXPRESSION);
-    createEReference(andExpressionEClass, AND_EXPRESSION__LHS);
-    createEReference(andExpressionEClass, AND_EXPRESSION__RHS);
-
-    equalsExpressionEClass = createEClass(EQUALS_EXPRESSION);
-    createEReference(equalsExpressionEClass, EQUALS_EXPRESSION__LHS);
-    createEReference(equalsExpressionEClass, EQUALS_EXPRESSION__RHS);
-
-    notEqualsExpressionEClass = createEClass(NOT_EQUALS_EXPRESSION);
-    createEReference(notEqualsExpressionEClass, NOT_EQUALS_EXPRESSION__LHS);
-    createEReference(notEqualsExpressionEClass, NOT_EQUALS_EXPRESSION__RHS);
-
-    greaterExpressionEClass = createEClass(GREATER_EXPRESSION);
-    createEReference(greaterExpressionEClass, GREATER_EXPRESSION__LHS);
-    createEReference(greaterExpressionEClass, GREATER_EXPRESSION__RHS);
-
-    lowerExpressionEClass = createEClass(LOWER_EXPRESSION);
-    createEReference(lowerExpressionEClass, LOWER_EXPRESSION__LHS);
-    createEReference(lowerExpressionEClass, LOWER_EXPRESSION__RHS);
-
-    greaterOrEqualExpressionEClass = createEClass(GREATER_OR_EQUAL_EXPRESSION);
-    createEReference(greaterOrEqualExpressionEClass, GREATER_OR_EQUAL_EXPRESSION__LHS);
-    createEReference(greaterOrEqualExpressionEClass, GREATER_OR_EQUAL_EXPRESSION__RHS);
-
-    lowerOrEqualExpressionEClass = createEClass(LOWER_OR_EQUAL_EXPRESSION);
-    createEReference(lowerOrEqualExpressionEClass, LOWER_OR_EQUAL_EXPRESSION__LHS);
-    createEReference(lowerOrEqualExpressionEClass, LOWER_OR_EQUAL_EXPRESSION__RHS);
-
-    plusExpressionEClass = createEClass(PLUS_EXPRESSION);
-    createEReference(plusExpressionEClass, PLUS_EXPRESSION__LHS);
-    createEReference(plusExpressionEClass, PLUS_EXPRESSION__RHS);
-
-    minusExpressionEClass = createEClass(MINUS_EXPRESSION);
-    createEReference(minusExpressionEClass, MINUS_EXPRESSION__LHS);
-    createEReference(minusExpressionEClass, MINUS_EXPRESSION__RHS);
-
-    timesExpressionEClass = createEClass(TIMES_EXPRESSION);
-    createEReference(timesExpressionEClass, TIMES_EXPRESSION__LHS);
-    createEReference(timesExpressionEClass, TIMES_EXPRESSION__RHS);
-
-    divExpressionEClass = createEClass(DIV_EXPRESSION);
-    createEReference(divExpressionEClass, DIV_EXPRESSION__LHS);
-    createEReference(divExpressionEClass, DIV_EXPRESSION__RHS);
-
-    modExpressionEClass = createEClass(MOD_EXPRESSION);
-    createEReference(modExpressionEClass, MOD_EXPRESSION__LHS);
-    createEReference(modExpressionEClass, MOD_EXPRESSION__RHS);
-
-    expressionGroupEClass = createEClass(EXPRESSION_GROUP);
-    createEReference(expressionGroupEClass, EXPRESSION_GROUP__TERM);
-
-    notExpressionEClass = createEClass(NOT_EXPRESSION);
-    createEReference(notExpressionEClass, NOT_EXPRESSION__TERM);
-
-    unaryMinusEClass = createEClass(UNARY_MINUS);
-    createEReference(unaryMinusEClass, UNARY_MINUS__TERM);
-
-    arrayIndexEClass = createEClass(ARRAY_INDEX);
-    createEReference(arrayIndexEClass, ARRAY_INDEX__ARRAY);
-    createEReference(arrayIndexEClass, ARRAY_INDEX__INDEX);
+    bindEClass = createEClass(BIND);
+    createEAttribute(bindEClass, BIND__NAME);
+    createEReference(bindEClass, BIND__THINGINST);
+    createEAttribute(bindEClass, BIND__DIRECTION);
+    createEReference(bindEClass, BIND__BUS_INST);
+    createEReference(bindEClass, BIND__CHANNELS);
+    createEReference(bindEClass, BIND__ANNOTATIONS);
   }
 
   /**
@@ -3631,432 +983,86 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    variableEClass.getESuperTypes().add(this.getNamedElement());
-    variableEClass.getESuperTypes().add(this.getAnnotatedElement());
-    typeEClass.getESuperTypes().add(this.getNamedElement());
-    typeEClass.getESuperTypes().add(this.getAnnotatedElement());
-    primitiveTypeEClass.getESuperTypes().add(this.getType());
-    objectTypeEClass.getESuperTypes().add(this.getType());
-    enumerationEClass.getESuperTypes().add(this.getType());
-    enumerationLiteralEClass.getESuperTypes().add(this.getNamedElement());
-    enumerationLiteralEClass.getESuperTypes().add(this.getAnnotatedElement());
-    thingEClass.getESuperTypes().add(this.getType());
-    propertyAssignEClass.getESuperTypes().add(this.getAnnotatedElement());
-    protocolEClass.getESuperTypes().add(this.getNamedElement());
-    protocolEClass.getESuperTypes().add(this.getAnnotatedElement());
-    functionEClass.getESuperTypes().add(this.getNamedElement());
-    functionEClass.getESuperTypes().add(this.getAnnotatedElement());
-    propertyEClass.getESuperTypes().add(this.getVariable());
-    messageEClass.getESuperTypes().add(this.getNamedElement());
-    messageEClass.getESuperTypes().add(this.getAnnotatedElement());
-    parameterEClass.getESuperTypes().add(this.getVariable());
-    portEClass.getESuperTypes().add(this.getNamedElement());
-    portEClass.getESuperTypes().add(this.getAnnotatedElement());
-    requiredPortEClass.getESuperTypes().add(this.getPort());
-    providedPortEClass.getESuperTypes().add(this.getPort());
-    internalPortEClass.getESuperTypes().add(this.getPort());
-    stateEClass.getESuperTypes().add(this.getNamedElement());
-    stateEClass.getESuperTypes().add(this.getAnnotatedElement());
-    handlerEClass.getESuperTypes().add(this.getNamedElement());
-    handlerEClass.getESuperTypes().add(this.getAnnotatedElement());
-    transitionEClass.getESuperTypes().add(this.getHandler());
-    internalTransitionEClass.getESuperTypes().add(this.getHandler());
-    compositeStateEClass.getESuperTypes().add(this.getState());
-    compositeStateEClass.getESuperTypes().add(this.getStateContainer());
-    sessionEClass.getESuperTypes().add(this.getStateContainer());
-    regionEClass.getESuperTypes().add(this.getStateContainer());
-    finalStateEClass.getESuperTypes().add(this.getState());
-    stateContainerEClass.getESuperTypes().add(this.getNamedElement());
-    stateContainerEClass.getESuperTypes().add(this.getAnnotatedElement());
-    eventEClass.getESuperTypes().add(this.getNamedElement());
-    receiveMessageEClass.getESuperTypes().add(this.getEvent());
-    actionBlockEClass.getESuperTypes().add(this.getAction());
-    externStatementEClass.getESuperTypes().add(this.getAction());
-    localVariableEClass.getESuperTypes().add(this.getVariable());
-    localVariableEClass.getESuperTypes().add(this.getAction());
-    sendActionEClass.getESuperTypes().add(this.getAction());
-    variableAssignmentEClass.getESuperTypes().add(this.getAction());
-    incrementEClass.getESuperTypes().add(this.getAction());
-    decrementEClass.getESuperTypes().add(this.getAction());
-    loopActionEClass.getESuperTypes().add(this.getAction());
-    conditionalActionEClass.getESuperTypes().add(this.getAction());
-    returnActionEClass.getESuperTypes().add(this.getAction());
-    printActionEClass.getESuperTypes().add(this.getAction());
-    errorActionEClass.getESuperTypes().add(this.getAction());
-    startSessionEClass.getESuperTypes().add(this.getAction());
-    functionCallStatementEClass.getESuperTypes().add(this.getAction());
-    externExpressionEClass.getESuperTypes().add(this.getExpression());
-    enumLiteralRefEClass.getESuperTypes().add(this.getExpression());
-    integerLiteralEClass.getESuperTypes().add(this.getExpression());
-    booleanLiteralEClass.getESuperTypes().add(this.getExpression());
-    stringLiteralEClass.getESuperTypes().add(this.getExpression());
-    doubleLiteralEClass.getESuperTypes().add(this.getExpression());
-    propertyReferenceEClass.getESuperTypes().add(this.getExpression());
-    eventReferenceEClass.getESuperTypes().add(this.getExpression());
-    functionCallExpressionEClass.getESuperTypes().add(this.getExpression());
-    gatewayEClass.getESuperTypes().add(this.getType());
-    configurationEClass.getESuperTypes().add(this.getNamedElement());
-    configurationEClass.getESuperTypes().add(this.getAnnotatedElement());
-    instanceEClass.getESuperTypes().add(this.getNamedElement());
-    instanceEClass.getESuperTypes().add(this.getAnnotatedElement());
-    instanceGatewayEClass.getESuperTypes().add(this.getNamedElement());
-    instanceGatewayEClass.getESuperTypes().add(this.getAnnotatedElement());
-    abstractConnectorEClass.getESuperTypes().add(this.getNamedElement());
-    abstractConnectorEClass.getESuperTypes().add(this.getAnnotatedElement());
-    connectorEClass.getESuperTypes().add(this.getAbstractConnector());
-    externalConnectorEClass.getESuperTypes().add(this.getAbstractConnector());
-    castExpressionEClass.getESuperTypes().add(this.getExpression());
-    orExpressionEClass.getESuperTypes().add(this.getExpression());
-    andExpressionEClass.getESuperTypes().add(this.getExpression());
-    equalsExpressionEClass.getESuperTypes().add(this.getExpression());
-    notEqualsExpressionEClass.getESuperTypes().add(this.getExpression());
-    greaterExpressionEClass.getESuperTypes().add(this.getExpression());
-    lowerExpressionEClass.getESuperTypes().add(this.getExpression());
-    greaterOrEqualExpressionEClass.getESuperTypes().add(this.getExpression());
-    lowerOrEqualExpressionEClass.getESuperTypes().add(this.getExpression());
-    plusExpressionEClass.getESuperTypes().add(this.getExpression());
-    minusExpressionEClass.getESuperTypes().add(this.getExpression());
-    timesExpressionEClass.getESuperTypes().add(this.getExpression());
-    divExpressionEClass.getESuperTypes().add(this.getExpression());
-    modExpressionEClass.getESuperTypes().add(this.getExpression());
-    expressionGroupEClass.getESuperTypes().add(this.getExpression());
-    notExpressionEClass.getESuperTypes().add(this.getExpression());
-    unaryMinusEClass.getESuperTypes().add(this.getExpression());
-    arrayIndexEClass.getESuperTypes().add(this.getExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(ioTLangModelEClass, IoTLangModel.class, "IoTLangModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIoTLangModel_ImportURI(), ecorePackage.getEString(), "importURI", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIoTLangModel_Types(), this.getType(), null, "types", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIoTLangModel_Protocols(), this.getProtocol(), null, "protocols", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getIoTLangModel_Configs(), this.getConfiguration(), null, "configs", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIoTLangModel_Things(), this.getThing(), null, "things", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIoTLangModel_Policies(), this.getPolicy(), null, "policies", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIoTLangModel_Channels(), this.getChannel(), null, "channels", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIoTLangModel_Configs(), this.getNetworkConfiguration(), null, "configs", null, 0, -1, IoTLangModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(platformAnnotationEClass, PlatformAnnotation.class, "PlatformAnnotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPlatformAnnotation_Name(), ecorePackage.getEString(), "name", null, 0, 1, PlatformAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPlatformAnnotation_Value(), ecorePackage.getEString(), "value", null, 0, 1, PlatformAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(namedElementEClass, NamedElement.class, "NamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(annotatedElementEClass, AnnotatedElement.class, "AnnotatedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAnnotatedElement_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, AnnotatedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariable_TypeRef(), this.getTypeRef(), null, "typeRef", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(typeRefEClass, TypeRef.class, "TypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeRef_Type(), this.getType(), null, "type", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTypeRef_IsArray(), ecorePackage.getEBoolean(), "isArray", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTypeRef_Cardinality(), this.getExpression(), null, "cardinality", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPrimitiveType_ByteSize(), ecorePackage.getEInt(), "ByteSize", null, 0, 1, PrimitiveType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(objectTypeEClass, ObjectType.class, "ObjectType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(enumerationEClass, Enumeration.class, "Enumeration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEnumeration_Literals(), this.getEnumerationLiteral(), null, "literals", null, 0, -1, Enumeration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(enumerationLiteralEClass, EnumerationLiteral.class, "EnumerationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(thingEClass, Thing.class, "Thing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getThing_Fragment(), ecorePackage.getEBoolean(), "fragment", null, 0, 1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Includes(), this.getThing(), null, "includes", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Messages(), this.getMessage(), null, "messages", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Ports(), this.getPort(), null, "ports", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Properties(), this.getProperty(), null, "properties", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Functions(), this.getFunction(), null, "functions", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Assign(), this.getPropertyAssign(), null, "assign", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getThing_Behaviour(), this.getCompositeState(), null, "behaviour", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyAssignEClass, PropertyAssign.class, "PropertyAssign", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyAssign_Property(), this.getProperty(), null, "property", null, 0, 1, PropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropertyAssign_Index(), this.getExpression(), null, "index", null, 0, -1, PropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropertyAssign_Init(), this.getExpression(), null, "init", null, 0, 1, PropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(protocolEClass, Protocol.class, "Protocol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunction_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunction_TypeRef(), this.getTypeRef(), null, "typeRef", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunction_Body(), this.getAction(), null, "body", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFunction_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getProperty_Readonly(), ecorePackage.getEBoolean(), "readonly", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getProperty_Init(), this.getExpression(), null, "init", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMessage_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPort_Sends(), this.getMessage(), null, "sends", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPort_Receives(), this.getMessage(), null, "receives", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(requiredPortEClass, RequiredPort.class, "RequiredPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRequiredPort_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1, RequiredPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(providedPortEClass, ProvidedPort.class, "ProvidedPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(internalPortEClass, InternalPort.class, "InternalPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(stateEClass, State.class, "State", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getState_Properties(), this.getProperty(), null, "properties", null, 0, -1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getState_Entry(), this.getAction(), null, "entry", null, 0, 1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getState_Exit(), this.getAction(), null, "exit", null, 0, 1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getState_Internal(), this.getInternalTransition(), null, "internal", null, 0, -1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getState_Outgoing(), this.getTransition(), null, "outgoing", null, 0, -1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(handlerEClass, Handler.class, "Handler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getHandler_Event(), this.getEvent(), null, "event", null, 0, -1, Handler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getHandler_Guard(), this.getExpression(), null, "guard", null, 0, 1, Handler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getHandler_Action(), this.getAction(), null, "action", null, 0, 1, Handler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTransition_Target(), this.getState(), null, "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(internalTransitionEClass, InternalTransition.class, "InternalTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(compositeStateEClass, CompositeState.class, "CompositeState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCompositeState_Region(), this.getRegion(), null, "region", null, 0, -1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCompositeState_Session(), this.getSession(), null, "session", null, 0, -1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSession_MaxInstances(), this.getExpression(), null, "maxInstances", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(regionEClass, Region.class, "Region", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(finalStateEClass, FinalState.class, "FinalState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(stateContainerEClass, StateContainer.class, "StateContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStateContainer_Initial(), this.getState(), null, "initial", null, 0, 1, StateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getStateContainer_History(), ecorePackage.getEBoolean(), "history", null, 0, 1, StateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateContainer_Substate(), this.getState(), null, "substate", null, 0, -1, StateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(receiveMessageEClass, ReceiveMessage.class, "ReceiveMessage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getReceiveMessage_Port(), this.getPort(), null, "port", null, 0, 1, ReceiveMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getReceiveMessage_Message(), this.getMessage(), null, "message", null, 0, 1, ReceiveMessage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(actionEClass, Action.class, "Action", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(actionBlockEClass, ActionBlock.class, "ActionBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getActionBlock_Actions(), this.getAction(), null, "actions", null, 0, -1, ActionBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(externStatementEClass, ExternStatement.class, "ExternStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExternStatement_Statement(), ecorePackage.getEString(), "statement", null, 0, 1, ExternStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExternStatement_Segments(), this.getExpression(), null, "segments", null, 0, -1, ExternStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(localVariableEClass, LocalVariable.class, "LocalVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getLocalVariable_Readonly(), ecorePackage.getEBoolean(), "readonly", null, 0, 1, LocalVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLocalVariable_Init(), this.getExpression(), null, "init", null, 0, 1, LocalVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(sendActionEClass, SendAction.class, "SendAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSendAction_Port(), this.getPort(), null, "port", null, 0, 1, SendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSendAction_Message(), this.getMessage(), null, "message", null, 0, 1, SendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSendAction_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, SendAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(variableAssignmentEClass, VariableAssignment.class, "VariableAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariableAssignment_Property(), this.getVariable(), null, "property", null, 0, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableAssignment_Index(), this.getExpression(), null, "index", null, 0, -1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableAssignment_Expression(), this.getExpression(), null, "expression", null, 0, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(incrementEClass, Increment.class, "Increment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getIncrement_Var(), this.getVariable(), null, "var", null, 0, 1, Increment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(decrementEClass, Decrement.class, "Decrement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDecrement_Var(), this.getVariable(), null, "var", null, 0, 1, Decrement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(loopActionEClass, LoopAction.class, "LoopAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLoopAction_Condition(), this.getExpression(), null, "condition", null, 0, 1, LoopAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLoopAction_Action(), this.getAction(), null, "action", null, 0, 1, LoopAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(conditionalActionEClass, ConditionalAction.class, "ConditionalAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConditionalAction_Condition(), this.getExpression(), null, "condition", null, 0, 1, ConditionalAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionalAction_Action(), this.getAction(), null, "action", null, 0, 1, ConditionalAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionalAction_ElseAction(), this.getAction(), null, "elseAction", null, 0, 1, ConditionalAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(returnActionEClass, ReturnAction.class, "ReturnAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getReturnAction_Exp(), this.getExpression(), null, "exp", null, 0, 1, ReturnAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(printActionEClass, PrintAction.class, "PrintAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPrintAction_Msg(), this.getExpression(), null, "msg", null, 0, 1, PrintAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(errorActionEClass, ErrorAction.class, "ErrorAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getErrorAction_Msg(), this.getExpression(), null, "msg", null, 0, 1, ErrorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(startSessionEClass, StartSession.class, "StartSession", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStartSession_Session(), this.getSession(), null, "session", null, 0, 1, StartSession.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(functionCallStatementEClass, FunctionCallStatement.class, "FunctionCallStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunctionCallStatement_Function(), this.getFunction(), null, "function", null, 0, 1, FunctionCallStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionCallStatement_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, FunctionCallStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(externExpressionEClass, ExternExpression.class, "ExternExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getExternExpression_Expression(), ecorePackage.getEString(), "expression", null, 0, 1, ExternExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExternExpression_Segments(), this.getExpression(), null, "segments", null, 0, -1, ExternExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(enumLiteralRefEClass, EnumLiteralRef.class, "EnumLiteralRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEnumLiteralRef_Enum(), this.getEnumeration(), null, "enum", null, 0, 1, EnumLiteralRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEnumLiteralRef_Literal(), this.getEnumerationLiteral(), null, "literal", null, 0, 1, EnumLiteralRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(integerLiteralEClass, IntegerLiteral.class, "IntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getIntegerLiteral_IntValue(), ecorePackage.getEInt(), "intValue", null, 0, 1, IntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getBooleanLiteral_BoolValue(), ecorePackage.getEBoolean(), "boolValue", null, 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getStringLiteral_StringValue(), ecorePackage.getEString(), "stringValue", null, 0, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getDoubleLiteral_DoubleValue(), ecorePackage.getEDouble(), "doubleValue", null, 0, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propertyReferenceEClass, PropertyReference.class, "PropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyReference_Property(), this.getVariable(), null, "property", null, 0, 1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eventReferenceEClass, EventReference.class, "EventReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEventReference_ReceiveMsg(), this.getEvent(), null, "receiveMsg", null, 0, 1, EventReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEventReference_Parameter(), this.getParameter(), null, "parameter", null, 0, 1, EventReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(functionCallExpressionEClass, FunctionCallExpression.class, "FunctionCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFunctionCallExpression_Function(), this.getFunction(), null, "function", null, 0, 1, FunctionCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionCallExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, FunctionCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(gatewayEClass, Gateway.class, "Gateway", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getGateway_Buses(), this.getBus(), null, "buses", null, 0, -1, Gateway.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(busEClass, Bus.class, "Bus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getBus_Name(), ecorePackage.getEString(), "name", null, 0, 1, Bus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getBus_Channels(), this.getChannel(), null, "channels", null, 0, -1, Bus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getThing_Name(), ecorePackage.getEString(), "name", null, 0, 1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getThing_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(channelEClass, Channel.class, "Channel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getChannel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getChannel_ChannelId(), ecorePackage.getEString(), "channelId", null, 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getChannel_Topics(), this.getTopic(), null, "topics", null, 0, -1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(configurationEClass, Configuration.class, "Configuration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConfiguration_Domain(), this.getDomain(), null, "domain", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfiguration_Channelings(), this.getChanneling(), null, "channelings", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfiguration_Instancegateways(), this.getInstanceGateway(), null, "instancegateways", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfiguration_Instances(), this.getInstance(), null, "instances", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfiguration_Connectors(), this.getAbstractConnector(), null, "connectors", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfiguration_Propassigns(), this.getConfigPropertyAssign(), null, "propassigns", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(policyEClass, Policy.class, "Policy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPolicy_Name(), ecorePackage.getEString(), "name", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPolicy_Rules(), this.getRule(), null, "rules", null, 0, -1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(protocolEClass, Protocol.class, "Protocol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getProtocol_Name(), ecorePackage.getEString(), "name", null, 0, 1, Protocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(messageEClass, Message.class, "Message", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMessage_Name(), ecorePackage.getEString(), "name", null, 0, 1, Message.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(topicEClass, Topic.class, "Topic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTopic_Name(), ecorePackage.getEString(), "name", null, 0, 1, Topic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTopic_Type(), ecorePackage.getEString(), "type", null, 0, 1, Topic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTopic_Messages(), this.getMessage(), null, "messages", null, 0, 1, Topic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ruleEClass, Rule.class, "Rule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRule_Things(), this.getThing(), null, "things", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRule_Permission(), ecorePackage.getEString(), "permission", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRule_Action(), ecorePackage.getEString(), "action", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRule_Res(), this.getThing(), null, "res", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(domainEClass, Domain.class, "Domain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDomain_Name(), ecorePackage.getEString(), "name", null, 0, 1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(instanceEClass, Instance.class, "Instance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInstance_Type(), this.getThing(), null, "type", null, 0, 1, Instance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(instanceThingEClass, InstanceThing.class, "InstanceThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstanceThing_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstanceThing_Number(), ecorePackage.getEInt(), "number", null, 0, -1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceThing_Type(), this.getThing(), null, "type", null, 0, 1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceThing_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(instanceGatewayEClass, InstanceGateway.class, "InstanceGateway", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getInstanceGateway_TypeGate(), this.getGateway(), null, "typeGate", null, 0, 1, InstanceGateway.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(instanceBusEClass, InstanceBus.class, "InstanceBus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstanceBus_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstanceBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstanceBus_Number(), ecorePackage.getEInt(), "number", null, 0, -1, InstanceBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceBus_TypeChannel(), this.getChannel(), null, "typeChannel", null, 0, 1, InstanceBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceBus_Protocol(), this.getProtocol(), null, "protocol", null, 0, -1, InstanceBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceBus_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstanceBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(configPropertyAssignEClass, ConfigPropertyAssign.class, "ConfigPropertyAssign", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConfigPropertyAssign_Instance(), this.getInstance(), null, "instance", null, 0, 1, ConfigPropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfigPropertyAssign_Property(), this.getProperty(), null, "property", null, 0, 1, ConfigPropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfigPropertyAssign_Index(), this.getExpression(), null, "index", null, 0, -1, ConfigPropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfigPropertyAssign_Init(), this.getExpression(), null, "init", null, 0, 1, ConfigPropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConfigPropertyAssign_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, ConfigPropertyAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(instancePolicyEClass, InstancePolicy.class, "InstancePolicy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstancePolicy_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstancePolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePolicy_TypePolicy(), this.getPolicy(), null, "typePolicy", null, 0, 1, InstancePolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePolicy_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstancePolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(abstractConnectorEClass, AbstractConnector.class, "AbstractConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(networkConfigurationEClass, NetworkConfiguration.class, "NetworkConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getNetworkConfiguration_Name(), ecorePackage.getEString(), "name", null, 0, 1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_Domain(), this.getDomain(), null, "domain", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_Binds(), this.getBind(), null, "binds", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_Instances(), this.getInstanceThing(), null, "instances", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_InstancesBus(), this.getInstanceBus(), null, "instancesBus", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_Enforces(), this.getInstancePolicy(), null, "enforces", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNetworkConfiguration_InstPolicies(), this.getInstancePolicy(), null, "instPolicies", null, 0, -1, NetworkConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConnector_Cli(), this.getInstance(), null, "cli", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConnector_Required(), this.getRequiredPort(), null, "required", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConnector_Srv(), this.getInstance(), null, "srv", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConnector_Provided(), this.getProvidedPort(), null, "provided", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(externalConnectorEClass, ExternalConnector.class, "ExternalConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExternalConnector_Inst(), this.getInstance(), null, "inst", null, 0, 1, ExternalConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExternalConnector_Port(), this.getPort(), null, "port", null, 0, 1, ExternalConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExternalConnector_Protocol(), this.getProtocol(), null, "protocol", null, 0, 1, ExternalConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(channelingEClass, Channeling.class, "Channeling", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getChanneling_Name(), ecorePackage.getEString(), "name", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Thinginst(), this.getInstance(), null, "Thinginst", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Port(), this.getPort(), null, "port", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getChanneling_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Srv(), this.getInstanceGateway(), null, "srv", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Buses(), this.getBus(), null, "buses", null, 0, 1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Channels(), this.getChannel(), null, "channels", null, 0, -1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChanneling_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, Channeling.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(castExpressionEClass, CastExpression.class, "CastExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCastExpression_Term(), this.getExpression(), null, "term", null, 0, 1, CastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCastExpression_Type(), this.getType(), null, "type", null, 0, 1, CastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCastExpression_IsArray(), ecorePackage.getEBoolean(), "isArray", null, 0, 1, CastExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(orExpressionEClass, OrExpression.class, "OrExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOrExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, OrExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOrExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, OrExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(andExpressionEClass, AndExpression.class, "AndExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAndExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, AndExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAndExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, AndExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(equalsExpressionEClass, EqualsExpression.class, "EqualsExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEqualsExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, EqualsExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEqualsExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, EqualsExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(notEqualsExpressionEClass, NotEqualsExpression.class, "NotEqualsExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNotEqualsExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, NotEqualsExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNotEqualsExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, NotEqualsExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(greaterExpressionEClass, GreaterExpression.class, "GreaterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getGreaterExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, GreaterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getGreaterExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, GreaterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(lowerExpressionEClass, LowerExpression.class, "LowerExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLowerExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, LowerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLowerExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, LowerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(greaterOrEqualExpressionEClass, GreaterOrEqualExpression.class, "GreaterOrEqualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getGreaterOrEqualExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, GreaterOrEqualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getGreaterOrEqualExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, GreaterOrEqualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(lowerOrEqualExpressionEClass, LowerOrEqualExpression.class, "LowerOrEqualExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLowerOrEqualExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, LowerOrEqualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLowerOrEqualExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, LowerOrEqualExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(plusExpressionEClass, PlusExpression.class, "PlusExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPlusExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, PlusExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPlusExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, PlusExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(minusExpressionEClass, MinusExpression.class, "MinusExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMinusExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, MinusExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMinusExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, MinusExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(timesExpressionEClass, TimesExpression.class, "TimesExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTimesExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, TimesExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTimesExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, TimesExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(divExpressionEClass, DivExpression.class, "DivExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getDivExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, DivExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getDivExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, DivExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(modExpressionEClass, ModExpression.class, "ModExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getModExpression_Lhs(), this.getExpression(), null, "lhs", null, 0, 1, ModExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getModExpression_Rhs(), this.getExpression(), null, "rhs", null, 0, 1, ModExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(expressionGroupEClass, ExpressionGroup.class, "ExpressionGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExpressionGroup_Term(), this.getExpression(), null, "term", null, 0, 1, ExpressionGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(notExpressionEClass, NotExpression.class, "NotExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNotExpression_Term(), this.getExpression(), null, "term", null, 0, 1, NotExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(unaryMinusEClass, UnaryMinus.class, "UnaryMinus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getUnaryMinus_Term(), this.getExpression(), null, "term", null, 0, 1, UnaryMinus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(arrayIndexEClass, ArrayIndex.class, "ArrayIndex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getArrayIndex_Array(), this.getExpression(), null, "array", null, 0, 1, ArrayIndex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getArrayIndex_Index(), this.getExpression(), null, "index", null, 0, 1, ArrayIndex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(bindEClass, Bind.class, "Bind", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBind_Name(), ecorePackage.getEString(), "name", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBind_Thinginst(), this.getInstanceThing(), null, "Thinginst", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getBind_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBind_BusInst(), this.getInstanceBus(), null, "busInst", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBind_Channels(), this.getTopic(), null, "channels", null, 0, -1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBind_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

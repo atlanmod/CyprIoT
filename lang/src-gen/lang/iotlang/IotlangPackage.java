@@ -68,31 +68,31 @@ public interface IotlangPackage extends EPackage
   int IO_TLANG_MODEL = 0;
 
   /**
-   * The feature id for the '<em><b>Import URI</b></em>' attribute list.
+   * The feature id for the '<em><b>Things</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IO_TLANG_MODEL__IMPORT_URI = 0;
+  int IO_TLANG_MODEL__THINGS = 0;
 
   /**
-   * The feature id for the '<em><b>Types</b></em>' containment reference list.
+   * The feature id for the '<em><b>Policies</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IO_TLANG_MODEL__TYPES = 1;
+  int IO_TLANG_MODEL__POLICIES = 1;
 
   /**
-   * The feature id for the '<em><b>Protocols</b></em>' containment reference list.
+   * The feature id for the '<em><b>Channels</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IO_TLANG_MODEL__PROTOCOLS = 2;
+  int IO_TLANG_MODEL__CHANNELS = 2;
 
   /**
    * The feature id for the '<em><b>Configs</b></em>' containment reference list.
@@ -150,357 +150,6 @@ public interface IotlangPackage extends EPackage
   int PLATFORM_ANNOTATION_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.NamedElementImpl <em>Named Element</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.NamedElementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getNamedElement()
-   * @generated
-   */
-  int NAMED_ELEMENT = 2;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NAMED_ELEMENT__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Named Element</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NAMED_ELEMENT_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.AnnotatedElementImpl <em>Annotated Element</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.AnnotatedElementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getAnnotatedElement()
-   * @generated
-   */
-  int ANNOTATED_ELEMENT = 3;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ANNOTATED_ELEMENT__ANNOTATIONS = 0;
-
-  /**
-   * The number of structural features of the '<em>Annotated Element</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ANNOTATED_ELEMENT_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.VariableImpl <em>Variable</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.VariableImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getVariable()
-   * @generated
-   */
-  int VARIABLE = 4;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Type Ref</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE__TYPE_REF = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Variable</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.TypeRefImpl <em>Type Ref</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.TypeRefImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getTypeRef()
-   * @generated
-   */
-  int TYPE_REF = 5;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_REF__TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Is Array</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_REF__IS_ARRAY = 1;
-
-  /**
-   * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_REF__CARDINALITY = 2;
-
-  /**
-   * The number of structural features of the '<em>Type Ref</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_REF_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.TypeImpl <em>Type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.TypeImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getType()
-   * @generated
-   */
-  int TYPE = 6;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PrimitiveTypeImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPrimitiveType()
-   * @generated
-   */
-  int PRIMITIVE_TYPE = 7;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__NAME = TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Byte Size</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE__BYTE_SIZE = TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Primitive Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ObjectTypeImpl <em>Object Type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ObjectTypeImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getObjectType()
-   * @generated
-   */
-  int OBJECT_TYPE = 8;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OBJECT_TYPE__NAME = TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OBJECT_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-  /**
-   * The number of structural features of the '<em>Object Type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OBJECT_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EnumerationImpl <em>Enumeration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EnumerationImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEnumeration()
-   * @generated
-   */
-  int ENUMERATION = 9;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION__NAME = TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Literals</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION__LITERALS = TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Enumeration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EnumerationLiteralImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEnumerationLiteral()
-   * @generated
-   */
-  int ENUMERATION_LITERAL = 10;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION_LITERAL__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION_LITERAL__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Enumeration Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUMERATION_LITERAL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link lang.iotlang.impl.ThingImpl <em>Thing</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -508,7 +157,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getThing()
    * @generated
    */
-  int THING = 11;
+  int THING = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -517,7 +166,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THING__NAME = TYPE__NAME;
+  int THING__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -526,79 +175,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THING__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Fragment</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__FRAGMENT = TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Includes</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__INCLUDES = TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Messages</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__MESSAGES = TYPE_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Ports</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__PORTS = TYPE_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__PROPERTIES = TYPE_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Functions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__FUNCTIONS = TYPE_FEATURE_COUNT + 5;
-
-  /**
-   * The feature id for the '<em><b>Assign</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__ASSIGN = TYPE_FEATURE_COUNT + 6;
-
-  /**
-   * The feature id for the '<em><b>Behaviour</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int THING__BEHAVIOUR = TYPE_FEATURE_COUNT + 7;
+  int THING__ANNOTATIONS = 1;
 
   /**
    * The number of structural features of the '<em>Thing</em>' class.
@@ -607,2242 +184,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THING_FEATURE_COUNT = TYPE_FEATURE_COUNT + 8;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PropertyAssignImpl <em>Property Assign</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PropertyAssignImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPropertyAssign()
-   * @generated
-   */
-  int PROPERTY_ASSIGN = 12;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_ASSIGN__ANNOTATIONS = ANNOTATED_ELEMENT__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_ASSIGN__PROPERTY = ANNOTATED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Index</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_ASSIGN__INDEX = ANNOTATED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Init</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_ASSIGN__INIT = ANNOTATED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Property Assign</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_ASSIGN_FEATURE_COUNT = ANNOTATED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ProtocolImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getProtocol()
-   * @generated
-   */
-  int PROTOCOL = 13;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROTOCOL__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROTOCOL__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Protocol</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROTOCOL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.FunctionImpl <em>Function</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.FunctionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getFunction()
-   * @generated
-   */
-  int FUNCTION = 14;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__PARAMETERS = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Type Ref</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__TYPE_REF = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Body</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__BODY = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Abstract</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION__ABSTRACT = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The number of structural features of the '<em>Function</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PropertyImpl <em>Property</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PropertyImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getProperty()
-   * @generated
-   */
-  int PROPERTY = 15;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__NAME = VARIABLE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__ANNOTATIONS = VARIABLE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Type Ref</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__TYPE_REF = VARIABLE__TYPE_REF;
-
-  /**
-   * The feature id for the '<em><b>Readonly</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__READONLY = VARIABLE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Init</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY__INIT = VARIABLE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Property</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.MessageImpl <em>Message</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.MessageImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getMessage()
-   * @generated
-   */
-  int MESSAGE = 16;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MESSAGE__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MESSAGE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MESSAGE__PARAMETERS = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Message</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MESSAGE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ParameterImpl <em>Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ParameterImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getParameter()
-   * @generated
-   */
-  int PARAMETER = 17;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER__NAME = VARIABLE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER__ANNOTATIONS = VARIABLE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Type Ref</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER__TYPE_REF = VARIABLE__TYPE_REF;
-
-  /**
-   * The number of structural features of the '<em>Parameter</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PortImpl <em>Port</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PortImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPort()
-   * @generated
-   */
-  int PORT = 18;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PORT__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PORT__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Sends</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PORT__SENDS = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Receives</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PORT__RECEIVES = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Port</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PORT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.RequiredPortImpl <em>Required Port</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.RequiredPortImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getRequiredPort()
-   * @generated
-   */
-  int REQUIRED_PORT = 19;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT__NAME = PORT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT__ANNOTATIONS = PORT__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Sends</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT__SENDS = PORT__SENDS;
-
-  /**
-   * The feature id for the '<em><b>Receives</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT__RECEIVES = PORT__RECEIVES;
-
-  /**
-   * The feature id for the '<em><b>Optional</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT__OPTIONAL = PORT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Required Port</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIRED_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ProvidedPortImpl <em>Provided Port</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ProvidedPortImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getProvidedPort()
-   * @generated
-   */
-  int PROVIDED_PORT = 20;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROVIDED_PORT__NAME = PORT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROVIDED_PORT__ANNOTATIONS = PORT__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Sends</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROVIDED_PORT__SENDS = PORT__SENDS;
-
-  /**
-   * The feature id for the '<em><b>Receives</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROVIDED_PORT__RECEIVES = PORT__RECEIVES;
-
-  /**
-   * The number of structural features of the '<em>Provided Port</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROVIDED_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.InternalPortImpl <em>Internal Port</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.InternalPortImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getInternalPort()
-   * @generated
-   */
-  int INTERNAL_PORT = 21;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_PORT__NAME = PORT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_PORT__ANNOTATIONS = PORT__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Sends</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_PORT__SENDS = PORT__SENDS;
-
-  /**
-   * The feature id for the '<em><b>Receives</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_PORT__RECEIVES = PORT__RECEIVES;
-
-  /**
-   * The number of structural features of the '<em>Internal Port</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.StateImpl <em>State</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.StateImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getState()
-   * @generated
-   */
-  int STATE = 22;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__PROPERTIES = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Entry</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__ENTRY = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Exit</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__EXIT = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Internal</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__INTERNAL = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Outgoing</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE__OUTGOING = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-  /**
-   * The number of structural features of the '<em>State</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.HandlerImpl <em>Handler</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.HandlerImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getHandler()
-   * @generated
-   */
-  int HANDLER = 23;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Event</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER__EVENT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Guard</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER__GUARD = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER__ACTION = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>Handler</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HANDLER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.TransitionImpl <em>Transition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.TransitionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getTransition()
-   * @generated
-   */
-  int TRANSITION = 24;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__NAME = HANDLER__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__ANNOTATIONS = HANDLER__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Event</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__EVENT = HANDLER__EVENT;
-
-  /**
-   * The feature id for the '<em><b>Guard</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__GUARD = HANDLER__GUARD;
-
-  /**
-   * The feature id for the '<em><b>Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__ACTION = HANDLER__ACTION;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION__TARGET = HANDLER_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Transition</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION_FEATURE_COUNT = HANDLER_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.InternalTransitionImpl <em>Internal Transition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.InternalTransitionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getInternalTransition()
-   * @generated
-   */
-  int INTERNAL_TRANSITION = 25;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION__NAME = HANDLER__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION__ANNOTATIONS = HANDLER__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Event</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION__EVENT = HANDLER__EVENT;
-
-  /**
-   * The feature id for the '<em><b>Guard</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION__GUARD = HANDLER__GUARD;
-
-  /**
-   * The feature id for the '<em><b>Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION__ACTION = HANDLER__ACTION;
-
-  /**
-   * The number of structural features of the '<em>Internal Transition</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTERNAL_TRANSITION_FEATURE_COUNT = HANDLER_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.CompositeStateImpl <em>Composite State</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.CompositeStateImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getCompositeState()
-   * @generated
-   */
-  int COMPOSITE_STATE = 26;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__NAME = STATE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__ANNOTATIONS = STATE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__PROPERTIES = STATE__PROPERTIES;
-
-  /**
-   * The feature id for the '<em><b>Entry</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__ENTRY = STATE__ENTRY;
-
-  /**
-   * The feature id for the '<em><b>Exit</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__EXIT = STATE__EXIT;
-
-  /**
-   * The feature id for the '<em><b>Internal</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__INTERNAL = STATE__INTERNAL;
-
-  /**
-   * The feature id for the '<em><b>Outgoing</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__OUTGOING = STATE__OUTGOING;
-
-  /**
-   * The feature id for the '<em><b>Initial</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__INITIAL = STATE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>History</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__HISTORY = STATE_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Substate</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__SUBSTATE = STATE_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Region</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__REGION = STATE_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Session</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE__SESSION = STATE_FEATURE_COUNT + 4;
-
-  /**
-   * The number of structural features of the '<em>Composite State</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPOSITE_STATE_FEATURE_COUNT = STATE_FEATURE_COUNT + 5;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.StateContainerImpl <em>State Container</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.StateContainerImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getStateContainer()
-   * @generated
-   */
-  int STATE_CONTAINER = 30;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Initial</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER__INITIAL = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>History</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER__HISTORY = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Substate</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER__SUBSTATE = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>State Container</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_CONTAINER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.SessionImpl <em>Session</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.SessionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getSession()
-   * @generated
-   */
-  int SESSION = 27;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__NAME = STATE_CONTAINER__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__ANNOTATIONS = STATE_CONTAINER__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Initial</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__INITIAL = STATE_CONTAINER__INITIAL;
-
-  /**
-   * The feature id for the '<em><b>History</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__HISTORY = STATE_CONTAINER__HISTORY;
-
-  /**
-   * The feature id for the '<em><b>Substate</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__SUBSTATE = STATE_CONTAINER__SUBSTATE;
-
-  /**
-   * The feature id for the '<em><b>Max Instances</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION__MAX_INSTANCES = STATE_CONTAINER_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Session</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SESSION_FEATURE_COUNT = STATE_CONTAINER_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.RegionImpl <em>Region</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.RegionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getRegion()
-   * @generated
-   */
-  int REGION = 28;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION__NAME = STATE_CONTAINER__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION__ANNOTATIONS = STATE_CONTAINER__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Initial</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION__INITIAL = STATE_CONTAINER__INITIAL;
-
-  /**
-   * The feature id for the '<em><b>History</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION__HISTORY = STATE_CONTAINER__HISTORY;
-
-  /**
-   * The feature id for the '<em><b>Substate</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION__SUBSTATE = STATE_CONTAINER__SUBSTATE;
-
-  /**
-   * The number of structural features of the '<em>Region</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REGION_FEATURE_COUNT = STATE_CONTAINER_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.FinalStateImpl <em>Final State</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.FinalStateImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getFinalState()
-   * @generated
-   */
-  int FINAL_STATE = 29;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__NAME = STATE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__ANNOTATIONS = STATE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Properties</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__PROPERTIES = STATE__PROPERTIES;
-
-  /**
-   * The feature id for the '<em><b>Entry</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__ENTRY = STATE__ENTRY;
-
-  /**
-   * The feature id for the '<em><b>Exit</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__EXIT = STATE__EXIT;
-
-  /**
-   * The feature id for the '<em><b>Internal</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__INTERNAL = STATE__INTERNAL;
-
-  /**
-   * The feature id for the '<em><b>Outgoing</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE__OUTGOING = STATE__OUTGOING;
-
-  /**
-   * The number of structural features of the '<em>Final State</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINAL_STATE_FEATURE_COUNT = STATE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EventImpl <em>Event</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EventImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEvent()
-   * @generated
-   */
-  int EVENT = 31;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVENT__NAME = NAMED_ELEMENT__NAME;
-
-  /**
-   * The number of structural features of the '<em>Event</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ReceiveMessageImpl <em>Receive Message</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ReceiveMessageImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getReceiveMessage()
-   * @generated
-   */
-  int RECEIVE_MESSAGE = 32;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RECEIVE_MESSAGE__NAME = EVENT__NAME;
-
-  /**
-   * The feature id for the '<em><b>Port</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RECEIVE_MESSAGE__PORT = EVENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RECEIVE_MESSAGE__MESSAGE = EVENT_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Receive Message</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RECEIVE_MESSAGE_FEATURE_COUNT = EVENT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ActionImpl <em>Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getAction()
-   * @generated
-   */
-  int ACTION = 33;
-
-  /**
-   * The number of structural features of the '<em>Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ACTION_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ActionBlockImpl <em>Action Block</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ActionBlockImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getActionBlock()
-   * @generated
-   */
-  int ACTION_BLOCK = 34;
-
-  /**
-   * The feature id for the '<em><b>Actions</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ACTION_BLOCK__ACTIONS = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Action Block</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ACTION_BLOCK_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ExternStatementImpl <em>Extern Statement</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ExternStatementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getExternStatement()
-   * @generated
-   */
-  int EXTERN_STATEMENT = 35;
-
-  /**
-   * The feature id for the '<em><b>Statement</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_STATEMENT__STATEMENT = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Segments</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_STATEMENT__SEGMENTS = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Extern Statement</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_STATEMENT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.LocalVariableImpl <em>Local Variable</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.LocalVariableImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getLocalVariable()
-   * @generated
-   */
-  int LOCAL_VARIABLE = 36;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE__NAME = VARIABLE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE__ANNOTATIONS = VARIABLE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Type Ref</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE__TYPE_REF = VARIABLE__TYPE_REF;
-
-  /**
-   * The feature id for the '<em><b>Readonly</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE__READONLY = VARIABLE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Init</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE__INIT = VARIABLE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Local Variable</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOCAL_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.SendActionImpl <em>Send Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.SendActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getSendAction()
-   * @generated
-   */
-  int SEND_ACTION = 37;
-
-  /**
-   * The feature id for the '<em><b>Port</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SEND_ACTION__PORT = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Message</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SEND_ACTION__MESSAGE = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SEND_ACTION__PARAMETERS = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Send Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SEND_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.VariableAssignmentImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getVariableAssignment()
-   * @generated
-   */
-  int VARIABLE_ASSIGNMENT = 38;
-
-  /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_ASSIGNMENT__PROPERTY = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Index</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_ASSIGNMENT__INDEX = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_ASSIGNMENT__EXPRESSION = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Variable Assignment</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_ASSIGNMENT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.IncrementImpl <em>Increment</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.IncrementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getIncrement()
-   * @generated
-   */
-  int INCREMENT = 39;
-
-  /**
-   * The feature id for the '<em><b>Var</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INCREMENT__VAR = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Increment</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INCREMENT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.DecrementImpl <em>Decrement</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.DecrementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getDecrement()
-   * @generated
-   */
-  int DECREMENT = 40;
-
-  /**
-   * The feature id for the '<em><b>Var</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DECREMENT__VAR = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Decrement</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DECREMENT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.LoopActionImpl <em>Loop Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.LoopActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getLoopAction()
-   * @generated
-   */
-  int LOOP_ACTION = 41;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOOP_ACTION__CONDITION = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOOP_ACTION__ACTION = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Loop Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOOP_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ConditionalActionImpl <em>Conditional Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ConditionalActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getConditionalAction()
-   * @generated
-   */
-  int CONDITIONAL_ACTION = 42;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITIONAL_ACTION__CONDITION = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITIONAL_ACTION__ACTION = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Else Action</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITIONAL_ACTION__ELSE_ACTION = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Conditional Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONDITIONAL_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ReturnActionImpl <em>Return Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ReturnActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getReturnAction()
-   * @generated
-   */
-  int RETURN_ACTION = 43;
-
-  /**
-   * The feature id for the '<em><b>Exp</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RETURN_ACTION__EXP = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Return Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RETURN_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PrintActionImpl <em>Print Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PrintActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPrintAction()
-   * @generated
-   */
-  int PRINT_ACTION = 44;
-
-  /**
-   * The feature id for the '<em><b>Msg</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRINT_ACTION__MSG = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Print Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRINT_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ErrorActionImpl <em>Error Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ErrorActionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getErrorAction()
-   * @generated
-   */
-  int ERROR_ACTION = 45;
-
-  /**
-   * The feature id for the '<em><b>Msg</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_ACTION__MSG = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Error Action</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.StartSessionImpl <em>Start Session</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.StartSessionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getStartSession()
-   * @generated
-   */
-  int START_SESSION = 46;
-
-  /**
-   * The feature id for the '<em><b>Session</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int START_SESSION__SESSION = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Start Session</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int START_SESSION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.FunctionCallStatementImpl <em>Function Call Statement</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.FunctionCallStatementImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getFunctionCallStatement()
-   * @generated
-   */
-  int FUNCTION_CALL_STATEMENT = 47;
-
-  /**
-   * The feature id for the '<em><b>Function</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_STATEMENT__FUNCTION = ACTION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_STATEMENT__PARAMETERS = ACTION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Function Call Statement</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_STATEMENT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ExpressionImpl <em>Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getExpression()
-   * @generated
-   */
-  int EXPRESSION = 48;
-
-  /**
-   * The number of structural features of the '<em>Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ExternExpressionImpl <em>Extern Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ExternExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getExternExpression()
-   * @generated
-   */
-  int EXTERN_EXPRESSION = 49;
-
-  /**
-   * The feature id for the '<em><b>Expression</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Segments</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_EXPRESSION__SEGMENTS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Extern Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXTERN_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EnumLiteralRefImpl <em>Enum Literal Ref</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EnumLiteralRefImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEnumLiteralRef()
-   * @generated
-   */
-  int ENUM_LITERAL_REF = 50;
-
-  /**
-   * The feature id for the '<em><b>Enum</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUM_LITERAL_REF__ENUM = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Literal</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUM_LITERAL_REF__LITERAL = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Enum Literal Ref</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENUM_LITERAL_REF_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.IntegerLiteralImpl <em>Integer Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.IntegerLiteralImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getIntegerLiteral()
-   * @generated
-   */
-  int INTEGER_LITERAL = 51;
-
-  /**
-   * The feature id for the '<em><b>Int Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_LITERAL__INT_VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Integer Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.BooleanLiteralImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getBooleanLiteral()
-   * @generated
-   */
-  int BOOLEAN_LITERAL = 52;
-
-  /**
-   * The feature id for the '<em><b>Bool Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOLEAN_LITERAL__BOOL_VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Boolean Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOLEAN_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.StringLiteralImpl <em>String Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.StringLiteralImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getStringLiteral()
-   * @generated
-   */
-  int STRING_LITERAL = 53;
-
-  /**
-   * The feature id for the '<em><b>String Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_LITERAL__STRING_VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>String Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRING_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.DoubleLiteralImpl <em>Double Literal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.DoubleLiteralImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getDoubleLiteral()
-   * @generated
-   */
-  int DOUBLE_LITERAL = 54;
-
-  /**
-   * The feature id for the '<em><b>Double Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DOUBLE_LITERAL__DOUBLE_VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Double Literal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DOUBLE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PropertyReferenceImpl <em>Property Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PropertyReferenceImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPropertyReference()
-   * @generated
-   */
-  int PROPERTY_REFERENCE = 55;
-
-  /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_REFERENCE__PROPERTY = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Property Reference</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROPERTY_REFERENCE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EventReferenceImpl <em>Event Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EventReferenceImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEventReference()
-   * @generated
-   */
-  int EVENT_REFERENCE = 56;
-
-  /**
-   * The feature id for the '<em><b>Receive Msg</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVENT_REFERENCE__RECEIVE_MSG = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Parameter</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVENT_REFERENCE__PARAMETER = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Event Reference</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVENT_REFERENCE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.FunctionCallExpressionImpl <em>Function Call Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.FunctionCallExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getFunctionCallExpression()
-   * @generated
-   */
-  int FUNCTION_CALL_EXPRESSION = 57;
-
-  /**
-   * The feature id for the '<em><b>Function</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_EXPRESSION__FUNCTION = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_EXPRESSION__PARAMETERS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Function Call Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FUNCTION_CALL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.GatewayImpl <em>Gateway</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.GatewayImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getGateway()
-   * @generated
-   */
-  int GATEWAY = 58;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GATEWAY__NAME = TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GATEWAY__ANNOTATIONS = TYPE__ANNOTATIONS;
-
-  /**
-   * The feature id for the '<em><b>Buses</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GATEWAY__BUSES = TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Gateway</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GATEWAY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.BusImpl <em>Bus</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.BusImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getBus()
-   * @generated
-   */
-  int BUS = 59;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BUS__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Channels</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BUS__CHANNELS = 1;
-
-  /**
-   * The number of structural features of the '<em>Bus</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BUS_FEATURE_COUNT = 2;
+  int THING_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.ChannelImpl <em>Channel</em>}' class.
@@ -2852,7 +194,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getChannel()
    * @generated
    */
-  int CHANNEL = 60;
+  int CHANNEL = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2864,13 +206,13 @@ public interface IotlangPackage extends EPackage
   int CHANNEL__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Channel Id</b></em>' attribute.
+   * The feature id for the '<em><b>Topics</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CHANNEL__CHANNEL_ID = 1;
+  int CHANNEL__TOPICS = 1;
 
   /**
    * The number of structural features of the '<em>Channel</em>' class.
@@ -2882,14 +224,14 @@ public interface IotlangPackage extends EPackage
   int CHANNEL_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.ConfigurationImpl <em>Configuration</em>}' class.
+   * The meta object id for the '{@link lang.iotlang.impl.PolicyImpl <em>Policy</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ConfigurationImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getConfiguration()
+   * @see lang.iotlang.impl.PolicyImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getPolicy()
    * @generated
    */
-  int CONFIGURATION = 61;
+  int POLICY = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2898,79 +240,191 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONFIGURATION__NAME = NAMED_ELEMENT__NAME;
+  int POLICY__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * The feature id for the '<em><b>Rules</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int POLICY__RULES = 1;
 
   /**
-   * The feature id for the '<em><b>Domain</b></em>' containment reference list.
+   * The number of structural features of the '<em>Policy</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__DOMAIN = NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int POLICY_FEATURE_COUNT = 2;
 
   /**
-   * The feature id for the '<em><b>Channelings</b></em>' containment reference list.
+   * The meta object id for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.ProtocolImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getProtocol()
+   * @generated
+   */
+  int PROTOCOL = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__CHANNELINGS = NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int PROTOCOL__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Instancegateways</b></em>' containment reference list.
+   * The number of structural features of the '<em>Protocol</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__INSTANCEGATEWAYS = NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int PROTOCOL_FEATURE_COUNT = 1;
 
   /**
-   * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+   * The meta object id for the '{@link lang.iotlang.impl.MessageImpl <em>Message</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.MessageImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getMessage()
+   * @generated
+   */
+  int MESSAGE = 6;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__INSTANCES = NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int MESSAGE__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Connectors</b></em>' containment reference list.
+   * The number of structural features of the '<em>Message</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__CONNECTORS = NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int MESSAGE_FEATURE_COUNT = 1;
 
   /**
-   * The feature id for the '<em><b>Propassigns</b></em>' containment reference list.
+   * The meta object id for the '{@link lang.iotlang.impl.TopicImpl <em>Topic</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.TopicImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getTopic()
+   * @generated
+   */
+  int TOPIC = 7;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION__PROPASSIGNS = NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int TOPIC__NAME = 0;
 
   /**
-   * The number of structural features of the '<em>Configuration</em>' class.
+   * The feature id for the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONFIGURATION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int TOPIC__TYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Messages</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TOPIC__MESSAGES = 2;
+
+  /**
+   * The number of structural features of the '<em>Topic</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TOPIC_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link lang.iotlang.impl.RuleImpl <em>Rule</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.RuleImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getRule()
+   * @generated
+   */
+  int RULE = 8;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Things</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__THINGS = 1;
+
+  /**
+   * The feature id for the '<em><b>Permission</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__PERMISSION = 2;
+
+  /**
+   * The feature id for the '<em><b>Action</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__ACTION = 3;
+
+  /**
+   * The feature id for the '<em><b>Res</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__RES = 4;
+
+  /**
+   * The number of structural features of the '<em>Rule</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.
@@ -2980,7 +434,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getDomain()
    * @generated
    */
-  int DOMAIN = 62;
+  int DOMAIN = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3001,14 +455,14 @@ public interface IotlangPackage extends EPackage
   int DOMAIN_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.InstanceImpl <em>Instance</em>}' class.
+   * The meta object id for the '{@link lang.iotlang.impl.InstanceThingImpl <em>Instance Thing</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.InstanceImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getInstance()
+   * @see lang.iotlang.impl.InstanceThingImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceThing()
    * @generated
    */
-  int INSTANCE = 63;
+  int INSTANCE_THING = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3017,16 +471,16 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__NAME = NAMED_ELEMENT__NAME;
+  int INSTANCE_THING__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * The feature id for the '<em><b>Number</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INSTANCE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int INSTANCE_THING__NUMBER = 1;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3035,35 +489,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Instance</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.InstanceGatewayImpl <em>Instance Gateway</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.InstanceGatewayImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceGateway()
-   * @generated
-   */
-  int INSTANCE_GATEWAY = 64;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE_GATEWAY__NAME = NAMED_ELEMENT__NAME;
+  int INSTANCE_THING__TYPE = 2;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -3072,99 +498,26 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_GATEWAY__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int INSTANCE_THING__ANNOTATIONS = 3;
 
   /**
-   * The feature id for the '<em><b>Type Gate</b></em>' reference.
+   * The number of structural features of the '<em>Instance Thing</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INSTANCE_GATEWAY__TYPE_GATE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int INSTANCE_THING_FEATURE_COUNT = 4;
 
   /**
-   * The number of structural features of the '<em>Instance Gateway</em>' class.
+   * The meta object id for the '{@link lang.iotlang.impl.InstanceBusImpl <em>Instance Bus</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INSTANCE_GATEWAY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ConfigPropertyAssignImpl <em>Config Property Assign</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ConfigPropertyAssignImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getConfigPropertyAssign()
+   * @see lang.iotlang.impl.InstanceBusImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceBus()
    * @generated
    */
-  int CONFIG_PROPERTY_ASSIGN = 65;
-
-  /**
-   * The feature id for the '<em><b>Instance</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN__INSTANCE = 0;
-
-  /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN__PROPERTY = 1;
-
-  /**
-   * The feature id for the '<em><b>Index</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN__INDEX = 2;
-
-  /**
-   * The feature id for the '<em><b>Init</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN__INIT = 3;
-
-  /**
-   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN__ANNOTATIONS = 4;
-
-  /**
-   * The number of structural features of the '<em>Config Property Assign</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONFIG_PROPERTY_ASSIGN_FEATURE_COUNT = 5;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.AbstractConnectorImpl <em>Abstract Connector</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.AbstractConnectorImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getAbstractConnector()
-   * @generated
-   */
-  int ABSTRACT_CONNECTOR = 66;
+  int INSTANCE_BUS = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3173,7 +526,34 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ABSTRACT_CONNECTOR__NAME = NAMED_ELEMENT__NAME;
+  int INSTANCE_BUS__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Number</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_BUS__NUMBER = 1;
+
+  /**
+   * The feature id for the '<em><b>Type Channel</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_BUS__TYPE_CHANNEL = 2;
+
+  /**
+   * The feature id for the '<em><b>Protocol</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_BUS__PROTOCOL = 3;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -3182,26 +562,26 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ABSTRACT_CONNECTOR__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int INSTANCE_BUS__ANNOTATIONS = 4;
 
   /**
-   * The number of structural features of the '<em>Abstract Connector</em>' class.
+   * The number of structural features of the '<em>Instance Bus</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ABSTRACT_CONNECTOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int INSTANCE_BUS_FEATURE_COUNT = 5;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.ConnectorImpl <em>Connector</em>}' class.
+   * The meta object id for the '{@link lang.iotlang.impl.InstancePolicyImpl <em>Instance Policy</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ConnectorImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getConnector()
+   * @see lang.iotlang.impl.InstancePolicyImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePolicy()
    * @generated
    */
-  int CONNECTOR = 67;
+  int INSTANCE_POLICY = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3210,7 +590,16 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONNECTOR__NAME = ABSTRACT_CONNECTOR__NAME;
+  int INSTANCE_POLICY__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Type Policy</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_POLICY__TYPE_POLICY = 1;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -3219,62 +608,26 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONNECTOR__ANNOTATIONS = ABSTRACT_CONNECTOR__ANNOTATIONS;
+  int INSTANCE_POLICY__ANNOTATIONS = 2;
 
   /**
-   * The feature id for the '<em><b>Cli</b></em>' reference.
+   * The number of structural features of the '<em>Instance Policy</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONNECTOR__CLI = ABSTRACT_CONNECTOR_FEATURE_COUNT + 0;
+  int INSTANCE_POLICY_FEATURE_COUNT = 3;
 
   /**
-   * The feature id for the '<em><b>Required</b></em>' reference.
+   * The meta object id for the '{@link lang.iotlang.impl.NetworkConfigurationImpl <em>Network Configuration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTOR__REQUIRED = ABSTRACT_CONNECTOR_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Srv</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTOR__SRV = ABSTRACT_CONNECTOR_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Provided</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTOR__PROVIDED = ABSTRACT_CONNECTOR_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>Connector</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONNECTOR_FEATURE_COUNT = ABSTRACT_CONNECTOR_FEATURE_COUNT + 4;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ExternalConnectorImpl <em>External Connector</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ExternalConnectorImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getExternalConnector()
+   * @see lang.iotlang.impl.NetworkConfigurationImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getNetworkConfiguration()
    * @generated
    */
-  int EXTERNAL_CONNECTOR = 68;
+  int NETWORK_CONFIGURATION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3283,7 +636,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR__NAME = ABSTRACT_CONNECTOR__NAME;
+  int NETWORK_CONFIGURATION__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -3292,53 +645,80 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR__ANNOTATIONS = ABSTRACT_CONNECTOR__ANNOTATIONS;
+  int NETWORK_CONFIGURATION__ANNOTATIONS = 1;
 
   /**
-   * The feature id for the '<em><b>Inst</b></em>' reference.
+   * The feature id for the '<em><b>Domain</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR__INST = ABSTRACT_CONNECTOR_FEATURE_COUNT + 0;
+  int NETWORK_CONFIGURATION__DOMAIN = 2;
 
   /**
-   * The feature id for the '<em><b>Port</b></em>' reference.
+   * The feature id for the '<em><b>Binds</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR__PORT = ABSTRACT_CONNECTOR_FEATURE_COUNT + 1;
+  int NETWORK_CONFIGURATION__BINDS = 3;
 
   /**
-   * The feature id for the '<em><b>Protocol</b></em>' reference.
+   * The feature id for the '<em><b>Instances</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR__PROTOCOL = ABSTRACT_CONNECTOR_FEATURE_COUNT + 2;
+  int NETWORK_CONFIGURATION__INSTANCES = 4;
 
   /**
-   * The number of structural features of the '<em>External Connector</em>' class.
+   * The feature id for the '<em><b>Instances Bus</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXTERNAL_CONNECTOR_FEATURE_COUNT = ABSTRACT_CONNECTOR_FEATURE_COUNT + 3;
+  int NETWORK_CONFIGURATION__INSTANCES_BUS = 5;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.ChannelingImpl <em>Channeling</em>}' class.
+   * The feature id for the '<em><b>Enforces</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ChannelingImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getChanneling()
+   * @generated
+   * @ordered
+   */
+  int NETWORK_CONFIGURATION__ENFORCES = 6;
+
+  /**
+   * The feature id for the '<em><b>Inst Policies</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NETWORK_CONFIGURATION__INST_POLICIES = 7;
+
+  /**
+   * The number of structural features of the '<em>Network Configuration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NETWORK_CONFIGURATION_FEATURE_COUNT = 8;
+
+  /**
+   * The meta object id for the '{@link lang.iotlang.impl.BindImpl <em>Bind</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.BindImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getBind()
    * @generated
    */
-  int CHANNELING = 69;
+  int BIND = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3347,7 +727,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNELING__NAME = 0;
+  int BIND__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Thinginst</b></em>' reference.
@@ -3356,16 +736,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNELING__THINGINST = 1;
-
-  /**
-   * The feature id for the '<em><b>Port</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CHANNELING__PORT = 2;
+  int BIND__THINGINST = 1;
 
   /**
    * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -3374,25 +745,16 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNELING__DIRECTION = 3;
+  int BIND__DIRECTION = 2;
 
   /**
-   * The feature id for the '<em><b>Srv</b></em>' reference.
+   * The feature id for the '<em><b>Bus Inst</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CHANNELING__SRV = 4;
-
-  /**
-   * The feature id for the '<em><b>Buses</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CHANNELING__BUSES = 5;
+  int BIND__BUS_INST = 3;
 
   /**
    * The feature id for the '<em><b>Channels</b></em>' reference list.
@@ -3401,7 +763,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNELING__CHANNELS = 6;
+  int BIND__CHANNELS = 4;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -3410,664 +772,16 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNELING__ANNOTATIONS = 7;
+  int BIND__ANNOTATIONS = 5;
 
   /**
-   * The number of structural features of the '<em>Channeling</em>' class.
+   * The number of structural features of the '<em>Bind</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CHANNELING_FEATURE_COUNT = 8;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.CastExpressionImpl <em>Cast Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.CastExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getCastExpression()
-   * @generated
-   */
-  int CAST_EXPRESSION = 70;
-
-  /**
-   * The feature id for the '<em><b>Term</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CAST_EXPRESSION__TERM = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CAST_EXPRESSION__TYPE = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Is Array</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CAST_EXPRESSION__IS_ARRAY = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Cast Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CAST_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.OrExpressionImpl <em>Or Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.OrExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getOrExpression()
-   * @generated
-   */
-  int OR_EXPRESSION = 71;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OR_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OR_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Or Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OR_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.AndExpressionImpl <em>And Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.AndExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getAndExpression()
-   * @generated
-   */
-  int AND_EXPRESSION = 72;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>And Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int AND_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.EqualsExpressionImpl <em>Equals Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.EqualsExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getEqualsExpression()
-   * @generated
-   */
-  int EQUALS_EXPRESSION = 73;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUALS_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUALS_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Equals Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUALS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.NotEqualsExpressionImpl <em>Not Equals Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.NotEqualsExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getNotEqualsExpression()
-   * @generated
-   */
-  int NOT_EQUALS_EXPRESSION = 74;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT_EQUALS_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT_EQUALS_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Not Equals Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT_EQUALS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.GreaterExpressionImpl <em>Greater Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.GreaterExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getGreaterExpression()
-   * @generated
-   */
-  int GREATER_EXPRESSION = 75;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Greater Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.LowerExpressionImpl <em>Lower Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.LowerExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getLowerExpression()
-   * @generated
-   */
-  int LOWER_EXPRESSION = 76;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Lower Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.GreaterOrEqualExpressionImpl <em>Greater Or Equal Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.GreaterOrEqualExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getGreaterOrEqualExpression()
-   * @generated
-   */
-  int GREATER_OR_EQUAL_EXPRESSION = 77;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_OR_EQUAL_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_OR_EQUAL_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Greater Or Equal Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GREATER_OR_EQUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.LowerOrEqualExpressionImpl <em>Lower Or Equal Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.LowerOrEqualExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getLowerOrEqualExpression()
-   * @generated
-   */
-  int LOWER_OR_EQUAL_EXPRESSION = 78;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_OR_EQUAL_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_OR_EQUAL_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Lower Or Equal Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LOWER_OR_EQUAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.PlusExpressionImpl <em>Plus Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.PlusExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getPlusExpression()
-   * @generated
-   */
-  int PLUS_EXPRESSION = 79;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PLUS_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PLUS_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Plus Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PLUS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.MinusExpressionImpl <em>Minus Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.MinusExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getMinusExpression()
-   * @generated
-   */
-  int MINUS_EXPRESSION = 80;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Minus Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MINUS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.TimesExpressionImpl <em>Times Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.TimesExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getTimesExpression()
-   * @generated
-   */
-  int TIMES_EXPRESSION = 81;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIMES_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIMES_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Times Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIMES_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.DivExpressionImpl <em>Div Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.DivExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getDivExpression()
-   * @generated
-   */
-  int DIV_EXPRESSION = 82;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DIV_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DIV_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Div Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DIV_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ModExpressionImpl <em>Mod Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ModExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getModExpression()
-   * @generated
-   */
-  int MOD_EXPRESSION = 83;
-
-  /**
-   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MOD_EXPRESSION__LHS = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MOD_EXPRESSION__RHS = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Mod Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MOD_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ExpressionGroupImpl <em>Expression Group</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ExpressionGroupImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getExpressionGroup()
-   * @generated
-   */
-  int EXPRESSION_GROUP = 84;
-
-  /**
-   * The feature id for the '<em><b>Term</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_GROUP__TERM = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Expression Group</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_GROUP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.NotExpressionImpl <em>Not Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.NotExpressionImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getNotExpression()
-   * @generated
-   */
-  int NOT_EXPRESSION = 85;
-
-  /**
-   * The feature id for the '<em><b>Term</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT_EXPRESSION__TERM = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Not Expression</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.UnaryMinusImpl <em>Unary Minus</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.UnaryMinusImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getUnaryMinus()
-   * @generated
-   */
-  int UNARY_MINUS = 86;
-
-  /**
-   * The feature id for the '<em><b>Term</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_MINUS__TERM = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Unary Minus</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNARY_MINUS_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link lang.iotlang.impl.ArrayIndexImpl <em>Array Index</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.ArrayIndexImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getArrayIndex()
-   * @generated
-   */
-  int ARRAY_INDEX = 87;
-
-  /**
-   * The feature id for the '<em><b>Array</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARRAY_INDEX__ARRAY = EXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Index</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARRAY_INDEX__INDEX = EXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Array Index</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARRAY_INDEX_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int BIND_FEATURE_COUNT = 6;
 
 
   /**
@@ -4081,37 +795,37 @@ public interface IotlangPackage extends EPackage
   EClass getIoTLangModel();
 
   /**
-   * Returns the meta object for the attribute list '{@link lang.iotlang.IoTLangModel#getImportURI <em>Import URI</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getThings <em>Things</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Import URI</em>'.
-   * @see lang.iotlang.IoTLangModel#getImportURI()
+   * @return the meta object for the containment reference list '<em>Things</em>'.
+   * @see lang.iotlang.IoTLangModel#getThings()
    * @see #getIoTLangModel()
    * @generated
    */
-  EAttribute getIoTLangModel_ImportURI();
+  EReference getIoTLangModel_Things();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getTypes <em>Types</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getPolicies <em>Policies</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Types</em>'.
-   * @see lang.iotlang.IoTLangModel#getTypes()
+   * @return the meta object for the containment reference list '<em>Policies</em>'.
+   * @see lang.iotlang.IoTLangModel#getPolicies()
    * @see #getIoTLangModel()
    * @generated
    */
-  EReference getIoTLangModel_Types();
+  EReference getIoTLangModel_Policies();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getProtocols <em>Protocols</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getChannels <em>Channels</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Protocols</em>'.
-   * @see lang.iotlang.IoTLangModel#getProtocols()
+   * @return the meta object for the containment reference list '<em>Channels</em>'.
+   * @see lang.iotlang.IoTLangModel#getChannels()
    * @see #getIoTLangModel()
    * @generated
    */
-  EReference getIoTLangModel_Protocols();
+  EReference getIoTLangModel_Channels();
 
   /**
    * Returns the meta object for the containment reference list '{@link lang.iotlang.IoTLangModel#getConfigs <em>Configs</em>}'.
@@ -4157,184 +871,6 @@ public interface IotlangPackage extends EPackage
   EAttribute getPlatformAnnotation_Value();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.NamedElement <em>Named Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Named Element</em>'.
-   * @see lang.iotlang.NamedElement
-   * @generated
-   */
-  EClass getNamedElement();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.NamedElement#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see lang.iotlang.NamedElement#getName()
-   * @see #getNamedElement()
-   * @generated
-   */
-  EAttribute getNamedElement_Name();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.AnnotatedElement <em>Annotated Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Annotated Element</em>'.
-   * @see lang.iotlang.AnnotatedElement
-   * @generated
-   */
-  EClass getAnnotatedElement();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.AnnotatedElement#getAnnotations <em>Annotations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Annotations</em>'.
-   * @see lang.iotlang.AnnotatedElement#getAnnotations()
-   * @see #getAnnotatedElement()
-   * @generated
-   */
-  EReference getAnnotatedElement_Annotations();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Variable <em>Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable</em>'.
-   * @see lang.iotlang.Variable
-   * @generated
-   */
-  EClass getVariable();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Variable#getTypeRef <em>Type Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type Ref</em>'.
-   * @see lang.iotlang.Variable#getTypeRef()
-   * @see #getVariable()
-   * @generated
-   */
-  EReference getVariable_TypeRef();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.TypeRef <em>Type Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Type Ref</em>'.
-   * @see lang.iotlang.TypeRef
-   * @generated
-   */
-  EClass getTypeRef();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.TypeRef#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see lang.iotlang.TypeRef#getType()
-   * @see #getTypeRef()
-   * @generated
-   */
-  EReference getTypeRef_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.TypeRef#isIsArray <em>Is Array</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Is Array</em>'.
-   * @see lang.iotlang.TypeRef#isIsArray()
-   * @see #getTypeRef()
-   * @generated
-   */
-  EAttribute getTypeRef_IsArray();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.TypeRef#getCardinality <em>Cardinality</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Cardinality</em>'.
-   * @see lang.iotlang.TypeRef#getCardinality()
-   * @see #getTypeRef()
-   * @generated
-   */
-  EReference getTypeRef_Cardinality();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Type <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Type</em>'.
-   * @see lang.iotlang.Type
-   * @generated
-   */
-  EClass getType();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.PrimitiveType <em>Primitive Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Primitive Type</em>'.
-   * @see lang.iotlang.PrimitiveType
-   * @generated
-   */
-  EClass getPrimitiveType();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.PrimitiveType#getByteSize <em>Byte Size</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Byte Size</em>'.
-   * @see lang.iotlang.PrimitiveType#getByteSize()
-   * @see #getPrimitiveType()
-   * @generated
-   */
-  EAttribute getPrimitiveType_ByteSize();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ObjectType <em>Object Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Object Type</em>'.
-   * @see lang.iotlang.ObjectType
-   * @generated
-   */
-  EClass getObjectType();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Enumeration <em>Enumeration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Enumeration</em>'.
-   * @see lang.iotlang.Enumeration
-   * @generated
-   */
-  EClass getEnumeration();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Enumeration#getLiterals <em>Literals</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Literals</em>'.
-   * @see lang.iotlang.Enumeration#getLiterals()
-   * @see #getEnumeration()
-   * @generated
-   */
-  EReference getEnumeration_Literals();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.EnumerationLiteral <em>Enumeration Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Enumeration Literal</em>'.
-   * @see lang.iotlang.EnumerationLiteral
-   * @generated
-   */
-  EClass getEnumerationLiteral();
-
-  /**
    * Returns the meta object for class '{@link lang.iotlang.Thing <em>Thing</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4345,1342 +881,26 @@ public interface IotlangPackage extends EPackage
   EClass getThing();
 
   /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Thing#isFragment <em>Fragment</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Fragment</em>'.
-   * @see lang.iotlang.Thing#isFragment()
-   * @see #getThing()
-   * @generated
-   */
-  EAttribute getThing_Fragment();
-
-  /**
-   * Returns the meta object for the reference list '{@link lang.iotlang.Thing#getIncludes <em>Includes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Includes</em>'.
-   * @see lang.iotlang.Thing#getIncludes()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Includes();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getMessages <em>Messages</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Messages</em>'.
-   * @see lang.iotlang.Thing#getMessages()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Messages();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getPorts <em>Ports</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Ports</em>'.
-   * @see lang.iotlang.Thing#getPorts()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Ports();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getProperties <em>Properties</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Properties</em>'.
-   * @see lang.iotlang.Thing#getProperties()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Properties();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getFunctions <em>Functions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Functions</em>'.
-   * @see lang.iotlang.Thing#getFunctions()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Functions();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getAssign <em>Assign</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Assign</em>'.
-   * @see lang.iotlang.Thing#getAssign()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Assign();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getBehaviour <em>Behaviour</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Behaviour</em>'.
-   * @see lang.iotlang.Thing#getBehaviour()
-   * @see #getThing()
-   * @generated
-   */
-  EReference getThing_Behaviour();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.PropertyAssign <em>Property Assign</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Property Assign</em>'.
-   * @see lang.iotlang.PropertyAssign
-   * @generated
-   */
-  EClass getPropertyAssign();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.PropertyAssign#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see lang.iotlang.PropertyAssign#getProperty()
-   * @see #getPropertyAssign()
-   * @generated
-   */
-  EReference getPropertyAssign_Property();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.PropertyAssign#getIndex <em>Index</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Index</em>'.
-   * @see lang.iotlang.PropertyAssign#getIndex()
-   * @see #getPropertyAssign()
-   * @generated
-   */
-  EReference getPropertyAssign_Index();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.PropertyAssign#getInit <em>Init</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Init</em>'.
-   * @see lang.iotlang.PropertyAssign#getInit()
-   * @see #getPropertyAssign()
-   * @generated
-   */
-  EReference getPropertyAssign_Init();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Protocol <em>Protocol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Protocol</em>'.
-   * @see lang.iotlang.Protocol
-   * @generated
-   */
-  EClass getProtocol();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Function <em>Function</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Function</em>'.
-   * @see lang.iotlang.Function
-   * @generated
-   */
-  EClass getFunction();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Function#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see lang.iotlang.Function#getParameters()
-   * @see #getFunction()
-   * @generated
-   */
-  EReference getFunction_Parameters();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Function#getTypeRef <em>Type Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type Ref</em>'.
-   * @see lang.iotlang.Function#getTypeRef()
-   * @see #getFunction()
-   * @generated
-   */
-  EReference getFunction_TypeRef();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Function#getBody <em>Body</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Body</em>'.
-   * @see lang.iotlang.Function#getBody()
-   * @see #getFunction()
-   * @generated
-   */
-  EReference getFunction_Body();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Function#isAbstract <em>Abstract</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Abstract</em>'.
-   * @see lang.iotlang.Function#isAbstract()
-   * @see #getFunction()
-   * @generated
-   */
-  EAttribute getFunction_Abstract();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Property <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Property</em>'.
-   * @see lang.iotlang.Property
-   * @generated
-   */
-  EClass getProperty();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Property#isReadonly <em>Readonly</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Readonly</em>'.
-   * @see lang.iotlang.Property#isReadonly()
-   * @see #getProperty()
-   * @generated
-   */
-  EAttribute getProperty_Readonly();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Property#getInit <em>Init</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Init</em>'.
-   * @see lang.iotlang.Property#getInit()
-   * @see #getProperty()
-   * @generated
-   */
-  EReference getProperty_Init();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Message <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Message</em>'.
-   * @see lang.iotlang.Message
-   * @generated
-   */
-  EClass getMessage();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Message#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see lang.iotlang.Message#getParameters()
-   * @see #getMessage()
-   * @generated
-   */
-  EReference getMessage_Parameters();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Parameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Parameter</em>'.
-   * @see lang.iotlang.Parameter
-   * @generated
-   */
-  EClass getParameter();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Port <em>Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Port</em>'.
-   * @see lang.iotlang.Port
-   * @generated
-   */
-  EClass getPort();
-
-  /**
-   * Returns the meta object for the reference list '{@link lang.iotlang.Port#getSends <em>Sends</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Sends</em>'.
-   * @see lang.iotlang.Port#getSends()
-   * @see #getPort()
-   * @generated
-   */
-  EReference getPort_Sends();
-
-  /**
-   * Returns the meta object for the reference list '{@link lang.iotlang.Port#getReceives <em>Receives</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Receives</em>'.
-   * @see lang.iotlang.Port#getReceives()
-   * @see #getPort()
-   * @generated
-   */
-  EReference getPort_Receives();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.RequiredPort <em>Required Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Required Port</em>'.
-   * @see lang.iotlang.RequiredPort
-   * @generated
-   */
-  EClass getRequiredPort();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.RequiredPort#isOptional <em>Optional</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Optional</em>'.
-   * @see lang.iotlang.RequiredPort#isOptional()
-   * @see #getRequiredPort()
-   * @generated
-   */
-  EAttribute getRequiredPort_Optional();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ProvidedPort <em>Provided Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Provided Port</em>'.
-   * @see lang.iotlang.ProvidedPort
-   * @generated
-   */
-  EClass getProvidedPort();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.InternalPort <em>Internal Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Internal Port</em>'.
-   * @see lang.iotlang.InternalPort
-   * @generated
-   */
-  EClass getInternalPort();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.State <em>State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>State</em>'.
-   * @see lang.iotlang.State
-   * @generated
-   */
-  EClass getState();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.State#getProperties <em>Properties</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Properties</em>'.
-   * @see lang.iotlang.State#getProperties()
-   * @see #getState()
-   * @generated
-   */
-  EReference getState_Properties();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.State#getEntry <em>Entry</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Entry</em>'.
-   * @see lang.iotlang.State#getEntry()
-   * @see #getState()
-   * @generated
-   */
-  EReference getState_Entry();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.State#getExit <em>Exit</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exit</em>'.
-   * @see lang.iotlang.State#getExit()
-   * @see #getState()
-   * @generated
-   */
-  EReference getState_Exit();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.State#getInternal <em>Internal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Internal</em>'.
-   * @see lang.iotlang.State#getInternal()
-   * @see #getState()
-   * @generated
-   */
-  EReference getState_Internal();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.State#getOutgoing <em>Outgoing</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Outgoing</em>'.
-   * @see lang.iotlang.State#getOutgoing()
-   * @see #getState()
-   * @generated
-   */
-  EReference getState_Outgoing();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Handler <em>Handler</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Handler</em>'.
-   * @see lang.iotlang.Handler
-   * @generated
-   */
-  EClass getHandler();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Handler#getEvent <em>Event</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Event</em>'.
-   * @see lang.iotlang.Handler#getEvent()
-   * @see #getHandler()
-   * @generated
-   */
-  EReference getHandler_Event();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Handler#getGuard <em>Guard</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Guard</em>'.
-   * @see lang.iotlang.Handler#getGuard()
-   * @see #getHandler()
-   * @generated
-   */
-  EReference getHandler_Guard();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Handler#getAction <em>Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Action</em>'.
-   * @see lang.iotlang.Handler#getAction()
-   * @see #getHandler()
-   * @generated
-   */
-  EReference getHandler_Action();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Transition <em>Transition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Transition</em>'.
-   * @see lang.iotlang.Transition
-   * @generated
-   */
-  EClass getTransition();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Transition#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see lang.iotlang.Transition#getTarget()
-   * @see #getTransition()
-   * @generated
-   */
-  EReference getTransition_Target();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.InternalTransition <em>Internal Transition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Internal Transition</em>'.
-   * @see lang.iotlang.InternalTransition
-   * @generated
-   */
-  EClass getInternalTransition();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.CompositeState <em>Composite State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Composite State</em>'.
-   * @see lang.iotlang.CompositeState
-   * @generated
-   */
-  EClass getCompositeState();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.CompositeState#getRegion <em>Region</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Region</em>'.
-   * @see lang.iotlang.CompositeState#getRegion()
-   * @see #getCompositeState()
-   * @generated
-   */
-  EReference getCompositeState_Region();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.CompositeState#getSession <em>Session</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Session</em>'.
-   * @see lang.iotlang.CompositeState#getSession()
-   * @see #getCompositeState()
-   * @generated
-   */
-  EReference getCompositeState_Session();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Session <em>Session</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Session</em>'.
-   * @see lang.iotlang.Session
-   * @generated
-   */
-  EClass getSession();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.Session#getMaxInstances <em>Max Instances</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Max Instances</em>'.
-   * @see lang.iotlang.Session#getMaxInstances()
-   * @see #getSession()
-   * @generated
-   */
-  EReference getSession_MaxInstances();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Region <em>Region</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Region</em>'.
-   * @see lang.iotlang.Region
-   * @generated
-   */
-  EClass getRegion();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.FinalState <em>Final State</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Final State</em>'.
-   * @see lang.iotlang.FinalState
-   * @generated
-   */
-  EClass getFinalState();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.StateContainer <em>State Container</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>State Container</em>'.
-   * @see lang.iotlang.StateContainer
-   * @generated
-   */
-  EClass getStateContainer();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.StateContainer#getInitial <em>Initial</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Initial</em>'.
-   * @see lang.iotlang.StateContainer#getInitial()
-   * @see #getStateContainer()
-   * @generated
-   */
-  EReference getStateContainer_Initial();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.StateContainer#isHistory <em>History</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>History</em>'.
-   * @see lang.iotlang.StateContainer#isHistory()
-   * @see #getStateContainer()
-   * @generated
-   */
-  EAttribute getStateContainer_History();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.StateContainer#getSubstate <em>Substate</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Substate</em>'.
-   * @see lang.iotlang.StateContainer#getSubstate()
-   * @see #getStateContainer()
-   * @generated
-   */
-  EReference getStateContainer_Substate();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Event <em>Event</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Event</em>'.
-   * @see lang.iotlang.Event
-   * @generated
-   */
-  EClass getEvent();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ReceiveMessage <em>Receive Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Receive Message</em>'.
-   * @see lang.iotlang.ReceiveMessage
-   * @generated
-   */
-  EClass getReceiveMessage();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ReceiveMessage#getPort <em>Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Port</em>'.
-   * @see lang.iotlang.ReceiveMessage#getPort()
-   * @see #getReceiveMessage()
-   * @generated
-   */
-  EReference getReceiveMessage_Port();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ReceiveMessage#getMessage <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Message</em>'.
-   * @see lang.iotlang.ReceiveMessage#getMessage()
-   * @see #getReceiveMessage()
-   * @generated
-   */
-  EReference getReceiveMessage_Message();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Action <em>Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Action</em>'.
-   * @see lang.iotlang.Action
-   * @generated
-   */
-  EClass getAction();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ActionBlock <em>Action Block</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Action Block</em>'.
-   * @see lang.iotlang.ActionBlock
-   * @generated
-   */
-  EClass getActionBlock();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.ActionBlock#getActions <em>Actions</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Actions</em>'.
-   * @see lang.iotlang.ActionBlock#getActions()
-   * @see #getActionBlock()
-   * @generated
-   */
-  EReference getActionBlock_Actions();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ExternStatement <em>Extern Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Extern Statement</em>'.
-   * @see lang.iotlang.ExternStatement
-   * @generated
-   */
-  EClass getExternStatement();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.ExternStatement#getStatement <em>Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Statement</em>'.
-   * @see lang.iotlang.ExternStatement#getStatement()
-   * @see #getExternStatement()
-   * @generated
-   */
-  EAttribute getExternStatement_Statement();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.ExternStatement#getSegments <em>Segments</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Segments</em>'.
-   * @see lang.iotlang.ExternStatement#getSegments()
-   * @see #getExternStatement()
-   * @generated
-   */
-  EReference getExternStatement_Segments();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.LocalVariable <em>Local Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Local Variable</em>'.
-   * @see lang.iotlang.LocalVariable
-   * @generated
-   */
-  EClass getLocalVariable();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.LocalVariable#isReadonly <em>Readonly</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Readonly</em>'.
-   * @see lang.iotlang.LocalVariable#isReadonly()
-   * @see #getLocalVariable()
-   * @generated
-   */
-  EAttribute getLocalVariable_Readonly();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LocalVariable#getInit <em>Init</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Init</em>'.
-   * @see lang.iotlang.LocalVariable#getInit()
-   * @see #getLocalVariable()
-   * @generated
-   */
-  EReference getLocalVariable_Init();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.SendAction <em>Send Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Send Action</em>'.
-   * @see lang.iotlang.SendAction
-   * @generated
-   */
-  EClass getSendAction();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.SendAction#getPort <em>Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Port</em>'.
-   * @see lang.iotlang.SendAction#getPort()
-   * @see #getSendAction()
-   * @generated
-   */
-  EReference getSendAction_Port();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.SendAction#getMessage <em>Message</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Message</em>'.
-   * @see lang.iotlang.SendAction#getMessage()
-   * @see #getSendAction()
-   * @generated
-   */
-  EReference getSendAction_Message();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.SendAction#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see lang.iotlang.SendAction#getParameters()
-   * @see #getSendAction()
-   * @generated
-   */
-  EReference getSendAction_Parameters();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.VariableAssignment <em>Variable Assignment</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Assignment</em>'.
-   * @see lang.iotlang.VariableAssignment
-   * @generated
-   */
-  EClass getVariableAssignment();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.VariableAssignment#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see lang.iotlang.VariableAssignment#getProperty()
-   * @see #getVariableAssignment()
-   * @generated
-   */
-  EReference getVariableAssignment_Property();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.VariableAssignment#getIndex <em>Index</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Index</em>'.
-   * @see lang.iotlang.VariableAssignment#getIndex()
-   * @see #getVariableAssignment()
-   * @generated
-   */
-  EReference getVariableAssignment_Index();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.VariableAssignment#getExpression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Expression</em>'.
-   * @see lang.iotlang.VariableAssignment#getExpression()
-   * @see #getVariableAssignment()
-   * @generated
-   */
-  EReference getVariableAssignment_Expression();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Increment <em>Increment</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Increment</em>'.
-   * @see lang.iotlang.Increment
-   * @generated
-   */
-  EClass getIncrement();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Increment#getVar <em>Var</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Var</em>'.
-   * @see lang.iotlang.Increment#getVar()
-   * @see #getIncrement()
-   * @generated
-   */
-  EReference getIncrement_Var();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Decrement <em>Decrement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Decrement</em>'.
-   * @see lang.iotlang.Decrement
-   * @generated
-   */
-  EClass getDecrement();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Decrement#getVar <em>Var</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Var</em>'.
-   * @see lang.iotlang.Decrement#getVar()
-   * @see #getDecrement()
-   * @generated
-   */
-  EReference getDecrement_Var();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.LoopAction <em>Loop Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Loop Action</em>'.
-   * @see lang.iotlang.LoopAction
-   * @generated
-   */
-  EClass getLoopAction();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LoopAction#getCondition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see lang.iotlang.LoopAction#getCondition()
-   * @see #getLoopAction()
-   * @generated
-   */
-  EReference getLoopAction_Condition();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LoopAction#getAction <em>Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Action</em>'.
-   * @see lang.iotlang.LoopAction#getAction()
-   * @see #getLoopAction()
-   * @generated
-   */
-  EReference getLoopAction_Action();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ConditionalAction <em>Conditional Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Conditional Action</em>'.
-   * @see lang.iotlang.ConditionalAction
-   * @generated
-   */
-  EClass getConditionalAction();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ConditionalAction#getCondition <em>Condition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see lang.iotlang.ConditionalAction#getCondition()
-   * @see #getConditionalAction()
-   * @generated
-   */
-  EReference getConditionalAction_Condition();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ConditionalAction#getAction <em>Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Action</em>'.
-   * @see lang.iotlang.ConditionalAction#getAction()
-   * @see #getConditionalAction()
-   * @generated
-   */
-  EReference getConditionalAction_Action();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ConditionalAction#getElseAction <em>Else Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Else Action</em>'.
-   * @see lang.iotlang.ConditionalAction#getElseAction()
-   * @see #getConditionalAction()
-   * @generated
-   */
-  EReference getConditionalAction_ElseAction();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ReturnAction <em>Return Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Return Action</em>'.
-   * @see lang.iotlang.ReturnAction
-   * @generated
-   */
-  EClass getReturnAction();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ReturnAction#getExp <em>Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Exp</em>'.
-   * @see lang.iotlang.ReturnAction#getExp()
-   * @see #getReturnAction()
-   * @generated
-   */
-  EReference getReturnAction_Exp();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.PrintAction <em>Print Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Print Action</em>'.
-   * @see lang.iotlang.PrintAction
-   * @generated
-   */
-  EClass getPrintAction();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.PrintAction#getMsg <em>Msg</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Msg</em>'.
-   * @see lang.iotlang.PrintAction#getMsg()
-   * @see #getPrintAction()
-   * @generated
-   */
-  EReference getPrintAction_Msg();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ErrorAction <em>Error Action</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Error Action</em>'.
-   * @see lang.iotlang.ErrorAction
-   * @generated
-   */
-  EClass getErrorAction();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ErrorAction#getMsg <em>Msg</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Msg</em>'.
-   * @see lang.iotlang.ErrorAction#getMsg()
-   * @see #getErrorAction()
-   * @generated
-   */
-  EReference getErrorAction_Msg();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.StartSession <em>Start Session</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Start Session</em>'.
-   * @see lang.iotlang.StartSession
-   * @generated
-   */
-  EClass getStartSession();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.StartSession#getSession <em>Session</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Session</em>'.
-   * @see lang.iotlang.StartSession#getSession()
-   * @see #getStartSession()
-   * @generated
-   */
-  EReference getStartSession_Session();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.FunctionCallStatement <em>Function Call Statement</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Function Call Statement</em>'.
-   * @see lang.iotlang.FunctionCallStatement
-   * @generated
-   */
-  EClass getFunctionCallStatement();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.FunctionCallStatement#getFunction <em>Function</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Function</em>'.
-   * @see lang.iotlang.FunctionCallStatement#getFunction()
-   * @see #getFunctionCallStatement()
-   * @generated
-   */
-  EReference getFunctionCallStatement_Function();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.FunctionCallStatement#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see lang.iotlang.FunctionCallStatement#getParameters()
-   * @see #getFunctionCallStatement()
-   * @generated
-   */
-  EReference getFunctionCallStatement_Parameters();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Expression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expression</em>'.
-   * @see lang.iotlang.Expression
-   * @generated
-   */
-  EClass getExpression();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ExternExpression <em>Extern Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Extern Expression</em>'.
-   * @see lang.iotlang.ExternExpression
-   * @generated
-   */
-  EClass getExternExpression();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.ExternExpression#getExpression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Expression</em>'.
-   * @see lang.iotlang.ExternExpression#getExpression()
-   * @see #getExternExpression()
-   * @generated
-   */
-  EAttribute getExternExpression_Expression();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.ExternExpression#getSegments <em>Segments</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Segments</em>'.
-   * @see lang.iotlang.ExternExpression#getSegments()
-   * @see #getExternExpression()
-   * @generated
-   */
-  EReference getExternExpression_Segments();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.EnumLiteralRef <em>Enum Literal Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Enum Literal Ref</em>'.
-   * @see lang.iotlang.EnumLiteralRef
-   * @generated
-   */
-  EClass getEnumLiteralRef();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.EnumLiteralRef#getEnum <em>Enum</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Enum</em>'.
-   * @see lang.iotlang.EnumLiteralRef#getEnum()
-   * @see #getEnumLiteralRef()
-   * @generated
-   */
-  EReference getEnumLiteralRef_Enum();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.EnumLiteralRef#getLiteral <em>Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Literal</em>'.
-   * @see lang.iotlang.EnumLiteralRef#getLiteral()
-   * @see #getEnumLiteralRef()
-   * @generated
-   */
-  EReference getEnumLiteralRef_Literal();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.IntegerLiteral <em>Integer Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Integer Literal</em>'.
-   * @see lang.iotlang.IntegerLiteral
-   * @generated
-   */
-  EClass getIntegerLiteral();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.IntegerLiteral#getIntValue <em>Int Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Int Value</em>'.
-   * @see lang.iotlang.IntegerLiteral#getIntValue()
-   * @see #getIntegerLiteral()
-   * @generated
-   */
-  EAttribute getIntegerLiteral_IntValue();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.BooleanLiteral <em>Boolean Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Boolean Literal</em>'.
-   * @see lang.iotlang.BooleanLiteral
-   * @generated
-   */
-  EClass getBooleanLiteral();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.BooleanLiteral#isBoolValue <em>Bool Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Bool Value</em>'.
-   * @see lang.iotlang.BooleanLiteral#isBoolValue()
-   * @see #getBooleanLiteral()
-   * @generated
-   */
-  EAttribute getBooleanLiteral_BoolValue();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.StringLiteral <em>String Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>String Literal</em>'.
-   * @see lang.iotlang.StringLiteral
-   * @generated
-   */
-  EClass getStringLiteral();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.StringLiteral#getStringValue <em>String Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>String Value</em>'.
-   * @see lang.iotlang.StringLiteral#getStringValue()
-   * @see #getStringLiteral()
-   * @generated
-   */
-  EAttribute getStringLiteral_StringValue();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.DoubleLiteral <em>Double Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Double Literal</em>'.
-   * @see lang.iotlang.DoubleLiteral
-   * @generated
-   */
-  EClass getDoubleLiteral();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.DoubleLiteral#getDoubleValue <em>Double Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Double Value</em>'.
-   * @see lang.iotlang.DoubleLiteral#getDoubleValue()
-   * @see #getDoubleLiteral()
-   * @generated
-   */
-  EAttribute getDoubleLiteral_DoubleValue();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.PropertyReference <em>Property Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Property Reference</em>'.
-   * @see lang.iotlang.PropertyReference
-   * @generated
-   */
-  EClass getPropertyReference();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.PropertyReference#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see lang.iotlang.PropertyReference#getProperty()
-   * @see #getPropertyReference()
-   * @generated
-   */
-  EReference getPropertyReference_Property();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.EventReference <em>Event Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Event Reference</em>'.
-   * @see lang.iotlang.EventReference
-   * @generated
-   */
-  EClass getEventReference();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.EventReference#getReceiveMsg <em>Receive Msg</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Receive Msg</em>'.
-   * @see lang.iotlang.EventReference#getReceiveMsg()
-   * @see #getEventReference()
-   * @generated
-   */
-  EReference getEventReference_ReceiveMsg();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.EventReference#getParameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Parameter</em>'.
-   * @see lang.iotlang.EventReference#getParameter()
-   * @see #getEventReference()
-   * @generated
-   */
-  EReference getEventReference_Parameter();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.FunctionCallExpression <em>Function Call Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Function Call Expression</em>'.
-   * @see lang.iotlang.FunctionCallExpression
-   * @generated
-   */
-  EClass getFunctionCallExpression();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.FunctionCallExpression#getFunction <em>Function</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Function</em>'.
-   * @see lang.iotlang.FunctionCallExpression#getFunction()
-   * @see #getFunctionCallExpression()
-   * @generated
-   */
-  EReference getFunctionCallExpression_Function();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.FunctionCallExpression#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see lang.iotlang.FunctionCallExpression#getParameters()
-   * @see #getFunctionCallExpression()
-   * @generated
-   */
-  EReference getFunctionCallExpression_Parameters();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Gateway <em>Gateway</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Gateway</em>'.
-   * @see lang.iotlang.Gateway
-   * @generated
-   */
-  EClass getGateway();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Gateway#getBuses <em>Buses</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Buses</em>'.
-   * @see lang.iotlang.Gateway#getBuses()
-   * @see #getGateway()
-   * @generated
-   */
-  EReference getGateway_Buses();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Bus <em>Bus</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Bus</em>'.
-   * @see lang.iotlang.Bus
-   * @generated
-   */
-  EClass getBus();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Bus#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Thing#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see lang.iotlang.Bus#getName()
-   * @see #getBus()
+   * @see lang.iotlang.Thing#getName()
+   * @see #getThing()
    * @generated
    */
-  EAttribute getBus_Name();
+  EAttribute getThing_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Bus#getChannels <em>Channels</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Channels</em>'.
-   * @see lang.iotlang.Bus#getChannels()
-   * @see #getBus()
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.Thing#getAnnotations()
+   * @see #getThing()
    * @generated
    */
-  EReference getBus_Channels();
+  EReference getThing_Annotations();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.Channel <em>Channel</em>}'.
@@ -5704,91 +924,197 @@ public interface IotlangPackage extends EPackage
   EAttribute getChannel_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Channel#getChannelId <em>Channel Id</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Channel#getTopics <em>Topics</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Channel Id</em>'.
-   * @see lang.iotlang.Channel#getChannelId()
+   * @return the meta object for the containment reference list '<em>Topics</em>'.
+   * @see lang.iotlang.Channel#getTopics()
    * @see #getChannel()
    * @generated
    */
-  EAttribute getChannel_ChannelId();
+  EReference getChannel_Topics();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.Configuration <em>Configuration</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.Policy <em>Policy</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Configuration</em>'.
-   * @see lang.iotlang.Configuration
+   * @return the meta object for class '<em>Policy</em>'.
+   * @see lang.iotlang.Policy
    * @generated
    */
-  EClass getConfiguration();
+  EClass getPolicy();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getDomain <em>Domain</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Policy#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Domain</em>'.
-   * @see lang.iotlang.Configuration#getDomain()
-   * @see #getConfiguration()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Policy#getName()
+   * @see #getPolicy()
    * @generated
    */
-  EReference getConfiguration_Domain();
+  EAttribute getPolicy_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getChannelings <em>Channelings</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Policy#getRules <em>Rules</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Channelings</em>'.
-   * @see lang.iotlang.Configuration#getChannelings()
-   * @see #getConfiguration()
+   * @return the meta object for the containment reference list '<em>Rules</em>'.
+   * @see lang.iotlang.Policy#getRules()
+   * @see #getPolicy()
    * @generated
    */
-  EReference getConfiguration_Channelings();
+  EReference getPolicy_Rules();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getInstancegateways <em>Instancegateways</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.Protocol <em>Protocol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Instancegateways</em>'.
-   * @see lang.iotlang.Configuration#getInstancegateways()
-   * @see #getConfiguration()
+   * @return the meta object for class '<em>Protocol</em>'.
+   * @see lang.iotlang.Protocol
    * @generated
    */
-  EReference getConfiguration_Instancegateways();
+  EClass getProtocol();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getInstances <em>Instances</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Protocol#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Instances</em>'.
-   * @see lang.iotlang.Configuration#getInstances()
-   * @see #getConfiguration()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Protocol#getName()
+   * @see #getProtocol()
    * @generated
    */
-  EReference getConfiguration_Instances();
+  EAttribute getProtocol_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getConnectors <em>Connectors</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.Message <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Connectors</em>'.
-   * @see lang.iotlang.Configuration#getConnectors()
-   * @see #getConfiguration()
+   * @return the meta object for class '<em>Message</em>'.
+   * @see lang.iotlang.Message
    * @generated
    */
-  EReference getConfiguration_Connectors();
+  EClass getMessage();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Configuration#getPropassigns <em>Propassigns</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Message#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Propassigns</em>'.
-   * @see lang.iotlang.Configuration#getPropassigns()
-   * @see #getConfiguration()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Message#getName()
+   * @see #getMessage()
    * @generated
    */
-  EReference getConfiguration_Propassigns();
+  EAttribute getMessage_Name();
+
+  /**
+   * Returns the meta object for class '{@link lang.iotlang.Topic <em>Topic</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Topic</em>'.
+   * @see lang.iotlang.Topic
+   * @generated
+   */
+  EClass getTopic();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Topic#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Topic#getName()
+   * @see #getTopic()
+   * @generated
+   */
+  EAttribute getTopic_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Topic#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see lang.iotlang.Topic#getType()
+   * @see #getTopic()
+   * @generated
+   */
+  EAttribute getTopic_Type();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Topic#getMessages <em>Messages</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Messages</em>'.
+   * @see lang.iotlang.Topic#getMessages()
+   * @see #getTopic()
+   * @generated
+   */
+  EReference getTopic_Messages();
+
+  /**
+   * Returns the meta object for class '{@link lang.iotlang.Rule <em>Rule</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Rule</em>'.
+   * @see lang.iotlang.Rule
+   * @generated
+   */
+  EClass getRule();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Rule#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Rule#getName()
+   * @see #getRule()
+   * @generated
+   */
+  EAttribute getRule_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Rule#getThings <em>Things</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Things</em>'.
+   * @see lang.iotlang.Rule#getThings()
+   * @see #getRule()
+   * @generated
+   */
+  EReference getRule_Things();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Rule#getPermission <em>Permission</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Permission</em>'.
+   * @see lang.iotlang.Rule#getPermission()
+   * @see #getRule()
+   * @generated
+   */
+  EAttribute getRule_Permission();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Rule#getAction <em>Action</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Action</em>'.
+   * @see lang.iotlang.Rule#getAction()
+   * @see #getRule()
+   * @generated
+   */
+  EAttribute getRule_Action();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Rule#getRes <em>Res</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Res</em>'.
+   * @see lang.iotlang.Rule#getRes()
+   * @see #getRule()
+   * @generated
+   */
+  EReference getRule_Res();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.Domain <em>Domain</em>}'.
@@ -5812,870 +1138,340 @@ public interface IotlangPackage extends EPackage
   EAttribute getDomain_Name();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.Instance <em>Instance</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.InstanceThing <em>Instance Thing</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Instance</em>'.
-   * @see lang.iotlang.Instance
+   * @return the meta object for class '<em>Instance Thing</em>'.
+   * @see lang.iotlang.InstanceThing
    * @generated
    */
-  EClass getInstance();
+  EClass getInstanceThing();
 
   /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Instance#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see lang.iotlang.Instance#getType()
-   * @see #getInstance()
-   * @generated
-   */
-  EReference getInstance_Type();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.InstanceGateway <em>Instance Gateway</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Instance Gateway</em>'.
-   * @see lang.iotlang.InstanceGateway
-   * @generated
-   */
-  EClass getInstanceGateway();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.InstanceGateway#getTypeGate <em>Type Gate</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type Gate</em>'.
-   * @see lang.iotlang.InstanceGateway#getTypeGate()
-   * @see #getInstanceGateway()
-   * @generated
-   */
-  EReference getInstanceGateway_TypeGate();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ConfigPropertyAssign <em>Config Property Assign</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Config Property Assign</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign
-   * @generated
-   */
-  EClass getConfigPropertyAssign();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ConfigPropertyAssign#getInstance <em>Instance</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Instance</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign#getInstance()
-   * @see #getConfigPropertyAssign()
-   * @generated
-   */
-  EReference getConfigPropertyAssign_Instance();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ConfigPropertyAssign#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign#getProperty()
-   * @see #getConfigPropertyAssign()
-   * @generated
-   */
-  EReference getConfigPropertyAssign_Property();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.ConfigPropertyAssign#getIndex <em>Index</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Index</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign#getIndex()
-   * @see #getConfigPropertyAssign()
-   * @generated
-   */
-  EReference getConfigPropertyAssign_Index();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ConfigPropertyAssign#getInit <em>Init</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Init</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign#getInit()
-   * @see #getConfigPropertyAssign()
-   * @generated
-   */
-  EReference getConfigPropertyAssign_Init();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.ConfigPropertyAssign#getAnnotations <em>Annotations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Annotations</em>'.
-   * @see lang.iotlang.ConfigPropertyAssign#getAnnotations()
-   * @see #getConfigPropertyAssign()
-   * @generated
-   */
-  EReference getConfigPropertyAssign_Annotations();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.AbstractConnector <em>Abstract Connector</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Abstract Connector</em>'.
-   * @see lang.iotlang.AbstractConnector
-   * @generated
-   */
-  EClass getAbstractConnector();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Connector <em>Connector</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Connector</em>'.
-   * @see lang.iotlang.Connector
-   * @generated
-   */
-  EClass getConnector();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Connector#getCli <em>Cli</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Cli</em>'.
-   * @see lang.iotlang.Connector#getCli()
-   * @see #getConnector()
-   * @generated
-   */
-  EReference getConnector_Cli();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Connector#getRequired <em>Required</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Required</em>'.
-   * @see lang.iotlang.Connector#getRequired()
-   * @see #getConnector()
-   * @generated
-   */
-  EReference getConnector_Required();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Connector#getSrv <em>Srv</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Srv</em>'.
-   * @see lang.iotlang.Connector#getSrv()
-   * @see #getConnector()
-   * @generated
-   */
-  EReference getConnector_Srv();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Connector#getProvided <em>Provided</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Provided</em>'.
-   * @see lang.iotlang.Connector#getProvided()
-   * @see #getConnector()
-   * @generated
-   */
-  EReference getConnector_Provided();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ExternalConnector <em>External Connector</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>External Connector</em>'.
-   * @see lang.iotlang.ExternalConnector
-   * @generated
-   */
-  EClass getExternalConnector();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ExternalConnector#getInst <em>Inst</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Inst</em>'.
-   * @see lang.iotlang.ExternalConnector#getInst()
-   * @see #getExternalConnector()
-   * @generated
-   */
-  EReference getExternalConnector_Inst();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ExternalConnector#getPort <em>Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Port</em>'.
-   * @see lang.iotlang.ExternalConnector#getPort()
-   * @see #getExternalConnector()
-   * @generated
-   */
-  EReference getExternalConnector_Port();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.ExternalConnector#getProtocol <em>Protocol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Protocol</em>'.
-   * @see lang.iotlang.ExternalConnector#getProtocol()
-   * @see #getExternalConnector()
-   * @generated
-   */
-  EReference getExternalConnector_Protocol();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.Channeling <em>Channeling</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Channeling</em>'.
-   * @see lang.iotlang.Channeling
-   * @generated
-   */
-  EClass getChanneling();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Channeling#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.InstanceThing#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see lang.iotlang.Channeling#getName()
-   * @see #getChanneling()
+   * @see lang.iotlang.InstanceThing#getName()
+   * @see #getInstanceThing()
    * @generated
    */
-  EAttribute getChanneling_Name();
+  EAttribute getInstanceThing_Name();
 
   /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Channeling#getThinginst <em>Thinginst</em>}'.
+   * Returns the meta object for the attribute list '{@link lang.iotlang.InstanceThing#getNumber <em>Number</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Thinginst</em>'.
-   * @see lang.iotlang.Channeling#getThinginst()
-   * @see #getChanneling()
+   * @return the meta object for the attribute list '<em>Number</em>'.
+   * @see lang.iotlang.InstanceThing#getNumber()
+   * @see #getInstanceThing()
    * @generated
    */
-  EReference getChanneling_Thinginst();
+  EAttribute getInstanceThing_Number();
 
   /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Channeling#getPort <em>Port</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Port</em>'.
-   * @see lang.iotlang.Channeling#getPort()
-   * @see #getChanneling()
-   * @generated
-   */
-  EReference getChanneling_Port();
-
-  /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Channeling#getDirection <em>Direction</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Direction</em>'.
-   * @see lang.iotlang.Channeling#getDirection()
-   * @see #getChanneling()
-   * @generated
-   */
-  EAttribute getChanneling_Direction();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Channeling#getSrv <em>Srv</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Srv</em>'.
-   * @see lang.iotlang.Channeling#getSrv()
-   * @see #getChanneling()
-   * @generated
-   */
-  EReference getChanneling_Srv();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Channeling#getBuses <em>Buses</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Buses</em>'.
-   * @see lang.iotlang.Channeling#getBuses()
-   * @see #getChanneling()
-   * @generated
-   */
-  EReference getChanneling_Buses();
-
-  /**
-   * Returns the meta object for the reference list '{@link lang.iotlang.Channeling#getChannels <em>Channels</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Channels</em>'.
-   * @see lang.iotlang.Channeling#getChannels()
-   * @see #getChanneling()
-   * @generated
-   */
-  EReference getChanneling_Channels();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Channeling#getAnnotations <em>Annotations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Annotations</em>'.
-   * @see lang.iotlang.Channeling#getAnnotations()
-   * @see #getChanneling()
-   * @generated
-   */
-  EReference getChanneling_Annotations();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.CastExpression <em>Cast Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Cast Expression</em>'.
-   * @see lang.iotlang.CastExpression
-   * @generated
-   */
-  EClass getCastExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.CastExpression#getTerm <em>Term</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Term</em>'.
-   * @see lang.iotlang.CastExpression#getTerm()
-   * @see #getCastExpression()
-   * @generated
-   */
-  EReference getCastExpression_Term();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.CastExpression#getType <em>Type</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.InstanceThing#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Type</em>'.
-   * @see lang.iotlang.CastExpression#getType()
-   * @see #getCastExpression()
+   * @see lang.iotlang.InstanceThing#getType()
+   * @see #getInstanceThing()
    * @generated
    */
-  EReference getCastExpression_Type();
+  EReference getInstanceThing_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.CastExpression#isIsArray <em>Is Array</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstanceThing#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Is Array</em>'.
-   * @see lang.iotlang.CastExpression#isIsArray()
-   * @see #getCastExpression()
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.InstanceThing#getAnnotations()
+   * @see #getInstanceThing()
    * @generated
    */
-  EAttribute getCastExpression_IsArray();
+  EReference getInstanceThing_Annotations();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.OrExpression <em>Or Expression</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.InstanceBus <em>Instance Bus</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Or Expression</em>'.
-   * @see lang.iotlang.OrExpression
+   * @return the meta object for class '<em>Instance Bus</em>'.
+   * @see lang.iotlang.InstanceBus
    * @generated
    */
-  EClass getOrExpression();
+  EClass getInstanceBus();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.OrExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.InstanceBus#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.OrExpression#getLhs()
-   * @see #getOrExpression()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.InstanceBus#getName()
+   * @see #getInstanceBus()
    * @generated
    */
-  EReference getOrExpression_Lhs();
+  EAttribute getInstanceBus_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.OrExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the attribute list '{@link lang.iotlang.InstanceBus#getNumber <em>Number</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.OrExpression#getRhs()
-   * @see #getOrExpression()
+   * @return the meta object for the attribute list '<em>Number</em>'.
+   * @see lang.iotlang.InstanceBus#getNumber()
+   * @see #getInstanceBus()
    * @generated
    */
-  EReference getOrExpression_Rhs();
+  EAttribute getInstanceBus_Number();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.AndExpression <em>And Expression</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.InstanceBus#getTypeChannel <em>Type Channel</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>And Expression</em>'.
-   * @see lang.iotlang.AndExpression
+   * @return the meta object for the reference '<em>Type Channel</em>'.
+   * @see lang.iotlang.InstanceBus#getTypeChannel()
+   * @see #getInstanceBus()
    * @generated
    */
-  EClass getAndExpression();
+  EReference getInstanceBus_TypeChannel();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.AndExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the reference list '{@link lang.iotlang.InstanceBus#getProtocol <em>Protocol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.AndExpression#getLhs()
-   * @see #getAndExpression()
+   * @return the meta object for the reference list '<em>Protocol</em>'.
+   * @see lang.iotlang.InstanceBus#getProtocol()
+   * @see #getInstanceBus()
    * @generated
    */
-  EReference getAndExpression_Lhs();
+  EReference getInstanceBus_Protocol();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.AndExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstanceBus#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.AndExpression#getRhs()
-   * @see #getAndExpression()
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.InstanceBus#getAnnotations()
+   * @see #getInstanceBus()
    * @generated
    */
-  EReference getAndExpression_Rhs();
+  EReference getInstanceBus_Annotations();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.EqualsExpression <em>Equals Expression</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.InstancePolicy <em>Instance Policy</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Equals Expression</em>'.
-   * @see lang.iotlang.EqualsExpression
+   * @return the meta object for class '<em>Instance Policy</em>'.
+   * @see lang.iotlang.InstancePolicy
    * @generated
    */
-  EClass getEqualsExpression();
+  EClass getInstancePolicy();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.EqualsExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.InstancePolicy#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.EqualsExpression#getLhs()
-   * @see #getEqualsExpression()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.InstancePolicy#getName()
+   * @see #getInstancePolicy()
    * @generated
    */
-  EReference getEqualsExpression_Lhs();
+  EAttribute getInstancePolicy_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.EqualsExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.InstancePolicy#getTypePolicy <em>Type Policy</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.EqualsExpression#getRhs()
-   * @see #getEqualsExpression()
+   * @return the meta object for the reference '<em>Type Policy</em>'.
+   * @see lang.iotlang.InstancePolicy#getTypePolicy()
+   * @see #getInstancePolicy()
    * @generated
    */
-  EReference getEqualsExpression_Rhs();
+  EReference getInstancePolicy_TypePolicy();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.NotEqualsExpression <em>Not Equals Expression</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstancePolicy#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Not Equals Expression</em>'.
-   * @see lang.iotlang.NotEqualsExpression
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.InstancePolicy#getAnnotations()
+   * @see #getInstancePolicy()
    * @generated
    */
-  EClass getNotEqualsExpression();
+  EReference getInstancePolicy_Annotations();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.NotEqualsExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.NetworkConfiguration <em>Network Configuration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.NotEqualsExpression#getLhs()
-   * @see #getNotEqualsExpression()
+   * @return the meta object for class '<em>Network Configuration</em>'.
+   * @see lang.iotlang.NetworkConfiguration
    * @generated
    */
-  EReference getNotEqualsExpression_Lhs();
+  EClass getNetworkConfiguration();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.NotEqualsExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.NetworkConfiguration#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.NotEqualsExpression#getRhs()
-   * @see #getNotEqualsExpression()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getName()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EReference getNotEqualsExpression_Rhs();
+  EAttribute getNetworkConfiguration_Name();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.GreaterExpression <em>Greater Expression</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Greater Expression</em>'.
-   * @see lang.iotlang.GreaterExpression
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getAnnotations()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EClass getGreaterExpression();
+  EReference getNetworkConfiguration_Annotations();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.GreaterExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getDomain <em>Domain</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.GreaterExpression#getLhs()
-   * @see #getGreaterExpression()
+   * @return the meta object for the containment reference list '<em>Domain</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getDomain()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EReference getGreaterExpression_Lhs();
+  EReference getNetworkConfiguration_Domain();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.GreaterExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getBinds <em>Binds</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.GreaterExpression#getRhs()
-   * @see #getGreaterExpression()
+   * @return the meta object for the containment reference list '<em>Binds</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getBinds()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EReference getGreaterExpression_Rhs();
+  EReference getNetworkConfiguration_Binds();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.LowerExpression <em>Lower Expression</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getInstances <em>Instances</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Lower Expression</em>'.
-   * @see lang.iotlang.LowerExpression
+   * @return the meta object for the containment reference list '<em>Instances</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getInstances()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EClass getLowerExpression();
+  EReference getNetworkConfiguration_Instances();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LowerExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getInstancesBus <em>Instances Bus</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.LowerExpression#getLhs()
-   * @see #getLowerExpression()
+   * @return the meta object for the containment reference list '<em>Instances Bus</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getInstancesBus()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EReference getLowerExpression_Lhs();
+  EReference getNetworkConfiguration_InstancesBus();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LowerExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the reference list '{@link lang.iotlang.NetworkConfiguration#getEnforces <em>Enforces</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.LowerExpression#getRhs()
-   * @see #getLowerExpression()
+   * @return the meta object for the reference list '<em>Enforces</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getEnforces()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EReference getLowerExpression_Rhs();
+  EReference getNetworkConfiguration_Enforces();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.GreaterOrEqualExpression <em>Greater Or Equal Expression</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getInstPolicies <em>Inst Policies</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Greater Or Equal Expression</em>'.
-   * @see lang.iotlang.GreaterOrEqualExpression
+   * @return the meta object for the containment reference list '<em>Inst Policies</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getInstPolicies()
+   * @see #getNetworkConfiguration()
    * @generated
    */
-  EClass getGreaterOrEqualExpression();
+  EReference getNetworkConfiguration_InstPolicies();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.GreaterOrEqualExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for class '{@link lang.iotlang.Bind <em>Bind</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.GreaterOrEqualExpression#getLhs()
-   * @see #getGreaterOrEqualExpression()
+   * @return the meta object for class '<em>Bind</em>'.
+   * @see lang.iotlang.Bind
    * @generated
    */
-  EReference getGreaterOrEqualExpression_Lhs();
+  EClass getBind();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.GreaterOrEqualExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Bind#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.GreaterOrEqualExpression#getRhs()
-   * @see #getGreaterOrEqualExpression()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Bind#getName()
+   * @see #getBind()
    * @generated
    */
-  EReference getGreaterOrEqualExpression_Rhs();
+  EAttribute getBind_Name();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.LowerOrEqualExpression <em>Lower Or Equal Expression</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.Bind#getThinginst <em>Thinginst</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Lower Or Equal Expression</em>'.
-   * @see lang.iotlang.LowerOrEqualExpression
+   * @return the meta object for the reference '<em>Thinginst</em>'.
+   * @see lang.iotlang.Bind#getThinginst()
+   * @see #getBind()
    * @generated
    */
-  EClass getLowerOrEqualExpression();
+  EReference getBind_Thinginst();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LowerOrEqualExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the attribute '{@link lang.iotlang.Bind#getDirection <em>Direction</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.LowerOrEqualExpression#getLhs()
-   * @see #getLowerOrEqualExpression()
+   * @return the meta object for the attribute '<em>Direction</em>'.
+   * @see lang.iotlang.Bind#getDirection()
+   * @see #getBind()
    * @generated
    */
-  EReference getLowerOrEqualExpression_Lhs();
+  EAttribute getBind_Direction();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.LowerOrEqualExpression#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.Bind#getBusInst <em>Bus Inst</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.LowerOrEqualExpression#getRhs()
-   * @see #getLowerOrEqualExpression()
+   * @return the meta object for the reference '<em>Bus Inst</em>'.
+   * @see lang.iotlang.Bind#getBusInst()
+   * @see #getBind()
    * @generated
    */
-  EReference getLowerOrEqualExpression_Rhs();
+  EReference getBind_BusInst();
 
   /**
-   * Returns the meta object for class '{@link lang.iotlang.PlusExpression <em>Plus Expression</em>}'.
+   * Returns the meta object for the reference list '{@link lang.iotlang.Bind#getChannels <em>Channels</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Plus Expression</em>'.
-   * @see lang.iotlang.PlusExpression
+   * @return the meta object for the reference list '<em>Channels</em>'.
+   * @see lang.iotlang.Bind#getChannels()
+   * @see #getBind()
    * @generated
    */
-  EClass getPlusExpression();
+  EReference getBind_Channels();
 
   /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.PlusExpression#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Bind#getAnnotations <em>Annotations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.PlusExpression#getLhs()
-   * @see #getPlusExpression()
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.Bind#getAnnotations()
+   * @see #getBind()
    * @generated
    */
-  EReference getPlusExpression_Lhs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.PlusExpression#getRhs <em>Rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.PlusExpression#getRhs()
-   * @see #getPlusExpression()
-   * @generated
-   */
-  EReference getPlusExpression_Rhs();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.MinusExpression <em>Minus Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Minus Expression</em>'.
-   * @see lang.iotlang.MinusExpression
-   * @generated
-   */
-  EClass getMinusExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.MinusExpression#getLhs <em>Lhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.MinusExpression#getLhs()
-   * @see #getMinusExpression()
-   * @generated
-   */
-  EReference getMinusExpression_Lhs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.MinusExpression#getRhs <em>Rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.MinusExpression#getRhs()
-   * @see #getMinusExpression()
-   * @generated
-   */
-  EReference getMinusExpression_Rhs();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.TimesExpression <em>Times Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Times Expression</em>'.
-   * @see lang.iotlang.TimesExpression
-   * @generated
-   */
-  EClass getTimesExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.TimesExpression#getLhs <em>Lhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.TimesExpression#getLhs()
-   * @see #getTimesExpression()
-   * @generated
-   */
-  EReference getTimesExpression_Lhs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.TimesExpression#getRhs <em>Rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.TimesExpression#getRhs()
-   * @see #getTimesExpression()
-   * @generated
-   */
-  EReference getTimesExpression_Rhs();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.DivExpression <em>Div Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Div Expression</em>'.
-   * @see lang.iotlang.DivExpression
-   * @generated
-   */
-  EClass getDivExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.DivExpression#getLhs <em>Lhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.DivExpression#getLhs()
-   * @see #getDivExpression()
-   * @generated
-   */
-  EReference getDivExpression_Lhs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.DivExpression#getRhs <em>Rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.DivExpression#getRhs()
-   * @see #getDivExpression()
-   * @generated
-   */
-  EReference getDivExpression_Rhs();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ModExpression <em>Mod Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Mod Expression</em>'.
-   * @see lang.iotlang.ModExpression
-   * @generated
-   */
-  EClass getModExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ModExpression#getLhs <em>Lhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see lang.iotlang.ModExpression#getLhs()
-   * @see #getModExpression()
-   * @generated
-   */
-  EReference getModExpression_Lhs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ModExpression#getRhs <em>Rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see lang.iotlang.ModExpression#getRhs()
-   * @see #getModExpression()
-   * @generated
-   */
-  EReference getModExpression_Rhs();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ExpressionGroup <em>Expression Group</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Expression Group</em>'.
-   * @see lang.iotlang.ExpressionGroup
-   * @generated
-   */
-  EClass getExpressionGroup();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ExpressionGroup#getTerm <em>Term</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Term</em>'.
-   * @see lang.iotlang.ExpressionGroup#getTerm()
-   * @see #getExpressionGroup()
-   * @generated
-   */
-  EReference getExpressionGroup_Term();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.NotExpression <em>Not Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Not Expression</em>'.
-   * @see lang.iotlang.NotExpression
-   * @generated
-   */
-  EClass getNotExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.NotExpression#getTerm <em>Term</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Term</em>'.
-   * @see lang.iotlang.NotExpression#getTerm()
-   * @see #getNotExpression()
-   * @generated
-   */
-  EReference getNotExpression_Term();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.UnaryMinus <em>Unary Minus</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Unary Minus</em>'.
-   * @see lang.iotlang.UnaryMinus
-   * @generated
-   */
-  EClass getUnaryMinus();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.UnaryMinus#getTerm <em>Term</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Term</em>'.
-   * @see lang.iotlang.UnaryMinus#getTerm()
-   * @see #getUnaryMinus()
-   * @generated
-   */
-  EReference getUnaryMinus_Term();
-
-  /**
-   * Returns the meta object for class '{@link lang.iotlang.ArrayIndex <em>Array Index</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Array Index</em>'.
-   * @see lang.iotlang.ArrayIndex
-   * @generated
-   */
-  EClass getArrayIndex();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ArrayIndex#getArray <em>Array</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Array</em>'.
-   * @see lang.iotlang.ArrayIndex#getArray()
-   * @see #getArrayIndex()
-   * @generated
-   */
-  EReference getArrayIndex_Array();
-
-  /**
-   * Returns the meta object for the containment reference '{@link lang.iotlang.ArrayIndex#getIndex <em>Index</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Index</em>'.
-   * @see lang.iotlang.ArrayIndex#getIndex()
-   * @see #getArrayIndex()
-   * @generated
-   */
-  EReference getArrayIndex_Index();
+  EReference getBind_Annotations();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -6711,28 +1507,28 @@ public interface IotlangPackage extends EPackage
     EClass IO_TLANG_MODEL = eINSTANCE.getIoTLangModel();
 
     /**
-     * The meta object literal for the '<em><b>Import URI</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Things</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute IO_TLANG_MODEL__IMPORT_URI = eINSTANCE.getIoTLangModel_ImportURI();
+    EReference IO_TLANG_MODEL__THINGS = eINSTANCE.getIoTLangModel_Things();
 
     /**
-     * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Policies</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference IO_TLANG_MODEL__TYPES = eINSTANCE.getIoTLangModel_Types();
+    EReference IO_TLANG_MODEL__POLICIES = eINSTANCE.getIoTLangModel_Policies();
 
     /**
-     * The meta object literal for the '<em><b>Protocols</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Channels</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference IO_TLANG_MODEL__PROTOCOLS = eINSTANCE.getIoTLangModel_Protocols();
+    EReference IO_TLANG_MODEL__CHANNELS = eINSTANCE.getIoTLangModel_Channels();
 
     /**
      * The meta object literal for the '<em><b>Configs</b></em>' containment reference list feature.
@@ -6769,160 +1565,6 @@ public interface IotlangPackage extends EPackage
     EAttribute PLATFORM_ANNOTATION__VALUE = eINSTANCE.getPlatformAnnotation_Value();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.NamedElementImpl <em>Named Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.NamedElementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getNamedElement()
-     * @generated
-     */
-    EClass NAMED_ELEMENT = eINSTANCE.getNamedElement();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAMED_ELEMENT__NAME = eINSTANCE.getNamedElement_Name();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.AnnotatedElementImpl <em>Annotated Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.AnnotatedElementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getAnnotatedElement()
-     * @generated
-     */
-    EClass ANNOTATED_ELEMENT = eINSTANCE.getAnnotatedElement();
-
-    /**
-     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ANNOTATED_ELEMENT__ANNOTATIONS = eINSTANCE.getAnnotatedElement_Annotations();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.VariableImpl <em>Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.VariableImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getVariable()
-     * @generated
-     */
-    EClass VARIABLE = eINSTANCE.getVariable();
-
-    /**
-     * The meta object literal for the '<em><b>Type Ref</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE__TYPE_REF = eINSTANCE.getVariable_TypeRef();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.TypeRefImpl <em>Type Ref</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.TypeRefImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getTypeRef()
-     * @generated
-     */
-    EClass TYPE_REF = eINSTANCE.getTypeRef();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TYPE_REF__TYPE = eINSTANCE.getTypeRef_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Is Array</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TYPE_REF__IS_ARRAY = eINSTANCE.getTypeRef_IsArray();
-
-    /**
-     * The meta object literal for the '<em><b>Cardinality</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TYPE_REF__CARDINALITY = eINSTANCE.getTypeRef_Cardinality();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.TypeImpl <em>Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.TypeImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getType()
-     * @generated
-     */
-    EClass TYPE = eINSTANCE.getType();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PrimitiveTypeImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPrimitiveType()
-     * @generated
-     */
-    EClass PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
-
-    /**
-     * The meta object literal for the '<em><b>Byte Size</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PRIMITIVE_TYPE__BYTE_SIZE = eINSTANCE.getPrimitiveType_ByteSize();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ObjectTypeImpl <em>Object Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ObjectTypeImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getObjectType()
-     * @generated
-     */
-    EClass OBJECT_TYPE = eINSTANCE.getObjectType();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EnumerationImpl <em>Enumeration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EnumerationImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEnumeration()
-     * @generated
-     */
-    EClass ENUMERATION = eINSTANCE.getEnumeration();
-
-    /**
-     * The meta object literal for the '<em><b>Literals</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ENUMERATION__LITERALS = eINSTANCE.getEnumeration_Literals();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EnumerationLiteralImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEnumerationLiteral()
-     * @generated
-     */
-    EClass ENUMERATION_LITERAL = eINSTANCE.getEnumerationLiteral();
-
-    /**
      * The meta object literal for the '{@link lang.iotlang.impl.ThingImpl <em>Thing</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6933,1108 +1575,20 @@ public interface IotlangPackage extends EPackage
     EClass THING = eINSTANCE.getThing();
 
     /**
-     * The meta object literal for the '<em><b>Fragment</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute THING__FRAGMENT = eINSTANCE.getThing_Fragment();
-
-    /**
-     * The meta object literal for the '<em><b>Includes</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__INCLUDES = eINSTANCE.getThing_Includes();
-
-    /**
-     * The meta object literal for the '<em><b>Messages</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__MESSAGES = eINSTANCE.getThing_Messages();
-
-    /**
-     * The meta object literal for the '<em><b>Ports</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__PORTS = eINSTANCE.getThing_Ports();
-
-    /**
-     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__PROPERTIES = eINSTANCE.getThing_Properties();
-
-    /**
-     * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__FUNCTIONS = eINSTANCE.getThing_Functions();
-
-    /**
-     * The meta object literal for the '<em><b>Assign</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__ASSIGN = eINSTANCE.getThing_Assign();
-
-    /**
-     * The meta object literal for the '<em><b>Behaviour</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference THING__BEHAVIOUR = eINSTANCE.getThing_Behaviour();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PropertyAssignImpl <em>Property Assign</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PropertyAssignImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPropertyAssign()
-     * @generated
-     */
-    EClass PROPERTY_ASSIGN = eINSTANCE.getPropertyAssign();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROPERTY_ASSIGN__PROPERTY = eINSTANCE.getPropertyAssign_Property();
-
-    /**
-     * The meta object literal for the '<em><b>Index</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROPERTY_ASSIGN__INDEX = eINSTANCE.getPropertyAssign_Index();
-
-    /**
-     * The meta object literal for the '<em><b>Init</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROPERTY_ASSIGN__INIT = eINSTANCE.getPropertyAssign_Init();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ProtocolImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getProtocol()
-     * @generated
-     */
-    EClass PROTOCOL = eINSTANCE.getProtocol();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.FunctionImpl <em>Function</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.FunctionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getFunction()
-     * @generated
-     */
-    EClass FUNCTION = eINSTANCE.getFunction();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION__PARAMETERS = eINSTANCE.getFunction_Parameters();
-
-    /**
-     * The meta object literal for the '<em><b>Type Ref</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION__TYPE_REF = eINSTANCE.getFunction_TypeRef();
-
-    /**
-     * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION__BODY = eINSTANCE.getFunction_Body();
-
-    /**
-     * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FUNCTION__ABSTRACT = eINSTANCE.getFunction_Abstract();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PropertyImpl <em>Property</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PropertyImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getProperty()
-     * @generated
-     */
-    EClass PROPERTY = eINSTANCE.getProperty();
-
-    /**
-     * The meta object literal for the '<em><b>Readonly</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PROPERTY__READONLY = eINSTANCE.getProperty_Readonly();
-
-    /**
-     * The meta object literal for the '<em><b>Init</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROPERTY__INIT = eINSTANCE.getProperty_Init();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.MessageImpl <em>Message</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.MessageImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getMessage()
-     * @generated
-     */
-    EClass MESSAGE = eINSTANCE.getMessage();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MESSAGE__PARAMETERS = eINSTANCE.getMessage_Parameters();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ParameterImpl <em>Parameter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ParameterImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getParameter()
-     * @generated
-     */
-    EClass PARAMETER = eINSTANCE.getParameter();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PortImpl <em>Port</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PortImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPort()
-     * @generated
-     */
-    EClass PORT = eINSTANCE.getPort();
-
-    /**
-     * The meta object literal for the '<em><b>Sends</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PORT__SENDS = eINSTANCE.getPort_Sends();
-
-    /**
-     * The meta object literal for the '<em><b>Receives</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PORT__RECEIVES = eINSTANCE.getPort_Receives();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.RequiredPortImpl <em>Required Port</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.RequiredPortImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getRequiredPort()
-     * @generated
-     */
-    EClass REQUIRED_PORT = eINSTANCE.getRequiredPort();
-
-    /**
-     * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQUIRED_PORT__OPTIONAL = eINSTANCE.getRequiredPort_Optional();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ProvidedPortImpl <em>Provided Port</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ProvidedPortImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getProvidedPort()
-     * @generated
-     */
-    EClass PROVIDED_PORT = eINSTANCE.getProvidedPort();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.InternalPortImpl <em>Internal Port</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.InternalPortImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getInternalPort()
-     * @generated
-     */
-    EClass INTERNAL_PORT = eINSTANCE.getInternalPort();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.StateImpl <em>State</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.StateImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getState()
-     * @generated
-     */
-    EClass STATE = eINSTANCE.getState();
-
-    /**
-     * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE__PROPERTIES = eINSTANCE.getState_Properties();
-
-    /**
-     * The meta object literal for the '<em><b>Entry</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE__ENTRY = eINSTANCE.getState_Entry();
-
-    /**
-     * The meta object literal for the '<em><b>Exit</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE__EXIT = eINSTANCE.getState_Exit();
-
-    /**
-     * The meta object literal for the '<em><b>Internal</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE__INTERNAL = eINSTANCE.getState_Internal();
-
-    /**
-     * The meta object literal for the '<em><b>Outgoing</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE__OUTGOING = eINSTANCE.getState_Outgoing();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.HandlerImpl <em>Handler</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.HandlerImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getHandler()
-     * @generated
-     */
-    EClass HANDLER = eINSTANCE.getHandler();
-
-    /**
-     * The meta object literal for the '<em><b>Event</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HANDLER__EVENT = eINSTANCE.getHandler_Event();
-
-    /**
-     * The meta object literal for the '<em><b>Guard</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HANDLER__GUARD = eINSTANCE.getHandler_Guard();
-
-    /**
-     * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HANDLER__ACTION = eINSTANCE.getHandler_Action();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.TransitionImpl <em>Transition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.TransitionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getTransition()
-     * @generated
-     */
-    EClass TRANSITION = eINSTANCE.getTransition();
-
-    /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TRANSITION__TARGET = eINSTANCE.getTransition_Target();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.InternalTransitionImpl <em>Internal Transition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.InternalTransitionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getInternalTransition()
-     * @generated
-     */
-    EClass INTERNAL_TRANSITION = eINSTANCE.getInternalTransition();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.CompositeStateImpl <em>Composite State</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.CompositeStateImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getCompositeState()
-     * @generated
-     */
-    EClass COMPOSITE_STATE = eINSTANCE.getCompositeState();
-
-    /**
-     * The meta object literal for the '<em><b>Region</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMPOSITE_STATE__REGION = eINSTANCE.getCompositeState_Region();
-
-    /**
-     * The meta object literal for the '<em><b>Session</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference COMPOSITE_STATE__SESSION = eINSTANCE.getCompositeState_Session();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.SessionImpl <em>Session</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.SessionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getSession()
-     * @generated
-     */
-    EClass SESSION = eINSTANCE.getSession();
-
-    /**
-     * The meta object literal for the '<em><b>Max Instances</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SESSION__MAX_INSTANCES = eINSTANCE.getSession_MaxInstances();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.RegionImpl <em>Region</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.RegionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getRegion()
-     * @generated
-     */
-    EClass REGION = eINSTANCE.getRegion();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.FinalStateImpl <em>Final State</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.FinalStateImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getFinalState()
-     * @generated
-     */
-    EClass FINAL_STATE = eINSTANCE.getFinalState();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.StateContainerImpl <em>State Container</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.StateContainerImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getStateContainer()
-     * @generated
-     */
-    EClass STATE_CONTAINER = eINSTANCE.getStateContainer();
-
-    /**
-     * The meta object literal for the '<em><b>Initial</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE_CONTAINER__INITIAL = eINSTANCE.getStateContainer_Initial();
-
-    /**
-     * The meta object literal for the '<em><b>History</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STATE_CONTAINER__HISTORY = eINSTANCE.getStateContainer_History();
-
-    /**
-     * The meta object literal for the '<em><b>Substate</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE_CONTAINER__SUBSTATE = eINSTANCE.getStateContainer_Substate();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EventImpl <em>Event</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EventImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEvent()
-     * @generated
-     */
-    EClass EVENT = eINSTANCE.getEvent();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ReceiveMessageImpl <em>Receive Message</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ReceiveMessageImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getReceiveMessage()
-     * @generated
-     */
-    EClass RECEIVE_MESSAGE = eINSTANCE.getReceiveMessage();
-
-    /**
-     * The meta object literal for the '<em><b>Port</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RECEIVE_MESSAGE__PORT = eINSTANCE.getReceiveMessage_Port();
-
-    /**
-     * The meta object literal for the '<em><b>Message</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RECEIVE_MESSAGE__MESSAGE = eINSTANCE.getReceiveMessage_Message();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ActionImpl <em>Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getAction()
-     * @generated
-     */
-    EClass ACTION = eINSTANCE.getAction();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ActionBlockImpl <em>Action Block</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ActionBlockImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getActionBlock()
-     * @generated
-     */
-    EClass ACTION_BLOCK = eINSTANCE.getActionBlock();
-
-    /**
-     * The meta object literal for the '<em><b>Actions</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ACTION_BLOCK__ACTIONS = eINSTANCE.getActionBlock_Actions();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ExternStatementImpl <em>Extern Statement</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ExternStatementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getExternStatement()
-     * @generated
-     */
-    EClass EXTERN_STATEMENT = eINSTANCE.getExternStatement();
-
-    /**
-     * The meta object literal for the '<em><b>Statement</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXTERN_STATEMENT__STATEMENT = eINSTANCE.getExternStatement_Statement();
-
-    /**
-     * The meta object literal for the '<em><b>Segments</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXTERN_STATEMENT__SEGMENTS = eINSTANCE.getExternStatement_Segments();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.LocalVariableImpl <em>Local Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.LocalVariableImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getLocalVariable()
-     * @generated
-     */
-    EClass LOCAL_VARIABLE = eINSTANCE.getLocalVariable();
-
-    /**
-     * The meta object literal for the '<em><b>Readonly</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute LOCAL_VARIABLE__READONLY = eINSTANCE.getLocalVariable_Readonly();
-
-    /**
-     * The meta object literal for the '<em><b>Init</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LOCAL_VARIABLE__INIT = eINSTANCE.getLocalVariable_Init();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.SendActionImpl <em>Send Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.SendActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getSendAction()
-     * @generated
-     */
-    EClass SEND_ACTION = eINSTANCE.getSendAction();
-
-    /**
-     * The meta object literal for the '<em><b>Port</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SEND_ACTION__PORT = eINSTANCE.getSendAction_Port();
-
-    /**
-     * The meta object literal for the '<em><b>Message</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SEND_ACTION__MESSAGE = eINSTANCE.getSendAction_Message();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SEND_ACTION__PARAMETERS = eINSTANCE.getSendAction_Parameters();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.VariableAssignmentImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getVariableAssignment()
-     * @generated
-     */
-    EClass VARIABLE_ASSIGNMENT = eINSTANCE.getVariableAssignment();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_ASSIGNMENT__PROPERTY = eINSTANCE.getVariableAssignment_Property();
-
-    /**
-     * The meta object literal for the '<em><b>Index</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_ASSIGNMENT__INDEX = eINSTANCE.getVariableAssignment_Index();
-
-    /**
-     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_ASSIGNMENT__EXPRESSION = eINSTANCE.getVariableAssignment_Expression();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.IncrementImpl <em>Increment</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.IncrementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getIncrement()
-     * @generated
-     */
-    EClass INCREMENT = eINSTANCE.getIncrement();
-
-    /**
-     * The meta object literal for the '<em><b>Var</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INCREMENT__VAR = eINSTANCE.getIncrement_Var();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.DecrementImpl <em>Decrement</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.DecrementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getDecrement()
-     * @generated
-     */
-    EClass DECREMENT = eINSTANCE.getDecrement();
-
-    /**
-     * The meta object literal for the '<em><b>Var</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DECREMENT__VAR = eINSTANCE.getDecrement_Var();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.LoopActionImpl <em>Loop Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.LoopActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getLoopAction()
-     * @generated
-     */
-    EClass LOOP_ACTION = eINSTANCE.getLoopAction();
-
-    /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LOOP_ACTION__CONDITION = eINSTANCE.getLoopAction_Condition();
-
-    /**
-     * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LOOP_ACTION__ACTION = eINSTANCE.getLoopAction_Action();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ConditionalActionImpl <em>Conditional Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ConditionalActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getConditionalAction()
-     * @generated
-     */
-    EClass CONDITIONAL_ACTION = eINSTANCE.getConditionalAction();
-
-    /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITIONAL_ACTION__CONDITION = eINSTANCE.getConditionalAction_Condition();
-
-    /**
-     * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITIONAL_ACTION__ACTION = eINSTANCE.getConditionalAction_Action();
-
-    /**
-     * The meta object literal for the '<em><b>Else Action</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONDITIONAL_ACTION__ELSE_ACTION = eINSTANCE.getConditionalAction_ElseAction();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ReturnActionImpl <em>Return Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ReturnActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getReturnAction()
-     * @generated
-     */
-    EClass RETURN_ACTION = eINSTANCE.getReturnAction();
-
-    /**
-     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RETURN_ACTION__EXP = eINSTANCE.getReturnAction_Exp();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PrintActionImpl <em>Print Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PrintActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPrintAction()
-     * @generated
-     */
-    EClass PRINT_ACTION = eINSTANCE.getPrintAction();
-
-    /**
-     * The meta object literal for the '<em><b>Msg</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PRINT_ACTION__MSG = eINSTANCE.getPrintAction_Msg();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ErrorActionImpl <em>Error Action</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ErrorActionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getErrorAction()
-     * @generated
-     */
-    EClass ERROR_ACTION = eINSTANCE.getErrorAction();
-
-    /**
-     * The meta object literal for the '<em><b>Msg</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ERROR_ACTION__MSG = eINSTANCE.getErrorAction_Msg();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.StartSessionImpl <em>Start Session</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.StartSessionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getStartSession()
-     * @generated
-     */
-    EClass START_SESSION = eINSTANCE.getStartSession();
-
-    /**
-     * The meta object literal for the '<em><b>Session</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference START_SESSION__SESSION = eINSTANCE.getStartSession_Session();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.FunctionCallStatementImpl <em>Function Call Statement</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.FunctionCallStatementImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getFunctionCallStatement()
-     * @generated
-     */
-    EClass FUNCTION_CALL_STATEMENT = eINSTANCE.getFunctionCallStatement();
-
-    /**
-     * The meta object literal for the '<em><b>Function</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_CALL_STATEMENT__FUNCTION = eINSTANCE.getFunctionCallStatement_Function();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_CALL_STATEMENT__PARAMETERS = eINSTANCE.getFunctionCallStatement_Parameters();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ExpressionImpl <em>Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getExpression()
-     * @generated
-     */
-    EClass EXPRESSION = eINSTANCE.getExpression();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ExternExpressionImpl <em>Extern Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ExternExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getExternExpression()
-     * @generated
-     */
-    EClass EXTERN_EXPRESSION = eINSTANCE.getExternExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Expression</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXTERN_EXPRESSION__EXPRESSION = eINSTANCE.getExternExpression_Expression();
-
-    /**
-     * The meta object literal for the '<em><b>Segments</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXTERN_EXPRESSION__SEGMENTS = eINSTANCE.getExternExpression_Segments();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EnumLiteralRefImpl <em>Enum Literal Ref</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EnumLiteralRefImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEnumLiteralRef()
-     * @generated
-     */
-    EClass ENUM_LITERAL_REF = eINSTANCE.getEnumLiteralRef();
-
-    /**
-     * The meta object literal for the '<em><b>Enum</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ENUM_LITERAL_REF__ENUM = eINSTANCE.getEnumLiteralRef_Enum();
-
-    /**
-     * The meta object literal for the '<em><b>Literal</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ENUM_LITERAL_REF__LITERAL = eINSTANCE.getEnumLiteralRef_Literal();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.IntegerLiteralImpl <em>Integer Literal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.IntegerLiteralImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getIntegerLiteral()
-     * @generated
-     */
-    EClass INTEGER_LITERAL = eINSTANCE.getIntegerLiteral();
-
-    /**
-     * The meta object literal for the '<em><b>Int Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INTEGER_LITERAL__INT_VALUE = eINSTANCE.getIntegerLiteral_IntValue();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.BooleanLiteralImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getBooleanLiteral()
-     * @generated
-     */
-    EClass BOOLEAN_LITERAL = eINSTANCE.getBooleanLiteral();
-
-    /**
-     * The meta object literal for the '<em><b>Bool Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute BOOLEAN_LITERAL__BOOL_VALUE = eINSTANCE.getBooleanLiteral_BoolValue();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.StringLiteralImpl <em>String Literal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.StringLiteralImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getStringLiteral()
-     * @generated
-     */
-    EClass STRING_LITERAL = eINSTANCE.getStringLiteral();
-
-    /**
-     * The meta object literal for the '<em><b>String Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STRING_LITERAL__STRING_VALUE = eINSTANCE.getStringLiteral_StringValue();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.DoubleLiteralImpl <em>Double Literal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.DoubleLiteralImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getDoubleLiteral()
-     * @generated
-     */
-    EClass DOUBLE_LITERAL = eINSTANCE.getDoubleLiteral();
-
-    /**
-     * The meta object literal for the '<em><b>Double Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute DOUBLE_LITERAL__DOUBLE_VALUE = eINSTANCE.getDoubleLiteral_DoubleValue();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PropertyReferenceImpl <em>Property Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PropertyReferenceImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPropertyReference()
-     * @generated
-     */
-    EClass PROPERTY_REFERENCE = eINSTANCE.getPropertyReference();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROPERTY_REFERENCE__PROPERTY = eINSTANCE.getPropertyReference_Property();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EventReferenceImpl <em>Event Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EventReferenceImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEventReference()
-     * @generated
-     */
-    EClass EVENT_REFERENCE = eINSTANCE.getEventReference();
-
-    /**
-     * The meta object literal for the '<em><b>Receive Msg</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EVENT_REFERENCE__RECEIVE_MSG = eINSTANCE.getEventReference_ReceiveMsg();
-
-    /**
-     * The meta object literal for the '<em><b>Parameter</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EVENT_REFERENCE__PARAMETER = eINSTANCE.getEventReference_Parameter();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.FunctionCallExpressionImpl <em>Function Call Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.FunctionCallExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getFunctionCallExpression()
-     * @generated
-     */
-    EClass FUNCTION_CALL_EXPRESSION = eINSTANCE.getFunctionCallExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Function</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_CALL_EXPRESSION__FUNCTION = eINSTANCE.getFunctionCallExpression_Function();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_CALL_EXPRESSION__PARAMETERS = eINSTANCE.getFunctionCallExpression_Parameters();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.GatewayImpl <em>Gateway</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.GatewayImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getGateway()
-     * @generated
-     */
-    EClass GATEWAY = eINSTANCE.getGateway();
-
-    /**
-     * The meta object literal for the '<em><b>Buses</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference GATEWAY__BUSES = eINSTANCE.getGateway_Buses();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.BusImpl <em>Bus</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.BusImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getBus()
-     * @generated
-     */
-    EClass BUS = eINSTANCE.getBus();
-
-    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute BUS__NAME = eINSTANCE.getBus_Name();
+    EAttribute THING__NAME = eINSTANCE.getThing_Name();
 
     /**
-     * The meta object literal for the '<em><b>Channels</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference BUS__CHANNELS = eINSTANCE.getBus_Channels();
+    EReference THING__ANNOTATIONS = eINSTANCE.getThing_Annotations();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.ChannelImpl <em>Channel</em>}' class.
@@ -8055,70 +1609,158 @@ public interface IotlangPackage extends EPackage
     EAttribute CHANNEL__NAME = eINSTANCE.getChannel_Name();
 
     /**
-     * The meta object literal for the '<em><b>Channel Id</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Topics</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CHANNEL__CHANNEL_ID = eINSTANCE.getChannel_ChannelId();
+    EReference CHANNEL__TOPICS = eINSTANCE.getChannel_Topics();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ConfigurationImpl <em>Configuration</em>}' class.
+     * The meta object literal for the '{@link lang.iotlang.impl.PolicyImpl <em>Policy</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ConfigurationImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getConfiguration()
+     * @see lang.iotlang.impl.PolicyImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getPolicy()
      * @generated
      */
-    EClass CONFIGURATION = eINSTANCE.getConfiguration();
+    EClass POLICY = eINSTANCE.getPolicy();
 
     /**
-     * The meta object literal for the '<em><b>Domain</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONFIGURATION__DOMAIN = eINSTANCE.getConfiguration_Domain();
+    EAttribute POLICY__NAME = eINSTANCE.getPolicy_Name();
 
     /**
-     * The meta object literal for the '<em><b>Channelings</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONFIGURATION__CHANNELINGS = eINSTANCE.getConfiguration_Channelings();
+    EReference POLICY__RULES = eINSTANCE.getPolicy_Rules();
 
     /**
-     * The meta object literal for the '<em><b>Instancegateways</b></em>' containment reference list feature.
+     * The meta object literal for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.ProtocolImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getProtocol()
      * @generated
      */
-    EReference CONFIGURATION__INSTANCEGATEWAYS = eINSTANCE.getConfiguration_Instancegateways();
+    EClass PROTOCOL = eINSTANCE.getProtocol();
 
     /**
-     * The meta object literal for the '<em><b>Instances</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONFIGURATION__INSTANCES = eINSTANCE.getConfiguration_Instances();
+    EAttribute PROTOCOL__NAME = eINSTANCE.getProtocol_Name();
 
     /**
-     * The meta object literal for the '<em><b>Connectors</b></em>' containment reference list feature.
+     * The meta object literal for the '{@link lang.iotlang.impl.MessageImpl <em>Message</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.MessageImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getMessage()
      * @generated
      */
-    EReference CONFIGURATION__CONNECTORS = eINSTANCE.getConfiguration_Connectors();
+    EClass MESSAGE = eINSTANCE.getMessage();
 
     /**
-     * The meta object literal for the '<em><b>Propassigns</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONFIGURATION__PROPASSIGNS = eINSTANCE.getConfiguration_Propassigns();
+    EAttribute MESSAGE__NAME = eINSTANCE.getMessage_Name();
+
+    /**
+     * The meta object literal for the '{@link lang.iotlang.impl.TopicImpl <em>Topic</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.TopicImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getTopic()
+     * @generated
+     */
+    EClass TOPIC = eINSTANCE.getTopic();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TOPIC__NAME = eINSTANCE.getTopic_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TOPIC__TYPE = eINSTANCE.getTopic_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Messages</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TOPIC__MESSAGES = eINSTANCE.getTopic_Messages();
+
+    /**
+     * The meta object literal for the '{@link lang.iotlang.impl.RuleImpl <em>Rule</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.RuleImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getRule()
+     * @generated
+     */
+    EClass RULE = eINSTANCE.getRule();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RULE__NAME = eINSTANCE.getRule_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Things</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE__THINGS = eINSTANCE.getRule_Things();
+
+    /**
+     * The meta object literal for the '<em><b>Permission</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RULE__PERMISSION = eINSTANCE.getRule_Permission();
+
+    /**
+     * The meta object literal for the '<em><b>Action</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RULE__ACTION = eINSTANCE.getRule_Action();
+
+    /**
+     * The meta object literal for the '<em><b>Res</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE__RES = eINSTANCE.getRule_Res();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.
@@ -8139,186 +1781,14 @@ public interface IotlangPackage extends EPackage
     EAttribute DOMAIN__NAME = eINSTANCE.getDomain_Name();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.InstanceImpl <em>Instance</em>}' class.
+     * The meta object literal for the '{@link lang.iotlang.impl.InstanceThingImpl <em>Instance Thing</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.InstanceImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getInstance()
+     * @see lang.iotlang.impl.InstanceThingImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceThing()
      * @generated
      */
-    EClass INSTANCE = eINSTANCE.getInstance();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INSTANCE__TYPE = eINSTANCE.getInstance_Type();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.InstanceGatewayImpl <em>Instance Gateway</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.InstanceGatewayImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceGateway()
-     * @generated
-     */
-    EClass INSTANCE_GATEWAY = eINSTANCE.getInstanceGateway();
-
-    /**
-     * The meta object literal for the '<em><b>Type Gate</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INSTANCE_GATEWAY__TYPE_GATE = eINSTANCE.getInstanceGateway_TypeGate();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ConfigPropertyAssignImpl <em>Config Property Assign</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ConfigPropertyAssignImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getConfigPropertyAssign()
-     * @generated
-     */
-    EClass CONFIG_PROPERTY_ASSIGN = eINSTANCE.getConfigPropertyAssign();
-
-    /**
-     * The meta object literal for the '<em><b>Instance</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONFIG_PROPERTY_ASSIGN__INSTANCE = eINSTANCE.getConfigPropertyAssign_Instance();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONFIG_PROPERTY_ASSIGN__PROPERTY = eINSTANCE.getConfigPropertyAssign_Property();
-
-    /**
-     * The meta object literal for the '<em><b>Index</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONFIG_PROPERTY_ASSIGN__INDEX = eINSTANCE.getConfigPropertyAssign_Index();
-
-    /**
-     * The meta object literal for the '<em><b>Init</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONFIG_PROPERTY_ASSIGN__INIT = eINSTANCE.getConfigPropertyAssign_Init();
-
-    /**
-     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONFIG_PROPERTY_ASSIGN__ANNOTATIONS = eINSTANCE.getConfigPropertyAssign_Annotations();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.AbstractConnectorImpl <em>Abstract Connector</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.AbstractConnectorImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getAbstractConnector()
-     * @generated
-     */
-    EClass ABSTRACT_CONNECTOR = eINSTANCE.getAbstractConnector();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ConnectorImpl <em>Connector</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ConnectorImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getConnector()
-     * @generated
-     */
-    EClass CONNECTOR = eINSTANCE.getConnector();
-
-    /**
-     * The meta object literal for the '<em><b>Cli</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTOR__CLI = eINSTANCE.getConnector_Cli();
-
-    /**
-     * The meta object literal for the '<em><b>Required</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTOR__REQUIRED = eINSTANCE.getConnector_Required();
-
-    /**
-     * The meta object literal for the '<em><b>Srv</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTOR__SRV = eINSTANCE.getConnector_Srv();
-
-    /**
-     * The meta object literal for the '<em><b>Provided</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONNECTOR__PROVIDED = eINSTANCE.getConnector_Provided();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ExternalConnectorImpl <em>External Connector</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ExternalConnectorImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getExternalConnector()
-     * @generated
-     */
-    EClass EXTERNAL_CONNECTOR = eINSTANCE.getExternalConnector();
-
-    /**
-     * The meta object literal for the '<em><b>Inst</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXTERNAL_CONNECTOR__INST = eINSTANCE.getExternalConnector_Inst();
-
-    /**
-     * The meta object literal for the '<em><b>Port</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXTERNAL_CONNECTOR__PORT = eINSTANCE.getExternalConnector_Port();
-
-    /**
-     * The meta object literal for the '<em><b>Protocol</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXTERNAL_CONNECTOR__PROTOCOL = eINSTANCE.getExternalConnector_Protocol();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ChannelingImpl <em>Channeling</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ChannelingImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getChanneling()
-     * @generated
-     */
-    EClass CHANNELING = eINSTANCE.getChanneling();
+    EClass INSTANCE_THING = eINSTANCE.getInstanceThing();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -8326,81 +1796,15 @@ public interface IotlangPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CHANNELING__NAME = eINSTANCE.getChanneling_Name();
+    EAttribute INSTANCE_THING__NAME = eINSTANCE.getInstanceThing_Name();
 
     /**
-     * The meta object literal for the '<em><b>Thinginst</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Number</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CHANNELING__THINGINST = eINSTANCE.getChanneling_Thinginst();
-
-    /**
-     * The meta object literal for the '<em><b>Port</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNELING__PORT = eINSTANCE.getChanneling_Port();
-
-    /**
-     * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CHANNELING__DIRECTION = eINSTANCE.getChanneling_Direction();
-
-    /**
-     * The meta object literal for the '<em><b>Srv</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNELING__SRV = eINSTANCE.getChanneling_Srv();
-
-    /**
-     * The meta object literal for the '<em><b>Buses</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNELING__BUSES = eINSTANCE.getChanneling_Buses();
-
-    /**
-     * The meta object literal for the '<em><b>Channels</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNELING__CHANNELS = eINSTANCE.getChanneling_Channels();
-
-    /**
-     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNELING__ANNOTATIONS = eINSTANCE.getChanneling_Annotations();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.CastExpressionImpl <em>Cast Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.CastExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getCastExpression()
-     * @generated
-     */
-    EClass CAST_EXPRESSION = eINSTANCE.getCastExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Term</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CAST_EXPRESSION__TERM = eINSTANCE.getCastExpression_Term();
+    EAttribute INSTANCE_THING__NUMBER = eINSTANCE.getInstanceThing_Number();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' reference feature.
@@ -8408,433 +1812,231 @@ public interface IotlangPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CAST_EXPRESSION__TYPE = eINSTANCE.getCastExpression_Type();
+    EReference INSTANCE_THING__TYPE = eINSTANCE.getInstanceThing_Type();
 
     /**
-     * The meta object literal for the '<em><b>Is Array</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CAST_EXPRESSION__IS_ARRAY = eINSTANCE.getCastExpression_IsArray();
+    EReference INSTANCE_THING__ANNOTATIONS = eINSTANCE.getInstanceThing_Annotations();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.OrExpressionImpl <em>Or Expression</em>}' class.
+     * The meta object literal for the '{@link lang.iotlang.impl.InstanceBusImpl <em>Instance Bus</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.OrExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getOrExpression()
+     * @see lang.iotlang.impl.InstanceBusImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceBus()
      * @generated
      */
-    EClass OR_EXPRESSION = eINSTANCE.getOrExpression();
+    EClass INSTANCE_BUS = eINSTANCE.getInstanceBus();
 
     /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference OR_EXPRESSION__LHS = eINSTANCE.getOrExpression_Lhs();
-
-    /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference OR_EXPRESSION__RHS = eINSTANCE.getOrExpression_Rhs();
+    EAttribute INSTANCE_BUS__NAME = eINSTANCE.getInstanceBus_Name();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.AndExpressionImpl <em>And Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.AndExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getAndExpression()
-     * @generated
-     */
-    EClass AND_EXPRESSION = eINSTANCE.getAndExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Number</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AND_EXPRESSION__LHS = eINSTANCE.getAndExpression_Lhs();
+    EAttribute INSTANCE_BUS__NUMBER = eINSTANCE.getInstanceBus_Number();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Type Channel</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference AND_EXPRESSION__RHS = eINSTANCE.getAndExpression_Rhs();
+    EReference INSTANCE_BUS__TYPE_CHANNEL = eINSTANCE.getInstanceBus_TypeChannel();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.EqualsExpressionImpl <em>Equals Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.EqualsExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getEqualsExpression()
-     * @generated
-     */
-    EClass EQUALS_EXPRESSION = eINSTANCE.getEqualsExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Protocol</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EQUALS_EXPRESSION__LHS = eINSTANCE.getEqualsExpression_Lhs();
+    EReference INSTANCE_BUS__PROTOCOL = eINSTANCE.getInstanceBus_Protocol();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EQUALS_EXPRESSION__RHS = eINSTANCE.getEqualsExpression_Rhs();
+    EReference INSTANCE_BUS__ANNOTATIONS = eINSTANCE.getInstanceBus_Annotations();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.NotEqualsExpressionImpl <em>Not Equals Expression</em>}' class.
+     * The meta object literal for the '{@link lang.iotlang.impl.InstancePolicyImpl <em>Instance Policy</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.NotEqualsExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getNotEqualsExpression()
+     * @see lang.iotlang.impl.InstancePolicyImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePolicy()
      * @generated
      */
-    EClass NOT_EQUALS_EXPRESSION = eINSTANCE.getNotEqualsExpression();
+    EClass INSTANCE_POLICY = eINSTANCE.getInstancePolicy();
 
     /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NOT_EQUALS_EXPRESSION__LHS = eINSTANCE.getNotEqualsExpression_Lhs();
-
-    /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NOT_EQUALS_EXPRESSION__RHS = eINSTANCE.getNotEqualsExpression_Rhs();
+    EAttribute INSTANCE_POLICY__NAME = eINSTANCE.getInstancePolicy_Name();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.GreaterExpressionImpl <em>Greater Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.GreaterExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getGreaterExpression()
-     * @generated
-     */
-    EClass GREATER_EXPRESSION = eINSTANCE.getGreaterExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Type Policy</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference GREATER_EXPRESSION__LHS = eINSTANCE.getGreaterExpression_Lhs();
+    EReference INSTANCE_POLICY__TYPE_POLICY = eINSTANCE.getInstancePolicy_TypePolicy();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference GREATER_EXPRESSION__RHS = eINSTANCE.getGreaterExpression_Rhs();
+    EReference INSTANCE_POLICY__ANNOTATIONS = eINSTANCE.getInstancePolicy_Annotations();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.LowerExpressionImpl <em>Lower Expression</em>}' class.
+     * The meta object literal for the '{@link lang.iotlang.impl.NetworkConfigurationImpl <em>Network Configuration</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.LowerExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getLowerExpression()
+     * @see lang.iotlang.impl.NetworkConfigurationImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getNetworkConfiguration()
      * @generated
      */
-    EClass LOWER_EXPRESSION = eINSTANCE.getLowerExpression();
+    EClass NETWORK_CONFIGURATION = eINSTANCE.getNetworkConfiguration();
 
     /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference LOWER_EXPRESSION__LHS = eINSTANCE.getLowerExpression_Lhs();
-
-    /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference LOWER_EXPRESSION__RHS = eINSTANCE.getLowerExpression_Rhs();
+    EAttribute NETWORK_CONFIGURATION__NAME = eINSTANCE.getNetworkConfiguration_Name();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.GreaterOrEqualExpressionImpl <em>Greater Or Equal Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.GreaterOrEqualExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getGreaterOrEqualExpression()
-     * @generated
-     */
-    EClass GREATER_OR_EQUAL_EXPRESSION = eINSTANCE.getGreaterOrEqualExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference GREATER_OR_EQUAL_EXPRESSION__LHS = eINSTANCE.getGreaterOrEqualExpression_Lhs();
+    EReference NETWORK_CONFIGURATION__ANNOTATIONS = eINSTANCE.getNetworkConfiguration_Annotations();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Domain</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference GREATER_OR_EQUAL_EXPRESSION__RHS = eINSTANCE.getGreaterOrEqualExpression_Rhs();
+    EReference NETWORK_CONFIGURATION__DOMAIN = eINSTANCE.getNetworkConfiguration_Domain();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.LowerOrEqualExpressionImpl <em>Lower Or Equal Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.LowerOrEqualExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getLowerOrEqualExpression()
-     * @generated
-     */
-    EClass LOWER_OR_EQUAL_EXPRESSION = eINSTANCE.getLowerOrEqualExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Binds</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference LOWER_OR_EQUAL_EXPRESSION__LHS = eINSTANCE.getLowerOrEqualExpression_Lhs();
+    EReference NETWORK_CONFIGURATION__BINDS = eINSTANCE.getNetworkConfiguration_Binds();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Instances</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference LOWER_OR_EQUAL_EXPRESSION__RHS = eINSTANCE.getLowerOrEqualExpression_Rhs();
+    EReference NETWORK_CONFIGURATION__INSTANCES = eINSTANCE.getNetworkConfiguration_Instances();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.PlusExpressionImpl <em>Plus Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.PlusExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getPlusExpression()
-     * @generated
-     */
-    EClass PLUS_EXPRESSION = eINSTANCE.getPlusExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Instances Bus</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS_EXPRESSION__LHS = eINSTANCE.getPlusExpression_Lhs();
+    EReference NETWORK_CONFIGURATION__INSTANCES_BUS = eINSTANCE.getNetworkConfiguration_InstancesBus();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Enforces</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PLUS_EXPRESSION__RHS = eINSTANCE.getPlusExpression_Rhs();
+    EReference NETWORK_CONFIGURATION__ENFORCES = eINSTANCE.getNetworkConfiguration_Enforces();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.MinusExpressionImpl <em>Minus Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.MinusExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getMinusExpression()
-     * @generated
-     */
-    EClass MINUS_EXPRESSION = eINSTANCE.getMinusExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Inst Policies</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MINUS_EXPRESSION__LHS = eINSTANCE.getMinusExpression_Lhs();
+    EReference NETWORK_CONFIGURATION__INST_POLICIES = eINSTANCE.getNetworkConfiguration_InstPolicies();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '{@link lang.iotlang.impl.BindImpl <em>Bind</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.BindImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getBind()
+     * @generated
+     */
+    EClass BIND = eINSTANCE.getBind();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MINUS_EXPRESSION__RHS = eINSTANCE.getMinusExpression_Rhs();
+    EAttribute BIND__NAME = eINSTANCE.getBind_Name();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.TimesExpressionImpl <em>Times Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.TimesExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getTimesExpression()
-     * @generated
-     */
-    EClass TIMES_EXPRESSION = eINSTANCE.getTimesExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Thinginst</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TIMES_EXPRESSION__LHS = eINSTANCE.getTimesExpression_Lhs();
+    EReference BIND__THINGINST = eINSTANCE.getBind_Thinginst();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference TIMES_EXPRESSION__RHS = eINSTANCE.getTimesExpression_Rhs();
+    EAttribute BIND__DIRECTION = eINSTANCE.getBind_Direction();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.DivExpressionImpl <em>Div Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.DivExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getDivExpression()
-     * @generated
-     */
-    EClass DIV_EXPRESSION = eINSTANCE.getDivExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Bus Inst</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DIV_EXPRESSION__LHS = eINSTANCE.getDivExpression_Lhs();
+    EReference BIND__BUS_INST = eINSTANCE.getBind_BusInst();
 
     /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Channels</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DIV_EXPRESSION__RHS = eINSTANCE.getDivExpression_Rhs();
+    EReference BIND__CHANNELS = eINSTANCE.getBind_Channels();
 
     /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ModExpressionImpl <em>Mod Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ModExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getModExpression()
-     * @generated
-     */
-    EClass MOD_EXPRESSION = eINSTANCE.getModExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MOD_EXPRESSION__LHS = eINSTANCE.getModExpression_Lhs();
-
-    /**
-     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MOD_EXPRESSION__RHS = eINSTANCE.getModExpression_Rhs();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ExpressionGroupImpl <em>Expression Group</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ExpressionGroupImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getExpressionGroup()
-     * @generated
-     */
-    EClass EXPRESSION_GROUP = eINSTANCE.getExpressionGroup();
-
-    /**
-     * The meta object literal for the '<em><b>Term</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXPRESSION_GROUP__TERM = eINSTANCE.getExpressionGroup_Term();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.NotExpressionImpl <em>Not Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.NotExpressionImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getNotExpression()
-     * @generated
-     */
-    EClass NOT_EXPRESSION = eINSTANCE.getNotExpression();
-
-    /**
-     * The meta object literal for the '<em><b>Term</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NOT_EXPRESSION__TERM = eINSTANCE.getNotExpression_Term();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.UnaryMinusImpl <em>Unary Minus</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.UnaryMinusImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getUnaryMinus()
-     * @generated
-     */
-    EClass UNARY_MINUS = eINSTANCE.getUnaryMinus();
-
-    /**
-     * The meta object literal for the '<em><b>Term</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference UNARY_MINUS__TERM = eINSTANCE.getUnaryMinus_Term();
-
-    /**
-     * The meta object literal for the '{@link lang.iotlang.impl.ArrayIndexImpl <em>Array Index</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see lang.iotlang.impl.ArrayIndexImpl
-     * @see lang.iotlang.impl.IotlangPackageImpl#getArrayIndex()
-     * @generated
-     */
-    EClass ARRAY_INDEX = eINSTANCE.getArrayIndex();
-
-    /**
-     * The meta object literal for the '<em><b>Array</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARRAY_INDEX__ARRAY = eINSTANCE.getArrayIndex_Array();
-
-    /**
-     * The meta object literal for the '<em><b>Index</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARRAY_INDEX__INDEX = eINSTANCE.getArrayIndex_Index();
+    EReference BIND__ANNOTATIONS = eINSTANCE.getBind_Annotations();
 
   }
 

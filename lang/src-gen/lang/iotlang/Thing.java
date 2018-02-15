@@ -5,6 +5,8 @@ package lang.iotlang;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Thing</b></em>'.
@@ -14,158 +16,56 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.Thing#isFragment <em>Fragment</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getIncludes <em>Includes</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getMessages <em>Messages</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getPorts <em>Ports</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getProperties <em>Properties</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getFunctions <em>Functions</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getAssign <em>Assign</em>}</li>
- *   <li>{@link lang.iotlang.Thing#getBehaviour <em>Behaviour</em>}</li>
+ *   <li>{@link lang.iotlang.Thing#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.Thing#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getThing()
  * @model
  * @generated
  */
-public interface Thing extends Type
+public interface Thing extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Fragment</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Fragment</em>' attribute isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Fragment</em>' attribute.
-   * @see #setFragment(boolean)
-   * @see lang.iotlang.IotlangPackage#getThing_Fragment()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see lang.iotlang.IotlangPackage#getThing_Name()
    * @model
    * @generated
    */
-  boolean isFragment();
+  String getName();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Thing#isFragment <em>Fragment</em>}' attribute.
+   * Sets the value of the '{@link lang.iotlang.Thing#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fragment</em>' attribute.
-   * @see #isFragment()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setFragment(boolean value);
+  void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Includes</b></em>' reference list.
-   * The list contents are of type {@link lang.iotlang.Thing}.
+   * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.PlatformAnnotation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Includes</em>' reference list isn't clear,
+   * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Includes</em>' reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Includes()
-   * @model
-   * @generated
-   */
-  EList<Thing> getIncludes();
-
-  /**
-   * Returns the value of the '<em><b>Messages</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Message}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Messages</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Messages</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Messages()
+   * @return the value of the '<em>Annotations</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getThing_Annotations()
    * @model containment="true"
    * @generated
    */
-  EList<Message> getMessages();
-
-  /**
-   * Returns the value of the '<em><b>Ports</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Port}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Ports</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ports</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Ports()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Port> getPorts();
-
-  /**
-   * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Property}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Properties</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Properties()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Property> getProperties();
-
-  /**
-   * Returns the value of the '<em><b>Functions</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Function}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Functions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Functions</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Functions()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Function> getFunctions();
-
-  /**
-   * Returns the value of the '<em><b>Assign</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.PropertyAssign}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assign</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Assign</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Assign()
-   * @model containment="true"
-   * @generated
-   */
-  EList<PropertyAssign> getAssign();
-
-  /**
-   * Returns the value of the '<em><b>Behaviour</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.CompositeState}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Behaviour</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Behaviour</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getThing_Behaviour()
-   * @model containment="true"
-   * @generated
-   */
-  EList<CompositeState> getBehaviour();
+  EList<PlatformAnnotation> getAnnotations();
 
 } // Thing

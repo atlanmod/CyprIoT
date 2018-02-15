@@ -1,23 +1,38 @@
-thing Hello {
-	statechart myStatechart init one {
-		state one {
-			on entry do print "Hello world" end 
-		}
-	}
-
+thing Temperature {
+	// Arduino qui récupère la temparature puis l'envoie via Zigbee
 }
 
-thing Hello2 {
-	statechart myStatechart init one {
-		state one {
-			on entry do print "Hello world" end 
-		}
-	}
-
+thing AirConditionner {
+	// Arduino qui fait fonctionner un climatiseur
 }
 
-configuration helloexec 
-{
-	instance hello:Hello
-	instance hello2:Hello2
+bus ZigbeeBus {
+	// Envoie de message de l'arduino
+	channel defaultChannel
+}
+
+bus MqttBus {
+	// Envoie de message de la gateway au cloud
+	channel  room1 = "myRoom"
+}
+
+bus BluetoothBus {
+	// Envoie de message de la gateway au cloud
+	channel  room1 = "myRoom"
+}
+
+policy roomPolicy {
+	rule Temperature allow action:receive?AirConditionner
+	rule AirConditionner allow action:receive?Temperature
+}
+
+networkConfiguration wsnConfiguration {
+	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
+	instancePolicy mypolicy:roomPolicy
+	enforce mypolicy	 // Will check if the configuration respect the policy, if there is any 
+						//conflict with the configuration the policy will override it
+	instanceThing instanceTemp[10]:Temperature //@platform "*:*"
+	instanceBus mqtt:MqttBus //@platform "*:*"
+	instanceBus mqttBus:MqttBus //@platform "*:*"
+	bind instanceTemp => mqtt{room1}
 }

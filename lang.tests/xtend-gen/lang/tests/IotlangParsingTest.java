@@ -4,10 +4,17 @@
 package lang.tests;
 
 import com.google.inject.Inject;
+import lang.iotlang.IoTLangModel;
 import lang.tests.IotlangInjectorProvider;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.util.ParseHelper;
+import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,15 +23,24 @@ import org.junit.runner.RunWith;
 @SuppressWarnings("all")
 public class IotlangParsingTest {
   @Inject
-  private /* ParseHelper<Model> */Object parseHelper;
+  private ParseHelper<IoTLangModel> parseHelper;
   
   @Test
   public void loadModel() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe field IotlangParsingTest.parseHelper refers to the missing type Model"
-      + "\neResource cannot be resolved"
-      + "\nerrors cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\nisEmpty cannot be resolved");
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Hello Xtext!");
+      _builder.newLine();
+      final IoTLangModel result = this.parseHelper.parse(_builder);
+      Assert.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assert.assertTrue(_builder_1.toString(), errors.isEmpty());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
 }

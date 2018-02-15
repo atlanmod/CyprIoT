@@ -3,6 +3,8 @@
  */
 package lang.iotlang;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Channel#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Channel#getChannelId <em>Channel Id</em>}</li>
+ *   <li>{@link lang.iotlang.Channel#getTopics <em>Topics</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getChannel()
@@ -51,29 +53,19 @@ public interface Channel extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Channel Id</b></em>' attribute.
+   * Returns the value of the '<em><b>Topics</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Topic}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Channel Id</em>' attribute isn't clear,
+   * If the meaning of the '<em>Topics</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Channel Id</em>' attribute.
-   * @see #setChannelId(String)
-   * @see lang.iotlang.IotlangPackage#getChannel_ChannelId()
-   * @model
+   * @return the value of the '<em>Topics</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getChannel_Topics()
+   * @model containment="true"
    * @generated
    */
-  String getChannelId();
-
-  /**
-   * Sets the value of the '{@link lang.iotlang.Channel#getChannelId <em>Channel Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Channel Id</em>' attribute.
-   * @see #getChannelId()
-   * @generated
-   */
-  void setChannelId(String value);
+  EList<Topic> getTopics();
 
 } // Channel

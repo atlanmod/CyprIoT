@@ -3,15 +3,25 @@
  */
 package lang.iotlang.impl;
 
+import java.util.Collection;
+
 import lang.iotlang.Channel;
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.Topic;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +32,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.ChannelImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.ChannelImpl#getChannelId <em>Channel Id</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ChannelImpl#getTopics <em>Topics</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,24 +60,14 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getChannelId() <em>Channel Id</em>}' attribute.
+   * The cached value of the '{@link #getTopics() <em>Topics</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getChannelId()
+   * @see #getTopics()
    * @generated
    * @ordered
    */
-  protected static final String CHANNEL_ID_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getChannelId() <em>Channel Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getChannelId()
-   * @generated
-   * @ordered
-   */
-  protected String channelId = CHANNEL_ID_EDEFAULT;
+  protected EList<Topic> topics;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,9 +118,13 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getChannelId()
+  public EList<Topic> getTopics()
   {
-    return channelId;
+    if (topics == null)
+    {
+      topics = new EObjectContainmentEList<Topic>(Topic.class, this, IotlangPackage.CHANNEL__TOPICS);
+    }
+    return topics;
   }
 
   /**
@@ -128,12 +132,15 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setChannelId(String newChannelId)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    String oldChannelId = channelId;
-    channelId = newChannelId;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.CHANNEL__CHANNEL_ID, oldChannelId, channelId));
+    switch (featureID)
+    {
+      case IotlangPackage.CHANNEL__TOPICS:
+        return ((InternalEList<?>)getTopics()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -148,8 +155,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return getName();
-      case IotlangPackage.CHANNEL__CHANNEL_ID:
-        return getChannelId();
+      case IotlangPackage.CHANNEL__TOPICS:
+        return getTopics();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -159,6 +166,7 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -167,8 +175,9 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
       case IotlangPackage.CHANNEL__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.CHANNEL__CHANNEL_ID:
-        setChannelId((String)newValue);
+      case IotlangPackage.CHANNEL__TOPICS:
+        getTopics().clear();
+        getTopics().addAll((Collection<? extends Topic>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -187,8 +196,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
       case IotlangPackage.CHANNEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.CHANNEL__CHANNEL_ID:
-        setChannelId(CHANNEL_ID_EDEFAULT);
+      case IotlangPackage.CHANNEL__TOPICS:
+        getTopics().clear();
         return;
     }
     super.eUnset(featureID);
@@ -206,8 +215,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.CHANNEL__CHANNEL_ID:
-        return CHANNEL_ID_EDEFAULT == null ? channelId != null : !CHANNEL_ID_EDEFAULT.equals(channelId);
+      case IotlangPackage.CHANNEL__TOPICS:
+        return topics != null && !topics.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -225,8 +234,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", channelId: ");
-    result.append(channelId);
     result.append(')');
     return result.toString();
   }

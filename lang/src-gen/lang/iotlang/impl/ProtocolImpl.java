@@ -3,22 +3,15 @@
  */
 package lang.iotlang.impl;
 
-import java.util.Collection;
-
-import lang.iotlang.AnnotatedElement;
 import lang.iotlang.IotlangPackage;
-import lang.iotlang.PlatformAnnotation;
 import lang.iotlang.Protocol;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,22 +21,32 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.impl.ProtocolImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ProtocolImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ProtocolImpl extends NamedElementImpl implements Protocol
+public class ProtocolImpl extends MinimalEObjectImpl.Container implements Protocol
 {
   /**
-   * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAnnotations()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<PlatformAnnotation> annotations;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,13 +74,9 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PlatformAnnotation> getAnnotations()
+  public String getName()
   {
-    if (annotations == null)
-    {
-      annotations = new EObjectContainmentEList<PlatformAnnotation>(PlatformAnnotation.class, this, IotlangPackage.PROTOCOL__ANNOTATIONS);
-    }
-    return annotations;
+    return name;
   }
 
   /**
@@ -85,15 +84,12 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setName(String newName)
   {
-    switch (featureID)
-    {
-      case IotlangPackage.PROTOCOL__ANNOTATIONS:
-        return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.PROTOCOL__NAME, oldName, name));
   }
 
   /**
@@ -106,8 +102,8 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
   {
     switch (featureID)
     {
-      case IotlangPackage.PROTOCOL__ANNOTATIONS:
-        return getAnnotations();
+      case IotlangPackage.PROTOCOL__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -117,15 +113,13 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case IotlangPackage.PROTOCOL__ANNOTATIONS:
-        getAnnotations().clear();
-        getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
+      case IotlangPackage.PROTOCOL__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +135,8 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
   {
     switch (featureID)
     {
-      case IotlangPackage.PROTOCOL__ANNOTATIONS:
-        getAnnotations().clear();
+      case IotlangPackage.PROTOCOL__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -158,8 +152,8 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
   {
     switch (featureID)
     {
-      case IotlangPackage.PROTOCOL__ANNOTATIONS:
-        return annotations != null && !annotations.isEmpty();
+      case IotlangPackage.PROTOCOL__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
@@ -170,36 +164,15 @@ public class ProtocolImpl extends NamedElementImpl implements Protocol
    * @generated
    */
   @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
+  public String toString()
   {
-    if (baseClass == AnnotatedElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case IotlangPackage.PROTOCOL__ANNOTATIONS: return IotlangPackage.ANNOTATED_ELEMENT__ANNOTATIONS;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+    if (eIsProxy()) return super.toString();
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-  {
-    if (baseClass == AnnotatedElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case IotlangPackage.ANNOTATED_ELEMENT__ANNOTATIONS: return IotlangPackage.PROTOCOL__ANNOTATIONS;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //ProtocolImpl

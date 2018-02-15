@@ -67,92 +67,19 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
     {
       case IotlangPackage.IO_TLANG_MODEL: return createIoTLangModel();
       case IotlangPackage.PLATFORM_ANNOTATION: return createPlatformAnnotation();
-      case IotlangPackage.NAMED_ELEMENT: return createNamedElement();
-      case IotlangPackage.ANNOTATED_ELEMENT: return createAnnotatedElement();
-      case IotlangPackage.VARIABLE: return createVariable();
-      case IotlangPackage.TYPE_REF: return createTypeRef();
-      case IotlangPackage.TYPE: return createType();
-      case IotlangPackage.PRIMITIVE_TYPE: return createPrimitiveType();
-      case IotlangPackage.OBJECT_TYPE: return createObjectType();
-      case IotlangPackage.ENUMERATION: return createEnumeration();
-      case IotlangPackage.ENUMERATION_LITERAL: return createEnumerationLiteral();
       case IotlangPackage.THING: return createThing();
-      case IotlangPackage.PROPERTY_ASSIGN: return createPropertyAssign();
-      case IotlangPackage.PROTOCOL: return createProtocol();
-      case IotlangPackage.FUNCTION: return createFunction();
-      case IotlangPackage.PROPERTY: return createProperty();
-      case IotlangPackage.MESSAGE: return createMessage();
-      case IotlangPackage.PARAMETER: return createParameter();
-      case IotlangPackage.PORT: return createPort();
-      case IotlangPackage.REQUIRED_PORT: return createRequiredPort();
-      case IotlangPackage.PROVIDED_PORT: return createProvidedPort();
-      case IotlangPackage.INTERNAL_PORT: return createInternalPort();
-      case IotlangPackage.STATE: return createState();
-      case IotlangPackage.HANDLER: return createHandler();
-      case IotlangPackage.TRANSITION: return createTransition();
-      case IotlangPackage.INTERNAL_TRANSITION: return createInternalTransition();
-      case IotlangPackage.COMPOSITE_STATE: return createCompositeState();
-      case IotlangPackage.SESSION: return createSession();
-      case IotlangPackage.REGION: return createRegion();
-      case IotlangPackage.FINAL_STATE: return createFinalState();
-      case IotlangPackage.STATE_CONTAINER: return createStateContainer();
-      case IotlangPackage.EVENT: return createEvent();
-      case IotlangPackage.RECEIVE_MESSAGE: return createReceiveMessage();
-      case IotlangPackage.ACTION: return createAction();
-      case IotlangPackage.ACTION_BLOCK: return createActionBlock();
-      case IotlangPackage.EXTERN_STATEMENT: return createExternStatement();
-      case IotlangPackage.LOCAL_VARIABLE: return createLocalVariable();
-      case IotlangPackage.SEND_ACTION: return createSendAction();
-      case IotlangPackage.VARIABLE_ASSIGNMENT: return createVariableAssignment();
-      case IotlangPackage.INCREMENT: return createIncrement();
-      case IotlangPackage.DECREMENT: return createDecrement();
-      case IotlangPackage.LOOP_ACTION: return createLoopAction();
-      case IotlangPackage.CONDITIONAL_ACTION: return createConditionalAction();
-      case IotlangPackage.RETURN_ACTION: return createReturnAction();
-      case IotlangPackage.PRINT_ACTION: return createPrintAction();
-      case IotlangPackage.ERROR_ACTION: return createErrorAction();
-      case IotlangPackage.START_SESSION: return createStartSession();
-      case IotlangPackage.FUNCTION_CALL_STATEMENT: return createFunctionCallStatement();
-      case IotlangPackage.EXPRESSION: return createExpression();
-      case IotlangPackage.EXTERN_EXPRESSION: return createExternExpression();
-      case IotlangPackage.ENUM_LITERAL_REF: return createEnumLiteralRef();
-      case IotlangPackage.INTEGER_LITERAL: return createIntegerLiteral();
-      case IotlangPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
-      case IotlangPackage.STRING_LITERAL: return createStringLiteral();
-      case IotlangPackage.DOUBLE_LITERAL: return createDoubleLiteral();
-      case IotlangPackage.PROPERTY_REFERENCE: return createPropertyReference();
-      case IotlangPackage.EVENT_REFERENCE: return createEventReference();
-      case IotlangPackage.FUNCTION_CALL_EXPRESSION: return createFunctionCallExpression();
-      case IotlangPackage.GATEWAY: return createGateway();
-      case IotlangPackage.BUS: return createBus();
       case IotlangPackage.CHANNEL: return createChannel();
-      case IotlangPackage.CONFIGURATION: return createConfiguration();
+      case IotlangPackage.POLICY: return createPolicy();
+      case IotlangPackage.PROTOCOL: return createProtocol();
+      case IotlangPackage.MESSAGE: return createMessage();
+      case IotlangPackage.TOPIC: return createTopic();
+      case IotlangPackage.RULE: return createRule();
       case IotlangPackage.DOMAIN: return createDomain();
-      case IotlangPackage.INSTANCE: return createInstance();
-      case IotlangPackage.INSTANCE_GATEWAY: return createInstanceGateway();
-      case IotlangPackage.CONFIG_PROPERTY_ASSIGN: return createConfigPropertyAssign();
-      case IotlangPackage.ABSTRACT_CONNECTOR: return createAbstractConnector();
-      case IotlangPackage.CONNECTOR: return createConnector();
-      case IotlangPackage.EXTERNAL_CONNECTOR: return createExternalConnector();
-      case IotlangPackage.CHANNELING: return createChanneling();
-      case IotlangPackage.CAST_EXPRESSION: return createCastExpression();
-      case IotlangPackage.OR_EXPRESSION: return createOrExpression();
-      case IotlangPackage.AND_EXPRESSION: return createAndExpression();
-      case IotlangPackage.EQUALS_EXPRESSION: return createEqualsExpression();
-      case IotlangPackage.NOT_EQUALS_EXPRESSION: return createNotEqualsExpression();
-      case IotlangPackage.GREATER_EXPRESSION: return createGreaterExpression();
-      case IotlangPackage.LOWER_EXPRESSION: return createLowerExpression();
-      case IotlangPackage.GREATER_OR_EQUAL_EXPRESSION: return createGreaterOrEqualExpression();
-      case IotlangPackage.LOWER_OR_EQUAL_EXPRESSION: return createLowerOrEqualExpression();
-      case IotlangPackage.PLUS_EXPRESSION: return createPlusExpression();
-      case IotlangPackage.MINUS_EXPRESSION: return createMinusExpression();
-      case IotlangPackage.TIMES_EXPRESSION: return createTimesExpression();
-      case IotlangPackage.DIV_EXPRESSION: return createDivExpression();
-      case IotlangPackage.MOD_EXPRESSION: return createModExpression();
-      case IotlangPackage.EXPRESSION_GROUP: return createExpressionGroup();
-      case IotlangPackage.NOT_EXPRESSION: return createNotExpression();
-      case IotlangPackage.UNARY_MINUS: return createUnaryMinus();
-      case IotlangPackage.ARRAY_INDEX: return createArrayIndex();
+      case IotlangPackage.INSTANCE_THING: return createInstanceThing();
+      case IotlangPackage.INSTANCE_BUS: return createInstanceBus();
+      case IotlangPackage.INSTANCE_POLICY: return createInstancePolicy();
+      case IotlangPackage.NETWORK_CONFIGURATION: return createNetworkConfiguration();
+      case IotlangPackage.BIND: return createBind();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -185,637 +112,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement createNamedElement()
-  {
-    NamedElementImpl namedElement = new NamedElementImpl();
-    return namedElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AnnotatedElement createAnnotatedElement()
-  {
-    AnnotatedElementImpl annotatedElement = new AnnotatedElementImpl();
-    return annotatedElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Variable createVariable()
-  {
-    VariableImpl variable = new VariableImpl();
-    return variable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TypeRef createTypeRef()
-  {
-    TypeRefImpl typeRef = new TypeRefImpl();
-    return typeRef;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Type createType()
-  {
-    TypeImpl type = new TypeImpl();
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PrimitiveType createPrimitiveType()
-  {
-    PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
-    return primitiveType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ObjectType createObjectType()
-  {
-    ObjectTypeImpl objectType = new ObjectTypeImpl();
-    return objectType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Enumeration createEnumeration()
-  {
-    EnumerationImpl enumeration = new EnumerationImpl();
-    return enumeration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EnumerationLiteral createEnumerationLiteral()
-  {
-    EnumerationLiteralImpl enumerationLiteral = new EnumerationLiteralImpl();
-    return enumerationLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Thing createThing()
   {
     ThingImpl thing = new ThingImpl();
     return thing;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyAssign createPropertyAssign()
-  {
-    PropertyAssignImpl propertyAssign = new PropertyAssignImpl();
-    return propertyAssign;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Protocol createProtocol()
-  {
-    ProtocolImpl protocol = new ProtocolImpl();
-    return protocol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Function createFunction()
-  {
-    FunctionImpl function = new FunctionImpl();
-    return function;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Property createProperty()
-  {
-    PropertyImpl property = new PropertyImpl();
-    return property;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Message createMessage()
-  {
-    MessageImpl message = new MessageImpl();
-    return message;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Parameter createParameter()
-  {
-    ParameterImpl parameter = new ParameterImpl();
-    return parameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Port createPort()
-  {
-    PortImpl port = new PortImpl();
-    return port;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public RequiredPort createRequiredPort()
-  {
-    RequiredPortImpl requiredPort = new RequiredPortImpl();
-    return requiredPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ProvidedPort createProvidedPort()
-  {
-    ProvidedPortImpl providedPort = new ProvidedPortImpl();
-    return providedPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public InternalPort createInternalPort()
-  {
-    InternalPortImpl internalPort = new InternalPortImpl();
-    return internalPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public State createState()
-  {
-    StateImpl state = new StateImpl();
-    return state;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Handler createHandler()
-  {
-    HandlerImpl handler = new HandlerImpl();
-    return handler;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Transition createTransition()
-  {
-    TransitionImpl transition = new TransitionImpl();
-    return transition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public InternalTransition createInternalTransition()
-  {
-    InternalTransitionImpl internalTransition = new InternalTransitionImpl();
-    return internalTransition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CompositeState createCompositeState()
-  {
-    CompositeStateImpl compositeState = new CompositeStateImpl();
-    return compositeState;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Session createSession()
-  {
-    SessionImpl session = new SessionImpl();
-    return session;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Region createRegion()
-  {
-    RegionImpl region = new RegionImpl();
-    return region;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FinalState createFinalState()
-  {
-    FinalStateImpl finalState = new FinalStateImpl();
-    return finalState;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StateContainer createStateContainer()
-  {
-    StateContainerImpl stateContainer = new StateContainerImpl();
-    return stateContainer;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Event createEvent()
-  {
-    EventImpl event = new EventImpl();
-    return event;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ReceiveMessage createReceiveMessage()
-  {
-    ReceiveMessageImpl receiveMessage = new ReceiveMessageImpl();
-    return receiveMessage;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Action createAction()
-  {
-    ActionImpl action = new ActionImpl();
-    return action;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ActionBlock createActionBlock()
-  {
-    ActionBlockImpl actionBlock = new ActionBlockImpl();
-    return actionBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExternStatement createExternStatement()
-  {
-    ExternStatementImpl externStatement = new ExternStatementImpl();
-    return externStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LocalVariable createLocalVariable()
-  {
-    LocalVariableImpl localVariable = new LocalVariableImpl();
-    return localVariable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SendAction createSendAction()
-  {
-    SendActionImpl sendAction = new SendActionImpl();
-    return sendAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VariableAssignment createVariableAssignment()
-  {
-    VariableAssignmentImpl variableAssignment = new VariableAssignmentImpl();
-    return variableAssignment;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Increment createIncrement()
-  {
-    IncrementImpl increment = new IncrementImpl();
-    return increment;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Decrement createDecrement()
-  {
-    DecrementImpl decrement = new DecrementImpl();
-    return decrement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LoopAction createLoopAction()
-  {
-    LoopActionImpl loopAction = new LoopActionImpl();
-    return loopAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConditionalAction createConditionalAction()
-  {
-    ConditionalActionImpl conditionalAction = new ConditionalActionImpl();
-    return conditionalAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ReturnAction createReturnAction()
-  {
-    ReturnActionImpl returnAction = new ReturnActionImpl();
-    return returnAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PrintAction createPrintAction()
-  {
-    PrintActionImpl printAction = new PrintActionImpl();
-    return printAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorAction createErrorAction()
-  {
-    ErrorActionImpl errorAction = new ErrorActionImpl();
-    return errorAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StartSession createStartSession()
-  {
-    StartSessionImpl startSession = new StartSessionImpl();
-    return startSession;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FunctionCallStatement createFunctionCallStatement()
-  {
-    FunctionCallStatementImpl functionCallStatement = new FunctionCallStatementImpl();
-    return functionCallStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expression createExpression()
-  {
-    ExpressionImpl expression = new ExpressionImpl();
-    return expression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExternExpression createExternExpression()
-  {
-    ExternExpressionImpl externExpression = new ExternExpressionImpl();
-    return externExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EnumLiteralRef createEnumLiteralRef()
-  {
-    EnumLiteralRefImpl enumLiteralRef = new EnumLiteralRefImpl();
-    return enumLiteralRef;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IntegerLiteral createIntegerLiteral()
-  {
-    IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
-    return integerLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public BooleanLiteral createBooleanLiteral()
-  {
-    BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-    return booleanLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StringLiteral createStringLiteral()
-  {
-    StringLiteralImpl stringLiteral = new StringLiteralImpl();
-    return stringLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DoubleLiteral createDoubleLiteral()
-  {
-    DoubleLiteralImpl doubleLiteral = new DoubleLiteralImpl();
-    return doubleLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyReference createPropertyReference()
-  {
-    PropertyReferenceImpl propertyReference = new PropertyReferenceImpl();
-    return propertyReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EventReference createEventReference()
-  {
-    EventReferenceImpl eventReference = new EventReferenceImpl();
-    return eventReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FunctionCallExpression createFunctionCallExpression()
-  {
-    FunctionCallExpressionImpl functionCallExpression = new FunctionCallExpressionImpl();
-    return functionCallExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Gateway createGateway()
-  {
-    GatewayImpl gateway = new GatewayImpl();
-    return gateway;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Bus createBus()
-  {
-    BusImpl bus = new BusImpl();
-    return bus;
   }
 
   /**
@@ -834,10 +134,54 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Configuration createConfiguration()
+  public Policy createPolicy()
   {
-    ConfigurationImpl configuration = new ConfigurationImpl();
-    return configuration;
+    PolicyImpl policy = new PolicyImpl();
+    return policy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Protocol createProtocol()
+  {
+    ProtocolImpl protocol = new ProtocolImpl();
+    return protocol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Message createMessage()
+  {
+    MessageImpl message = new MessageImpl();
+    return message;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Topic createTopic()
+  {
+    TopicImpl topic = new TopicImpl();
+    return topic;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Rule createRule()
+  {
+    RuleImpl rule = new RuleImpl();
+    return rule;
   }
 
   /**
@@ -856,10 +200,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Instance createInstance()
+  public InstanceThing createInstanceThing()
   {
-    InstanceImpl instance = new InstanceImpl();
-    return instance;
+    InstanceThingImpl instanceThing = new InstanceThingImpl();
+    return instanceThing;
   }
 
   /**
@@ -867,10 +211,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceGateway createInstanceGateway()
+  public InstanceBus createInstanceBus()
   {
-    InstanceGatewayImpl instanceGateway = new InstanceGatewayImpl();
-    return instanceGateway;
+    InstanceBusImpl instanceBus = new InstanceBusImpl();
+    return instanceBus;
   }
 
   /**
@@ -878,10 +222,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConfigPropertyAssign createConfigPropertyAssign()
+  public InstancePolicy createInstancePolicy()
   {
-    ConfigPropertyAssignImpl configPropertyAssign = new ConfigPropertyAssignImpl();
-    return configPropertyAssign;
+    InstancePolicyImpl instancePolicy = new InstancePolicyImpl();
+    return instancePolicy;
   }
 
   /**
@@ -889,10 +233,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AbstractConnector createAbstractConnector()
+  public NetworkConfiguration createNetworkConfiguration()
   {
-    AbstractConnectorImpl abstractConnector = new AbstractConnectorImpl();
-    return abstractConnector;
+    NetworkConfigurationImpl networkConfiguration = new NetworkConfigurationImpl();
+    return networkConfiguration;
   }
 
   /**
@@ -900,230 +244,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Connector createConnector()
+  public Bind createBind()
   {
-    ConnectorImpl connector = new ConnectorImpl();
-    return connector;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExternalConnector createExternalConnector()
-  {
-    ExternalConnectorImpl externalConnector = new ExternalConnectorImpl();
-    return externalConnector;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Channeling createChanneling()
-  {
-    ChannelingImpl channeling = new ChannelingImpl();
-    return channeling;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CastExpression createCastExpression()
-  {
-    CastExpressionImpl castExpression = new CastExpressionImpl();
-    return castExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OrExpression createOrExpression()
-  {
-    OrExpressionImpl orExpression = new OrExpressionImpl();
-    return orExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AndExpression createAndExpression()
-  {
-    AndExpressionImpl andExpression = new AndExpressionImpl();
-    return andExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EqualsExpression createEqualsExpression()
-  {
-    EqualsExpressionImpl equalsExpression = new EqualsExpressionImpl();
-    return equalsExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotEqualsExpression createNotEqualsExpression()
-  {
-    NotEqualsExpressionImpl notEqualsExpression = new NotEqualsExpressionImpl();
-    return notEqualsExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GreaterExpression createGreaterExpression()
-  {
-    GreaterExpressionImpl greaterExpression = new GreaterExpressionImpl();
-    return greaterExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LowerExpression createLowerExpression()
-  {
-    LowerExpressionImpl lowerExpression = new LowerExpressionImpl();
-    return lowerExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GreaterOrEqualExpression createGreaterOrEqualExpression()
-  {
-    GreaterOrEqualExpressionImpl greaterOrEqualExpression = new GreaterOrEqualExpressionImpl();
-    return greaterOrEqualExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LowerOrEqualExpression createLowerOrEqualExpression()
-  {
-    LowerOrEqualExpressionImpl lowerOrEqualExpression = new LowerOrEqualExpressionImpl();
-    return lowerOrEqualExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PlusExpression createPlusExpression()
-  {
-    PlusExpressionImpl plusExpression = new PlusExpressionImpl();
-    return plusExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public MinusExpression createMinusExpression()
-  {
-    MinusExpressionImpl minusExpression = new MinusExpressionImpl();
-    return minusExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TimesExpression createTimesExpression()
-  {
-    TimesExpressionImpl timesExpression = new TimesExpressionImpl();
-    return timesExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DivExpression createDivExpression()
-  {
-    DivExpressionImpl divExpression = new DivExpressionImpl();
-    return divExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModExpression createModExpression()
-  {
-    ModExpressionImpl modExpression = new ModExpressionImpl();
-    return modExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExpressionGroup createExpressionGroup()
-  {
-    ExpressionGroupImpl expressionGroup = new ExpressionGroupImpl();
-    return expressionGroup;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotExpression createNotExpression()
-  {
-    NotExpressionImpl notExpression = new NotExpressionImpl();
-    return notExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public UnaryMinus createUnaryMinus()
-  {
-    UnaryMinusImpl unaryMinus = new UnaryMinusImpl();
-    return unaryMinus;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ArrayIndex createArrayIndex()
-  {
-    ArrayIndexImpl arrayIndex = new ArrayIndexImpl();
-    return arrayIndex;
+    BindImpl bind = new BindImpl();
+    return bind;
   }
 
   /**

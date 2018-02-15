@@ -3,7 +3,12 @@
  */
 package lang.scoping;
 
+import java.util.ArrayList;
+import lang.iotlang.IotlangPackage;
 import lang.scoping.AbstractIotlangScopeProvider;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
 
 /**
  * This class contains custom scoping description.
@@ -13,4 +18,24 @@ import lang.scoping.AbstractIotlangScopeProvider;
  */
 @SuppressWarnings("all")
 public class IotlangScopeProvider extends AbstractIotlangScopeProvider {
+  private final IotlangPackage iotlangInstance = IotlangPackage.eINSTANCE;
+  
+  protected ArrayList EMPTY = new ArrayList<Object>();
+  
+  @Override
+  public IScope getScope(final EObject context, final EReference reference) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field enforce_InstPolicy is undefined for the type IotlangPackage"
+      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
+      + "\nThe method or field instanceBus_TypeBus is undefined for the type IotlangPackage"
+      + "\nThe method allBuses(IoTLangModel) is undefined for the type Class<Helpers>"
+      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
+      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
+      + "\nget cannot be resolved"
+      + "\ninstPolicies cannot be resolved"
+      + "\nget cannot be resolved"
+      + "\ninstances cannot be resolved"
+      + "\nget cannot be resolved"
+      + "\ninstancesBus cannot be resolved");
+  }
 }

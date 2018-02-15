@@ -3,7 +3,7 @@
  */
 package lang.iotlang;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,29 +14,39 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.Message#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link lang.iotlang.Message#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getMessage()
  * @model
  * @generated
  */
-public interface Message extends NamedElement, AnnotatedElement
+public interface Message extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Parameter}.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getMessage_Parameters()
-   * @model containment="true"
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see lang.iotlang.IotlangPackage#getMessage_Name()
+   * @model
    * @generated
    */
-  EList<Parameter> getParameters();
+  String getName();
+
+  /**
+   * Sets the value of the '{@link lang.iotlang.Message#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
 } // Message

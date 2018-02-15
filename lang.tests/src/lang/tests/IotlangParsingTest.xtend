@@ -4,7 +4,7 @@
 package lang.tests
 
 import com.google.inject.Inject
-import lang.iotlang.Model
+import lang.iotlang.IoTLangModel
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 @InjectWith(IotlangInjectorProvider)
 class IotlangParsingTest {
 	@Inject
-	ParseHelper<Model> parseHelper
+	ParseHelper<IoTLangModel> parseHelper
 	
 	@Test
 	def void loadModel() {

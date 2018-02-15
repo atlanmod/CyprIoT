@@ -5,13 +5,8 @@ package lang.iotlang.impl;
 
 import java.util.Collection;
 
-import lang.iotlang.CompositeState;
-import lang.iotlang.Function;
 import lang.iotlang.IotlangPackage;
-import lang.iotlang.Message;
-import lang.iotlang.Port;
-import lang.iotlang.Property;
-import lang.iotlang.PropertyAssign;
+import lang.iotlang.PlatformAnnotation;
 import lang.iotlang.Thing;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -23,9 +18,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -36,109 +31,43 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.impl.ThingImpl#isFragment <em>Fragment</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getIncludes <em>Includes</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getMessages <em>Messages</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getPorts <em>Ports</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getProperties <em>Properties</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getFunctions <em>Functions</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getAssign <em>Assign</em>}</li>
- *   <li>{@link lang.iotlang.impl.ThingImpl#getBehaviour <em>Behaviour</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ThingImpl#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ThingImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ThingImpl extends TypeImpl implements Thing
+public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
 {
   /**
-   * The default value of the '{@link #isFragment() <em>Fragment</em>}' attribute.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isFragment()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final boolean FRAGMENT_EDEFAULT = false;
+  protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #isFragment() <em>Fragment</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isFragment()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected boolean fragment = FRAGMENT_EDEFAULT;
+  protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getIncludes() <em>Includes</em>}' reference list.
+   * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getIncludes()
+   * @see #getAnnotations()
    * @generated
    * @ordered
    */
-  protected EList<Thing> includes;
-
-  /**
-   * The cached value of the '{@link #getMessages() <em>Messages</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMessages()
-   * @generated
-   * @ordered
-   */
-  protected EList<Message> messages;
-
-  /**
-   * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPorts()
-   * @generated
-   * @ordered
-   */
-  protected EList<Port> ports;
-
-  /**
-   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperties()
-   * @generated
-   * @ordered
-   */
-  protected EList<Property> properties;
-
-  /**
-   * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFunctions()
-   * @generated
-   * @ordered
-   */
-  protected EList<Function> functions;
-
-  /**
-   * The cached value of the '{@link #getAssign() <em>Assign</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAssign()
-   * @generated
-   * @ordered
-   */
-  protected EList<PropertyAssign> assign;
-
-  /**
-   * The cached value of the '{@link #getBehaviour() <em>Behaviour</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBehaviour()
-   * @generated
-   * @ordered
-   */
-  protected EList<CompositeState> behaviour;
+  protected EList<PlatformAnnotation> annotations;
 
   /**
    * <!-- begin-user-doc -->
@@ -166,9 +95,9 @@ public class ThingImpl extends TypeImpl implements Thing
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isFragment()
+  public String getName()
   {
-    return fragment;
+    return name;
   }
 
   /**
@@ -176,12 +105,12 @@ public class ThingImpl extends TypeImpl implements Thing
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFragment(boolean newFragment)
+  public void setName(String newName)
   {
-    boolean oldFragment = fragment;
-    fragment = newFragment;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.THING__FRAGMENT, oldFragment, fragment));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.THING__NAME, oldName, name));
   }
 
   /**
@@ -189,97 +118,13 @@ public class ThingImpl extends TypeImpl implements Thing
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Thing> getIncludes()
+  public EList<PlatformAnnotation> getAnnotations()
   {
-    if (includes == null)
+    if (annotations == null)
     {
-      includes = new EObjectResolvingEList<Thing>(Thing.class, this, IotlangPackage.THING__INCLUDES);
+      annotations = new EObjectContainmentEList<PlatformAnnotation>(PlatformAnnotation.class, this, IotlangPackage.THING__ANNOTATIONS);
     }
-    return includes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Message> getMessages()
-  {
-    if (messages == null)
-    {
-      messages = new EObjectContainmentEList<Message>(Message.class, this, IotlangPackage.THING__MESSAGES);
-    }
-    return messages;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Port> getPorts()
-  {
-    if (ports == null)
-    {
-      ports = new EObjectContainmentEList<Port>(Port.class, this, IotlangPackage.THING__PORTS);
-    }
-    return ports;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Property> getProperties()
-  {
-    if (properties == null)
-    {
-      properties = new EObjectContainmentEList<Property>(Property.class, this, IotlangPackage.THING__PROPERTIES);
-    }
-    return properties;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Function> getFunctions()
-  {
-    if (functions == null)
-    {
-      functions = new EObjectContainmentEList<Function>(Function.class, this, IotlangPackage.THING__FUNCTIONS);
-    }
-    return functions;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<PropertyAssign> getAssign()
-  {
-    if (assign == null)
-    {
-      assign = new EObjectContainmentEList<PropertyAssign>(PropertyAssign.class, this, IotlangPackage.THING__ASSIGN);
-    }
-    return assign;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<CompositeState> getBehaviour()
-  {
-    if (behaviour == null)
-    {
-      behaviour = new EObjectContainmentEList<CompositeState>(CompositeState.class, this, IotlangPackage.THING__BEHAVIOUR);
-    }
-    return behaviour;
+    return annotations;
   }
 
   /**
@@ -292,18 +137,8 @@ public class ThingImpl extends TypeImpl implements Thing
   {
     switch (featureID)
     {
-      case IotlangPackage.THING__MESSAGES:
-        return ((InternalEList<?>)getMessages()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.THING__PORTS:
-        return ((InternalEList<?>)getPorts()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.THING__PROPERTIES:
-        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.THING__FUNCTIONS:
-        return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.THING__ASSIGN:
-        return ((InternalEList<?>)getAssign()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.THING__BEHAVIOUR:
-        return ((InternalEList<?>)getBehaviour()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.THING__ANNOTATIONS:
+        return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -318,22 +153,10 @@ public class ThingImpl extends TypeImpl implements Thing
   {
     switch (featureID)
     {
-      case IotlangPackage.THING__FRAGMENT:
-        return isFragment();
-      case IotlangPackage.THING__INCLUDES:
-        return getIncludes();
-      case IotlangPackage.THING__MESSAGES:
-        return getMessages();
-      case IotlangPackage.THING__PORTS:
-        return getPorts();
-      case IotlangPackage.THING__PROPERTIES:
-        return getProperties();
-      case IotlangPackage.THING__FUNCTIONS:
-        return getFunctions();
-      case IotlangPackage.THING__ASSIGN:
-        return getAssign();
-      case IotlangPackage.THING__BEHAVIOUR:
-        return getBehaviour();
+      case IotlangPackage.THING__NAME:
+        return getName();
+      case IotlangPackage.THING__ANNOTATIONS:
+        return getAnnotations();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -349,36 +172,12 @@ public class ThingImpl extends TypeImpl implements Thing
   {
     switch (featureID)
     {
-      case IotlangPackage.THING__FRAGMENT:
-        setFragment((Boolean)newValue);
+      case IotlangPackage.THING__NAME:
+        setName((String)newValue);
         return;
-      case IotlangPackage.THING__INCLUDES:
-        getIncludes().clear();
-        getIncludes().addAll((Collection<? extends Thing>)newValue);
-        return;
-      case IotlangPackage.THING__MESSAGES:
-        getMessages().clear();
-        getMessages().addAll((Collection<? extends Message>)newValue);
-        return;
-      case IotlangPackage.THING__PORTS:
-        getPorts().clear();
-        getPorts().addAll((Collection<? extends Port>)newValue);
-        return;
-      case IotlangPackage.THING__PROPERTIES:
-        getProperties().clear();
-        getProperties().addAll((Collection<? extends Property>)newValue);
-        return;
-      case IotlangPackage.THING__FUNCTIONS:
-        getFunctions().clear();
-        getFunctions().addAll((Collection<? extends Function>)newValue);
-        return;
-      case IotlangPackage.THING__ASSIGN:
-        getAssign().clear();
-        getAssign().addAll((Collection<? extends PropertyAssign>)newValue);
-        return;
-      case IotlangPackage.THING__BEHAVIOUR:
-        getBehaviour().clear();
-        getBehaviour().addAll((Collection<? extends CompositeState>)newValue);
+      case IotlangPackage.THING__ANNOTATIONS:
+        getAnnotations().clear();
+        getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -394,29 +193,11 @@ public class ThingImpl extends TypeImpl implements Thing
   {
     switch (featureID)
     {
-      case IotlangPackage.THING__FRAGMENT:
-        setFragment(FRAGMENT_EDEFAULT);
+      case IotlangPackage.THING__NAME:
+        setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.THING__INCLUDES:
-        getIncludes().clear();
-        return;
-      case IotlangPackage.THING__MESSAGES:
-        getMessages().clear();
-        return;
-      case IotlangPackage.THING__PORTS:
-        getPorts().clear();
-        return;
-      case IotlangPackage.THING__PROPERTIES:
-        getProperties().clear();
-        return;
-      case IotlangPackage.THING__FUNCTIONS:
-        getFunctions().clear();
-        return;
-      case IotlangPackage.THING__ASSIGN:
-        getAssign().clear();
-        return;
-      case IotlangPackage.THING__BEHAVIOUR:
-        getBehaviour().clear();
+      case IotlangPackage.THING__ANNOTATIONS:
+        getAnnotations().clear();
         return;
     }
     super.eUnset(featureID);
@@ -432,22 +213,10 @@ public class ThingImpl extends TypeImpl implements Thing
   {
     switch (featureID)
     {
-      case IotlangPackage.THING__FRAGMENT:
-        return fragment != FRAGMENT_EDEFAULT;
-      case IotlangPackage.THING__INCLUDES:
-        return includes != null && !includes.isEmpty();
-      case IotlangPackage.THING__MESSAGES:
-        return messages != null && !messages.isEmpty();
-      case IotlangPackage.THING__PORTS:
-        return ports != null && !ports.isEmpty();
-      case IotlangPackage.THING__PROPERTIES:
-        return properties != null && !properties.isEmpty();
-      case IotlangPackage.THING__FUNCTIONS:
-        return functions != null && !functions.isEmpty();
-      case IotlangPackage.THING__ASSIGN:
-        return assign != null && !assign.isEmpty();
-      case IotlangPackage.THING__BEHAVIOUR:
-        return behaviour != null && !behaviour.isEmpty();
+      case IotlangPackage.THING__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case IotlangPackage.THING__ANNOTATIONS:
+        return annotations != null && !annotations.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -463,8 +232,8 @@ public class ThingImpl extends TypeImpl implements Thing
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (fragment: ");
-    result.append(fragment);
+    result.append(" (name: ");
+    result.append(name);
     result.append(')');
     return result.toString();
   }
