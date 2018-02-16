@@ -72,15 +72,15 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) ( annotations+=PlatformAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'platform' platform=STRING_LIT ( annotations+=PlatformAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
 InstancePubSub:
-	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'platform' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
 InstancePtP:
-	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'platform' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
 InstanceChannel:
 	(instancesPubSub+=InstancePubSub | instancesPtp+=InstancePtP	)
