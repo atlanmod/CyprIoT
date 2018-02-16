@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import lang.iotlang.IotlangPackage;
 import lang.iotlang.PlatformAnnotation;
+import lang.iotlang.Port;
 import lang.iotlang.Thing;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link lang.iotlang.impl.ThingImpl#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.impl.ThingImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ThingImpl#getPorts <em>Ports</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +70,16 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
    * @ordered
    */
   protected EList<PlatformAnnotation> annotations;
+
+  /**
+   * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPorts()
+   * @generated
+   * @ordered
+   */
+  protected EList<Port> ports;
 
   /**
    * <!-- begin-user-doc -->
@@ -132,6 +144,20 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Port> getPorts()
+  {
+    if (ports == null)
+    {
+      ports = new EObjectContainmentEList<Port>(Port.class, this, IotlangPackage.THING__PORTS);
+    }
+    return ports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -139,6 +165,8 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
     {
       case IotlangPackage.THING__ANNOTATIONS:
         return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.THING__PORTS:
+        return ((InternalEList<?>)getPorts()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -157,6 +185,8 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
         return getName();
       case IotlangPackage.THING__ANNOTATIONS:
         return getAnnotations();
+      case IotlangPackage.THING__PORTS:
+        return getPorts();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -179,6 +209,10 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
         getAnnotations().clear();
         getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
         return;
+      case IotlangPackage.THING__PORTS:
+        getPorts().clear();
+        getPorts().addAll((Collection<? extends Port>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -199,6 +233,9 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
       case IotlangPackage.THING__ANNOTATIONS:
         getAnnotations().clear();
         return;
+      case IotlangPackage.THING__PORTS:
+        getPorts().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -217,6 +254,8 @@ public class ThingImpl extends MinimalEObjectImpl.Container implements Thing
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case IotlangPackage.THING__ANNOTATIONS:
         return annotations != null && !annotations.isEmpty();
+      case IotlangPackage.THING__PORTS:
+        return ports != null && !ports.isEmpty();
     }
     return super.eIsSet(featureID);
   }

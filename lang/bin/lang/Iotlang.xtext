@@ -22,7 +22,7 @@ PlatformAnnotation returns PlatformAnnotation:
 Thing: // example gateway, arduino, android  
 	'thing' name=ID
 	( annotations+=PlatformAnnotation )*'{'
-		 
+		 (ports+=Port)
 	'}';
 
 Channel: // mqtt, kafka, real simple bus,
@@ -45,7 +45,9 @@ Policy: // mqtt, kafka, real simple bus,
 	
 '}'
 ;
-
+Port :
+	'port' name=ID
+;
 Protocol :
 	'protocol' name=ID
 ;
@@ -58,7 +60,7 @@ Topic:
 ;
 
 Rule:
-	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') object=[Thing|ID]
+	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') object=[Thing|ID](( "." ports+=[Port|ID])*)?
 ;
 
 

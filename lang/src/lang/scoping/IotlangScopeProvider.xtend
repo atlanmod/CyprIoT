@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.ENamedElement
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.IScope
 import lang.util.Helpers
+import lang.iotlang.Port
 
 /**
  * This class contains custom scoping description.
@@ -46,6 +47,8 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.instanceChannel_OverProtocol) {
 			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
+		}else if (reference == iotlangInstance.rule_Ports) {
+			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingThing(context as Port)));
 		}else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " + (reference.eContainer as ENamedElement).getName);
 		}

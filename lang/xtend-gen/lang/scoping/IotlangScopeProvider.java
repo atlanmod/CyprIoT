@@ -6,6 +6,7 @@ package lang.scoping;
 import com.google.common.base.Objects;
 import java.util.ArrayList;
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.Port;
 import lang.scoping.AbstractIotlangScopeProvider;
 import lang.util.Helpers;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -83,13 +84,19 @@ public class IotlangScopeProvider extends AbstractIotlangScopeProvider {
                         if (_equals_10) {
                           return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
                         } else {
-                          String _name = reference.getName();
-                          String _plus = ("INFO: Resolving reference : " + _name);
-                          String _plus_1 = (_plus + " in Class ");
-                          EObject _eContainer = reference.eContainer();
-                          String _name_1 = ((ENamedElement) _eContainer).getName();
-                          String _plus_2 = (_plus_1 + _name_1);
-                          System.err.println(_plus_2);
+                          EReference _rule_Ports = this.iotlangInstance.getRule_Ports();
+                          boolean _equals_11 = Objects.equal(reference, _rule_Ports);
+                          if (_equals_11) {
+                            return Scopes.scopeFor(Helpers.allPorts(Helpers.findContainingThing(((Port) context))));
+                          } else {
+                            String _name = reference.getName();
+                            String _plus = ("INFO: Resolving reference : " + _name);
+                            String _plus_1 = (_plus + " in Class ");
+                            EObject _eContainer = reference.eContainer();
+                            String _name_1 = ((ENamedElement) _eContainer).getName();
+                            String _plus_2 = (_plus_1 + _name_1);
+                            System.err.println(_plus_2);
+                          }
                         }
                       }
                     }

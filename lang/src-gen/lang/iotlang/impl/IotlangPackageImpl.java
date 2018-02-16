@@ -17,6 +17,7 @@ import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.PlatformAnnotation;
 import lang.iotlang.PointToPoint;
 import lang.iotlang.Policy;
+import lang.iotlang.Port;
 import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
 import lang.iotlang.Rule;
@@ -86,6 +87,13 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * @generated
    */
   private EClass policyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass portEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -355,6 +363,16 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getThing_Ports()
+  {
+    return (EReference)thingEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getChannel()
   {
     return channelEClass;
@@ -428,6 +446,26 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
   public EReference getPolicy_HasRules()
   {
     return (EReference)policyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPort()
+  {
+    return portEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPort_Name()
+  {
+    return (EAttribute)portEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -558,6 +596,16 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
   public EReference getRule_Object()
   {
     return (EReference)ruleEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRule_Ports()
+  {
+    return (EReference)ruleEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -935,6 +983,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     thingEClass = createEClass(THING);
     createEAttribute(thingEClass, THING__NAME);
     createEReference(thingEClass, THING__ANNOTATIONS);
+    createEReference(thingEClass, THING__PORTS);
 
     channelEClass = createEClass(CHANNEL);
     createEAttribute(channelEClass, CHANNEL__NAME);
@@ -947,6 +996,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     policyEClass = createEClass(POLICY);
     createEAttribute(policyEClass, POLICY__NAME);
     createEReference(policyEClass, POLICY__HAS_RULES);
+
+    portEClass = createEClass(PORT);
+    createEAttribute(portEClass, PORT__NAME);
 
     protocolEClass = createEClass(PROTOCOL);
     createEAttribute(protocolEClass, PROTOCOL__NAME);
@@ -964,6 +1016,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     createEAttribute(ruleEClass, RULE__PERMISSION);
     createEAttribute(ruleEClass, RULE__ACTION);
     createEReference(ruleEClass, RULE__OBJECT);
+    createEReference(ruleEClass, RULE__PORTS);
 
     domainEClass = createEClass(DOMAIN);
     createEAttribute(domainEClass, DOMAIN__NAME);
@@ -1053,6 +1106,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEClass(thingEClass, Thing.class, "Thing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getThing_Name(), ecorePackage.getEString(), "name", null, 0, 1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getThing_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getThing_Ports(), this.getPort(), null, "ports", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(channelEClass, Channel.class, "Channel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getChannel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1065,6 +1119,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEClass(policyEClass, Policy.class, "Policy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPolicy_Name(), ecorePackage.getEString(), "name", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPolicy_HasRules(), this.getRule(), null, "hasRules", null, 0, -1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPort_Name(), ecorePackage.getEString(), "name", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(protocolEClass, Protocol.class, "Protocol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getProtocol_Name(), ecorePackage.getEString(), "name", null, 0, 1, Protocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1082,6 +1139,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEAttribute(getRule_Permission(), ecorePackage.getEString(), "permission", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRule_Action(), ecorePackage.getEString(), "action", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRule_Object(), this.getThing(), null, "object", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRule_Ports(), this.getPort(), null, "ports", null, 0, -1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(domainEClass, Domain.class, "Domain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDomain_Name(), ecorePackage.getEString(), "name", null, 0, 1, Domain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

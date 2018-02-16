@@ -196,13 +196,22 @@ public interface IotlangPackage extends EPackage
   int THING__ANNOTATIONS = 1;
 
   /**
+   * The feature id for the '<em><b>Ports</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THING__PORTS = 2;
+
+  /**
    * The number of structural features of the '<em>Thing</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int THING_FEATURE_COUNT = 2;
+  int THING_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.ChannelImpl <em>Channel</em>}' class.
@@ -335,6 +344,34 @@ public interface IotlangPackage extends EPackage
   int POLICY_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link lang.iotlang.impl.PortImpl <em>Port</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.PortImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getPort()
+   * @generated
+   */
+  int PORT = 7;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PORT__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Port</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PORT_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -342,7 +379,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getProtocol()
    * @generated
    */
-  int PROTOCOL = 7;
+  int PROTOCOL = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -370,7 +407,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getMessage()
    * @generated
    */
-  int MESSAGE = 8;
+  int MESSAGE = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -398,7 +435,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getTopic()
    * @generated
    */
-  int TOPIC = 9;
+  int TOPIC = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -435,7 +472,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getRule()
    * @generated
    */
-  int RULE = 10;
+  int RULE = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -483,13 +520,22 @@ public interface IotlangPackage extends EPackage
   int RULE__OBJECT = 4;
 
   /**
+   * The feature id for the '<em><b>Ports</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__PORTS = 5;
+
+  /**
    * The number of structural features of the '<em>Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RULE_FEATURE_COUNT = 5;
+  int RULE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.
@@ -499,7 +545,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getDomain()
    * @generated
    */
-  int DOMAIN = 11;
+  int DOMAIN = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -527,7 +573,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceThing()
    * @generated
    */
-  int INSTANCE_THING = 12;
+  int INSTANCE_THING = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -582,7 +628,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceChannel()
    * @generated
    */
-  int INSTANCE_CHANNEL = 13;
+  int INSTANCE_CHANNEL = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -646,7 +692,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePolicy()
    * @generated
    */
-  int INSTANCE_POLICY = 14;
+  int INSTANCE_POLICY = 15;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -692,7 +738,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getNetworkConfiguration()
    * @generated
    */
-  int NETWORK_CONFIGURATION = 15;
+  int NETWORK_CONFIGURATION = 16;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -783,7 +829,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getBind()
    * @generated
    */
-  int BIND = 16;
+  int BIND = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -990,6 +1036,17 @@ public interface IotlangPackage extends EPackage
   EReference getThing_Annotations();
 
   /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Thing#getPorts <em>Ports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Ports</em>'.
+   * @see lang.iotlang.Thing#getPorts()
+   * @see #getThing()
+   * @generated
+   */
+  EReference getThing_Ports();
+
+  /**
    * Returns the meta object for class '{@link lang.iotlang.Channel <em>Channel</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1072,6 +1129,27 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EReference getPolicy_HasRules();
+
+  /**
+   * Returns the meta object for class '{@link lang.iotlang.Port <em>Port</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Port</em>'.
+   * @see lang.iotlang.Port
+   * @generated
+   */
+  EClass getPort();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Port#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Port#getName()
+   * @see #getPort()
+   * @generated
+   */
+  EAttribute getPort_Name();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.Protocol <em>Protocol</em>}'.
@@ -1211,6 +1289,17 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EReference getRule_Object();
+
+  /**
+   * Returns the meta object for the reference list '{@link lang.iotlang.Rule#getPorts <em>Ports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Ports</em>'.
+   * @see lang.iotlang.Rule#getPorts()
+   * @see #getRule()
+   * @generated
+   */
+  EReference getRule_Ports();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.Domain <em>Domain</em>}'.
@@ -1703,6 +1792,14 @@ public interface IotlangPackage extends EPackage
     EReference THING__ANNOTATIONS = eINSTANCE.getThing_Annotations();
 
     /**
+     * The meta object literal for the '<em><b>Ports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference THING__PORTS = eINSTANCE.getThing_Ports();
+
+    /**
      * The meta object literal for the '{@link lang.iotlang.impl.ChannelImpl <em>Channel</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1773,6 +1870,24 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EReference POLICY__HAS_RULES = eINSTANCE.getPolicy_HasRules();
+
+    /**
+     * The meta object literal for the '{@link lang.iotlang.impl.PortImpl <em>Port</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.PortImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getPort()
+     * @generated
+     */
+    EClass PORT = eINSTANCE.getPort();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PORT__NAME = eINSTANCE.getPort_Name();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.ProtocolImpl <em>Protocol</em>}' class.
@@ -1885,6 +2000,14 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EReference RULE__OBJECT = eINSTANCE.getRule_Object();
+
+    /**
+     * The meta object literal for the '<em><b>Ports</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE__PORTS = eINSTANCE.getRule_Ports();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.

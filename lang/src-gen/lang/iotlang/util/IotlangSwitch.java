@@ -124,6 +124,13 @@ public class IotlangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case IotlangPackage.PORT:
+      {
+        Port port = (Port)theEObject;
+        T result = casePort(port);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case IotlangPackage.PROTOCOL:
       {
         Protocol protocol = (Protocol)theEObject;
@@ -306,6 +313,22 @@ public class IotlangSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePolicy(Policy object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Port</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Port</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePort(Port object)
   {
     return null;
   }

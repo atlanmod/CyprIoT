@@ -3,17 +3,24 @@
  */
 package lang.iotlang.impl;
 
+import java.util.Collection;
+
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.Port;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +35,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link lang.iotlang.impl.RuleImpl#getPermission <em>Permission</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getAction <em>Action</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getObject <em>Object</em>}</li>
+ *   <li>{@link lang.iotlang.impl.RuleImpl#getPorts <em>Ports</em>}</li>
  * </ul>
  *
  * @generated
@@ -113,6 +121,16 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * @ordered
    */
   protected Thing object;
+
+  /**
+   * The cached value of the '{@link #getPorts() <em>Ports</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPorts()
+   * @generated
+   * @ordered
+   */
+  protected EList<Port> ports;
 
   /**
    * <!-- begin-user-doc -->
@@ -295,6 +313,20 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Port> getPorts()
+  {
+    if (ports == null)
+    {
+      ports = new EObjectResolvingEList<Port>(Port.class, this, IotlangPackage.RULE__PORTS);
+    }
+    return ports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -312,6 +344,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__OBJECT:
         if (resolve) return getObject();
         return basicGetObject();
+      case IotlangPackage.RULE__PORTS:
+        return getPorts();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -321,6 +355,7 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -340,6 +375,10 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return;
       case IotlangPackage.RULE__OBJECT:
         setObject((Thing)newValue);
+        return;
+      case IotlangPackage.RULE__PORTS:
+        getPorts().clear();
+        getPorts().addAll((Collection<? extends Port>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -370,6 +409,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__OBJECT:
         setObject((Thing)null);
         return;
+      case IotlangPackage.RULE__PORTS:
+        getPorts().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -394,6 +436,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return ACTION_EDEFAULT == null ? action != null : !ACTION_EDEFAULT.equals(action);
       case IotlangPackage.RULE__OBJECT:
         return object != null;
+      case IotlangPackage.RULE__PORTS:
+        return ports != null && !ports.isEmpty();
     }
     return super.eIsSet(featureID);
   }

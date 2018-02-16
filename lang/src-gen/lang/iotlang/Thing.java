@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link lang.iotlang.Thing#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.Thing#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.Thing#getPorts <em>Ports</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getThing()
@@ -67,5 +68,21 @@ public interface Thing extends EObject
    * @generated
    */
   EList<PlatformAnnotation> getAnnotations();
+
+  /**
+   * Returns the value of the '<em><b>Ports</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Port}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ports</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ports</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getThing_Ports()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Port> getPorts();
 
 } // Thing

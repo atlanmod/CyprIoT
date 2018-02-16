@@ -3,6 +3,8 @@
  */
 package lang.iotlang;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link lang.iotlang.Rule#getPermission <em>Permission</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getAction <em>Action</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getObject <em>Object</em>}</li>
+ *   <li>{@link lang.iotlang.Rule#getPorts <em>Ports</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getRule()
@@ -156,5 +159,21 @@ public interface Rule extends EObject
    * @generated
    */
   void setObject(Thing value);
+
+  /**
+   * Returns the value of the '<em><b>Ports</b></em>' reference list.
+   * The list contents are of type {@link lang.iotlang.Port}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ports</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ports</em>' reference list.
+   * @see lang.iotlang.IotlangPackage#getRule_Ports()
+   * @model
+   * @generated
+   */
+  EList<Port> getPorts();
 
 } // Rule

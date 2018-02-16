@@ -314,9 +314,28 @@ ruleThing returns [EObject current=null]
 		{
 			newLeafNode(otherlv_3, grammarAccess.getThingAccess().getLeftCurlyBracketKeyword_3());
 		}
-		otherlv_4='}'
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getThingAccess().getPortsPortParserRuleCall_4_0());
+				}
+				lv_ports_4_0=rulePort
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getThingRule());
+					}
+					add(
+						$current,
+						"ports",
+						lv_ports_4_0,
+						"lang.Iotlang.Port");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_5='}'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getThingAccess().getRightCurlyBracketKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getThingAccess().getRightCurlyBracketKeyword_5());
 		}
 	)
 ;
@@ -539,6 +558,47 @@ rulePolicy returns [EObject current=null]
 		{
 			newLeafNode(otherlv_4, grammarAccess.getPolicyAccess().getRightCurlyBracketKeyword_4());
 		}
+	)
+;
+
+// Entry rule entryRulePort
+entryRulePort returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getPortRule()); }
+	iv_rulePort=rulePort
+	{ $current=$iv_rulePort.current; }
+	EOF;
+
+// Rule Port
+rulePort returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='port'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getPortAccess().getPortKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getPortAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getPortRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
 	)
 ;
 
@@ -808,6 +868,25 @@ ruleRule returns [EObject current=null]
 				}
 			)
 		)
+		(
+			otherlv_7='.'
+			{
+				newLeafNode(otherlv_7, grammarAccess.getRuleAccess().getFullStopKeyword_7_0());
+			}
+			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getRuleRule());
+						}
+					}
+					otherlv_8=RULE_ID
+					{
+						newLeafNode(otherlv_8, grammarAccess.getRuleAccess().getPortsPortCrossReference_7_1_0());
+					}
+				)
+			)
+		)*
 	)
 ;
 

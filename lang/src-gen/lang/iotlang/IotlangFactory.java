@@ -87,6 +87,15 @@ public interface IotlangFactory extends EFactory
   Policy createPolicy();
 
   /**
+   * Returns a new object of class '<em>Port</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Port</em>'.
+   * @generated
+   */
+  Port createPort();
+
+  /**
    * Returns a new object of class '<em>Protocol</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

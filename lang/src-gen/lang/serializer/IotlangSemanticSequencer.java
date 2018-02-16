@@ -17,6 +17,7 @@ import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.PlatformAnnotation;
 import lang.iotlang.PointToPoint;
 import lang.iotlang.Policy;
+import lang.iotlang.Port;
 import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
 import lang.iotlang.Rule;
@@ -79,6 +80,9 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 				return; 
 			case IotlangPackage.POLICY:
 				sequence_Policy(context, (Policy) semanticObject); 
+				return; 
+			case IotlangPackage.PORT:
+				sequence_Port(context, (Port) semanticObject); 
 				return; 
 			case IotlangPackage.PROTOCOL:
 				sequence_Protocol(context, (Protocol) semanticObject); 
@@ -288,6 +292,24 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
+	 *     Port returns Port
+	 *
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_Port(ISerializationContext context, Port semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.PORT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.PORT__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPortAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Protocol returns Protocol
 	 *
 	 * Constraint:
@@ -322,7 +344,14 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     Rule returns Rule
 	 *
 	 * Constraint:
-	 *     (name=ID? subject=[Thing|ID] (permission='allow' | permission='deny') (action='send' | action='receive') object=[Thing|ID])
+	 *     (
+	 *         name=ID? 
+	 *         subject=[Thing|ID] 
+	 *         (permission='allow' | permission='deny') 
+	 *         (action='send' | action='receive') 
+	 *         object=[Thing|ID] 
+	 *         ports+=[Port|ID]*
+	 *     )
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -334,7 +363,7 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     Thing returns Thing
 	 *
 	 * Constraint:
-	 *     (name=ID annotations+=PlatformAnnotation*)
+	 *     (name=ID annotations+=PlatformAnnotation* ports+=Port)
 	 */
 	protected void sequence_Thing(ISerializationContext context, Thing semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

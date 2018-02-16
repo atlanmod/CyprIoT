@@ -72,6 +72,7 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
       case IotlangPackage.PUB_SUB: return createPubSub();
       case IotlangPackage.POINT_TO_POINT: return createPointToPoint();
       case IotlangPackage.POLICY: return createPolicy();
+      case IotlangPackage.PORT: return createPort();
       case IotlangPackage.PROTOCOL: return createProtocol();
       case IotlangPackage.MESSAGE: return createMessage();
       case IotlangPackage.TOPIC: return createTopic();
@@ -162,6 +163,17 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
   {
     PolicyImpl policy = new PolicyImpl();
     return policy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Port createPort()
+  {
+    PortImpl port = new PortImpl();
+    return port;
   }
 
   /**

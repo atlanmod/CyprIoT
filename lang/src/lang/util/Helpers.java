@@ -19,6 +19,7 @@ import lang.iotlang.InstancePolicy;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
 import lang.iotlang.Policy;
+import lang.iotlang.Port;
 import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
 import lang.iotlang.Thing;
@@ -38,7 +39,9 @@ public class Helpers {
 	public static IoTLangModel findContainingModel(EObject object) {
 		return findContainer(object, IoTLangModel.class);
 	}
-	
+	public static Thing findContainingThing(EObject object) {
+		return findContainer(object,Thing.class);
+	}
 	public static ArrayList<IoTLangModel> allIoTLangModels(IoTLangModel model) {
 		ArrayList<IoTLangModel> result = new ArrayList<IoTLangModel>();
 		result.add(model);
@@ -110,6 +113,14 @@ public class Helpers {
 		}
 		return result;
 		}
+	
+	public static ArrayList<Port> allPorts(Thing thing) {
+		ArrayList<Port> result = new ArrayList<Port>();
+		for (Port p : allPorts(thing)) {
+			if (p instanceof Port) result.add((Port)p);
+		}
+		return result;
+	}
 	public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
 		ArrayList<Protocol> result = new ArrayList<Protocol>();
 		for (IoTLangModel m : allIoTLangModels(model)) {

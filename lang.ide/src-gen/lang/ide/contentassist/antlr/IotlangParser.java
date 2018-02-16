@@ -42,10 +42,12 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPubSubAccess().getGroup(), "rule__PubSub__Group__0");
 					put(grammarAccess.getPointToPointAccess().getGroup(), "rule__PointToPoint__Group__0");
 					put(grammarAccess.getPolicyAccess().getGroup(), "rule__Policy__Group__0");
+					put(grammarAccess.getPortAccess().getGroup(), "rule__Port__Group__0");
 					put(grammarAccess.getProtocolAccess().getGroup(), "rule__Protocol__Group__0");
 					put(grammarAccess.getMessageAccess().getGroup(), "rule__Message__Group__0");
 					put(grammarAccess.getTopicAccess().getGroup(), "rule__Topic__Group__0");
 					put(grammarAccess.getRuleAccess().getGroup(), "rule__Rule__Group__0");
+					put(grammarAccess.getRuleAccess().getGroup_7(), "rule__Rule__Group_7__0");
 					put(grammarAccess.getDomainAccess().getGroup(), "rule__Domain__Group__0");
 					put(grammarAccess.getInstanceThingAccess().getGroup(), "rule__InstanceThing__Group__0");
 					put(grammarAccess.getInstanceThingAccess().getGroup_2(), "rule__InstanceThing__Group_2__0");
@@ -66,11 +68,13 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPlatformAnnotationAccess().getValueAssignment_1(), "rule__PlatformAnnotation__ValueAssignment_1");
 					put(grammarAccess.getThingAccess().getNameAssignment_1(), "rule__Thing__NameAssignment_1");
 					put(grammarAccess.getThingAccess().getAnnotationsAssignment_2(), "rule__Thing__AnnotationsAssignment_2");
+					put(grammarAccess.getThingAccess().getPortsAssignment_4(), "rule__Thing__PortsAssignment_4");
 					put(grammarAccess.getPubSubAccess().getNameAssignment_1(), "rule__PubSub__NameAssignment_1");
 					put(grammarAccess.getPubSubAccess().getHasTopicsAssignment_3(), "rule__PubSub__HasTopicsAssignment_3");
 					put(grammarAccess.getPointToPointAccess().getNameAssignment_1(), "rule__PointToPoint__NameAssignment_1");
 					put(grammarAccess.getPolicyAccess().getNameAssignment_1(), "rule__Policy__NameAssignment_1");
 					put(grammarAccess.getPolicyAccess().getHasRulesAssignment_3(), "rule__Policy__HasRulesAssignment_3");
+					put(grammarAccess.getPortAccess().getNameAssignment_1(), "rule__Port__NameAssignment_1");
 					put(grammarAccess.getProtocolAccess().getNameAssignment_1(), "rule__Protocol__NameAssignment_1");
 					put(grammarAccess.getMessageAccess().getNameAssignment_1(), "rule__Message__NameAssignment_1");
 					put(grammarAccess.getTopicAccess().getNameAssignment_1(), "rule__Topic__NameAssignment_1");
@@ -80,6 +84,7 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRuleAccess().getPermissionAssignment_3(), "rule__Rule__PermissionAssignment_3");
 					put(grammarAccess.getRuleAccess().getActionAssignment_5(), "rule__Rule__ActionAssignment_5");
 					put(grammarAccess.getRuleAccess().getObjectAssignment_6(), "rule__Rule__ObjectAssignment_6");
+					put(grammarAccess.getRuleAccess().getPortsAssignment_7_1(), "rule__Rule__PortsAssignment_7_1");
 					put(grammarAccess.getDomainAccess().getNameAssignment_1(), "rule__Domain__NameAssignment_1");
 					put(grammarAccess.getInstanceThingAccess().getNameAssignment_1(), "rule__InstanceThing__NameAssignment_1");
 					put(grammarAccess.getInstanceThingAccess().getNumberAssignment_2_1(), "rule__InstanceThing__NumberAssignment_2_1");
