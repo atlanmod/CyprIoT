@@ -857,36 +857,60 @@ ruleRule returns [EObject current=null]
 		)
 		(
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getRuleRule());
-					}
-				}
-				otherlv_6=RULE_ID
-				{
-					newLeafNode(otherlv_6, grammarAccess.getRuleAccess().getObjectThingCrossReference_6_0());
-				}
-			)
-		)
-		(
-			otherlv_7='.'
-			{
-				newLeafNode(otherlv_7, grammarAccess.getRuleAccess().getFullStopKeyword_7_0());
-			}
-			(
 				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getRuleRule());
+					(
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getRuleRule());
+							}
 						}
-					}
-					otherlv_8=RULE_ID
+						otherlv_6=RULE_ID
+						{
+							newLeafNode(otherlv_6, grammarAccess.getRuleAccess().getObjectThingCrossReference_6_0_0_0());
+						}
+					)
+				)
+				(
+					otherlv_7='.'
 					{
-						newLeafNode(otherlv_8, grammarAccess.getRuleAccess().getPortsPortCrossReference_7_1_0());
+						newLeafNode(otherlv_7, grammarAccess.getRuleAccess().getFullStopKeyword_6_0_1_0());
 					}
+					(
+						(
+							{
+								if ($current==null) {
+									$current = createModelElement(grammarAccess.getRuleRule());
+								}
+							}
+							otherlv_8=RULE_ID
+							{
+								newLeafNode(otherlv_8, grammarAccess.getRuleAccess().getPortsPortCrossReference_6_0_1_1_0());
+							}
+						)
+					)
+				)*
+			)
+			    |
+			(
+				otherlv_9='message:'
+				{
+					newLeafNode(otherlv_9, grammarAccess.getRuleAccess().getMessageKeyword_6_1_0());
+				}
+				(
+					(
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getRuleRule());
+							}
+						}
+						otherlv_10=RULE_ID
+						{
+							newLeafNode(otherlv_10, grammarAccess.getRuleAccess().getObjectMessageMessageCrossReference_6_1_1_0());
+						}
+					)
 				)
 			)
-		)*
+		)
 	)
 ;
 

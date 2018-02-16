@@ -35,6 +35,7 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getChannelAccess().getAlternatives(), "rule__Channel__Alternatives");
 					put(grammarAccess.getRuleAccess().getPermissionAlternatives_3_0(), "rule__Rule__PermissionAlternatives_3_0");
 					put(grammarAccess.getRuleAccess().getActionAlternatives_5_0(), "rule__Rule__ActionAlternatives_5_0");
+					put(grammarAccess.getRuleAccess().getAlternatives_6(), "rule__Rule__Alternatives_6");
 					put(grammarAccess.getNetworkConfigurationAccess().getAlternatives_4(), "rule__NetworkConfiguration__Alternatives_4");
 					put(grammarAccess.getBindAccess().getDirectionAlternatives_3_0(), "rule__Bind__DirectionAlternatives_3_0");
 					put(grammarAccess.getPlatformAnnotationAccess().getGroup(), "rule__PlatformAnnotation__Group__0");
@@ -47,7 +48,9 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMessageAccess().getGroup(), "rule__Message__Group__0");
 					put(grammarAccess.getTopicAccess().getGroup(), "rule__Topic__Group__0");
 					put(grammarAccess.getRuleAccess().getGroup(), "rule__Rule__Group__0");
-					put(grammarAccess.getRuleAccess().getGroup_7(), "rule__Rule__Group_7__0");
+					put(grammarAccess.getRuleAccess().getGroup_6_0(), "rule__Rule__Group_6_0__0");
+					put(grammarAccess.getRuleAccess().getGroup_6_0_1(), "rule__Rule__Group_6_0_1__0");
+					put(grammarAccess.getRuleAccess().getGroup_6_1(), "rule__Rule__Group_6_1__0");
 					put(grammarAccess.getDomainAccess().getGroup(), "rule__Domain__Group__0");
 					put(grammarAccess.getInstanceThingAccess().getGroup(), "rule__InstanceThing__Group__0");
 					put(grammarAccess.getInstanceThingAccess().getGroup_2(), "rule__InstanceThing__Group_2__0");
@@ -83,8 +86,9 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRuleAccess().getSubjectAssignment_2(), "rule__Rule__SubjectAssignment_2");
 					put(grammarAccess.getRuleAccess().getPermissionAssignment_3(), "rule__Rule__PermissionAssignment_3");
 					put(grammarAccess.getRuleAccess().getActionAssignment_5(), "rule__Rule__ActionAssignment_5");
-					put(grammarAccess.getRuleAccess().getObjectAssignment_6(), "rule__Rule__ObjectAssignment_6");
-					put(grammarAccess.getRuleAccess().getPortsAssignment_7_1(), "rule__Rule__PortsAssignment_7_1");
+					put(grammarAccess.getRuleAccess().getObjectAssignment_6_0_0(), "rule__Rule__ObjectAssignment_6_0_0");
+					put(grammarAccess.getRuleAccess().getPortsAssignment_6_0_1_1(), "rule__Rule__PortsAssignment_6_0_1_1");
+					put(grammarAccess.getRuleAccess().getObjectMessageAssignment_6_1_1(), "rule__Rule__ObjectMessageAssignment_6_1_1");
 					put(grammarAccess.getDomainAccess().getNameAssignment_1(), "rule__Domain__NameAssignment_1");
 					put(grammarAccess.getInstanceThingAccess().getNameAssignment_1(), "rule__InstanceThing__NameAssignment_1");
 					put(grammarAccess.getInstanceThingAccess().getNumberAssignment_2_1(), "rule__InstanceThing__NumberAssignment_2_1");

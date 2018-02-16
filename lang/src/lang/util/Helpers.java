@@ -114,10 +114,10 @@ public class Helpers {
 		return result;
 		}
 	
-	public static ArrayList<Port> allPorts(Thing thing) {
+	public static ArrayList<Port> allPorts(IoTLangModel model) {
 		ArrayList<Port> result = new ArrayList<Port>();
-		for (Port p : allPorts(thing)) {
-			if (p instanceof Port) result.add((Port)p);
+		for (Thing t : allThings(model)) {
+			result.addAll(t.getPorts());
 		}
 		return result;
 	}

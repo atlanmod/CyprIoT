@@ -424,22 +424,29 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cActionAlternatives_5_0 = (Alternatives)cActionAssignment_5.eContents().get(0);
 		private final Keyword cActionSendKeyword_5_0_0 = (Keyword)cActionAlternatives_5_0.eContents().get(0);
 		private final Keyword cActionReceiveKeyword_5_0_1 = (Keyword)cActionAlternatives_5_0.eContents().get(1);
-		private final Assignment cObjectAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cObjectThingCrossReference_6_0 = (CrossReference)cObjectAssignment_6.eContents().get(0);
-		private final RuleCall cObjectThingIDTerminalRuleCall_6_0_1 = (RuleCall)cObjectThingCrossReference_6_0.eContents().get(1);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cFullStopKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cPortsAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final CrossReference cPortsPortCrossReference_7_1_0 = (CrossReference)cPortsAssignment_7_1.eContents().get(0);
-		private final RuleCall cPortsPortIDTerminalRuleCall_7_1_0_1 = (RuleCall)cPortsPortCrossReference_7_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
+		private final Group cGroup_6_0 = (Group)cAlternatives_6.eContents().get(0);
+		private final Assignment cObjectAssignment_6_0_0 = (Assignment)cGroup_6_0.eContents().get(0);
+		private final CrossReference cObjectThingCrossReference_6_0_0_0 = (CrossReference)cObjectAssignment_6_0_0.eContents().get(0);
+		private final RuleCall cObjectThingIDTerminalRuleCall_6_0_0_0_1 = (RuleCall)cObjectThingCrossReference_6_0_0_0.eContents().get(1);
+		private final Group cGroup_6_0_1 = (Group)cGroup_6_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_6_0_1_0 = (Keyword)cGroup_6_0_1.eContents().get(0);
+		private final Assignment cPortsAssignment_6_0_1_1 = (Assignment)cGroup_6_0_1.eContents().get(1);
+		private final CrossReference cPortsPortCrossReference_6_0_1_1_0 = (CrossReference)cPortsAssignment_6_0_1_1.eContents().get(0);
+		private final RuleCall cPortsPortIDTerminalRuleCall_6_0_1_1_0_1 = (RuleCall)cPortsPortCrossReference_6_0_1_1_0.eContents().get(1);
+		private final Group cGroup_6_1 = (Group)cAlternatives_6.eContents().get(1);
+		private final Keyword cMessageKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
+		private final Assignment cObjectMessageAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
+		private final CrossReference cObjectMessageMessageCrossReference_6_1_1_0 = (CrossReference)cObjectMessageAssignment_6_1_1.eContents().get(0);
+		private final RuleCall cObjectMessageMessageIDTerminalRuleCall_6_1_1_0_1 = (RuleCall)cObjectMessageMessageCrossReference_6_1_1_0.eContents().get(1);
 		
 		//Rule:
-		//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing] ("."
-		//	ports+=[Port])*;
+		//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') (object=[Thing] ("."
+		//	ports+=[Port])* | 'message:' objectMessage=[Message]);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing] ("."
-		//ports+=[Port])*
+		//'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') (object=[Thing] ("."
+		//ports+=[Port])* | 'message:' objectMessage=[Message])
 		public Group getGroup() { return cGroup; }
 		
 		//'rule'
@@ -487,29 +494,50 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'receive'
 		public Keyword getActionReceiveKeyword_5_0_1() { return cActionReceiveKeyword_5_0_1; }
 		
+		//object=[Thing] ("." ports+=[Port])* | 'message:' objectMessage=[Message]
+		public Alternatives getAlternatives_6() { return cAlternatives_6; }
+		
+		//object=[Thing] ("." ports+=[Port])*
+		public Group getGroup_6_0() { return cGroup_6_0; }
+		
 		//object=[Thing]
-		public Assignment getObjectAssignment_6() { return cObjectAssignment_6; }
+		public Assignment getObjectAssignment_6_0_0() { return cObjectAssignment_6_0_0; }
 		
 		//[Thing]
-		public CrossReference getObjectThingCrossReference_6_0() { return cObjectThingCrossReference_6_0; }
+		public CrossReference getObjectThingCrossReference_6_0_0_0() { return cObjectThingCrossReference_6_0_0_0; }
 		
 		//ID
-		public RuleCall getObjectThingIDTerminalRuleCall_6_0_1() { return cObjectThingIDTerminalRuleCall_6_0_1; }
+		public RuleCall getObjectThingIDTerminalRuleCall_6_0_0_0_1() { return cObjectThingIDTerminalRuleCall_6_0_0_0_1; }
 		
 		//("." ports+=[Port])*
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_6_0_1() { return cGroup_6_0_1; }
 		
 		//"."
-		public Keyword getFullStopKeyword_7_0() { return cFullStopKeyword_7_0; }
+		public Keyword getFullStopKeyword_6_0_1_0() { return cFullStopKeyword_6_0_1_0; }
 		
 		//ports+=[Port]
-		public Assignment getPortsAssignment_7_1() { return cPortsAssignment_7_1; }
+		public Assignment getPortsAssignment_6_0_1_1() { return cPortsAssignment_6_0_1_1; }
 		
 		//[Port]
-		public CrossReference getPortsPortCrossReference_7_1_0() { return cPortsPortCrossReference_7_1_0; }
+		public CrossReference getPortsPortCrossReference_6_0_1_1_0() { return cPortsPortCrossReference_6_0_1_1_0; }
 		
 		//ID
-		public RuleCall getPortsPortIDTerminalRuleCall_7_1_0_1() { return cPortsPortIDTerminalRuleCall_7_1_0_1; }
+		public RuleCall getPortsPortIDTerminalRuleCall_6_0_1_1_0_1() { return cPortsPortIDTerminalRuleCall_6_0_1_1_0_1; }
+		
+		//'message:' objectMessage=[Message]
+		public Group getGroup_6_1() { return cGroup_6_1; }
+		
+		//'message:'
+		public Keyword getMessageKeyword_6_1_0() { return cMessageKeyword_6_1_0; }
+		
+		//objectMessage=[Message]
+		public Assignment getObjectMessageAssignment_6_1_1() { return cObjectMessageAssignment_6_1_1; }
+		
+		//[Message]
+		public CrossReference getObjectMessageMessageCrossReference_6_1_1_0() { return cObjectMessageMessageCrossReference_6_1_1_0; }
+		
+		//ID
+		public RuleCall getObjectMessageMessageIDTerminalRuleCall_6_1_1_0_1() { return cObjectMessageMessageIDTerminalRuleCall_6_1_1_0_1; }
 	}
 	public class DomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Domain");
@@ -1178,8 +1206,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Rule:
-	//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing] ("."
-	//	ports+=[Port])*;
+	//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') (object=[Thing] ("."
+	//	ports+=[Port])* | 'message:' objectMessage=[Message]);
 	public RuleElements getRuleAccess() {
 		return pRule;
 	}

@@ -60,6 +60,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//Thing"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ports" unique="false" upperBound="-1"
         eType="#//Port"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objectMessage" eType="#//Message"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Domain">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

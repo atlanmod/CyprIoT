@@ -54,6 +54,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Rule/action"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Rule/object"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Rule/ports"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Rule/objectMessage"/>
     </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//Domain">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Domain/name"/>

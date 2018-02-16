@@ -349,8 +349,7 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         subject=[Thing|ID] 
 	 *         (permission='allow' | permission='deny') 
 	 *         (action='send' | action='receive') 
-	 *         object=[Thing|ID] 
-	 *         ports+=[Port|ID]*
+	 *         ((object=[Thing|ID] ports+=[Port|ID]*) | objectMessage=[Message|ID])
 	 *     )
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {

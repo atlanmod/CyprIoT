@@ -529,13 +529,22 @@ public interface IotlangPackage extends EPackage
   int RULE__PORTS = 5;
 
   /**
+   * The feature id for the '<em><b>Object Message</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE__OBJECT_MESSAGE = 6;
+
+  /**
    * The number of structural features of the '<em>Rule</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RULE_FEATURE_COUNT = 6;
+  int RULE_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.
@@ -1302,6 +1311,17 @@ public interface IotlangPackage extends EPackage
   EReference getRule_Ports();
 
   /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Rule#getObjectMessage <em>Object Message</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Object Message</em>'.
+   * @see lang.iotlang.Rule#getObjectMessage()
+   * @see #getRule()
+   * @generated
+   */
+  EReference getRule_ObjectMessage();
+
+  /**
    * Returns the meta object for class '{@link lang.iotlang.Domain <em>Domain</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2008,6 +2028,14 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EReference RULE__PORTS = eINSTANCE.getRule_Ports();
+
+    /**
+     * The meta object literal for the '<em><b>Object Message</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE__OBJECT_MESSAGE = eINSTANCE.getRule_ObjectMessage();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.DomainImpl <em>Domain</em>}' class.

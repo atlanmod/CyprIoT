@@ -6,6 +6,7 @@ package lang.iotlang.impl;
 import java.util.Collection;
 
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.Message;
 import lang.iotlang.Port;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link lang.iotlang.impl.RuleImpl#getAction <em>Action</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getObject <em>Object</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getPorts <em>Ports</em>}</li>
+ *   <li>{@link lang.iotlang.impl.RuleImpl#getObjectMessage <em>Object Message</em>}</li>
  * </ul>
  *
  * @generated
@@ -131,6 +133,16 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * @ordered
    */
   protected EList<Port> ports;
+
+  /**
+   * The cached value of the '{@link #getObjectMessage() <em>Object Message</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getObjectMessage()
+   * @generated
+   * @ordered
+   */
+  protected Message objectMessage;
 
   /**
    * <!-- begin-user-doc -->
@@ -327,6 +339,49 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
+  public Message getObjectMessage()
+  {
+    if (objectMessage != null && objectMessage.eIsProxy())
+    {
+      InternalEObject oldObjectMessage = (InternalEObject)objectMessage;
+      objectMessage = (Message)eResolveProxy(oldObjectMessage);
+      if (objectMessage != oldObjectMessage)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.RULE__OBJECT_MESSAGE, oldObjectMessage, objectMessage));
+      }
+    }
+    return objectMessage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Message basicGetObjectMessage()
+  {
+    return objectMessage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setObjectMessage(Message newObjectMessage)
+  {
+    Message oldObjectMessage = objectMessage;
+    objectMessage = newObjectMessage;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.RULE__OBJECT_MESSAGE, oldObjectMessage, objectMessage));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -346,6 +401,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return basicGetObject();
       case IotlangPackage.RULE__PORTS:
         return getPorts();
+      case IotlangPackage.RULE__OBJECT_MESSAGE:
+        if (resolve) return getObjectMessage();
+        return basicGetObjectMessage();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -380,6 +438,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         getPorts().clear();
         getPorts().addAll((Collection<? extends Port>)newValue);
         return;
+      case IotlangPackage.RULE__OBJECT_MESSAGE:
+        setObjectMessage((Message)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -412,6 +473,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__PORTS:
         getPorts().clear();
         return;
+      case IotlangPackage.RULE__OBJECT_MESSAGE:
+        setObjectMessage((Message)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -438,6 +502,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
         return object != null;
       case IotlangPackage.RULE__PORTS:
         return ports != null && !ports.isEmpty();
+      case IotlangPackage.RULE__OBJECT_MESSAGE:
+        return objectMessage != null;
     }
     return super.eIsSet(featureID);
   }

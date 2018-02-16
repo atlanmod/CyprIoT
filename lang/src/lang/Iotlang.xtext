@@ -60,7 +60,7 @@ Topic:
 ;
 
 Rule:
-	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') object=[Thing|ID](( "." ports+=[Port|ID])*)?
+	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') (object=[Thing|ID](( "." ports+=[Port])*)?| 'message:' objectMessage=[Message])
 ;
 
 

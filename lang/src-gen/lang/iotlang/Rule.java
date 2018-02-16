@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link lang.iotlang.Rule#getAction <em>Action</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getObject <em>Object</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getPorts <em>Ports</em>}</li>
+ *   <li>{@link lang.iotlang.Rule#getObjectMessage <em>Object Message</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getRule()
@@ -175,5 +176,31 @@ public interface Rule extends EObject
    * @generated
    */
   EList<Port> getPorts();
+
+  /**
+   * Returns the value of the '<em><b>Object Message</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Object Message</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Object Message</em>' reference.
+   * @see #setObjectMessage(Message)
+   * @see lang.iotlang.IotlangPackage#getRule_ObjectMessage()
+   * @model
+   * @generated
+   */
+  Message getObjectMessage();
+
+  /**
+   * Sets the value of the '{@link lang.iotlang.Rule#getObjectMessage <em>Object Message</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Object Message</em>' reference.
+   * @see #getObjectMessage()
+   * @generated
+   */
+  void setObjectMessage(Message value);
 
 } // Rule
