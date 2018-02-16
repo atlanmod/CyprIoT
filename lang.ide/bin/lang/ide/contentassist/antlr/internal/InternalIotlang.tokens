@@ -1,6 +1,6 @@
 '('=30
 ')'=31
-','=46
+','=47
 '.'=34
 ':'=33
 '<='=19
@@ -9,18 +9,19 @@
 '['=38
 ']'=39
 'allow'=13
-'bind'=45
+'bind'=46
 'channel:ptp'=24
 'channel:pubsub'=23
 'deny'=14
 'domain'=36
-'enforce'=44
-'instanceChannel'=40
-'instancePolicy'=42
+'enforce'=45
+'instancePTP'=42
+'instancePolicy'=43
+'instancePubSub'=40
 'instanceThing'=37
 'message'=28
 'message:'=35
-'networkConfiguration'=43
+'networkConfiguration'=44
 'over'=41
 'policy'=25
 'port'=26
@@ -75,3 +76,4 @@ T__43=43
 T__44=44
 T__45=45
 T__46=46
+T__47=47

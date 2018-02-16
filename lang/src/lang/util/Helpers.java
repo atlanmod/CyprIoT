@@ -13,9 +13,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.iotlang.Channel;
+import lang.iotlang.InstanceChannel;
 import lang.iotlang.Topic;
+import lang.iotlang.impl.PointToPointImpl;
+import lang.iotlang.impl.PubSubImpl;
 import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.PointToPoint;
 import lang.iotlang.InstancePolicy;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
 import lang.iotlang.Policy;
@@ -93,17 +98,33 @@ public class Helpers {
 	}
 	return result;
 	}
-	
-	public static ArrayList<PubSub> allBuses(IoTLangModel model) {
-		ArrayList<PubSub> result = new ArrayList<PubSub>();
+	public static ArrayList<Channel> allChannels(IoTLangModel model) {
+		ArrayList<Channel> result = new ArrayList<Channel>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Channel t : m.getChannels()) {
+					result.add((Channel)t);
+			}
+		}
+		return result;
+		}
+	public static ArrayList<PubSub> allPusSub(IoTLangModel model) {
+		ArrayList<PubSub> result = new ArrayList<PubSub>();
+		for (Channel m : allChannels(model)) {
+			for (PubSub t : m.getPubSub()) {
 					result.add((PubSub)t);
 			}
 		}
 		return result;
 		}
-	
+	public static ArrayList<PointToPoint> allPTP(IoTLangModel model) {
+		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
+		for (Channel m : allChannels(model)) {
+			for (PointToPoint t : m.getPointToPoint()) {
+					result.add((PointToPoint)t);
+			}
+		}
+		return result;
+		}
 	public static ArrayList<Message> allMessages(IoTLangModel model) {
 		ArrayList<Message> result = new ArrayList<Message>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
@@ -133,7 +154,7 @@ public class Helpers {
 	
 	public static ArrayList<Topic> allTopics(IoTLangModel model) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (PubSub m : allBuses(model)) {
+		for (PubSub m : allPusSub(model)) {
 			for (Topic t : m.getHasTopics()) {
 					result.add((Topic)t);
 			}
@@ -159,6 +180,26 @@ public class Helpers {
 		}
 		return result;
 		}
+	public static ArrayList<InstanceChannel> allChannelinstances(IoTLangModel model) {
+		ArrayList<InstanceChannel> result = new ArrayList<InstanceChannel>();
+		for (NetworkConfiguration m : allConfigs(model)) {
+			for (InstanceChannel t : m.getChannelInstances()) {
+					result.add((InstanceChannel)t);
+			}
+		}
+		return result;
+	}
+	
+	public static ArrayList<InstancePubSub> allPubSubinstances(IoTLangModel model) {
+		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
+		for (InstanceChannel m : allChannelinstances(model)) {
+			for (InstancePubSub t : m.getInstancesPubSub()) {
+					result.add((InstancePubSub)t);
+			}
+		}
+		return result;
+	}
+	
 //	public static ArrayList<Thing> allThings(IoTLangModel model) {
 //		ArrayList<Thing> result = new ArrayList<Thing>();
 //		for (IoTLangModel m : allThingMLModelModels(model)) {

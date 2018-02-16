@@ -6,7 +6,7 @@ package lang.iotlang.impl;
 import java.util.Collection;
 
 import lang.iotlang.Bind;
-import lang.iotlang.InstanceChannel;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IotlangPackage;
 import lang.iotlang.PlatformAnnotation;
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link lang.iotlang.impl.BindImpl#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.impl.BindImpl#getThingInstance <em>Thing Instance</em>}</li>
  *   <li>{@link lang.iotlang.impl.BindImpl#getDirection <em>Direction</em>}</li>
- *   <li>{@link lang.iotlang.impl.BindImpl#getChannelInstance <em>Channel Instance</em>}</li>
+ *   <li>{@link lang.iotlang.impl.BindImpl#getPubSubInstance <em>Pub Sub Instance</em>}</li>
  *   <li>{@link lang.iotlang.impl.BindImpl#getTopics <em>Topics</em>}</li>
  *   <li>{@link lang.iotlang.impl.BindImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
@@ -98,14 +98,14 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
   protected String direction = DIRECTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getChannelInstance() <em>Channel Instance</em>}' reference.
+   * The cached value of the '{@link #getPubSubInstance() <em>Pub Sub Instance</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getChannelInstance()
+   * @see #getPubSubInstance()
    * @generated
    * @ordered
    */
-  protected InstanceChannel channelInstance;
+  protected InstancePubSub pubSubInstance;
 
   /**
    * The cached value of the '{@link #getTopics() <em>Topics</em>}' reference list.
@@ -242,19 +242,19 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceChannel getChannelInstance()
+  public InstancePubSub getPubSubInstance()
   {
-    if (channelInstance != null && channelInstance.eIsProxy())
+    if (pubSubInstance != null && pubSubInstance.eIsProxy())
     {
-      InternalEObject oldChannelInstance = (InternalEObject)channelInstance;
-      channelInstance = (InstanceChannel)eResolveProxy(oldChannelInstance);
-      if (channelInstance != oldChannelInstance)
+      InternalEObject oldPubSubInstance = (InternalEObject)pubSubInstance;
+      pubSubInstance = (InstancePubSub)eResolveProxy(oldPubSubInstance);
+      if (pubSubInstance != oldPubSubInstance)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.BIND__CHANNEL_INSTANCE, oldChannelInstance, channelInstance));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.BIND__PUB_SUB_INSTANCE, oldPubSubInstance, pubSubInstance));
       }
     }
-    return channelInstance;
+    return pubSubInstance;
   }
 
   /**
@@ -262,9 +262,9 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceChannel basicGetChannelInstance()
+  public InstancePubSub basicGetPubSubInstance()
   {
-    return channelInstance;
+    return pubSubInstance;
   }
 
   /**
@@ -272,12 +272,12 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setChannelInstance(InstanceChannel newChannelInstance)
+  public void setPubSubInstance(InstancePubSub newPubSubInstance)
   {
-    InstanceChannel oldChannelInstance = channelInstance;
-    channelInstance = newChannelInstance;
+    InstancePubSub oldPubSubInstance = pubSubInstance;
+    pubSubInstance = newPubSubInstance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.BIND__CHANNEL_INSTANCE, oldChannelInstance, channelInstance));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.BIND__PUB_SUB_INSTANCE, oldPubSubInstance, pubSubInstance));
   }
 
   /**
@@ -341,9 +341,9 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
         return basicGetThingInstance();
       case IotlangPackage.BIND__DIRECTION:
         return getDirection();
-      case IotlangPackage.BIND__CHANNEL_INSTANCE:
-        if (resolve) return getChannelInstance();
-        return basicGetChannelInstance();
+      case IotlangPackage.BIND__PUB_SUB_INSTANCE:
+        if (resolve) return getPubSubInstance();
+        return basicGetPubSubInstance();
       case IotlangPackage.BIND__TOPICS:
         return getTopics();
       case IotlangPackage.BIND__ANNOTATIONS:
@@ -372,8 +372,8 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
       case IotlangPackage.BIND__DIRECTION:
         setDirection((String)newValue);
         return;
-      case IotlangPackage.BIND__CHANNEL_INSTANCE:
-        setChannelInstance((InstanceChannel)newValue);
+      case IotlangPackage.BIND__PUB_SUB_INSTANCE:
+        setPubSubInstance((InstancePubSub)newValue);
         return;
       case IotlangPackage.BIND__TOPICS:
         getTopics().clear();
@@ -406,8 +406,8 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
       case IotlangPackage.BIND__DIRECTION:
         setDirection(DIRECTION_EDEFAULT);
         return;
-      case IotlangPackage.BIND__CHANNEL_INSTANCE:
-        setChannelInstance((InstanceChannel)null);
+      case IotlangPackage.BIND__PUB_SUB_INSTANCE:
+        setPubSubInstance((InstancePubSub)null);
         return;
       case IotlangPackage.BIND__TOPICS:
         getTopics().clear();
@@ -435,8 +435,8 @@ public class BindImpl extends MinimalEObjectImpl.Container implements Bind
         return thingInstance != null;
       case IotlangPackage.BIND__DIRECTION:
         return DIRECTION_EDEFAULT == null ? direction != null : !DIRECTION_EDEFAULT.equals(direction);
-      case IotlangPackage.BIND__CHANNEL_INSTANCE:
-        return channelInstance != null;
+      case IotlangPackage.BIND__PUB_SUB_INSTANCE:
+        return pubSubInstance != null;
       case IotlangPackage.BIND__TOPICS:
         return topics != null && !topics.isEmpty();
       case IotlangPackage.BIND__ANNOTATIONS:

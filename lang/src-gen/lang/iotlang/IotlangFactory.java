@@ -150,6 +150,24 @@ public interface IotlangFactory extends EFactory
   InstanceThing createInstanceThing();
 
   /**
+   * Returns a new object of class '<em>Instance Pub Sub</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Instance Pub Sub</em>'.
+   * @generated
+   */
+  InstancePubSub createInstancePubSub();
+
+  /**
+   * Returns a new object of class '<em>Instance Pt P</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Instance Pt P</em>'.
+   * @generated
+   */
+  InstancePtP createInstancePtP();
+
+  /**
    * Returns a new object of class '<em>Instance Channel</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

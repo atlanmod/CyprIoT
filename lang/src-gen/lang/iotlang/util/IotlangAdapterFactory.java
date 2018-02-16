@@ -146,6 +146,16 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
         return createInstanceThingAdapter();
       }
       @Override
+      public Adapter caseInstancePubSub(InstancePubSub object)
+      {
+        return createInstancePubSubAdapter();
+      }
+      @Override
+      public Adapter caseInstancePtP(InstancePtP object)
+      {
+        return createInstancePtPAdapter();
+      }
+      @Override
       public Adapter caseInstanceChannel(InstanceChannel object)
       {
         return createInstanceChannelAdapter();
@@ -393,6 +403,36 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInstanceThingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link lang.iotlang.InstancePubSub <em>Instance Pub Sub</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see lang.iotlang.InstancePubSub
+   * @generated
+   */
+  public Adapter createInstancePubSubAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link lang.iotlang.InstancePtP <em>Instance Pt P</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see lang.iotlang.InstancePtP
+   * @generated
+   */
+  public Adapter createInstancePtPAdapter()
   {
     return null;
   }

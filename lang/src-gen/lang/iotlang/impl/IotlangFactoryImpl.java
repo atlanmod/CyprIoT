@@ -79,6 +79,8 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
       case IotlangPackage.RULE: return createRule();
       case IotlangPackage.DOMAIN: return createDomain();
       case IotlangPackage.INSTANCE_THING: return createInstanceThing();
+      case IotlangPackage.INSTANCE_PUB_SUB: return createInstancePubSub();
+      case IotlangPackage.INSTANCE_PT_P: return createInstancePtP();
       case IotlangPackage.INSTANCE_CHANNEL: return createInstanceChannel();
       case IotlangPackage.INSTANCE_POLICY: return createInstancePolicy();
       case IotlangPackage.NETWORK_CONFIGURATION: return createNetworkConfiguration();
@@ -240,6 +242,28 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
   {
     InstanceThingImpl instanceThing = new InstanceThingImpl();
     return instanceThing;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstancePubSub createInstancePubSub()
+  {
+    InstancePubSubImpl instancePubSub = new InstancePubSubImpl();
+    return instancePubSub;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstancePtP createInstancePtP()
+  {
+    InstancePtPImpl instancePtP = new InstancePtPImpl();
+    return instancePtP;
   }
 
   /**

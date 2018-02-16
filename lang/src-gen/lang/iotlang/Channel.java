@@ -3,6 +3,8 @@
  */
 package lang.iotlang;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.Channel#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.Channel#getPubSub <em>Pub Sub</em>}</li>
+ *   <li>{@link lang.iotlang.Channel#getPointToPoint <em>Point To Point</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getChannel()
@@ -24,29 +27,35 @@ import org.eclipse.emf.ecore.EObject;
 public interface Channel extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Pub Sub</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.PubSub}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Pub Sub</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see lang.iotlang.IotlangPackage#getChannel_Name()
-   * @model
+   * @return the value of the '<em>Pub Sub</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getChannel_PubSub()
+   * @model containment="true"
    * @generated
    */
-  String getName();
+  EList<PubSub> getPubSub();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Channel#getName <em>Name</em>}' attribute.
+   * Returns the value of the '<em><b>Point To Point</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.PointToPoint}.
    * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Point To Point</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @return the value of the '<em>Point To Point</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getChannel_PointToPoint()
+   * @model containment="true"
    * @generated
    */
-  void setName(String value);
+  EList<PointToPoint> getPointToPoint();
 
 } // Channel

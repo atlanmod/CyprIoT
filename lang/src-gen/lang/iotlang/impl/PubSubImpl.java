@@ -9,12 +9,16 @@ import lang.iotlang.IotlangPackage;
 import lang.iotlang.PubSub;
 import lang.iotlang.Topic;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -27,13 +31,34 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link lang.iotlang.impl.PubSubImpl#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.impl.PubSubImpl#getHasTopics <em>Has Topics</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PubSubImpl extends ChannelImpl implements PubSub
+public class PubSubImpl extends MinimalEObjectImpl.Container implements PubSub
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getHasTopics() <em>Has Topics</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -63,6 +88,29 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   protected EClass eStaticClass()
   {
     return IotlangPackage.Literals.PUB_SUB;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.PUB_SUB__NAME, oldName, name));
   }
 
   /**
@@ -105,6 +153,8 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   {
     switch (featureID)
     {
+      case IotlangPackage.PUB_SUB__NAME:
+        return getName();
       case IotlangPackage.PUB_SUB__HAS_TOPICS:
         return getHasTopics();
     }
@@ -122,6 +172,9 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   {
     switch (featureID)
     {
+      case IotlangPackage.PUB_SUB__NAME:
+        setName((String)newValue);
+        return;
       case IotlangPackage.PUB_SUB__HAS_TOPICS:
         getHasTopics().clear();
         getHasTopics().addAll((Collection<? extends Topic>)newValue);
@@ -140,6 +193,9 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   {
     switch (featureID)
     {
+      case IotlangPackage.PUB_SUB__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case IotlangPackage.PUB_SUB__HAS_TOPICS:
         getHasTopics().clear();
         return;
@@ -157,10 +213,29 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   {
     switch (featureID)
     {
+      case IotlangPackage.PUB_SUB__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case IotlangPackage.PUB_SUB__HAS_TOPICS:
         return hasTopics != null && !hasTopics.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //PubSubImpl

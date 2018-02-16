@@ -36,17 +36,21 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allPolicies(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.networkConfiguration_Enforces) {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instancePoliciy);
-		}else if (reference == iotlangInstance.instanceChannel_TypeChannel) {
-			return Scopes.scopeFor( Helpers.allBuses(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.bind_ThingInstance) {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
-		}else if (reference == iotlangInstance.bind_ChannelInstance) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).channelInstances );
+		}else if (reference == iotlangInstance.bind_PubSubInstance) {
+			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.bind_Topics) {
 			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.topic_AcceptedMessages) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.instanceChannel_OverProtocol) {
+		}else if (reference == iotlangInstance.instancePubSub_TypeChannel) {
+			return Scopes.scopeFor( Helpers.allPusSub(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.instancePubSub_OverProtocol) {
+			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
+		}else if (reference == iotlangInstance.instancePtP_TypeChannel) {
+			return Scopes.scopeFor( Helpers.allPTP(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.instancePtP_OverProtocol) {
 			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.rule_Ports) {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));

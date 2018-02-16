@@ -3,15 +3,24 @@
  */
 package lang.iotlang.impl;
 
+import java.util.Collection;
+
 import lang.iotlang.Channel;
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.PointToPoint;
+import lang.iotlang.PubSub;
 
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +30,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.impl.ChannelImpl#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ChannelImpl#getPubSub <em>Pub Sub</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ChannelImpl#getPointToPoint <em>Point To Point</em>}</li>
  * </ul>
  *
  * @generated
@@ -29,24 +39,24 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getPubSub() <em>Pub Sub</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getPubSub()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected EList<PubSub> pubSub;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getPointToPoint() <em>Point To Point</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getPointToPoint()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected EList<PointToPoint> pointToPoint;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,9 +84,13 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<PubSub> getPubSub()
   {
-    return name;
+    if (pubSub == null)
+    {
+      pubSub = new EObjectContainmentEList<PubSub>(PubSub.class, this, IotlangPackage.CHANNEL__PUB_SUB);
+    }
+    return pubSub;
   }
 
   /**
@@ -84,12 +98,31 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public EList<PointToPoint> getPointToPoint()
   {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.CHANNEL__NAME, oldName, name));
+    if (pointToPoint == null)
+    {
+      pointToPoint = new EObjectContainmentEList<PointToPoint>(PointToPoint.class, this, IotlangPackage.CHANNEL__POINT_TO_POINT);
+    }
+    return pointToPoint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.CHANNEL__PUB_SUB:
+        return ((InternalEList<?>)getPubSub()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.CHANNEL__POINT_TO_POINT:
+        return ((InternalEList<?>)getPointToPoint()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -102,8 +135,10 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   {
     switch (featureID)
     {
-      case IotlangPackage.CHANNEL__NAME:
-        return getName();
+      case IotlangPackage.CHANNEL__PUB_SUB:
+        return getPubSub();
+      case IotlangPackage.CHANNEL__POINT_TO_POINT:
+        return getPointToPoint();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -113,13 +148,19 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case IotlangPackage.CHANNEL__NAME:
-        setName((String)newValue);
+      case IotlangPackage.CHANNEL__PUB_SUB:
+        getPubSub().clear();
+        getPubSub().addAll((Collection<? extends PubSub>)newValue);
+        return;
+      case IotlangPackage.CHANNEL__POINT_TO_POINT:
+        getPointToPoint().clear();
+        getPointToPoint().addAll((Collection<? extends PointToPoint>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -135,8 +176,11 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   {
     switch (featureID)
     {
-      case IotlangPackage.CHANNEL__NAME:
-        setName(NAME_EDEFAULT);
+      case IotlangPackage.CHANNEL__PUB_SUB:
+        getPubSub().clear();
+        return;
+      case IotlangPackage.CHANNEL__POINT_TO_POINT:
+        getPointToPoint().clear();
         return;
     }
     super.eUnset(featureID);
@@ -152,27 +196,12 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   {
     switch (featureID)
     {
-      case IotlangPackage.CHANNEL__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case IotlangPackage.CHANNEL__PUB_SUB:
+        return pubSub != null && !pubSub.isEmpty();
+      case IotlangPackage.CHANNEL__POINT_TO_POINT:
+        return pointToPoint != null && !pointToPoint.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ChannelImpl

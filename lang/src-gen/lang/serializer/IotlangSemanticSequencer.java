@@ -6,9 +6,12 @@ package lang.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import lang.iotlang.Bind;
+import lang.iotlang.Channel;
 import lang.iotlang.Domain;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
+import lang.iotlang.InstancePtP;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.IotlangPackage;
@@ -51,6 +54,9 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 			case IotlangPackage.BIND:
 				sequence_Bind(context, (Bind) semanticObject); 
 				return; 
+			case IotlangPackage.CHANNEL:
+				sequence_Channel(context, (Channel) semanticObject); 
+				return; 
 			case IotlangPackage.DOMAIN:
 				sequence_Domain(context, (Domain) semanticObject); 
 				return; 
@@ -59,6 +65,12 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 				return; 
 			case IotlangPackage.INSTANCE_POLICY:
 				sequence_InstancePolicy(context, (InstancePolicy) semanticObject); 
+				return; 
+			case IotlangPackage.INSTANCE_PT_P:
+				sequence_InstancePtP(context, (InstancePtP) semanticObject); 
+				return; 
+			case IotlangPackage.INSTANCE_PUB_SUB:
+				sequence_InstancePubSub(context, (InstancePubSub) semanticObject); 
 				return; 
 			case IotlangPackage.INSTANCE_THING:
 				sequence_InstanceThing(context, (InstanceThing) semanticObject); 
@@ -113,13 +125,25 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         name=ID? 
 	 *         thingInstance=[InstanceThing|ID] 
 	 *         (direction='=>' | direction='<=>' | direction='<=') 
-	 *         channelInstance=[InstanceChannel|ID] 
+	 *         pubSubInstance=[InstancePubSub|ID] 
 	 *         topics+=[Topic|ID] 
 	 *         topics+=[Topic|ID]* 
 	 *         annotations+=PlatformAnnotation*
 	 *     )
 	 */
 	protected void sequence_Bind(ISerializationContext context, Bind semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Channel returns Channel
+	 *
+	 * Constraint:
+	 *     (pubSub+=PubSub | pointToPoint+=PointToPoint)
+	 */
+	protected void sequence_Channel(ISerializationContext context, Channel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -147,7 +171,7 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     InstanceChannel returns InstanceChannel
 	 *
 	 * Constraint:
-	 *     (name=ID number+=INT* typeChannel=[Channel|ID] overProtocol=[Protocol|ID] annotations+=PlatformAnnotation*)
+	 *     (instancesPubSub+=InstancePubSub | instancesPtp+=InstancePtP)
 	 */
 	protected void sequence_InstanceChannel(ISerializationContext context, InstanceChannel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -162,6 +186,30 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     (name=ID typePolicy=[Policy|ID] annotations+=PlatformAnnotation*)
 	 */
 	protected void sequence_InstancePolicy(ISerializationContext context, InstancePolicy semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     InstancePtP returns InstancePtP
+	 *
+	 * Constraint:
+	 *     (name=ID number+=INT* typeChannel=[PointToPoint|ID] overProtocol=[Protocol|ID] annotations+=PlatformAnnotation*)
+	 */
+	protected void sequence_InstancePtP(ISerializationContext context, InstancePtP semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     InstancePubSub returns InstancePubSub
+	 *
+	 * Constraint:
+	 *     (name=ID number+=INT* typeChannel=[PubSub|ID] overProtocol=[Protocol|ID] annotations+=PlatformAnnotation*)
+	 */
+	protected void sequence_InstancePubSub(ISerializationContext context, InstancePubSub semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -261,7 +309,6 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     Channel returns PointToPoint
 	 *     PointToPoint returns PointToPoint
 	 *
 	 * Constraint:
@@ -269,8 +316,8 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 */
 	protected void sequence_PointToPoint(ISerializationContext context, PointToPoint semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.CHANNEL__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.CHANNEL__NAME));
+			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.POINT_TO_POINT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.POINT_TO_POINT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
@@ -328,7 +375,6 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     Channel returns PubSub
 	 *     PubSub returns PubSub
 	 *
 	 * Constraint:

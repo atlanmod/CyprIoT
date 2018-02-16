@@ -5,6 +5,8 @@ package lang.iotlang;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Pub Sub</b></em>'.
@@ -14,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link lang.iotlang.PubSub#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.PubSub#getHasTopics <em>Has Topics</em>}</li>
  * </ul>
  *
@@ -21,8 +24,34 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface PubSub extends Channel
+public interface PubSub extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see lang.iotlang.IotlangPackage#getPubSub_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link lang.iotlang.PubSub#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
   /**
    * Returns the value of the '<em><b>Has Topics</b></em>' containment reference list.
    * The list contents are of type {@link lang.iotlang.Topic}.

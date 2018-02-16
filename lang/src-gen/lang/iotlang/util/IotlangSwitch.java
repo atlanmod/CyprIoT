@@ -105,7 +105,6 @@ public class IotlangSwitch<T> extends Switch<T>
       {
         PubSub pubSub = (PubSub)theEObject;
         T result = casePubSub(pubSub);
-        if (result == null) result = caseChannel(pubSub);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -113,7 +112,6 @@ public class IotlangSwitch<T> extends Switch<T>
       {
         PointToPoint pointToPoint = (PointToPoint)theEObject;
         T result = casePointToPoint(pointToPoint);
-        if (result == null) result = caseChannel(pointToPoint);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -170,6 +168,20 @@ public class IotlangSwitch<T> extends Switch<T>
       {
         InstanceThing instanceThing = (InstanceThing)theEObject;
         T result = caseInstanceThing(instanceThing);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case IotlangPackage.INSTANCE_PUB_SUB:
+      {
+        InstancePubSub instancePubSub = (InstancePubSub)theEObject;
+        T result = caseInstancePubSub(instancePubSub);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case IotlangPackage.INSTANCE_PT_P:
+      {
+        InstancePtP instancePtP = (InstancePtP)theEObject;
+        T result = caseInstancePtP(instancePtP);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -425,6 +437,38 @@ public class IotlangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseInstanceThing(InstanceThing object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Instance Pub Sub</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Instance Pub Sub</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInstancePubSub(InstancePubSub object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Instance Pt P</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Instance Pt P</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInstancePtP(InstancePtP object)
   {
     return null;
   }

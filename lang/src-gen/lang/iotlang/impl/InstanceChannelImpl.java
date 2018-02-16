@@ -5,13 +5,11 @@ package lang.iotlang.impl;
 
 import java.util.Collection;
 
-import lang.iotlang.Channel;
 import lang.iotlang.InstanceChannel;
+import lang.iotlang.InstancePtP;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.IotlangPackage;
-import lang.iotlang.PlatformAnnotation;
-import lang.iotlang.Protocol;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,10 +17,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,11 +30,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getTypeChannel <em>Type Channel</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getOverProtocol <em>Over Protocol</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getInstancesPubSub <em>Instances Pub Sub</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getInstancesPtp <em>Instances Ptp</em>}</li>
  * </ul>
  *
  * @generated
@@ -46,64 +39,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements InstanceChannel
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getInstancesPubSub() <em>Instances Pub Sub</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getInstancesPubSub()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected EList<InstancePubSub> instancesPubSub;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getInstancesPtp() <em>Instances Ptp</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getInstancesPtp()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNumber()
-   * @generated
-   * @ordered
-   */
-  protected EList<Integer> number;
-
-  /**
-   * The cached value of the '{@link #getTypeChannel() <em>Type Channel</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeChannel()
-   * @generated
-   * @ordered
-   */
-  protected Channel typeChannel;
-
-  /**
-   * The cached value of the '{@link #getOverProtocol() <em>Over Protocol</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOverProtocol()
-   * @generated
-   * @ordered
-   */
-  protected Protocol overProtocol;
-
-  /**
-   * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAnnotations()
-   * @generated
-   * @ordered
-   */
-  protected EList<PlatformAnnotation> annotations;
+  protected EList<InstancePtP> instancesPtp;
 
   /**
    * <!-- begin-user-doc -->
@@ -131,36 +84,13 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<InstancePubSub> getInstancesPubSub()
   {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Integer> getNumber()
-  {
-    if (number == null)
+    if (instancesPubSub == null)
     {
-      number = new EDataTypeEList<Integer>(Integer.class, this, IotlangPackage.INSTANCE_CHANNEL__NUMBER);
+      instancesPubSub = new EObjectContainmentEList<InstancePubSub>(InstancePubSub.class, this, IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB);
     }
-    return number;
+    return instancesPubSub;
   }
 
   /**
@@ -168,99 +98,13 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Channel getTypeChannel()
+  public EList<InstancePtP> getInstancesPtp()
   {
-    if (typeChannel != null && typeChannel.eIsProxy())
+    if (instancesPtp == null)
     {
-      InternalEObject oldTypeChannel = (InternalEObject)typeChannel;
-      typeChannel = (Channel)eResolveProxy(oldTypeChannel);
-      if (typeChannel != oldTypeChannel)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL, oldTypeChannel, typeChannel));
-      }
+      instancesPtp = new EObjectContainmentEList<InstancePtP>(InstancePtP.class, this, IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP);
     }
-    return typeChannel;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Channel basicGetTypeChannel()
-  {
-    return typeChannel;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTypeChannel(Channel newTypeChannel)
-  {
-    Channel oldTypeChannel = typeChannel;
-    typeChannel = newTypeChannel;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL, oldTypeChannel, typeChannel));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Protocol getOverProtocol()
-  {
-    if (overProtocol != null && overProtocol.eIsProxy())
-    {
-      InternalEObject oldOverProtocol = (InternalEObject)overProtocol;
-      overProtocol = (Protocol)eResolveProxy(oldOverProtocol);
-      if (overProtocol != oldOverProtocol)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL, oldOverProtocol, overProtocol));
-      }
-    }
-    return overProtocol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Protocol basicGetOverProtocol()
-  {
-    return overProtocol;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setOverProtocol(Protocol newOverProtocol)
-  {
-    Protocol oldOverProtocol = overProtocol;
-    overProtocol = newOverProtocol;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL, oldOverProtocol, overProtocol));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<PlatformAnnotation> getAnnotations()
-  {
-    if (annotations == null)
-    {
-      annotations = new EObjectContainmentEList<PlatformAnnotation>(PlatformAnnotation.class, this, IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS);
-    }
-    return annotations;
+    return instancesPtp;
   }
 
   /**
@@ -273,8 +117,10 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
-        return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB:
+        return ((InternalEList<?>)getInstancesPubSub()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP:
+        return ((InternalEList<?>)getInstancesPtp()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -289,18 +135,10 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_CHANNEL__NAME:
-        return getName();
-      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
-        return getNumber();
-      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
-        if (resolve) return getTypeChannel();
-        return basicGetTypeChannel();
-      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
-        if (resolve) return getOverProtocol();
-        return basicGetOverProtocol();
-      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
-        return getAnnotations();
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB:
+        return getInstancesPubSub();
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP:
+        return getInstancesPtp();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -316,22 +154,13 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_CHANNEL__NAME:
-        setName((String)newValue);
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB:
+        getInstancesPubSub().clear();
+        getInstancesPubSub().addAll((Collection<? extends InstancePubSub>)newValue);
         return;
-      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
-        getNumber().clear();
-        getNumber().addAll((Collection<? extends Integer>)newValue);
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
-        setTypeChannel((Channel)newValue);
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
-        setOverProtocol((Protocol)newValue);
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
-        getAnnotations().clear();
-        getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP:
+        getInstancesPtp().clear();
+        getInstancesPtp().addAll((Collection<? extends InstancePtP>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -347,20 +176,11 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_CHANNEL__NAME:
-        setName(NAME_EDEFAULT);
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB:
+        getInstancesPubSub().clear();
         return;
-      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
-        getNumber().clear();
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
-        setTypeChannel((Channel)null);
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
-        setOverProtocol((Protocol)null);
-        return;
-      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
-        getAnnotations().clear();
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP:
+        getInstancesPtp().clear();
         return;
     }
     super.eUnset(featureID);
@@ -376,37 +196,12 @@ public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_CHANNEL__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
-        return number != null && !number.isEmpty();
-      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
-        return typeChannel != null;
-      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
-        return overProtocol != null;
-      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
-        return annotations != null && !annotations.isEmpty();
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PUB_SUB:
+        return instancesPubSub != null && !instancesPubSub.isEmpty();
+      case IotlangPackage.INSTANCE_CHANNEL__INSTANCES_PTP:
+        return instancesPtp != null && !instancesPtp.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", number: ");
-    result.append(number);
-    result.append(')');
-    return result.toString();
   }
 
 } //InstanceChannelImpl

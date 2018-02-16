@@ -8,6 +8,8 @@ import lang.iotlang.Channel;
 import lang.iotlang.Domain;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
+import lang.iotlang.InstancePtP;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.IotlangFactory;
@@ -136,6 +138,20 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * @generated
    */
   private EClass instanceThingEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass instancePubSubEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass instancePtPEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -383,9 +399,19 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getChannel_Name()
+  public EReference getChannel_PubSub()
   {
-    return (EAttribute)channelEClass.getEStructuralFeatures().get(0);
+    return (EReference)channelEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getChannel_PointToPoint()
+  {
+    return (EReference)channelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -403,9 +429,19 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPubSub_Name()
+  {
+    return (EAttribute)pubSubEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPubSub_HasTopics()
   {
-    return (EReference)pubSubEClass.getEStructuralFeatures().get(0);
+    return (EReference)pubSubEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -416,6 +452,16 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
   public EClass getPointToPoint()
   {
     return pointToPointEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPointToPoint_Name()
+  {
+    return (EAttribute)pointToPointEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -693,6 +739,126 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getInstancePubSub()
+  {
+    return instancePubSubEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstancePubSub_Name()
+  {
+    return (EAttribute)instancePubSubEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstancePubSub_Number()
+  {
+    return (EAttribute)instancePubSubEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePubSub_TypeChannel()
+  {
+    return (EReference)instancePubSubEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePubSub_OverProtocol()
+  {
+    return (EReference)instancePubSubEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePubSub_Annotations()
+  {
+    return (EReference)instancePubSubEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getInstancePtP()
+  {
+    return instancePtPEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstancePtP_Name()
+  {
+    return (EAttribute)instancePtPEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getInstancePtP_Number()
+  {
+    return (EAttribute)instancePtPEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePtP_TypeChannel()
+  {
+    return (EReference)instancePtPEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePtP_OverProtocol()
+  {
+    return (EReference)instancePtPEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getInstancePtP_Annotations()
+  {
+    return (EReference)instancePtPEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getInstanceChannel()
   {
     return instanceChannelEClass;
@@ -703,9 +869,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInstanceChannel_Name()
+  public EReference getInstanceChannel_InstancesPubSub()
   {
-    return (EAttribute)instanceChannelEClass.getEStructuralFeatures().get(0);
+    return (EReference)instanceChannelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -713,39 +879,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getInstanceChannel_Number()
+  public EReference getInstanceChannel_InstancesPtp()
   {
-    return (EAttribute)instanceChannelEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInstanceChannel_TypeChannel()
-  {
-    return (EReference)instanceChannelEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInstanceChannel_OverProtocol()
-  {
-    return (EReference)instanceChannelEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getInstanceChannel_Annotations()
-  {
-    return (EReference)instanceChannelEClass.getEStructuralFeatures().get(4);
+    return (EReference)instanceChannelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -923,7 +1059,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getBind_ChannelInstance()
+  public EReference getBind_PubSubInstance()
   {
     return (EReference)bindEClass.getEStructuralFeatures().get(3);
   }
@@ -996,12 +1132,15 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     createEReference(thingEClass, THING__PORTS);
 
     channelEClass = createEClass(CHANNEL);
-    createEAttribute(channelEClass, CHANNEL__NAME);
+    createEReference(channelEClass, CHANNEL__PUB_SUB);
+    createEReference(channelEClass, CHANNEL__POINT_TO_POINT);
 
     pubSubEClass = createEClass(PUB_SUB);
+    createEAttribute(pubSubEClass, PUB_SUB__NAME);
     createEReference(pubSubEClass, PUB_SUB__HAS_TOPICS);
 
     pointToPointEClass = createEClass(POINT_TO_POINT);
+    createEAttribute(pointToPointEClass, POINT_TO_POINT__NAME);
 
     policyEClass = createEClass(POLICY);
     createEAttribute(policyEClass, POLICY__NAME);
@@ -1038,12 +1177,23 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     createEReference(instanceThingEClass, INSTANCE_THING__TYPE_THING);
     createEReference(instanceThingEClass, INSTANCE_THING__ANNOTATIONS);
 
+    instancePubSubEClass = createEClass(INSTANCE_PUB_SUB);
+    createEAttribute(instancePubSubEClass, INSTANCE_PUB_SUB__NAME);
+    createEAttribute(instancePubSubEClass, INSTANCE_PUB_SUB__NUMBER);
+    createEReference(instancePubSubEClass, INSTANCE_PUB_SUB__TYPE_CHANNEL);
+    createEReference(instancePubSubEClass, INSTANCE_PUB_SUB__OVER_PROTOCOL);
+    createEReference(instancePubSubEClass, INSTANCE_PUB_SUB__ANNOTATIONS);
+
+    instancePtPEClass = createEClass(INSTANCE_PT_P);
+    createEAttribute(instancePtPEClass, INSTANCE_PT_P__NAME);
+    createEAttribute(instancePtPEClass, INSTANCE_PT_P__NUMBER);
+    createEReference(instancePtPEClass, INSTANCE_PT_P__TYPE_CHANNEL);
+    createEReference(instancePtPEClass, INSTANCE_PT_P__OVER_PROTOCOL);
+    createEReference(instancePtPEClass, INSTANCE_PT_P__ANNOTATIONS);
+
     instanceChannelEClass = createEClass(INSTANCE_CHANNEL);
-    createEAttribute(instanceChannelEClass, INSTANCE_CHANNEL__NAME);
-    createEAttribute(instanceChannelEClass, INSTANCE_CHANNEL__NUMBER);
-    createEReference(instanceChannelEClass, INSTANCE_CHANNEL__TYPE_CHANNEL);
-    createEReference(instanceChannelEClass, INSTANCE_CHANNEL__OVER_PROTOCOL);
-    createEReference(instanceChannelEClass, INSTANCE_CHANNEL__ANNOTATIONS);
+    createEReference(instanceChannelEClass, INSTANCE_CHANNEL__INSTANCES_PUB_SUB);
+    createEReference(instanceChannelEClass, INSTANCE_CHANNEL__INSTANCES_PTP);
 
     instancePolicyEClass = createEClass(INSTANCE_POLICY);
     createEAttribute(instancePolicyEClass, INSTANCE_POLICY__NAME);
@@ -1064,7 +1214,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     createEAttribute(bindEClass, BIND__NAME);
     createEReference(bindEClass, BIND__THING_INSTANCE);
     createEAttribute(bindEClass, BIND__DIRECTION);
-    createEReference(bindEClass, BIND__CHANNEL_INSTANCE);
+    createEReference(bindEClass, BIND__PUB_SUB_INSTANCE);
     createEReference(bindEClass, BIND__TOPICS);
     createEReference(bindEClass, BIND__ANNOTATIONS);
   }
@@ -1098,8 +1248,6 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    pubSubEClass.getESuperTypes().add(this.getChannel());
-    pointToPointEClass.getESuperTypes().add(this.getChannel());
 
     // Initialize classes and features; add operations and parameters
     initEClass(ioTLangModelEClass, IoTLangModel.class, "IoTLangModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1120,12 +1268,15 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEReference(getThing_Ports(), this.getPort(), null, "ports", null, 0, -1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(channelEClass, Channel.class, "Channel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getChannel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getChannel_PubSub(), this.getPubSub(), null, "pubSub", null, 0, -1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getChannel_PointToPoint(), this.getPointToPoint(), null, "pointToPoint", null, 0, -1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pubSubEClass, PubSub.class, "PubSub", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPubSub_Name(), ecorePackage.getEString(), "name", null, 0, 1, PubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPubSub_HasTopics(), this.getTopic(), null, "hasTopics", null, 0, -1, PubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pointToPointEClass, PointToPoint.class, "PointToPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPointToPoint_Name(), ecorePackage.getEString(), "name", null, 0, 1, PointToPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(policyEClass, Policy.class, "Policy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPolicy_Name(), ecorePackage.getEString(), "name", null, 0, 1, Policy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1162,12 +1313,23 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEReference(getInstanceThing_TypeThing(), this.getThing(), null, "typeThing", null, 0, 1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getInstanceThing_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstanceThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(instancePubSubEClass, InstancePubSub.class, "InstancePubSub", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstancePubSub_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstancePubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstancePubSub_Number(), ecorePackage.getEInt(), "number", null, 0, -1, InstancePubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePubSub_TypeChannel(), this.getPubSub(), null, "typeChannel", null, 0, 1, InstancePubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePubSub_OverProtocol(), this.getProtocol(), null, "overProtocol", null, 0, 1, InstancePubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePubSub_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstancePubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(instancePtPEClass, InstancePtP.class, "InstancePtP", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getInstancePtP_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstancePtP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstancePtP_Number(), ecorePackage.getEInt(), "number", null, 0, -1, InstancePtP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePtP_TypeChannel(), this.getPointToPoint(), null, "typeChannel", null, 0, 1, InstancePtP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePtP_OverProtocol(), this.getProtocol(), null, "overProtocol", null, 0, 1, InstancePtP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstancePtP_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstancePtP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(instanceChannelEClass, InstanceChannel.class, "InstanceChannel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getInstanceChannel_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getInstanceChannel_Number(), ecorePackage.getEInt(), "number", null, 0, -1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInstanceChannel_TypeChannel(), this.getChannel(), null, "typeChannel", null, 0, 1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInstanceChannel_OverProtocol(), this.getProtocol(), null, "overProtocol", null, 0, 1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getInstanceChannel_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceChannel_InstancesPubSub(), this.getInstancePubSub(), null, "instancesPubSub", null, 0, -1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstanceChannel_InstancesPtp(), this.getInstancePtP(), null, "instancesPtp", null, 0, -1, InstanceChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(instancePolicyEClass, InstancePolicy.class, "InstancePolicy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getInstancePolicy_Name(), ecorePackage.getEString(), "name", null, 0, 1, InstancePolicy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1188,7 +1350,7 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
     initEAttribute(getBind_Name(), ecorePackage.getEString(), "name", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBind_ThingInstance(), this.getInstanceThing(), null, "thingInstance", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBind_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getBind_ChannelInstance(), this.getInstanceChannel(), null, "channelInstance", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBind_PubSubInstance(), this.getInstancePubSub(), null, "pubSubInstance", null, 0, 1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBind_Topics(), this.getTopic(), null, "topics", null, 0, -1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBind_Annotations(), this.getPlatformAnnotation(), null, "annotations", null, 0, -1, Bind.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

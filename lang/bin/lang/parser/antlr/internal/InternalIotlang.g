@@ -356,23 +356,45 @@ ruleChannel returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		{
-			newCompositeNode(grammarAccess.getChannelAccess().getPubSubParserRuleCall_0());
-		}
-		this_PubSub_0=rulePubSub
-		{
-			$current = $this_PubSub_0.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getChannelAccess().getPubSubPubSubParserRuleCall_0_0());
+				}
+				lv_pubSub_0_0=rulePubSub
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getChannelRule());
+					}
+					add(
+						$current,
+						"pubSub",
+						lv_pubSub_0_0,
+						"lang.Iotlang.PubSub");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 		    |
-		{
-			newCompositeNode(grammarAccess.getChannelAccess().getPointToPointParserRuleCall_1());
-		}
-		this_PointToPoint_1=rulePointToPoint
-		{
-			$current = $this_PointToPoint_1.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getChannelAccess().getPointToPointPointToPointParserRuleCall_1_0());
+				}
+				lv_pointToPoint_1_0=rulePointToPoint
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getChannelRule());
+					}
+					add(
+						$current,
+						"pointToPoint",
+						lv_pointToPoint_1_0,
+						"lang.Iotlang.PointToPoint");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 
@@ -1060,6 +1082,250 @@ ruleInstanceThing returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleInstancePubSub
+entryRuleInstancePubSub returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInstancePubSubRule()); }
+	iv_ruleInstancePubSub=ruleInstancePubSub
+	{ $current=$iv_ruleInstancePubSub.current; }
+	EOF;
+
+// Rule InstancePubSub
+ruleInstancePubSub returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='instancePubSub'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getInstancePubSubAccess().getInstancePubSubKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getInstancePubSubAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePubSubRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		(
+			otherlv_2='['
+			{
+				newLeafNode(otherlv_2, grammarAccess.getInstancePubSubAccess().getLeftSquareBracketKeyword_2_0());
+			}
+			(
+				(
+					lv_number_3_0=RULE_INT
+					{
+						newLeafNode(lv_number_3_0, grammarAccess.getInstancePubSubAccess().getNumberINTTerminalRuleCall_2_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getInstancePubSubRule());
+						}
+						addWithLastConsumed(
+							$current,
+							"number",
+							lv_number_3_0,
+							"lang.Iotlang.INT");
+					}
+				)
+			)
+			otherlv_4=']'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getInstancePubSubAccess().getRightSquareBracketKeyword_2_2());
+			}
+		)*
+		otherlv_5=':'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getInstancePubSubAccess().getColonKeyword_3());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePubSubRule());
+					}
+				}
+				otherlv_6=RULE_ID
+				{
+					newLeafNode(otherlv_6, grammarAccess.getInstancePubSubAccess().getTypeChannelPubSubCrossReference_4_0());
+				}
+			)
+		)
+		otherlv_7='over'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getInstancePubSubAccess().getOverKeyword_5());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePubSubRule());
+					}
+				}
+				otherlv_8=RULE_ID
+				{
+					newLeafNode(otherlv_8, grammarAccess.getInstancePubSubAccess().getOverProtocolProtocolCrossReference_6_0());
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getInstancePubSubAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0());
+				}
+				lv_annotations_9_0=rulePlatformAnnotation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getInstancePubSubRule());
+					}
+					add(
+						$current,
+						"annotations",
+						lv_annotations_9_0,
+						"lang.Iotlang.PlatformAnnotation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleInstancePtP
+entryRuleInstancePtP returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInstancePtPRule()); }
+	iv_ruleInstancePtP=ruleInstancePtP
+	{ $current=$iv_ruleInstancePtP.current; }
+	EOF;
+
+// Rule InstancePtP
+ruleInstancePtP returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='instancePTP'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getInstancePtPAccess().getInstancePTPKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getInstancePtPAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePtPRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		(
+			otherlv_2='['
+			{
+				newLeafNode(otherlv_2, grammarAccess.getInstancePtPAccess().getLeftSquareBracketKeyword_2_0());
+			}
+			(
+				(
+					lv_number_3_0=RULE_INT
+					{
+						newLeafNode(lv_number_3_0, grammarAccess.getInstancePtPAccess().getNumberINTTerminalRuleCall_2_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getInstancePtPRule());
+						}
+						addWithLastConsumed(
+							$current,
+							"number",
+							lv_number_3_0,
+							"lang.Iotlang.INT");
+					}
+				)
+			)
+			otherlv_4=']'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getInstancePtPAccess().getRightSquareBracketKeyword_2_2());
+			}
+		)*
+		otherlv_5=':'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getInstancePtPAccess().getColonKeyword_3());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePtPRule());
+					}
+				}
+				otherlv_6=RULE_ID
+				{
+					newLeafNode(otherlv_6, grammarAccess.getInstancePtPAccess().getTypeChannelPointToPointCrossReference_4_0());
+				}
+			)
+		)
+		otherlv_7='over'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getInstancePtPAccess().getOverKeyword_5());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getInstancePtPRule());
+					}
+				}
+				otherlv_8=RULE_ID
+				{
+					newLeafNode(otherlv_8, grammarAccess.getInstancePtPAccess().getOverProtocolProtocolCrossReference_6_0());
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getInstancePtPAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0());
+				}
+				lv_annotations_9_0=rulePlatformAnnotation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getInstancePtPRule());
+					}
+					add(
+						$current,
+						"annotations",
+						lv_annotations_9_0,
+						"lang.Iotlang.PlatformAnnotation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
+;
+
 // Entry rule entryRuleInstanceChannel
 entryRuleInstanceChannel returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getInstanceChannelRule()); }
@@ -1076,109 +1342,45 @@ ruleInstanceChannel returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='instanceChannel'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getInstanceChannelAccess().getInstanceChannelKeyword_0());
-		}
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getInstanceChannelAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceChannelRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		(
-			otherlv_2='['
-			{
-				newLeafNode(otherlv_2, grammarAccess.getInstanceChannelAccess().getLeftSquareBracketKeyword_2_0());
-			}
-			(
-				(
-					lv_number_3_0=RULE_INT
-					{
-						newLeafNode(lv_number_3_0, grammarAccess.getInstanceChannelAccess().getNumberINTTerminalRuleCall_2_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getInstanceChannelRule());
-						}
-						addWithLastConsumed(
-							$current,
-							"number",
-							lv_number_3_0,
-							"lang.Iotlang.INT");
-					}
-				)
-			)
-			otherlv_4=']'
-			{
-				newLeafNode(otherlv_4, grammarAccess.getInstanceChannelAccess().getRightSquareBracketKeyword_2_2());
-			}
-		)*
-		otherlv_5=':'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getInstanceChannelAccess().getColonKeyword_3());
-		}
 		(
 			(
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceChannelRule());
-					}
+					newCompositeNode(grammarAccess.getInstanceChannelAccess().getInstancesPubSubInstancePubSubParserRuleCall_0_0());
 				}
-				otherlv_6=RULE_ID
-				{
-					newLeafNode(otherlv_6, grammarAccess.getInstanceChannelAccess().getTypeChannelChannelCrossReference_4_0());
-				}
-			)
-		)
-		otherlv_7='over'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getInstanceChannelAccess().getOverKeyword_5());
-		}
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceChannelRule());
-					}
-				}
-				otherlv_8=RULE_ID
-				{
-					newLeafNode(otherlv_8, grammarAccess.getInstanceChannelAccess().getOverProtocolProtocolCrossReference_6_0());
-				}
-			)
-		)
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getInstanceChannelAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0());
-				}
-				lv_annotations_9_0=rulePlatformAnnotation
+				lv_instancesPubSub_0_0=ruleInstancePubSub
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getInstanceChannelRule());
 					}
 					add(
 						$current,
-						"annotations",
-						lv_annotations_9_0,
-						"lang.Iotlang.PlatformAnnotation");
+						"instancesPubSub",
+						lv_instancesPubSub_0_0,
+						"lang.Iotlang.InstancePubSub");
 					afterParserOrEnumRuleCall();
 				}
 			)
-		)*
+		)
+		    |
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getInstanceChannelAccess().getInstancesPtpInstancePtPParserRuleCall_1_0());
+				}
+				lv_instancesPtp_1_0=ruleInstancePtP
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getInstanceChannelRule());
+					}
+					add(
+						$current,
+						"instancesPtp",
+						lv_instancesPtp_1_0,
+						"lang.Iotlang.InstancePtP");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 
@@ -1546,7 +1748,7 @@ ruleBind returns [EObject current=null]
 				}
 				otherlv_4=RULE_ID
 				{
-					newLeafNode(otherlv_4, grammarAccess.getBindAccess().getChannelInstanceInstanceChannelCrossReference_4_0());
+					newLeafNode(otherlv_4, grammarAccess.getBindAccess().getPubSubInstanceInstancePubSubCrossReference_4_0());
 				}
 			)
 		)

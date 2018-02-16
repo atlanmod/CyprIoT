@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link lang.iotlang.Bind#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getThingInstance <em>Thing Instance</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getDirection <em>Direction</em>}</li>
- *   <li>{@link lang.iotlang.Bind#getChannelInstance <em>Channel Instance</em>}</li>
+ *   <li>{@link lang.iotlang.Bind#getPubSubInstance <em>Pub Sub Instance</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getTopics <em>Topics</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getAnnotations <em>Annotations</em>}</li>
  * </ul>
@@ -109,30 +109,30 @@ public interface Bind extends EObject
   void setDirection(String value);
 
   /**
-   * Returns the value of the '<em><b>Channel Instance</b></em>' reference.
+   * Returns the value of the '<em><b>Pub Sub Instance</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Channel Instance</em>' reference isn't clear,
+   * If the meaning of the '<em>Pub Sub Instance</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Channel Instance</em>' reference.
-   * @see #setChannelInstance(InstanceChannel)
-   * @see lang.iotlang.IotlangPackage#getBind_ChannelInstance()
+   * @return the value of the '<em>Pub Sub Instance</em>' reference.
+   * @see #setPubSubInstance(InstancePubSub)
+   * @see lang.iotlang.IotlangPackage#getBind_PubSubInstance()
    * @model
    * @generated
    */
-  InstanceChannel getChannelInstance();
+  InstancePubSub getPubSubInstance();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Bind#getChannelInstance <em>Channel Instance</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.Bind#getPubSubInstance <em>Pub Sub Instance</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Channel Instance</em>' reference.
-   * @see #getChannelInstance()
+   * @param value the new value of the '<em>Pub Sub Instance</em>' reference.
+   * @see #getPubSubInstance()
    * @generated
    */
-  void setChannelInstance(InstanceChannel value);
+  void setPubSubInstance(InstancePubSub value);
 
   /**
    * Returns the value of the '<em><b>Topics</b></em>' reference list.

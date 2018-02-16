@@ -16,11 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.InstanceChannel#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.InstanceChannel#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.InstanceChannel#getTypeChannel <em>Type Channel</em>}</li>
- *   <li>{@link lang.iotlang.InstanceChannel#getOverProtocol <em>Over Protocol</em>}</li>
- *   <li>{@link lang.iotlang.InstanceChannel#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getInstancesPubSub <em>Instances Pub Sub</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getInstancesPtp <em>Instances Ptp</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getInstanceChannel()
@@ -30,113 +27,35 @@ import org.eclipse.emf.ecore.EObject;
 public interface InstanceChannel extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Instances Pub Sub</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.InstancePubSub}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Instances Pub Sub</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Number</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Integer}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Number</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Number</em>' attribute list.
-   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Number()
-   * @model unique="false"
-   * @generated
-   */
-  EList<Integer> getNumber();
-
-  /**
-   * Returns the value of the '<em><b>Type Channel</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type Channel</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type Channel</em>' reference.
-   * @see #setTypeChannel(Channel)
-   * @see lang.iotlang.IotlangPackage#getInstanceChannel_TypeChannel()
-   * @model
-   * @generated
-   */
-  Channel getTypeChannel();
-
-  /**
-   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getTypeChannel <em>Type Channel</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type Channel</em>' reference.
-   * @see #getTypeChannel()
-   * @generated
-   */
-  void setTypeChannel(Channel value);
-
-  /**
-   * Returns the value of the '<em><b>Over Protocol</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Over Protocol</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Over Protocol</em>' reference.
-   * @see #setOverProtocol(Protocol)
-   * @see lang.iotlang.IotlangPackage#getInstanceChannel_OverProtocol()
-   * @model
-   * @generated
-   */
-  Protocol getOverProtocol();
-
-  /**
-   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getOverProtocol <em>Over Protocol</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Over Protocol</em>' reference.
-   * @see #getOverProtocol()
-   * @generated
-   */
-  void setOverProtocol(Protocol value);
-
-  /**
-   * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.PlatformAnnotation}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Annotations</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Annotations()
+   * @return the value of the '<em>Instances Pub Sub</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_InstancesPubSub()
    * @model containment="true"
    * @generated
    */
-  EList<PlatformAnnotation> getAnnotations();
+  EList<InstancePubSub> getInstancesPubSub();
+
+  /**
+   * Returns the value of the '<em><b>Instances Ptp</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.InstancePtP}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Instances Ptp</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Instances Ptp</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_InstancesPtp()
+   * @model containment="true"
+   * @generated
+   */
+  EList<InstancePtP> getInstancesPtp();
 
 } // InstanceChannel

@@ -52,6 +52,7 @@ public class InternalIotlangLexer extends Lexer {
     public static final int T__44=44;
     public static final int T__45=45;
     public static final int T__46=46;
+    public static final int T__47=47;
     public static final int T__40=40;
     public static final int T__41=41;
     public static final int T__42=42;
@@ -634,10 +635,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:38:7: ( 'instanceChannel' )
-            // InternalIotlang.g:38:9: 'instanceChannel'
+            // InternalIotlang.g:38:7: ( 'instancePubSub' )
+            // InternalIotlang.g:38:9: 'instancePubSub'
             {
-            match("instanceChannel"); 
+            match("instancePubSub"); 
 
 
             }
@@ -676,10 +677,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:40:7: ( 'instancePolicy' )
-            // InternalIotlang.g:40:9: 'instancePolicy'
+            // InternalIotlang.g:40:7: ( 'instancePTP' )
+            // InternalIotlang.g:40:9: 'instancePTP'
             {
-            match("instancePolicy"); 
+            match("instancePTP"); 
 
 
             }
@@ -697,10 +698,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:41:7: ( 'networkConfiguration' )
-            // InternalIotlang.g:41:9: 'networkConfiguration'
+            // InternalIotlang.g:41:7: ( 'instancePolicy' )
+            // InternalIotlang.g:41:9: 'instancePolicy'
             {
-            match("networkConfiguration"); 
+            match("instancePolicy"); 
 
 
             }
@@ -718,10 +719,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:42:7: ( 'enforce' )
-            // InternalIotlang.g:42:9: 'enforce'
+            // InternalIotlang.g:42:7: ( 'networkConfiguration' )
+            // InternalIotlang.g:42:9: 'networkConfiguration'
             {
-            match("enforce"); 
+            match("networkConfiguration"); 
 
 
             }
@@ -739,10 +740,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:43:7: ( 'bind' )
-            // InternalIotlang.g:43:9: 'bind'
+            // InternalIotlang.g:43:7: ( 'enforce' )
+            // InternalIotlang.g:43:9: 'enforce'
             {
-            match("bind"); 
+            match("enforce"); 
 
 
             }
@@ -760,10 +761,11 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:44:7: ( ',' )
-            // InternalIotlang.g:44:9: ','
+            // InternalIotlang.g:44:7: ( 'bind' )
+            // InternalIotlang.g:44:9: 'bind'
             {
-            match(','); 
+            match("bind"); 
+
 
             }
 
@@ -775,15 +777,35 @@ public class InternalIotlangLexer extends Lexer {
     }
     // $ANTLR end "T__46"
 
+    // $ANTLR start "T__47"
+    public final void mT__47() throws RecognitionException {
+        try {
+            int _type = T__47;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalIotlang.g:45:7: ( ',' )
+            // InternalIotlang.g:45:9: ','
+            {
+            match(','); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__47"
+
     // $ANTLR start "RULE_INT"
     public final void mRULE_INT() throws RecognitionException {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4110:10: ( ( '0' .. '9' )+ )
-            // InternalIotlang.g:4110:12: ( '0' .. '9' )+
+            // InternalIotlang.g:4621:10: ( ( '0' .. '9' )+ )
+            // InternalIotlang.g:4621:12: ( '0' .. '9' )+
             {
-            // InternalIotlang.g:4110:12: ( '0' .. '9' )+
+            // InternalIotlang.g:4621:12: ( '0' .. '9' )+
             int cnt1=0;
             loop1:
             do {
@@ -797,7 +819,7 @@ public class InternalIotlangLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalIotlang.g:4110:13: '0' .. '9'
+            	    // InternalIotlang.g:4621:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -829,11 +851,11 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_STRING_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4112:17: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' )
-            // InternalIotlang.g:4112:19: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+            // InternalIotlang.g:4623:17: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' )
+            // InternalIotlang.g:4623:19: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
             {
             match('\"'); 
-            // InternalIotlang.g:4112:23: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+            // InternalIotlang.g:4623:23: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
             loop2:
             do {
                 int alt2=3;
@@ -849,7 +871,7 @@ public class InternalIotlangLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalIotlang.g:4112:24: '\\\\' .
+            	    // InternalIotlang.g:4623:24: '\\\\' .
             	    {
             	    match('\\'); 
             	    matchAny(); 
@@ -857,7 +879,7 @@ public class InternalIotlangLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // InternalIotlang.g:4112:31: ~ ( ( '\\\\' | '\"' ) )
+            	    // InternalIotlang.g:4623:31: ~ ( ( '\\\\' | '\"' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -894,8 +916,8 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_ANNOTATION_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4114:20: ( '@' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalIotlang.g:4114:22: '@' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalIotlang.g:4625:20: ( '@' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalIotlang.g:4625:22: '@' ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
             match('@'); 
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -907,7 +929,7 @@ public class InternalIotlangLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalIotlang.g:4114:50: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalIotlang.g:4625:50: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -956,10 +978,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4116:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalIotlang.g:4116:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalIotlang.g:4627:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalIotlang.g:4627:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalIotlang.g:4116:11: ( '^' )?
+            // InternalIotlang.g:4627:11: ( '^' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -968,7 +990,7 @@ public class InternalIotlangLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // InternalIotlang.g:4116:11: '^'
+                    // InternalIotlang.g:4627:11: '^'
                     {
                     match('^'); 
 
@@ -986,7 +1008,7 @@ public class InternalIotlangLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalIotlang.g:4116:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalIotlang.g:4627:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop5:
             do {
                 int alt5=2;
@@ -1035,10 +1057,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4118:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalIotlang.g:4118:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalIotlang.g:4629:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalIotlang.g:4629:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalIotlang.g:4118:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalIotlang.g:4629:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1056,10 +1078,10 @@ public class InternalIotlangLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // InternalIotlang.g:4118:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalIotlang.g:4629:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalIotlang.g:4118:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalIotlang.g:4629:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop6:
                     do {
                         int alt6=3;
@@ -1075,7 +1097,7 @@ public class InternalIotlangLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // InternalIotlang.g:4118:21: '\\\\' .
+                    	    // InternalIotlang.g:4629:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1083,7 +1105,7 @@ public class InternalIotlangLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalIotlang.g:4118:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalIotlang.g:4629:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1108,10 +1130,10 @@ public class InternalIotlangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:4118:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalIotlang.g:4629:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalIotlang.g:4118:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalIotlang.g:4629:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop7:
                     do {
                         int alt7=3;
@@ -1127,7 +1149,7 @@ public class InternalIotlangLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // InternalIotlang.g:4118:54: '\\\\' .
+                    	    // InternalIotlang.g:4629:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1135,7 +1157,7 @@ public class InternalIotlangLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalIotlang.g:4118:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalIotlang.g:4629:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1178,12 +1200,12 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4120:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalIotlang.g:4120:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalIotlang.g:4631:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalIotlang.g:4631:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalIotlang.g:4120:24: ( options {greedy=false; } : . )*
+            // InternalIotlang.g:4631:24: ( options {greedy=false; } : . )*
             loop9:
             do {
                 int alt9=2;
@@ -1208,7 +1230,7 @@ public class InternalIotlangLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // InternalIotlang.g:4120:52: .
+            	    // InternalIotlang.g:4631:52: .
             	    {
             	    matchAny(); 
 
@@ -1238,12 +1260,12 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4122:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalIotlang.g:4122:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalIotlang.g:4633:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalIotlang.g:4633:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalIotlang.g:4122:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalIotlang.g:4633:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop10:
             do {
                 int alt10=2;
@@ -1256,7 +1278,7 @@ public class InternalIotlangLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalIotlang.g:4122:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalIotlang.g:4633:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1276,7 +1298,7 @@ public class InternalIotlangLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalIotlang.g:4122:40: ( ( '\\r' )? '\\n' )?
+            // InternalIotlang.g:4633:40: ( ( '\\r' )? '\\n' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1285,9 +1307,9 @@ public class InternalIotlangLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // InternalIotlang.g:4122:41: ( '\\r' )? '\\n'
+                    // InternalIotlang.g:4633:41: ( '\\r' )? '\\n'
                     {
-                    // InternalIotlang.g:4122:41: ( '\\r' )?
+                    // InternalIotlang.g:4633:41: ( '\\r' )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -1296,7 +1318,7 @@ public class InternalIotlangLexer extends Lexer {
                     }
                     switch (alt11) {
                         case 1 :
-                            // InternalIotlang.g:4122:41: '\\r'
+                            // InternalIotlang.g:4633:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1328,10 +1350,10 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4124:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalIotlang.g:4124:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalIotlang.g:4635:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalIotlang.g:4635:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalIotlang.g:4124:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalIotlang.g:4635:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt13=0;
             loop13:
             do {
@@ -1385,8 +1407,8 @@ public class InternalIotlangLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalIotlang.g:4126:16: ( . )
-            // InternalIotlang.g:4126:18: .
+            // InternalIotlang.g:4637:16: ( . )
+            // InternalIotlang.g:4637:18: .
             {
             matchAny(); 
 
@@ -1401,8 +1423,8 @@ public class InternalIotlangLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // InternalIotlang.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | RULE_INT | RULE_STRING_LIT | RULE_ANNOTATION_ID | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt14=43;
+        // InternalIotlang.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | RULE_INT | RULE_STRING_LIT | RULE_ANNOTATION_ID | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt14=44;
         alt14 = dfa14.predict(input);
         switch (alt14) {
             case 1 :
@@ -1644,63 +1666,70 @@ public class InternalIotlangLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // InternalIotlang.g:1:214: RULE_INT
+                // InternalIotlang.g:1:214: T__47
+                {
+                mT__47(); 
+
+                }
+                break;
+            case 36 :
+                // InternalIotlang.g:1:220: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 36 :
-                // InternalIotlang.g:1:223: RULE_STRING_LIT
+            case 37 :
+                // InternalIotlang.g:1:229: RULE_STRING_LIT
                 {
                 mRULE_STRING_LIT(); 
 
                 }
                 break;
-            case 37 :
-                // InternalIotlang.g:1:239: RULE_ANNOTATION_ID
+            case 38 :
+                // InternalIotlang.g:1:245: RULE_ANNOTATION_ID
                 {
                 mRULE_ANNOTATION_ID(); 
 
                 }
                 break;
-            case 38 :
-                // InternalIotlang.g:1:258: RULE_ID
+            case 39 :
+                // InternalIotlang.g:1:264: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 39 :
-                // InternalIotlang.g:1:266: RULE_STRING
+            case 40 :
+                // InternalIotlang.g:1:272: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 40 :
-                // InternalIotlang.g:1:278: RULE_ML_COMMENT
+            case 41 :
+                // InternalIotlang.g:1:284: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 41 :
-                // InternalIotlang.g:1:294: RULE_SL_COMMENT
+            case 42 :
+                // InternalIotlang.g:1:300: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 42 :
-                // InternalIotlang.g:1:310: RULE_WS
+            case 43 :
+                // InternalIotlang.g:1:316: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 43 :
-                // InternalIotlang.g:1:318: RULE_ANY_OTHER
+            case 44 :
+                // InternalIotlang.g:1:324: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1714,17 +1743,17 @@ public class InternalIotlangLexer extends Lexer {
 
     protected DFA14 dfa14 = new DFA14(this);
     static final String DFA14_eotS =
-        "\1\uffff\4\43\2\41\1\43\2\uffff\3\43\4\uffff\1\43\2\uffff\4\43\2\uffff\3\41\1\uffff\2\41\2\uffff\1\43\1\uffff\5\43\1\uffff\1\117\2\43\2\uffff\4\43\4\uffff\1\43\2\uffff\4\43\12\uffff\6\43\2\uffff\14\43\2\uffff\1\43\1\161\1\43\1\163\1\43\1\165\4\43\1\172\3\43\1\176\2\43\1\u0081\1\u0082\1\uffff\1\43\1\uffff\1\43\1\uffff\1\u0085\1\u0086\2\43\1\uffff\3\43\1\uffff\2\43\2\uffff\1\u008e\1\43\2\uffff\1\43\1\u0091\5\43\1\uffff\1\u0097\1\43\1\uffff\1\43\1\u009b\2\43\1\u009e\2\uffff\1\u00a0\2\uffff\2\43\3\uffff\4\43\2\uffff\14\43\1\u00b7\3\43\1\uffff\1\43\1\u00bc\1\43\1\u00be\1\uffff\1\43\1\uffff\4\43\1\u00c4\1\uffff";
+        "\1\uffff\4\43\2\41\1\43\2\uffff\3\43\4\uffff\1\43\2\uffff\4\43\2\uffff\3\41\1\uffff\2\41\2\uffff\1\43\1\uffff\5\43\1\uffff\1\117\2\43\2\uffff\4\43\4\uffff\1\43\2\uffff\4\43\12\uffff\6\43\2\uffff\14\43\2\uffff\1\43\1\161\1\43\1\163\1\43\1\165\4\43\1\172\3\43\1\176\2\43\1\u0081\1\u0082\1\uffff\1\43\1\uffff\1\43\1\uffff\1\u0085\1\u0086\2\43\1\uffff\3\43\1\uffff\2\43\2\uffff\1\u008e\1\43\2\uffff\1\43\1\u0091\5\43\1\uffff\1\u0097\1\43\1\uffff\1\43\1\u009b\2\43\1\u009e\2\uffff\1\u00a0\2\uffff\2\43\3\uffff\3\43\2\uffff\7\43\1\u00b2\4\43\1\uffff\2\43\1\u00b9\3\43\1\uffff\1\u00bd\1\u00be\1\43\2\uffff\5\43\1\u00c5\1\uffff";
     static final String DFA14_eofS =
-        "\u00c5\uffff";
+        "\u00c6\uffff";
     static final String DFA14_minS =
-        "\1\0\1\154\3\145\1\76\1\75\1\150\2\uffff\1\150\1\157\1\145\4\uffff\1\156\2\uffff\1\166\1\145\1\156\1\151\2\uffff\1\0\2\101\1\uffff\1\0\1\52\2\uffff\1\154\1\uffff\1\156\1\155\1\156\1\143\1\154\1\uffff\1\76\1\151\1\160\2\uffff\1\141\1\154\1\157\1\163\4\uffff\1\163\2\uffff\1\145\1\164\1\146\1\156\2\uffff\2\0\6\uffff\1\157\1\171\1\141\1\144\2\145\2\uffff\1\156\1\151\1\156\1\151\2\164\1\163\1\164\1\162\1\167\1\157\1\144\1\0\1\uffff\1\167\1\60\1\151\1\60\1\151\1\60\1\147\1\143\1\156\1\143\1\60\1\157\2\141\1\60\1\157\1\162\2\60\1\uffff\1\156\1\uffff\1\166\1\uffff\2\60\1\145\1\171\1\uffff\1\143\1\147\1\156\1\uffff\1\162\1\143\2\uffff\1\60\1\145\2\uffff\1\154\1\60\1\157\1\145\1\143\1\153\1\145\1\uffff\1\60\1\72\1\uffff\1\154\1\60\1\145\1\103\1\60\1\uffff\1\160\1\60\2\uffff\1\103\1\157\1\uffff\1\164\1\uffff\2\150\1\157\1\156\2\uffff\1\151\1\141\1\154\1\146\2\156\2\151\1\147\1\156\1\143\1\147\1\60\1\145\1\171\1\165\1\uffff\1\154\1\60\1\162\1\60\1\uffff\1\141\1\uffff\1\164\1\151\1\157\1\156\1\60\1\uffff";
+        "\1\0\1\154\3\145\1\76\1\75\1\150\2\uffff\1\150\1\157\1\145\4\uffff\1\156\2\uffff\1\166\1\145\1\156\1\151\2\uffff\1\0\2\101\1\uffff\1\0\1\52\2\uffff\1\154\1\uffff\1\156\1\155\1\156\1\143\1\154\1\uffff\1\76\1\151\1\160\2\uffff\1\141\1\154\1\157\1\163\4\uffff\1\163\2\uffff\1\145\1\164\1\146\1\156\2\uffff\2\0\6\uffff\1\157\1\171\1\141\1\144\2\145\2\uffff\1\156\1\151\1\156\1\151\2\164\1\163\1\164\1\162\1\167\1\157\1\144\1\0\1\uffff\1\167\1\60\1\151\1\60\1\151\1\60\1\147\1\143\1\156\1\143\1\60\1\157\2\141\1\60\1\157\1\162\2\60\1\uffff\1\156\1\uffff\1\166\1\uffff\2\60\1\145\1\171\1\uffff\1\143\1\147\1\156\1\uffff\1\162\1\143\2\uffff\1\60\1\145\2\uffff\1\154\1\60\1\157\1\145\1\143\1\153\1\145\1\uffff\1\60\1\72\1\uffff\1\154\1\60\1\145\1\103\1\60\1\uffff\1\160\1\60\2\uffff\1\120\1\157\1\uffff\1\164\1\uffff\1\150\1\124\1\156\2\uffff\1\151\1\142\1\120\1\154\1\146\1\156\1\123\1\60\2\151\1\147\1\165\1\uffff\1\143\1\147\1\60\1\142\1\171\1\165\1\uffff\2\60\1\162\2\uffff\1\141\1\164\1\151\1\157\1\156\1\60\1\uffff";
     static final String DFA14_maxS =
-        "\1\uffff\1\154\1\157\1\145\1\165\1\76\1\75\1\157\2\uffff\1\150\1\162\1\145\4\uffff\1\156\2\uffff\1\166\1\145\1\156\1\151\2\uffff\1\uffff\2\172\1\uffff\1\uffff\1\57\2\uffff\1\154\1\uffff\1\156\1\155\1\156\1\143\1\154\1\uffff\1\76\1\151\1\160\2\uffff\1\141\1\162\1\157\1\163\4\uffff\1\163\2\uffff\1\145\1\164\1\146\1\156\2\uffff\2\uffff\6\uffff\1\157\1\171\1\141\1\144\2\145\2\uffff\1\156\1\151\1\156\1\151\2\164\1\163\1\164\1\162\1\167\1\157\1\144\1\uffff\1\uffff\1\167\1\172\1\151\1\172\1\151\1\172\1\147\1\143\1\156\1\143\1\172\1\157\2\141\1\172\1\157\1\162\2\172\1\uffff\1\156\1\uffff\1\166\1\uffff\2\172\1\145\1\171\1\uffff\1\143\1\147\1\156\1\uffff\1\162\1\143\2\uffff\1\172\1\145\2\uffff\1\154\1\172\1\157\1\145\1\143\1\153\1\145\1\uffff\1\172\1\72\1\uffff\1\154\1\172\1\145\1\103\1\172\1\uffff\1\160\1\172\2\uffff\1\124\1\157\1\uffff\1\165\1\uffff\2\150\1\157\1\156\2\uffff\1\151\1\141\1\154\1\146\2\156\2\151\1\147\1\156\1\143\1\147\1\172\1\145\1\171\1\165\1\uffff\1\154\1\172\1\162\1\172\1\uffff\1\141\1\uffff\1\164\1\151\1\157\1\156\1\172\1\uffff";
+        "\1\uffff\1\154\1\157\1\145\1\165\1\76\1\75\1\157\2\uffff\1\150\1\162\1\145\4\uffff\1\156\2\uffff\1\166\1\145\1\156\1\151\2\uffff\1\uffff\2\172\1\uffff\1\uffff\1\57\2\uffff\1\154\1\uffff\1\156\1\155\1\156\1\143\1\154\1\uffff\1\76\1\151\1\160\2\uffff\1\141\1\162\1\157\1\163\4\uffff\1\163\2\uffff\1\145\1\164\1\146\1\156\2\uffff\2\uffff\6\uffff\1\157\1\171\1\141\1\144\2\145\2\uffff\1\156\1\151\1\156\1\151\2\164\1\163\1\164\1\162\1\167\1\157\1\144\1\uffff\1\uffff\1\167\1\172\1\151\1\172\1\151\1\172\1\147\1\143\1\156\1\143\1\172\1\157\2\141\1\172\1\157\1\162\2\172\1\uffff\1\156\1\uffff\1\166\1\uffff\2\172\1\145\1\171\1\uffff\1\143\1\147\1\156\1\uffff\1\162\1\143\2\uffff\1\172\1\145\2\uffff\1\154\1\172\1\157\1\145\1\143\1\153\1\145\1\uffff\1\172\1\72\1\uffff\1\154\1\172\1\145\1\103\1\172\1\uffff\1\160\1\172\2\uffff\1\124\1\157\1\uffff\1\165\1\uffff\1\150\1\165\1\156\2\uffff\1\151\1\142\1\120\1\154\1\146\1\156\1\123\1\172\2\151\1\147\1\165\1\uffff\1\143\1\147\1\172\1\142\1\171\1\165\1\uffff\2\172\1\162\2\uffff\1\141\1\164\1\151\1\157\1\156\1\172\1\uffff";
     static final String DFA14_acceptS =
-        "\10\uffff\1\11\1\12\3\uffff\1\22\1\23\1\25\1\26\1\uffff\1\32\1\33\4\uffff\1\42\1\43\3\uffff\1\46\2\uffff\1\52\1\53\1\uffff\1\46\5\uffff\1\5\3\uffff\1\11\1\12\4\uffff\1\22\1\23\1\25\1\26\1\uffff\1\32\1\33\4\uffff\1\42\1\43\2\uffff\1\44\1\45\1\47\1\50\1\51\1\52\6\uffff\1\6\1\7\15\uffff\1\44\23\uffff\1\2\1\uffff\1\3\1\uffff\1\24\4\uffff\1\16\3\uffff\1\35\2\uffff\1\41\1\1\2\uffff\1\10\1\21\7\uffff\1\30\2\uffff\1\15\5\uffff\1\4\2\uffff\1\27\1\20\2\uffff\1\40\1\uffff\1\17\4\uffff\1\13\1\14\20\uffff\1\31\4\uffff\1\36\1\uffff\1\34\5\uffff\1\37";
+        "\10\uffff\1\11\1\12\3\uffff\1\22\1\23\1\25\1\26\1\uffff\1\32\1\33\4\uffff\1\43\1\44\3\uffff\1\47\2\uffff\1\53\1\54\1\uffff\1\47\5\uffff\1\5\3\uffff\1\11\1\12\4\uffff\1\22\1\23\1\25\1\26\1\uffff\1\32\1\33\4\uffff\1\43\1\44\2\uffff\1\45\1\46\1\50\1\51\1\52\1\53\6\uffff\1\6\1\7\15\uffff\1\45\23\uffff\1\2\1\uffff\1\3\1\uffff\1\24\4\uffff\1\16\3\uffff\1\35\2\uffff\1\42\1\1\2\uffff\1\10\1\21\7\uffff\1\30\2\uffff\1\15\5\uffff\1\4\2\uffff\1\27\1\20\2\uffff\1\41\1\uffff\1\17\3\uffff\1\13\1\14\14\uffff\1\36\6\uffff\1\31\3\uffff\1\34\1\37\6\uffff\1\40";
     static final String DFA14_specialS =
-        "\1\2\31\uffff\1\0\3\uffff\1\1\41\uffff\1\5\1\4\32\uffff\1\3\150\uffff}>";
+        "\1\4\31\uffff\1\5\3\uffff\1\2\41\uffff\1\3\1\1\32\uffff\1\0\151\uffff}>";
     static final String[] DFA14_transitionS = {
             "\11\41\2\40\2\41\1\40\22\41\1\40\1\41\1\32\4\41\1\36\1\15\1\16\2\41\1\30\1\41\1\20\1\37\12\31\1\17\1\41\1\6\1\5\2\41\1\33\32\35\1\22\1\41\1\23\1\34\1\35\1\41\1\1\1\27\1\12\1\2\1\26\3\35\1\21\3\35\1\14\1\25\1\24\1\13\1\35\1\4\1\3\1\7\6\35\1\10\1\41\1\11\uff82\41",
             "\1\42",
@@ -1882,14 +1911,13 @@ public class InternalIotlangLexer extends Lexer {
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
-            "\1\u00a2\14\uffff\1\u00a3\3\uffff\1\u00a1",
-            "\1\u00a4",
+            "\1\u00a2\3\uffff\1\u00a1",
+            "\1\u00a3",
             "",
-            "\1\u00a6\1\u00a5",
+            "\1\u00a5\1\u00a4",
             "",
-            "\1\u00a7",
-            "\1\u00a8",
-            "\1\u00a9",
+            "\1\u00a6",
+            "\1\u00a8\32\uffff\1\u00a9\5\uffff\1\u00a7",
             "\1\u00aa",
             "",
             "",
@@ -1900,27 +1928,29 @@ public class InternalIotlangLexer extends Lexer {
             "\1\u00af",
             "\1\u00b0",
             "\1\u00b1",
-            "\1\u00b2",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00b3",
             "\1\u00b4",
             "\1\u00b5",
             "\1\u00b6",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\u00b7",
             "\1\u00b8",
-            "\1\u00b9",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00ba",
-            "",
             "\1\u00bb",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\u00bd",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00bc",
             "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00bf",
+            "",
             "",
             "\1\u00c0",
             "\1\u00c1",
             "\1\u00c2",
             "\1\u00c3",
+            "\1\u00c4",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             ""
     };
@@ -1955,27 +1985,37 @@ public class InternalIotlangLexer extends Lexer {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | RULE_INT | RULE_STRING_LIT | RULE_ANNOTATION_ID | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | RULE_INT | RULE_STRING_LIT | RULE_ANNOTATION_ID | RULE_ID | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA14_26 = input.LA(1);
+                        int LA14_92 = input.LA(1);
 
                         s = -1;
-                        if ( (LA14_26=='\\') ) {s = 64;}
+                        if ( (LA14_92=='\"') ) {s = 66;}
 
-                        else if ( ((LA14_26>='\u0000' && LA14_26<='!')||(LA14_26>='#' && LA14_26<='[')||(LA14_26>=']' && LA14_26<='\uFFFF')) ) {s = 65;}
+                        else if ( (LA14_92=='\\') ) {s = 64;}
 
-                        else if ( (LA14_26=='\"') ) {s = 66;}
-
-                        else s = 33;
+                        else if ( ((LA14_92>='\u0000' && LA14_92<='!')||(LA14_92>='#' && LA14_92<='[')||(LA14_92>=']' && LA14_92<='\uFFFF')) ) {s = 65;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+                        int LA14_65 = input.LA(1);
+
+                        s = -1;
+                        if ( (LA14_65=='\"') ) {s = 66;}
+
+                        else if ( (LA14_65=='\\') ) {s = 64;}
+
+                        else if ( ((LA14_65>='\u0000' && LA14_65<='!')||(LA14_65>='#' && LA14_65<='[')||(LA14_65>=']' && LA14_65<='\uFFFF')) ) {s = 65;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
                         int LA14_30 = input.LA(1);
 
                         s = -1;
@@ -1985,7 +2025,15 @@ public class InternalIotlangLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
+                    case 3 : 
+                        int LA14_64 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA14_64>='\u0000' && LA14_64<='\uFFFF')) ) {s = 92;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
                         int LA14_0 = input.LA(1);
 
                         s = -1;
@@ -2057,35 +2105,17 @@ public class InternalIotlangLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
-                        int LA14_92 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA14_92=='\"') ) {s = 66;}
-
-                        else if ( (LA14_92=='\\') ) {s = 64;}
-
-                        else if ( ((LA14_92>='\u0000' && LA14_92<='!')||(LA14_92>='#' && LA14_92<='[')||(LA14_92>=']' && LA14_92<='\uFFFF')) ) {s = 65;}
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA14_65 = input.LA(1);
-
-                        s = -1;
-                        if ( (LA14_65=='\"') ) {s = 66;}
-
-                        else if ( (LA14_65=='\\') ) {s = 64;}
-
-                        else if ( ((LA14_65>='\u0000' && LA14_65<='!')||(LA14_65>='#' && LA14_65<='[')||(LA14_65>=']' && LA14_65<='\uFFFF')) ) {s = 65;}
-
-                        if ( s>=0 ) return s;
-                        break;
                     case 5 : 
-                        int LA14_64 = input.LA(1);
+                        int LA14_26 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA14_64>='\u0000' && LA14_64<='\uFFFF')) ) {s = 92;}
+                        if ( (LA14_26=='\\') ) {s = 64;}
+
+                        else if ( ((LA14_26>='\u0000' && LA14_26<='!')||(LA14_26>='#' && LA14_26<='[')||(LA14_26>=']' && LA14_26<='\uFFFF')) ) {s = 65;}
+
+                        else if ( (LA14_26=='\"') ) {s = 66;}
+
+                        else s = 33;
 
                         if ( s>=0 ) return s;
                         break;

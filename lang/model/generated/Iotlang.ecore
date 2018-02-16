@@ -27,13 +27,19 @@
         eType="#//Port" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Channel">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pubSub" upperBound="-1"
+        eType="#//PubSub" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pointToPoint" upperBound="-1"
+        eType="#//PointToPoint" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PubSub" eSuperTypes="#//Channel">
+  <eClassifiers xsi:type="ecore:EClass" name="PubSub">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasTopics" upperBound="-1"
         eType="#//Topic" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//Channel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PointToPoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Policy">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasRules" upperBound="-1"
@@ -73,14 +79,29 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//PlatformAnnotation" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InstanceChannel">
+  <eClassifiers xsi:type="ecore:EClass" name="InstancePubSub">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeChannel" eType="#//Channel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeChannel" eType="#//PubSub"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="overProtocol" eType="#//Protocol"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//PlatformAnnotation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstancePtP">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeChannel" eType="#//PointToPoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="overProtocol" eType="#//Protocol"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+        eType="#//PlatformAnnotation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceChannel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instancesPubSub" upperBound="-1"
+        eType="#//InstancePubSub" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instancesPtp" upperBound="-1"
+        eType="#//InstancePtP" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstancePolicy">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -109,7 +130,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="thingInstance" eType="#//InstanceThing"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="channelInstance" eType="#//InstanceChannel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pubSubInstance" eType="#//InstancePubSub"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topics" unique="false"
         upperBound="-1" eType="#//Topic"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"

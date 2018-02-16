@@ -224,13 +224,22 @@ public interface IotlangPackage extends EPackage
   int CHANNEL = 3;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Pub Sub</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CHANNEL__NAME = 0;
+  int CHANNEL__PUB_SUB = 0;
+
+  /**
+   * The feature id for the '<em><b>Point To Point</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CHANNEL__POINT_TO_POINT = 1;
 
   /**
    * The number of structural features of the '<em>Channel</em>' class.
@@ -239,7 +248,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CHANNEL_FEATURE_COUNT = 1;
+  int CHANNEL_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.PubSubImpl <em>Pub Sub</em>}' class.
@@ -258,7 +267,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PUB_SUB__NAME = CHANNEL__NAME;
+  int PUB_SUB__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Has Topics</b></em>' containment reference list.
@@ -267,7 +276,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PUB_SUB__HAS_TOPICS = CHANNEL_FEATURE_COUNT + 0;
+  int PUB_SUB__HAS_TOPICS = 1;
 
   /**
    * The number of structural features of the '<em>Pub Sub</em>' class.
@@ -276,7 +285,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PUB_SUB_FEATURE_COUNT = CHANNEL_FEATURE_COUNT + 1;
+  int PUB_SUB_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.PointToPointImpl <em>Point To Point</em>}' class.
@@ -295,7 +304,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINT_TO_POINT__NAME = CHANNEL__NAME;
+  int POINT_TO_POINT__NAME = 0;
 
   /**
    * The number of structural features of the '<em>Point To Point</em>' class.
@@ -304,7 +313,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int POINT_TO_POINT_FEATURE_COUNT = CHANNEL_FEATURE_COUNT + 0;
+  int POINT_TO_POINT_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.PolicyImpl <em>Policy</em>}' class.
@@ -630,14 +639,14 @@ public interface IotlangPackage extends EPackage
   int INSTANCE_THING_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link lang.iotlang.impl.InstanceChannelImpl <em>Instance Channel</em>}' class.
+   * The meta object id for the '{@link lang.iotlang.impl.InstancePubSubImpl <em>Instance Pub Sub</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see lang.iotlang.impl.InstanceChannelImpl
-   * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceChannel()
+   * @see lang.iotlang.impl.InstancePubSubImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePubSub()
    * @generated
    */
-  int INSTANCE_CHANNEL = 14;
+  int INSTANCE_PUB_SUB = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -646,7 +655,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL__NAME = 0;
+  int INSTANCE_PUB_SUB__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Number</b></em>' attribute list.
@@ -655,7 +664,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL__NUMBER = 1;
+  int INSTANCE_PUB_SUB__NUMBER = 1;
 
   /**
    * The feature id for the '<em><b>Type Channel</b></em>' reference.
@@ -664,7 +673,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL__TYPE_CHANNEL = 2;
+  int INSTANCE_PUB_SUB__TYPE_CHANNEL = 2;
 
   /**
    * The feature id for the '<em><b>Over Protocol</b></em>' reference.
@@ -673,7 +682,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL__OVER_PROTOCOL = 3;
+  int INSTANCE_PUB_SUB__OVER_PROTOCOL = 3;
 
   /**
    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -682,7 +691,108 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL__ANNOTATIONS = 4;
+  int INSTANCE_PUB_SUB__ANNOTATIONS = 4;
+
+  /**
+   * The number of structural features of the '<em>Instance Pub Sub</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PUB_SUB_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link lang.iotlang.impl.InstancePtPImpl <em>Instance Pt P</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.InstancePtPImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePtP()
+   * @generated
+   */
+  int INSTANCE_PT_P = 15;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Number</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P__NUMBER = 1;
+
+  /**
+   * The feature id for the '<em><b>Type Channel</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P__TYPE_CHANNEL = 2;
+
+  /**
+   * The feature id for the '<em><b>Over Protocol</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P__OVER_PROTOCOL = 3;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P__ANNOTATIONS = 4;
+
+  /**
+   * The number of structural features of the '<em>Instance Pt P</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_PT_P_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link lang.iotlang.impl.InstanceChannelImpl <em>Instance Channel</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.InstanceChannelImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getInstanceChannel()
+   * @generated
+   */
+  int INSTANCE_CHANNEL = 16;
+
+  /**
+   * The feature id for the '<em><b>Instances Pub Sub</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_CHANNEL__INSTANCES_PUB_SUB = 0;
+
+  /**
+   * The feature id for the '<em><b>Instances Ptp</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANCE_CHANNEL__INSTANCES_PTP = 1;
 
   /**
    * The number of structural features of the '<em>Instance Channel</em>' class.
@@ -691,7 +801,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INSTANCE_CHANNEL_FEATURE_COUNT = 5;
+  int INSTANCE_CHANNEL_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.InstancePolicyImpl <em>Instance Policy</em>}' class.
@@ -701,7 +811,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePolicy()
    * @generated
    */
-  int INSTANCE_POLICY = 15;
+  int INSTANCE_POLICY = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -747,7 +857,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getNetworkConfiguration()
    * @generated
    */
-  int NETWORK_CONFIGURATION = 16;
+  int NETWORK_CONFIGURATION = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -838,7 +948,7 @@ public interface IotlangPackage extends EPackage
    * @see lang.iotlang.impl.IotlangPackageImpl#getBind()
    * @generated
    */
-  int BIND = 17;
+  int BIND = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -868,13 +978,13 @@ public interface IotlangPackage extends EPackage
   int BIND__DIRECTION = 2;
 
   /**
-   * The feature id for the '<em><b>Channel Instance</b></em>' reference.
+   * The feature id for the '<em><b>Pub Sub Instance</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BIND__CHANNEL_INSTANCE = 3;
+  int BIND__PUB_SUB_INSTANCE = 3;
 
   /**
    * The feature id for the '<em><b>Topics</b></em>' reference list.
@@ -1066,15 +1176,26 @@ public interface IotlangPackage extends EPackage
   EClass getChannel();
 
   /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.Channel#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Channel#getPubSub <em>Pub Sub</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see lang.iotlang.Channel#getName()
+   * @return the meta object for the containment reference list '<em>Pub Sub</em>'.
+   * @see lang.iotlang.Channel#getPubSub()
    * @see #getChannel()
    * @generated
    */
-  EAttribute getChannel_Name();
+  EReference getChannel_PubSub();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Channel#getPointToPoint <em>Point To Point</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Point To Point</em>'.
+   * @see lang.iotlang.Channel#getPointToPoint()
+   * @see #getChannel()
+   * @generated
+   */
+  EReference getChannel_PointToPoint();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.PubSub <em>Pub Sub</em>}'.
@@ -1085,6 +1206,17 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EClass getPubSub();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.PubSub#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.PubSub#getName()
+   * @see #getPubSub()
+   * @generated
+   */
+  EAttribute getPubSub_Name();
 
   /**
    * Returns the meta object for the containment reference list '{@link lang.iotlang.PubSub#getHasTopics <em>Has Topics</em>}'.
@@ -1106,6 +1238,17 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EClass getPointToPoint();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.PointToPoint#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.PointToPoint#getName()
+   * @see #getPointToPoint()
+   * @generated
+   */
+  EAttribute getPointToPoint_Name();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.Policy <em>Policy</em>}'.
@@ -1397,6 +1540,136 @@ public interface IotlangPackage extends EPackage
   EReference getInstanceThing_Annotations();
 
   /**
+   * Returns the meta object for class '{@link lang.iotlang.InstancePubSub <em>Instance Pub Sub</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Instance Pub Sub</em>'.
+   * @see lang.iotlang.InstancePubSub
+   * @generated
+   */
+  EClass getInstancePubSub();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.InstancePubSub#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.InstancePubSub#getName()
+   * @see #getInstancePubSub()
+   * @generated
+   */
+  EAttribute getInstancePubSub_Name();
+
+  /**
+   * Returns the meta object for the attribute list '{@link lang.iotlang.InstancePubSub#getNumber <em>Number</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Number</em>'.
+   * @see lang.iotlang.InstancePubSub#getNumber()
+   * @see #getInstancePubSub()
+   * @generated
+   */
+  EAttribute getInstancePubSub_Number();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.InstancePubSub#getTypeChannel <em>Type Channel</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type Channel</em>'.
+   * @see lang.iotlang.InstancePubSub#getTypeChannel()
+   * @see #getInstancePubSub()
+   * @generated
+   */
+  EReference getInstancePubSub_TypeChannel();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.InstancePubSub#getOverProtocol <em>Over Protocol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Over Protocol</em>'.
+   * @see lang.iotlang.InstancePubSub#getOverProtocol()
+   * @see #getInstancePubSub()
+   * @generated
+   */
+  EReference getInstancePubSub_OverProtocol();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstancePubSub#getAnnotations <em>Annotations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.InstancePubSub#getAnnotations()
+   * @see #getInstancePubSub()
+   * @generated
+   */
+  EReference getInstancePubSub_Annotations();
+
+  /**
+   * Returns the meta object for class '{@link lang.iotlang.InstancePtP <em>Instance Pt P</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Instance Pt P</em>'.
+   * @see lang.iotlang.InstancePtP
+   * @generated
+   */
+  EClass getInstancePtP();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.InstancePtP#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.InstancePtP#getName()
+   * @see #getInstancePtP()
+   * @generated
+   */
+  EAttribute getInstancePtP_Name();
+
+  /**
+   * Returns the meta object for the attribute list '{@link lang.iotlang.InstancePtP#getNumber <em>Number</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Number</em>'.
+   * @see lang.iotlang.InstancePtP#getNumber()
+   * @see #getInstancePtP()
+   * @generated
+   */
+  EAttribute getInstancePtP_Number();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.InstancePtP#getTypeChannel <em>Type Channel</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type Channel</em>'.
+   * @see lang.iotlang.InstancePtP#getTypeChannel()
+   * @see #getInstancePtP()
+   * @generated
+   */
+  EReference getInstancePtP_TypeChannel();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.InstancePtP#getOverProtocol <em>Over Protocol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Over Protocol</em>'.
+   * @see lang.iotlang.InstancePtP#getOverProtocol()
+   * @see #getInstancePtP()
+   * @generated
+   */
+  EReference getInstancePtP_OverProtocol();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstancePtP#getAnnotations <em>Annotations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.InstancePtP#getAnnotations()
+   * @see #getInstancePtP()
+   * @generated
+   */
+  EReference getInstancePtP_Annotations();
+
+  /**
    * Returns the meta object for class '{@link lang.iotlang.InstanceChannel <em>Instance Channel</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1407,59 +1680,26 @@ public interface IotlangPackage extends EPackage
   EClass getInstanceChannel();
 
   /**
-   * Returns the meta object for the attribute '{@link lang.iotlang.InstanceChannel#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstanceChannel#getInstancesPubSub <em>Instances Pub Sub</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see lang.iotlang.InstanceChannel#getName()
+   * @return the meta object for the containment reference list '<em>Instances Pub Sub</em>'.
+   * @see lang.iotlang.InstanceChannel#getInstancesPubSub()
    * @see #getInstanceChannel()
    * @generated
    */
-  EAttribute getInstanceChannel_Name();
+  EReference getInstanceChannel_InstancesPubSub();
 
   /**
-   * Returns the meta object for the attribute list '{@link lang.iotlang.InstanceChannel#getNumber <em>Number</em>}'.
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstanceChannel#getInstancesPtp <em>Instances Ptp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Number</em>'.
-   * @see lang.iotlang.InstanceChannel#getNumber()
+   * @return the meta object for the containment reference list '<em>Instances Ptp</em>'.
+   * @see lang.iotlang.InstanceChannel#getInstancesPtp()
    * @see #getInstanceChannel()
    * @generated
    */
-  EAttribute getInstanceChannel_Number();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.InstanceChannel#getTypeChannel <em>Type Channel</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type Channel</em>'.
-   * @see lang.iotlang.InstanceChannel#getTypeChannel()
-   * @see #getInstanceChannel()
-   * @generated
-   */
-  EReference getInstanceChannel_TypeChannel();
-
-  /**
-   * Returns the meta object for the reference '{@link lang.iotlang.InstanceChannel#getOverProtocol <em>Over Protocol</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Over Protocol</em>'.
-   * @see lang.iotlang.InstanceChannel#getOverProtocol()
-   * @see #getInstanceChannel()
-   * @generated
-   */
-  EReference getInstanceChannel_OverProtocol();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.InstanceChannel#getAnnotations <em>Annotations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Annotations</em>'.
-   * @see lang.iotlang.InstanceChannel#getAnnotations()
-   * @see #getInstanceChannel()
-   * @generated
-   */
-  EReference getInstanceChannel_Annotations();
+  EReference getInstanceChannel_InstancesPtp();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.InstancePolicy <em>Instance Policy</em>}'.
@@ -1646,15 +1886,15 @@ public interface IotlangPackage extends EPackage
   EAttribute getBind_Direction();
 
   /**
-   * Returns the meta object for the reference '{@link lang.iotlang.Bind#getChannelInstance <em>Channel Instance</em>}'.
+   * Returns the meta object for the reference '{@link lang.iotlang.Bind#getPubSubInstance <em>Pub Sub Instance</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Channel Instance</em>'.
-   * @see lang.iotlang.Bind#getChannelInstance()
+   * @return the meta object for the reference '<em>Pub Sub Instance</em>'.
+   * @see lang.iotlang.Bind#getPubSubInstance()
    * @see #getBind()
    * @generated
    */
-  EReference getBind_ChannelInstance();
+  EReference getBind_PubSubInstance();
 
   /**
    * Returns the meta object for the reference list '{@link lang.iotlang.Bind#getTopics <em>Topics</em>}'.
@@ -1830,12 +2070,20 @@ public interface IotlangPackage extends EPackage
     EClass CHANNEL = eINSTANCE.getChannel();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Pub Sub</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CHANNEL__NAME = eINSTANCE.getChannel_Name();
+    EReference CHANNEL__PUB_SUB = eINSTANCE.getChannel_PubSub();
+
+    /**
+     * The meta object literal for the '<em><b>Point To Point</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CHANNEL__POINT_TO_POINT = eINSTANCE.getChannel_PointToPoint();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.PubSubImpl <em>Pub Sub</em>}' class.
@@ -1846,6 +2094,14 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EClass PUB_SUB = eINSTANCE.getPubSub();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PUB_SUB__NAME = eINSTANCE.getPubSub_Name();
 
     /**
      * The meta object literal for the '<em><b>Has Topics</b></em>' containment reference list feature.
@@ -1864,6 +2120,14 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EClass POINT_TO_POINT = eINSTANCE.getPointToPoint();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute POINT_TO_POINT__NAME = eINSTANCE.getPointToPoint_Name();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.PolicyImpl <em>Policy</em>}' class.
@@ -2098,6 +2362,106 @@ public interface IotlangPackage extends EPackage
     EReference INSTANCE_THING__ANNOTATIONS = eINSTANCE.getInstanceThing_Annotations();
 
     /**
+     * The meta object literal for the '{@link lang.iotlang.impl.InstancePubSubImpl <em>Instance Pub Sub</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.InstancePubSubImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePubSub()
+     * @generated
+     */
+    EClass INSTANCE_PUB_SUB = eINSTANCE.getInstancePubSub();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE_PUB_SUB__NAME = eINSTANCE.getInstancePubSub_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Number</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE_PUB_SUB__NUMBER = eINSTANCE.getInstancePubSub_Number();
+
+    /**
+     * The meta object literal for the '<em><b>Type Channel</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PUB_SUB__TYPE_CHANNEL = eINSTANCE.getInstancePubSub_TypeChannel();
+
+    /**
+     * The meta object literal for the '<em><b>Over Protocol</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PUB_SUB__OVER_PROTOCOL = eINSTANCE.getInstancePubSub_OverProtocol();
+
+    /**
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PUB_SUB__ANNOTATIONS = eINSTANCE.getInstancePubSub_Annotations();
+
+    /**
+     * The meta object literal for the '{@link lang.iotlang.impl.InstancePtPImpl <em>Instance Pt P</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.InstancePtPImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getInstancePtP()
+     * @generated
+     */
+    EClass INSTANCE_PT_P = eINSTANCE.getInstancePtP();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE_PT_P__NAME = eINSTANCE.getInstancePtP_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Number</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INSTANCE_PT_P__NUMBER = eINSTANCE.getInstancePtP_Number();
+
+    /**
+     * The meta object literal for the '<em><b>Type Channel</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PT_P__TYPE_CHANNEL = eINSTANCE.getInstancePtP_TypeChannel();
+
+    /**
+     * The meta object literal for the '<em><b>Over Protocol</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PT_P__OVER_PROTOCOL = eINSTANCE.getInstancePtP_OverProtocol();
+
+    /**
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSTANCE_PT_P__ANNOTATIONS = eINSTANCE.getInstancePtP_Annotations();
+
+    /**
      * The meta object literal for the '{@link lang.iotlang.impl.InstanceChannelImpl <em>Instance Channel</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2108,44 +2472,20 @@ public interface IotlangPackage extends EPackage
     EClass INSTANCE_CHANNEL = eINSTANCE.getInstanceChannel();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Instances Pub Sub</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INSTANCE_CHANNEL__NAME = eINSTANCE.getInstanceChannel_Name();
+    EReference INSTANCE_CHANNEL__INSTANCES_PUB_SUB = eINSTANCE.getInstanceChannel_InstancesPubSub();
 
     /**
-     * The meta object literal for the '<em><b>Number</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Instances Ptp</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute INSTANCE_CHANNEL__NUMBER = eINSTANCE.getInstanceChannel_Number();
-
-    /**
-     * The meta object literal for the '<em><b>Type Channel</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INSTANCE_CHANNEL__TYPE_CHANNEL = eINSTANCE.getInstanceChannel_TypeChannel();
-
-    /**
-     * The meta object literal for the '<em><b>Over Protocol</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INSTANCE_CHANNEL__OVER_PROTOCOL = eINSTANCE.getInstanceChannel_OverProtocol();
-
-    /**
-     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference INSTANCE_CHANNEL__ANNOTATIONS = eINSTANCE.getInstanceChannel_Annotations();
+    EReference INSTANCE_CHANNEL__INSTANCES_PTP = eINSTANCE.getInstanceChannel_InstancesPtp();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.InstancePolicyImpl <em>Instance Policy</em>}' class.
@@ -2290,12 +2630,12 @@ public interface IotlangPackage extends EPackage
     EAttribute BIND__DIRECTION = eINSTANCE.getBind_Direction();
 
     /**
-     * The meta object literal for the '<em><b>Channel Instance</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Pub Sub Instance</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference BIND__CHANNEL_INSTANCE = eINSTANCE.getBind_ChannelInstance();
+    EReference BIND__PUB_SUB_INSTANCE = eINSTANCE.getBind_PubSubInstance();
 
     /**
      * The meta object literal for the '<em><b>Topics</b></em>' reference list feature.

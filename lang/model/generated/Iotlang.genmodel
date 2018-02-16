@@ -24,12 +24,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Thing/ports"/>
     </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//Channel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Channel/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Channel/pubSub"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Channel/pointToPoint"/>
     </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//PubSub">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//PubSub/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//PubSub/hasTopics"/>
     </genClasses>
-    <genClasses ecoreClass="Iotlang.ecore#//PointToPoint"/>
+    <genClasses ecoreClass="Iotlang.ecore#//PointToPoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//PointToPoint/name"/>
+    </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//Policy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Policy/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Policy/hasRules"/>
@@ -65,12 +69,23 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceThing/typeThing"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceThing/annotations"/>
     </genClasses>
+    <genClasses ecoreClass="Iotlang.ecore#//InstancePubSub">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstancePubSub/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstancePubSub/number"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePubSub/typeChannel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePubSub/overProtocol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePubSub/annotations"/>
+    </genClasses>
+    <genClasses ecoreClass="Iotlang.ecore#//InstancePtP">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstancePtP/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstancePtP/number"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePtP/typeChannel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePtP/overProtocol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstancePtP/annotations"/>
+    </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//InstanceChannel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstanceChannel/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstanceChannel/number"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceChannel/typeChannel"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceChannel/overProtocol"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceChannel/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceChannel/instancesPubSub"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//InstanceChannel/instancesPtp"/>
     </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//InstancePolicy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//InstancePolicy/name"/>
@@ -91,7 +106,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Bind/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/thingInstance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Bind/direction"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/channelInstance"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/pubSubInstance"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/topics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/annotations"/>
     </genClasses>

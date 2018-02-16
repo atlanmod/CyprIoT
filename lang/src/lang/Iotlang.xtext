@@ -26,7 +26,7 @@ Thing: // example gateway, arduino, android
 	'}';
 
 Channel: // mqtt, kafka, real simple bus,
-	(PubSub|PointToPoint)
+	(pubSub+= PubSub| pointToPoint +=PointToPoint)
 ;
 PubSub:
 	'channel:pubsub' name=ID '{'
@@ -56,11 +56,11 @@ Message :
 	'message' name=ID
 ;
 Topic:
-	'topic'  name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message|ID] ')'
+	'topic'  name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message] ')'
 ;
 
 Rule:
-	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') (object=[Thing|ID](( "." ports+=[Port])*)?| 'message:' objectMessage=[Message])
+	'rule' (name=ID)? (subject=[Thing]) permission=('allow' |'deny') ':' action=('send'|'receive') (object=[Thing](( "." ports+=[Port])*)?| 'message:' objectMessage=[Message])
 ;
 
 
@@ -72,21 +72,26 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) ( annotations+=PlatformAnnotation )*;
 
 //instanceGateway:
-//	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
-
+//	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
+InstancePubSub:
+	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+;
+InstancePtP:
+	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+;
 InstanceChannel:
-	'instanceChannel' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[Channel|ID]) 'over' overProtocol=[Protocol|ID]( annotations+=PlatformAnnotation )*;
-
+	(instancesPubSub+=InstancePubSub | instancesPtp+=InstancePtP	)
+;
 InstancePolicy:
-	'instancePolicy' name=ID ':' (typePolicy=[Policy|ID]) ( annotations+=PlatformAnnotation )*;
+	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;
 
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=PlatformAnnotation )* '{'
-	(domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy|ID] | instancePoliciy+=InstancePolicy)*
+	(domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
 	
 	'}';
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing|ID] direction=('=>' |'<=>'|'<=') channelInstance=[InstanceChannel|ID]'{' topics+=[Topic|ID] (( "," topics+=[Topic|ID])*)?'}' ( annotations+=PlatformAnnotation )*;
+	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=PlatformAnnotation )*;

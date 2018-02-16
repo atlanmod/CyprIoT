@@ -3,11 +3,9 @@
  */
 package lang.ide;
 
-import lang.ide.AbstractIotlangIdeModule;
-
 /**
  * Use this class to register ide components.
  */
 @SuppressWarnings("all")
-public class IotlangIdeModule extends AbstractIotlangIdeModule {
+public class IotlangIdeModule /* implements AbstractIotlangIdeModule  */{
 }
