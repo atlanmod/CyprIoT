@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.iotlang.Channel;
+import lang.iotlang.Datatype;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.Topic;
 import lang.iotlang.impl.PointToPointImpl;
@@ -135,7 +136,15 @@ public class Helpers {
 		}
 		return result;
 		}
-	
+	public static ArrayList<Datatype> allDatatypes(IoTLangModel model) {
+		ArrayList<Datatype> result = new ArrayList<Datatype>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (Datatype t : m.getDatatypes()) {
+					result.add((Datatype)t);
+			}
+		}
+		return result;
+		}
 	public static ArrayList<Port> allPorts(IoTLangModel model) {
 		ArrayList<Port> result = new ArrayList<Port>();
 		for (Thing t : allThings(model)) {

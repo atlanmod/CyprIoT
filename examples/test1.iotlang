@@ -20,8 +20,8 @@ thing AndroidUser {
 	// Simple android application that give the user the possibility to select the temperature
 	port ok
 }
-
-message temperatureMessage
+datatype int <8>;
+message temperatureMessage(int)
 protocol mqtt
 
 channel:pubsub MqttBus {

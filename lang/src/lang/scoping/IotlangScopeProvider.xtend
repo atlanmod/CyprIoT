@@ -62,6 +62,8 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_ObjectMessage) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
+		}else if (reference == iotlangInstance.message_Datatypes) {
+			return Scopes.scopeFor( Helpers.allDatatypes(Helpers.findContainingModel(context)) );
 		}else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " + (reference.eContainer as ENamedElement).getName);
 		}
