@@ -36,7 +36,7 @@ PubSub:
 
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(hasTopics +=Topic)*
+		
 		'}'
 ;
 Policy: // mqtt, kafka, real simple bus,
