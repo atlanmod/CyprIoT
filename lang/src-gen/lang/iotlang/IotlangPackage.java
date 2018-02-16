@@ -224,22 +224,13 @@ public interface IotlangPackage extends EPackage
   int CHANNEL__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Has Topics</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CHANNEL__HAS_TOPICS = 1;
-
-  /**
    * The number of structural features of the '<em>Channel</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CHANNEL_FEATURE_COUNT = 2;
+  int CHANNEL_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.PubSubImpl <em>Pub Sub</em>}' class.
@@ -267,7 +258,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PUB_SUB__HAS_TOPICS = CHANNEL__HAS_TOPICS;
+  int PUB_SUB__HAS_TOPICS = CHANNEL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Pub Sub</em>' class.
@@ -276,7 +267,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PUB_SUB_FEATURE_COUNT = CHANNEL_FEATURE_COUNT + 0;
+  int PUB_SUB_FEATURE_COUNT = CHANNEL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.PointToPointImpl <em>Point To Point</em>}' class.
@@ -296,15 +287,6 @@ public interface IotlangPackage extends EPackage
    * @ordered
    */
   int POINT_TO_POINT__NAME = CHANNEL__NAME;
-
-  /**
-   * The feature id for the '<em><b>Has Topics</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int POINT_TO_POINT__HAS_TOPICS = CHANNEL__HAS_TOPICS;
 
   /**
    * The number of structural features of the '<em>Point To Point</em>' class.
@@ -1029,17 +1011,6 @@ public interface IotlangPackage extends EPackage
   EAttribute getChannel_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link lang.iotlang.Channel#getHasTopics <em>Has Topics</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Has Topics</em>'.
-   * @see lang.iotlang.Channel#getHasTopics()
-   * @see #getChannel()
-   * @generated
-   */
-  EReference getChannel_HasTopics();
-
-  /**
    * Returns the meta object for class '{@link lang.iotlang.PubSub <em>Pub Sub</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1048,6 +1019,17 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EClass getPubSub();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.PubSub#getHasTopics <em>Has Topics</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Has Topics</em>'.
+   * @see lang.iotlang.PubSub#getHasTopics()
+   * @see #getPubSub()
+   * @generated
+   */
+  EReference getPubSub_HasTopics();
 
   /**
    * Returns the meta object for class '{@link lang.iotlang.PointToPoint <em>Point To Point</em>}'.
@@ -1739,14 +1721,6 @@ public interface IotlangPackage extends EPackage
     EAttribute CHANNEL__NAME = eINSTANCE.getChannel_Name();
 
     /**
-     * The meta object literal for the '<em><b>Has Topics</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CHANNEL__HAS_TOPICS = eINSTANCE.getChannel_HasTopics();
-
-    /**
      * The meta object literal for the '{@link lang.iotlang.impl.PubSubImpl <em>Pub Sub</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1755,6 +1729,14 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EClass PUB_SUB = eINSTANCE.getPubSub();
+
+    /**
+     * The meta object literal for the '<em><b>Has Topics</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PUB_SUB__HAS_TOPICS = eINSTANCE.getPubSub_HasTopics();
 
     /**
      * The meta object literal for the '{@link lang.iotlang.impl.PointToPointImpl <em>Point To Point</em>}' class.

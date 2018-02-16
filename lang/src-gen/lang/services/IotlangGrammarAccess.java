@@ -220,17 +220,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cHasTopicsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cHasTopicsTopicParserRuleCall_3_0 = (RuleCall)cHasTopicsAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//PointToPoint:
 		//	'channel:ptp' name=ID '{'
-		//	hasTopics+=Topic*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'channel:ptp' name=ID '{' hasTopics+=Topic* '}'
+		//'channel:ptp' name=ID '{' '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'channel:ptp'
@@ -245,14 +242,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//hasTopics+=Topic*
-		public Assignment getHasTopicsAssignment_3() { return cHasTopicsAssignment_3; }
-		
-		//Topic
-		public RuleCall getHasTopicsTopicParserRuleCall_3_0() { return cHasTopicsTopicParserRuleCall_3_0; }
-		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 	public class PolicyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Policy");
@@ -1072,7 +1063,6 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//PointToPoint:
 	//	'channel:ptp' name=ID '{'
-	//	hasTopics+=Topic*
 	//	'}';
 	public PointToPointElements getPointToPointAccess() {
 		return pPointToPoint;

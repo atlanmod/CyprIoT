@@ -26,10 +26,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Channel">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PubSub" eSuperTypes="#//Channel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasTopics" upperBound="-1"
         eType="#//Topic" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PubSub" eSuperTypes="#//Channel"/>
   <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//Channel"/>
   <eClassifiers xsi:type="ecore:EClass" name="Policy">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

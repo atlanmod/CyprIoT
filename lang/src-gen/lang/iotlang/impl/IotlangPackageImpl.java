@@ -375,9 +375,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getChannel_HasTopics()
+  public EClass getPubSub()
   {
-    return (EReference)channelEClass.getEStructuralFeatures().get(1);
+    return pubSubEClass;
   }
 
   /**
@@ -385,9 +385,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPubSub()
+  public EReference getPubSub_HasTopics()
   {
-    return pubSubEClass;
+    return (EReference)pubSubEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -938,9 +938,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
 
     channelEClass = createEClass(CHANNEL);
     createEAttribute(channelEClass, CHANNEL__NAME);
-    createEReference(channelEClass, CHANNEL__HAS_TOPICS);
 
     pubSubEClass = createEClass(PUB_SUB);
+    createEReference(pubSubEClass, PUB_SUB__HAS_TOPICS);
 
     pointToPointEClass = createEClass(POINT_TO_POINT);
 
@@ -1056,9 +1056,9 @@ public class IotlangPackageImpl extends EPackageImpl implements IotlangPackage
 
     initEClass(channelEClass, Channel.class, "Channel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getChannel_Name(), ecorePackage.getEString(), "name", null, 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getChannel_HasTopics(), this.getTopic(), null, "hasTopics", null, 0, -1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pubSubEClass, PubSub.class, "PubSub", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPubSub_HasTopics(), this.getTopic(), null, "hasTopics", null, 0, -1, PubSub.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pointToPointEClass, PointToPoint.class, "PointToPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

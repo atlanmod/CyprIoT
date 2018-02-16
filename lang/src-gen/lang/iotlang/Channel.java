@@ -3,8 +3,6 @@
  */
 package lang.iotlang;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -17,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Channel#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Channel#getHasTopics <em>Has Topics</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getChannel()
@@ -51,21 +48,5 @@ public interface Channel extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Has Topics</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.Topic}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Has Topics</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Has Topics</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getChannel_HasTopics()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Topic> getHasTopics();
 
 } // Channel

@@ -24,9 +24,10 @@
     </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//Channel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Channel/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Channel/hasTopics"/>
     </genClasses>
-    <genClasses ecoreClass="Iotlang.ecore#//PubSub"/>
+    <genClasses ecoreClass="Iotlang.ecore#//PubSub">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//PubSub/hasTopics"/>
+    </genClasses>
     <genClasses ecoreClass="Iotlang.ecore#//PointToPoint"/>
     <genClasses ecoreClass="Iotlang.ecore#//Policy">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Policy/name"/>

@@ -3,12 +3,19 @@
  */
 package lang.iotlang;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Pub Sub</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link lang.iotlang.PubSub#getHasTopics <em>Has Topics</em>}</li>
+ * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getPubSub()
  * @model
@@ -16,4 +23,20 @@ package lang.iotlang;
  */
 public interface PubSub extends Channel
 {
+  /**
+   * Returns the value of the '<em><b>Has Topics</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Topic}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Has Topics</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Has Topics</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getPubSub_HasTopics()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Topic> getHasTopics();
+
 } // PubSub

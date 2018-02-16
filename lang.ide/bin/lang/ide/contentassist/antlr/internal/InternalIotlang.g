@@ -1065,7 +1065,6 @@ rule__PointToPoint__Group__3
 	}
 :
 	rule__PointToPoint__Group__3__Impl
-	rule__PointToPoint__Group__4
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -1077,35 +1076,9 @@ rule__PointToPoint__Group__3__Impl
 	}
 :
 (
-	{ before(grammarAccess.getPointToPointAccess().getHasTopicsAssignment_3()); }
-	(rule__PointToPoint__HasTopicsAssignment_3)*
-	{ after(grammarAccess.getPointToPointAccess().getHasTopicsAssignment_3()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PointToPoint__Group__4
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__PointToPoint__Group__4__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PointToPoint__Group__4__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_4()); }
+	{ before(grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_3()); }
 	'}'
-	{ after(grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_4()); }
+	{ after(grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_3()); }
 )
 ;
 finally {
@@ -3138,21 +3111,6 @@ rule__PointToPoint__NameAssignment_1
 		{ before(grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0()); }
 		RULE_ID
 		{ after(grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0()); }
-	)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__PointToPoint__HasTopicsAssignment_3
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	(
-		{ before(grammarAccess.getPointToPointAccess().getHasTopicsTopicParserRuleCall_3_0()); }
-		ruleTopic
-		{ after(grammarAccess.getPointToPointAccess().getHasTopicsTopicParserRuleCall_3_0()); }
 	)
 ;
 finally {

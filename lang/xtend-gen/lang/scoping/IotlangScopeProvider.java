@@ -78,13 +78,19 @@ public class IotlangScopeProvider extends AbstractIotlangScopeProvider {
                       if (_equals_9) {
                         return Scopes.scopeFor(Helpers.allMessages(Helpers.findContainingModel(context)));
                       } else {
-                        String _name = reference.getName();
-                        String _plus = ("INFO: Resolving reference : " + _name);
-                        String _plus_1 = (_plus + " in Class ");
-                        EObject _eContainer = reference.eContainer();
-                        String _name_1 = ((ENamedElement) _eContainer).getName();
-                        String _plus_2 = (_plus_1 + _name_1);
-                        System.err.println(_plus_2);
+                        EReference _instanceChannel_OverProtocol = this.iotlangInstance.getInstanceChannel_OverProtocol();
+                        boolean _equals_10 = Objects.equal(reference, _instanceChannel_OverProtocol);
+                        if (_equals_10) {
+                          return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
+                        } else {
+                          String _name = reference.getName();
+                          String _plus = ("INFO: Resolving reference : " + _name);
+                          String _plus_1 = (_plus + " in Class ");
+                          EObject _eContainer = reference.eContainer();
+                          String _name_1 = ((ENamedElement) _eContainer).getName();
+                          String _plus_2 = (_plus_1 + _name_1);
+                          System.err.println(_plus_2);
+                        }
                       }
                     }
                   }

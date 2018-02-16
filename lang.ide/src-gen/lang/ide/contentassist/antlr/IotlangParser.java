@@ -69,7 +69,6 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPubSubAccess().getNameAssignment_1(), "rule__PubSub__NameAssignment_1");
 					put(grammarAccess.getPubSubAccess().getHasTopicsAssignment_3(), "rule__PubSub__HasTopicsAssignment_3");
 					put(grammarAccess.getPointToPointAccess().getNameAssignment_1(), "rule__PointToPoint__NameAssignment_1");
-					put(grammarAccess.getPointToPointAccess().getHasTopicsAssignment_3(), "rule__PointToPoint__HasTopicsAssignment_3");
 					put(grammarAccess.getPolicyAccess().getNameAssignment_1(), "rule__Policy__NameAssignment_1");
 					put(grammarAccess.getPolicyAccess().getHasRulesAssignment_3(), "rule__Policy__HasRulesAssignment_3");
 					put(grammarAccess.getProtocolAccess().getNameAssignment_1(), "rule__Protocol__NameAssignment_1");

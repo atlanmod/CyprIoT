@@ -3,25 +3,15 @@
  */
 package lang.iotlang.impl;
 
-import java.util.Collection;
-
 import lang.iotlang.Channel;
 import lang.iotlang.IotlangPackage;
-import lang.iotlang.Topic;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +22,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.ChannelImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.ChannelImpl#getHasTopics <em>Has Topics</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,16 +47,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getHasTopics() <em>Has Topics</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getHasTopics()
-   * @generated
-   * @ordered
-   */
-  protected EList<Topic> hasTopics;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,36 +97,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Topic> getHasTopics()
-  {
-    if (hasTopics == null)
-    {
-      hasTopics = new EObjectContainmentEList<Topic>(Topic.class, this, IotlangPackage.CHANNEL__HAS_TOPICS);
-    }
-    return hasTopics;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case IotlangPackage.CHANNEL__HAS_TOPICS:
-        return ((InternalEList<?>)getHasTopics()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -155,8 +104,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return getName();
-      case IotlangPackage.CHANNEL__HAS_TOPICS:
-        return getHasTopics();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -166,7 +113,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -174,10 +120,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         setName((String)newValue);
-        return;
-      case IotlangPackage.CHANNEL__HAS_TOPICS:
-        getHasTopics().clear();
-        getHasTopics().addAll((Collection<? extends Topic>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,9 +138,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
       case IotlangPackage.CHANNEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.CHANNEL__HAS_TOPICS:
-        getHasTopics().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -215,8 +154,6 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.CHANNEL__HAS_TOPICS:
-        return hasTopics != null && !hasTopics.isEmpty();
     }
     return super.eIsSet(featureID);
   }

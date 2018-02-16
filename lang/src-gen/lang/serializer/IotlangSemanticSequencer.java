@@ -261,10 +261,16 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     PointToPoint returns PointToPoint
 	 *
 	 * Constraint:
-	 *     (name=ID hasTopics+=Topic*)
+	 *     name=ID
 	 */
 	protected void sequence_PointToPoint(ISerializationContext context, PointToPoint semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.CHANNEL__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.CHANNEL__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

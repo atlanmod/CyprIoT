@@ -467,28 +467,9 @@ rulePointToPoint returns [EObject current=null]
 		{
 			newLeafNode(otherlv_2, grammarAccess.getPointToPointAccess().getLeftCurlyBracketKeyword_2());
 		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getPointToPointAccess().getHasTopicsTopicParserRuleCall_3_0());
-				}
-				lv_hasTopics_3_0=ruleTopic
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getPointToPointRule());
-					}
-					add(
-						$current,
-						"hasTopics",
-						lv_hasTopics_3_0,
-						"lang.Iotlang.Topic");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)*
-		otherlv_4='}'
+		otherlv_3='}'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_4());
+			newLeafNode(otherlv_3, grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_3());
 		}
 	)
 ;

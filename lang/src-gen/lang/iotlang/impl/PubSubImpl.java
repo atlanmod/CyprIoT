@@ -3,20 +3,47 @@
  */
 package lang.iotlang.impl;
 
+import java.util.Collection;
+
 import lang.iotlang.IotlangPackage;
 import lang.iotlang.PubSub;
+import lang.iotlang.Topic;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Pub Sub</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link lang.iotlang.impl.PubSubImpl#getHasTopics <em>Has Topics</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class PubSubImpl extends ChannelImpl implements PubSub
 {
+  /**
+   * The cached value of the '{@link #getHasTopics() <em>Has Topics</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getHasTopics()
+   * @generated
+   * @ordered
+   */
+  protected EList<Topic> hasTopics;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +63,104 @@ public class PubSubImpl extends ChannelImpl implements PubSub
   protected EClass eStaticClass()
   {
     return IotlangPackage.Literals.PUB_SUB;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Topic> getHasTopics()
+  {
+    if (hasTopics == null)
+    {
+      hasTopics = new EObjectContainmentEList<Topic>(Topic.class, this, IotlangPackage.PUB_SUB__HAS_TOPICS);
+    }
+    return hasTopics;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.PUB_SUB__HAS_TOPICS:
+        return ((InternalEList<?>)getHasTopics()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.PUB_SUB__HAS_TOPICS:
+        return getHasTopics();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.PUB_SUB__HAS_TOPICS:
+        getHasTopics().clear();
+        getHasTopics().addAll((Collection<? extends Topic>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.PUB_SUB__HAS_TOPICS:
+        getHasTopics().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case IotlangPackage.PUB_SUB__HAS_TOPICS:
+        return hasTopics != null && !hasTopics.isEmpty();
+    }
+    return super.eIsSet(featureID);
   }
 
 } //PubSubImpl

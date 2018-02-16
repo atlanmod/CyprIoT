@@ -19,6 +19,8 @@ import lang.iotlang.InstancePolicy;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
 import lang.iotlang.Policy;
+import lang.iotlang.Protocol;
+import lang.iotlang.PubSub;
 import lang.iotlang.Thing;
 
 
@@ -89,11 +91,11 @@ public class Helpers {
 	return result;
 	}
 	
-	public static ArrayList<Channel> allBuses(IoTLangModel model) {
-		ArrayList<Channel> result = new ArrayList<Channel>();
+	public static ArrayList<PubSub> allBuses(IoTLangModel model) {
+		ArrayList<PubSub> result = new ArrayList<PubSub>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Channel t : m.getChannels()) {
-					result.add((Channel)t);
+					result.add((PubSub)t);
 			}
 		}
 		return result;
@@ -108,11 +110,19 @@ public class Helpers {
 		}
 		return result;
 		}
-	
+	public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
+		ArrayList<Protocol> result = new ArrayList<Protocol>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (Protocol t : m.getProtocols()) {
+					result.add((Protocol)t);
+			}
+		}
+		return result;
+		}
 	
 	public static ArrayList<Topic> allTopics(IoTLangModel model) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Channel m : allBuses(model)) {
+		for (PubSub m : allBuses(model)) {
 			for (Topic t : m.getHasTopics()) {
 					result.add((Topic)t);
 			}
