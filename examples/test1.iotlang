@@ -51,11 +51,10 @@ policy roomPolicy {
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
 	instancePolicy mypolicy:roomPolicy
-	enforce mypolicy	 // Will check if the configuration respect the policy, if there is any 
-						//conflict with the configuration the policy will override it
-	instanceThing instanceTemp[10]:Temperature //@platform "*:*"
-	instancePubSub mqtt:MqttBus over mqtt//@platform "*:*"
-	instancePTP ptp:ptp over mqtt//@platform "*:*"
+	enforce mypolicy
+	instanceThing instanceTemp[10]:Temperature platform "cposix"
+	instancePubSub mqtt:MqttBus platform "mosquitto" over mqtt 
+	instancePTP ptp:ptp platform "mosquitto" over mqtt
 	bind instanceTemp => mqtt{room1}
 	connect instanceTemp => ptp
 }
