@@ -30,16 +30,22 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cThingsThingParserRuleCall_0_0 = (RuleCall)cThingsAssignment_0.eContents().get(0);
 		private final Assignment cPoliciesAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cPoliciesPolicyParserRuleCall_1_0 = (RuleCall)cPoliciesAssignment_1.eContents().get(0);
-		private final Assignment cChannelsAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cChannelsChannelParserRuleCall_2_0 = (RuleCall)cChannelsAssignment_2.eContents().get(0);
-		private final Assignment cConfigsAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cConfigsNetworkConfigurationParserRuleCall_3_0 = (RuleCall)cConfigsAssignment_3.eContents().get(0);
+		private final Assignment cMessagesAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cMessagesMessageParserRuleCall_2_0 = (RuleCall)cMessagesAssignment_2.eContents().get(0);
+		private final Assignment cChannelsAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cChannelsChannelParserRuleCall_3_0 = (RuleCall)cChannelsAssignment_3.eContents().get(0);
+		private final Assignment cProtocolsAssignment_4 = (Assignment)cAlternatives.eContents().get(4);
+		private final RuleCall cProtocolsProtocolParserRuleCall_4_0 = (RuleCall)cProtocolsAssignment_4.eContents().get(0);
+		private final Assignment cConfigsAssignment_5 = (Assignment)cAlternatives.eContents().get(5);
+		private final RuleCall cConfigsNetworkConfigurationParserRuleCall_5_0 = (RuleCall)cConfigsAssignment_5.eContents().get(0);
 		
 		//IoTLangModel:
-		//	(things+=Thing | policies+=Policy | channels+=Channel | configs+=NetworkConfiguration)*;
+		//	(things+=Thing | policies+=Policy | messages+=Message | channels+=Channel | protocols+=Protocol |
+		//	configs+=NetworkConfiguration)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(things+=Thing | policies+=Policy | channels+=Channel | configs+=NetworkConfiguration)*
+		//(things+=Thing | policies+=Policy | messages+=Message | channels+=Channel | protocols+=Protocol |
+		//configs+=NetworkConfiguration)*
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//things+=Thing
@@ -54,17 +60,29 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//Policy
 		public RuleCall getPoliciesPolicyParserRuleCall_1_0() { return cPoliciesPolicyParserRuleCall_1_0; }
 		
+		//messages+=Message
+		public Assignment getMessagesAssignment_2() { return cMessagesAssignment_2; }
+		
+		//Message
+		public RuleCall getMessagesMessageParserRuleCall_2_0() { return cMessagesMessageParserRuleCall_2_0; }
+		
 		//channels+=Channel
-		public Assignment getChannelsAssignment_2() { return cChannelsAssignment_2; }
+		public Assignment getChannelsAssignment_3() { return cChannelsAssignment_3; }
 		
 		//Channel
-		public RuleCall getChannelsChannelParserRuleCall_2_0() { return cChannelsChannelParserRuleCall_2_0; }
+		public RuleCall getChannelsChannelParserRuleCall_3_0() { return cChannelsChannelParserRuleCall_3_0; }
+		
+		//protocols+=Protocol
+		public Assignment getProtocolsAssignment_4() { return cProtocolsAssignment_4; }
+		
+		//Protocol
+		public RuleCall getProtocolsProtocolParserRuleCall_4_0() { return cProtocolsProtocolParserRuleCall_4_0; }
 		
 		//configs+=NetworkConfiguration
-		public Assignment getConfigsAssignment_3() { return cConfigsAssignment_3; }
+		public Assignment getConfigsAssignment_5() { return cConfigsAssignment_5; }
 		
 		//NetworkConfiguration
-		public RuleCall getConfigsNetworkConfigurationParserRuleCall_3_0() { return cConfigsNetworkConfigurationParserRuleCall_3_0; }
+		public RuleCall getConfigsNetworkConfigurationParserRuleCall_5_0() { return cConfigsNetworkConfigurationParserRuleCall_5_0; }
 	}
 	public class PlatformAnnotationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.PlatformAnnotation");
@@ -136,26 +154,46 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class ChannelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Channel");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cChannelKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTopicsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cTopicsTopicParserRuleCall_3_0 = (RuleCall)cTopicsAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cPubSubParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPointToPointParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Channel: // mqtt, kafka, real simple bus,
-		//	'channel' name=ID '{' topics+=Topic* '}';
+		//Channel:
+		//	PubSub | PointToPoint;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//// mqtt, kafka, real simple bus,
-		//'channel' name=ID '{' topics+=Topic* '}'
+		//PubSub | PointToPoint
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//PubSub
+		public RuleCall getPubSubParserRuleCall_0() { return cPubSubParserRuleCall_0; }
+		
+		//PointToPoint
+		public RuleCall getPointToPointParserRuleCall_1() { return cPointToPointParserRuleCall_1; }
+	}
+	public class PubSubElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.PubSub");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cChannelPubsubKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cHasTopicsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cHasTopicsTopicParserRuleCall_3_0 = (RuleCall)cHasTopicsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//PubSub:
+		//	'channel:pubsub' name=ID '{'
+		//	hasTopics+=Topic*
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'channel:pubsub' name=ID '{' hasTopics+=Topic* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//// mqtt, kafka, real simple bus,
-		//'channel'
-		public Keyword getChannelKeyword_0() { return cChannelKeyword_0; }
+		//'channel:pubsub'
+		public Keyword getChannelPubsubKeyword_0() { return cChannelPubsubKeyword_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -166,11 +204,52 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//topics+=Topic*
-		public Assignment getTopicsAssignment_3() { return cTopicsAssignment_3; }
+		//hasTopics+=Topic*
+		public Assignment getHasTopicsAssignment_3() { return cHasTopicsAssignment_3; }
 		
 		//Topic
-		public RuleCall getTopicsTopicParserRuleCall_3_0() { return cTopicsTopicParserRuleCall_3_0; }
+		public RuleCall getHasTopicsTopicParserRuleCall_3_0() { return cHasTopicsTopicParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+	public class PointToPointElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.PointToPoint");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cChannelPtpKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cHasTopicsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cHasTopicsTopicParserRuleCall_3_0 = (RuleCall)cHasTopicsAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//PointToPoint:
+		//	'channel:ptp' name=ID '{'
+		//	hasTopics+=Topic*
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'channel:ptp' name=ID '{' hasTopics+=Topic* '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'channel:ptp'
+		public Keyword getChannelPtpKeyword_0() { return cChannelPtpKeyword_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		
+		//hasTopics+=Topic*
+		public Assignment getHasTopicsAssignment_3() { return cHasTopicsAssignment_3; }
+		
+		//Topic
+		public RuleCall getHasTopicsTopicParserRuleCall_3_0() { return cHasTopicsTopicParserRuleCall_3_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
@@ -182,16 +261,16 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cRulesAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cRulesRuleParserRuleCall_3_0 = (RuleCall)cRulesAssignment_3.eContents().get(0);
+		private final Assignment cHasRulesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cHasRulesRuleParserRuleCall_3_0 = (RuleCall)cHasRulesAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Policy: // mqtt, kafka, real simple bus,
-		//	'policy' name=ID '{' rules+=Rule* '}';
+		//	'policy' name=ID '{' hasRules+=Rule* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//// mqtt, kafka, real simple bus,
-		//'policy' name=ID '{' rules+=Rule* '}'
+		//'policy' name=ID '{' hasRules+=Rule* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//// mqtt, kafka, real simple bus,
@@ -207,11 +286,11 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//rules+=Rule*
-		public Assignment getRulesAssignment_3() { return cRulesAssignment_3; }
+		//hasRules+=Rule*
+		public Assignment getHasRulesAssignment_3() { return cHasRulesAssignment_3; }
 		
 		//Rule
-		public RuleCall getRulesRuleParserRuleCall_3_0() { return cRulesRuleParserRuleCall_3_0; }
+		public RuleCall getHasRulesRuleParserRuleCall_3_0() { return cHasRulesRuleParserRuleCall_3_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
@@ -268,21 +347,17 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTopicKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cTypeAlternatives_2_0 = (Alternatives)cTypeAssignment_2.eContents().get(0);
-		private final Keyword cTypeQuestionMarkKeyword_2_0_0 = (Keyword)cTypeAlternatives_2_0.eContents().get(0);
-		private final Keyword cTypeExclamationMarkKeyword_2_0_1 = (Keyword)cTypeAlternatives_2_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cMessagesAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cMessagesMessageCrossReference_4_0 = (CrossReference)cMessagesAssignment_4.eContents().get(0);
-		private final RuleCall cMessagesMessageIDTerminalRuleCall_4_0_1 = (RuleCall)cMessagesMessageCrossReference_4_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cAcceptedMessagesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cAcceptedMessagesMessageCrossReference_3_0 = (CrossReference)cAcceptedMessagesAssignment_3.eContents().get(0);
+		private final RuleCall cAcceptedMessagesMessageIDTerminalRuleCall_3_0_1 = (RuleCall)cAcceptedMessagesMessageCrossReference_3_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Topic:
-		//	'topic' name=ID type=('?' | '!') '(' messages=[Message] ')';
+		//	'topic' name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message] ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'topic' name=ID type=('?' | '!') '(' messages=[Message] ')'
+		//'topic' name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message] ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'topic'
@@ -294,32 +369,20 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 		
-		//type=('?' | '!')
-		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
+		///*type=('?' |'!')*/ '('
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
-		//('?' | '!')
-		public Alternatives getTypeAlternatives_2_0() { return cTypeAlternatives_2_0; }
-		
-		//'?'
-		public Keyword getTypeQuestionMarkKeyword_2_0_0() { return cTypeQuestionMarkKeyword_2_0_0; }
-		
-		//'!'
-		public Keyword getTypeExclamationMarkKeyword_2_0_1() { return cTypeExclamationMarkKeyword_2_0_1; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
-		
-		//messages=[Message]
-		public Assignment getMessagesAssignment_4() { return cMessagesAssignment_4; }
+		//acceptedMessages=[Message]
+		public Assignment getAcceptedMessagesAssignment_3() { return cAcceptedMessagesAssignment_3; }
 		
 		//[Message]
-		public CrossReference getMessagesMessageCrossReference_4_0() { return cMessagesMessageCrossReference_4_0; }
+		public CrossReference getAcceptedMessagesMessageCrossReference_3_0() { return cAcceptedMessagesMessageCrossReference_3_0; }
 		
 		//ID
-		public RuleCall getMessagesMessageIDTerminalRuleCall_4_0_1() { return cMessagesMessageIDTerminalRuleCall_4_0_1; }
+		public RuleCall getAcceptedMessagesMessageIDTerminalRuleCall_3_0_1() { return cAcceptedMessagesMessageIDTerminalRuleCall_3_0_1; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
 	public class RuleElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Rule");
@@ -327,9 +390,9 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRuleKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cThingsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cThingsThingCrossReference_2_0 = (CrossReference)cThingsAssignment_2.eContents().get(0);
-		private final RuleCall cThingsThingIDTerminalRuleCall_2_0_1 = (RuleCall)cThingsThingCrossReference_2_0.eContents().get(1);
+		private final Assignment cSubjectAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cSubjectThingCrossReference_2_0 = (CrossReference)cSubjectAssignment_2.eContents().get(0);
+		private final RuleCall cSubjectThingIDTerminalRuleCall_2_0_1 = (RuleCall)cSubjectThingCrossReference_2_0.eContents().get(1);
 		private final Assignment cPermissionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Alternatives cPermissionAlternatives_3_0 = (Alternatives)cPermissionAssignment_3.eContents().get(0);
 		private final Keyword cPermissionAllowKeyword_3_0_0 = (Keyword)cPermissionAlternatives_3_0.eContents().get(0);
@@ -339,15 +402,15 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cActionAlternatives_5_0 = (Alternatives)cActionAssignment_5.eContents().get(0);
 		private final Keyword cActionSendKeyword_5_0_0 = (Keyword)cActionAlternatives_5_0.eContents().get(0);
 		private final Keyword cActionReceiveKeyword_5_0_1 = (Keyword)cActionAlternatives_5_0.eContents().get(1);
-		private final Assignment cResAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cResThingCrossReference_6_0 = (CrossReference)cResAssignment_6.eContents().get(0);
-		private final RuleCall cResThingIDTerminalRuleCall_6_0_1 = (RuleCall)cResThingCrossReference_6_0.eContents().get(1);
+		private final Assignment cObjectAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cObjectThingCrossReference_6_0 = (CrossReference)cObjectAssignment_6.eContents().get(0);
+		private final RuleCall cObjectThingIDTerminalRuleCall_6_0_1 = (RuleCall)cObjectThingCrossReference_6_0.eContents().get(1);
 		
 		//Rule:
-		//	'rule' name=ID? things=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') res=[Thing];
+		//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing];
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'rule' name=ID? things=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') res=[Thing]
+		//'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing]
 		public Group getGroup() { return cGroup; }
 		
 		//'rule'
@@ -359,14 +422,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 		
-		//things=[Thing]
-		public Assignment getThingsAssignment_2() { return cThingsAssignment_2; }
+		//subject=[Thing]
+		public Assignment getSubjectAssignment_2() { return cSubjectAssignment_2; }
 		
 		//[Thing]
-		public CrossReference getThingsThingCrossReference_2_0() { return cThingsThingCrossReference_2_0; }
+		public CrossReference getSubjectThingCrossReference_2_0() { return cSubjectThingCrossReference_2_0; }
 		
 		//ID
-		public RuleCall getThingsThingIDTerminalRuleCall_2_0_1() { return cThingsThingIDTerminalRuleCall_2_0_1; }
+		public RuleCall getSubjectThingIDTerminalRuleCall_2_0_1() { return cSubjectThingIDTerminalRuleCall_2_0_1; }
 		
 		//permission=('allow' | 'deny')
 		public Assignment getPermissionAssignment_3() { return cPermissionAssignment_3; }
@@ -395,14 +458,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'receive'
 		public Keyword getActionReceiveKeyword_5_0_1() { return cActionReceiveKeyword_5_0_1; }
 		
-		//res=[Thing]
-		public Assignment getResAssignment_6() { return cResAssignment_6; }
+		//object=[Thing]
+		public Assignment getObjectAssignment_6() { return cObjectAssignment_6; }
 		
 		//[Thing]
-		public CrossReference getResThingCrossReference_6_0() { return cResThingCrossReference_6_0; }
+		public CrossReference getObjectThingCrossReference_6_0() { return cObjectThingCrossReference_6_0; }
 		
 		//ID
-		public RuleCall getResThingIDTerminalRuleCall_6_0_1() { return cResThingIDTerminalRuleCall_6_0_1; }
+		public RuleCall getObjectThingIDTerminalRuleCall_6_0_1() { return cObjectThingIDTerminalRuleCall_6_0_1; }
 	}
 	public class DomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Domain");
@@ -440,17 +503,17 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNumberINTTerminalRuleCall_2_1_0 = (RuleCall)cNumberAssignment_2_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cTypeThingCrossReference_4_0 = (CrossReference)cTypeAssignment_4.eContents().get(0);
-		private final RuleCall cTypeThingIDTerminalRuleCall_4_0_1 = (RuleCall)cTypeThingCrossReference_4_0.eContents().get(1);
+		private final Assignment cTypeThingAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cTypeThingThingCrossReference_4_0 = (CrossReference)cTypeThingAssignment_4.eContents().get(0);
+		private final RuleCall cTypeThingThingIDTerminalRuleCall_4_0_1 = (RuleCall)cTypeThingThingCrossReference_4_0.eContents().get(1);
 		private final Assignment cAnnotationsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cAnnotationsPlatformAnnotationParserRuleCall_5_0 = (RuleCall)cAnnotationsAssignment_5.eContents().get(0);
 		
 		//InstanceThing:
-		//	'instanceThing' name=ID ('[' number+=INT ']')* ':' type=[Thing] annotations+=PlatformAnnotation*;
+		//	'instanceThing' name=ID ('[' number+=INT ']')* ':' typeThing=[Thing] annotations+=PlatformAnnotation*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'instanceThing' name=ID ('[' number+=INT ']')* ':' type=[Thing] annotations+=PlatformAnnotation*
+		//'instanceThing' name=ID ('[' number+=INT ']')* ':' typeThing=[Thing] annotations+=PlatformAnnotation*
 		public Group getGroup() { return cGroup; }
 		
 		//'instanceThing'
@@ -480,14 +543,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 		
-		//type=[Thing]
-		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
+		//typeThing=[Thing]
+		public Assignment getTypeThingAssignment_4() { return cTypeThingAssignment_4; }
 		
 		//[Thing]
-		public CrossReference getTypeThingCrossReference_4_0() { return cTypeThingCrossReference_4_0; }
+		public CrossReference getTypeThingThingCrossReference_4_0() { return cTypeThingThingCrossReference_4_0; }
 		
 		//ID
-		public RuleCall getTypeThingIDTerminalRuleCall_4_0_1() { return cTypeThingIDTerminalRuleCall_4_0_1; }
+		public RuleCall getTypeThingThingIDTerminalRuleCall_4_0_1() { return cTypeThingThingIDTerminalRuleCall_4_0_1; }
 		
 		//annotations+=PlatformAnnotation*
 		public Assignment getAnnotationsAssignment_5() { return cAnnotationsAssignment_5; }
@@ -495,10 +558,10 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//PlatformAnnotation
 		public RuleCall getAnnotationsPlatformAnnotationParserRuleCall_5_0() { return cAnnotationsPlatformAnnotationParserRuleCall_5_0; }
 	}
-	public class InstanceBusElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.InstanceBus");
+	public class InstanceChannelElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.InstanceChannel");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cInstanceBusKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cInstanceChannelKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
@@ -511,25 +574,25 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cTypeChannelChannelCrossReference_4_0 = (CrossReference)cTypeChannelAssignment_4.eContents().get(0);
 		private final RuleCall cTypeChannelChannelIDTerminalRuleCall_4_0_1 = (RuleCall)cTypeChannelChannelCrossReference_4_0.eContents().get(1);
 		private final Keyword cOverKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cProtocolAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cProtocolProtocolCrossReference_6_0 = (CrossReference)cProtocolAssignment_6.eContents().get(0);
-		private final RuleCall cProtocolProtocolIDTerminalRuleCall_6_0_1 = (RuleCall)cProtocolProtocolCrossReference_6_0.eContents().get(1);
+		private final Assignment cOverProtocolAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cOverProtocolProtocolCrossReference_6_0 = (CrossReference)cOverProtocolAssignment_6.eContents().get(0);
+		private final RuleCall cOverProtocolProtocolIDTerminalRuleCall_6_0_1 = (RuleCall)cOverProtocolProtocolCrossReference_6_0.eContents().get(1);
 		private final Assignment cAnnotationsAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cAnnotationsPlatformAnnotationParserRuleCall_7_0 = (RuleCall)cAnnotationsAssignment_7.eContents().get(0);
 		
 		////instanceGateway:
 		////	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
-		//InstanceBus:
-		//	'instanceBus' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' protocol+=[Protocol]
+		//InstanceChannel:
+		//	'instanceChannel' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' overProtocol=[Protocol]
 		//	annotations+=PlatformAnnotation*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'instanceBus' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' protocol+=[Protocol]
+		//'instanceChannel' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' overProtocol=[Protocol]
 		//annotations+=PlatformAnnotation*
 		public Group getGroup() { return cGroup; }
 		
-		//'instanceBus'
-		public Keyword getInstanceBusKeyword_0() { return cInstanceBusKeyword_0; }
+		//'instanceChannel'
+		public Keyword getInstanceChannelKeyword_0() { return cInstanceChannelKeyword_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -567,14 +630,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'over'
 		public Keyword getOverKeyword_5() { return cOverKeyword_5; }
 		
-		//protocol+=[Protocol]
-		public Assignment getProtocolAssignment_6() { return cProtocolAssignment_6; }
+		//overProtocol=[Protocol]
+		public Assignment getOverProtocolAssignment_6() { return cOverProtocolAssignment_6; }
 		
 		//[Protocol]
-		public CrossReference getProtocolProtocolCrossReference_6_0() { return cProtocolProtocolCrossReference_6_0; }
+		public CrossReference getOverProtocolProtocolCrossReference_6_0() { return cOverProtocolProtocolCrossReference_6_0; }
 		
 		//ID
-		public RuleCall getProtocolProtocolIDTerminalRuleCall_6_0_1() { return cProtocolProtocolIDTerminalRuleCall_6_0_1; }
+		public RuleCall getOverProtocolProtocolIDTerminalRuleCall_6_0_1() { return cOverProtocolProtocolIDTerminalRuleCall_6_0_1; }
 		
 		//annotations+=PlatformAnnotation*
 		public Assignment getAnnotationsAssignment_7() { return cAnnotationsAssignment_7; }
@@ -643,29 +706,29 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDomainDomainParserRuleCall_4_0_0 = (RuleCall)cDomainAssignment_4_0.eContents().get(0);
 		private final Assignment cBindsAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
 		private final RuleCall cBindsBindParserRuleCall_4_1_0 = (RuleCall)cBindsAssignment_4_1.eContents().get(0);
-		private final Assignment cInstancesAssignment_4_2 = (Assignment)cAlternatives_4.eContents().get(2);
-		private final RuleCall cInstancesInstanceThingParserRuleCall_4_2_0 = (RuleCall)cInstancesAssignment_4_2.eContents().get(0);
-		private final Assignment cInstancesBusAssignment_4_3 = (Assignment)cAlternatives_4.eContents().get(3);
-		private final RuleCall cInstancesBusInstanceBusParserRuleCall_4_3_0 = (RuleCall)cInstancesBusAssignment_4_3.eContents().get(0);
+		private final Assignment cThingInstancesAssignment_4_2 = (Assignment)cAlternatives_4.eContents().get(2);
+		private final RuleCall cThingInstancesInstanceThingParserRuleCall_4_2_0 = (RuleCall)cThingInstancesAssignment_4_2.eContents().get(0);
+		private final Assignment cChannelInstancesAssignment_4_3 = (Assignment)cAlternatives_4.eContents().get(3);
+		private final RuleCall cChannelInstancesInstanceChannelParserRuleCall_4_3_0 = (RuleCall)cChannelInstancesAssignment_4_3.eContents().get(0);
 		private final Group cGroup_4_4 = (Group)cAlternatives_4.eContents().get(4);
 		private final Keyword cEnforceKeyword_4_4_0 = (Keyword)cGroup_4_4.eContents().get(0);
 		private final Assignment cEnforcesAssignment_4_4_1 = (Assignment)cGroup_4_4.eContents().get(1);
 		private final CrossReference cEnforcesInstancePolicyCrossReference_4_4_1_0 = (CrossReference)cEnforcesAssignment_4_4_1.eContents().get(0);
 		private final RuleCall cEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1 = (RuleCall)cEnforcesInstancePolicyCrossReference_4_4_1_0.eContents().get(1);
-		private final Assignment cInstPoliciesAssignment_4_5 = (Assignment)cAlternatives_4.eContents().get(5);
-		private final RuleCall cInstPoliciesInstancePolicyParserRuleCall_4_5_0 = (RuleCall)cInstPoliciesAssignment_4_5.eContents().get(0);
+		private final Assignment cInstancePoliciyAssignment_4_5 = (Assignment)cAlternatives_4.eContents().get(5);
+		private final RuleCall cInstancePoliciyInstancePolicyParserRuleCall_4_5_0 = (RuleCall)cInstancePoliciyAssignment_4_5.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//NetworkConfiguration:
 		//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
-		//	instances+=InstanceThing | instancesBus+=InstanceBus | 'enforce' enforces+=[InstancePolicy] |
-		//	instPolicies+=InstancePolicy)*
+		//	thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
+		//	instancePoliciy+=InstancePolicy)*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
-		//instances+=InstanceThing | instancesBus+=InstanceBus | 'enforce' enforces+=[InstancePolicy] |
-		//instPolicies+=InstancePolicy)* '}'
+		//thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
+		//instancePoliciy+=InstancePolicy)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'networkConfiguration'
@@ -686,8 +749,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
-		//(domain+=Domain | binds+=Bind | instances+=InstanceThing | instancesBus+=InstanceBus | 'enforce'
-		//enforces+=[InstancePolicy] | instPolicies+=InstancePolicy)*
+		//(domain+=Domain | binds+=Bind | thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce'
+		//enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 		
 		//domain+=Domain
@@ -702,17 +765,17 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//Bind
 		public RuleCall getBindsBindParserRuleCall_4_1_0() { return cBindsBindParserRuleCall_4_1_0; }
 		
-		//instances+=InstanceThing
-		public Assignment getInstancesAssignment_4_2() { return cInstancesAssignment_4_2; }
+		//thingInstances+=InstanceThing
+		public Assignment getThingInstancesAssignment_4_2() { return cThingInstancesAssignment_4_2; }
 		
 		//InstanceThing
-		public RuleCall getInstancesInstanceThingParserRuleCall_4_2_0() { return cInstancesInstanceThingParserRuleCall_4_2_0; }
+		public RuleCall getThingInstancesInstanceThingParserRuleCall_4_2_0() { return cThingInstancesInstanceThingParserRuleCall_4_2_0; }
 		
-		//instancesBus+=InstanceBus
-		public Assignment getInstancesBusAssignment_4_3() { return cInstancesBusAssignment_4_3; }
+		//channelInstances+=InstanceChannel
+		public Assignment getChannelInstancesAssignment_4_3() { return cChannelInstancesAssignment_4_3; }
 		
-		//InstanceBus
-		public RuleCall getInstancesBusInstanceBusParserRuleCall_4_3_0() { return cInstancesBusInstanceBusParserRuleCall_4_3_0; }
+		//InstanceChannel
+		public RuleCall getChannelInstancesInstanceChannelParserRuleCall_4_3_0() { return cChannelInstancesInstanceChannelParserRuleCall_4_3_0; }
 		
 		//'enforce' enforces+=[InstancePolicy]
 		public Group getGroup_4_4() { return cGroup_4_4; }
@@ -729,11 +792,11 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1() { return cEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1; }
 		
-		//instPolicies+=InstancePolicy
-		public Assignment getInstPoliciesAssignment_4_5() { return cInstPoliciesAssignment_4_5; }
+		//instancePoliciy+=InstancePolicy
+		public Assignment getInstancePoliciyAssignment_4_5() { return cInstancePoliciyAssignment_4_5; }
 		
 		//InstancePolicy
-		public RuleCall getInstPoliciesInstancePolicyParserRuleCall_4_5_0() { return cInstPoliciesInstancePolicyParserRuleCall_4_5_0; }
+		public RuleCall getInstancePoliciyInstancePolicyParserRuleCall_4_5_0() { return cInstancePoliciyInstancePolicyParserRuleCall_4_5_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
@@ -744,37 +807,37 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBindKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cThinginstAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cThinginstInstanceThingCrossReference_2_0 = (CrossReference)cThinginstAssignment_2.eContents().get(0);
-		private final RuleCall cThinginstInstanceThingIDTerminalRuleCall_2_0_1 = (RuleCall)cThinginstInstanceThingCrossReference_2_0.eContents().get(1);
+		private final Assignment cThingInstanceAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cThingInstanceInstanceThingCrossReference_2_0 = (CrossReference)cThingInstanceAssignment_2.eContents().get(0);
+		private final RuleCall cThingInstanceInstanceThingIDTerminalRuleCall_2_0_1 = (RuleCall)cThingInstanceInstanceThingCrossReference_2_0.eContents().get(1);
 		private final Assignment cDirectionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Alternatives cDirectionAlternatives_3_0 = (Alternatives)cDirectionAssignment_3.eContents().get(0);
 		private final Keyword cDirectionEqualsSignGreaterThanSignKeyword_3_0_0 = (Keyword)cDirectionAlternatives_3_0.eContents().get(0);
 		private final Keyword cDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1 = (Keyword)cDirectionAlternatives_3_0.eContents().get(1);
 		private final Keyword cDirectionLessThanSignEqualsSignKeyword_3_0_2 = (Keyword)cDirectionAlternatives_3_0.eContents().get(2);
-		private final Assignment cBusInstAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cBusInstInstanceBusCrossReference_4_0 = (CrossReference)cBusInstAssignment_4.eContents().get(0);
-		private final RuleCall cBusInstInstanceBusIDTerminalRuleCall_4_0_1 = (RuleCall)cBusInstInstanceBusCrossReference_4_0.eContents().get(1);
+		private final Assignment cChannelInstanceAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cChannelInstanceInstanceChannelCrossReference_4_0 = (CrossReference)cChannelInstanceAssignment_4.eContents().get(0);
+		private final RuleCall cChannelInstanceInstanceChannelIDTerminalRuleCall_4_0_1 = (RuleCall)cChannelInstanceInstanceChannelCrossReference_4_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cChannelsAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cChannelsTopicCrossReference_6_0 = (CrossReference)cChannelsAssignment_6.eContents().get(0);
-		private final RuleCall cChannelsTopicIDTerminalRuleCall_6_0_1 = (RuleCall)cChannelsTopicCrossReference_6_0.eContents().get(1);
+		private final Assignment cTopicsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cTopicsTopicCrossReference_6_0 = (CrossReference)cTopicsAssignment_6.eContents().get(0);
+		private final RuleCall cTopicsTopicIDTerminalRuleCall_6_0_1 = (RuleCall)cTopicsTopicCrossReference_6_0.eContents().get(1);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cCommaKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cChannelsAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final CrossReference cChannelsTopicCrossReference_7_1_0 = (CrossReference)cChannelsAssignment_7_1.eContents().get(0);
-		private final RuleCall cChannelsTopicIDTerminalRuleCall_7_1_0_1 = (RuleCall)cChannelsTopicCrossReference_7_1_0.eContents().get(1);
+		private final Assignment cTopicsAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final CrossReference cTopicsTopicCrossReference_7_1_0 = (CrossReference)cTopicsAssignment_7_1.eContents().get(0);
+		private final RuleCall cTopicsTopicIDTerminalRuleCall_7_1_0_1 = (RuleCall)cTopicsTopicCrossReference_7_1_0.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		private final Assignment cAnnotationsAssignment_9 = (Assignment)cGroup.eContents().get(9);
 		private final RuleCall cAnnotationsPlatformAnnotationParserRuleCall_9_0 = (RuleCall)cAnnotationsAssignment_9.eContents().get(0);
 		
 		//Bind:
-		//	'bind' name=ID? Thinginst=[InstanceThing] direction=('=>' | '<=>' | '<=') busInst=[InstanceBus] '{' channels+=[Topic]
-		//	("," channels+=[Topic])* '}' annotations+=PlatformAnnotation*;
+		//	'bind' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') channelInstance=[InstanceChannel] '{'
+		//	topics+=[Topic] ("," topics+=[Topic])* '}' annotations+=PlatformAnnotation*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'bind' name=ID? Thinginst=[InstanceThing] direction=('=>' | '<=>' | '<=') busInst=[InstanceBus] '{' channels+=[Topic]
-		//("," channels+=[Topic])* '}' annotations+=PlatformAnnotation*
+		//'bind' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') channelInstance=[InstanceChannel] '{'
+		//topics+=[Topic] ("," topics+=[Topic])* '}' annotations+=PlatformAnnotation*
 		public Group getGroup() { return cGroup; }
 		
 		//'bind'
@@ -786,14 +849,14 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 		
-		//Thinginst=[InstanceThing]
-		public Assignment getThinginstAssignment_2() { return cThinginstAssignment_2; }
+		//thingInstance=[InstanceThing]
+		public Assignment getThingInstanceAssignment_2() { return cThingInstanceAssignment_2; }
 		
 		//[InstanceThing]
-		public CrossReference getThinginstInstanceThingCrossReference_2_0() { return cThinginstInstanceThingCrossReference_2_0; }
+		public CrossReference getThingInstanceInstanceThingCrossReference_2_0() { return cThingInstanceInstanceThingCrossReference_2_0; }
 		
 		//ID
-		public RuleCall getThinginstInstanceThingIDTerminalRuleCall_2_0_1() { return cThinginstInstanceThingIDTerminalRuleCall_2_0_1; }
+		public RuleCall getThingInstanceInstanceThingIDTerminalRuleCall_2_0_1() { return cThingInstanceInstanceThingIDTerminalRuleCall_2_0_1; }
 		
 		//direction=('=>' | '<=>' | '<=')
 		public Assignment getDirectionAssignment_3() { return cDirectionAssignment_3; }
@@ -810,41 +873,41 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'<='
 		public Keyword getDirectionLessThanSignEqualsSignKeyword_3_0_2() { return cDirectionLessThanSignEqualsSignKeyword_3_0_2; }
 		
-		//busInst=[InstanceBus]
-		public Assignment getBusInstAssignment_4() { return cBusInstAssignment_4; }
+		//channelInstance=[InstanceChannel]
+		public Assignment getChannelInstanceAssignment_4() { return cChannelInstanceAssignment_4; }
 		
-		//[InstanceBus]
-		public CrossReference getBusInstInstanceBusCrossReference_4_0() { return cBusInstInstanceBusCrossReference_4_0; }
+		//[InstanceChannel]
+		public CrossReference getChannelInstanceInstanceChannelCrossReference_4_0() { return cChannelInstanceInstanceChannelCrossReference_4_0; }
 		
 		//ID
-		public RuleCall getBusInstInstanceBusIDTerminalRuleCall_4_0_1() { return cBusInstInstanceBusIDTerminalRuleCall_4_0_1; }
+		public RuleCall getChannelInstanceInstanceChannelIDTerminalRuleCall_4_0_1() { return cChannelInstanceInstanceChannelIDTerminalRuleCall_4_0_1; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
 		
-		//channels+=[Topic]
-		public Assignment getChannelsAssignment_6() { return cChannelsAssignment_6; }
+		//topics+=[Topic]
+		public Assignment getTopicsAssignment_6() { return cTopicsAssignment_6; }
 		
 		//[Topic]
-		public CrossReference getChannelsTopicCrossReference_6_0() { return cChannelsTopicCrossReference_6_0; }
+		public CrossReference getTopicsTopicCrossReference_6_0() { return cTopicsTopicCrossReference_6_0; }
 		
 		//ID
-		public RuleCall getChannelsTopicIDTerminalRuleCall_6_0_1() { return cChannelsTopicIDTerminalRuleCall_6_0_1; }
+		public RuleCall getTopicsTopicIDTerminalRuleCall_6_0_1() { return cTopicsTopicIDTerminalRuleCall_6_0_1; }
 		
-		//("," channels+=[Topic])*
+		//("," topics+=[Topic])*
 		public Group getGroup_7() { return cGroup_7; }
 		
 		//","
 		public Keyword getCommaKeyword_7_0() { return cCommaKeyword_7_0; }
 		
-		//channels+=[Topic]
-		public Assignment getChannelsAssignment_7_1() { return cChannelsAssignment_7_1; }
+		//topics+=[Topic]
+		public Assignment getTopicsAssignment_7_1() { return cTopicsAssignment_7_1; }
 		
 		//[Topic]
-		public CrossReference getChannelsTopicCrossReference_7_1_0() { return cChannelsTopicCrossReference_7_1_0; }
+		public CrossReference getTopicsTopicCrossReference_7_1_0() { return cTopicsTopicCrossReference_7_1_0; }
 		
 		//ID
-		public RuleCall getChannelsTopicIDTerminalRuleCall_7_1_0_1() { return cChannelsTopicIDTerminalRuleCall_7_1_0_1; }
+		public RuleCall getTopicsTopicIDTerminalRuleCall_7_1_0_1() { return cTopicsTopicIDTerminalRuleCall_7_1_0_1; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
@@ -864,6 +927,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	private final PlatformAnnotationElements pPlatformAnnotation;
 	private final ThingElements pThing;
 	private final ChannelElements pChannel;
+	private final PubSubElements pPubSub;
+	private final PointToPointElements pPointToPoint;
 	private final PolicyElements pPolicy;
 	private final ProtocolElements pProtocol;
 	private final MessageElements pMessage;
@@ -871,7 +936,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	private final RuleElements pRule;
 	private final DomainElements pDomain;
 	private final InstanceThingElements pInstanceThing;
-	private final InstanceBusElements pInstanceBus;
+	private final InstanceChannelElements pInstanceChannel;
 	private final InstancePolicyElements pInstancePolicy;
 	private final NetworkConfigurationElements pNetworkConfiguration;
 	private final BindElements pBind;
@@ -892,6 +957,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPlatformAnnotation = new PlatformAnnotationElements();
 		this.pThing = new ThingElements();
 		this.pChannel = new ChannelElements();
+		this.pPubSub = new PubSubElements();
+		this.pPointToPoint = new PointToPointElements();
 		this.pPolicy = new PolicyElements();
 		this.pProtocol = new ProtocolElements();
 		this.pMessage = new MessageElements();
@@ -899,7 +966,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		this.pRule = new RuleElements();
 		this.pDomain = new DomainElements();
 		this.pInstanceThing = new InstanceThingElements();
-		this.pInstanceBus = new InstanceBusElements();
+		this.pInstanceChannel = new InstanceChannelElements();
 		this.pInstancePolicy = new InstancePolicyElements();
 		this.pNetworkConfiguration = new NetworkConfigurationElements();
 		this.pBind = new BindElements();
@@ -933,7 +1000,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//IoTLangModel:
-	//	(things+=Thing | policies+=Policy | channels+=Channel | configs+=NetworkConfiguration)*;
+	//	(things+=Thing | policies+=Policy | messages+=Message | channels+=Channel | protocols+=Protocol |
+	//	configs+=NetworkConfiguration)*;
 	public IoTLangModelElements getIoTLangModelAccess() {
 		return pIoTLangModel;
 	}
@@ -980,8 +1048,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		return getThingAccess().getRule();
 	}
 	
-	//Channel: // mqtt, kafka, real simple bus,
-	//	'channel' name=ID '{' topics+=Topic* '}';
+	//Channel:
+	//	PubSub | PointToPoint;
 	public ChannelElements getChannelAccess() {
 		return pChannel;
 	}
@@ -990,8 +1058,32 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		return getChannelAccess().getRule();
 	}
 	
+	//PubSub:
+	//	'channel:pubsub' name=ID '{'
+	//	hasTopics+=Topic*
+	//	'}';
+	public PubSubElements getPubSubAccess() {
+		return pPubSub;
+	}
+	
+	public ParserRule getPubSubRule() {
+		return getPubSubAccess().getRule();
+	}
+	
+	//PointToPoint:
+	//	'channel:ptp' name=ID '{'
+	//	hasTopics+=Topic*
+	//	'}';
+	public PointToPointElements getPointToPointAccess() {
+		return pPointToPoint;
+	}
+	
+	public ParserRule getPointToPointRule() {
+		return getPointToPointAccess().getRule();
+	}
+	
 	//Policy: // mqtt, kafka, real simple bus,
-	//	'policy' name=ID '{' rules+=Rule* '}';
+	//	'policy' name=ID '{' hasRules+=Rule* '}';
 	public PolicyElements getPolicyAccess() {
 		return pPolicy;
 	}
@@ -1021,7 +1113,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Topic:
-	//	'topic' name=ID type=('?' | '!') '(' messages=[Message] ')';
+	//	'topic' name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message] ')';
 	public TopicElements getTopicAccess() {
 		return pTopic;
 	}
@@ -1031,7 +1123,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Rule:
-	//	'rule' name=ID? things=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') res=[Thing];
+	//	'rule' name=ID? subject=[Thing] permission=('allow' | 'deny') ':' action=('send' | 'receive') object=[Thing];
 	public RuleElements getRuleAccess() {
 		return pRule;
 	}
@@ -1052,7 +1144,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//InstanceThing:
-	//	'instanceThing' name=ID ('[' number+=INT ']')* ':' type=[Thing] annotations+=PlatformAnnotation*;
+	//	'instanceThing' name=ID ('[' number+=INT ']')* ':' typeThing=[Thing] annotations+=PlatformAnnotation*;
 	public InstanceThingElements getInstanceThingAccess() {
 		return pInstanceThing;
 	}
@@ -1063,15 +1155,15 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////instanceGateway:
 	////	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
-	//InstanceBus:
-	//	'instanceBus' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' protocol+=[Protocol]
+	//InstanceChannel:
+	//	'instanceChannel' name=ID ('[' number+=INT ']')* ':' typeChannel=[Channel] 'over' overProtocol=[Protocol]
 	//	annotations+=PlatformAnnotation*;
-	public InstanceBusElements getInstanceBusAccess() {
-		return pInstanceBus;
+	public InstanceChannelElements getInstanceChannelAccess() {
+		return pInstanceChannel;
 	}
 	
-	public ParserRule getInstanceBusRule() {
-		return getInstanceBusAccess().getRule();
+	public ParserRule getInstanceChannelRule() {
+		return getInstanceChannelAccess().getRule();
 	}
 	
 	//InstancePolicy:
@@ -1086,8 +1178,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//NetworkConfiguration:
 	//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
-	//	instances+=InstanceThing | instancesBus+=InstanceBus | 'enforce' enforces+=[InstancePolicy] |
-	//	instPolicies+=InstancePolicy)*
+	//	thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
+	//	instancePoliciy+=InstancePolicy)*
 	//	'}';
 	public NetworkConfigurationElements getNetworkConfigurationAccess() {
 		return pNetworkConfiguration;
@@ -1098,8 +1190,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Bind:
-	//	'bind' name=ID? Thinginst=[InstanceThing] direction=('=>' | '<=>' | '<=') busInst=[InstanceBus] '{' channels+=[Topic]
-	//	("," channels+=[Topic])* '}' annotations+=PlatformAnnotation*;
+	//	'bind' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') channelInstance=[InstanceChannel] '{'
+	//	topics+=[Topic] ("," topics+=[Topic])* '}' annotations+=PlatformAnnotation*;
 	public BindElements getBindAccess() {
 		return pBind;
 	}

@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link lang.iotlang.impl.InstanceThingImpl#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.impl.InstanceThingImpl#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceThingImpl#getType <em>Type</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceThingImpl#getTypeThing <em>Type Thing</em>}</li>
  *   <li>{@link lang.iotlang.impl.InstanceThingImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
@@ -74,14 +74,14 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
   protected EList<Integer> number;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The cached value of the '{@link #getTypeThing() <em>Type Thing</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getTypeThing()
    * @generated
    * @ordered
    */
-  protected Thing type;
+  protected Thing typeThing;
 
   /**
    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
@@ -156,19 +156,19 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing getType()
+  public Thing getTypeThing()
   {
-    if (type != null && type.eIsProxy())
+    if (typeThing != null && typeThing.eIsProxy())
     {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (Thing)eResolveProxy(oldType);
-      if (type != oldType)
+      InternalEObject oldTypeThing = (InternalEObject)typeThing;
+      typeThing = (Thing)eResolveProxy(oldTypeThing);
+      if (typeThing != oldTypeThing)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_THING__TYPE, oldType, type));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_THING__TYPE_THING, oldTypeThing, typeThing));
       }
     }
-    return type;
+    return typeThing;
   }
 
   /**
@@ -176,9 +176,9 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing basicGetType()
+  public Thing basicGetTypeThing()
   {
-    return type;
+    return typeThing;
   }
 
   /**
@@ -186,12 +186,12 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(Thing newType)
+  public void setTypeThing(Thing newTypeThing)
   {
-    Thing oldType = type;
-    type = newType;
+    Thing oldTypeThing = typeThing;
+    typeThing = newTypeThing;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_THING__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_THING__TYPE_THING, oldTypeThing, typeThing));
   }
 
   /**
@@ -238,9 +238,9 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
         return getName();
       case IotlangPackage.INSTANCE_THING__NUMBER:
         return getNumber();
-      case IotlangPackage.INSTANCE_THING__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case IotlangPackage.INSTANCE_THING__TYPE_THING:
+        if (resolve) return getTypeThing();
+        return basicGetTypeThing();
       case IotlangPackage.INSTANCE_THING__ANNOTATIONS:
         return getAnnotations();
     }
@@ -265,8 +265,8 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
         getNumber().clear();
         getNumber().addAll((Collection<? extends Integer>)newValue);
         return;
-      case IotlangPackage.INSTANCE_THING__TYPE:
-        setType((Thing)newValue);
+      case IotlangPackage.INSTANCE_THING__TYPE_THING:
+        setTypeThing((Thing)newValue);
         return;
       case IotlangPackage.INSTANCE_THING__ANNOTATIONS:
         getAnnotations().clear();
@@ -292,8 +292,8 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
       case IotlangPackage.INSTANCE_THING__NUMBER:
         getNumber().clear();
         return;
-      case IotlangPackage.INSTANCE_THING__TYPE:
-        setType((Thing)null);
+      case IotlangPackage.INSTANCE_THING__TYPE_THING:
+        setTypeThing((Thing)null);
         return;
       case IotlangPackage.INSTANCE_THING__ANNOTATIONS:
         getAnnotations().clear();
@@ -316,8 +316,8 @@ public class InstanceThingImpl extends MinimalEObjectImpl.Container implements I
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case IotlangPackage.INSTANCE_THING__NUMBER:
         return number != null && !number.isEmpty();
-      case IotlangPackage.INSTANCE_THING__TYPE:
-        return type != null;
+      case IotlangPackage.INSTANCE_THING__TYPE_THING:
+        return typeThing != null;
       case IotlangPackage.INSTANCE_THING__ANNOTATIONS:
         return annotations != null && !annotations.isEmpty();
     }

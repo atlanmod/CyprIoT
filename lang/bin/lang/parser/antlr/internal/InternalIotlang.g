@@ -119,9 +119,29 @@ ruleIoTLangModel returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIoTLangModelAccess().getChannelsChannelParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getIoTLangModelAccess().getMessagesMessageParserRuleCall_2_0());
 				}
-				lv_channels_2_0=ruleChannel
+				lv_messages_2_0=ruleMessage
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIoTLangModelRule());
+					}
+					add(
+						$current,
+						"messages",
+						lv_messages_2_0,
+						"lang.Iotlang.Message");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		    |
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIoTLangModelAccess().getChannelsChannelParserRuleCall_3_0());
+				}
+				lv_channels_3_0=ruleChannel
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIoTLangModelRule());
@@ -129,7 +149,7 @@ ruleIoTLangModel returns [EObject current=null]
 					add(
 						$current,
 						"channels",
-						lv_channels_2_0,
+						lv_channels_3_0,
 						"lang.Iotlang.Channel");
 					afterParserOrEnumRuleCall();
 				}
@@ -139,9 +159,29 @@ ruleIoTLangModel returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIoTLangModelAccess().getConfigsNetworkConfigurationParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getIoTLangModelAccess().getProtocolsProtocolParserRuleCall_4_0());
 				}
-				lv_configs_3_0=ruleNetworkConfiguration
+				lv_protocols_4_0=ruleProtocol
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getIoTLangModelRule());
+					}
+					add(
+						$current,
+						"protocols",
+						lv_protocols_4_0,
+						"lang.Iotlang.Protocol");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		    |
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getIoTLangModelAccess().getConfigsNetworkConfigurationParserRuleCall_5_0());
+				}
+				lv_configs_5_0=ruleNetworkConfiguration
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIoTLangModelRule());
@@ -149,7 +189,7 @@ ruleIoTLangModel returns [EObject current=null]
 					add(
 						$current,
 						"configs",
-						lv_configs_3_0,
+						lv_configs_5_0,
 						"lang.Iotlang.NetworkConfiguration");
 					afterParserOrEnumRuleCall();
 				}
@@ -297,19 +337,55 @@ ruleChannel returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='channel'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getChannelAccess().getChannelKeyword_0());
+			newCompositeNode(grammarAccess.getChannelAccess().getPubSubParserRuleCall_0());
+		}
+		this_PubSub_0=rulePubSub
+		{
+			$current = $this_PubSub_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getChannelAccess().getPointToPointParserRuleCall_1());
+		}
+		this_PointToPoint_1=rulePointToPoint
+		{
+			$current = $this_PointToPoint_1.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRulePubSub
+entryRulePubSub returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getPubSubRule()); }
+	iv_rulePubSub=rulePubSub
+	{ $current=$iv_rulePubSub.current; }
+	EOF;
+
+// Rule PubSub
+rulePubSub returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='channel:pubsub'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getPubSubAccess().getChannelPubsubKeyword_0());
 		}
 		(
 			(
 				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getChannelAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getPubSubAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getChannelRule());
+						$current = createModelElement(grammarAccess.getPubSubRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -321,22 +397,22 @@ ruleChannel returns [EObject current=null]
 		)
 		otherlv_2='{'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getChannelAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_2, grammarAccess.getPubSubAccess().getLeftCurlyBracketKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getChannelAccess().getTopicsTopicParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getPubSubAccess().getHasTopicsTopicParserRuleCall_3_0());
 				}
-				lv_topics_3_0=ruleTopic
+				lv_hasTopics_3_0=ruleTopic
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getChannelRule());
+						$current = createModelElementForParent(grammarAccess.getPubSubRule());
 					}
 					add(
 						$current,
-						"topics",
-						lv_topics_3_0,
+						"hasTopics",
+						lv_hasTopics_3_0,
 						"lang.Iotlang.Topic");
 					afterParserOrEnumRuleCall();
 				}
@@ -344,7 +420,75 @@ ruleChannel returns [EObject current=null]
 		)*
 		otherlv_4='}'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getChannelAccess().getRightCurlyBracketKeyword_4());
+			newLeafNode(otherlv_4, grammarAccess.getPubSubAccess().getRightCurlyBracketKeyword_4());
+		}
+	)
+;
+
+// Entry rule entryRulePointToPoint
+entryRulePointToPoint returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getPointToPointRule()); }
+	iv_rulePointToPoint=rulePointToPoint
+	{ $current=$iv_rulePointToPoint.current; }
+	EOF;
+
+// Rule PointToPoint
+rulePointToPoint returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='channel:ptp'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getPointToPointAccess().getChannelPtpKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getPointToPointRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_2='{'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getPointToPointAccess().getLeftCurlyBracketKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getPointToPointAccess().getHasTopicsTopicParserRuleCall_3_0());
+				}
+				lv_hasTopics_3_0=ruleTopic
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getPointToPointRule());
+					}
+					add(
+						$current,
+						"hasTopics",
+						lv_hasTopics_3_0,
+						"lang.Iotlang.Topic");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_4='}'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_4());
 		}
 	)
 ;
@@ -394,17 +538,17 @@ rulePolicy returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getPolicyAccess().getRulesRuleParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getPolicyAccess().getHasRulesRuleParserRuleCall_3_0());
 				}
-				lv_rules_3_0=ruleRule
+				lv_hasRules_3_0=ruleRule
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getPolicyRule());
 					}
 					add(
 						$current,
-						"rules",
-						lv_rules_3_0,
+						"hasRules",
+						lv_hasRules_3_0,
 						"lang.Iotlang.Rule");
 					afterParserOrEnumRuleCall();
 				}
@@ -414,6 +558,88 @@ rulePolicy returns [EObject current=null]
 		{
 			newLeafNode(otherlv_4, grammarAccess.getPolicyAccess().getRightCurlyBracketKeyword_4());
 		}
+	)
+;
+
+// Entry rule entryRuleProtocol
+entryRuleProtocol returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getProtocolRule()); }
+	iv_ruleProtocol=ruleProtocol
+	{ $current=$iv_ruleProtocol.current; }
+	EOF;
+
+// Rule Protocol
+ruleProtocol returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='protocol'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getProtocolAccess().getProtocolKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getProtocolAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getProtocolRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleMessage
+entryRuleMessage returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getMessageRule()); }
+	iv_ruleMessage=ruleMessage
+	{ $current=$iv_ruleMessage.current; }
+	EOF;
+
+// Rule Message
+ruleMessage returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='message'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getMessageAccess().getMessageKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getMessageAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getMessageRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
 	)
 ;
 
@@ -455,36 +681,9 @@ ruleTopic returns [EObject current=null]
 				}
 			)
 		)
-		(
-			(
-				(
-					lv_type_2_1='?'
-					{
-						newLeafNode(lv_type_2_1, grammarAccess.getTopicAccess().getTypeQuestionMarkKeyword_2_0_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getTopicRule());
-						}
-						setWithLastConsumed($current, "type", lv_type_2_1, null);
-					}
-					    |
-					lv_type_2_2='!'
-					{
-						newLeafNode(lv_type_2_2, grammarAccess.getTopicAccess().getTypeExclamationMarkKeyword_2_0_1());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getTopicRule());
-						}
-						setWithLastConsumed($current, "type", lv_type_2_2, null);
-					}
-				)
-			)
-		)
-		otherlv_3='('
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getTopicAccess().getLeftParenthesisKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getTopicAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
@@ -493,15 +692,15 @@ ruleTopic returns [EObject current=null]
 						$current = createModelElement(grammarAccess.getTopicRule());
 					}
 				}
-				otherlv_4=RULE_ID
+				otherlv_3=RULE_ID
 				{
-					newLeafNode(otherlv_4, grammarAccess.getTopicAccess().getMessagesMessageCrossReference_4_0());
+					newLeafNode(otherlv_3, grammarAccess.getTopicAccess().getAcceptedMessagesMessageCrossReference_3_0());
 				}
 			)
 		)
-		otherlv_5=')'
+		otherlv_4=')'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getTopicAccess().getRightParenthesisKeyword_5());
+			newLeafNode(otherlv_4, grammarAccess.getTopicAccess().getRightParenthesisKeyword_4());
 		}
 	)
 ;
@@ -553,7 +752,7 @@ ruleRule returns [EObject current=null]
 				}
 				otherlv_2=RULE_ID
 				{
-					newLeafNode(otherlv_2, grammarAccess.getRuleAccess().getThingsThingCrossReference_2_0());
+					newLeafNode(otherlv_2, grammarAccess.getRuleAccess().getSubjectThingCrossReference_2_0());
 				}
 			)
 		)
@@ -624,7 +823,7 @@ ruleRule returns [EObject current=null]
 				}
 				otherlv_6=RULE_ID
 				{
-					newLeafNode(otherlv_6, grammarAccess.getRuleAccess().getResThingCrossReference_6_0());
+					newLeafNode(otherlv_6, grammarAccess.getRuleAccess().getObjectThingCrossReference_6_0());
 				}
 			)
 		)
@@ -751,7 +950,7 @@ ruleInstanceThing returns [EObject current=null]
 				}
 				otherlv_6=RULE_ID
 				{
-					newLeafNode(otherlv_6, grammarAccess.getInstanceThingAccess().getTypeThingCrossReference_4_0());
+					newLeafNode(otherlv_6, grammarAccess.getInstanceThingAccess().getTypeThingThingCrossReference_4_0());
 				}
 			)
 		)
@@ -777,15 +976,15 @@ ruleInstanceThing returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleInstanceBus
-entryRuleInstanceBus returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getInstanceBusRule()); }
-	iv_ruleInstanceBus=ruleInstanceBus
-	{ $current=$iv_ruleInstanceBus.current; }
+// Entry rule entryRuleInstanceChannel
+entryRuleInstanceChannel returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getInstanceChannelRule()); }
+	iv_ruleInstanceChannel=ruleInstanceChannel
+	{ $current=$iv_ruleInstanceChannel.current; }
 	EOF;
 
-// Rule InstanceBus
-ruleInstanceBus returns [EObject current=null]
+// Rule InstanceChannel
+ruleInstanceChannel returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -793,19 +992,19 @@ ruleInstanceBus returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='instanceBus'
+		otherlv_0='instanceChannel'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getInstanceBusAccess().getInstanceBusKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getInstanceChannelAccess().getInstanceChannelKeyword_0());
 		}
 		(
 			(
 				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getInstanceBusAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getInstanceChannelAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceBusRule());
+						$current = createModelElement(grammarAccess.getInstanceChannelRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -818,17 +1017,17 @@ ruleInstanceBus returns [EObject current=null]
 		(
 			otherlv_2='['
 			{
-				newLeafNode(otherlv_2, grammarAccess.getInstanceBusAccess().getLeftSquareBracketKeyword_2_0());
+				newLeafNode(otherlv_2, grammarAccess.getInstanceChannelAccess().getLeftSquareBracketKeyword_2_0());
 			}
 			(
 				(
 					lv_number_3_0=RULE_INT
 					{
-						newLeafNode(lv_number_3_0, grammarAccess.getInstanceBusAccess().getNumberINTTerminalRuleCall_2_1_0());
+						newLeafNode(lv_number_3_0, grammarAccess.getInstanceChannelAccess().getNumberINTTerminalRuleCall_2_1_0());
 					}
 					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getInstanceBusRule());
+							$current = createModelElement(grammarAccess.getInstanceChannelRule());
 						}
 						addWithLastConsumed(
 							$current,
@@ -840,52 +1039,52 @@ ruleInstanceBus returns [EObject current=null]
 			)
 			otherlv_4=']'
 			{
-				newLeafNode(otherlv_4, grammarAccess.getInstanceBusAccess().getRightSquareBracketKeyword_2_2());
+				newLeafNode(otherlv_4, grammarAccess.getInstanceChannelAccess().getRightSquareBracketKeyword_2_2());
 			}
 		)*
 		otherlv_5=':'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getInstanceBusAccess().getColonKeyword_3());
+			newLeafNode(otherlv_5, grammarAccess.getInstanceChannelAccess().getColonKeyword_3());
 		}
 		(
 			(
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceBusRule());
+						$current = createModelElement(grammarAccess.getInstanceChannelRule());
 					}
 				}
 				otherlv_6=RULE_ID
 				{
-					newLeafNode(otherlv_6, grammarAccess.getInstanceBusAccess().getTypeChannelChannelCrossReference_4_0());
+					newLeafNode(otherlv_6, grammarAccess.getInstanceChannelAccess().getTypeChannelChannelCrossReference_4_0());
 				}
 			)
 		)
 		otherlv_7='over'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getInstanceBusAccess().getOverKeyword_5());
+			newLeafNode(otherlv_7, grammarAccess.getInstanceChannelAccess().getOverKeyword_5());
 		}
 		(
 			(
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getInstanceBusRule());
+						$current = createModelElement(grammarAccess.getInstanceChannelRule());
 					}
 				}
 				otherlv_8=RULE_ID
 				{
-					newLeafNode(otherlv_8, grammarAccess.getInstanceBusAccess().getProtocolProtocolCrossReference_6_0());
+					newLeafNode(otherlv_8, grammarAccess.getInstanceChannelAccess().getOverProtocolProtocolCrossReference_6_0());
 				}
 			)
 		)
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getInstanceBusAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getInstanceChannelAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0());
 				}
 				lv_annotations_9_0=rulePlatformAnnotation
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getInstanceBusRule());
+						$current = createModelElementForParent(grammarAccess.getInstanceChannelRule());
 					}
 					add(
 						$current,
@@ -1081,17 +1280,17 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancesInstanceThingParserRuleCall_4_2_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_2_0());
 					}
-					lv_instances_6_0=ruleInstanceThing
+					lv_thingInstances_6_0=ruleInstanceThing
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
 						}
 						add(
 							$current,
-							"instances",
-							lv_instances_6_0,
+							"thingInstances",
+							lv_thingInstances_6_0,
 							"lang.Iotlang.InstanceThing");
 						afterParserOrEnumRuleCall();
 					}
@@ -1101,18 +1300,18 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancesBusInstanceBusParserRuleCall_4_3_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_3_0());
 					}
-					lv_instancesBus_7_0=ruleInstanceBus
+					lv_channelInstances_7_0=ruleInstanceChannel
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
 						}
 						add(
 							$current,
-							"instancesBus",
-							lv_instancesBus_7_0,
-							"lang.Iotlang.InstanceBus");
+							"channelInstances",
+							lv_channelInstances_7_0,
+							"lang.Iotlang.InstanceChannel");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1141,17 +1340,17 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstPoliciesInstancePolicyParserRuleCall_4_5_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_5_0());
 					}
-					lv_instPolicies_10_0=ruleInstancePolicy
+					lv_instancePoliciy_10_0=ruleInstancePolicy
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
 						}
 						add(
 							$current,
-							"instPolicies",
-							lv_instPolicies_10_0,
+							"instancePoliciy",
+							lv_instancePoliciy_10_0,
 							"lang.Iotlang.InstancePolicy");
 						afterParserOrEnumRuleCall();
 					}
@@ -1212,7 +1411,7 @@ ruleBind returns [EObject current=null]
 				}
 				otherlv_2=RULE_ID
 				{
-					newLeafNode(otherlv_2, grammarAccess.getBindAccess().getThinginstInstanceThingCrossReference_2_0());
+					newLeafNode(otherlv_2, grammarAccess.getBindAccess().getThingInstanceInstanceThingCrossReference_2_0());
 				}
 			)
 		)
@@ -1263,7 +1462,7 @@ ruleBind returns [EObject current=null]
 				}
 				otherlv_4=RULE_ID
 				{
-					newLeafNode(otherlv_4, grammarAccess.getBindAccess().getBusInstInstanceBusCrossReference_4_0());
+					newLeafNode(otherlv_4, grammarAccess.getBindAccess().getChannelInstanceInstanceChannelCrossReference_4_0());
 				}
 			)
 		)
@@ -1280,7 +1479,7 @@ ruleBind returns [EObject current=null]
 				}
 				otherlv_6=RULE_ID
 				{
-					newLeafNode(otherlv_6, grammarAccess.getBindAccess().getChannelsTopicCrossReference_6_0());
+					newLeafNode(otherlv_6, grammarAccess.getBindAccess().getTopicsTopicCrossReference_6_0());
 				}
 			)
 		)
@@ -1298,7 +1497,7 @@ ruleBind returns [EObject current=null]
 					}
 					otherlv_8=RULE_ID
 					{
-						newLeafNode(otherlv_8, grammarAccess.getBindAccess().getChannelsTopicCrossReference_7_1_0());
+						newLeafNode(otherlv_8, grammarAccess.getBindAccess().getTopicsTopicCrossReference_7_1_0());
 					}
 				)
 			)

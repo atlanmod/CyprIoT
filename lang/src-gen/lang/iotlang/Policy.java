@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Policy#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Policy#getRules <em>Rules</em>}</li>
+ *   <li>{@link lang.iotlang.Policy#getHasRules <em>Has Rules</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getPolicy()
@@ -53,19 +53,19 @@ public interface Policy extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Rules</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Has Rules</b></em>' containment reference list.
    * The list contents are of type {@link lang.iotlang.Rule}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rules</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Has Rules</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rules</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getPolicy_Rules()
+   * @return the value of the '<em>Has Rules</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getPolicy_HasRules()
    * @model containment="true"
    * @generated
    */
-  EList<Rule> getRules();
+  EList<Rule> getHasRules();
 
 } // Policy

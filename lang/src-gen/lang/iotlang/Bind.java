@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Bind#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Bind#getThinginst <em>Thinginst</em>}</li>
+ *   <li>{@link lang.iotlang.Bind#getThingInstance <em>Thing Instance</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getDirection <em>Direction</em>}</li>
- *   <li>{@link lang.iotlang.Bind#getBusInst <em>Bus Inst</em>}</li>
- *   <li>{@link lang.iotlang.Bind#getChannels <em>Channels</em>}</li>
+ *   <li>{@link lang.iotlang.Bind#getChannelInstance <em>Channel Instance</em>}</li>
+ *   <li>{@link lang.iotlang.Bind#getTopics <em>Topics</em>}</li>
  *   <li>{@link lang.iotlang.Bind#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
@@ -57,30 +57,30 @@ public interface Bind extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Thinginst</b></em>' reference.
+   * Returns the value of the '<em><b>Thing Instance</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Thinginst</em>' reference isn't clear,
+   * If the meaning of the '<em>Thing Instance</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Thinginst</em>' reference.
-   * @see #setThinginst(InstanceThing)
-   * @see lang.iotlang.IotlangPackage#getBind_Thinginst()
+   * @return the value of the '<em>Thing Instance</em>' reference.
+   * @see #setThingInstance(InstanceThing)
+   * @see lang.iotlang.IotlangPackage#getBind_ThingInstance()
    * @model
    * @generated
    */
-  InstanceThing getThinginst();
+  InstanceThing getThingInstance();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Bind#getThinginst <em>Thinginst</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.Bind#getThingInstance <em>Thing Instance</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Thinginst</em>' reference.
-   * @see #getThinginst()
+   * @param value the new value of the '<em>Thing Instance</em>' reference.
+   * @see #getThingInstance()
    * @generated
    */
-  void setThinginst(InstanceThing value);
+  void setThingInstance(InstanceThing value);
 
   /**
    * Returns the value of the '<em><b>Direction</b></em>' attribute.
@@ -109,46 +109,46 @@ public interface Bind extends EObject
   void setDirection(String value);
 
   /**
-   * Returns the value of the '<em><b>Bus Inst</b></em>' reference.
+   * Returns the value of the '<em><b>Channel Instance</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Bus Inst</em>' reference isn't clear,
+   * If the meaning of the '<em>Channel Instance</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Bus Inst</em>' reference.
-   * @see #setBusInst(InstanceBus)
-   * @see lang.iotlang.IotlangPackage#getBind_BusInst()
+   * @return the value of the '<em>Channel Instance</em>' reference.
+   * @see #setChannelInstance(InstanceChannel)
+   * @see lang.iotlang.IotlangPackage#getBind_ChannelInstance()
    * @model
    * @generated
    */
-  InstanceBus getBusInst();
+  InstanceChannel getChannelInstance();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Bind#getBusInst <em>Bus Inst</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.Bind#getChannelInstance <em>Channel Instance</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Bus Inst</em>' reference.
-   * @see #getBusInst()
+   * @param value the new value of the '<em>Channel Instance</em>' reference.
+   * @see #getChannelInstance()
    * @generated
    */
-  void setBusInst(InstanceBus value);
+  void setChannelInstance(InstanceChannel value);
 
   /**
-   * Returns the value of the '<em><b>Channels</b></em>' reference list.
+   * Returns the value of the '<em><b>Topics</b></em>' reference list.
    * The list contents are of type {@link lang.iotlang.Topic}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Channels</em>' reference list isn't clear,
+   * If the meaning of the '<em>Topics</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Channels</em>' reference list.
-   * @see lang.iotlang.IotlangPackage#getBind_Channels()
+   * @return the value of the '<em>Topics</em>' reference list.
+   * @see lang.iotlang.IotlangPackage#getBind_Topics()
    * @model
    * @generated
    */
-  EList<Topic> getChannels();
+  EList<Topic> getTopics();
 
   /**
    * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.

@@ -6,7 +6,7 @@ package lang.iotlang.impl;
 import java.util.Collection;
 
 import lang.iotlang.Channel;
-import lang.iotlang.InstanceBus;
+import lang.iotlang.InstanceChannel;
 import lang.iotlang.IotlangPackage;
 import lang.iotlang.PlatformAnnotation;
 import lang.iotlang.Protocol;
@@ -24,27 +24,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Instance Bus</b></em>'.
+ * An implementation of the model object '<em><b>Instance Channel</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.impl.InstanceBusImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceBusImpl#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceBusImpl#getTypeChannel <em>Type Channel</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceBusImpl#getProtocol <em>Protocol</em>}</li>
- *   <li>{@link lang.iotlang.impl.InstanceBusImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getNumber <em>Number</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getTypeChannel <em>Type Channel</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getOverProtocol <em>Over Protocol</em>}</li>
+ *   <li>{@link lang.iotlang.impl.InstanceChannelImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class InstanceBusImpl extends MinimalEObjectImpl.Container implements InstanceBus
+public class InstanceChannelImpl extends MinimalEObjectImpl.Container implements InstanceChannel
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -87,14 +86,14 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   protected Channel typeChannel;
 
   /**
-   * The cached value of the '{@link #getProtocol() <em>Protocol</em>}' reference list.
+   * The cached value of the '{@link #getOverProtocol() <em>Over Protocol</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getProtocol()
+   * @see #getOverProtocol()
    * @generated
    * @ordered
    */
-  protected EList<Protocol> protocol;
+  protected Protocol overProtocol;
 
   /**
    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
@@ -111,7 +110,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
    * <!-- end-user-doc -->
    * @generated
    */
-  protected InstanceBusImpl()
+  protected InstanceChannelImpl()
   {
     super();
   }
@@ -124,7 +123,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   @Override
   protected EClass eStaticClass()
   {
-    return IotlangPackage.Literals.INSTANCE_BUS;
+    return IotlangPackage.Literals.INSTANCE_CHANNEL;
   }
 
   /**
@@ -147,7 +146,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_BUS__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__NAME, oldName, name));
   }
 
   /**
@@ -159,7 +158,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     if (number == null)
     {
-      number = new EDataTypeEList<Integer>(Integer.class, this, IotlangPackage.INSTANCE_BUS__NUMBER);
+      number = new EDataTypeEList<Integer>(Integer.class, this, IotlangPackage.INSTANCE_CHANNEL__NUMBER);
     }
     return number;
   }
@@ -178,7 +177,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
       if (typeChannel != oldTypeChannel)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL, oldTypeChannel, typeChannel));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL, oldTypeChannel, typeChannel));
       }
     }
     return typeChannel;
@@ -204,7 +203,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
     Channel oldTypeChannel = typeChannel;
     typeChannel = newTypeChannel;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL, oldTypeChannel, typeChannel));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL, oldTypeChannel, typeChannel));
   }
 
   /**
@@ -212,13 +211,42 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Protocol> getProtocol()
+  public Protocol getOverProtocol()
   {
-    if (protocol == null)
+    if (overProtocol != null && overProtocol.eIsProxy())
     {
-      protocol = new EObjectResolvingEList<Protocol>(Protocol.class, this, IotlangPackage.INSTANCE_BUS__PROTOCOL);
+      InternalEObject oldOverProtocol = (InternalEObject)overProtocol;
+      overProtocol = (Protocol)eResolveProxy(oldOverProtocol);
+      if (overProtocol != oldOverProtocol)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL, oldOverProtocol, overProtocol));
+      }
     }
-    return protocol;
+    return overProtocol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Protocol basicGetOverProtocol()
+  {
+    return overProtocol;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOverProtocol(Protocol newOverProtocol)
+  {
+    Protocol oldOverProtocol = overProtocol;
+    overProtocol = newOverProtocol;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL, oldOverProtocol, overProtocol));
   }
 
   /**
@@ -230,7 +258,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     if (annotations == null)
     {
-      annotations = new EObjectContainmentEList<PlatformAnnotation>(PlatformAnnotation.class, this, IotlangPackage.INSTANCE_BUS__ANNOTATIONS);
+      annotations = new EObjectContainmentEList<PlatformAnnotation>(PlatformAnnotation.class, this, IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS);
     }
     return annotations;
   }
@@ -245,7 +273,7 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_BUS__ANNOTATIONS:
+      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
         return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -261,16 +289,17 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_BUS__NAME:
+      case IotlangPackage.INSTANCE_CHANNEL__NAME:
         return getName();
-      case IotlangPackage.INSTANCE_BUS__NUMBER:
+      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
         return getNumber();
-      case IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL:
+      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
         if (resolve) return getTypeChannel();
         return basicGetTypeChannel();
-      case IotlangPackage.INSTANCE_BUS__PROTOCOL:
-        return getProtocol();
-      case IotlangPackage.INSTANCE_BUS__ANNOTATIONS:
+      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
+        if (resolve) return getOverProtocol();
+        return basicGetOverProtocol();
+      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
         return getAnnotations();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -287,21 +316,20 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_BUS__NAME:
+      case IotlangPackage.INSTANCE_CHANNEL__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.INSTANCE_BUS__NUMBER:
+      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
         getNumber().clear();
         getNumber().addAll((Collection<? extends Integer>)newValue);
         return;
-      case IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL:
+      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
         setTypeChannel((Channel)newValue);
         return;
-      case IotlangPackage.INSTANCE_BUS__PROTOCOL:
-        getProtocol().clear();
-        getProtocol().addAll((Collection<? extends Protocol>)newValue);
+      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
+        setOverProtocol((Protocol)newValue);
         return;
-      case IotlangPackage.INSTANCE_BUS__ANNOTATIONS:
+      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
         getAnnotations().clear();
         getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
         return;
@@ -319,19 +347,19 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_BUS__NAME:
+      case IotlangPackage.INSTANCE_CHANNEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.INSTANCE_BUS__NUMBER:
+      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
         getNumber().clear();
         return;
-      case IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL:
+      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
         setTypeChannel((Channel)null);
         return;
-      case IotlangPackage.INSTANCE_BUS__PROTOCOL:
-        getProtocol().clear();
+      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
+        setOverProtocol((Protocol)null);
         return;
-      case IotlangPackage.INSTANCE_BUS__ANNOTATIONS:
+      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
         getAnnotations().clear();
         return;
     }
@@ -348,15 +376,15 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
   {
     switch (featureID)
     {
-      case IotlangPackage.INSTANCE_BUS__NAME:
+      case IotlangPackage.INSTANCE_CHANNEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.INSTANCE_BUS__NUMBER:
+      case IotlangPackage.INSTANCE_CHANNEL__NUMBER:
         return number != null && !number.isEmpty();
-      case IotlangPackage.INSTANCE_BUS__TYPE_CHANNEL:
+      case IotlangPackage.INSTANCE_CHANNEL__TYPE_CHANNEL:
         return typeChannel != null;
-      case IotlangPackage.INSTANCE_BUS__PROTOCOL:
-        return protocol != null && !protocol.isEmpty();
-      case IotlangPackage.INSTANCE_BUS__ANNOTATIONS:
+      case IotlangPackage.INSTANCE_CHANNEL__OVER_PROTOCOL:
+        return overProtocol != null;
+      case IotlangPackage.INSTANCE_CHANNEL__ANNOTATIONS:
         return annotations != null && !annotations.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -381,4 +409,4 @@ public class InstanceBusImpl extends MinimalEObjectImpl.Container implements Ins
     return result.toString();
   }
 
-} //InstanceBusImpl
+} //InstanceChannelImpl

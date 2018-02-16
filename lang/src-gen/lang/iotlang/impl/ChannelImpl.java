@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.ChannelImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.ChannelImpl#getTopics <em>Topics</em>}</li>
+ *   <li>{@link lang.iotlang.impl.ChannelImpl#getHasTopics <em>Has Topics</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,14 +60,14 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTopics() <em>Topics</em>}' containment reference list.
+   * The cached value of the '{@link #getHasTopics() <em>Has Topics</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTopics()
+   * @see #getHasTopics()
    * @generated
    * @ordered
    */
-  protected EList<Topic> topics;
+  protected EList<Topic> hasTopics;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,13 +118,13 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Topic> getTopics()
+  public EList<Topic> getHasTopics()
   {
-    if (topics == null)
+    if (hasTopics == null)
     {
-      topics = new EObjectContainmentEList<Topic>(Topic.class, this, IotlangPackage.CHANNEL__TOPICS);
+      hasTopics = new EObjectContainmentEList<Topic>(Topic.class, this, IotlangPackage.CHANNEL__HAS_TOPICS);
     }
-    return topics;
+    return hasTopics;
   }
 
   /**
@@ -137,8 +137,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
   {
     switch (featureID)
     {
-      case IotlangPackage.CHANNEL__TOPICS:
-        return ((InternalEList<?>)getTopics()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.CHANNEL__HAS_TOPICS:
+        return ((InternalEList<?>)getHasTopics()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -155,8 +155,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return getName();
-      case IotlangPackage.CHANNEL__TOPICS:
-        return getTopics();
+      case IotlangPackage.CHANNEL__HAS_TOPICS:
+        return getHasTopics();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -175,9 +175,9 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
       case IotlangPackage.CHANNEL__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.CHANNEL__TOPICS:
-        getTopics().clear();
-        getTopics().addAll((Collection<? extends Topic>)newValue);
+      case IotlangPackage.CHANNEL__HAS_TOPICS:
+        getHasTopics().clear();
+        getHasTopics().addAll((Collection<? extends Topic>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,8 +196,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
       case IotlangPackage.CHANNEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.CHANNEL__TOPICS:
-        getTopics().clear();
+      case IotlangPackage.CHANNEL__HAS_TOPICS:
+        getHasTopics().clear();
         return;
     }
     super.eUnset(featureID);
@@ -215,8 +215,8 @@ public class ChannelImpl extends MinimalEObjectImpl.Container implements Channel
     {
       case IotlangPackage.CHANNEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.CHANNEL__TOPICS:
-        return topics != null && !topics.isEmpty();
+      case IotlangPackage.CHANNEL__HAS_TOPICS:
+        return hasTopics != null && !hasTopics.isEmpty();
     }
     return super.eIsSet(featureID);
   }

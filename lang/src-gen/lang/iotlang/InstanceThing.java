@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link lang.iotlang.InstanceThing#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.InstanceThing#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.InstanceThing#getType <em>Type</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceThing#getTypeThing <em>Type Thing</em>}</li>
  *   <li>{@link lang.iotlang.InstanceThing#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
@@ -71,30 +71,30 @@ public interface InstanceThing extends EObject
   EList<Integer> getNumber();
 
   /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
+   * Returns the value of the '<em><b>Type Thing</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Type Thing</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(Thing)
-   * @see lang.iotlang.IotlangPackage#getInstanceThing_Type()
+   * @return the value of the '<em>Type Thing</em>' reference.
+   * @see #setTypeThing(Thing)
+   * @see lang.iotlang.IotlangPackage#getInstanceThing_TypeThing()
    * @model
    * @generated
    */
-  Thing getType();
+  Thing getTypeThing();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.InstanceThing#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.InstanceThing#getTypeThing <em>Type Thing</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
-   * @see #getType()
+   * @param value the new value of the '<em>Type Thing</em>' reference.
+   * @see #getTypeThing()
    * @generated
    */
-  void setType(Thing value);
+  void setTypeThing(Thing value);
 
   /**
    * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.

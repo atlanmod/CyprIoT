@@ -6,8 +6,12 @@
         eType="#//Thing" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="policies" upperBound="-1"
         eType="#//Policy" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="messages" upperBound="-1"
+        eType="#//Message" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="channels" upperBound="-1"
         eType="#//Channel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="protocols" upperBound="-1"
+        eType="#//Protocol" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configs" upperBound="-1"
         eType="#//NetworkConfiguration" containment="true"/>
   </eClassifiers>
@@ -22,12 +26,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Channel">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="topics" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasTopics" upperBound="-1"
         eType="#//Topic" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PubSub" eSuperTypes="#//Channel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//Channel"/>
   <eClassifiers xsi:type="ecore:EClass" name="Policy">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasRules" upperBound="-1"
         eType="#//Rule" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Protocol">
@@ -38,15 +44,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Topic">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="messages" eType="#//Message"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="acceptedMessages" eType="#//Message"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="things" eType="#//Thing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subject" eType="#//Thing"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="permission" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="action" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="res" eType="#//Thing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//Thing"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Domain">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -55,17 +60,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Thing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeThing" eType="#//Thing"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//PlatformAnnotation" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InstanceBus">
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceChannel">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeChannel" eType="#//Channel"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" unique="false"
-        upperBound="-1" eType="#//Protocol"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="overProtocol" eType="#//Protocol"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//PlatformAnnotation" containment="true"/>
   </eClassifiers>
@@ -83,21 +87,21 @@
         eType="#//Domain" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="binds" upperBound="-1"
         eType="#//Bind" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingInstances" upperBound="-1"
         eType="#//InstanceThing" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instancesBus" upperBound="-1"
-        eType="#//InstanceBus" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="channelInstances" upperBound="-1"
+        eType="#//InstanceChannel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enforces" unique="false"
         upperBound="-1" eType="#//InstancePolicy"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instPolicies" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instancePoliciy" upperBound="-1"
         eType="#//InstancePolicy" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Bind">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Thinginst" eType="#//InstanceThing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingInstance" eType="#//InstanceThing"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="busInst" eType="#//InstanceBus"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="channels" unique="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="channelInstance" eType="#//InstanceChannel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topics" unique="false"
         upperBound="-1" eType="#//Topic"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//PlatformAnnotation" containment="true"/>

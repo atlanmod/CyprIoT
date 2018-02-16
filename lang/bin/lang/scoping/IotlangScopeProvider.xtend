@@ -24,24 +24,26 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 	
 	override getScope(EObject context, EReference reference) {
 		
-		if (reference==iotlangInstance.rule_Things) {
+		if (reference==iotlangInstance.rule_Subject) {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.rule_Res) {
+		}else if (reference == iotlangInstance.rule_Object) {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.instanceThing_Type) {
+		}else if (reference == iotlangInstance.instanceThing_TypeThing) {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.instancePolicy_TypePolicy) {
 			return Scopes.scopeFor( Helpers.allPolicies(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.enforce_InstPolicy) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instPolicies );
-		}else if (reference == iotlangInstance.instanceBus_TypeBus) {
+		}else if (reference == iotlangInstance.networkConfiguration_Enforces) {
+			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instancePoliciy);
+		}else if (reference == iotlangInstance.instanceChannel_TypeChannel) {
 			return Scopes.scopeFor( Helpers.allBuses(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.bind_Thinginst) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instances );
-		}else if (reference == iotlangInstance.bind_BusInst) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instancesBus );
-		}else if (reference == iotlangInstance.bind_Channels) {
+		}else if (reference == iotlangInstance.bind_ThingInstance) {
+			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
+		}else if (reference == iotlangInstance.bind_ChannelInstance) {
+			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).channelInstances );
+		}else if (reference == iotlangInstance.bind_Topics) {
 			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
+		}else if (reference == iotlangInstance.topic_AcceptedMessages) {
+			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
 		}else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " + (reference.eContainer as ENamedElement).getName);
 		}

@@ -69,6 +69,8 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
       case IotlangPackage.PLATFORM_ANNOTATION: return createPlatformAnnotation();
       case IotlangPackage.THING: return createThing();
       case IotlangPackage.CHANNEL: return createChannel();
+      case IotlangPackage.PUB_SUB: return createPubSub();
+      case IotlangPackage.POINT_TO_POINT: return createPointToPoint();
       case IotlangPackage.POLICY: return createPolicy();
       case IotlangPackage.PROTOCOL: return createProtocol();
       case IotlangPackage.MESSAGE: return createMessage();
@@ -76,7 +78,7 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
       case IotlangPackage.RULE: return createRule();
       case IotlangPackage.DOMAIN: return createDomain();
       case IotlangPackage.INSTANCE_THING: return createInstanceThing();
-      case IotlangPackage.INSTANCE_BUS: return createInstanceBus();
+      case IotlangPackage.INSTANCE_CHANNEL: return createInstanceChannel();
       case IotlangPackage.INSTANCE_POLICY: return createInstancePolicy();
       case IotlangPackage.NETWORK_CONFIGURATION: return createNetworkConfiguration();
       case IotlangPackage.BIND: return createBind();
@@ -127,6 +129,28 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
   {
     ChannelImpl channel = new ChannelImpl();
     return channel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PubSub createPubSub()
+  {
+    PubSubImpl pubSub = new PubSubImpl();
+    return pubSub;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PointToPoint createPointToPoint()
+  {
+    PointToPointImpl pointToPoint = new PointToPointImpl();
+    return pointToPoint;
   }
 
   /**
@@ -211,10 +235,10 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceBus createInstanceBus()
+  public InstanceChannel createInstanceChannel()
   {
-    InstanceBusImpl instanceBus = new InstanceBusImpl();
-    return instanceBus;
+    InstanceChannelImpl instanceChannel = new InstanceChannelImpl();
+    return instanceChannel;
   }
 
   /**

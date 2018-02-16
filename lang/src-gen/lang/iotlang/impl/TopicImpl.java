@@ -24,8 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.TopicImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.TopicImpl#getType <em>Type</em>}</li>
- *   <li>{@link lang.iotlang.impl.TopicImpl#getMessages <em>Messages</em>}</li>
+ *   <li>{@link lang.iotlang.impl.TopicImpl#getAcceptedMessages <em>Accepted Messages</em>}</li>
  * </ul>
  *
  * @generated
@@ -53,34 +52,14 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * The cached value of the '{@link #getAcceptedMessages() <em>Accepted Messages</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getAcceptedMessages()
    * @generated
    * @ordered
    */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getMessages() <em>Messages</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMessages()
-   * @generated
-   * @ordered
-   */
-  protected Message messages;
+  protected Message acceptedMessages;
 
   /**
    * <!-- begin-user-doc -->
@@ -131,42 +110,19 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getType()
+  public Message getAcceptedMessages()
   {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(String newType)
-  {
-    String oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.TOPIC__TYPE, oldType, type));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Message getMessages()
-  {
-    if (messages != null && messages.eIsProxy())
+    if (acceptedMessages != null && acceptedMessages.eIsProxy())
     {
-      InternalEObject oldMessages = (InternalEObject)messages;
-      messages = (Message)eResolveProxy(oldMessages);
-      if (messages != oldMessages)
+      InternalEObject oldAcceptedMessages = (InternalEObject)acceptedMessages;
+      acceptedMessages = (Message)eResolveProxy(oldAcceptedMessages);
+      if (acceptedMessages != oldAcceptedMessages)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.TOPIC__MESSAGES, oldMessages, messages));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.TOPIC__ACCEPTED_MESSAGES, oldAcceptedMessages, acceptedMessages));
       }
     }
-    return messages;
+    return acceptedMessages;
   }
 
   /**
@@ -174,9 +130,9 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
    * <!-- end-user-doc -->
    * @generated
    */
-  public Message basicGetMessages()
+  public Message basicGetAcceptedMessages()
   {
-    return messages;
+    return acceptedMessages;
   }
 
   /**
@@ -184,12 +140,12 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMessages(Message newMessages)
+  public void setAcceptedMessages(Message newAcceptedMessages)
   {
-    Message oldMessages = messages;
-    messages = newMessages;
+    Message oldAcceptedMessages = acceptedMessages;
+    acceptedMessages = newAcceptedMessages;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.TOPIC__MESSAGES, oldMessages, messages));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.TOPIC__ACCEPTED_MESSAGES, oldAcceptedMessages, acceptedMessages));
   }
 
   /**
@@ -204,11 +160,9 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
     {
       case IotlangPackage.TOPIC__NAME:
         return getName();
-      case IotlangPackage.TOPIC__TYPE:
-        return getType();
-      case IotlangPackage.TOPIC__MESSAGES:
-        if (resolve) return getMessages();
-        return basicGetMessages();
+      case IotlangPackage.TOPIC__ACCEPTED_MESSAGES:
+        if (resolve) return getAcceptedMessages();
+        return basicGetAcceptedMessages();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -226,11 +180,8 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
       case IotlangPackage.TOPIC__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.TOPIC__TYPE:
-        setType((String)newValue);
-        return;
-      case IotlangPackage.TOPIC__MESSAGES:
-        setMessages((Message)newValue);
+      case IotlangPackage.TOPIC__ACCEPTED_MESSAGES:
+        setAcceptedMessages((Message)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -249,11 +200,8 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
       case IotlangPackage.TOPIC__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.TOPIC__TYPE:
-        setType(TYPE_EDEFAULT);
-        return;
-      case IotlangPackage.TOPIC__MESSAGES:
-        setMessages((Message)null);
+      case IotlangPackage.TOPIC__ACCEPTED_MESSAGES:
+        setAcceptedMessages((Message)null);
         return;
     }
     super.eUnset(featureID);
@@ -271,10 +219,8 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
     {
       case IotlangPackage.TOPIC__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.TOPIC__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-      case IotlangPackage.TOPIC__MESSAGES:
-        return messages != null;
+      case IotlangPackage.TOPIC__ACCEPTED_MESSAGES:
+        return acceptedMessages != null;
     }
     return super.eIsSet(featureID);
   }
@@ -292,8 +238,6 @@ public class TopicImpl extends MinimalEObjectImpl.Container implements Topic
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", type: ");
-    result.append(type);
     result.append(')');
     return result.toString();
   }

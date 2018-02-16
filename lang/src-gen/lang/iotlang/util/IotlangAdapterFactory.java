@@ -96,6 +96,16 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
         return createChannelAdapter();
       }
       @Override
+      public Adapter casePubSub(PubSub object)
+      {
+        return createPubSubAdapter();
+      }
+      @Override
+      public Adapter casePointToPoint(PointToPoint object)
+      {
+        return createPointToPointAdapter();
+      }
+      @Override
       public Adapter casePolicy(Policy object)
       {
         return createPolicyAdapter();
@@ -131,9 +141,9 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
         return createInstanceThingAdapter();
       }
       @Override
-      public Adapter caseInstanceBus(InstanceBus object)
+      public Adapter caseInstanceChannel(InstanceChannel object)
       {
-        return createInstanceBusAdapter();
+        return createInstanceChannelAdapter();
       }
       @Override
       public Adapter caseInstancePolicy(InstancePolicy object)
@@ -228,6 +238,36 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createChannelAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link lang.iotlang.PubSub <em>Pub Sub</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see lang.iotlang.PubSub
+   * @generated
+   */
+  public Adapter createPubSubAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link lang.iotlang.PointToPoint <em>Point To Point</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see lang.iotlang.PointToPoint
+   * @generated
+   */
+  public Adapter createPointToPointAdapter()
   {
     return null;
   }
@@ -338,16 +378,16 @@ public class IotlangAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link lang.iotlang.InstanceBus <em>Instance Bus</em>}'.
+   * Creates a new adapter for an object of class '{@link lang.iotlang.InstanceChannel <em>Instance Channel</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see lang.iotlang.InstanceBus
+   * @see lang.iotlang.InstanceChannel
    * @generated
    */
-  public Adapter createInstanceBusAdapter()
+  public Adapter createInstanceChannelAdapter()
   {
     return null;
   }

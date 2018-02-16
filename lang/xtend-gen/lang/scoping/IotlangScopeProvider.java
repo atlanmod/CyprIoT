@@ -3,12 +3,16 @@
  */
 package lang.scoping;
 
+import com.google.common.base.Objects;
 import java.util.ArrayList;
 import lang.iotlang.IotlangPackage;
 import lang.scoping.AbstractIotlangScopeProvider;
+import lang.util.Helpers;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.Scopes;
 
 /**
  * This class contains custom scoping description.
@@ -24,18 +28,73 @@ public class IotlangScopeProvider extends AbstractIotlangScopeProvider {
   
   @Override
   public IScope getScope(final EObject context, final EReference reference) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field enforce_InstPolicy is undefined for the type IotlangPackage"
-      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
-      + "\nThe method or field instanceBus_TypeBus is undefined for the type IotlangPackage"
-      + "\nThe method allBuses(IoTLangModel) is undefined for the type Class<Helpers>"
-      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
-      + "\nThe method allConfigs(IoTLangModel) is undefined for the type Class<Helpers>"
-      + "\nget cannot be resolved"
-      + "\ninstPolicies cannot be resolved"
-      + "\nget cannot be resolved"
-      + "\ninstances cannot be resolved"
-      + "\nget cannot be resolved"
-      + "\ninstancesBus cannot be resolved");
+    EReference _rule_Subject = this.iotlangInstance.getRule_Subject();
+    boolean _equals = Objects.equal(reference, _rule_Subject);
+    if (_equals) {
+      return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
+    } else {
+      EReference _rule_Object = this.iotlangInstance.getRule_Object();
+      boolean _equals_1 = Objects.equal(reference, _rule_Object);
+      if (_equals_1) {
+        return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
+      } else {
+        EReference _instanceThing_TypeThing = this.iotlangInstance.getInstanceThing_TypeThing();
+        boolean _equals_2 = Objects.equal(reference, _instanceThing_TypeThing);
+        if (_equals_2) {
+          return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
+        } else {
+          EReference _instancePolicy_TypePolicy = this.iotlangInstance.getInstancePolicy_TypePolicy();
+          boolean _equals_3 = Objects.equal(reference, _instancePolicy_TypePolicy);
+          if (_equals_3) {
+            return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
+          } else {
+            EReference _networkConfiguration_Enforces = this.iotlangInstance.getNetworkConfiguration_Enforces();
+            boolean _equals_4 = Objects.equal(reference, _networkConfiguration_Enforces);
+            if (_equals_4) {
+              return Scopes.scopeFor(Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).getInstancePoliciy());
+            } else {
+              EReference _instanceChannel_TypeChannel = this.iotlangInstance.getInstanceChannel_TypeChannel();
+              boolean _equals_5 = Objects.equal(reference, _instanceChannel_TypeChannel);
+              if (_equals_5) {
+                return Scopes.scopeFor(Helpers.allBuses(Helpers.findContainingModel(context)));
+              } else {
+                EReference _bind_ThingInstance = this.iotlangInstance.getBind_ThingInstance();
+                boolean _equals_6 = Objects.equal(reference, _bind_ThingInstance);
+                if (_equals_6) {
+                  return Scopes.scopeFor(Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).getThingInstances());
+                } else {
+                  EReference _bind_ChannelInstance = this.iotlangInstance.getBind_ChannelInstance();
+                  boolean _equals_7 = Objects.equal(reference, _bind_ChannelInstance);
+                  if (_equals_7) {
+                    return Scopes.scopeFor(Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).getChannelInstances());
+                  } else {
+                    EReference _bind_Topics = this.iotlangInstance.getBind_Topics();
+                    boolean _equals_8 = Objects.equal(reference, _bind_Topics);
+                    if (_equals_8) {
+                      return Scopes.scopeFor(Helpers.allTopics(Helpers.findContainingModel(context)));
+                    } else {
+                      EReference _topic_AcceptedMessages = this.iotlangInstance.getTopic_AcceptedMessages();
+                      boolean _equals_9 = Objects.equal(reference, _topic_AcceptedMessages);
+                      if (_equals_9) {
+                        return Scopes.scopeFor(Helpers.allMessages(Helpers.findContainingModel(context)));
+                      } else {
+                        String _name = reference.getName();
+                        String _plus = ("INFO: Resolving reference : " + _name);
+                        String _plus_1 = (_plus + " in Class ");
+                        EObject _eContainer = reference.eContainer();
+                        String _name_1 = ((ENamedElement) _eContainer).getName();
+                        String _plus_2 = (_plus_1 + _name_1);
+                        System.err.println(_plus_2);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return Scopes.scopeFor(this.EMPTY);
   }
 }

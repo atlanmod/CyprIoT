@@ -15,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Rule#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Rule#getThings <em>Things</em>}</li>
+ *   <li>{@link lang.iotlang.Rule#getSubject <em>Subject</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getPermission <em>Permission</em>}</li>
  *   <li>{@link lang.iotlang.Rule#getAction <em>Action</em>}</li>
- *   <li>{@link lang.iotlang.Rule#getRes <em>Res</em>}</li>
+ *   <li>{@link lang.iotlang.Rule#getObject <em>Object</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getRule()
@@ -54,30 +54,30 @@ public interface Rule extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Things</b></em>' reference.
+   * Returns the value of the '<em><b>Subject</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Things</em>' reference isn't clear,
+   * If the meaning of the '<em>Subject</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Things</em>' reference.
-   * @see #setThings(Thing)
-   * @see lang.iotlang.IotlangPackage#getRule_Things()
+   * @return the value of the '<em>Subject</em>' reference.
+   * @see #setSubject(Thing)
+   * @see lang.iotlang.IotlangPackage#getRule_Subject()
    * @model
    * @generated
    */
-  Thing getThings();
+  Thing getSubject();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Rule#getThings <em>Things</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.Rule#getSubject <em>Subject</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Things</em>' reference.
-   * @see #getThings()
+   * @param value the new value of the '<em>Subject</em>' reference.
+   * @see #getSubject()
    * @generated
    */
-  void setThings(Thing value);
+  void setSubject(Thing value);
 
   /**
    * Returns the value of the '<em><b>Permission</b></em>' attribute.
@@ -132,29 +132,29 @@ public interface Rule extends EObject
   void setAction(String value);
 
   /**
-   * Returns the value of the '<em><b>Res</b></em>' reference.
+   * Returns the value of the '<em><b>Object</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Res</em>' reference isn't clear,
+   * If the meaning of the '<em>Object</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Res</em>' reference.
-   * @see #setRes(Thing)
-   * @see lang.iotlang.IotlangPackage#getRule_Res()
+   * @return the value of the '<em>Object</em>' reference.
+   * @see #setObject(Thing)
+   * @see lang.iotlang.IotlangPackage#getRule_Object()
    * @model
    * @generated
    */
-  Thing getRes();
+  Thing getObject();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Rule#getRes <em>Res</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.Rule#getObject <em>Object</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Res</em>' reference.
-   * @see #getRes()
+   * @param value the new value of the '<em>Object</em>' reference.
+   * @see #getObject()
    * @generated
    */
-  void setRes(Thing value);
+  void setObject(Thing value);
 
 } // Rule

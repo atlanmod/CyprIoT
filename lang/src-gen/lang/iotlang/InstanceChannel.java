@@ -9,25 +9,25 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Instance Bus</b></em>'.
+ * A representation of the model object '<em><b>Instance Channel</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link lang.iotlang.InstanceBus#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.InstanceBus#getNumber <em>Number</em>}</li>
- *   <li>{@link lang.iotlang.InstanceBus#getTypeChannel <em>Type Channel</em>}</li>
- *   <li>{@link lang.iotlang.InstanceBus#getProtocol <em>Protocol</em>}</li>
- *   <li>{@link lang.iotlang.InstanceBus#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getName <em>Name</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getNumber <em>Number</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getTypeChannel <em>Type Channel</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getOverProtocol <em>Over Protocol</em>}</li>
+ *   <li>{@link lang.iotlang.InstanceChannel#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  *
- * @see lang.iotlang.IotlangPackage#getInstanceBus()
+ * @see lang.iotlang.IotlangPackage#getInstanceChannel()
  * @model
  * @generated
  */
-public interface InstanceBus extends EObject
+public interface InstanceChannel extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -39,14 +39,14 @@ public interface InstanceBus extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see lang.iotlang.IotlangPackage#getInstanceBus_Name()
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.InstanceBus#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -65,7 +65,7 @@ public interface InstanceBus extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Number</em>' attribute list.
-   * @see lang.iotlang.IotlangPackage#getInstanceBus_Number()
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Number()
    * @model unique="false"
    * @generated
    */
@@ -81,14 +81,14 @@ public interface InstanceBus extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type Channel</em>' reference.
    * @see #setTypeChannel(Channel)
-   * @see lang.iotlang.IotlangPackage#getInstanceBus_TypeChannel()
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_TypeChannel()
    * @model
    * @generated
    */
   Channel getTypeChannel();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.InstanceBus#getTypeChannel <em>Type Channel</em>}' reference.
+   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getTypeChannel <em>Type Channel</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Type Channel</em>' reference.
@@ -98,20 +98,30 @@ public interface InstanceBus extends EObject
   void setTypeChannel(Channel value);
 
   /**
-   * Returns the value of the '<em><b>Protocol</b></em>' reference list.
-   * The list contents are of type {@link lang.iotlang.Protocol}.
+   * Returns the value of the '<em><b>Over Protocol</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Protocol</em>' reference list isn't clear,
+   * If the meaning of the '<em>Over Protocol</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Protocol</em>' reference list.
-   * @see lang.iotlang.IotlangPackage#getInstanceBus_Protocol()
+   * @return the value of the '<em>Over Protocol</em>' reference.
+   * @see #setOverProtocol(Protocol)
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_OverProtocol()
    * @model
    * @generated
    */
-  EList<Protocol> getProtocol();
+  Protocol getOverProtocol();
+
+  /**
+   * Sets the value of the '{@link lang.iotlang.InstanceChannel#getOverProtocol <em>Over Protocol</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Over Protocol</em>' reference.
+   * @see #getOverProtocol()
+   * @generated
+   */
+  void setOverProtocol(Protocol value);
 
   /**
    * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
@@ -123,10 +133,10 @@ public interface InstanceBus extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Annotations</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getInstanceBus_Annotations()
+   * @see lang.iotlang.IotlangPackage#getInstanceChannel_Annotations()
    * @model containment="true"
    * @generated
    */
   EList<PlatformAnnotation> getAnnotations();
 
-} // InstanceBus
+} // InstanceChannel

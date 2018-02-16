@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.PolicyImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.PolicyImpl#getRules <em>Rules</em>}</li>
+ *   <li>{@link lang.iotlang.impl.PolicyImpl#getHasRules <em>Has Rules</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,14 +60,14 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
+   * The cached value of the '{@link #getHasRules() <em>Has Rules</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRules()
+   * @see #getHasRules()
    * @generated
    * @ordered
    */
-  protected EList<Rule> rules;
+  protected EList<Rule> hasRules;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,13 +118,13 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Rule> getRules()
+  public EList<Rule> getHasRules()
   {
-    if (rules == null)
+    if (hasRules == null)
     {
-      rules = new EObjectContainmentEList<Rule>(Rule.class, this, IotlangPackage.POLICY__RULES);
+      hasRules = new EObjectContainmentEList<Rule>(Rule.class, this, IotlangPackage.POLICY__HAS_RULES);
     }
-    return rules;
+    return hasRules;
   }
 
   /**
@@ -137,8 +137,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
   {
     switch (featureID)
     {
-      case IotlangPackage.POLICY__RULES:
-        return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.POLICY__HAS_RULES:
+        return ((InternalEList<?>)getHasRules()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -155,8 +155,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
     {
       case IotlangPackage.POLICY__NAME:
         return getName();
-      case IotlangPackage.POLICY__RULES:
-        return getRules();
+      case IotlangPackage.POLICY__HAS_RULES:
+        return getHasRules();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -175,9 +175,9 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
       case IotlangPackage.POLICY__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.POLICY__RULES:
-        getRules().clear();
-        getRules().addAll((Collection<? extends Rule>)newValue);
+      case IotlangPackage.POLICY__HAS_RULES:
+        getHasRules().clear();
+        getHasRules().addAll((Collection<? extends Rule>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,8 +196,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
       case IotlangPackage.POLICY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.POLICY__RULES:
-        getRules().clear();
+      case IotlangPackage.POLICY__HAS_RULES:
+        getHasRules().clear();
         return;
     }
     super.eUnset(featureID);
@@ -215,8 +215,8 @@ public class PolicyImpl extends MinimalEObjectImpl.Container implements Policy
     {
       case IotlangPackage.POLICY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.POLICY__RULES:
-        return rules != null && !rules.isEmpty();
+      case IotlangPackage.POLICY__HAS_RULES:
+        return hasRules != null && !hasRules.isEmpty();
     }
     return super.eIsSet(featureID);
   }

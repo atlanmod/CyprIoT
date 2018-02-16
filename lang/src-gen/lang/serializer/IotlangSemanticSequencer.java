@@ -6,9 +6,8 @@ package lang.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import lang.iotlang.Bind;
-import lang.iotlang.Channel;
 import lang.iotlang.Domain;
-import lang.iotlang.InstanceBus;
+import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
@@ -16,8 +15,10 @@ import lang.iotlang.IotlangPackage;
 import lang.iotlang.Message;
 import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.PlatformAnnotation;
+import lang.iotlang.PointToPoint;
 import lang.iotlang.Policy;
 import lang.iotlang.Protocol;
+import lang.iotlang.PubSub;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
@@ -49,14 +50,11 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 			case IotlangPackage.BIND:
 				sequence_Bind(context, (Bind) semanticObject); 
 				return; 
-			case IotlangPackage.CHANNEL:
-				sequence_Channel(context, (Channel) semanticObject); 
-				return; 
 			case IotlangPackage.DOMAIN:
 				sequence_Domain(context, (Domain) semanticObject); 
 				return; 
-			case IotlangPackage.INSTANCE_BUS:
-				sequence_InstanceBus(context, (InstanceBus) semanticObject); 
+			case IotlangPackage.INSTANCE_CHANNEL:
+				sequence_InstanceChannel(context, (InstanceChannel) semanticObject); 
 				return; 
 			case IotlangPackage.INSTANCE_POLICY:
 				sequence_InstancePolicy(context, (InstancePolicy) semanticObject); 
@@ -76,11 +74,17 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 			case IotlangPackage.PLATFORM_ANNOTATION:
 				sequence_PlatformAnnotation(context, (PlatformAnnotation) semanticObject); 
 				return; 
+			case IotlangPackage.POINT_TO_POINT:
+				sequence_PointToPoint(context, (PointToPoint) semanticObject); 
+				return; 
 			case IotlangPackage.POLICY:
 				sequence_Policy(context, (Policy) semanticObject); 
 				return; 
 			case IotlangPackage.PROTOCOL:
 				sequence_Protocol(context, (Protocol) semanticObject); 
+				return; 
+			case IotlangPackage.PUB_SUB:
+				sequence_PubSub(context, (PubSub) semanticObject); 
 				return; 
 			case IotlangPackage.RULE:
 				sequence_Rule(context, (Rule) semanticObject); 
@@ -103,27 +107,15 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
-	 *         Thinginst=[InstanceThing|ID] 
+	 *         thingInstance=[InstanceThing|ID] 
 	 *         (direction='=>' | direction='<=>' | direction='<=') 
-	 *         busInst=[InstanceBus|ID] 
-	 *         channels+=[Topic|ID] 
-	 *         channels+=[Topic|ID]* 
+	 *         channelInstance=[InstanceChannel|ID] 
+	 *         topics+=[Topic|ID] 
+	 *         topics+=[Topic|ID]* 
 	 *         annotations+=PlatformAnnotation*
 	 *     )
 	 */
 	protected void sequence_Bind(ISerializationContext context, Bind semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Channel returns Channel
-	 *
-	 * Constraint:
-	 *     (name=ID topics+=Topic*)
-	 */
-	protected void sequence_Channel(ISerializationContext context, Channel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -148,12 +140,12 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     InstanceBus returns InstanceBus
+	 *     InstanceChannel returns InstanceChannel
 	 *
 	 * Constraint:
-	 *     (name=ID number+=INT* typeChannel=[Channel|ID] protocol+=[Protocol|ID] annotations+=PlatformAnnotation*)
+	 *     (name=ID number+=INT* typeChannel=[Channel|ID] overProtocol=[Protocol|ID] annotations+=PlatformAnnotation*)
 	 */
-	protected void sequence_InstanceBus(ISerializationContext context, InstanceBus semanticObject) {
+	protected void sequence_InstanceChannel(ISerializationContext context, InstanceChannel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -175,7 +167,7 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     InstanceThing returns InstanceThing
 	 *
 	 * Constraint:
-	 *     (name=ID number+=INT* type=[Thing|ID] annotations+=PlatformAnnotation*)
+	 *     (name=ID number+=INT* typeThing=[Thing|ID] annotations+=PlatformAnnotation*)
 	 */
 	protected void sequence_InstanceThing(ISerializationContext context, InstanceThing semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -187,7 +179,14 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     IoTLangModel returns IoTLangModel
 	 *
 	 * Constraint:
-	 *     (things+=Thing | policies+=Policy | channels+=Channel | configs+=NetworkConfiguration)+
+	 *     (
+	 *         things+=Thing | 
+	 *         policies+=Policy | 
+	 *         messages+=Message | 
+	 *         channels+=Channel | 
+	 *         protocols+=Protocol | 
+	 *         configs+=NetworkConfiguration
+	 *     )+
 	 */
 	protected void sequence_IoTLangModel(ISerializationContext context, IoTLangModel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -223,10 +222,10 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         (
 	 *             domain+=Domain | 
 	 *             binds+=Bind | 
-	 *             instances+=InstanceThing | 
-	 *             instancesBus+=InstanceBus | 
+	 *             thingInstances+=InstanceThing | 
+	 *             channelInstances+=InstanceChannel | 
 	 *             enforces+=[InstancePolicy|ID] | 
-	 *             instPolicies+=InstancePolicy
+	 *             instancePoliciy+=InstancePolicy
 	 *         )*
 	 *     )
 	 */
@@ -258,10 +257,23 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
+	 *     Channel returns PointToPoint
+	 *     PointToPoint returns PointToPoint
+	 *
+	 * Constraint:
+	 *     (name=ID hasTopics+=Topic*)
+	 */
+	protected void sequence_PointToPoint(ISerializationContext context, PointToPoint semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Policy returns Policy
 	 *
 	 * Constraint:
-	 *     (name=ID rules+=Rule*)
+	 *     (name=ID hasRules+=Rule*)
 	 */
 	protected void sequence_Policy(ISerializationContext context, Policy semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -288,10 +300,23 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
+	 *     Channel returns PubSub
+	 *     PubSub returns PubSub
+	 *
+	 * Constraint:
+	 *     (name=ID hasTopics+=Topic*)
+	 */
+	protected void sequence_PubSub(ISerializationContext context, PubSub semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Rule returns Rule
 	 *
 	 * Constraint:
-	 *     (name=ID? things=[Thing|ID] (permission='allow' | permission='deny') (action='send' | action='receive') res=[Thing|ID])
+	 *     (name=ID? subject=[Thing|ID] (permission='allow' | permission='deny') (action='send' | action='receive') object=[Thing|ID])
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -315,10 +340,19 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     Topic returns Topic
 	 *
 	 * Constraint:
-	 *     (name=ID (type='?' | type='!') messages=[Message|ID])
+	 *     (name=ID acceptedMessages=[Message|ID])
 	 */
 	protected void sequence_Topic(ISerializationContext context, Topic semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.TOPIC__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.TOPIC__NAME));
+			if (transientValues.isValueTransient(semanticObject, IotlangPackage.Literals.TOPIC__ACCEPTED_MESSAGES) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, IotlangPackage.Literals.TOPIC__ACCEPTED_MESSAGES));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTopicAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getTopicAccess().getAcceptedMessagesMessageIDTerminalRuleCall_3_0_1(), semanticObject.eGet(IotlangPackage.Literals.TOPIC__ACCEPTED_MESSAGES, false));
+		feeder.finish();
 	}
 	
 	

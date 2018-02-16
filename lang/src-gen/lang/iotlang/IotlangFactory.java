@@ -60,6 +60,24 @@ public interface IotlangFactory extends EFactory
   Channel createChannel();
 
   /**
+   * Returns a new object of class '<em>Pub Sub</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pub Sub</em>'.
+   * @generated
+   */
+  PubSub createPubSub();
+
+  /**
+   * Returns a new object of class '<em>Point To Point</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Point To Point</em>'.
+   * @generated
+   */
+  PointToPoint createPointToPoint();
+
+  /**
    * Returns a new object of class '<em>Policy</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -123,13 +141,13 @@ public interface IotlangFactory extends EFactory
   InstanceThing createInstanceThing();
 
   /**
-   * Returns a new object of class '<em>Instance Bus</em>'.
+   * Returns a new object of class '<em>Instance Channel</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Instance Bus</em>'.
+   * @return a new object of class '<em>Instance Channel</em>'.
    * @generated
    */
-  InstanceBus createInstanceBus();
+  InstanceChannel createInstanceChannel();
 
   /**
    * Returns a new object of class '<em>Instance Policy</em>'.

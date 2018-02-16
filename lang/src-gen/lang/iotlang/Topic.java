@@ -15,8 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.Topic#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.Topic#getType <em>Type</em>}</li>
- *   <li>{@link lang.iotlang.Topic#getMessages <em>Messages</em>}</li>
+ *   <li>{@link lang.iotlang.Topic#getAcceptedMessages <em>Accepted Messages</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getTopic()
@@ -52,55 +51,29 @@ public interface Topic extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Accepted Messages</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Accepted Messages</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' attribute.
-   * @see #setType(String)
-   * @see lang.iotlang.IotlangPackage#getTopic_Type()
+   * @return the value of the '<em>Accepted Messages</em>' reference.
+   * @see #setAcceptedMessages(Message)
+   * @see lang.iotlang.IotlangPackage#getTopic_AcceptedMessages()
    * @model
    * @generated
    */
-  String getType();
+  Message getAcceptedMessages();
 
   /**
-   * Sets the value of the '{@link lang.iotlang.Topic#getType <em>Type</em>}' attribute.
+   * Sets the value of the '{@link lang.iotlang.Topic#getAcceptedMessages <em>Accepted Messages</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' attribute.
-   * @see #getType()
+   * @param value the new value of the '<em>Accepted Messages</em>' reference.
+   * @see #getAcceptedMessages()
    * @generated
    */
-  void setType(String value);
-
-  /**
-   * Returns the value of the '<em><b>Messages</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Messages</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Messages</em>' reference.
-   * @see #setMessages(Message)
-   * @see lang.iotlang.IotlangPackage#getTopic_Messages()
-   * @model
-   * @generated
-   */
-  Message getMessages();
-
-  /**
-   * Sets the value of the '{@link lang.iotlang.Topic#getMessages <em>Messages</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Messages</em>' reference.
-   * @see #getMessages()
-   * @generated
-   */
-  void setMessages(Message value);
+  void setAcceptedMessages(Message value);
 
 } // Topic

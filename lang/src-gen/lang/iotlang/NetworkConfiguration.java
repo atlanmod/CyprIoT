@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link lang.iotlang.NetworkConfiguration#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getDomain <em>Domain</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getBinds <em>Binds</em>}</li>
- *   <li>{@link lang.iotlang.NetworkConfiguration#getInstances <em>Instances</em>}</li>
- *   <li>{@link lang.iotlang.NetworkConfiguration#getInstancesBus <em>Instances Bus</em>}</li>
+ *   <li>{@link lang.iotlang.NetworkConfiguration#getThingInstances <em>Thing Instances</em>}</li>
+ *   <li>{@link lang.iotlang.NetworkConfiguration#getChannelInstances <em>Channel Instances</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getEnforces <em>Enforces</em>}</li>
- *   <li>{@link lang.iotlang.NetworkConfiguration#getInstPolicies <em>Inst Policies</em>}</li>
+ *   <li>{@link lang.iotlang.NetworkConfiguration#getInstancePoliciy <em>Instance Policiy</em>}</li>
  * </ul>
  *
  * @see lang.iotlang.IotlangPackage#getNetworkConfiguration()
@@ -107,36 +107,36 @@ public interface NetworkConfiguration extends EObject
   EList<Bind> getBinds();
 
   /**
-   * Returns the value of the '<em><b>Instances</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Thing Instances</b></em>' containment reference list.
    * The list contents are of type {@link lang.iotlang.InstanceThing}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Instances</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Thing Instances</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Instances</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_Instances()
+   * @return the value of the '<em>Thing Instances</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_ThingInstances()
    * @model containment="true"
    * @generated
    */
-  EList<InstanceThing> getInstances();
+  EList<InstanceThing> getThingInstances();
 
   /**
-   * Returns the value of the '<em><b>Instances Bus</b></em>' containment reference list.
-   * The list contents are of type {@link lang.iotlang.InstanceBus}.
+   * Returns the value of the '<em><b>Channel Instances</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.InstanceChannel}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Instances Bus</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Channel Instances</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Instances Bus</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_InstancesBus()
+   * @return the value of the '<em>Channel Instances</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_ChannelInstances()
    * @model containment="true"
    * @generated
    */
-  EList<InstanceBus> getInstancesBus();
+  EList<InstanceChannel> getChannelInstances();
 
   /**
    * Returns the value of the '<em><b>Enforces</b></em>' reference list.
@@ -155,19 +155,19 @@ public interface NetworkConfiguration extends EObject
   EList<InstancePolicy> getEnforces();
 
   /**
-   * Returns the value of the '<em><b>Inst Policies</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Instance Policiy</b></em>' containment reference list.
    * The list contents are of type {@link lang.iotlang.InstancePolicy}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Inst Policies</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Instance Policiy</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Inst Policies</em>' containment reference list.
-   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_InstPolicies()
+   * @return the value of the '<em>Instance Policiy</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_InstancePoliciy()
    * @model containment="true"
    * @generated
    */
-  EList<InstancePolicy> getInstPolicies();
+  EList<InstancePolicy> getInstancePoliciy();
 
 } // NetworkConfiguration

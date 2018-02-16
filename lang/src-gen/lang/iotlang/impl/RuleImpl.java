@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getName <em>Name</em>}</li>
- *   <li>{@link lang.iotlang.impl.RuleImpl#getThings <em>Things</em>}</li>
+ *   <li>{@link lang.iotlang.impl.RuleImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getPermission <em>Permission</em>}</li>
  *   <li>{@link lang.iotlang.impl.RuleImpl#getAction <em>Action</em>}</li>
- *   <li>{@link lang.iotlang.impl.RuleImpl#getRes <em>Res</em>}</li>
+ *   <li>{@link lang.iotlang.impl.RuleImpl#getObject <em>Object</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,14 +55,14 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getThings() <em>Things</em>}' reference.
+   * The cached value of the '{@link #getSubject() <em>Subject</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getThings()
+   * @see #getSubject()
    * @generated
    * @ordered
    */
-  protected Thing things;
+  protected Thing subject;
 
   /**
    * The default value of the '{@link #getPermission() <em>Permission</em>}' attribute.
@@ -105,14 +105,14 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
   protected String action = ACTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRes() <em>Res</em>}' reference.
+   * The cached value of the '{@link #getObject() <em>Object</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRes()
+   * @see #getObject()
    * @generated
    * @ordered
    */
-  protected Thing res;
+  protected Thing object;
 
   /**
    * <!-- begin-user-doc -->
@@ -163,19 +163,19 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing getThings()
+  public Thing getSubject()
   {
-    if (things != null && things.eIsProxy())
+    if (subject != null && subject.eIsProxy())
     {
-      InternalEObject oldThings = (InternalEObject)things;
-      things = (Thing)eResolveProxy(oldThings);
-      if (things != oldThings)
+      InternalEObject oldSubject = (InternalEObject)subject;
+      subject = (Thing)eResolveProxy(oldSubject);
+      if (subject != oldSubject)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.RULE__THINGS, oldThings, things));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.RULE__SUBJECT, oldSubject, subject));
       }
     }
-    return things;
+    return subject;
   }
 
   /**
@@ -183,9 +183,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing basicGetThings()
+  public Thing basicGetSubject()
   {
-    return things;
+    return subject;
   }
 
   /**
@@ -193,12 +193,12 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setThings(Thing newThings)
+  public void setSubject(Thing newSubject)
   {
-    Thing oldThings = things;
-    things = newThings;
+    Thing oldSubject = subject;
+    subject = newSubject;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.RULE__THINGS, oldThings, things));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.RULE__SUBJECT, oldSubject, subject));
   }
 
   /**
@@ -252,19 +252,19 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing getRes()
+  public Thing getObject()
   {
-    if (res != null && res.eIsProxy())
+    if (object != null && object.eIsProxy())
     {
-      InternalEObject oldRes = (InternalEObject)res;
-      res = (Thing)eResolveProxy(oldRes);
-      if (res != oldRes)
+      InternalEObject oldObject = (InternalEObject)object;
+      object = (Thing)eResolveProxy(oldObject);
+      if (object != oldObject)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.RULE__RES, oldRes, res));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, IotlangPackage.RULE__OBJECT, oldObject, object));
       }
     }
-    return res;
+    return object;
   }
 
   /**
@@ -272,9 +272,9 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public Thing basicGetRes()
+  public Thing basicGetObject()
   {
-    return res;
+    return object;
   }
 
   /**
@@ -282,12 +282,12 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRes(Thing newRes)
+  public void setObject(Thing newObject)
   {
-    Thing oldRes = res;
-    res = newRes;
+    Thing oldObject = object;
+    object = newObject;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.RULE__RES, oldRes, res));
+      eNotify(new ENotificationImpl(this, Notification.SET, IotlangPackage.RULE__OBJECT, oldObject, object));
   }
 
   /**
@@ -302,16 +302,16 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
     {
       case IotlangPackage.RULE__NAME:
         return getName();
-      case IotlangPackage.RULE__THINGS:
-        if (resolve) return getThings();
-        return basicGetThings();
+      case IotlangPackage.RULE__SUBJECT:
+        if (resolve) return getSubject();
+        return basicGetSubject();
       case IotlangPackage.RULE__PERMISSION:
         return getPermission();
       case IotlangPackage.RULE__ACTION:
         return getAction();
-      case IotlangPackage.RULE__RES:
-        if (resolve) return getRes();
-        return basicGetRes();
+      case IotlangPackage.RULE__OBJECT:
+        if (resolve) return getObject();
+        return basicGetObject();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -329,8 +329,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__NAME:
         setName((String)newValue);
         return;
-      case IotlangPackage.RULE__THINGS:
-        setThings((Thing)newValue);
+      case IotlangPackage.RULE__SUBJECT:
+        setSubject((Thing)newValue);
         return;
       case IotlangPackage.RULE__PERMISSION:
         setPermission((String)newValue);
@@ -338,8 +338,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__ACTION:
         setAction((String)newValue);
         return;
-      case IotlangPackage.RULE__RES:
-        setRes((Thing)newValue);
+      case IotlangPackage.RULE__OBJECT:
+        setObject((Thing)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -358,8 +358,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case IotlangPackage.RULE__THINGS:
-        setThings((Thing)null);
+      case IotlangPackage.RULE__SUBJECT:
+        setSubject((Thing)null);
         return;
       case IotlangPackage.RULE__PERMISSION:
         setPermission(PERMISSION_EDEFAULT);
@@ -367,8 +367,8 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
       case IotlangPackage.RULE__ACTION:
         setAction(ACTION_EDEFAULT);
         return;
-      case IotlangPackage.RULE__RES:
-        setRes((Thing)null);
+      case IotlangPackage.RULE__OBJECT:
+        setObject((Thing)null);
         return;
     }
     super.eUnset(featureID);
@@ -386,14 +386,14 @@ public class RuleImpl extends MinimalEObjectImpl.Container implements Rule
     {
       case IotlangPackage.RULE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case IotlangPackage.RULE__THINGS:
-        return things != null;
+      case IotlangPackage.RULE__SUBJECT:
+        return subject != null;
       case IotlangPackage.RULE__PERMISSION:
         return PERMISSION_EDEFAULT == null ? permission != null : !PERMISSION_EDEFAULT.equals(permission);
       case IotlangPackage.RULE__ACTION:
         return ACTION_EDEFAULT == null ? action != null : !ACTION_EDEFAULT.equals(action);
-      case IotlangPackage.RULE__RES:
-        return res != null;
+      case IotlangPackage.RULE__OBJECT:
+        return object != null;
     }
     return super.eIsSet(featureID);
   }

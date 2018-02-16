@@ -8,8 +8,10 @@ import java.util.Collection;
 import lang.iotlang.Channel;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.IotlangPackage;
+import lang.iotlang.Message;
 import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.Policy;
+import lang.iotlang.Protocol;
 import lang.iotlang.Thing;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,7 +36,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getThings <em>Things</em>}</li>
  *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getPolicies <em>Policies</em>}</li>
+ *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getMessages <em>Messages</em>}</li>
  *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getChannels <em>Channels</em>}</li>
+ *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getProtocols <em>Protocols</em>}</li>
  *   <li>{@link lang.iotlang.impl.IoTLangModelImpl#getConfigs <em>Configs</em>}</li>
  * </ul>
  *
@@ -63,6 +67,16 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
   protected EList<Policy> policies;
 
   /**
+   * The cached value of the '{@link #getMessages() <em>Messages</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMessages()
+   * @generated
+   * @ordered
+   */
+  protected EList<Message> messages;
+
+  /**
    * The cached value of the '{@link #getChannels() <em>Channels</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -71,6 +85,16 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
    * @ordered
    */
   protected EList<Channel> channels;
+
+  /**
+   * The cached value of the '{@link #getProtocols() <em>Protocols</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getProtocols()
+   * @generated
+   * @ordered
+   */
+  protected EList<Protocol> protocols;
 
   /**
    * The cached value of the '{@link #getConfigs() <em>Configs</em>}' containment reference list.
@@ -136,6 +160,20 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Message> getMessages()
+  {
+    if (messages == null)
+    {
+      messages = new EObjectContainmentEList<Message>(Message.class, this, IotlangPackage.IO_TLANG_MODEL__MESSAGES);
+    }
+    return messages;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Channel> getChannels()
   {
     if (channels == null)
@@ -143,6 +181,20 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
       channels = new EObjectContainmentEList<Channel>(Channel.class, this, IotlangPackage.IO_TLANG_MODEL__CHANNELS);
     }
     return channels;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Protocol> getProtocols()
+  {
+    if (protocols == null)
+    {
+      protocols = new EObjectContainmentEList<Protocol>(Protocol.class, this, IotlangPackage.IO_TLANG_MODEL__PROTOCOLS);
+    }
+    return protocols;
   }
 
   /**
@@ -173,8 +225,12 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
         return ((InternalEList<?>)getThings()).basicRemove(otherEnd, msgs);
       case IotlangPackage.IO_TLANG_MODEL__POLICIES:
         return ((InternalEList<?>)getPolicies()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.IO_TLANG_MODEL__MESSAGES:
+        return ((InternalEList<?>)getMessages()).basicRemove(otherEnd, msgs);
       case IotlangPackage.IO_TLANG_MODEL__CHANNELS:
         return ((InternalEList<?>)getChannels()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.IO_TLANG_MODEL__PROTOCOLS:
+        return ((InternalEList<?>)getProtocols()).basicRemove(otherEnd, msgs);
       case IotlangPackage.IO_TLANG_MODEL__CONFIGS:
         return ((InternalEList<?>)getConfigs()).basicRemove(otherEnd, msgs);
     }
@@ -195,8 +251,12 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
         return getThings();
       case IotlangPackage.IO_TLANG_MODEL__POLICIES:
         return getPolicies();
+      case IotlangPackage.IO_TLANG_MODEL__MESSAGES:
+        return getMessages();
       case IotlangPackage.IO_TLANG_MODEL__CHANNELS:
         return getChannels();
+      case IotlangPackage.IO_TLANG_MODEL__PROTOCOLS:
+        return getProtocols();
       case IotlangPackage.IO_TLANG_MODEL__CONFIGS:
         return getConfigs();
     }
@@ -222,9 +282,17 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
         getPolicies().clear();
         getPolicies().addAll((Collection<? extends Policy>)newValue);
         return;
+      case IotlangPackage.IO_TLANG_MODEL__MESSAGES:
+        getMessages().clear();
+        getMessages().addAll((Collection<? extends Message>)newValue);
+        return;
       case IotlangPackage.IO_TLANG_MODEL__CHANNELS:
         getChannels().clear();
         getChannels().addAll((Collection<? extends Channel>)newValue);
+        return;
+      case IotlangPackage.IO_TLANG_MODEL__PROTOCOLS:
+        getProtocols().clear();
+        getProtocols().addAll((Collection<? extends Protocol>)newValue);
         return;
       case IotlangPackage.IO_TLANG_MODEL__CONFIGS:
         getConfigs().clear();
@@ -250,8 +318,14 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
       case IotlangPackage.IO_TLANG_MODEL__POLICIES:
         getPolicies().clear();
         return;
+      case IotlangPackage.IO_TLANG_MODEL__MESSAGES:
+        getMessages().clear();
+        return;
       case IotlangPackage.IO_TLANG_MODEL__CHANNELS:
         getChannels().clear();
+        return;
+      case IotlangPackage.IO_TLANG_MODEL__PROTOCOLS:
+        getProtocols().clear();
         return;
       case IotlangPackage.IO_TLANG_MODEL__CONFIGS:
         getConfigs().clear();
@@ -274,8 +348,12 @@ public class IoTLangModelImpl extends MinimalEObjectImpl.Container implements Io
         return things != null && !things.isEmpty();
       case IotlangPackage.IO_TLANG_MODEL__POLICIES:
         return policies != null && !policies.isEmpty();
+      case IotlangPackage.IO_TLANG_MODEL__MESSAGES:
+        return messages != null && !messages.isEmpty();
       case IotlangPackage.IO_TLANG_MODEL__CHANNELS:
         return channels != null && !channels.isEmpty();
+      case IotlangPackage.IO_TLANG_MODEL__PROTOCOLS:
+        return protocols != null && !protocols.isEmpty();
       case IotlangPackage.IO_TLANG_MODEL__CONFIGS:
         return configs != null && !configs.isEmpty();
     }

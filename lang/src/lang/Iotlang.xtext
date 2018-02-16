@@ -4,7 +4,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(things+=Thing |policies+=Policy| channels+=Channel | configs+=NetworkConfiguration)*;
+		(things+=Thing |policies+=Policy| messages+=Message | channels+=Channel | protocols += Protocol | configs+=NetworkConfiguration)*;
 		
 /* Terminals  */
 
@@ -26,14 +26,22 @@ Thing: // example gateway, arduino, android
 	'}';
 
 Channel: // mqtt, kafka, real simple bus,
-	'channel' name=ID '{'
-		(topics +=Topic)*
-	
-'}'
+	(PubSub|PointToPoint)
+;
+PubSub:
+	'channel:pubsub' name=ID '{'
+		(hasTopics +=Topic)*
+		'}'
+;
+
+PointToPoint:
+	'channel:ptp' name=ID '{'
+		(hasTopics +=Topic)*
+		'}'
 ;
 Policy: // mqtt, kafka, real simple bus,
 	'policy' name=ID '{'
-		(rules +=Rule)*
+		(hasRules +=Rule)*
 	
 '}'
 ;
@@ -46,11 +54,11 @@ Message :
 	'message' name=ID
 ;
 Topic:
-	'topic'  name=ID type=('?' |'!') '(' messages=[Message|ID] ')'
+	'topic'  name=ID /*type=('?' |'!')*/ '(' acceptedMessages=[Message|ID] ')'
 ;
 
 Rule:
-	'rule' (name=ID)? (things=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') res=[Thing|ID]
+	'rule' (name=ID)? (subject=[Thing|ID]) permission=('allow' |'deny') ':' action=('send'|'receive') object=[Thing|ID]
 ;
 
 
@@ -62,20 +70,21 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing|ID]) ( annotations+=PlatformAnnotation )*;
 
-InstanceBus:
-	'instanceBus' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[Channel|ID]) 'over' protocol+=[Protocol|ID]( annotations+=PlatformAnnotation )*;
+InstanceChannel:
+	'instanceChannel' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[Channel|ID]) 'over' overProtocol=[Protocol|ID]( annotations+=PlatformAnnotation )*;
 
 InstancePolicy:
-	'instancePolicy' name=ID ':' (typePolicy=[Policy|ID]) ( annotations+=PlatformAnnotation )*;	
+	'instancePolicy' name=ID ':' (typePolicy=[Policy|ID]) ( annotations+=PlatformAnnotation )*;
+
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=PlatformAnnotation )* '{'
-	(domain+=Domain | binds+=Bind| instances+=InstanceThing | instancesBus+=InstanceBus | 'enforce' enforces+=[InstancePolicy|ID] | instPolicies+=InstancePolicy)*
+	(domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy|ID] | instancePoliciy+=InstancePolicy)*
 	
 	'}';
 Bind:
-	'bind'	(name=ID)? Thinginst=[InstanceThing|ID] direction=('=>' |'<=>'|'<=') busInst=[InstanceBus|ID]'{' channels+=[Topic|ID] (( "," channels+=[Topic|ID])*)?'}' ( annotations+=PlatformAnnotation )*;
+	'bind'	(name=ID)? thingInstance=[InstanceThing|ID] direction=('=>' |'<=>'|'<=') channelInstance=[InstanceChannel|ID]'{' topics+=[Topic|ID] (( "," topics+=[Topic|ID])*)?'}' ( annotations+=PlatformAnnotation )*;

@@ -18,7 +18,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link lang.iotlang.IoTLangModel#getThings <em>Things</em>}</li>
  *   <li>{@link lang.iotlang.IoTLangModel#getPolicies <em>Policies</em>}</li>
+ *   <li>{@link lang.iotlang.IoTLangModel#getMessages <em>Messages</em>}</li>
  *   <li>{@link lang.iotlang.IoTLangModel#getChannels <em>Channels</em>}</li>
+ *   <li>{@link lang.iotlang.IoTLangModel#getProtocols <em>Protocols</em>}</li>
  *   <li>{@link lang.iotlang.IoTLangModel#getConfigs <em>Configs</em>}</li>
  * </ul>
  *
@@ -61,6 +63,22 @@ public interface IoTLangModel extends EObject
   EList<Policy> getPolicies();
 
   /**
+   * Returns the value of the '<em><b>Messages</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Message}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Messages</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Messages</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getIoTLangModel_Messages()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Message> getMessages();
+
+  /**
    * Returns the value of the '<em><b>Channels</b></em>' containment reference list.
    * The list contents are of type {@link lang.iotlang.Channel}.
    * <!-- begin-user-doc -->
@@ -75,6 +93,22 @@ public interface IoTLangModel extends EObject
    * @generated
    */
   EList<Channel> getChannels();
+
+  /**
+   * Returns the value of the '<em><b>Protocols</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Protocol}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Protocols</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Protocols</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getIoTLangModel_Protocols()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Protocol> getProtocols();
 
   /**
    * Returns the value of the '<em><b>Configs</b></em>' containment reference list.

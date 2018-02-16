@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import lang.iotlang.Bind;
 import lang.iotlang.Domain;
-import lang.iotlang.InstanceBus;
+import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IotlangPackage;
@@ -41,10 +41,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getDomain <em>Domain</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getBinds <em>Binds</em>}</li>
- *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getInstances <em>Instances</em>}</li>
- *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getInstancesBus <em>Instances Bus</em>}</li>
+ *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getThingInstances <em>Thing Instances</em>}</li>
+ *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getChannelInstances <em>Channel Instances</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getEnforces <em>Enforces</em>}</li>
- *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getInstPolicies <em>Inst Policies</em>}</li>
+ *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getInstancePoliciy <em>Instance Policiy</em>}</li>
  * </ul>
  *
  * @generated
@@ -102,24 +102,24 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
   protected EList<Bind> binds;
 
   /**
-   * The cached value of the '{@link #getInstances() <em>Instances</em>}' containment reference list.
+   * The cached value of the '{@link #getThingInstances() <em>Thing Instances</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstances()
+   * @see #getThingInstances()
    * @generated
    * @ordered
    */
-  protected EList<InstanceThing> instances;
+  protected EList<InstanceThing> thingInstances;
 
   /**
-   * The cached value of the '{@link #getInstancesBus() <em>Instances Bus</em>}' containment reference list.
+   * The cached value of the '{@link #getChannelInstances() <em>Channel Instances</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstancesBus()
+   * @see #getChannelInstances()
    * @generated
    * @ordered
    */
-  protected EList<InstanceBus> instancesBus;
+  protected EList<InstanceChannel> channelInstances;
 
   /**
    * The cached value of the '{@link #getEnforces() <em>Enforces</em>}' reference list.
@@ -132,14 +132,14 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
   protected EList<InstancePolicy> enforces;
 
   /**
-   * The cached value of the '{@link #getInstPolicies() <em>Inst Policies</em>}' containment reference list.
+   * The cached value of the '{@link #getInstancePoliciy() <em>Instance Policiy</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstPolicies()
+   * @see #getInstancePoliciy()
    * @generated
    * @ordered
    */
-  protected EList<InstancePolicy> instPolicies;
+  protected EList<InstancePolicy> instancePoliciy;
 
   /**
    * <!-- begin-user-doc -->
@@ -232,13 +232,13 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<InstanceThing> getInstances()
+  public EList<InstanceThing> getThingInstances()
   {
-    if (instances == null)
+    if (thingInstances == null)
     {
-      instances = new EObjectContainmentEList<InstanceThing>(InstanceThing.class, this, IotlangPackage.NETWORK_CONFIGURATION__INSTANCES);
+      thingInstances = new EObjectContainmentEList<InstanceThing>(InstanceThing.class, this, IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES);
     }
-    return instances;
+    return thingInstances;
   }
 
   /**
@@ -246,13 +246,13 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<InstanceBus> getInstancesBus()
+  public EList<InstanceChannel> getChannelInstances()
   {
-    if (instancesBus == null)
+    if (channelInstances == null)
     {
-      instancesBus = new EObjectContainmentEList<InstanceBus>(InstanceBus.class, this, IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS);
+      channelInstances = new EObjectContainmentEList<InstanceChannel>(InstanceChannel.class, this, IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES);
     }
-    return instancesBus;
+    return channelInstances;
   }
 
   /**
@@ -274,13 +274,13 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<InstancePolicy> getInstPolicies()
+  public EList<InstancePolicy> getInstancePoliciy()
   {
-    if (instPolicies == null)
+    if (instancePoliciy == null)
     {
-      instPolicies = new EObjectContainmentEList<InstancePolicy>(InstancePolicy.class, this, IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES);
+      instancePoliciy = new EObjectContainmentEList<InstancePolicy>(InstancePolicy.class, this, IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY);
     }
-    return instPolicies;
+    return instancePoliciy;
   }
 
   /**
@@ -299,12 +299,12 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         return ((InternalEList<?>)getDomain()).basicRemove(otherEnd, msgs);
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
         return ((InternalEList<?>)getBinds()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES:
-        return ((InternalEList<?>)getInstances()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS:
-        return ((InternalEList<?>)getInstancesBus()).basicRemove(otherEnd, msgs);
-      case IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES:
-        return ((InternalEList<?>)getInstPolicies()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES:
+        return ((InternalEList<?>)getThingInstances()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES:
+        return ((InternalEList<?>)getChannelInstances()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY:
+        return ((InternalEList<?>)getInstancePoliciy()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -327,14 +327,14 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         return getDomain();
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
         return getBinds();
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES:
-        return getInstances();
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS:
-        return getInstancesBus();
+      case IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES:
+        return getThingInstances();
+      case IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES:
+        return getChannelInstances();
       case IotlangPackage.NETWORK_CONFIGURATION__ENFORCES:
         return getEnforces();
-      case IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES:
-        return getInstPolicies();
+      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY:
+        return getInstancePoliciy();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -365,21 +365,21 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         getBinds().clear();
         getBinds().addAll((Collection<? extends Bind>)newValue);
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES:
-        getInstances().clear();
-        getInstances().addAll((Collection<? extends InstanceThing>)newValue);
+      case IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES:
+        getThingInstances().clear();
+        getThingInstances().addAll((Collection<? extends InstanceThing>)newValue);
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS:
-        getInstancesBus().clear();
-        getInstancesBus().addAll((Collection<? extends InstanceBus>)newValue);
+      case IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES:
+        getChannelInstances().clear();
+        getChannelInstances().addAll((Collection<? extends InstanceChannel>)newValue);
         return;
       case IotlangPackage.NETWORK_CONFIGURATION__ENFORCES:
         getEnforces().clear();
         getEnforces().addAll((Collection<? extends InstancePolicy>)newValue);
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES:
-        getInstPolicies().clear();
-        getInstPolicies().addAll((Collection<? extends InstancePolicy>)newValue);
+      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY:
+        getInstancePoliciy().clear();
+        getInstancePoliciy().addAll((Collection<? extends InstancePolicy>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -407,17 +407,17 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
         getBinds().clear();
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES:
-        getInstances().clear();
+      case IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES:
+        getThingInstances().clear();
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS:
-        getInstancesBus().clear();
+      case IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES:
+        getChannelInstances().clear();
         return;
       case IotlangPackage.NETWORK_CONFIGURATION__ENFORCES:
         getEnforces().clear();
         return;
-      case IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES:
-        getInstPolicies().clear();
+      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY:
+        getInstancePoliciy().clear();
         return;
     }
     super.eUnset(featureID);
@@ -441,14 +441,14 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         return domain != null && !domain.isEmpty();
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
         return binds != null && !binds.isEmpty();
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES:
-        return instances != null && !instances.isEmpty();
-      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCES_BUS:
-        return instancesBus != null && !instancesBus.isEmpty();
+      case IotlangPackage.NETWORK_CONFIGURATION__THING_INSTANCES:
+        return thingInstances != null && !thingInstances.isEmpty();
+      case IotlangPackage.NETWORK_CONFIGURATION__CHANNEL_INSTANCES:
+        return channelInstances != null && !channelInstances.isEmpty();
       case IotlangPackage.NETWORK_CONFIGURATION__ENFORCES:
         return enforces != null && !enforces.isEmpty();
-      case IotlangPackage.NETWORK_CONFIGURATION__INST_POLICIES:
-        return instPolicies != null && !instPolicies.isEmpty();
+      case IotlangPackage.NETWORK_CONFIGURATION__INSTANCE_POLICIY:
+        return instancePoliciy != null && !instancePoliciy.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import lang.iotlang.Bus;
+import lang.iotlang.Channel;
 import lang.iotlang.Topic;
-import lang.iotlang.Configuration;
+import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.InstancePolicy;
 import lang.iotlang.IoTLangModel;
+import lang.iotlang.Message;
 import lang.iotlang.Policy;
 import lang.iotlang.Thing;
 
@@ -88,19 +89,31 @@ public class Helpers {
 	return result;
 	}
 	
-	public static ArrayList<Bus> allBuses(IoTLangModel model) {
-		ArrayList<Bus> result = new ArrayList<Bus>();
+	public static ArrayList<Channel> allBuses(IoTLangModel model) {
+		ArrayList<Channel> result = new ArrayList<Channel>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Bus t : m.getBuses()) {
-					result.add((Bus)t);
+			for (Channel t : m.getChannels()) {
+					result.add((Channel)t);
 			}
 		}
 		return result;
 		}
+	
+	public static ArrayList<Message> allMessages(IoTLangModel model) {
+		ArrayList<Message> result = new ArrayList<Message>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (Message t : m.getMessages()) {
+					result.add((Message)t);
+			}
+		}
+		return result;
+		}
+	
+	
 	public static ArrayList<Topic> allTopics(IoTLangModel model) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Bus m : allBuses(model)) {
-			for (Topic t : m.getTopics()) {
+		for (Channel m : allBuses(model)) {
+			for (Topic t : m.getHasTopics()) {
 					result.add((Topic)t);
 			}
 		}
@@ -116,11 +129,11 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<Configuration> allConfigs(IoTLangModel model) {
-		ArrayList<Configuration> result = new ArrayList<Configuration>();
+	public static ArrayList<NetworkConfiguration> allConfigs(IoTLangModel model) {
+		ArrayList<NetworkConfiguration> result = new ArrayList<NetworkConfiguration>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Configuration t : m.getConfigs()) {
-					result.add((Configuration)t);
+			for (NetworkConfiguration t : m.getConfigs()) {
+					result.add((NetworkConfiguration)t);
 			}
 		}
 		return result;
