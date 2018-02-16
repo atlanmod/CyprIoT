@@ -1,4 +1,4 @@
-A prototype for a wsan modeling language.
+A prototype for wireless sensor and actuator networks (wsan) modeling language.
 
 ## Getting started
 
