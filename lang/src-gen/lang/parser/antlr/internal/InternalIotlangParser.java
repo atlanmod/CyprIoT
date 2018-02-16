@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalIotlangParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ANNOTATION_ID", "RULE_STRING_LIT", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'thing'", "'{'", "'}'", "'channel:pubsub'", "'channel:ptp'", "'policy'", "'port'", "'protocol'", "'message'", "'topic'", "'('", "')'", "'rule'", "'allow'", "'deny'", "':'", "'send'", "'receive'", "'.'", "'message:'", "'domain'", "'instanceThing'", "'['", "']'", "'instancePubSub'", "'over'", "'instancePTP'", "'instancePolicy'", "'networkConfiguration'", "'enforce'", "'bind'", "'=>'", "'<=>'", "'<='", "','"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ANNOTATION_ID", "RULE_STRING_LIT", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'thing'", "'{'", "'}'", "'channel:pubsub'", "'channel:ptp'", "'policy'", "'port'", "'protocol'", "'message'", "'topic'", "'('", "')'", "'rule'", "'allow'", "'deny'", "':'", "'send'", "'receive'", "'.'", "'message:'", "'domain'", "'instanceThing'", "'['", "']'", "'instancePubSub'", "'over'", "'instancePTP'", "'instancePolicy'", "'networkConfiguration'", "'enforce'", "'bind'", "'=>'", "'<=>'", "'<='", "','", "'connect'"
     };
     public static final int T__19=19;
     public static final int T__15=15;
@@ -60,6 +60,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
     public static final int RULE_WS=11;
     public static final int RULE_ANY_OTHER=12;
     public static final int RULE_ANNOTATION_ID=4;
+    public static final int T__48=48;
     public static final int T__44=44;
     public static final int T__45=45;
     public static final int T__46=46;
@@ -3562,38 +3563,40 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNetworkConfiguration"
-    // InternalIotlang.g:1472:1: ruleNetworkConfiguration returns [EObject current=null] : (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )* otherlv_11= '}' ) ;
+    // InternalIotlang.g:1472:1: ruleNetworkConfiguration returns [EObject current=null] : (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )* otherlv_12= '}' ) ;
     public final EObject ruleNetworkConfiguration() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token lv_name_1_0=null;
         Token otherlv_3=null;
-        Token otherlv_8=null;
         Token otherlv_9=null;
-        Token otherlv_11=null;
+        Token otherlv_10=null;
+        Token otherlv_12=null;
         EObject lv_annotations_2_0 = null;
 
-        EObject lv_domain_4_0 = null;
+        EObject lv_connects_4_0 = null;
 
-        EObject lv_binds_5_0 = null;
+        EObject lv_domain_5_0 = null;
 
-        EObject lv_thingInstances_6_0 = null;
+        EObject lv_binds_6_0 = null;
 
-        EObject lv_channelInstances_7_0 = null;
+        EObject lv_thingInstances_7_0 = null;
 
-        EObject lv_instancePoliciy_10_0 = null;
+        EObject lv_channelInstances_8_0 = null;
+
+        EObject lv_instancePoliciy_11_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalIotlang.g:1478:2: ( (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )* otherlv_11= '}' ) )
-            // InternalIotlang.g:1479:2: (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )* otherlv_11= '}' )
+            // InternalIotlang.g:1478:2: ( (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )* otherlv_12= '}' ) )
+            // InternalIotlang.g:1479:2: (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )* otherlv_12= '}' )
             {
-            // InternalIotlang.g:1479:2: (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )* otherlv_11= '}' )
-            // InternalIotlang.g:1480:3: otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )* otherlv_11= '}'
+            // InternalIotlang.g:1479:2: (otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )* otherlv_12= '}' )
+            // InternalIotlang.g:1480:3: otherlv_0= 'networkConfiguration' ( (lv_name_1_0= RULE_ID ) ) ( (lv_annotations_2_0= rulePlatformAnnotation ) )* otherlv_3= '{' ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )* otherlv_12= '}'
             {
             otherlv_0=(Token)match(input,41,FOLLOW_5); 
 
@@ -3678,40 +3681,45 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_3, grammarAccess.getNetworkConfigurationAccess().getLeftCurlyBracketKeyword_3());
             		
-            // InternalIotlang.g:1525:3: ( ( (lv_domain_4_0= ruleDomain ) ) | ( (lv_binds_5_0= ruleBind ) ) | ( (lv_thingInstances_6_0= ruleInstanceThing ) ) | ( (lv_channelInstances_7_0= ruleInstanceChannel ) ) | (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) ) | ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) ) )*
+            // InternalIotlang.g:1525:3: ( ( (lv_connects_4_0= ruleConnect ) ) | ( (lv_domain_5_0= ruleDomain ) ) | ( (lv_binds_6_0= ruleBind ) ) | ( (lv_thingInstances_7_0= ruleInstanceThing ) ) | ( (lv_channelInstances_8_0= ruleInstanceChannel ) ) | (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) ) | ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) ) )*
             loop20:
             do {
-                int alt20=7;
+                int alt20=8;
                 switch ( input.LA(1) ) {
-                case 33:
+                case 48:
                     {
                     alt20=1;
                     }
                     break;
-                case 43:
+                case 33:
                     {
                     alt20=2;
                     }
                     break;
-                case 34:
+                case 43:
                     {
                     alt20=3;
+                    }
+                    break;
+                case 34:
+                    {
+                    alt20=4;
                     }
                     break;
                 case 37:
                 case 39:
                     {
-                    alt20=4;
+                    alt20=5;
                     }
                     break;
                 case 42:
                     {
-                    alt20=5;
+                    alt20=6;
                     }
                     break;
                 case 40:
                     {
-                    alt20=6;
+                    alt20=7;
                     }
                     break;
 
@@ -3719,19 +3727,19 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
                 switch (alt20) {
             	case 1 :
-            	    // InternalIotlang.g:1526:4: ( (lv_domain_4_0= ruleDomain ) )
+            	    // InternalIotlang.g:1526:4: ( (lv_connects_4_0= ruleConnect ) )
             	    {
-            	    // InternalIotlang.g:1526:4: ( (lv_domain_4_0= ruleDomain ) )
-            	    // InternalIotlang.g:1527:5: (lv_domain_4_0= ruleDomain )
+            	    // InternalIotlang.g:1526:4: ( (lv_connects_4_0= ruleConnect ) )
+            	    // InternalIotlang.g:1527:5: (lv_connects_4_0= ruleConnect )
             	    {
-            	    // InternalIotlang.g:1527:5: (lv_domain_4_0= ruleDomain )
-            	    // InternalIotlang.g:1528:6: lv_domain_4_0= ruleDomain
+            	    // InternalIotlang.g:1527:5: (lv_connects_4_0= ruleConnect )
+            	    // InternalIotlang.g:1528:6: lv_connects_4_0= ruleConnect
             	    {
 
-            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_0_0());
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getConnectsConnectParserRuleCall_4_0_0());
             	    					
             	    pushFollow(FOLLOW_24);
-            	    lv_domain_4_0=ruleDomain();
+            	    lv_connects_4_0=ruleConnect();
 
             	    state._fsp--;
 
@@ -3741,9 +3749,9 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    						}
             	    						add(
             	    							current,
-            	    							"domain",
-            	    							lv_domain_4_0,
-            	    							"lang.Iotlang.Domain");
+            	    							"connects",
+            	    							lv_connects_4_0,
+            	    							"lang.Iotlang.Connect");
             	    						afterParserOrEnumRuleCall();
             	    					
 
@@ -3756,19 +3764,19 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // InternalIotlang.g:1546:4: ( (lv_binds_5_0= ruleBind ) )
+            	    // InternalIotlang.g:1546:4: ( (lv_domain_5_0= ruleDomain ) )
             	    {
-            	    // InternalIotlang.g:1546:4: ( (lv_binds_5_0= ruleBind ) )
-            	    // InternalIotlang.g:1547:5: (lv_binds_5_0= ruleBind )
+            	    // InternalIotlang.g:1546:4: ( (lv_domain_5_0= ruleDomain ) )
+            	    // InternalIotlang.g:1547:5: (lv_domain_5_0= ruleDomain )
             	    {
-            	    // InternalIotlang.g:1547:5: (lv_binds_5_0= ruleBind )
-            	    // InternalIotlang.g:1548:6: lv_binds_5_0= ruleBind
+            	    // InternalIotlang.g:1547:5: (lv_domain_5_0= ruleDomain )
+            	    // InternalIotlang.g:1548:6: lv_domain_5_0= ruleDomain
             	    {
 
-            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_1_0());
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_1_0());
             	    					
             	    pushFollow(FOLLOW_24);
-            	    lv_binds_5_0=ruleBind();
+            	    lv_domain_5_0=ruleDomain();
 
             	    state._fsp--;
 
@@ -3778,9 +3786,9 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    						}
             	    						add(
             	    							current,
-            	    							"binds",
-            	    							lv_binds_5_0,
-            	    							"lang.Iotlang.Bind");
+            	    							"domain",
+            	    							lv_domain_5_0,
+            	    							"lang.Iotlang.Domain");
             	    						afterParserOrEnumRuleCall();
             	    					
 
@@ -3793,19 +3801,19 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 3 :
-            	    // InternalIotlang.g:1566:4: ( (lv_thingInstances_6_0= ruleInstanceThing ) )
+            	    // InternalIotlang.g:1566:4: ( (lv_binds_6_0= ruleBind ) )
             	    {
-            	    // InternalIotlang.g:1566:4: ( (lv_thingInstances_6_0= ruleInstanceThing ) )
-            	    // InternalIotlang.g:1567:5: (lv_thingInstances_6_0= ruleInstanceThing )
+            	    // InternalIotlang.g:1566:4: ( (lv_binds_6_0= ruleBind ) )
+            	    // InternalIotlang.g:1567:5: (lv_binds_6_0= ruleBind )
             	    {
-            	    // InternalIotlang.g:1567:5: (lv_thingInstances_6_0= ruleInstanceThing )
-            	    // InternalIotlang.g:1568:6: lv_thingInstances_6_0= ruleInstanceThing
+            	    // InternalIotlang.g:1567:5: (lv_binds_6_0= ruleBind )
+            	    // InternalIotlang.g:1568:6: lv_binds_6_0= ruleBind
             	    {
 
-            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_2_0());
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_2_0());
             	    					
             	    pushFollow(FOLLOW_24);
-            	    lv_thingInstances_6_0=ruleInstanceThing();
+            	    lv_binds_6_0=ruleBind();
 
             	    state._fsp--;
 
@@ -3815,9 +3823,9 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    						}
             	    						add(
             	    							current,
-            	    							"thingInstances",
-            	    							lv_thingInstances_6_0,
-            	    							"lang.Iotlang.InstanceThing");
+            	    							"binds",
+            	    							lv_binds_6_0,
+            	    							"lang.Iotlang.Bind");
             	    						afterParserOrEnumRuleCall();
             	    					
 
@@ -3830,19 +3838,19 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 4 :
-            	    // InternalIotlang.g:1586:4: ( (lv_channelInstances_7_0= ruleInstanceChannel ) )
+            	    // InternalIotlang.g:1586:4: ( (lv_thingInstances_7_0= ruleInstanceThing ) )
             	    {
-            	    // InternalIotlang.g:1586:4: ( (lv_channelInstances_7_0= ruleInstanceChannel ) )
-            	    // InternalIotlang.g:1587:5: (lv_channelInstances_7_0= ruleInstanceChannel )
+            	    // InternalIotlang.g:1586:4: ( (lv_thingInstances_7_0= ruleInstanceThing ) )
+            	    // InternalIotlang.g:1587:5: (lv_thingInstances_7_0= ruleInstanceThing )
             	    {
-            	    // InternalIotlang.g:1587:5: (lv_channelInstances_7_0= ruleInstanceChannel )
-            	    // InternalIotlang.g:1588:6: lv_channelInstances_7_0= ruleInstanceChannel
+            	    // InternalIotlang.g:1587:5: (lv_thingInstances_7_0= ruleInstanceThing )
+            	    // InternalIotlang.g:1588:6: lv_thingInstances_7_0= ruleInstanceThing
             	    {
 
-            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_3_0());
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_3_0());
             	    					
             	    pushFollow(FOLLOW_24);
-            	    lv_channelInstances_7_0=ruleInstanceChannel();
+            	    lv_thingInstances_7_0=ruleInstanceThing();
 
             	    state._fsp--;
 
@@ -3852,9 +3860,9 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    						}
             	    						add(
             	    							current,
-            	    							"channelInstances",
-            	    							lv_channelInstances_7_0,
-            	    							"lang.Iotlang.InstanceChannel");
+            	    							"thingInstances",
+            	    							lv_thingInstances_7_0,
+            	    							"lang.Iotlang.InstanceThing");
             	    						afterParserOrEnumRuleCall();
             	    					
 
@@ -3867,29 +3875,66 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 5 :
-            	    // InternalIotlang.g:1606:4: (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) )
+            	    // InternalIotlang.g:1606:4: ( (lv_channelInstances_8_0= ruleInstanceChannel ) )
             	    {
-            	    // InternalIotlang.g:1606:4: (otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) ) )
-            	    // InternalIotlang.g:1607:5: otherlv_8= 'enforce' ( (otherlv_9= RULE_ID ) )
+            	    // InternalIotlang.g:1606:4: ( (lv_channelInstances_8_0= ruleInstanceChannel ) )
+            	    // InternalIotlang.g:1607:5: (lv_channelInstances_8_0= ruleInstanceChannel )
             	    {
-            	    otherlv_8=(Token)match(input,42,FOLLOW_5); 
+            	    // InternalIotlang.g:1607:5: (lv_channelInstances_8_0= ruleInstanceChannel )
+            	    // InternalIotlang.g:1608:6: lv_channelInstances_8_0= ruleInstanceChannel
+            	    {
 
-            	    					newLeafNode(otherlv_8, grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_4_0());
-            	    				
-            	    // InternalIotlang.g:1611:5: ( (otherlv_9= RULE_ID ) )
-            	    // InternalIotlang.g:1612:6: (otherlv_9= RULE_ID )
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_4_0());
+            	    					
+            	    pushFollow(FOLLOW_24);
+            	    lv_channelInstances_8_0=ruleInstanceChannel();
+
+            	    state._fsp--;
+
+
+            	    						if (current==null) {
+            	    							current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
+            	    						}
+            	    						add(
+            	    							current,
+            	    							"channelInstances",
+            	    							lv_channelInstances_8_0,
+            	    							"lang.Iotlang.InstanceChannel");
+            	    						afterParserOrEnumRuleCall();
+            	    					
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 6 :
+            	    // InternalIotlang.g:1626:4: (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) )
             	    {
-            	    // InternalIotlang.g:1612:6: (otherlv_9= RULE_ID )
-            	    // InternalIotlang.g:1613:7: otherlv_9= RULE_ID
+            	    // InternalIotlang.g:1626:4: (otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) ) )
+            	    // InternalIotlang.g:1627:5: otherlv_9= 'enforce' ( (otherlv_10= RULE_ID ) )
+            	    {
+            	    otherlv_9=(Token)match(input,42,FOLLOW_5); 
+
+            	    					newLeafNode(otherlv_9, grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_5_0());
+            	    				
+            	    // InternalIotlang.g:1631:5: ( (otherlv_10= RULE_ID ) )
+            	    // InternalIotlang.g:1632:6: (otherlv_10= RULE_ID )
+            	    {
+            	    // InternalIotlang.g:1632:6: (otherlv_10= RULE_ID )
+            	    // InternalIotlang.g:1633:7: otherlv_10= RULE_ID
             	    {
 
             	    							if (current==null) {
             	    								current = createModelElement(grammarAccess.getNetworkConfigurationRule());
             	    							}
             	    						
-            	    otherlv_9=(Token)match(input,RULE_ID,FOLLOW_24); 
+            	    otherlv_10=(Token)match(input,RULE_ID,FOLLOW_24); 
 
-            	    							newLeafNode(otherlv_9, grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_4_1_0());
+            	    							newLeafNode(otherlv_10, grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_5_1_0());
             	    						
 
             	    }
@@ -3903,20 +3948,20 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             	    }
             	    break;
-            	case 6 :
-            	    // InternalIotlang.g:1626:4: ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) )
+            	case 7 :
+            	    // InternalIotlang.g:1646:4: ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) )
             	    {
-            	    // InternalIotlang.g:1626:4: ( (lv_instancePoliciy_10_0= ruleInstancePolicy ) )
-            	    // InternalIotlang.g:1627:5: (lv_instancePoliciy_10_0= ruleInstancePolicy )
+            	    // InternalIotlang.g:1646:4: ( (lv_instancePoliciy_11_0= ruleInstancePolicy ) )
+            	    // InternalIotlang.g:1647:5: (lv_instancePoliciy_11_0= ruleInstancePolicy )
             	    {
-            	    // InternalIotlang.g:1627:5: (lv_instancePoliciy_10_0= ruleInstancePolicy )
-            	    // InternalIotlang.g:1628:6: lv_instancePoliciy_10_0= ruleInstancePolicy
+            	    // InternalIotlang.g:1647:5: (lv_instancePoliciy_11_0= ruleInstancePolicy )
+            	    // InternalIotlang.g:1648:6: lv_instancePoliciy_11_0= ruleInstancePolicy
             	    {
 
-            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_5_0());
+            	    						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_6_0());
             	    					
             	    pushFollow(FOLLOW_24);
-            	    lv_instancePoliciy_10_0=ruleInstancePolicy();
+            	    lv_instancePoliciy_11_0=ruleInstancePolicy();
 
             	    state._fsp--;
 
@@ -3927,7 +3972,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             	    						add(
             	    							current,
             	    							"instancePoliciy",
-            	    							lv_instancePoliciy_10_0,
+            	    							lv_instancePoliciy_11_0,
             	    							"lang.Iotlang.InstancePolicy");
             	    						afterParserOrEnumRuleCall();
             	    					
@@ -3946,9 +3991,9 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_11=(Token)match(input,15,FOLLOW_2); 
+            otherlv_12=(Token)match(input,15,FOLLOW_2); 
 
-            			newLeafNode(otherlv_11, grammarAccess.getNetworkConfigurationAccess().getRightCurlyBracketKeyword_5());
+            			newLeafNode(otherlv_12, grammarAccess.getNetworkConfigurationAccess().getRightCurlyBracketKeyword_5());
             		
 
             }
@@ -3973,7 +4018,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBind"
-    // InternalIotlang.g:1654:1: entryRuleBind returns [EObject current=null] : iv_ruleBind= ruleBind EOF ;
+    // InternalIotlang.g:1674:1: entryRuleBind returns [EObject current=null] : iv_ruleBind= ruleBind EOF ;
     public final EObject entryRuleBind() throws RecognitionException {
         EObject current = null;
 
@@ -3981,8 +4026,8 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalIotlang.g:1654:45: (iv_ruleBind= ruleBind EOF )
-            // InternalIotlang.g:1655:2: iv_ruleBind= ruleBind EOF
+            // InternalIotlang.g:1674:45: (iv_ruleBind= ruleBind EOF )
+            // InternalIotlang.g:1675:2: iv_ruleBind= ruleBind EOF
             {
              newCompositeNode(grammarAccess.getBindRule()); 
             pushFollow(FOLLOW_1);
@@ -4009,7 +4054,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBind"
-    // InternalIotlang.g:1661:1: ruleBind returns [EObject current=null] : (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* ) ;
+    // InternalIotlang.g:1681:1: ruleBind returns [EObject current=null] : (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* ) ;
     public final EObject ruleBind() throws RecognitionException {
         EObject current = null;
 
@@ -4032,17 +4077,17 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalIotlang.g:1667:2: ( (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* ) )
-            // InternalIotlang.g:1668:2: (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* )
+            // InternalIotlang.g:1687:2: ( (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* ) )
+            // InternalIotlang.g:1688:2: (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* )
             {
-            // InternalIotlang.g:1668:2: (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* )
-            // InternalIotlang.g:1669:3: otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )*
+            // InternalIotlang.g:1688:2: (otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )* )
+            // InternalIotlang.g:1689:3: otherlv_0= 'bind' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) otherlv_5= '{' ( (otherlv_6= RULE_ID ) ) (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )* otherlv_9= '}' ( (lv_annotations_10_0= rulePlatformAnnotation ) )*
             {
             otherlv_0=(Token)match(input,43,FOLLOW_5); 
 
             			newLeafNode(otherlv_0, grammarAccess.getBindAccess().getBindKeyword_0());
             		
-            // InternalIotlang.g:1673:3: ( (lv_name_1_0= RULE_ID ) )?
+            // InternalIotlang.g:1693:3: ( (lv_name_1_0= RULE_ID ) )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -4055,10 +4100,10 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
             }
             switch (alt21) {
                 case 1 :
-                    // InternalIotlang.g:1674:4: (lv_name_1_0= RULE_ID )
+                    // InternalIotlang.g:1694:4: (lv_name_1_0= RULE_ID )
                     {
-                    // InternalIotlang.g:1674:4: (lv_name_1_0= RULE_ID )
-                    // InternalIotlang.g:1675:5: lv_name_1_0= RULE_ID
+                    // InternalIotlang.g:1694:4: (lv_name_1_0= RULE_ID )
+                    // InternalIotlang.g:1695:5: lv_name_1_0= RULE_ID
                     {
                     lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
@@ -4083,11 +4128,11 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalIotlang.g:1691:3: ( (otherlv_2= RULE_ID ) )
-            // InternalIotlang.g:1692:4: (otherlv_2= RULE_ID )
+            // InternalIotlang.g:1711:3: ( (otherlv_2= RULE_ID ) )
+            // InternalIotlang.g:1712:4: (otherlv_2= RULE_ID )
             {
-            // InternalIotlang.g:1692:4: (otherlv_2= RULE_ID )
-            // InternalIotlang.g:1693:5: otherlv_2= RULE_ID
+            // InternalIotlang.g:1712:4: (otherlv_2= RULE_ID )
+            // InternalIotlang.g:1713:5: otherlv_2= RULE_ID
             {
 
             					if (current==null) {
@@ -4104,13 +4149,13 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalIotlang.g:1704:3: ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) )
-            // InternalIotlang.g:1705:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
+            // InternalIotlang.g:1724:3: ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) )
+            // InternalIotlang.g:1725:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
             {
-            // InternalIotlang.g:1705:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
-            // InternalIotlang.g:1706:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
+            // InternalIotlang.g:1725:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
+            // InternalIotlang.g:1726:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
             {
-            // InternalIotlang.g:1706:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
+            // InternalIotlang.g:1726:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
             int alt22=3;
             switch ( input.LA(1) ) {
             case 44:
@@ -4137,7 +4182,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             switch (alt22) {
                 case 1 :
-                    // InternalIotlang.g:1707:6: lv_direction_3_1= '=>'
+                    // InternalIotlang.g:1727:6: lv_direction_3_1= '=>'
                     {
                     lv_direction_3_1=(Token)match(input,44,FOLLOW_5); 
 
@@ -4153,7 +4198,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:1718:6: lv_direction_3_2= '<=>'
+                    // InternalIotlang.g:1738:6: lv_direction_3_2= '<=>'
                     {
                     lv_direction_3_2=(Token)match(input,45,FOLLOW_5); 
 
@@ -4169,7 +4214,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalIotlang.g:1729:6: lv_direction_3_3= '<='
+                    // InternalIotlang.g:1749:6: lv_direction_3_3= '<='
                     {
                     lv_direction_3_3=(Token)match(input,46,FOLLOW_5); 
 
@@ -4193,11 +4238,11 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalIotlang.g:1742:3: ( (otherlv_4= RULE_ID ) )
-            // InternalIotlang.g:1743:4: (otherlv_4= RULE_ID )
+            // InternalIotlang.g:1762:3: ( (otherlv_4= RULE_ID ) )
+            // InternalIotlang.g:1763:4: (otherlv_4= RULE_ID )
             {
-            // InternalIotlang.g:1743:4: (otherlv_4= RULE_ID )
-            // InternalIotlang.g:1744:5: otherlv_4= RULE_ID
+            // InternalIotlang.g:1763:4: (otherlv_4= RULE_ID )
+            // InternalIotlang.g:1764:5: otherlv_4= RULE_ID
             {
 
             					if (current==null) {
@@ -4218,11 +4263,11 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_5, grammarAccess.getBindAccess().getLeftCurlyBracketKeyword_5());
             		
-            // InternalIotlang.g:1759:3: ( (otherlv_6= RULE_ID ) )
-            // InternalIotlang.g:1760:4: (otherlv_6= RULE_ID )
+            // InternalIotlang.g:1779:3: ( (otherlv_6= RULE_ID ) )
+            // InternalIotlang.g:1780:4: (otherlv_6= RULE_ID )
             {
-            // InternalIotlang.g:1760:4: (otherlv_6= RULE_ID )
-            // InternalIotlang.g:1761:5: otherlv_6= RULE_ID
+            // InternalIotlang.g:1780:4: (otherlv_6= RULE_ID )
+            // InternalIotlang.g:1781:5: otherlv_6= RULE_ID
             {
 
             					if (current==null) {
@@ -4239,7 +4284,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalIotlang.g:1772:3: (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )*
+            // InternalIotlang.g:1792:3: (otherlv_7= ',' ( (otherlv_8= RULE_ID ) ) )*
             loop23:
             do {
                 int alt23=2;
@@ -4252,17 +4297,17 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
                 switch (alt23) {
             	case 1 :
-            	    // InternalIotlang.g:1773:4: otherlv_7= ',' ( (otherlv_8= RULE_ID ) )
+            	    // InternalIotlang.g:1793:4: otherlv_7= ',' ( (otherlv_8= RULE_ID ) )
             	    {
             	    otherlv_7=(Token)match(input,47,FOLLOW_5); 
 
             	    				newLeafNode(otherlv_7, grammarAccess.getBindAccess().getCommaKeyword_7_0());
             	    			
-            	    // InternalIotlang.g:1777:4: ( (otherlv_8= RULE_ID ) )
-            	    // InternalIotlang.g:1778:5: (otherlv_8= RULE_ID )
+            	    // InternalIotlang.g:1797:4: ( (otherlv_8= RULE_ID ) )
+            	    // InternalIotlang.g:1798:5: (otherlv_8= RULE_ID )
             	    {
-            	    // InternalIotlang.g:1778:5: (otherlv_8= RULE_ID )
-            	    // InternalIotlang.g:1779:6: otherlv_8= RULE_ID
+            	    // InternalIotlang.g:1798:5: (otherlv_8= RULE_ID )
+            	    // InternalIotlang.g:1799:6: otherlv_8= RULE_ID
             	    {
 
             	    						if (current==null) {
@@ -4292,7 +4337,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_9, grammarAccess.getBindAccess().getRightCurlyBracketKeyword_8());
             		
-            // InternalIotlang.g:1795:3: ( (lv_annotations_10_0= rulePlatformAnnotation ) )*
+            // InternalIotlang.g:1815:3: ( (lv_annotations_10_0= rulePlatformAnnotation ) )*
             loop24:
             do {
                 int alt24=2;
@@ -4305,10 +4350,10 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
 
                 switch (alt24) {
             	case 1 :
-            	    // InternalIotlang.g:1796:4: (lv_annotations_10_0= rulePlatformAnnotation )
+            	    // InternalIotlang.g:1816:4: (lv_annotations_10_0= rulePlatformAnnotation )
             	    {
-            	    // InternalIotlang.g:1796:4: (lv_annotations_10_0= rulePlatformAnnotation )
-            	    // InternalIotlang.g:1797:5: lv_annotations_10_0= rulePlatformAnnotation
+            	    // InternalIotlang.g:1816:4: (lv_annotations_10_0= rulePlatformAnnotation )
+            	    // InternalIotlang.g:1817:5: lv_annotations_10_0= rulePlatformAnnotation
             	    {
 
             	    					newCompositeNode(grammarAccess.getBindAccess().getAnnotationsPlatformAnnotationParserRuleCall_9_0());
@@ -4362,6 +4407,314 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "ruleBind"
 
+
+    // $ANTLR start "entryRuleConnect"
+    // InternalIotlang.g:1838:1: entryRuleConnect returns [EObject current=null] : iv_ruleConnect= ruleConnect EOF ;
+    public final EObject entryRuleConnect() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleConnect = null;
+
+
+        try {
+            // InternalIotlang.g:1838:48: (iv_ruleConnect= ruleConnect EOF )
+            // InternalIotlang.g:1839:2: iv_ruleConnect= ruleConnect EOF
+            {
+             newCompositeNode(grammarAccess.getConnectRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleConnect=ruleConnect();
+
+            state._fsp--;
+
+             current =iv_ruleConnect; 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleConnect"
+
+
+    // $ANTLR start "ruleConnect"
+    // InternalIotlang.g:1845:1: ruleConnect returns [EObject current=null] : (otherlv_0= 'connect' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) ( (lv_annotations_5_0= rulePlatformAnnotation ) )* ) ;
+    public final EObject ruleConnect() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token lv_name_1_0=null;
+        Token otherlv_2=null;
+        Token lv_direction_3_1=null;
+        Token lv_direction_3_2=null;
+        Token lv_direction_3_3=null;
+        Token otherlv_4=null;
+        EObject lv_annotations_5_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalIotlang.g:1851:2: ( (otherlv_0= 'connect' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) ( (lv_annotations_5_0= rulePlatformAnnotation ) )* ) )
+            // InternalIotlang.g:1852:2: (otherlv_0= 'connect' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) ( (lv_annotations_5_0= rulePlatformAnnotation ) )* )
+            {
+            // InternalIotlang.g:1852:2: (otherlv_0= 'connect' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) ( (lv_annotations_5_0= rulePlatformAnnotation ) )* )
+            // InternalIotlang.g:1853:3: otherlv_0= 'connect' ( (lv_name_1_0= RULE_ID ) )? ( (otherlv_2= RULE_ID ) ) ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) ) ( (otherlv_4= RULE_ID ) ) ( (lv_annotations_5_0= rulePlatformAnnotation ) )*
+            {
+            otherlv_0=(Token)match(input,48,FOLLOW_5); 
+
+            			newLeafNode(otherlv_0, grammarAccess.getConnectAccess().getConnectKeyword_0());
+            		
+            // InternalIotlang.g:1857:3: ( (lv_name_1_0= RULE_ID ) )?
+            int alt25=2;
+            int LA25_0 = input.LA(1);
+
+            if ( (LA25_0==RULE_ID) ) {
+                int LA25_1 = input.LA(2);
+
+                if ( (LA25_1==RULE_ID) ) {
+                    alt25=1;
+                }
+            }
+            switch (alt25) {
+                case 1 :
+                    // InternalIotlang.g:1858:4: (lv_name_1_0= RULE_ID )
+                    {
+                    // InternalIotlang.g:1858:4: (lv_name_1_0= RULE_ID )
+                    // InternalIotlang.g:1859:5: lv_name_1_0= RULE_ID
+                    {
+                    lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
+
+                    					newLeafNode(lv_name_1_0, grammarAccess.getConnectAccess().getNameIDTerminalRuleCall_1_0());
+                    				
+
+                    					if (current==null) {
+                    						current = createModelElement(grammarAccess.getConnectRule());
+                    					}
+                    					setWithLastConsumed(
+                    						current,
+                    						"name",
+                    						lv_name_1_0,
+                    						"org.eclipse.xtext.common.Terminals.ID");
+                    				
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // InternalIotlang.g:1875:3: ( (otherlv_2= RULE_ID ) )
+            // InternalIotlang.g:1876:4: (otherlv_2= RULE_ID )
+            {
+            // InternalIotlang.g:1876:4: (otherlv_2= RULE_ID )
+            // InternalIotlang.g:1877:5: otherlv_2= RULE_ID
+            {
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getConnectRule());
+            					}
+            				
+            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_25); 
+
+            					newLeafNode(otherlv_2, grammarAccess.getConnectAccess().getThingInstanceInstanceThingCrossReference_2_0());
+            				
+
+            }
+
+
+            }
+
+            // InternalIotlang.g:1888:3: ( ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) ) )
+            // InternalIotlang.g:1889:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
+            {
+            // InternalIotlang.g:1889:4: ( (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' ) )
+            // InternalIotlang.g:1890:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
+            {
+            // InternalIotlang.g:1890:5: (lv_direction_3_1= '=>' | lv_direction_3_2= '<=>' | lv_direction_3_3= '<=' )
+            int alt26=3;
+            switch ( input.LA(1) ) {
+            case 44:
+                {
+                alt26=1;
+                }
+                break;
+            case 45:
+                {
+                alt26=2;
+                }
+                break;
+            case 46:
+                {
+                alt26=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 26, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt26) {
+                case 1 :
+                    // InternalIotlang.g:1891:6: lv_direction_3_1= '=>'
+                    {
+                    lv_direction_3_1=(Token)match(input,44,FOLLOW_5); 
+
+                    						newLeafNode(lv_direction_3_1, grammarAccess.getConnectAccess().getDirectionEqualsSignGreaterThanSignKeyword_3_0_0());
+                    					
+
+                    						if (current==null) {
+                    							current = createModelElement(grammarAccess.getConnectRule());
+                    						}
+                    						setWithLastConsumed(current, "direction", lv_direction_3_1, null);
+                    					
+
+                    }
+                    break;
+                case 2 :
+                    // InternalIotlang.g:1902:6: lv_direction_3_2= '<=>'
+                    {
+                    lv_direction_3_2=(Token)match(input,45,FOLLOW_5); 
+
+                    						newLeafNode(lv_direction_3_2, grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1());
+                    					
+
+                    						if (current==null) {
+                    							current = createModelElement(grammarAccess.getConnectRule());
+                    						}
+                    						setWithLastConsumed(current, "direction", lv_direction_3_2, null);
+                    					
+
+                    }
+                    break;
+                case 3 :
+                    // InternalIotlang.g:1913:6: lv_direction_3_3= '<='
+                    {
+                    lv_direction_3_3=(Token)match(input,46,FOLLOW_5); 
+
+                    						newLeafNode(lv_direction_3_3, grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignKeyword_3_0_2());
+                    					
+
+                    						if (current==null) {
+                    							current = createModelElement(grammarAccess.getConnectRule());
+                    						}
+                    						setWithLastConsumed(current, "direction", lv_direction_3_3, null);
+                    					
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            // InternalIotlang.g:1926:3: ( (otherlv_4= RULE_ID ) )
+            // InternalIotlang.g:1927:4: (otherlv_4= RULE_ID )
+            {
+            // InternalIotlang.g:1927:4: (otherlv_4= RULE_ID )
+            // InternalIotlang.g:1928:5: otherlv_4= RULE_ID
+            {
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getConnectRule());
+            					}
+            				
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_22); 
+
+            					newLeafNode(otherlv_4, grammarAccess.getConnectAccess().getPtpInstanceInstancePtPCrossReference_4_0());
+            				
+
+            }
+
+
+            }
+
+            // InternalIotlang.g:1939:3: ( (lv_annotations_5_0= rulePlatformAnnotation ) )*
+            loop27:
+            do {
+                int alt27=2;
+                int LA27_0 = input.LA(1);
+
+                if ( (LA27_0==RULE_ANNOTATION_ID) ) {
+                    alt27=1;
+                }
+
+
+                switch (alt27) {
+            	case 1 :
+            	    // InternalIotlang.g:1940:4: (lv_annotations_5_0= rulePlatformAnnotation )
+            	    {
+            	    // InternalIotlang.g:1940:4: (lv_annotations_5_0= rulePlatformAnnotation )
+            	    // InternalIotlang.g:1941:5: lv_annotations_5_0= rulePlatformAnnotation
+            	    {
+
+            	    					newCompositeNode(grammarAccess.getConnectAccess().getAnnotationsPlatformAnnotationParserRuleCall_5_0());
+            	    				
+            	    pushFollow(FOLLOW_22);
+            	    lv_annotations_5_0=rulePlatformAnnotation();
+
+            	    state._fsp--;
+
+
+            	    					if (current==null) {
+            	    						current = createModelElementForParent(grammarAccess.getConnectRule());
+            	    					}
+            	    					add(
+            	    						current,
+            	    						"annotations",
+            	    						lv_annotations_5_0,
+            	    						"lang.Iotlang.PlatformAnnotation");
+            	    					afterParserOrEnumRuleCall();
+            	    				
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop27;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+
+            	leaveRule();
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleConnect"
+
     // Delegated rules
 
 
@@ -4390,7 +4743,7 @@ public class InternalIotlangParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000001000000000L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000012L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x00000DA600008000L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x00010DA600008000L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000700000000000L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000800000008000L});
 

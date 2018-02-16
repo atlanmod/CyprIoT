@@ -894,31 +894,33 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAnnotationsPlatformAnnotationParserRuleCall_2_0 = (RuleCall)cAnnotationsAssignment_2.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Assignment cDomainAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
-		private final RuleCall cDomainDomainParserRuleCall_4_0_0 = (RuleCall)cDomainAssignment_4_0.eContents().get(0);
-		private final Assignment cBindsAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
-		private final RuleCall cBindsBindParserRuleCall_4_1_0 = (RuleCall)cBindsAssignment_4_1.eContents().get(0);
-		private final Assignment cThingInstancesAssignment_4_2 = (Assignment)cAlternatives_4.eContents().get(2);
-		private final RuleCall cThingInstancesInstanceThingParserRuleCall_4_2_0 = (RuleCall)cThingInstancesAssignment_4_2.eContents().get(0);
-		private final Assignment cChannelInstancesAssignment_4_3 = (Assignment)cAlternatives_4.eContents().get(3);
-		private final RuleCall cChannelInstancesInstanceChannelParserRuleCall_4_3_0 = (RuleCall)cChannelInstancesAssignment_4_3.eContents().get(0);
-		private final Group cGroup_4_4 = (Group)cAlternatives_4.eContents().get(4);
-		private final Keyword cEnforceKeyword_4_4_0 = (Keyword)cGroup_4_4.eContents().get(0);
-		private final Assignment cEnforcesAssignment_4_4_1 = (Assignment)cGroup_4_4.eContents().get(1);
-		private final CrossReference cEnforcesInstancePolicyCrossReference_4_4_1_0 = (CrossReference)cEnforcesAssignment_4_4_1.eContents().get(0);
-		private final RuleCall cEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1 = (RuleCall)cEnforcesInstancePolicyCrossReference_4_4_1_0.eContents().get(1);
-		private final Assignment cInstancePoliciyAssignment_4_5 = (Assignment)cAlternatives_4.eContents().get(5);
-		private final RuleCall cInstancePoliciyInstancePolicyParserRuleCall_4_5_0 = (RuleCall)cInstancePoliciyAssignment_4_5.eContents().get(0);
+		private final Assignment cConnectsAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
+		private final RuleCall cConnectsConnectParserRuleCall_4_0_0 = (RuleCall)cConnectsAssignment_4_0.eContents().get(0);
+		private final Assignment cDomainAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
+		private final RuleCall cDomainDomainParserRuleCall_4_1_0 = (RuleCall)cDomainAssignment_4_1.eContents().get(0);
+		private final Assignment cBindsAssignment_4_2 = (Assignment)cAlternatives_4.eContents().get(2);
+		private final RuleCall cBindsBindParserRuleCall_4_2_0 = (RuleCall)cBindsAssignment_4_2.eContents().get(0);
+		private final Assignment cThingInstancesAssignment_4_3 = (Assignment)cAlternatives_4.eContents().get(3);
+		private final RuleCall cThingInstancesInstanceThingParserRuleCall_4_3_0 = (RuleCall)cThingInstancesAssignment_4_3.eContents().get(0);
+		private final Assignment cChannelInstancesAssignment_4_4 = (Assignment)cAlternatives_4.eContents().get(4);
+		private final RuleCall cChannelInstancesInstanceChannelParserRuleCall_4_4_0 = (RuleCall)cChannelInstancesAssignment_4_4.eContents().get(0);
+		private final Group cGroup_4_5 = (Group)cAlternatives_4.eContents().get(5);
+		private final Keyword cEnforceKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
+		private final Assignment cEnforcesAssignment_4_5_1 = (Assignment)cGroup_4_5.eContents().get(1);
+		private final CrossReference cEnforcesInstancePolicyCrossReference_4_5_1_0 = (CrossReference)cEnforcesAssignment_4_5_1.eContents().get(0);
+		private final RuleCall cEnforcesInstancePolicyIDTerminalRuleCall_4_5_1_0_1 = (RuleCall)cEnforcesInstancePolicyCrossReference_4_5_1_0.eContents().get(1);
+		private final Assignment cInstancePoliciyAssignment_4_6 = (Assignment)cAlternatives_4.eContents().get(6);
+		private final RuleCall cInstancePoliciyInstancePolicyParserRuleCall_4_6_0 = (RuleCall)cInstancePoliciyAssignment_4_6.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//NetworkConfiguration:
-		//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
-		//	thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
+		//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (connects+=Connect | domain+=Domain | binds+=Bind
+		//	| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
 		//	instancePoliciy+=InstancePolicy)*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
+		//'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (connects+=Connect | domain+=Domain | binds+=Bind |
 		//thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
 		//instancePoliciy+=InstancePolicy)* '}'
 		public Group getGroup() { return cGroup; }
@@ -941,54 +943,60 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
-		//(domain+=Domain | binds+=Bind | thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce'
-		//enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
+		//(connects+=Connect | domain+=Domain | binds+=Bind | thingInstances+=InstanceThing | channelInstances+=InstanceChannel |
+		//'enforce' enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 		
+		//connects+=Connect
+		public Assignment getConnectsAssignment_4_0() { return cConnectsAssignment_4_0; }
+		
+		//Connect
+		public RuleCall getConnectsConnectParserRuleCall_4_0_0() { return cConnectsConnectParserRuleCall_4_0_0; }
+		
 		//domain+=Domain
-		public Assignment getDomainAssignment_4_0() { return cDomainAssignment_4_0; }
+		public Assignment getDomainAssignment_4_1() { return cDomainAssignment_4_1; }
 		
 		//Domain
-		public RuleCall getDomainDomainParserRuleCall_4_0_0() { return cDomainDomainParserRuleCall_4_0_0; }
+		public RuleCall getDomainDomainParserRuleCall_4_1_0() { return cDomainDomainParserRuleCall_4_1_0; }
 		
 		//binds+=Bind
-		public Assignment getBindsAssignment_4_1() { return cBindsAssignment_4_1; }
+		public Assignment getBindsAssignment_4_2() { return cBindsAssignment_4_2; }
 		
 		//Bind
-		public RuleCall getBindsBindParserRuleCall_4_1_0() { return cBindsBindParserRuleCall_4_1_0; }
+		public RuleCall getBindsBindParserRuleCall_4_2_0() { return cBindsBindParserRuleCall_4_2_0; }
 		
 		//thingInstances+=InstanceThing
-		public Assignment getThingInstancesAssignment_4_2() { return cThingInstancesAssignment_4_2; }
+		public Assignment getThingInstancesAssignment_4_3() { return cThingInstancesAssignment_4_3; }
 		
 		//InstanceThing
-		public RuleCall getThingInstancesInstanceThingParserRuleCall_4_2_0() { return cThingInstancesInstanceThingParserRuleCall_4_2_0; }
+		public RuleCall getThingInstancesInstanceThingParserRuleCall_4_3_0() { return cThingInstancesInstanceThingParserRuleCall_4_3_0; }
 		
 		//channelInstances+=InstanceChannel
-		public Assignment getChannelInstancesAssignment_4_3() { return cChannelInstancesAssignment_4_3; }
+		public Assignment getChannelInstancesAssignment_4_4() { return cChannelInstancesAssignment_4_4; }
 		
 		//InstanceChannel
-		public RuleCall getChannelInstancesInstanceChannelParserRuleCall_4_3_0() { return cChannelInstancesInstanceChannelParserRuleCall_4_3_0; }
+		public RuleCall getChannelInstancesInstanceChannelParserRuleCall_4_4_0() { return cChannelInstancesInstanceChannelParserRuleCall_4_4_0; }
 		
 		//'enforce' enforces+=[InstancePolicy]
-		public Group getGroup_4_4() { return cGroup_4_4; }
+		public Group getGroup_4_5() { return cGroup_4_5; }
 		
 		//'enforce'
-		public Keyword getEnforceKeyword_4_4_0() { return cEnforceKeyword_4_4_0; }
+		public Keyword getEnforceKeyword_4_5_0() { return cEnforceKeyword_4_5_0; }
 		
 		//enforces+=[InstancePolicy]
-		public Assignment getEnforcesAssignment_4_4_1() { return cEnforcesAssignment_4_4_1; }
+		public Assignment getEnforcesAssignment_4_5_1() { return cEnforcesAssignment_4_5_1; }
 		
 		//[InstancePolicy]
-		public CrossReference getEnforcesInstancePolicyCrossReference_4_4_1_0() { return cEnforcesInstancePolicyCrossReference_4_4_1_0; }
+		public CrossReference getEnforcesInstancePolicyCrossReference_4_5_1_0() { return cEnforcesInstancePolicyCrossReference_4_5_1_0; }
 		
 		//ID
-		public RuleCall getEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1() { return cEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1; }
+		public RuleCall getEnforcesInstancePolicyIDTerminalRuleCall_4_5_1_0_1() { return cEnforcesInstancePolicyIDTerminalRuleCall_4_5_1_0_1; }
 		
 		//instancePoliciy+=InstancePolicy
-		public Assignment getInstancePoliciyAssignment_4_5() { return cInstancePoliciyAssignment_4_5; }
+		public Assignment getInstancePoliciyAssignment_4_6() { return cInstancePoliciyAssignment_4_6; }
 		
 		//InstancePolicy
-		public RuleCall getInstancePoliciyInstancePolicyParserRuleCall_4_5_0() { return cInstancePoliciyInstancePolicyParserRuleCall_4_5_0; }
+		public RuleCall getInstancePoliciyInstancePolicyParserRuleCall_4_6_0() { return cInstancePoliciyInstancePolicyParserRuleCall_4_6_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
@@ -1110,6 +1118,83 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		//PlatformAnnotation
 		public RuleCall getAnnotationsPlatformAnnotationParserRuleCall_9_0() { return cAnnotationsPlatformAnnotationParserRuleCall_9_0; }
 	}
+	public class ConnectElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "lang.Iotlang.Connect");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cConnectKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cThingInstanceAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cThingInstanceInstanceThingCrossReference_2_0 = (CrossReference)cThingInstanceAssignment_2.eContents().get(0);
+		private final RuleCall cThingInstanceInstanceThingIDTerminalRuleCall_2_0_1 = (RuleCall)cThingInstanceInstanceThingCrossReference_2_0.eContents().get(1);
+		private final Assignment cDirectionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final Alternatives cDirectionAlternatives_3_0 = (Alternatives)cDirectionAssignment_3.eContents().get(0);
+		private final Keyword cDirectionEqualsSignGreaterThanSignKeyword_3_0_0 = (Keyword)cDirectionAlternatives_3_0.eContents().get(0);
+		private final Keyword cDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1 = (Keyword)cDirectionAlternatives_3_0.eContents().get(1);
+		private final Keyword cDirectionLessThanSignEqualsSignKeyword_3_0_2 = (Keyword)cDirectionAlternatives_3_0.eContents().get(2);
+		private final Assignment cPtpInstanceAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cPtpInstanceInstancePtPCrossReference_4_0 = (CrossReference)cPtpInstanceAssignment_4.eContents().get(0);
+		private final RuleCall cPtpInstanceInstancePtPIDTerminalRuleCall_4_0_1 = (RuleCall)cPtpInstanceInstancePtPCrossReference_4_0.eContents().get(1);
+		private final Assignment cAnnotationsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cAnnotationsPlatformAnnotationParserRuleCall_5_0 = (RuleCall)cAnnotationsAssignment_5.eContents().get(0);
+		
+		//Connect:
+		//	'connect' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') ptpInstance=[InstancePtP]
+		//	annotations+=PlatformAnnotation*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'connect' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') ptpInstance=[InstancePtP]
+		//annotations+=PlatformAnnotation*
+		public Group getGroup() { return cGroup; }
+		
+		//'connect'
+		public Keyword getConnectKeyword_0() { return cConnectKeyword_0; }
+		
+		//name=ID?
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		
+		//thingInstance=[InstanceThing]
+		public Assignment getThingInstanceAssignment_2() { return cThingInstanceAssignment_2; }
+		
+		//[InstanceThing]
+		public CrossReference getThingInstanceInstanceThingCrossReference_2_0() { return cThingInstanceInstanceThingCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getThingInstanceInstanceThingIDTerminalRuleCall_2_0_1() { return cThingInstanceInstanceThingIDTerminalRuleCall_2_0_1; }
+		
+		//direction=('=>' | '<=>' | '<=')
+		public Assignment getDirectionAssignment_3() { return cDirectionAssignment_3; }
+		
+		//('=>' | '<=>' | '<=')
+		public Alternatives getDirectionAlternatives_3_0() { return cDirectionAlternatives_3_0; }
+		
+		//'=>'
+		public Keyword getDirectionEqualsSignGreaterThanSignKeyword_3_0_0() { return cDirectionEqualsSignGreaterThanSignKeyword_3_0_0; }
+		
+		//'<=>'
+		public Keyword getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1() { return cDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1; }
+		
+		//'<='
+		public Keyword getDirectionLessThanSignEqualsSignKeyword_3_0_2() { return cDirectionLessThanSignEqualsSignKeyword_3_0_2; }
+		
+		//ptpInstance=[InstancePtP]
+		public Assignment getPtpInstanceAssignment_4() { return cPtpInstanceAssignment_4; }
+		
+		//[InstancePtP]
+		public CrossReference getPtpInstanceInstancePtPCrossReference_4_0() { return cPtpInstanceInstancePtPCrossReference_4_0; }
+		
+		//ID
+		public RuleCall getPtpInstanceInstancePtPIDTerminalRuleCall_4_0_1() { return cPtpInstanceInstancePtPIDTerminalRuleCall_4_0_1; }
+		
+		//annotations+=PlatformAnnotation*
+		public Assignment getAnnotationsAssignment_5() { return cAnnotationsAssignment_5; }
+		
+		//PlatformAnnotation
+		public RuleCall getAnnotationsPlatformAnnotationParserRuleCall_5_0() { return cAnnotationsPlatformAnnotationParserRuleCall_5_0; }
+	}
 	
 	
 	private final IoTLangModelElements pIoTLangModel;
@@ -1135,6 +1220,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	private final InstancePolicyElements pInstancePolicy;
 	private final NetworkConfigurationElements pNetworkConfiguration;
 	private final BindElements pBind;
+	private final ConnectElements pConnect;
 	
 	private final Grammar grammar;
 	
@@ -1168,6 +1254,7 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 		this.pInstancePolicy = new InstancePolicyElements();
 		this.pNetworkConfiguration = new NetworkConfigurationElements();
 		this.pBind = new BindElements();
+		this.pConnect = new ConnectElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1406,8 +1493,8 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//NetworkConfiguration:
-	//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (domain+=Domain | binds+=Bind |
-	//	thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
+	//	'networkConfiguration' name=ID annotations+=PlatformAnnotation* '{' (connects+=Connect | domain+=Domain | binds+=Bind
+	//	| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] |
 	//	instancePoliciy+=InstancePolicy)*
 	//	'}';
 	public NetworkConfigurationElements getNetworkConfigurationAccess() {
@@ -1427,6 +1514,17 @@ public class IotlangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getBindRule() {
 		return getBindAccess().getRule();
+	}
+	
+	//Connect:
+	//	'connect' name=ID? thingInstance=[InstanceThing] direction=('=>' | '<=>' | '<=') ptpInstance=[InstancePtP]
+	//	annotations+=PlatformAnnotation*;
+	public ConnectElements getConnectAccess() {
+		return pConnect;
+	}
+	
+	public ParserRule getConnectRule() {
+		return getConnectAccess().getRule();
 	}
 	
 	//terminal ID:

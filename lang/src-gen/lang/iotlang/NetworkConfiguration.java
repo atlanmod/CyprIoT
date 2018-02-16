@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.NetworkConfiguration#getConnects <em>Connects</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getDomain <em>Domain</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getBinds <em>Binds</em>}</li>
  *   <li>{@link lang.iotlang.NetworkConfiguration#getThingInstances <em>Thing Instances</em>}</li>
@@ -73,6 +74,22 @@ public interface NetworkConfiguration extends EObject
    * @generated
    */
   EList<PlatformAnnotation> getAnnotations();
+
+  /**
+   * Returns the value of the '<em><b>Connects</b></em>' containment reference list.
+   * The list contents are of type {@link lang.iotlang.Connect}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Connects</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Connects</em>' containment reference list.
+   * @see lang.iotlang.IotlangPackage#getNetworkConfiguration_Connects()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Connect> getConnects();
 
   /**
    * Returns the value of the '<em><b>Domain</b></em>' containment reference list.

@@ -95,6 +95,7 @@
     <genClasses ecoreClass="Iotlang.ecore#//NetworkConfiguration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//NetworkConfiguration/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//NetworkConfiguration/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//NetworkConfiguration/connects"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//NetworkConfiguration/domain"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//NetworkConfiguration/binds"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//NetworkConfiguration/thingInstances"/>
@@ -109,6 +110,13 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/pubSubInstance"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/topics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Bind/annotations"/>
+    </genClasses>
+    <genClasses ecoreClass="Iotlang.ecore#//Connect">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Connect/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Connect/thingInstance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Iotlang.ecore#//Connect/direction"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Connect/ptpInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Iotlang.ecore#//Connect/annotations"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

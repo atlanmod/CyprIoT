@@ -6,6 +6,7 @@ package lang.iotlang.impl;
 import java.util.Collection;
 
 import lang.iotlang.Bind;
+import lang.iotlang.Connect;
 import lang.iotlang.Domain;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getName <em>Name</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getConnects <em>Connects</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getDomain <em>Domain</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getBinds <em>Binds</em>}</li>
  *   <li>{@link lang.iotlang.impl.NetworkConfigurationImpl#getThingInstances <em>Thing Instances</em>}</li>
@@ -80,6 +82,16 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected EList<PlatformAnnotation> annotations;
+
+  /**
+   * The cached value of the '{@link #getConnects() <em>Connects</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConnects()
+   * @generated
+   * @ordered
+   */
+  protected EList<Connect> connects;
 
   /**
    * The cached value of the '{@link #getDomain() <em>Domain</em>}' containment reference list.
@@ -204,6 +216,20 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Connect> getConnects()
+  {
+    if (connects == null)
+    {
+      connects = new EObjectContainmentEList<Connect>(Connect.class, this, IotlangPackage.NETWORK_CONFIGURATION__CONNECTS);
+    }
+    return connects;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Domain> getDomain()
   {
     if (domain == null)
@@ -295,6 +321,8 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
     {
       case IotlangPackage.NETWORK_CONFIGURATION__ANNOTATIONS:
         return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+      case IotlangPackage.NETWORK_CONFIGURATION__CONNECTS:
+        return ((InternalEList<?>)getConnects()).basicRemove(otherEnd, msgs);
       case IotlangPackage.NETWORK_CONFIGURATION__DOMAIN:
         return ((InternalEList<?>)getDomain()).basicRemove(otherEnd, msgs);
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
@@ -323,6 +351,8 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         return getName();
       case IotlangPackage.NETWORK_CONFIGURATION__ANNOTATIONS:
         return getAnnotations();
+      case IotlangPackage.NETWORK_CONFIGURATION__CONNECTS:
+        return getConnects();
       case IotlangPackage.NETWORK_CONFIGURATION__DOMAIN:
         return getDomain();
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:
@@ -356,6 +386,10 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
       case IotlangPackage.NETWORK_CONFIGURATION__ANNOTATIONS:
         getAnnotations().clear();
         getAnnotations().addAll((Collection<? extends PlatformAnnotation>)newValue);
+        return;
+      case IotlangPackage.NETWORK_CONFIGURATION__CONNECTS:
+        getConnects().clear();
+        getConnects().addAll((Collection<? extends Connect>)newValue);
         return;
       case IotlangPackage.NETWORK_CONFIGURATION__DOMAIN:
         getDomain().clear();
@@ -401,6 +435,9 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
       case IotlangPackage.NETWORK_CONFIGURATION__ANNOTATIONS:
         getAnnotations().clear();
         return;
+      case IotlangPackage.NETWORK_CONFIGURATION__CONNECTS:
+        getConnects().clear();
+        return;
       case IotlangPackage.NETWORK_CONFIGURATION__DOMAIN:
         getDomain().clear();
         return;
@@ -437,6 +474,8 @@ public class NetworkConfigurationImpl extends MinimalEObjectImpl.Container imple
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case IotlangPackage.NETWORK_CONFIGURATION__ANNOTATIONS:
         return annotations != null && !annotations.isEmpty();
+      case IotlangPackage.NETWORK_CONFIGURATION__CONNECTS:
+        return connects != null && !connects.isEmpty();
       case IotlangPackage.NETWORK_CONFIGURATION__DOMAIN:
         return domain != null && !domain.isEmpty();
       case IotlangPackage.NETWORK_CONFIGURATION__BINDS:

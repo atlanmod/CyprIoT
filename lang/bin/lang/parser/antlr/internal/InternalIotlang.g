@@ -1526,9 +1526,29 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_0_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getConnectsConnectParserRuleCall_4_0_0());
 					}
-					lv_domain_4_0=ruleDomain
+					lv_connects_4_0=ruleConnect
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
+						}
+						add(
+							$current,
+							"connects",
+							lv_connects_4_0,
+							"lang.Iotlang.Connect");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			    |
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_1_0());
+					}
+					lv_domain_5_0=ruleDomain
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
@@ -1536,7 +1556,7 @@ ruleNetworkConfiguration returns [EObject current=null]
 						add(
 							$current,
 							"domain",
-							lv_domain_4_0,
+							lv_domain_5_0,
 							"lang.Iotlang.Domain");
 						afterParserOrEnumRuleCall();
 					}
@@ -1546,9 +1566,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_2_0());
 					}
-					lv_binds_5_0=ruleBind
+					lv_binds_6_0=ruleBind
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
@@ -1556,7 +1576,7 @@ ruleNetworkConfiguration returns [EObject current=null]
 						add(
 							$current,
 							"binds",
-							lv_binds_5_0,
+							lv_binds_6_0,
 							"lang.Iotlang.Bind");
 						afterParserOrEnumRuleCall();
 					}
@@ -1566,9 +1586,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_2_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_3_0());
 					}
-					lv_thingInstances_6_0=ruleInstanceThing
+					lv_thingInstances_7_0=ruleInstanceThing
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
@@ -1576,7 +1596,7 @@ ruleNetworkConfiguration returns [EObject current=null]
 						add(
 							$current,
 							"thingInstances",
-							lv_thingInstances_6_0,
+							lv_thingInstances_7_0,
 							"lang.Iotlang.InstanceThing");
 						afterParserOrEnumRuleCall();
 					}
@@ -1586,9 +1606,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_3_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_4_0());
 					}
-					lv_channelInstances_7_0=ruleInstanceChannel
+					lv_channelInstances_8_0=ruleInstanceChannel
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
@@ -1596,7 +1616,7 @@ ruleNetworkConfiguration returns [EObject current=null]
 						add(
 							$current,
 							"channelInstances",
-							lv_channelInstances_7_0,
+							lv_channelInstances_8_0,
 							"lang.Iotlang.InstanceChannel");
 						afterParserOrEnumRuleCall();
 					}
@@ -1604,9 +1624,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_8='enforce'
+				otherlv_9='enforce'
 				{
-					newLeafNode(otherlv_8, grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_4_0());
+					newLeafNode(otherlv_9, grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_5_0());
 				}
 				(
 					(
@@ -1615,9 +1635,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 								$current = createModelElement(grammarAccess.getNetworkConfigurationRule());
 							}
 						}
-						otherlv_9=RULE_ID
+						otherlv_10=RULE_ID
 						{
-							newLeafNode(otherlv_9, grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_4_1_0());
+							newLeafNode(otherlv_10, grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_5_1_0());
 						}
 					)
 				)
@@ -1626,9 +1646,9 @@ ruleNetworkConfiguration returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_5_0());
+						newCompositeNode(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_6_0());
 					}
-					lv_instancePoliciy_10_0=ruleInstancePolicy
+					lv_instancePoliciy_11_0=ruleInstancePolicy
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNetworkConfigurationRule());
@@ -1636,16 +1656,16 @@ ruleNetworkConfiguration returns [EObject current=null]
 						add(
 							$current,
 							"instancePoliciy",
-							lv_instancePoliciy_10_0,
+							lv_instancePoliciy_11_0,
 							"lang.Iotlang.InstancePolicy");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_11='}'
+		otherlv_12='}'
 		{
-			newLeafNode(otherlv_11, grammarAccess.getNetworkConfigurationAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_12, grammarAccess.getNetworkConfigurationAccess().getRightCurlyBracketKeyword_5());
 		}
 	)
 ;
@@ -1806,6 +1826,130 @@ ruleBind returns [EObject current=null]
 						$current,
 						"annotations",
 						lv_annotations_10_0,
+						"lang.Iotlang.PlatformAnnotation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleConnect
+entryRuleConnect returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getConnectRule()); }
+	iv_ruleConnect=ruleConnect
+	{ $current=$iv_ruleConnect.current; }
+	EOF;
+
+// Rule Connect
+ruleConnect returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='connect'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getConnectAccess().getConnectKeyword_0());
+		}
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getConnectAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getConnectRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)?
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getConnectRule());
+					}
+				}
+				otherlv_2=RULE_ID
+				{
+					newLeafNode(otherlv_2, grammarAccess.getConnectAccess().getThingInstanceInstanceThingCrossReference_2_0());
+				}
+			)
+		)
+		(
+			(
+				(
+					lv_direction_3_1='=>'
+					{
+						newLeafNode(lv_direction_3_1, grammarAccess.getConnectAccess().getDirectionEqualsSignGreaterThanSignKeyword_3_0_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getConnectRule());
+						}
+						setWithLastConsumed($current, "direction", lv_direction_3_1, null);
+					}
+					    |
+					lv_direction_3_2='<=>'
+					{
+						newLeafNode(lv_direction_3_2, grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getConnectRule());
+						}
+						setWithLastConsumed($current, "direction", lv_direction_3_2, null);
+					}
+					    |
+					lv_direction_3_3='<='
+					{
+						newLeafNode(lv_direction_3_3, grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignKeyword_3_0_2());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getConnectRule());
+						}
+						setWithLastConsumed($current, "direction", lv_direction_3_3, null);
+					}
+				)
+			)
+		)
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getConnectRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getConnectAccess().getPtpInstanceInstancePtPCrossReference_4_0());
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getConnectAccess().getAnnotationsPlatformAnnotationParserRuleCall_5_0());
+				}
+				lv_annotations_5_0=rulePlatformAnnotation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getConnectRule());
+					}
+					add(
+						$current,
+						"annotations",
+						lv_annotations_5_0,
 						"lang.Iotlang.PlatformAnnotation");
 					afterParserOrEnumRuleCall();
 				}

@@ -1,5 +1,6 @@
 thing Temperature {
 	// Arduino that senses the temperature
+	port ok
 }
 //thing fragment msgAndPorts{
 //	message sensorData (value : Int16);
@@ -12,20 +13,28 @@ thing Temperature {
 
 thing AirConditionner {
 	// Android that handles the air conditionner
+	port ok
 }
 
 thing AndroidUser {
 	// Simple android application that give the user the possibility to select the temperature
+	port ok
 }
 
-bus MqttBus {
-	topic room1 = "myRoom"
+message temperatureMessage
+protocol mqtt
+
+channel:pubsub MqttBus {
+	topic room1 (temperatureMessage)
 }
 
+channel:ptp ptp {
+	
+}
 policy roomPolicy {
-	rule Temperature allow:receive AirConditionner
-	rule AirConditionner allow:receive Temperature
-	rule Temperature deny:send AirConditionner
+	rule Temperature allow:receive message:temperatureMessage
+	rule AirConditionner allow:receive Temperature.ok
+	rule Temperature deny:send AirConditionner.ok
 }
 
 //configuration AndroidConf {
@@ -45,7 +54,8 @@ networkConfiguration wsnConfiguration {
 	enforce mypolicy	 // Will check if the configuration respect the policy, if there is any 
 						//conflict with the configuration the policy will override it
 	instanceThing instanceTemp[10]:Temperature //@platform "*:*"
-	instanceBus mqtt:MqttBus //@platform "*:*"
-	instanceBus mqttBus:MqttBus //@platform "*:*"
+	instancePubSub mqtt:MqttBus over mqtt//@platform "*:*"
+	instancePTP ptp:ptp over mqtt//@platform "*:*"
 	bind instanceTemp => mqtt{room1}
+	connect instanceTemp => ptp
 }

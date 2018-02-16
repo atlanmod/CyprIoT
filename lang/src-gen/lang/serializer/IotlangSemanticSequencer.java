@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import java.util.Set;
 import lang.iotlang.Bind;
 import lang.iotlang.Channel;
+import lang.iotlang.Connect;
 import lang.iotlang.Domain;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePolicy;
@@ -56,6 +57,9 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 				return; 
 			case IotlangPackage.CHANNEL:
 				sequence_Channel(context, (Channel) semanticObject); 
+				return; 
+			case IotlangPackage.CONNECT:
+				sequence_Connect(context, (Connect) semanticObject); 
 				return; 
 			case IotlangPackage.DOMAIN:
 				sequence_Domain(context, (Domain) semanticObject); 
@@ -144,6 +148,24 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     (pubSub+=PubSub | pointToPoint+=PointToPoint)
 	 */
 	protected void sequence_Channel(ISerializationContext context, Channel semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Connect returns Connect
+	 *
+	 * Constraint:
+	 *     (
+	 *         name=ID? 
+	 *         thingInstance=[InstanceThing|ID] 
+	 *         (direction='=>' | direction='<=>' | direction='<=') 
+	 *         ptpInstance=[InstancePtP|ID] 
+	 *         annotations+=PlatformAnnotation*
+	 *     )
+	 */
+	protected void sequence_Connect(ISerializationContext context, Connect semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -272,6 +294,7 @@ public class IotlangSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         name=ID 
 	 *         annotations+=PlatformAnnotation* 
 	 *         (
+	 *             connects+=Connect | 
 	 *             domain+=Domain | 
 	 *             binds+=Bind | 
 	 *             thingInstances+=InstanceThing | 

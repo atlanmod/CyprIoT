@@ -20,6 +20,7 @@ import lang.iotlang.impl.PubSubImpl;
 import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.PointToPoint;
 import lang.iotlang.InstancePolicy;
+import lang.iotlang.InstancePtP;
 import lang.iotlang.InstancePubSub;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
@@ -199,7 +200,15 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+	public static ArrayList<InstancePtP> allPtpinstances(IoTLangModel model) {
+		ArrayList<InstancePtP> result = new ArrayList<InstancePtP>();
+		for (InstanceChannel m : allChannelinstances(model)) {
+			for (InstancePtP t : m.getInstancesPtp()) {
+					result.add((InstancePtP)t);
+			}
+		}
+		return result;
+	}
 //	public static ArrayList<Thing> allThings(IoTLangModel model) {
 //		ArrayList<Thing> result = new ArrayList<Thing>();
 //		for (IoTLangModel m : allThingMLModelModels(model)) {

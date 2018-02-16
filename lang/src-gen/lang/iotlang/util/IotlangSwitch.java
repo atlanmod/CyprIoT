@@ -213,6 +213,13 @@ public class IotlangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case IotlangPackage.CONNECT:
+      {
+        Connect connect = (Connect)theEObject;
+        T result = caseConnect(connect);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -533,6 +540,22 @@ public class IotlangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBind(Bind object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Connect</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Connect</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConnect(Connect object)
   {
     return null;
   }

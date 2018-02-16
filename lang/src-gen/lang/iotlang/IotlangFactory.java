@@ -204,6 +204,15 @@ public interface IotlangFactory extends EFactory
   Bind createBind();
 
   /**
+   * Returns a new object of class '<em>Connect</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Connect</em>'.
+   * @generated
+   */
+  Connect createConnect();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

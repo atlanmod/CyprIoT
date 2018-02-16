@@ -878,13 +878,22 @@ public interface IotlangPackage extends EPackage
   int NETWORK_CONFIGURATION__ANNOTATIONS = 1;
 
   /**
+   * The feature id for the '<em><b>Connects</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NETWORK_CONFIGURATION__CONNECTS = 2;
+
+  /**
    * The feature id for the '<em><b>Domain</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__DOMAIN = 2;
+  int NETWORK_CONFIGURATION__DOMAIN = 3;
 
   /**
    * The feature id for the '<em><b>Binds</b></em>' containment reference list.
@@ -893,7 +902,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__BINDS = 3;
+  int NETWORK_CONFIGURATION__BINDS = 4;
 
   /**
    * The feature id for the '<em><b>Thing Instances</b></em>' containment reference list.
@@ -902,7 +911,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__THING_INSTANCES = 4;
+  int NETWORK_CONFIGURATION__THING_INSTANCES = 5;
 
   /**
    * The feature id for the '<em><b>Channel Instances</b></em>' containment reference list.
@@ -911,7 +920,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__CHANNEL_INSTANCES = 5;
+  int NETWORK_CONFIGURATION__CHANNEL_INSTANCES = 6;
 
   /**
    * The feature id for the '<em><b>Enforces</b></em>' reference list.
@@ -920,7 +929,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__ENFORCES = 6;
+  int NETWORK_CONFIGURATION__ENFORCES = 7;
 
   /**
    * The feature id for the '<em><b>Instance Policiy</b></em>' containment reference list.
@@ -929,7 +938,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION__INSTANCE_POLICIY = 7;
+  int NETWORK_CONFIGURATION__INSTANCE_POLICIY = 8;
 
   /**
    * The number of structural features of the '<em>Network Configuration</em>' class.
@@ -938,7 +947,7 @@ public interface IotlangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NETWORK_CONFIGURATION_FEATURE_COUNT = 8;
+  int NETWORK_CONFIGURATION_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link lang.iotlang.impl.BindImpl <em>Bind</em>}' class.
@@ -1012,6 +1021,70 @@ public interface IotlangPackage extends EPackage
    * @ordered
    */
   int BIND_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link lang.iotlang.impl.ConnectImpl <em>Connect</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see lang.iotlang.impl.ConnectImpl
+   * @see lang.iotlang.impl.IotlangPackageImpl#getConnect()
+   * @generated
+   */
+  int CONNECT = 20;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Thing Instance</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT__THING_INSTANCE = 1;
+
+  /**
+   * The feature id for the '<em><b>Direction</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT__DIRECTION = 2;
+
+  /**
+   * The feature id for the '<em><b>Ptp Instance</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT__PTP_INSTANCE = 3;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT__ANNOTATIONS = 4;
+
+  /**
+   * The number of structural features of the '<em>Connect</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECT_FEATURE_COUNT = 5;
 
 
   /**
@@ -1777,6 +1850,17 @@ public interface IotlangPackage extends EPackage
   EReference getNetworkConfiguration_Annotations();
 
   /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getConnects <em>Connects</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Connects</em>'.
+   * @see lang.iotlang.NetworkConfiguration#getConnects()
+   * @see #getNetworkConfiguration()
+   * @generated
+   */
+  EReference getNetworkConfiguration_Connects();
+
+  /**
    * Returns the meta object for the containment reference list '{@link lang.iotlang.NetworkConfiguration#getDomain <em>Domain</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1917,6 +2001,71 @@ public interface IotlangPackage extends EPackage
    * @generated
    */
   EReference getBind_Annotations();
+
+  /**
+   * Returns the meta object for class '{@link lang.iotlang.Connect <em>Connect</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Connect</em>'.
+   * @see lang.iotlang.Connect
+   * @generated
+   */
+  EClass getConnect();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Connect#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see lang.iotlang.Connect#getName()
+   * @see #getConnect()
+   * @generated
+   */
+  EAttribute getConnect_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Connect#getThingInstance <em>Thing Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Thing Instance</em>'.
+   * @see lang.iotlang.Connect#getThingInstance()
+   * @see #getConnect()
+   * @generated
+   */
+  EReference getConnect_ThingInstance();
+
+  /**
+   * Returns the meta object for the attribute '{@link lang.iotlang.Connect#getDirection <em>Direction</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Direction</em>'.
+   * @see lang.iotlang.Connect#getDirection()
+   * @see #getConnect()
+   * @generated
+   */
+  EAttribute getConnect_Direction();
+
+  /**
+   * Returns the meta object for the reference '{@link lang.iotlang.Connect#getPtpInstance <em>Ptp Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ptp Instance</em>'.
+   * @see lang.iotlang.Connect#getPtpInstance()
+   * @see #getConnect()
+   * @generated
+   */
+  EReference getConnect_PtpInstance();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link lang.iotlang.Connect#getAnnotations <em>Annotations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Annotations</em>'.
+   * @see lang.iotlang.Connect#getAnnotations()
+   * @see #getConnect()
+   * @generated
+   */
+  EReference getConnect_Annotations();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2548,6 +2697,14 @@ public interface IotlangPackage extends EPackage
     EReference NETWORK_CONFIGURATION__ANNOTATIONS = eINSTANCE.getNetworkConfiguration_Annotations();
 
     /**
+     * The meta object literal for the '<em><b>Connects</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NETWORK_CONFIGURATION__CONNECTS = eINSTANCE.getNetworkConfiguration_Connects();
+
+    /**
      * The meta object literal for the '<em><b>Domain</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2652,6 +2809,56 @@ public interface IotlangPackage extends EPackage
      * @generated
      */
     EReference BIND__ANNOTATIONS = eINSTANCE.getBind_Annotations();
+
+    /**
+     * The meta object literal for the '{@link lang.iotlang.impl.ConnectImpl <em>Connect</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see lang.iotlang.impl.ConnectImpl
+     * @see lang.iotlang.impl.IotlangPackageImpl#getConnect()
+     * @generated
+     */
+    EClass CONNECT = eINSTANCE.getConnect();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONNECT__NAME = eINSTANCE.getConnect_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Thing Instance</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONNECT__THING_INSTANCE = eINSTANCE.getConnect_ThingInstance();
+
+    /**
+     * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONNECT__DIRECTION = eINSTANCE.getConnect_Direction();
+
+    /**
+     * The meta object literal for the '<em><b>Ptp Instance</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONNECT__PTP_INSTANCE = eINSTANCE.getConnect_PtpInstance();
+
+    /**
+     * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONNECT__ANNOTATIONS = eINSTANCE.getConnect_Annotations();
 
   }
 

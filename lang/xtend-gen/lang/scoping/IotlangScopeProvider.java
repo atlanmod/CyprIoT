@@ -73,43 +73,61 @@ public class IotlangScopeProvider extends AbstractIotlangScopeProvider {
                     if (_equals_8) {
                       return Scopes.scopeFor(Helpers.allMessages(Helpers.findContainingModel(context)));
                     } else {
-                      EReference _instancePubSub_TypeChannel = this.iotlangInstance.getInstancePubSub_TypeChannel();
-                      boolean _equals_9 = Objects.equal(reference, _instancePubSub_TypeChannel);
+                      EReference _bind_PubSubInstance_1 = this.iotlangInstance.getBind_PubSubInstance();
+                      boolean _equals_9 = Objects.equal(reference, _bind_PubSubInstance_1);
                       if (_equals_9) {
-                        return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)));
+                        return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
                       } else {
-                        EReference _instancePubSub_OverProtocol = this.iotlangInstance.getInstancePubSub_OverProtocol();
-                        boolean _equals_10 = Objects.equal(reference, _instancePubSub_OverProtocol);
+                        EReference _instancePubSub_TypeChannel = this.iotlangInstance.getInstancePubSub_TypeChannel();
+                        boolean _equals_10 = Objects.equal(reference, _instancePubSub_TypeChannel);
                         if (_equals_10) {
-                          return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
+                          return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)));
                         } else {
-                          EReference _instancePtP_TypeChannel = this.iotlangInstance.getInstancePtP_TypeChannel();
-                          boolean _equals_11 = Objects.equal(reference, _instancePtP_TypeChannel);
+                          EReference _instancePubSub_OverProtocol = this.iotlangInstance.getInstancePubSub_OverProtocol();
+                          boolean _equals_11 = Objects.equal(reference, _instancePubSub_OverProtocol);
                           if (_equals_11) {
-                            return Scopes.scopeFor(Helpers.allPTP(Helpers.findContainingModel(context)));
+                            return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
                           } else {
-                            EReference _instancePtP_OverProtocol = this.iotlangInstance.getInstancePtP_OverProtocol();
-                            boolean _equals_12 = Objects.equal(reference, _instancePtP_OverProtocol);
+                            EReference _instancePtP_TypeChannel = this.iotlangInstance.getInstancePtP_TypeChannel();
+                            boolean _equals_12 = Objects.equal(reference, _instancePtP_TypeChannel);
                             if (_equals_12) {
-                              return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
+                              return Scopes.scopeFor(Helpers.allPTP(Helpers.findContainingModel(context)));
                             } else {
-                              EReference _rule_Ports = this.iotlangInstance.getRule_Ports();
-                              boolean _equals_13 = Objects.equal(reference, _rule_Ports);
+                              EReference _instancePtP_OverProtocol = this.iotlangInstance.getInstancePtP_OverProtocol();
+                              boolean _equals_13 = Objects.equal(reference, _instancePtP_OverProtocol);
                               if (_equals_13) {
-                                return Scopes.scopeFor(Helpers.allPorts(Helpers.findContainingModel(context)));
+                                return Scopes.scopeFor(Helpers.allProtocol(Helpers.findContainingModel(context)));
                               } else {
-                                EReference _rule_ObjectMessage = this.iotlangInstance.getRule_ObjectMessage();
-                                boolean _equals_14 = Objects.equal(reference, _rule_ObjectMessage);
+                                EReference _connect_ThingInstance = this.iotlangInstance.getConnect_ThingInstance();
+                                boolean _equals_14 = Objects.equal(reference, _connect_ThingInstance);
                                 if (_equals_14) {
-                                  return Scopes.scopeFor(Helpers.allMessages(Helpers.findContainingModel(context)));
+                                  return Scopes.scopeFor(Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).getThingInstances());
                                 } else {
-                                  String _name = reference.getName();
-                                  String _plus = ("INFO: Resolving reference : " + _name);
-                                  String _plus_1 = (_plus + " in Class ");
-                                  EObject _eContainer = reference.eContainer();
-                                  String _name_1 = ((ENamedElement) _eContainer).getName();
-                                  String _plus_2 = (_plus_1 + _name_1);
-                                  System.err.println(_plus_2);
+                                  EReference _connect_PtpInstance = this.iotlangInstance.getConnect_PtpInstance();
+                                  boolean _equals_15 = Objects.equal(reference, _connect_PtpInstance);
+                                  if (_equals_15) {
+                                    return Scopes.scopeFor(Helpers.allPtpinstances(Helpers.findContainingModel(context)));
+                                  } else {
+                                    EReference _rule_Ports = this.iotlangInstance.getRule_Ports();
+                                    boolean _equals_16 = Objects.equal(reference, _rule_Ports);
+                                    if (_equals_16) {
+                                      return Scopes.scopeFor(Helpers.allPorts(Helpers.findContainingModel(context)));
+                                    } else {
+                                      EReference _rule_ObjectMessage = this.iotlangInstance.getRule_ObjectMessage();
+                                      boolean _equals_17 = Objects.equal(reference, _rule_ObjectMessage);
+                                      if (_equals_17) {
+                                        return Scopes.scopeFor(Helpers.allMessages(Helpers.findContainingModel(context)));
+                                      } else {
+                                        String _name = reference.getName();
+                                        String _plus = ("INFO: Resolving reference : " + _name);
+                                        String _plus_1 = (_plus + " in Class ");
+                                        EObject _eContainer = reference.eContainer();
+                                        String _name_1 = ((ENamedElement) _eContainer).getName();
+                                        String _plus_2 = (_plus_1 + _name_1);
+                                        System.err.println(_plus_2);
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }

@@ -85,6 +85,7 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
       case IotlangPackage.INSTANCE_POLICY: return createInstancePolicy();
       case IotlangPackage.NETWORK_CONFIGURATION: return createNetworkConfiguration();
       case IotlangPackage.BIND: return createBind();
+      case IotlangPackage.CONNECT: return createConnect();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -308,6 +309,17 @@ public class IotlangFactoryImpl extends EFactoryImpl implements IotlangFactory
   {
     BindImpl bind = new BindImpl();
     return bind;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Connect createConnect()
+  {
+    ConnectImpl connect = new ConnectImpl();
+    return connect;
   }
 
   /**

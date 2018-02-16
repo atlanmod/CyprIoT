@@ -90,8 +90,12 @@ InstancePolicy:
 
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=PlatformAnnotation )* '{'
-	(domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
+	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
 	
 	'}';
 Bind:
 	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=PlatformAnnotation )*;
+
+Connect:
+	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') ptpInstance=[InstancePtP] ( annotations+=PlatformAnnotation )*;
+	

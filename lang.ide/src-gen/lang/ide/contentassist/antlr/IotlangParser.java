@@ -39,6 +39,7 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstanceChannelAccess().getAlternatives(), "rule__InstanceChannel__Alternatives");
 					put(grammarAccess.getNetworkConfigurationAccess().getAlternatives_4(), "rule__NetworkConfiguration__Alternatives_4");
 					put(grammarAccess.getBindAccess().getDirectionAlternatives_3_0(), "rule__Bind__DirectionAlternatives_3_0");
+					put(grammarAccess.getConnectAccess().getDirectionAlternatives_3_0(), "rule__Connect__DirectionAlternatives_3_0");
 					put(grammarAccess.getPlatformAnnotationAccess().getGroup(), "rule__PlatformAnnotation__Group__0");
 					put(grammarAccess.getThingAccess().getGroup(), "rule__Thing__Group__0");
 					put(grammarAccess.getPubSubAccess().getGroup(), "rule__PubSub__Group__0");
@@ -61,9 +62,10 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstancePtPAccess().getGroup_2(), "rule__InstancePtP__Group_2__0");
 					put(grammarAccess.getInstancePolicyAccess().getGroup(), "rule__InstancePolicy__Group__0");
 					put(grammarAccess.getNetworkConfigurationAccess().getGroup(), "rule__NetworkConfiguration__Group__0");
-					put(grammarAccess.getNetworkConfigurationAccess().getGroup_4_4(), "rule__NetworkConfiguration__Group_4_4__0");
+					put(grammarAccess.getNetworkConfigurationAccess().getGroup_4_5(), "rule__NetworkConfiguration__Group_4_5__0");
 					put(grammarAccess.getBindAccess().getGroup(), "rule__Bind__Group__0");
 					put(grammarAccess.getBindAccess().getGroup_7(), "rule__Bind__Group_7__0");
+					put(grammarAccess.getConnectAccess().getGroup(), "rule__Connect__Group__0");
 					put(grammarAccess.getIoTLangModelAccess().getThingsAssignment_0(), "rule__IoTLangModel__ThingsAssignment_0");
 					put(grammarAccess.getIoTLangModelAccess().getPoliciesAssignment_1(), "rule__IoTLangModel__PoliciesAssignment_1");
 					put(grammarAccess.getIoTLangModelAccess().getMessagesAssignment_2(), "rule__IoTLangModel__MessagesAssignment_2");
@@ -116,12 +118,13 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstancePolicyAccess().getAnnotationsAssignment_4(), "rule__InstancePolicy__AnnotationsAssignment_4");
 					put(grammarAccess.getNetworkConfigurationAccess().getNameAssignment_1(), "rule__NetworkConfiguration__NameAssignment_1");
 					put(grammarAccess.getNetworkConfigurationAccess().getAnnotationsAssignment_2(), "rule__NetworkConfiguration__AnnotationsAssignment_2");
-					put(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_0(), "rule__NetworkConfiguration__DomainAssignment_4_0");
-					put(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_1(), "rule__NetworkConfiguration__BindsAssignment_4_1");
-					put(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_2(), "rule__NetworkConfiguration__ThingInstancesAssignment_4_2");
-					put(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_3(), "rule__NetworkConfiguration__ChannelInstancesAssignment_4_3");
-					put(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_4_1(), "rule__NetworkConfiguration__EnforcesAssignment_4_4_1");
-					put(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_5(), "rule__NetworkConfiguration__InstancePoliciyAssignment_4_5");
+					put(grammarAccess.getNetworkConfigurationAccess().getConnectsAssignment_4_0(), "rule__NetworkConfiguration__ConnectsAssignment_4_0");
+					put(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_1(), "rule__NetworkConfiguration__DomainAssignment_4_1");
+					put(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_2(), "rule__NetworkConfiguration__BindsAssignment_4_2");
+					put(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_3(), "rule__NetworkConfiguration__ThingInstancesAssignment_4_3");
+					put(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_4(), "rule__NetworkConfiguration__ChannelInstancesAssignment_4_4");
+					put(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_5_1(), "rule__NetworkConfiguration__EnforcesAssignment_4_5_1");
+					put(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_6(), "rule__NetworkConfiguration__InstancePoliciyAssignment_4_6");
 					put(grammarAccess.getBindAccess().getNameAssignment_1(), "rule__Bind__NameAssignment_1");
 					put(grammarAccess.getBindAccess().getThingInstanceAssignment_2(), "rule__Bind__ThingInstanceAssignment_2");
 					put(grammarAccess.getBindAccess().getDirectionAssignment_3(), "rule__Bind__DirectionAssignment_3");
@@ -129,6 +132,11 @@ public class IotlangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBindAccess().getTopicsAssignment_6(), "rule__Bind__TopicsAssignment_6");
 					put(grammarAccess.getBindAccess().getTopicsAssignment_7_1(), "rule__Bind__TopicsAssignment_7_1");
 					put(grammarAccess.getBindAccess().getAnnotationsAssignment_9(), "rule__Bind__AnnotationsAssignment_9");
+					put(grammarAccess.getConnectAccess().getNameAssignment_1(), "rule__Connect__NameAssignment_1");
+					put(grammarAccess.getConnectAccess().getThingInstanceAssignment_2(), "rule__Connect__ThingInstanceAssignment_2");
+					put(grammarAccess.getConnectAccess().getDirectionAssignment_3(), "rule__Connect__DirectionAssignment_3");
+					put(grammarAccess.getConnectAccess().getPtpInstanceAssignment_4(), "rule__Connect__PtpInstanceAssignment_4");
+					put(grammarAccess.getConnectAccess().getAnnotationsAssignment_5(), "rule__Connect__AnnotationsAssignment_5");
 				}
 			};
 		}

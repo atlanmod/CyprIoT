@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ANNOTATION_ID", "RULE_STRING_LIT", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'allow'", "'deny'", "'send'", "'receive'", "'=>'", "'<=>'", "'<='", "'thing'", "'{'", "'}'", "'channel:pubsub'", "'channel:ptp'", "'policy'", "'port'", "'protocol'", "'message'", "'topic'", "'('", "')'", "'rule'", "':'", "'.'", "'message:'", "'domain'", "'instanceThing'", "'['", "']'", "'instancePubSub'", "'over'", "'instancePTP'", "'instancePolicy'", "'networkConfiguration'", "'enforce'", "'bind'", "','"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ANNOTATION_ID", "RULE_STRING_LIT", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'allow'", "'deny'", "'send'", "'receive'", "'=>'", "'<=>'", "'<='", "'thing'", "'{'", "'}'", "'channel:pubsub'", "'channel:ptp'", "'policy'", "'port'", "'protocol'", "'message'", "'topic'", "'('", "')'", "'rule'", "':'", "'.'", "'message:'", "'domain'", "'instanceThing'", "'['", "']'", "'instancePubSub'", "'over'", "'instancePTP'", "'instancePolicy'", "'networkConfiguration'", "'enforce'", "'bind'", "','", "'connect'"
     };
     public static final int T__19=19;
     public static final int T__15=15;
@@ -61,6 +61,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     public static final int RULE_WS=11;
     public static final int RULE_ANY_OTHER=12;
     public static final int RULE_ANNOTATION_ID=4;
+    public static final int T__48=48;
     public static final int T__44=44;
     public static final int T__45=45;
     public static final int T__46=46;
@@ -1663,14 +1664,91 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleBind"
 
 
+    // $ANTLR start "entryRuleConnect"
+    // InternalIotlang.g:553:1: entryRuleConnect : ruleConnect EOF ;
+    public final void entryRuleConnect() throws RecognitionException {
+        try {
+            // InternalIotlang.g:554:1: ( ruleConnect EOF )
+            // InternalIotlang.g:555:1: ruleConnect EOF
+            {
+             before(grammarAccess.getConnectRule()); 
+            pushFollow(FOLLOW_1);
+            ruleConnect();
+
+            state._fsp--;
+
+             after(grammarAccess.getConnectRule()); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "entryRuleConnect"
+
+
+    // $ANTLR start "ruleConnect"
+    // InternalIotlang.g:562:1: ruleConnect : ( ( rule__Connect__Group__0 ) ) ;
+    public final void ruleConnect() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:566:2: ( ( ( rule__Connect__Group__0 ) ) )
+            // InternalIotlang.g:567:2: ( ( rule__Connect__Group__0 ) )
+            {
+            // InternalIotlang.g:567:2: ( ( rule__Connect__Group__0 ) )
+            // InternalIotlang.g:568:3: ( rule__Connect__Group__0 )
+            {
+             before(grammarAccess.getConnectAccess().getGroup()); 
+            // InternalIotlang.g:569:3: ( rule__Connect__Group__0 )
+            // InternalIotlang.g:569:4: rule__Connect__Group__0
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConnectAccess().getGroup()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "ruleConnect"
+
+
     // $ANTLR start "rule__IoTLangModel__Alternatives"
-    // InternalIotlang.g:552:1: rule__IoTLangModel__Alternatives : ( ( ( rule__IoTLangModel__ThingsAssignment_0 ) ) | ( ( rule__IoTLangModel__PoliciesAssignment_1 ) ) | ( ( rule__IoTLangModel__MessagesAssignment_2 ) ) | ( ( rule__IoTLangModel__ChannelsAssignment_3 ) ) | ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) ) | ( ( rule__IoTLangModel__ConfigsAssignment_5 ) ) );
+    // InternalIotlang.g:577:1: rule__IoTLangModel__Alternatives : ( ( ( rule__IoTLangModel__ThingsAssignment_0 ) ) | ( ( rule__IoTLangModel__PoliciesAssignment_1 ) ) | ( ( rule__IoTLangModel__MessagesAssignment_2 ) ) | ( ( rule__IoTLangModel__ChannelsAssignment_3 ) ) | ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) ) | ( ( rule__IoTLangModel__ConfigsAssignment_5 ) ) );
     public final void rule__IoTLangModel__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:556:1: ( ( ( rule__IoTLangModel__ThingsAssignment_0 ) ) | ( ( rule__IoTLangModel__PoliciesAssignment_1 ) ) | ( ( rule__IoTLangModel__MessagesAssignment_2 ) ) | ( ( rule__IoTLangModel__ChannelsAssignment_3 ) ) | ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) ) | ( ( rule__IoTLangModel__ConfigsAssignment_5 ) ) )
+            // InternalIotlang.g:581:1: ( ( ( rule__IoTLangModel__ThingsAssignment_0 ) ) | ( ( rule__IoTLangModel__PoliciesAssignment_1 ) ) | ( ( rule__IoTLangModel__MessagesAssignment_2 ) ) | ( ( rule__IoTLangModel__ChannelsAssignment_3 ) ) | ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) ) | ( ( rule__IoTLangModel__ConfigsAssignment_5 ) ) )
             int alt2=6;
             switch ( input.LA(1) ) {
             case 20:
@@ -1713,14 +1791,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
             switch (alt2) {
                 case 1 :
-                    // InternalIotlang.g:557:2: ( ( rule__IoTLangModel__ThingsAssignment_0 ) )
+                    // InternalIotlang.g:582:2: ( ( rule__IoTLangModel__ThingsAssignment_0 ) )
                     {
-                    // InternalIotlang.g:557:2: ( ( rule__IoTLangModel__ThingsAssignment_0 ) )
-                    // InternalIotlang.g:558:3: ( rule__IoTLangModel__ThingsAssignment_0 )
+                    // InternalIotlang.g:582:2: ( ( rule__IoTLangModel__ThingsAssignment_0 ) )
+                    // InternalIotlang.g:583:3: ( rule__IoTLangModel__ThingsAssignment_0 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getThingsAssignment_0()); 
-                    // InternalIotlang.g:559:3: ( rule__IoTLangModel__ThingsAssignment_0 )
-                    // InternalIotlang.g:559:4: rule__IoTLangModel__ThingsAssignment_0
+                    // InternalIotlang.g:584:3: ( rule__IoTLangModel__ThingsAssignment_0 )
+                    // InternalIotlang.g:584:4: rule__IoTLangModel__ThingsAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__ThingsAssignment_0();
@@ -1738,14 +1816,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:563:2: ( ( rule__IoTLangModel__PoliciesAssignment_1 ) )
+                    // InternalIotlang.g:588:2: ( ( rule__IoTLangModel__PoliciesAssignment_1 ) )
                     {
-                    // InternalIotlang.g:563:2: ( ( rule__IoTLangModel__PoliciesAssignment_1 ) )
-                    // InternalIotlang.g:564:3: ( rule__IoTLangModel__PoliciesAssignment_1 )
+                    // InternalIotlang.g:588:2: ( ( rule__IoTLangModel__PoliciesAssignment_1 ) )
+                    // InternalIotlang.g:589:3: ( rule__IoTLangModel__PoliciesAssignment_1 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getPoliciesAssignment_1()); 
-                    // InternalIotlang.g:565:3: ( rule__IoTLangModel__PoliciesAssignment_1 )
-                    // InternalIotlang.g:565:4: rule__IoTLangModel__PoliciesAssignment_1
+                    // InternalIotlang.g:590:3: ( rule__IoTLangModel__PoliciesAssignment_1 )
+                    // InternalIotlang.g:590:4: rule__IoTLangModel__PoliciesAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__PoliciesAssignment_1();
@@ -1763,14 +1841,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalIotlang.g:569:2: ( ( rule__IoTLangModel__MessagesAssignment_2 ) )
+                    // InternalIotlang.g:594:2: ( ( rule__IoTLangModel__MessagesAssignment_2 ) )
                     {
-                    // InternalIotlang.g:569:2: ( ( rule__IoTLangModel__MessagesAssignment_2 ) )
-                    // InternalIotlang.g:570:3: ( rule__IoTLangModel__MessagesAssignment_2 )
+                    // InternalIotlang.g:594:2: ( ( rule__IoTLangModel__MessagesAssignment_2 ) )
+                    // InternalIotlang.g:595:3: ( rule__IoTLangModel__MessagesAssignment_2 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getMessagesAssignment_2()); 
-                    // InternalIotlang.g:571:3: ( rule__IoTLangModel__MessagesAssignment_2 )
-                    // InternalIotlang.g:571:4: rule__IoTLangModel__MessagesAssignment_2
+                    // InternalIotlang.g:596:3: ( rule__IoTLangModel__MessagesAssignment_2 )
+                    // InternalIotlang.g:596:4: rule__IoTLangModel__MessagesAssignment_2
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__MessagesAssignment_2();
@@ -1788,14 +1866,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalIotlang.g:575:2: ( ( rule__IoTLangModel__ChannelsAssignment_3 ) )
+                    // InternalIotlang.g:600:2: ( ( rule__IoTLangModel__ChannelsAssignment_3 ) )
                     {
-                    // InternalIotlang.g:575:2: ( ( rule__IoTLangModel__ChannelsAssignment_3 ) )
-                    // InternalIotlang.g:576:3: ( rule__IoTLangModel__ChannelsAssignment_3 )
+                    // InternalIotlang.g:600:2: ( ( rule__IoTLangModel__ChannelsAssignment_3 ) )
+                    // InternalIotlang.g:601:3: ( rule__IoTLangModel__ChannelsAssignment_3 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getChannelsAssignment_3()); 
-                    // InternalIotlang.g:577:3: ( rule__IoTLangModel__ChannelsAssignment_3 )
-                    // InternalIotlang.g:577:4: rule__IoTLangModel__ChannelsAssignment_3
+                    // InternalIotlang.g:602:3: ( rule__IoTLangModel__ChannelsAssignment_3 )
+                    // InternalIotlang.g:602:4: rule__IoTLangModel__ChannelsAssignment_3
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__ChannelsAssignment_3();
@@ -1813,14 +1891,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalIotlang.g:581:2: ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) )
+                    // InternalIotlang.g:606:2: ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) )
                     {
-                    // InternalIotlang.g:581:2: ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) )
-                    // InternalIotlang.g:582:3: ( rule__IoTLangModel__ProtocolsAssignment_4 )
+                    // InternalIotlang.g:606:2: ( ( rule__IoTLangModel__ProtocolsAssignment_4 ) )
+                    // InternalIotlang.g:607:3: ( rule__IoTLangModel__ProtocolsAssignment_4 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getProtocolsAssignment_4()); 
-                    // InternalIotlang.g:583:3: ( rule__IoTLangModel__ProtocolsAssignment_4 )
-                    // InternalIotlang.g:583:4: rule__IoTLangModel__ProtocolsAssignment_4
+                    // InternalIotlang.g:608:3: ( rule__IoTLangModel__ProtocolsAssignment_4 )
+                    // InternalIotlang.g:608:4: rule__IoTLangModel__ProtocolsAssignment_4
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__ProtocolsAssignment_4();
@@ -1838,14 +1916,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalIotlang.g:587:2: ( ( rule__IoTLangModel__ConfigsAssignment_5 ) )
+                    // InternalIotlang.g:612:2: ( ( rule__IoTLangModel__ConfigsAssignment_5 ) )
                     {
-                    // InternalIotlang.g:587:2: ( ( rule__IoTLangModel__ConfigsAssignment_5 ) )
-                    // InternalIotlang.g:588:3: ( rule__IoTLangModel__ConfigsAssignment_5 )
+                    // InternalIotlang.g:612:2: ( ( rule__IoTLangModel__ConfigsAssignment_5 ) )
+                    // InternalIotlang.g:613:3: ( rule__IoTLangModel__ConfigsAssignment_5 )
                     {
                      before(grammarAccess.getIoTLangModelAccess().getConfigsAssignment_5()); 
-                    // InternalIotlang.g:589:3: ( rule__IoTLangModel__ConfigsAssignment_5 )
-                    // InternalIotlang.g:589:4: rule__IoTLangModel__ConfigsAssignment_5
+                    // InternalIotlang.g:614:3: ( rule__IoTLangModel__ConfigsAssignment_5 )
+                    // InternalIotlang.g:614:4: rule__IoTLangModel__ConfigsAssignment_5
                     {
                     pushFollow(FOLLOW_2);
                     rule__IoTLangModel__ConfigsAssignment_5();
@@ -1880,13 +1958,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Channel__Alternatives"
-    // InternalIotlang.g:597:1: rule__Channel__Alternatives : ( ( ( rule__Channel__PubSubAssignment_0 ) ) | ( ( rule__Channel__PointToPointAssignment_1 ) ) );
+    // InternalIotlang.g:622:1: rule__Channel__Alternatives : ( ( ( rule__Channel__PubSubAssignment_0 ) ) | ( ( rule__Channel__PointToPointAssignment_1 ) ) );
     public final void rule__Channel__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:601:1: ( ( ( rule__Channel__PubSubAssignment_0 ) ) | ( ( rule__Channel__PointToPointAssignment_1 ) ) )
+            // InternalIotlang.g:626:1: ( ( ( rule__Channel__PubSubAssignment_0 ) ) | ( ( rule__Channel__PointToPointAssignment_1 ) ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1904,14 +1982,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             }
             switch (alt3) {
                 case 1 :
-                    // InternalIotlang.g:602:2: ( ( rule__Channel__PubSubAssignment_0 ) )
+                    // InternalIotlang.g:627:2: ( ( rule__Channel__PubSubAssignment_0 ) )
                     {
-                    // InternalIotlang.g:602:2: ( ( rule__Channel__PubSubAssignment_0 ) )
-                    // InternalIotlang.g:603:3: ( rule__Channel__PubSubAssignment_0 )
+                    // InternalIotlang.g:627:2: ( ( rule__Channel__PubSubAssignment_0 ) )
+                    // InternalIotlang.g:628:3: ( rule__Channel__PubSubAssignment_0 )
                     {
                      before(grammarAccess.getChannelAccess().getPubSubAssignment_0()); 
-                    // InternalIotlang.g:604:3: ( rule__Channel__PubSubAssignment_0 )
-                    // InternalIotlang.g:604:4: rule__Channel__PubSubAssignment_0
+                    // InternalIotlang.g:629:3: ( rule__Channel__PubSubAssignment_0 )
+                    // InternalIotlang.g:629:4: rule__Channel__PubSubAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Channel__PubSubAssignment_0();
@@ -1929,14 +2007,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:608:2: ( ( rule__Channel__PointToPointAssignment_1 ) )
+                    // InternalIotlang.g:633:2: ( ( rule__Channel__PointToPointAssignment_1 ) )
                     {
-                    // InternalIotlang.g:608:2: ( ( rule__Channel__PointToPointAssignment_1 ) )
-                    // InternalIotlang.g:609:3: ( rule__Channel__PointToPointAssignment_1 )
+                    // InternalIotlang.g:633:2: ( ( rule__Channel__PointToPointAssignment_1 ) )
+                    // InternalIotlang.g:634:3: ( rule__Channel__PointToPointAssignment_1 )
                     {
                      before(grammarAccess.getChannelAccess().getPointToPointAssignment_1()); 
-                    // InternalIotlang.g:610:3: ( rule__Channel__PointToPointAssignment_1 )
-                    // InternalIotlang.g:610:4: rule__Channel__PointToPointAssignment_1
+                    // InternalIotlang.g:635:3: ( rule__Channel__PointToPointAssignment_1 )
+                    // InternalIotlang.g:635:4: rule__Channel__PointToPointAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__Channel__PointToPointAssignment_1();
@@ -1971,13 +2049,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__PermissionAlternatives_3_0"
-    // InternalIotlang.g:618:1: rule__Rule__PermissionAlternatives_3_0 : ( ( 'allow' ) | ( 'deny' ) );
+    // InternalIotlang.g:643:1: rule__Rule__PermissionAlternatives_3_0 : ( ( 'allow' ) | ( 'deny' ) );
     public final void rule__Rule__PermissionAlternatives_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:622:1: ( ( 'allow' ) | ( 'deny' ) )
+            // InternalIotlang.g:647:1: ( ( 'allow' ) | ( 'deny' ) )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1995,10 +2073,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             }
             switch (alt4) {
                 case 1 :
-                    // InternalIotlang.g:623:2: ( 'allow' )
+                    // InternalIotlang.g:648:2: ( 'allow' )
                     {
-                    // InternalIotlang.g:623:2: ( 'allow' )
-                    // InternalIotlang.g:624:3: 'allow'
+                    // InternalIotlang.g:648:2: ( 'allow' )
+                    // InternalIotlang.g:649:3: 'allow'
                     {
                      before(grammarAccess.getRuleAccess().getPermissionAllowKeyword_3_0_0()); 
                     match(input,13,FOLLOW_2); 
@@ -2010,10 +2088,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:629:2: ( 'deny' )
+                    // InternalIotlang.g:654:2: ( 'deny' )
                     {
-                    // InternalIotlang.g:629:2: ( 'deny' )
-                    // InternalIotlang.g:630:3: 'deny'
+                    // InternalIotlang.g:654:2: ( 'deny' )
+                    // InternalIotlang.g:655:3: 'deny'
                     {
                      before(grammarAccess.getRuleAccess().getPermissionDenyKeyword_3_0_1()); 
                     match(input,14,FOLLOW_2); 
@@ -2042,13 +2120,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__ActionAlternatives_5_0"
-    // InternalIotlang.g:639:1: rule__Rule__ActionAlternatives_5_0 : ( ( 'send' ) | ( 'receive' ) );
+    // InternalIotlang.g:664:1: rule__Rule__ActionAlternatives_5_0 : ( ( 'send' ) | ( 'receive' ) );
     public final void rule__Rule__ActionAlternatives_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:643:1: ( ( 'send' ) | ( 'receive' ) )
+            // InternalIotlang.g:668:1: ( ( 'send' ) | ( 'receive' ) )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -2066,10 +2144,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             }
             switch (alt5) {
                 case 1 :
-                    // InternalIotlang.g:644:2: ( 'send' )
+                    // InternalIotlang.g:669:2: ( 'send' )
                     {
-                    // InternalIotlang.g:644:2: ( 'send' )
-                    // InternalIotlang.g:645:3: 'send'
+                    // InternalIotlang.g:669:2: ( 'send' )
+                    // InternalIotlang.g:670:3: 'send'
                     {
                      before(grammarAccess.getRuleAccess().getActionSendKeyword_5_0_0()); 
                     match(input,15,FOLLOW_2); 
@@ -2081,10 +2159,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:650:2: ( 'receive' )
+                    // InternalIotlang.g:675:2: ( 'receive' )
                     {
-                    // InternalIotlang.g:650:2: ( 'receive' )
-                    // InternalIotlang.g:651:3: 'receive'
+                    // InternalIotlang.g:675:2: ( 'receive' )
+                    // InternalIotlang.g:676:3: 'receive'
                     {
                      before(grammarAccess.getRuleAccess().getActionReceiveKeyword_5_0_1()); 
                     match(input,16,FOLLOW_2); 
@@ -2113,13 +2191,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Alternatives_6"
-    // InternalIotlang.g:660:1: rule__Rule__Alternatives_6 : ( ( ( rule__Rule__Group_6_0__0 ) ) | ( ( rule__Rule__Group_6_1__0 ) ) );
+    // InternalIotlang.g:685:1: rule__Rule__Alternatives_6 : ( ( ( rule__Rule__Group_6_0__0 ) ) | ( ( rule__Rule__Group_6_1__0 ) ) );
     public final void rule__Rule__Alternatives_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:664:1: ( ( ( rule__Rule__Group_6_0__0 ) ) | ( ( rule__Rule__Group_6_1__0 ) ) )
+            // InternalIotlang.g:689:1: ( ( ( rule__Rule__Group_6_0__0 ) ) | ( ( rule__Rule__Group_6_1__0 ) ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -2137,14 +2215,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalIotlang.g:665:2: ( ( rule__Rule__Group_6_0__0 ) )
+                    // InternalIotlang.g:690:2: ( ( rule__Rule__Group_6_0__0 ) )
                     {
-                    // InternalIotlang.g:665:2: ( ( rule__Rule__Group_6_0__0 ) )
-                    // InternalIotlang.g:666:3: ( rule__Rule__Group_6_0__0 )
+                    // InternalIotlang.g:690:2: ( ( rule__Rule__Group_6_0__0 ) )
+                    // InternalIotlang.g:691:3: ( rule__Rule__Group_6_0__0 )
                     {
                      before(grammarAccess.getRuleAccess().getGroup_6_0()); 
-                    // InternalIotlang.g:667:3: ( rule__Rule__Group_6_0__0 )
-                    // InternalIotlang.g:667:4: rule__Rule__Group_6_0__0
+                    // InternalIotlang.g:692:3: ( rule__Rule__Group_6_0__0 )
+                    // InternalIotlang.g:692:4: rule__Rule__Group_6_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Rule__Group_6_0__0();
@@ -2162,14 +2240,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:671:2: ( ( rule__Rule__Group_6_1__0 ) )
+                    // InternalIotlang.g:696:2: ( ( rule__Rule__Group_6_1__0 ) )
                     {
-                    // InternalIotlang.g:671:2: ( ( rule__Rule__Group_6_1__0 ) )
-                    // InternalIotlang.g:672:3: ( rule__Rule__Group_6_1__0 )
+                    // InternalIotlang.g:696:2: ( ( rule__Rule__Group_6_1__0 ) )
+                    // InternalIotlang.g:697:3: ( rule__Rule__Group_6_1__0 )
                     {
                      before(grammarAccess.getRuleAccess().getGroup_6_1()); 
-                    // InternalIotlang.g:673:3: ( rule__Rule__Group_6_1__0 )
-                    // InternalIotlang.g:673:4: rule__Rule__Group_6_1__0
+                    // InternalIotlang.g:698:3: ( rule__Rule__Group_6_1__0 )
+                    // InternalIotlang.g:698:4: rule__Rule__Group_6_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Rule__Group_6_1__0();
@@ -2204,13 +2282,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceChannel__Alternatives"
-    // InternalIotlang.g:681:1: rule__InstanceChannel__Alternatives : ( ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) ) | ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) ) );
+    // InternalIotlang.g:706:1: rule__InstanceChannel__Alternatives : ( ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) ) | ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) ) );
     public final void rule__InstanceChannel__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:685:1: ( ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) ) | ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) ) )
+            // InternalIotlang.g:710:1: ( ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) ) | ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) ) )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2228,14 +2306,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             }
             switch (alt7) {
                 case 1 :
-                    // InternalIotlang.g:686:2: ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) )
+                    // InternalIotlang.g:711:2: ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) )
                     {
-                    // InternalIotlang.g:686:2: ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) )
-                    // InternalIotlang.g:687:3: ( rule__InstanceChannel__InstancesPubSubAssignment_0 )
+                    // InternalIotlang.g:711:2: ( ( rule__InstanceChannel__InstancesPubSubAssignment_0 ) )
+                    // InternalIotlang.g:712:3: ( rule__InstanceChannel__InstancesPubSubAssignment_0 )
                     {
                      before(grammarAccess.getInstanceChannelAccess().getInstancesPubSubAssignment_0()); 
-                    // InternalIotlang.g:688:3: ( rule__InstanceChannel__InstancesPubSubAssignment_0 )
-                    // InternalIotlang.g:688:4: rule__InstanceChannel__InstancesPubSubAssignment_0
+                    // InternalIotlang.g:713:3: ( rule__InstanceChannel__InstancesPubSubAssignment_0 )
+                    // InternalIotlang.g:713:4: rule__InstanceChannel__InstancesPubSubAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__InstanceChannel__InstancesPubSubAssignment_0();
@@ -2253,14 +2331,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:692:2: ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) )
+                    // InternalIotlang.g:717:2: ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) )
                     {
-                    // InternalIotlang.g:692:2: ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) )
-                    // InternalIotlang.g:693:3: ( rule__InstanceChannel__InstancesPtpAssignment_1 )
+                    // InternalIotlang.g:717:2: ( ( rule__InstanceChannel__InstancesPtpAssignment_1 ) )
+                    // InternalIotlang.g:718:3: ( rule__InstanceChannel__InstancesPtpAssignment_1 )
                     {
                      before(grammarAccess.getInstanceChannelAccess().getInstancesPtpAssignment_1()); 
-                    // InternalIotlang.g:694:3: ( rule__InstanceChannel__InstancesPtpAssignment_1 )
-                    // InternalIotlang.g:694:4: rule__InstanceChannel__InstancesPtpAssignment_1
+                    // InternalIotlang.g:719:3: ( rule__InstanceChannel__InstancesPtpAssignment_1 )
+                    // InternalIotlang.g:719:4: rule__InstanceChannel__InstancesPtpAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__InstanceChannel__InstancesPtpAssignment_1();
@@ -2295,44 +2373,49 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Alternatives_4"
-    // InternalIotlang.g:702:1: rule__NetworkConfiguration__Alternatives_4 : ( ( ( rule__NetworkConfiguration__DomainAssignment_4_0 ) ) | ( ( rule__NetworkConfiguration__BindsAssignment_4_1 ) ) | ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 ) ) | ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 ) ) | ( ( rule__NetworkConfiguration__Group_4_4__0 ) ) | ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 ) ) );
+    // InternalIotlang.g:727:1: rule__NetworkConfiguration__Alternatives_4 : ( ( ( rule__NetworkConfiguration__ConnectsAssignment_4_0 ) ) | ( ( rule__NetworkConfiguration__DomainAssignment_4_1 ) ) | ( ( rule__NetworkConfiguration__BindsAssignment_4_2 ) ) | ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 ) ) | ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 ) ) | ( ( rule__NetworkConfiguration__Group_4_5__0 ) ) | ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 ) ) );
     public final void rule__NetworkConfiguration__Alternatives_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:706:1: ( ( ( rule__NetworkConfiguration__DomainAssignment_4_0 ) ) | ( ( rule__NetworkConfiguration__BindsAssignment_4_1 ) ) | ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 ) ) | ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 ) ) | ( ( rule__NetworkConfiguration__Group_4_4__0 ) ) | ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 ) ) )
-            int alt8=6;
+            // InternalIotlang.g:731:1: ( ( ( rule__NetworkConfiguration__ConnectsAssignment_4_0 ) ) | ( ( rule__NetworkConfiguration__DomainAssignment_4_1 ) ) | ( ( rule__NetworkConfiguration__BindsAssignment_4_2 ) ) | ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 ) ) | ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 ) ) | ( ( rule__NetworkConfiguration__Group_4_5__0 ) ) | ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 ) ) )
+            int alt8=7;
             switch ( input.LA(1) ) {
-            case 36:
+            case 48:
                 {
                 alt8=1;
                 }
                 break;
-            case 46:
+            case 36:
                 {
                 alt8=2;
                 }
                 break;
-            case 37:
+            case 46:
                 {
                 alt8=3;
+                }
+                break;
+            case 37:
+                {
+                alt8=4;
                 }
                 break;
             case 40:
             case 42:
                 {
-                alt8=4;
+                alt8=5;
                 }
                 break;
             case 45:
                 {
-                alt8=5;
+                alt8=6;
                 }
                 break;
             case 43:
                 {
-                alt8=6;
+                alt8=7;
                 }
                 break;
             default:
@@ -2344,24 +2427,24 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
             switch (alt8) {
                 case 1 :
-                    // InternalIotlang.g:707:2: ( ( rule__NetworkConfiguration__DomainAssignment_4_0 ) )
+                    // InternalIotlang.g:732:2: ( ( rule__NetworkConfiguration__ConnectsAssignment_4_0 ) )
                     {
-                    // InternalIotlang.g:707:2: ( ( rule__NetworkConfiguration__DomainAssignment_4_0 ) )
-                    // InternalIotlang.g:708:3: ( rule__NetworkConfiguration__DomainAssignment_4_0 )
+                    // InternalIotlang.g:732:2: ( ( rule__NetworkConfiguration__ConnectsAssignment_4_0 ) )
+                    // InternalIotlang.g:733:3: ( rule__NetworkConfiguration__ConnectsAssignment_4_0 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_0()); 
-                    // InternalIotlang.g:709:3: ( rule__NetworkConfiguration__DomainAssignment_4_0 )
-                    // InternalIotlang.g:709:4: rule__NetworkConfiguration__DomainAssignment_4_0
+                     before(grammarAccess.getNetworkConfigurationAccess().getConnectsAssignment_4_0()); 
+                    // InternalIotlang.g:734:3: ( rule__NetworkConfiguration__ConnectsAssignment_4_0 )
+                    // InternalIotlang.g:734:4: rule__NetworkConfiguration__ConnectsAssignment_4_0
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__DomainAssignment_4_0();
+                    rule__NetworkConfiguration__ConnectsAssignment_4_0();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_0()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getConnectsAssignment_4_0()); 
 
                     }
 
@@ -2369,24 +2452,24 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:713:2: ( ( rule__NetworkConfiguration__BindsAssignment_4_1 ) )
+                    // InternalIotlang.g:738:2: ( ( rule__NetworkConfiguration__DomainAssignment_4_1 ) )
                     {
-                    // InternalIotlang.g:713:2: ( ( rule__NetworkConfiguration__BindsAssignment_4_1 ) )
-                    // InternalIotlang.g:714:3: ( rule__NetworkConfiguration__BindsAssignment_4_1 )
+                    // InternalIotlang.g:738:2: ( ( rule__NetworkConfiguration__DomainAssignment_4_1 ) )
+                    // InternalIotlang.g:739:3: ( rule__NetworkConfiguration__DomainAssignment_4_1 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_1()); 
-                    // InternalIotlang.g:715:3: ( rule__NetworkConfiguration__BindsAssignment_4_1 )
-                    // InternalIotlang.g:715:4: rule__NetworkConfiguration__BindsAssignment_4_1
+                     before(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_1()); 
+                    // InternalIotlang.g:740:3: ( rule__NetworkConfiguration__DomainAssignment_4_1 )
+                    // InternalIotlang.g:740:4: rule__NetworkConfiguration__DomainAssignment_4_1
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__BindsAssignment_4_1();
+                    rule__NetworkConfiguration__DomainAssignment_4_1();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_1()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getDomainAssignment_4_1()); 
 
                     }
 
@@ -2394,24 +2477,24 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalIotlang.g:719:2: ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 ) )
+                    // InternalIotlang.g:744:2: ( ( rule__NetworkConfiguration__BindsAssignment_4_2 ) )
                     {
-                    // InternalIotlang.g:719:2: ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 ) )
-                    // InternalIotlang.g:720:3: ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 )
+                    // InternalIotlang.g:744:2: ( ( rule__NetworkConfiguration__BindsAssignment_4_2 ) )
+                    // InternalIotlang.g:745:3: ( rule__NetworkConfiguration__BindsAssignment_4_2 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_2()); 
-                    // InternalIotlang.g:721:3: ( rule__NetworkConfiguration__ThingInstancesAssignment_4_2 )
-                    // InternalIotlang.g:721:4: rule__NetworkConfiguration__ThingInstancesAssignment_4_2
+                     before(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_2()); 
+                    // InternalIotlang.g:746:3: ( rule__NetworkConfiguration__BindsAssignment_4_2 )
+                    // InternalIotlang.g:746:4: rule__NetworkConfiguration__BindsAssignment_4_2
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__ThingInstancesAssignment_4_2();
+                    rule__NetworkConfiguration__BindsAssignment_4_2();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_2()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getBindsAssignment_4_2()); 
 
                     }
 
@@ -2419,24 +2502,24 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalIotlang.g:725:2: ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 ) )
+                    // InternalIotlang.g:750:2: ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 ) )
                     {
-                    // InternalIotlang.g:725:2: ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 ) )
-                    // InternalIotlang.g:726:3: ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 )
+                    // InternalIotlang.g:750:2: ( ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 ) )
+                    // InternalIotlang.g:751:3: ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_3()); 
-                    // InternalIotlang.g:727:3: ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 )
-                    // InternalIotlang.g:727:4: rule__NetworkConfiguration__ChannelInstancesAssignment_4_3
+                     before(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_3()); 
+                    // InternalIotlang.g:752:3: ( rule__NetworkConfiguration__ThingInstancesAssignment_4_3 )
+                    // InternalIotlang.g:752:4: rule__NetworkConfiguration__ThingInstancesAssignment_4_3
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__ChannelInstancesAssignment_4_3();
+                    rule__NetworkConfiguration__ThingInstancesAssignment_4_3();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_3()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getThingInstancesAssignment_4_3()); 
 
                     }
 
@@ -2444,24 +2527,24 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalIotlang.g:731:2: ( ( rule__NetworkConfiguration__Group_4_4__0 ) )
+                    // InternalIotlang.g:756:2: ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 ) )
                     {
-                    // InternalIotlang.g:731:2: ( ( rule__NetworkConfiguration__Group_4_4__0 ) )
-                    // InternalIotlang.g:732:3: ( rule__NetworkConfiguration__Group_4_4__0 )
+                    // InternalIotlang.g:756:2: ( ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 ) )
+                    // InternalIotlang.g:757:3: ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getGroup_4_4()); 
-                    // InternalIotlang.g:733:3: ( rule__NetworkConfiguration__Group_4_4__0 )
-                    // InternalIotlang.g:733:4: rule__NetworkConfiguration__Group_4_4__0
+                     before(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_4()); 
+                    // InternalIotlang.g:758:3: ( rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 )
+                    // InternalIotlang.g:758:4: rule__NetworkConfiguration__ChannelInstancesAssignment_4_4
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__Group_4_4__0();
+                    rule__NetworkConfiguration__ChannelInstancesAssignment_4_4();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getGroup_4_4()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesAssignment_4_4()); 
 
                     }
 
@@ -2469,24 +2552,49 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalIotlang.g:737:2: ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 ) )
+                    // InternalIotlang.g:762:2: ( ( rule__NetworkConfiguration__Group_4_5__0 ) )
                     {
-                    // InternalIotlang.g:737:2: ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 ) )
-                    // InternalIotlang.g:738:3: ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 )
+                    // InternalIotlang.g:762:2: ( ( rule__NetworkConfiguration__Group_4_5__0 ) )
+                    // InternalIotlang.g:763:3: ( rule__NetworkConfiguration__Group_4_5__0 )
                     {
-                     before(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_5()); 
-                    // InternalIotlang.g:739:3: ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 )
-                    // InternalIotlang.g:739:4: rule__NetworkConfiguration__InstancePoliciyAssignment_4_5
+                     before(grammarAccess.getNetworkConfigurationAccess().getGroup_4_5()); 
+                    // InternalIotlang.g:764:3: ( rule__NetworkConfiguration__Group_4_5__0 )
+                    // InternalIotlang.g:764:4: rule__NetworkConfiguration__Group_4_5__0
                     {
                     pushFollow(FOLLOW_2);
-                    rule__NetworkConfiguration__InstancePoliciyAssignment_4_5();
+                    rule__NetworkConfiguration__Group_4_5__0();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_5()); 
+                     after(grammarAccess.getNetworkConfigurationAccess().getGroup_4_5()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 7 :
+                    // InternalIotlang.g:768:2: ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 ) )
+                    {
+                    // InternalIotlang.g:768:2: ( ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 ) )
+                    // InternalIotlang.g:769:3: ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 )
+                    {
+                     before(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_6()); 
+                    // InternalIotlang.g:770:3: ( rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 )
+                    // InternalIotlang.g:770:4: rule__NetworkConfiguration__InstancePoliciyAssignment_4_6
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__NetworkConfiguration__InstancePoliciyAssignment_4_6();
+
+                    state._fsp--;
+
+
+                    }
+
+                     after(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyAssignment_4_6()); 
 
                     }
 
@@ -2511,13 +2619,13 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__DirectionAlternatives_3_0"
-    // InternalIotlang.g:747:1: rule__Bind__DirectionAlternatives_3_0 : ( ( '=>' ) | ( '<=>' ) | ( '<=' ) );
+    // InternalIotlang.g:778:1: rule__Bind__DirectionAlternatives_3_0 : ( ( '=>' ) | ( '<=>' ) | ( '<=' ) );
     public final void rule__Bind__DirectionAlternatives_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:751:1: ( ( '=>' ) | ( '<=>' ) | ( '<=' ) )
+            // InternalIotlang.g:782:1: ( ( '=>' ) | ( '<=>' ) | ( '<=' ) )
             int alt9=3;
             switch ( input.LA(1) ) {
             case 17:
@@ -2544,10 +2652,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
             switch (alt9) {
                 case 1 :
-                    // InternalIotlang.g:752:2: ( '=>' )
+                    // InternalIotlang.g:783:2: ( '=>' )
                     {
-                    // InternalIotlang.g:752:2: ( '=>' )
-                    // InternalIotlang.g:753:3: '=>'
+                    // InternalIotlang.g:783:2: ( '=>' )
+                    // InternalIotlang.g:784:3: '=>'
                     {
                      before(grammarAccess.getBindAccess().getDirectionEqualsSignGreaterThanSignKeyword_3_0_0()); 
                     match(input,17,FOLLOW_2); 
@@ -2559,10 +2667,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalIotlang.g:758:2: ( '<=>' )
+                    // InternalIotlang.g:789:2: ( '<=>' )
                     {
-                    // InternalIotlang.g:758:2: ( '<=>' )
-                    // InternalIotlang.g:759:3: '<=>'
+                    // InternalIotlang.g:789:2: ( '<=>' )
+                    // InternalIotlang.g:790:3: '<=>'
                     {
                      before(grammarAccess.getBindAccess().getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1()); 
                     match(input,18,FOLLOW_2); 
@@ -2574,10 +2682,10 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalIotlang.g:764:2: ( '<=' )
+                    // InternalIotlang.g:795:2: ( '<=' )
                     {
-                    // InternalIotlang.g:764:2: ( '<=' )
-                    // InternalIotlang.g:765:3: '<='
+                    // InternalIotlang.g:795:2: ( '<=' )
+                    // InternalIotlang.g:796:3: '<='
                     {
                      before(grammarAccess.getBindAccess().getDirectionLessThanSignEqualsSignKeyword_3_0_2()); 
                     match(input,19,FOLLOW_2); 
@@ -2605,15 +2713,110 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Bind__DirectionAlternatives_3_0"
 
 
+    // $ANTLR start "rule__Connect__DirectionAlternatives_3_0"
+    // InternalIotlang.g:805:1: rule__Connect__DirectionAlternatives_3_0 : ( ( '=>' ) | ( '<=>' ) | ( '<=' ) );
+    public final void rule__Connect__DirectionAlternatives_3_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:809:1: ( ( '=>' ) | ( '<=>' ) | ( '<=' ) )
+            int alt10=3;
+            switch ( input.LA(1) ) {
+            case 17:
+                {
+                alt10=1;
+                }
+                break;
+            case 18:
+                {
+                alt10=2;
+                }
+                break;
+            case 19:
+                {
+                alt10=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 10, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt10) {
+                case 1 :
+                    // InternalIotlang.g:810:2: ( '=>' )
+                    {
+                    // InternalIotlang.g:810:2: ( '=>' )
+                    // InternalIotlang.g:811:3: '=>'
+                    {
+                     before(grammarAccess.getConnectAccess().getDirectionEqualsSignGreaterThanSignKeyword_3_0_0()); 
+                    match(input,17,FOLLOW_2); 
+                     after(grammarAccess.getConnectAccess().getDirectionEqualsSignGreaterThanSignKeyword_3_0_0()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalIotlang.g:816:2: ( '<=>' )
+                    {
+                    // InternalIotlang.g:816:2: ( '<=>' )
+                    // InternalIotlang.g:817:3: '<=>'
+                    {
+                     before(grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1()); 
+                    match(input,18,FOLLOW_2); 
+                     after(grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignGreaterThanSignKeyword_3_0_1()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // InternalIotlang.g:822:2: ( '<=' )
+                    {
+                    // InternalIotlang.g:822:2: ( '<=' )
+                    // InternalIotlang.g:823:3: '<='
+                    {
+                     before(grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignKeyword_3_0_2()); 
+                    match(input,19,FOLLOW_2); 
+                     after(grammarAccess.getConnectAccess().getDirectionLessThanSignEqualsSignKeyword_3_0_2()); 
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__DirectionAlternatives_3_0"
+
+
     // $ANTLR start "rule__PlatformAnnotation__Group__0"
-    // InternalIotlang.g:774:1: rule__PlatformAnnotation__Group__0 : rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1 ;
+    // InternalIotlang.g:832:1: rule__PlatformAnnotation__Group__0 : rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1 ;
     public final void rule__PlatformAnnotation__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:778:1: ( rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1 )
-            // InternalIotlang.g:779:2: rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1
+            // InternalIotlang.g:836:1: ( rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1 )
+            // InternalIotlang.g:837:2: rule__PlatformAnnotation__Group__0__Impl rule__PlatformAnnotation__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__PlatformAnnotation__Group__0__Impl();
@@ -2644,21 +2847,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlatformAnnotation__Group__0__Impl"
-    // InternalIotlang.g:786:1: rule__PlatformAnnotation__Group__0__Impl : ( ( rule__PlatformAnnotation__NameAssignment_0 ) ) ;
+    // InternalIotlang.g:844:1: rule__PlatformAnnotation__Group__0__Impl : ( ( rule__PlatformAnnotation__NameAssignment_0 ) ) ;
     public final void rule__PlatformAnnotation__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:790:1: ( ( ( rule__PlatformAnnotation__NameAssignment_0 ) ) )
-            // InternalIotlang.g:791:1: ( ( rule__PlatformAnnotation__NameAssignment_0 ) )
+            // InternalIotlang.g:848:1: ( ( ( rule__PlatformAnnotation__NameAssignment_0 ) ) )
+            // InternalIotlang.g:849:1: ( ( rule__PlatformAnnotation__NameAssignment_0 ) )
             {
-            // InternalIotlang.g:791:1: ( ( rule__PlatformAnnotation__NameAssignment_0 ) )
-            // InternalIotlang.g:792:2: ( rule__PlatformAnnotation__NameAssignment_0 )
+            // InternalIotlang.g:849:1: ( ( rule__PlatformAnnotation__NameAssignment_0 ) )
+            // InternalIotlang.g:850:2: ( rule__PlatformAnnotation__NameAssignment_0 )
             {
              before(grammarAccess.getPlatformAnnotationAccess().getNameAssignment_0()); 
-            // InternalIotlang.g:793:2: ( rule__PlatformAnnotation__NameAssignment_0 )
-            // InternalIotlang.g:793:3: rule__PlatformAnnotation__NameAssignment_0
+            // InternalIotlang.g:851:2: ( rule__PlatformAnnotation__NameAssignment_0 )
+            // InternalIotlang.g:851:3: rule__PlatformAnnotation__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__PlatformAnnotation__NameAssignment_0();
@@ -2691,14 +2894,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlatformAnnotation__Group__1"
-    // InternalIotlang.g:801:1: rule__PlatformAnnotation__Group__1 : rule__PlatformAnnotation__Group__1__Impl ;
+    // InternalIotlang.g:859:1: rule__PlatformAnnotation__Group__1 : rule__PlatformAnnotation__Group__1__Impl ;
     public final void rule__PlatformAnnotation__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:805:1: ( rule__PlatformAnnotation__Group__1__Impl )
-            // InternalIotlang.g:806:2: rule__PlatformAnnotation__Group__1__Impl
+            // InternalIotlang.g:863:1: ( rule__PlatformAnnotation__Group__1__Impl )
+            // InternalIotlang.g:864:2: rule__PlatformAnnotation__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__PlatformAnnotation__Group__1__Impl();
@@ -2724,21 +2927,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlatformAnnotation__Group__1__Impl"
-    // InternalIotlang.g:812:1: rule__PlatformAnnotation__Group__1__Impl : ( ( rule__PlatformAnnotation__ValueAssignment_1 ) ) ;
+    // InternalIotlang.g:870:1: rule__PlatformAnnotation__Group__1__Impl : ( ( rule__PlatformAnnotation__ValueAssignment_1 ) ) ;
     public final void rule__PlatformAnnotation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:816:1: ( ( ( rule__PlatformAnnotation__ValueAssignment_1 ) ) )
-            // InternalIotlang.g:817:1: ( ( rule__PlatformAnnotation__ValueAssignment_1 ) )
+            // InternalIotlang.g:874:1: ( ( ( rule__PlatformAnnotation__ValueAssignment_1 ) ) )
+            // InternalIotlang.g:875:1: ( ( rule__PlatformAnnotation__ValueAssignment_1 ) )
             {
-            // InternalIotlang.g:817:1: ( ( rule__PlatformAnnotation__ValueAssignment_1 ) )
-            // InternalIotlang.g:818:2: ( rule__PlatformAnnotation__ValueAssignment_1 )
+            // InternalIotlang.g:875:1: ( ( rule__PlatformAnnotation__ValueAssignment_1 ) )
+            // InternalIotlang.g:876:2: ( rule__PlatformAnnotation__ValueAssignment_1 )
             {
              before(grammarAccess.getPlatformAnnotationAccess().getValueAssignment_1()); 
-            // InternalIotlang.g:819:2: ( rule__PlatformAnnotation__ValueAssignment_1 )
-            // InternalIotlang.g:819:3: rule__PlatformAnnotation__ValueAssignment_1
+            // InternalIotlang.g:877:2: ( rule__PlatformAnnotation__ValueAssignment_1 )
+            // InternalIotlang.g:877:3: rule__PlatformAnnotation__ValueAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__PlatformAnnotation__ValueAssignment_1();
@@ -2771,14 +2974,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__0"
-    // InternalIotlang.g:828:1: rule__Thing__Group__0 : rule__Thing__Group__0__Impl rule__Thing__Group__1 ;
+    // InternalIotlang.g:886:1: rule__Thing__Group__0 : rule__Thing__Group__0__Impl rule__Thing__Group__1 ;
     public final void rule__Thing__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:832:1: ( rule__Thing__Group__0__Impl rule__Thing__Group__1 )
-            // InternalIotlang.g:833:2: rule__Thing__Group__0__Impl rule__Thing__Group__1
+            // InternalIotlang.g:890:1: ( rule__Thing__Group__0__Impl rule__Thing__Group__1 )
+            // InternalIotlang.g:891:2: rule__Thing__Group__0__Impl rule__Thing__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Thing__Group__0__Impl();
@@ -2809,17 +3012,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__0__Impl"
-    // InternalIotlang.g:840:1: rule__Thing__Group__0__Impl : ( 'thing' ) ;
+    // InternalIotlang.g:898:1: rule__Thing__Group__0__Impl : ( 'thing' ) ;
     public final void rule__Thing__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:844:1: ( ( 'thing' ) )
-            // InternalIotlang.g:845:1: ( 'thing' )
+            // InternalIotlang.g:902:1: ( ( 'thing' ) )
+            // InternalIotlang.g:903:1: ( 'thing' )
             {
-            // InternalIotlang.g:845:1: ( 'thing' )
-            // InternalIotlang.g:846:2: 'thing'
+            // InternalIotlang.g:903:1: ( 'thing' )
+            // InternalIotlang.g:904:2: 'thing'
             {
              before(grammarAccess.getThingAccess().getThingKeyword_0()); 
             match(input,20,FOLLOW_2); 
@@ -2846,14 +3049,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__1"
-    // InternalIotlang.g:855:1: rule__Thing__Group__1 : rule__Thing__Group__1__Impl rule__Thing__Group__2 ;
+    // InternalIotlang.g:913:1: rule__Thing__Group__1 : rule__Thing__Group__1__Impl rule__Thing__Group__2 ;
     public final void rule__Thing__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:859:1: ( rule__Thing__Group__1__Impl rule__Thing__Group__2 )
-            // InternalIotlang.g:860:2: rule__Thing__Group__1__Impl rule__Thing__Group__2
+            // InternalIotlang.g:917:1: ( rule__Thing__Group__1__Impl rule__Thing__Group__2 )
+            // InternalIotlang.g:918:2: rule__Thing__Group__1__Impl rule__Thing__Group__2
             {
             pushFollow(FOLLOW_6);
             rule__Thing__Group__1__Impl();
@@ -2884,21 +3087,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__1__Impl"
-    // InternalIotlang.g:867:1: rule__Thing__Group__1__Impl : ( ( rule__Thing__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:925:1: rule__Thing__Group__1__Impl : ( ( rule__Thing__NameAssignment_1 ) ) ;
     public final void rule__Thing__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:871:1: ( ( ( rule__Thing__NameAssignment_1 ) ) )
-            // InternalIotlang.g:872:1: ( ( rule__Thing__NameAssignment_1 ) )
+            // InternalIotlang.g:929:1: ( ( ( rule__Thing__NameAssignment_1 ) ) )
+            // InternalIotlang.g:930:1: ( ( rule__Thing__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:872:1: ( ( rule__Thing__NameAssignment_1 ) )
-            // InternalIotlang.g:873:2: ( rule__Thing__NameAssignment_1 )
+            // InternalIotlang.g:930:1: ( ( rule__Thing__NameAssignment_1 ) )
+            // InternalIotlang.g:931:2: ( rule__Thing__NameAssignment_1 )
             {
              before(grammarAccess.getThingAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:874:2: ( rule__Thing__NameAssignment_1 )
-            // InternalIotlang.g:874:3: rule__Thing__NameAssignment_1
+            // InternalIotlang.g:932:2: ( rule__Thing__NameAssignment_1 )
+            // InternalIotlang.g:932:3: rule__Thing__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Thing__NameAssignment_1();
@@ -2931,14 +3134,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__2"
-    // InternalIotlang.g:882:1: rule__Thing__Group__2 : rule__Thing__Group__2__Impl rule__Thing__Group__3 ;
+    // InternalIotlang.g:940:1: rule__Thing__Group__2 : rule__Thing__Group__2__Impl rule__Thing__Group__3 ;
     public final void rule__Thing__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:886:1: ( rule__Thing__Group__2__Impl rule__Thing__Group__3 )
-            // InternalIotlang.g:887:2: rule__Thing__Group__2__Impl rule__Thing__Group__3
+            // InternalIotlang.g:944:1: ( rule__Thing__Group__2__Impl rule__Thing__Group__3 )
+            // InternalIotlang.g:945:2: rule__Thing__Group__2__Impl rule__Thing__Group__3
             {
             pushFollow(FOLLOW_6);
             rule__Thing__Group__2__Impl();
@@ -2969,33 +3172,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__2__Impl"
-    // InternalIotlang.g:894:1: rule__Thing__Group__2__Impl : ( ( rule__Thing__AnnotationsAssignment_2 )* ) ;
+    // InternalIotlang.g:952:1: rule__Thing__Group__2__Impl : ( ( rule__Thing__AnnotationsAssignment_2 )* ) ;
     public final void rule__Thing__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:898:1: ( ( ( rule__Thing__AnnotationsAssignment_2 )* ) )
-            // InternalIotlang.g:899:1: ( ( rule__Thing__AnnotationsAssignment_2 )* )
+            // InternalIotlang.g:956:1: ( ( ( rule__Thing__AnnotationsAssignment_2 )* ) )
+            // InternalIotlang.g:957:1: ( ( rule__Thing__AnnotationsAssignment_2 )* )
             {
-            // InternalIotlang.g:899:1: ( ( rule__Thing__AnnotationsAssignment_2 )* )
-            // InternalIotlang.g:900:2: ( rule__Thing__AnnotationsAssignment_2 )*
+            // InternalIotlang.g:957:1: ( ( rule__Thing__AnnotationsAssignment_2 )* )
+            // InternalIotlang.g:958:2: ( rule__Thing__AnnotationsAssignment_2 )*
             {
              before(grammarAccess.getThingAccess().getAnnotationsAssignment_2()); 
-            // InternalIotlang.g:901:2: ( rule__Thing__AnnotationsAssignment_2 )*
-            loop10:
+            // InternalIotlang.g:959:2: ( rule__Thing__AnnotationsAssignment_2 )*
+            loop11:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt11=2;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA10_0==RULE_ANNOTATION_ID) ) {
-                    alt10=1;
+                if ( (LA11_0==RULE_ANNOTATION_ID) ) {
+                    alt11=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
             	case 1 :
-            	    // InternalIotlang.g:901:3: rule__Thing__AnnotationsAssignment_2
+            	    // InternalIotlang.g:959:3: rule__Thing__AnnotationsAssignment_2
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__Thing__AnnotationsAssignment_2();
@@ -3007,7 +3210,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop11;
                 }
             } while (true);
 
@@ -3034,14 +3237,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__3"
-    // InternalIotlang.g:909:1: rule__Thing__Group__3 : rule__Thing__Group__3__Impl rule__Thing__Group__4 ;
+    // InternalIotlang.g:967:1: rule__Thing__Group__3 : rule__Thing__Group__3__Impl rule__Thing__Group__4 ;
     public final void rule__Thing__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:913:1: ( rule__Thing__Group__3__Impl rule__Thing__Group__4 )
-            // InternalIotlang.g:914:2: rule__Thing__Group__3__Impl rule__Thing__Group__4
+            // InternalIotlang.g:971:1: ( rule__Thing__Group__3__Impl rule__Thing__Group__4 )
+            // InternalIotlang.g:972:2: rule__Thing__Group__3__Impl rule__Thing__Group__4
             {
             pushFollow(FOLLOW_8);
             rule__Thing__Group__3__Impl();
@@ -3072,17 +3275,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__3__Impl"
-    // InternalIotlang.g:921:1: rule__Thing__Group__3__Impl : ( '{' ) ;
+    // InternalIotlang.g:979:1: rule__Thing__Group__3__Impl : ( '{' ) ;
     public final void rule__Thing__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:925:1: ( ( '{' ) )
-            // InternalIotlang.g:926:1: ( '{' )
+            // InternalIotlang.g:983:1: ( ( '{' ) )
+            // InternalIotlang.g:984:1: ( '{' )
             {
-            // InternalIotlang.g:926:1: ( '{' )
-            // InternalIotlang.g:927:2: '{'
+            // InternalIotlang.g:984:1: ( '{' )
+            // InternalIotlang.g:985:2: '{'
             {
              before(grammarAccess.getThingAccess().getLeftCurlyBracketKeyword_3()); 
             match(input,21,FOLLOW_2); 
@@ -3109,14 +3312,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__4"
-    // InternalIotlang.g:936:1: rule__Thing__Group__4 : rule__Thing__Group__4__Impl rule__Thing__Group__5 ;
+    // InternalIotlang.g:994:1: rule__Thing__Group__4 : rule__Thing__Group__4__Impl rule__Thing__Group__5 ;
     public final void rule__Thing__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:940:1: ( rule__Thing__Group__4__Impl rule__Thing__Group__5 )
-            // InternalIotlang.g:941:2: rule__Thing__Group__4__Impl rule__Thing__Group__5
+            // InternalIotlang.g:998:1: ( rule__Thing__Group__4__Impl rule__Thing__Group__5 )
+            // InternalIotlang.g:999:2: rule__Thing__Group__4__Impl rule__Thing__Group__5
             {
             pushFollow(FOLLOW_9);
             rule__Thing__Group__4__Impl();
@@ -3147,21 +3350,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__4__Impl"
-    // InternalIotlang.g:948:1: rule__Thing__Group__4__Impl : ( ( rule__Thing__PortsAssignment_4 ) ) ;
+    // InternalIotlang.g:1006:1: rule__Thing__Group__4__Impl : ( ( rule__Thing__PortsAssignment_4 ) ) ;
     public final void rule__Thing__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:952:1: ( ( ( rule__Thing__PortsAssignment_4 ) ) )
-            // InternalIotlang.g:953:1: ( ( rule__Thing__PortsAssignment_4 ) )
+            // InternalIotlang.g:1010:1: ( ( ( rule__Thing__PortsAssignment_4 ) ) )
+            // InternalIotlang.g:1011:1: ( ( rule__Thing__PortsAssignment_4 ) )
             {
-            // InternalIotlang.g:953:1: ( ( rule__Thing__PortsAssignment_4 ) )
-            // InternalIotlang.g:954:2: ( rule__Thing__PortsAssignment_4 )
+            // InternalIotlang.g:1011:1: ( ( rule__Thing__PortsAssignment_4 ) )
+            // InternalIotlang.g:1012:2: ( rule__Thing__PortsAssignment_4 )
             {
              before(grammarAccess.getThingAccess().getPortsAssignment_4()); 
-            // InternalIotlang.g:955:2: ( rule__Thing__PortsAssignment_4 )
-            // InternalIotlang.g:955:3: rule__Thing__PortsAssignment_4
+            // InternalIotlang.g:1013:2: ( rule__Thing__PortsAssignment_4 )
+            // InternalIotlang.g:1013:3: rule__Thing__PortsAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__Thing__PortsAssignment_4();
@@ -3194,14 +3397,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__5"
-    // InternalIotlang.g:963:1: rule__Thing__Group__5 : rule__Thing__Group__5__Impl ;
+    // InternalIotlang.g:1021:1: rule__Thing__Group__5 : rule__Thing__Group__5__Impl ;
     public final void rule__Thing__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:967:1: ( rule__Thing__Group__5__Impl )
-            // InternalIotlang.g:968:2: rule__Thing__Group__5__Impl
+            // InternalIotlang.g:1025:1: ( rule__Thing__Group__5__Impl )
+            // InternalIotlang.g:1026:2: rule__Thing__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Thing__Group__5__Impl();
@@ -3227,17 +3430,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__Group__5__Impl"
-    // InternalIotlang.g:974:1: rule__Thing__Group__5__Impl : ( '}' ) ;
+    // InternalIotlang.g:1032:1: rule__Thing__Group__5__Impl : ( '}' ) ;
     public final void rule__Thing__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:978:1: ( ( '}' ) )
-            // InternalIotlang.g:979:1: ( '}' )
+            // InternalIotlang.g:1036:1: ( ( '}' ) )
+            // InternalIotlang.g:1037:1: ( '}' )
             {
-            // InternalIotlang.g:979:1: ( '}' )
-            // InternalIotlang.g:980:2: '}'
+            // InternalIotlang.g:1037:1: ( '}' )
+            // InternalIotlang.g:1038:2: '}'
             {
              before(grammarAccess.getThingAccess().getRightCurlyBracketKeyword_5()); 
             match(input,22,FOLLOW_2); 
@@ -3264,14 +3467,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__0"
-    // InternalIotlang.g:990:1: rule__PubSub__Group__0 : rule__PubSub__Group__0__Impl rule__PubSub__Group__1 ;
+    // InternalIotlang.g:1048:1: rule__PubSub__Group__0 : rule__PubSub__Group__0__Impl rule__PubSub__Group__1 ;
     public final void rule__PubSub__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:994:1: ( rule__PubSub__Group__0__Impl rule__PubSub__Group__1 )
-            // InternalIotlang.g:995:2: rule__PubSub__Group__0__Impl rule__PubSub__Group__1
+            // InternalIotlang.g:1052:1: ( rule__PubSub__Group__0__Impl rule__PubSub__Group__1 )
+            // InternalIotlang.g:1053:2: rule__PubSub__Group__0__Impl rule__PubSub__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__PubSub__Group__0__Impl();
@@ -3302,17 +3505,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__0__Impl"
-    // InternalIotlang.g:1002:1: rule__PubSub__Group__0__Impl : ( 'channel:pubsub' ) ;
+    // InternalIotlang.g:1060:1: rule__PubSub__Group__0__Impl : ( 'channel:pubsub' ) ;
     public final void rule__PubSub__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1006:1: ( ( 'channel:pubsub' ) )
-            // InternalIotlang.g:1007:1: ( 'channel:pubsub' )
+            // InternalIotlang.g:1064:1: ( ( 'channel:pubsub' ) )
+            // InternalIotlang.g:1065:1: ( 'channel:pubsub' )
             {
-            // InternalIotlang.g:1007:1: ( 'channel:pubsub' )
-            // InternalIotlang.g:1008:2: 'channel:pubsub'
+            // InternalIotlang.g:1065:1: ( 'channel:pubsub' )
+            // InternalIotlang.g:1066:2: 'channel:pubsub'
             {
              before(grammarAccess.getPubSubAccess().getChannelPubsubKeyword_0()); 
             match(input,23,FOLLOW_2); 
@@ -3339,14 +3542,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__1"
-    // InternalIotlang.g:1017:1: rule__PubSub__Group__1 : rule__PubSub__Group__1__Impl rule__PubSub__Group__2 ;
+    // InternalIotlang.g:1075:1: rule__PubSub__Group__1 : rule__PubSub__Group__1__Impl rule__PubSub__Group__2 ;
     public final void rule__PubSub__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1021:1: ( rule__PubSub__Group__1__Impl rule__PubSub__Group__2 )
-            // InternalIotlang.g:1022:2: rule__PubSub__Group__1__Impl rule__PubSub__Group__2
+            // InternalIotlang.g:1079:1: ( rule__PubSub__Group__1__Impl rule__PubSub__Group__2 )
+            // InternalIotlang.g:1080:2: rule__PubSub__Group__1__Impl rule__PubSub__Group__2
             {
             pushFollow(FOLLOW_10);
             rule__PubSub__Group__1__Impl();
@@ -3377,21 +3580,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__1__Impl"
-    // InternalIotlang.g:1029:1: rule__PubSub__Group__1__Impl : ( ( rule__PubSub__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1087:1: rule__PubSub__Group__1__Impl : ( ( rule__PubSub__NameAssignment_1 ) ) ;
     public final void rule__PubSub__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1033:1: ( ( ( rule__PubSub__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1034:1: ( ( rule__PubSub__NameAssignment_1 ) )
+            // InternalIotlang.g:1091:1: ( ( ( rule__PubSub__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1092:1: ( ( rule__PubSub__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1034:1: ( ( rule__PubSub__NameAssignment_1 ) )
-            // InternalIotlang.g:1035:2: ( rule__PubSub__NameAssignment_1 )
+            // InternalIotlang.g:1092:1: ( ( rule__PubSub__NameAssignment_1 ) )
+            // InternalIotlang.g:1093:2: ( rule__PubSub__NameAssignment_1 )
             {
              before(grammarAccess.getPubSubAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1036:2: ( rule__PubSub__NameAssignment_1 )
-            // InternalIotlang.g:1036:3: rule__PubSub__NameAssignment_1
+            // InternalIotlang.g:1094:2: ( rule__PubSub__NameAssignment_1 )
+            // InternalIotlang.g:1094:3: rule__PubSub__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__PubSub__NameAssignment_1();
@@ -3424,14 +3627,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__2"
-    // InternalIotlang.g:1044:1: rule__PubSub__Group__2 : rule__PubSub__Group__2__Impl rule__PubSub__Group__3 ;
+    // InternalIotlang.g:1102:1: rule__PubSub__Group__2 : rule__PubSub__Group__2__Impl rule__PubSub__Group__3 ;
     public final void rule__PubSub__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1048:1: ( rule__PubSub__Group__2__Impl rule__PubSub__Group__3 )
-            // InternalIotlang.g:1049:2: rule__PubSub__Group__2__Impl rule__PubSub__Group__3
+            // InternalIotlang.g:1106:1: ( rule__PubSub__Group__2__Impl rule__PubSub__Group__3 )
+            // InternalIotlang.g:1107:2: rule__PubSub__Group__2__Impl rule__PubSub__Group__3
             {
             pushFollow(FOLLOW_11);
             rule__PubSub__Group__2__Impl();
@@ -3462,17 +3665,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__2__Impl"
-    // InternalIotlang.g:1056:1: rule__PubSub__Group__2__Impl : ( '{' ) ;
+    // InternalIotlang.g:1114:1: rule__PubSub__Group__2__Impl : ( '{' ) ;
     public final void rule__PubSub__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1060:1: ( ( '{' ) )
-            // InternalIotlang.g:1061:1: ( '{' )
+            // InternalIotlang.g:1118:1: ( ( '{' ) )
+            // InternalIotlang.g:1119:1: ( '{' )
             {
-            // InternalIotlang.g:1061:1: ( '{' )
-            // InternalIotlang.g:1062:2: '{'
+            // InternalIotlang.g:1119:1: ( '{' )
+            // InternalIotlang.g:1120:2: '{'
             {
              before(grammarAccess.getPubSubAccess().getLeftCurlyBracketKeyword_2()); 
             match(input,21,FOLLOW_2); 
@@ -3499,14 +3702,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__3"
-    // InternalIotlang.g:1071:1: rule__PubSub__Group__3 : rule__PubSub__Group__3__Impl rule__PubSub__Group__4 ;
+    // InternalIotlang.g:1129:1: rule__PubSub__Group__3 : rule__PubSub__Group__3__Impl rule__PubSub__Group__4 ;
     public final void rule__PubSub__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1075:1: ( rule__PubSub__Group__3__Impl rule__PubSub__Group__4 )
-            // InternalIotlang.g:1076:2: rule__PubSub__Group__3__Impl rule__PubSub__Group__4
+            // InternalIotlang.g:1133:1: ( rule__PubSub__Group__3__Impl rule__PubSub__Group__4 )
+            // InternalIotlang.g:1134:2: rule__PubSub__Group__3__Impl rule__PubSub__Group__4
             {
             pushFollow(FOLLOW_11);
             rule__PubSub__Group__3__Impl();
@@ -3537,33 +3740,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__3__Impl"
-    // InternalIotlang.g:1083:1: rule__PubSub__Group__3__Impl : ( ( rule__PubSub__HasTopicsAssignment_3 )* ) ;
+    // InternalIotlang.g:1141:1: rule__PubSub__Group__3__Impl : ( ( rule__PubSub__HasTopicsAssignment_3 )* ) ;
     public final void rule__PubSub__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1087:1: ( ( ( rule__PubSub__HasTopicsAssignment_3 )* ) )
-            // InternalIotlang.g:1088:1: ( ( rule__PubSub__HasTopicsAssignment_3 )* )
+            // InternalIotlang.g:1145:1: ( ( ( rule__PubSub__HasTopicsAssignment_3 )* ) )
+            // InternalIotlang.g:1146:1: ( ( rule__PubSub__HasTopicsAssignment_3 )* )
             {
-            // InternalIotlang.g:1088:1: ( ( rule__PubSub__HasTopicsAssignment_3 )* )
-            // InternalIotlang.g:1089:2: ( rule__PubSub__HasTopicsAssignment_3 )*
+            // InternalIotlang.g:1146:1: ( ( rule__PubSub__HasTopicsAssignment_3 )* )
+            // InternalIotlang.g:1147:2: ( rule__PubSub__HasTopicsAssignment_3 )*
             {
              before(grammarAccess.getPubSubAccess().getHasTopicsAssignment_3()); 
-            // InternalIotlang.g:1090:2: ( rule__PubSub__HasTopicsAssignment_3 )*
-            loop11:
+            // InternalIotlang.g:1148:2: ( rule__PubSub__HasTopicsAssignment_3 )*
+            loop12:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA11_0==29) ) {
-                    alt11=1;
+                if ( (LA12_0==29) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
-            	    // InternalIotlang.g:1090:3: rule__PubSub__HasTopicsAssignment_3
+            	    // InternalIotlang.g:1148:3: rule__PubSub__HasTopicsAssignment_3
             	    {
             	    pushFollow(FOLLOW_12);
             	    rule__PubSub__HasTopicsAssignment_3();
@@ -3575,7 +3778,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop12;
                 }
             } while (true);
 
@@ -3602,14 +3805,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__4"
-    // InternalIotlang.g:1098:1: rule__PubSub__Group__4 : rule__PubSub__Group__4__Impl ;
+    // InternalIotlang.g:1156:1: rule__PubSub__Group__4 : rule__PubSub__Group__4__Impl ;
     public final void rule__PubSub__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1102:1: ( rule__PubSub__Group__4__Impl )
-            // InternalIotlang.g:1103:2: rule__PubSub__Group__4__Impl
+            // InternalIotlang.g:1160:1: ( rule__PubSub__Group__4__Impl )
+            // InternalIotlang.g:1161:2: rule__PubSub__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__PubSub__Group__4__Impl();
@@ -3635,17 +3838,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__Group__4__Impl"
-    // InternalIotlang.g:1109:1: rule__PubSub__Group__4__Impl : ( '}' ) ;
+    // InternalIotlang.g:1167:1: rule__PubSub__Group__4__Impl : ( '}' ) ;
     public final void rule__PubSub__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1113:1: ( ( '}' ) )
-            // InternalIotlang.g:1114:1: ( '}' )
+            // InternalIotlang.g:1171:1: ( ( '}' ) )
+            // InternalIotlang.g:1172:1: ( '}' )
             {
-            // InternalIotlang.g:1114:1: ( '}' )
-            // InternalIotlang.g:1115:2: '}'
+            // InternalIotlang.g:1172:1: ( '}' )
+            // InternalIotlang.g:1173:2: '}'
             {
              before(grammarAccess.getPubSubAccess().getRightCurlyBracketKeyword_4()); 
             match(input,22,FOLLOW_2); 
@@ -3672,14 +3875,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__0"
-    // InternalIotlang.g:1125:1: rule__PointToPoint__Group__0 : rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1 ;
+    // InternalIotlang.g:1183:1: rule__PointToPoint__Group__0 : rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1 ;
     public final void rule__PointToPoint__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1129:1: ( rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1 )
-            // InternalIotlang.g:1130:2: rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1
+            // InternalIotlang.g:1187:1: ( rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1 )
+            // InternalIotlang.g:1188:2: rule__PointToPoint__Group__0__Impl rule__PointToPoint__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__PointToPoint__Group__0__Impl();
@@ -3710,17 +3913,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__0__Impl"
-    // InternalIotlang.g:1137:1: rule__PointToPoint__Group__0__Impl : ( 'channel:ptp' ) ;
+    // InternalIotlang.g:1195:1: rule__PointToPoint__Group__0__Impl : ( 'channel:ptp' ) ;
     public final void rule__PointToPoint__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1141:1: ( ( 'channel:ptp' ) )
-            // InternalIotlang.g:1142:1: ( 'channel:ptp' )
+            // InternalIotlang.g:1199:1: ( ( 'channel:ptp' ) )
+            // InternalIotlang.g:1200:1: ( 'channel:ptp' )
             {
-            // InternalIotlang.g:1142:1: ( 'channel:ptp' )
-            // InternalIotlang.g:1143:2: 'channel:ptp'
+            // InternalIotlang.g:1200:1: ( 'channel:ptp' )
+            // InternalIotlang.g:1201:2: 'channel:ptp'
             {
              before(grammarAccess.getPointToPointAccess().getChannelPtpKeyword_0()); 
             match(input,24,FOLLOW_2); 
@@ -3747,14 +3950,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__1"
-    // InternalIotlang.g:1152:1: rule__PointToPoint__Group__1 : rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2 ;
+    // InternalIotlang.g:1210:1: rule__PointToPoint__Group__1 : rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2 ;
     public final void rule__PointToPoint__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1156:1: ( rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2 )
-            // InternalIotlang.g:1157:2: rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2
+            // InternalIotlang.g:1214:1: ( rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2 )
+            // InternalIotlang.g:1215:2: rule__PointToPoint__Group__1__Impl rule__PointToPoint__Group__2
             {
             pushFollow(FOLLOW_10);
             rule__PointToPoint__Group__1__Impl();
@@ -3785,21 +3988,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__1__Impl"
-    // InternalIotlang.g:1164:1: rule__PointToPoint__Group__1__Impl : ( ( rule__PointToPoint__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1222:1: rule__PointToPoint__Group__1__Impl : ( ( rule__PointToPoint__NameAssignment_1 ) ) ;
     public final void rule__PointToPoint__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1168:1: ( ( ( rule__PointToPoint__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1169:1: ( ( rule__PointToPoint__NameAssignment_1 ) )
+            // InternalIotlang.g:1226:1: ( ( ( rule__PointToPoint__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1227:1: ( ( rule__PointToPoint__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1169:1: ( ( rule__PointToPoint__NameAssignment_1 ) )
-            // InternalIotlang.g:1170:2: ( rule__PointToPoint__NameAssignment_1 )
+            // InternalIotlang.g:1227:1: ( ( rule__PointToPoint__NameAssignment_1 ) )
+            // InternalIotlang.g:1228:2: ( rule__PointToPoint__NameAssignment_1 )
             {
              before(grammarAccess.getPointToPointAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1171:2: ( rule__PointToPoint__NameAssignment_1 )
-            // InternalIotlang.g:1171:3: rule__PointToPoint__NameAssignment_1
+            // InternalIotlang.g:1229:2: ( rule__PointToPoint__NameAssignment_1 )
+            // InternalIotlang.g:1229:3: rule__PointToPoint__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__PointToPoint__NameAssignment_1();
@@ -3832,14 +4035,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__2"
-    // InternalIotlang.g:1179:1: rule__PointToPoint__Group__2 : rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3 ;
+    // InternalIotlang.g:1237:1: rule__PointToPoint__Group__2 : rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3 ;
     public final void rule__PointToPoint__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1183:1: ( rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3 )
-            // InternalIotlang.g:1184:2: rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3
+            // InternalIotlang.g:1241:1: ( rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3 )
+            // InternalIotlang.g:1242:2: rule__PointToPoint__Group__2__Impl rule__PointToPoint__Group__3
             {
             pushFollow(FOLLOW_9);
             rule__PointToPoint__Group__2__Impl();
@@ -3870,17 +4073,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__2__Impl"
-    // InternalIotlang.g:1191:1: rule__PointToPoint__Group__2__Impl : ( '{' ) ;
+    // InternalIotlang.g:1249:1: rule__PointToPoint__Group__2__Impl : ( '{' ) ;
     public final void rule__PointToPoint__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1195:1: ( ( '{' ) )
-            // InternalIotlang.g:1196:1: ( '{' )
+            // InternalIotlang.g:1253:1: ( ( '{' ) )
+            // InternalIotlang.g:1254:1: ( '{' )
             {
-            // InternalIotlang.g:1196:1: ( '{' )
-            // InternalIotlang.g:1197:2: '{'
+            // InternalIotlang.g:1254:1: ( '{' )
+            // InternalIotlang.g:1255:2: '{'
             {
              before(grammarAccess.getPointToPointAccess().getLeftCurlyBracketKeyword_2()); 
             match(input,21,FOLLOW_2); 
@@ -3907,14 +4110,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__3"
-    // InternalIotlang.g:1206:1: rule__PointToPoint__Group__3 : rule__PointToPoint__Group__3__Impl ;
+    // InternalIotlang.g:1264:1: rule__PointToPoint__Group__3 : rule__PointToPoint__Group__3__Impl ;
     public final void rule__PointToPoint__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1210:1: ( rule__PointToPoint__Group__3__Impl )
-            // InternalIotlang.g:1211:2: rule__PointToPoint__Group__3__Impl
+            // InternalIotlang.g:1268:1: ( rule__PointToPoint__Group__3__Impl )
+            // InternalIotlang.g:1269:2: rule__PointToPoint__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__PointToPoint__Group__3__Impl();
@@ -3940,17 +4143,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__Group__3__Impl"
-    // InternalIotlang.g:1217:1: rule__PointToPoint__Group__3__Impl : ( '}' ) ;
+    // InternalIotlang.g:1275:1: rule__PointToPoint__Group__3__Impl : ( '}' ) ;
     public final void rule__PointToPoint__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1221:1: ( ( '}' ) )
-            // InternalIotlang.g:1222:1: ( '}' )
+            // InternalIotlang.g:1279:1: ( ( '}' ) )
+            // InternalIotlang.g:1280:1: ( '}' )
             {
-            // InternalIotlang.g:1222:1: ( '}' )
-            // InternalIotlang.g:1223:2: '}'
+            // InternalIotlang.g:1280:1: ( '}' )
+            // InternalIotlang.g:1281:2: '}'
             {
              before(grammarAccess.getPointToPointAccess().getRightCurlyBracketKeyword_3()); 
             match(input,22,FOLLOW_2); 
@@ -3977,14 +4180,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__0"
-    // InternalIotlang.g:1233:1: rule__Policy__Group__0 : rule__Policy__Group__0__Impl rule__Policy__Group__1 ;
+    // InternalIotlang.g:1291:1: rule__Policy__Group__0 : rule__Policy__Group__0__Impl rule__Policy__Group__1 ;
     public final void rule__Policy__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1237:1: ( rule__Policy__Group__0__Impl rule__Policy__Group__1 )
-            // InternalIotlang.g:1238:2: rule__Policy__Group__0__Impl rule__Policy__Group__1
+            // InternalIotlang.g:1295:1: ( rule__Policy__Group__0__Impl rule__Policy__Group__1 )
+            // InternalIotlang.g:1296:2: rule__Policy__Group__0__Impl rule__Policy__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Policy__Group__0__Impl();
@@ -4015,17 +4218,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__0__Impl"
-    // InternalIotlang.g:1245:1: rule__Policy__Group__0__Impl : ( 'policy' ) ;
+    // InternalIotlang.g:1303:1: rule__Policy__Group__0__Impl : ( 'policy' ) ;
     public final void rule__Policy__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1249:1: ( ( 'policy' ) )
-            // InternalIotlang.g:1250:1: ( 'policy' )
+            // InternalIotlang.g:1307:1: ( ( 'policy' ) )
+            // InternalIotlang.g:1308:1: ( 'policy' )
             {
-            // InternalIotlang.g:1250:1: ( 'policy' )
-            // InternalIotlang.g:1251:2: 'policy'
+            // InternalIotlang.g:1308:1: ( 'policy' )
+            // InternalIotlang.g:1309:2: 'policy'
             {
              before(grammarAccess.getPolicyAccess().getPolicyKeyword_0()); 
             match(input,25,FOLLOW_2); 
@@ -4052,14 +4255,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__1"
-    // InternalIotlang.g:1260:1: rule__Policy__Group__1 : rule__Policy__Group__1__Impl rule__Policy__Group__2 ;
+    // InternalIotlang.g:1318:1: rule__Policy__Group__1 : rule__Policy__Group__1__Impl rule__Policy__Group__2 ;
     public final void rule__Policy__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1264:1: ( rule__Policy__Group__1__Impl rule__Policy__Group__2 )
-            // InternalIotlang.g:1265:2: rule__Policy__Group__1__Impl rule__Policy__Group__2
+            // InternalIotlang.g:1322:1: ( rule__Policy__Group__1__Impl rule__Policy__Group__2 )
+            // InternalIotlang.g:1323:2: rule__Policy__Group__1__Impl rule__Policy__Group__2
             {
             pushFollow(FOLLOW_10);
             rule__Policy__Group__1__Impl();
@@ -4090,21 +4293,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__1__Impl"
-    // InternalIotlang.g:1272:1: rule__Policy__Group__1__Impl : ( ( rule__Policy__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1330:1: rule__Policy__Group__1__Impl : ( ( rule__Policy__NameAssignment_1 ) ) ;
     public final void rule__Policy__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1276:1: ( ( ( rule__Policy__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1277:1: ( ( rule__Policy__NameAssignment_1 ) )
+            // InternalIotlang.g:1334:1: ( ( ( rule__Policy__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1335:1: ( ( rule__Policy__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1277:1: ( ( rule__Policy__NameAssignment_1 ) )
-            // InternalIotlang.g:1278:2: ( rule__Policy__NameAssignment_1 )
+            // InternalIotlang.g:1335:1: ( ( rule__Policy__NameAssignment_1 ) )
+            // InternalIotlang.g:1336:2: ( rule__Policy__NameAssignment_1 )
             {
              before(grammarAccess.getPolicyAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1279:2: ( rule__Policy__NameAssignment_1 )
-            // InternalIotlang.g:1279:3: rule__Policy__NameAssignment_1
+            // InternalIotlang.g:1337:2: ( rule__Policy__NameAssignment_1 )
+            // InternalIotlang.g:1337:3: rule__Policy__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Policy__NameAssignment_1();
@@ -4137,14 +4340,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__2"
-    // InternalIotlang.g:1287:1: rule__Policy__Group__2 : rule__Policy__Group__2__Impl rule__Policy__Group__3 ;
+    // InternalIotlang.g:1345:1: rule__Policy__Group__2 : rule__Policy__Group__2__Impl rule__Policy__Group__3 ;
     public final void rule__Policy__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1291:1: ( rule__Policy__Group__2__Impl rule__Policy__Group__3 )
-            // InternalIotlang.g:1292:2: rule__Policy__Group__2__Impl rule__Policy__Group__3
+            // InternalIotlang.g:1349:1: ( rule__Policy__Group__2__Impl rule__Policy__Group__3 )
+            // InternalIotlang.g:1350:2: rule__Policy__Group__2__Impl rule__Policy__Group__3
             {
             pushFollow(FOLLOW_13);
             rule__Policy__Group__2__Impl();
@@ -4175,17 +4378,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__2__Impl"
-    // InternalIotlang.g:1299:1: rule__Policy__Group__2__Impl : ( '{' ) ;
+    // InternalIotlang.g:1357:1: rule__Policy__Group__2__Impl : ( '{' ) ;
     public final void rule__Policy__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1303:1: ( ( '{' ) )
-            // InternalIotlang.g:1304:1: ( '{' )
+            // InternalIotlang.g:1361:1: ( ( '{' ) )
+            // InternalIotlang.g:1362:1: ( '{' )
             {
-            // InternalIotlang.g:1304:1: ( '{' )
-            // InternalIotlang.g:1305:2: '{'
+            // InternalIotlang.g:1362:1: ( '{' )
+            // InternalIotlang.g:1363:2: '{'
             {
              before(grammarAccess.getPolicyAccess().getLeftCurlyBracketKeyword_2()); 
             match(input,21,FOLLOW_2); 
@@ -4212,14 +4415,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__3"
-    // InternalIotlang.g:1314:1: rule__Policy__Group__3 : rule__Policy__Group__3__Impl rule__Policy__Group__4 ;
+    // InternalIotlang.g:1372:1: rule__Policy__Group__3 : rule__Policy__Group__3__Impl rule__Policy__Group__4 ;
     public final void rule__Policy__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1318:1: ( rule__Policy__Group__3__Impl rule__Policy__Group__4 )
-            // InternalIotlang.g:1319:2: rule__Policy__Group__3__Impl rule__Policy__Group__4
+            // InternalIotlang.g:1376:1: ( rule__Policy__Group__3__Impl rule__Policy__Group__4 )
+            // InternalIotlang.g:1377:2: rule__Policy__Group__3__Impl rule__Policy__Group__4
             {
             pushFollow(FOLLOW_13);
             rule__Policy__Group__3__Impl();
@@ -4250,33 +4453,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__3__Impl"
-    // InternalIotlang.g:1326:1: rule__Policy__Group__3__Impl : ( ( rule__Policy__HasRulesAssignment_3 )* ) ;
+    // InternalIotlang.g:1384:1: rule__Policy__Group__3__Impl : ( ( rule__Policy__HasRulesAssignment_3 )* ) ;
     public final void rule__Policy__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1330:1: ( ( ( rule__Policy__HasRulesAssignment_3 )* ) )
-            // InternalIotlang.g:1331:1: ( ( rule__Policy__HasRulesAssignment_3 )* )
+            // InternalIotlang.g:1388:1: ( ( ( rule__Policy__HasRulesAssignment_3 )* ) )
+            // InternalIotlang.g:1389:1: ( ( rule__Policy__HasRulesAssignment_3 )* )
             {
-            // InternalIotlang.g:1331:1: ( ( rule__Policy__HasRulesAssignment_3 )* )
-            // InternalIotlang.g:1332:2: ( rule__Policy__HasRulesAssignment_3 )*
+            // InternalIotlang.g:1389:1: ( ( rule__Policy__HasRulesAssignment_3 )* )
+            // InternalIotlang.g:1390:2: ( rule__Policy__HasRulesAssignment_3 )*
             {
              before(grammarAccess.getPolicyAccess().getHasRulesAssignment_3()); 
-            // InternalIotlang.g:1333:2: ( rule__Policy__HasRulesAssignment_3 )*
-            loop12:
+            // InternalIotlang.g:1391:2: ( rule__Policy__HasRulesAssignment_3 )*
+            loop13:
             do {
-                int alt12=2;
-                int LA12_0 = input.LA(1);
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-                if ( (LA12_0==32) ) {
-                    alt12=1;
+                if ( (LA13_0==32) ) {
+                    alt13=1;
                 }
 
 
-                switch (alt12) {
+                switch (alt13) {
             	case 1 :
-            	    // InternalIotlang.g:1333:3: rule__Policy__HasRulesAssignment_3
+            	    // InternalIotlang.g:1391:3: rule__Policy__HasRulesAssignment_3
             	    {
             	    pushFollow(FOLLOW_14);
             	    rule__Policy__HasRulesAssignment_3();
@@ -4288,7 +4491,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop12;
+            	    break loop13;
                 }
             } while (true);
 
@@ -4315,14 +4518,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__4"
-    // InternalIotlang.g:1341:1: rule__Policy__Group__4 : rule__Policy__Group__4__Impl ;
+    // InternalIotlang.g:1399:1: rule__Policy__Group__4 : rule__Policy__Group__4__Impl ;
     public final void rule__Policy__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1345:1: ( rule__Policy__Group__4__Impl )
-            // InternalIotlang.g:1346:2: rule__Policy__Group__4__Impl
+            // InternalIotlang.g:1403:1: ( rule__Policy__Group__4__Impl )
+            // InternalIotlang.g:1404:2: rule__Policy__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Policy__Group__4__Impl();
@@ -4348,17 +4551,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__Group__4__Impl"
-    // InternalIotlang.g:1352:1: rule__Policy__Group__4__Impl : ( '}' ) ;
+    // InternalIotlang.g:1410:1: rule__Policy__Group__4__Impl : ( '}' ) ;
     public final void rule__Policy__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1356:1: ( ( '}' ) )
-            // InternalIotlang.g:1357:1: ( '}' )
+            // InternalIotlang.g:1414:1: ( ( '}' ) )
+            // InternalIotlang.g:1415:1: ( '}' )
             {
-            // InternalIotlang.g:1357:1: ( '}' )
-            // InternalIotlang.g:1358:2: '}'
+            // InternalIotlang.g:1415:1: ( '}' )
+            // InternalIotlang.g:1416:2: '}'
             {
              before(grammarAccess.getPolicyAccess().getRightCurlyBracketKeyword_4()); 
             match(input,22,FOLLOW_2); 
@@ -4385,14 +4588,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Port__Group__0"
-    // InternalIotlang.g:1368:1: rule__Port__Group__0 : rule__Port__Group__0__Impl rule__Port__Group__1 ;
+    // InternalIotlang.g:1426:1: rule__Port__Group__0 : rule__Port__Group__0__Impl rule__Port__Group__1 ;
     public final void rule__Port__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1372:1: ( rule__Port__Group__0__Impl rule__Port__Group__1 )
-            // InternalIotlang.g:1373:2: rule__Port__Group__0__Impl rule__Port__Group__1
+            // InternalIotlang.g:1430:1: ( rule__Port__Group__0__Impl rule__Port__Group__1 )
+            // InternalIotlang.g:1431:2: rule__Port__Group__0__Impl rule__Port__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Port__Group__0__Impl();
@@ -4423,17 +4626,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Port__Group__0__Impl"
-    // InternalIotlang.g:1380:1: rule__Port__Group__0__Impl : ( 'port' ) ;
+    // InternalIotlang.g:1438:1: rule__Port__Group__0__Impl : ( 'port' ) ;
     public final void rule__Port__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1384:1: ( ( 'port' ) )
-            // InternalIotlang.g:1385:1: ( 'port' )
+            // InternalIotlang.g:1442:1: ( ( 'port' ) )
+            // InternalIotlang.g:1443:1: ( 'port' )
             {
-            // InternalIotlang.g:1385:1: ( 'port' )
-            // InternalIotlang.g:1386:2: 'port'
+            // InternalIotlang.g:1443:1: ( 'port' )
+            // InternalIotlang.g:1444:2: 'port'
             {
              before(grammarAccess.getPortAccess().getPortKeyword_0()); 
             match(input,26,FOLLOW_2); 
@@ -4460,14 +4663,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Port__Group__1"
-    // InternalIotlang.g:1395:1: rule__Port__Group__1 : rule__Port__Group__1__Impl ;
+    // InternalIotlang.g:1453:1: rule__Port__Group__1 : rule__Port__Group__1__Impl ;
     public final void rule__Port__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1399:1: ( rule__Port__Group__1__Impl )
-            // InternalIotlang.g:1400:2: rule__Port__Group__1__Impl
+            // InternalIotlang.g:1457:1: ( rule__Port__Group__1__Impl )
+            // InternalIotlang.g:1458:2: rule__Port__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Port__Group__1__Impl();
@@ -4493,21 +4696,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Port__Group__1__Impl"
-    // InternalIotlang.g:1406:1: rule__Port__Group__1__Impl : ( ( rule__Port__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1464:1: rule__Port__Group__1__Impl : ( ( rule__Port__NameAssignment_1 ) ) ;
     public final void rule__Port__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1410:1: ( ( ( rule__Port__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1411:1: ( ( rule__Port__NameAssignment_1 ) )
+            // InternalIotlang.g:1468:1: ( ( ( rule__Port__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1469:1: ( ( rule__Port__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1411:1: ( ( rule__Port__NameAssignment_1 ) )
-            // InternalIotlang.g:1412:2: ( rule__Port__NameAssignment_1 )
+            // InternalIotlang.g:1469:1: ( ( rule__Port__NameAssignment_1 ) )
+            // InternalIotlang.g:1470:2: ( rule__Port__NameAssignment_1 )
             {
              before(grammarAccess.getPortAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1413:2: ( rule__Port__NameAssignment_1 )
-            // InternalIotlang.g:1413:3: rule__Port__NameAssignment_1
+            // InternalIotlang.g:1471:2: ( rule__Port__NameAssignment_1 )
+            // InternalIotlang.g:1471:3: rule__Port__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Port__NameAssignment_1();
@@ -4540,14 +4743,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Protocol__Group__0"
-    // InternalIotlang.g:1422:1: rule__Protocol__Group__0 : rule__Protocol__Group__0__Impl rule__Protocol__Group__1 ;
+    // InternalIotlang.g:1480:1: rule__Protocol__Group__0 : rule__Protocol__Group__0__Impl rule__Protocol__Group__1 ;
     public final void rule__Protocol__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1426:1: ( rule__Protocol__Group__0__Impl rule__Protocol__Group__1 )
-            // InternalIotlang.g:1427:2: rule__Protocol__Group__0__Impl rule__Protocol__Group__1
+            // InternalIotlang.g:1484:1: ( rule__Protocol__Group__0__Impl rule__Protocol__Group__1 )
+            // InternalIotlang.g:1485:2: rule__Protocol__Group__0__Impl rule__Protocol__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Protocol__Group__0__Impl();
@@ -4578,17 +4781,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Protocol__Group__0__Impl"
-    // InternalIotlang.g:1434:1: rule__Protocol__Group__0__Impl : ( 'protocol' ) ;
+    // InternalIotlang.g:1492:1: rule__Protocol__Group__0__Impl : ( 'protocol' ) ;
     public final void rule__Protocol__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1438:1: ( ( 'protocol' ) )
-            // InternalIotlang.g:1439:1: ( 'protocol' )
+            // InternalIotlang.g:1496:1: ( ( 'protocol' ) )
+            // InternalIotlang.g:1497:1: ( 'protocol' )
             {
-            // InternalIotlang.g:1439:1: ( 'protocol' )
-            // InternalIotlang.g:1440:2: 'protocol'
+            // InternalIotlang.g:1497:1: ( 'protocol' )
+            // InternalIotlang.g:1498:2: 'protocol'
             {
              before(grammarAccess.getProtocolAccess().getProtocolKeyword_0()); 
             match(input,27,FOLLOW_2); 
@@ -4615,14 +4818,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Protocol__Group__1"
-    // InternalIotlang.g:1449:1: rule__Protocol__Group__1 : rule__Protocol__Group__1__Impl ;
+    // InternalIotlang.g:1507:1: rule__Protocol__Group__1 : rule__Protocol__Group__1__Impl ;
     public final void rule__Protocol__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1453:1: ( rule__Protocol__Group__1__Impl )
-            // InternalIotlang.g:1454:2: rule__Protocol__Group__1__Impl
+            // InternalIotlang.g:1511:1: ( rule__Protocol__Group__1__Impl )
+            // InternalIotlang.g:1512:2: rule__Protocol__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Protocol__Group__1__Impl();
@@ -4648,21 +4851,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Protocol__Group__1__Impl"
-    // InternalIotlang.g:1460:1: rule__Protocol__Group__1__Impl : ( ( rule__Protocol__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1518:1: rule__Protocol__Group__1__Impl : ( ( rule__Protocol__NameAssignment_1 ) ) ;
     public final void rule__Protocol__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1464:1: ( ( ( rule__Protocol__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1465:1: ( ( rule__Protocol__NameAssignment_1 ) )
+            // InternalIotlang.g:1522:1: ( ( ( rule__Protocol__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1523:1: ( ( rule__Protocol__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1465:1: ( ( rule__Protocol__NameAssignment_1 ) )
-            // InternalIotlang.g:1466:2: ( rule__Protocol__NameAssignment_1 )
+            // InternalIotlang.g:1523:1: ( ( rule__Protocol__NameAssignment_1 ) )
+            // InternalIotlang.g:1524:2: ( rule__Protocol__NameAssignment_1 )
             {
              before(grammarAccess.getProtocolAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1467:2: ( rule__Protocol__NameAssignment_1 )
-            // InternalIotlang.g:1467:3: rule__Protocol__NameAssignment_1
+            // InternalIotlang.g:1525:2: ( rule__Protocol__NameAssignment_1 )
+            // InternalIotlang.g:1525:3: rule__Protocol__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Protocol__NameAssignment_1();
@@ -4695,14 +4898,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Message__Group__0"
-    // InternalIotlang.g:1476:1: rule__Message__Group__0 : rule__Message__Group__0__Impl rule__Message__Group__1 ;
+    // InternalIotlang.g:1534:1: rule__Message__Group__0 : rule__Message__Group__0__Impl rule__Message__Group__1 ;
     public final void rule__Message__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1480:1: ( rule__Message__Group__0__Impl rule__Message__Group__1 )
-            // InternalIotlang.g:1481:2: rule__Message__Group__0__Impl rule__Message__Group__1
+            // InternalIotlang.g:1538:1: ( rule__Message__Group__0__Impl rule__Message__Group__1 )
+            // InternalIotlang.g:1539:2: rule__Message__Group__0__Impl rule__Message__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Message__Group__0__Impl();
@@ -4733,17 +4936,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Message__Group__0__Impl"
-    // InternalIotlang.g:1488:1: rule__Message__Group__0__Impl : ( 'message' ) ;
+    // InternalIotlang.g:1546:1: rule__Message__Group__0__Impl : ( 'message' ) ;
     public final void rule__Message__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1492:1: ( ( 'message' ) )
-            // InternalIotlang.g:1493:1: ( 'message' )
+            // InternalIotlang.g:1550:1: ( ( 'message' ) )
+            // InternalIotlang.g:1551:1: ( 'message' )
             {
-            // InternalIotlang.g:1493:1: ( 'message' )
-            // InternalIotlang.g:1494:2: 'message'
+            // InternalIotlang.g:1551:1: ( 'message' )
+            // InternalIotlang.g:1552:2: 'message'
             {
              before(grammarAccess.getMessageAccess().getMessageKeyword_0()); 
             match(input,28,FOLLOW_2); 
@@ -4770,14 +4973,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Message__Group__1"
-    // InternalIotlang.g:1503:1: rule__Message__Group__1 : rule__Message__Group__1__Impl ;
+    // InternalIotlang.g:1561:1: rule__Message__Group__1 : rule__Message__Group__1__Impl ;
     public final void rule__Message__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1507:1: ( rule__Message__Group__1__Impl )
-            // InternalIotlang.g:1508:2: rule__Message__Group__1__Impl
+            // InternalIotlang.g:1565:1: ( rule__Message__Group__1__Impl )
+            // InternalIotlang.g:1566:2: rule__Message__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Message__Group__1__Impl();
@@ -4803,21 +5006,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Message__Group__1__Impl"
-    // InternalIotlang.g:1514:1: rule__Message__Group__1__Impl : ( ( rule__Message__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1572:1: rule__Message__Group__1__Impl : ( ( rule__Message__NameAssignment_1 ) ) ;
     public final void rule__Message__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1518:1: ( ( ( rule__Message__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1519:1: ( ( rule__Message__NameAssignment_1 ) )
+            // InternalIotlang.g:1576:1: ( ( ( rule__Message__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1577:1: ( ( rule__Message__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1519:1: ( ( rule__Message__NameAssignment_1 ) )
-            // InternalIotlang.g:1520:2: ( rule__Message__NameAssignment_1 )
+            // InternalIotlang.g:1577:1: ( ( rule__Message__NameAssignment_1 ) )
+            // InternalIotlang.g:1578:2: ( rule__Message__NameAssignment_1 )
             {
              before(grammarAccess.getMessageAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1521:2: ( rule__Message__NameAssignment_1 )
-            // InternalIotlang.g:1521:3: rule__Message__NameAssignment_1
+            // InternalIotlang.g:1579:2: ( rule__Message__NameAssignment_1 )
+            // InternalIotlang.g:1579:3: rule__Message__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Message__NameAssignment_1();
@@ -4850,14 +5053,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__0"
-    // InternalIotlang.g:1530:1: rule__Topic__Group__0 : rule__Topic__Group__0__Impl rule__Topic__Group__1 ;
+    // InternalIotlang.g:1588:1: rule__Topic__Group__0 : rule__Topic__Group__0__Impl rule__Topic__Group__1 ;
     public final void rule__Topic__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1534:1: ( rule__Topic__Group__0__Impl rule__Topic__Group__1 )
-            // InternalIotlang.g:1535:2: rule__Topic__Group__0__Impl rule__Topic__Group__1
+            // InternalIotlang.g:1592:1: ( rule__Topic__Group__0__Impl rule__Topic__Group__1 )
+            // InternalIotlang.g:1593:2: rule__Topic__Group__0__Impl rule__Topic__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Topic__Group__0__Impl();
@@ -4888,17 +5091,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__0__Impl"
-    // InternalIotlang.g:1542:1: rule__Topic__Group__0__Impl : ( 'topic' ) ;
+    // InternalIotlang.g:1600:1: rule__Topic__Group__0__Impl : ( 'topic' ) ;
     public final void rule__Topic__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1546:1: ( ( 'topic' ) )
-            // InternalIotlang.g:1547:1: ( 'topic' )
+            // InternalIotlang.g:1604:1: ( ( 'topic' ) )
+            // InternalIotlang.g:1605:1: ( 'topic' )
             {
-            // InternalIotlang.g:1547:1: ( 'topic' )
-            // InternalIotlang.g:1548:2: 'topic'
+            // InternalIotlang.g:1605:1: ( 'topic' )
+            // InternalIotlang.g:1606:2: 'topic'
             {
              before(grammarAccess.getTopicAccess().getTopicKeyword_0()); 
             match(input,29,FOLLOW_2); 
@@ -4925,14 +5128,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__1"
-    // InternalIotlang.g:1557:1: rule__Topic__Group__1 : rule__Topic__Group__1__Impl rule__Topic__Group__2 ;
+    // InternalIotlang.g:1615:1: rule__Topic__Group__1 : rule__Topic__Group__1__Impl rule__Topic__Group__2 ;
     public final void rule__Topic__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1561:1: ( rule__Topic__Group__1__Impl rule__Topic__Group__2 )
-            // InternalIotlang.g:1562:2: rule__Topic__Group__1__Impl rule__Topic__Group__2
+            // InternalIotlang.g:1619:1: ( rule__Topic__Group__1__Impl rule__Topic__Group__2 )
+            // InternalIotlang.g:1620:2: rule__Topic__Group__1__Impl rule__Topic__Group__2
             {
             pushFollow(FOLLOW_15);
             rule__Topic__Group__1__Impl();
@@ -4963,21 +5166,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__1__Impl"
-    // InternalIotlang.g:1569:1: rule__Topic__Group__1__Impl : ( ( rule__Topic__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:1627:1: rule__Topic__Group__1__Impl : ( ( rule__Topic__NameAssignment_1 ) ) ;
     public final void rule__Topic__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1573:1: ( ( ( rule__Topic__NameAssignment_1 ) ) )
-            // InternalIotlang.g:1574:1: ( ( rule__Topic__NameAssignment_1 ) )
+            // InternalIotlang.g:1631:1: ( ( ( rule__Topic__NameAssignment_1 ) ) )
+            // InternalIotlang.g:1632:1: ( ( rule__Topic__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:1574:1: ( ( rule__Topic__NameAssignment_1 ) )
-            // InternalIotlang.g:1575:2: ( rule__Topic__NameAssignment_1 )
+            // InternalIotlang.g:1632:1: ( ( rule__Topic__NameAssignment_1 ) )
+            // InternalIotlang.g:1633:2: ( rule__Topic__NameAssignment_1 )
             {
              before(grammarAccess.getTopicAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1576:2: ( rule__Topic__NameAssignment_1 )
-            // InternalIotlang.g:1576:3: rule__Topic__NameAssignment_1
+            // InternalIotlang.g:1634:2: ( rule__Topic__NameAssignment_1 )
+            // InternalIotlang.g:1634:3: rule__Topic__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Topic__NameAssignment_1();
@@ -5010,14 +5213,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__2"
-    // InternalIotlang.g:1584:1: rule__Topic__Group__2 : rule__Topic__Group__2__Impl rule__Topic__Group__3 ;
+    // InternalIotlang.g:1642:1: rule__Topic__Group__2 : rule__Topic__Group__2__Impl rule__Topic__Group__3 ;
     public final void rule__Topic__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1588:1: ( rule__Topic__Group__2__Impl rule__Topic__Group__3 )
-            // InternalIotlang.g:1589:2: rule__Topic__Group__2__Impl rule__Topic__Group__3
+            // InternalIotlang.g:1646:1: ( rule__Topic__Group__2__Impl rule__Topic__Group__3 )
+            // InternalIotlang.g:1647:2: rule__Topic__Group__2__Impl rule__Topic__Group__3
             {
             pushFollow(FOLLOW_5);
             rule__Topic__Group__2__Impl();
@@ -5048,17 +5251,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__2__Impl"
-    // InternalIotlang.g:1596:1: rule__Topic__Group__2__Impl : ( '(' ) ;
+    // InternalIotlang.g:1654:1: rule__Topic__Group__2__Impl : ( '(' ) ;
     public final void rule__Topic__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1600:1: ( ( '(' ) )
-            // InternalIotlang.g:1601:1: ( '(' )
+            // InternalIotlang.g:1658:1: ( ( '(' ) )
+            // InternalIotlang.g:1659:1: ( '(' )
             {
-            // InternalIotlang.g:1601:1: ( '(' )
-            // InternalIotlang.g:1602:2: '('
+            // InternalIotlang.g:1659:1: ( '(' )
+            // InternalIotlang.g:1660:2: '('
             {
              before(grammarAccess.getTopicAccess().getLeftParenthesisKeyword_2()); 
             match(input,30,FOLLOW_2); 
@@ -5085,14 +5288,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__3"
-    // InternalIotlang.g:1611:1: rule__Topic__Group__3 : rule__Topic__Group__3__Impl rule__Topic__Group__4 ;
+    // InternalIotlang.g:1669:1: rule__Topic__Group__3 : rule__Topic__Group__3__Impl rule__Topic__Group__4 ;
     public final void rule__Topic__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1615:1: ( rule__Topic__Group__3__Impl rule__Topic__Group__4 )
-            // InternalIotlang.g:1616:2: rule__Topic__Group__3__Impl rule__Topic__Group__4
+            // InternalIotlang.g:1673:1: ( rule__Topic__Group__3__Impl rule__Topic__Group__4 )
+            // InternalIotlang.g:1674:2: rule__Topic__Group__3__Impl rule__Topic__Group__4
             {
             pushFollow(FOLLOW_16);
             rule__Topic__Group__3__Impl();
@@ -5123,21 +5326,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__3__Impl"
-    // InternalIotlang.g:1623:1: rule__Topic__Group__3__Impl : ( ( rule__Topic__AcceptedMessagesAssignment_3 ) ) ;
+    // InternalIotlang.g:1681:1: rule__Topic__Group__3__Impl : ( ( rule__Topic__AcceptedMessagesAssignment_3 ) ) ;
     public final void rule__Topic__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1627:1: ( ( ( rule__Topic__AcceptedMessagesAssignment_3 ) ) )
-            // InternalIotlang.g:1628:1: ( ( rule__Topic__AcceptedMessagesAssignment_3 ) )
+            // InternalIotlang.g:1685:1: ( ( ( rule__Topic__AcceptedMessagesAssignment_3 ) ) )
+            // InternalIotlang.g:1686:1: ( ( rule__Topic__AcceptedMessagesAssignment_3 ) )
             {
-            // InternalIotlang.g:1628:1: ( ( rule__Topic__AcceptedMessagesAssignment_3 ) )
-            // InternalIotlang.g:1629:2: ( rule__Topic__AcceptedMessagesAssignment_3 )
+            // InternalIotlang.g:1686:1: ( ( rule__Topic__AcceptedMessagesAssignment_3 ) )
+            // InternalIotlang.g:1687:2: ( rule__Topic__AcceptedMessagesAssignment_3 )
             {
              before(grammarAccess.getTopicAccess().getAcceptedMessagesAssignment_3()); 
-            // InternalIotlang.g:1630:2: ( rule__Topic__AcceptedMessagesAssignment_3 )
-            // InternalIotlang.g:1630:3: rule__Topic__AcceptedMessagesAssignment_3
+            // InternalIotlang.g:1688:2: ( rule__Topic__AcceptedMessagesAssignment_3 )
+            // InternalIotlang.g:1688:3: rule__Topic__AcceptedMessagesAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Topic__AcceptedMessagesAssignment_3();
@@ -5170,14 +5373,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__4"
-    // InternalIotlang.g:1638:1: rule__Topic__Group__4 : rule__Topic__Group__4__Impl ;
+    // InternalIotlang.g:1696:1: rule__Topic__Group__4 : rule__Topic__Group__4__Impl ;
     public final void rule__Topic__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1642:1: ( rule__Topic__Group__4__Impl )
-            // InternalIotlang.g:1643:2: rule__Topic__Group__4__Impl
+            // InternalIotlang.g:1700:1: ( rule__Topic__Group__4__Impl )
+            // InternalIotlang.g:1701:2: rule__Topic__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Topic__Group__4__Impl();
@@ -5203,17 +5406,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__Group__4__Impl"
-    // InternalIotlang.g:1649:1: rule__Topic__Group__4__Impl : ( ')' ) ;
+    // InternalIotlang.g:1707:1: rule__Topic__Group__4__Impl : ( ')' ) ;
     public final void rule__Topic__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1653:1: ( ( ')' ) )
-            // InternalIotlang.g:1654:1: ( ')' )
+            // InternalIotlang.g:1711:1: ( ( ')' ) )
+            // InternalIotlang.g:1712:1: ( ')' )
             {
-            // InternalIotlang.g:1654:1: ( ')' )
-            // InternalIotlang.g:1655:2: ')'
+            // InternalIotlang.g:1712:1: ( ')' )
+            // InternalIotlang.g:1713:2: ')'
             {
              before(grammarAccess.getTopicAccess().getRightParenthesisKeyword_4()); 
             match(input,31,FOLLOW_2); 
@@ -5240,14 +5443,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__0"
-    // InternalIotlang.g:1665:1: rule__Rule__Group__0 : rule__Rule__Group__0__Impl rule__Rule__Group__1 ;
+    // InternalIotlang.g:1723:1: rule__Rule__Group__0 : rule__Rule__Group__0__Impl rule__Rule__Group__1 ;
     public final void rule__Rule__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1669:1: ( rule__Rule__Group__0__Impl rule__Rule__Group__1 )
-            // InternalIotlang.g:1670:2: rule__Rule__Group__0__Impl rule__Rule__Group__1
+            // InternalIotlang.g:1727:1: ( rule__Rule__Group__0__Impl rule__Rule__Group__1 )
+            // InternalIotlang.g:1728:2: rule__Rule__Group__0__Impl rule__Rule__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Rule__Group__0__Impl();
@@ -5278,17 +5481,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__0__Impl"
-    // InternalIotlang.g:1677:1: rule__Rule__Group__0__Impl : ( 'rule' ) ;
+    // InternalIotlang.g:1735:1: rule__Rule__Group__0__Impl : ( 'rule' ) ;
     public final void rule__Rule__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1681:1: ( ( 'rule' ) )
-            // InternalIotlang.g:1682:1: ( 'rule' )
+            // InternalIotlang.g:1739:1: ( ( 'rule' ) )
+            // InternalIotlang.g:1740:1: ( 'rule' )
             {
-            // InternalIotlang.g:1682:1: ( 'rule' )
-            // InternalIotlang.g:1683:2: 'rule'
+            // InternalIotlang.g:1740:1: ( 'rule' )
+            // InternalIotlang.g:1741:2: 'rule'
             {
              before(grammarAccess.getRuleAccess().getRuleKeyword_0()); 
             match(input,32,FOLLOW_2); 
@@ -5315,14 +5518,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__1"
-    // InternalIotlang.g:1692:1: rule__Rule__Group__1 : rule__Rule__Group__1__Impl rule__Rule__Group__2 ;
+    // InternalIotlang.g:1750:1: rule__Rule__Group__1 : rule__Rule__Group__1__Impl rule__Rule__Group__2 ;
     public final void rule__Rule__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1696:1: ( rule__Rule__Group__1__Impl rule__Rule__Group__2 )
-            // InternalIotlang.g:1697:2: rule__Rule__Group__1__Impl rule__Rule__Group__2
+            // InternalIotlang.g:1754:1: ( rule__Rule__Group__1__Impl rule__Rule__Group__2 )
+            // InternalIotlang.g:1755:2: rule__Rule__Group__1__Impl rule__Rule__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__Rule__Group__1__Impl();
@@ -5353,33 +5556,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__1__Impl"
-    // InternalIotlang.g:1704:1: rule__Rule__Group__1__Impl : ( ( rule__Rule__NameAssignment_1 )? ) ;
+    // InternalIotlang.g:1762:1: rule__Rule__Group__1__Impl : ( ( rule__Rule__NameAssignment_1 )? ) ;
     public final void rule__Rule__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1708:1: ( ( ( rule__Rule__NameAssignment_1 )? ) )
-            // InternalIotlang.g:1709:1: ( ( rule__Rule__NameAssignment_1 )? )
+            // InternalIotlang.g:1766:1: ( ( ( rule__Rule__NameAssignment_1 )? ) )
+            // InternalIotlang.g:1767:1: ( ( rule__Rule__NameAssignment_1 )? )
             {
-            // InternalIotlang.g:1709:1: ( ( rule__Rule__NameAssignment_1 )? )
-            // InternalIotlang.g:1710:2: ( rule__Rule__NameAssignment_1 )?
+            // InternalIotlang.g:1767:1: ( ( rule__Rule__NameAssignment_1 )? )
+            // InternalIotlang.g:1768:2: ( rule__Rule__NameAssignment_1 )?
             {
              before(grammarAccess.getRuleAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:1711:2: ( rule__Rule__NameAssignment_1 )?
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            // InternalIotlang.g:1769:2: ( rule__Rule__NameAssignment_1 )?
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA13_0==RULE_ID) ) {
-                int LA13_1 = input.LA(2);
+            if ( (LA14_0==RULE_ID) ) {
+                int LA14_1 = input.LA(2);
 
-                if ( (LA13_1==RULE_ID) ) {
-                    alt13=1;
+                if ( (LA14_1==RULE_ID) ) {
+                    alt14=1;
                 }
             }
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
-                    // InternalIotlang.g:1711:3: rule__Rule__NameAssignment_1
+                    // InternalIotlang.g:1769:3: rule__Rule__NameAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__Rule__NameAssignment_1();
@@ -5415,14 +5618,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__2"
-    // InternalIotlang.g:1719:1: rule__Rule__Group__2 : rule__Rule__Group__2__Impl rule__Rule__Group__3 ;
+    // InternalIotlang.g:1777:1: rule__Rule__Group__2 : rule__Rule__Group__2__Impl rule__Rule__Group__3 ;
     public final void rule__Rule__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1723:1: ( rule__Rule__Group__2__Impl rule__Rule__Group__3 )
-            // InternalIotlang.g:1724:2: rule__Rule__Group__2__Impl rule__Rule__Group__3
+            // InternalIotlang.g:1781:1: ( rule__Rule__Group__2__Impl rule__Rule__Group__3 )
+            // InternalIotlang.g:1782:2: rule__Rule__Group__2__Impl rule__Rule__Group__3
             {
             pushFollow(FOLLOW_17);
             rule__Rule__Group__2__Impl();
@@ -5453,21 +5656,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__2__Impl"
-    // InternalIotlang.g:1731:1: rule__Rule__Group__2__Impl : ( ( rule__Rule__SubjectAssignment_2 ) ) ;
+    // InternalIotlang.g:1789:1: rule__Rule__Group__2__Impl : ( ( rule__Rule__SubjectAssignment_2 ) ) ;
     public final void rule__Rule__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1735:1: ( ( ( rule__Rule__SubjectAssignment_2 ) ) )
-            // InternalIotlang.g:1736:1: ( ( rule__Rule__SubjectAssignment_2 ) )
+            // InternalIotlang.g:1793:1: ( ( ( rule__Rule__SubjectAssignment_2 ) ) )
+            // InternalIotlang.g:1794:1: ( ( rule__Rule__SubjectAssignment_2 ) )
             {
-            // InternalIotlang.g:1736:1: ( ( rule__Rule__SubjectAssignment_2 ) )
-            // InternalIotlang.g:1737:2: ( rule__Rule__SubjectAssignment_2 )
+            // InternalIotlang.g:1794:1: ( ( rule__Rule__SubjectAssignment_2 ) )
+            // InternalIotlang.g:1795:2: ( rule__Rule__SubjectAssignment_2 )
             {
              before(grammarAccess.getRuleAccess().getSubjectAssignment_2()); 
-            // InternalIotlang.g:1738:2: ( rule__Rule__SubjectAssignment_2 )
-            // InternalIotlang.g:1738:3: rule__Rule__SubjectAssignment_2
+            // InternalIotlang.g:1796:2: ( rule__Rule__SubjectAssignment_2 )
+            // InternalIotlang.g:1796:3: rule__Rule__SubjectAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__Rule__SubjectAssignment_2();
@@ -5500,14 +5703,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__3"
-    // InternalIotlang.g:1746:1: rule__Rule__Group__3 : rule__Rule__Group__3__Impl rule__Rule__Group__4 ;
+    // InternalIotlang.g:1804:1: rule__Rule__Group__3 : rule__Rule__Group__3__Impl rule__Rule__Group__4 ;
     public final void rule__Rule__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1750:1: ( rule__Rule__Group__3__Impl rule__Rule__Group__4 )
-            // InternalIotlang.g:1751:2: rule__Rule__Group__3__Impl rule__Rule__Group__4
+            // InternalIotlang.g:1808:1: ( rule__Rule__Group__3__Impl rule__Rule__Group__4 )
+            // InternalIotlang.g:1809:2: rule__Rule__Group__3__Impl rule__Rule__Group__4
             {
             pushFollow(FOLLOW_18);
             rule__Rule__Group__3__Impl();
@@ -5538,21 +5741,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__3__Impl"
-    // InternalIotlang.g:1758:1: rule__Rule__Group__3__Impl : ( ( rule__Rule__PermissionAssignment_3 ) ) ;
+    // InternalIotlang.g:1816:1: rule__Rule__Group__3__Impl : ( ( rule__Rule__PermissionAssignment_3 ) ) ;
     public final void rule__Rule__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1762:1: ( ( ( rule__Rule__PermissionAssignment_3 ) ) )
-            // InternalIotlang.g:1763:1: ( ( rule__Rule__PermissionAssignment_3 ) )
+            // InternalIotlang.g:1820:1: ( ( ( rule__Rule__PermissionAssignment_3 ) ) )
+            // InternalIotlang.g:1821:1: ( ( rule__Rule__PermissionAssignment_3 ) )
             {
-            // InternalIotlang.g:1763:1: ( ( rule__Rule__PermissionAssignment_3 ) )
-            // InternalIotlang.g:1764:2: ( rule__Rule__PermissionAssignment_3 )
+            // InternalIotlang.g:1821:1: ( ( rule__Rule__PermissionAssignment_3 ) )
+            // InternalIotlang.g:1822:2: ( rule__Rule__PermissionAssignment_3 )
             {
              before(grammarAccess.getRuleAccess().getPermissionAssignment_3()); 
-            // InternalIotlang.g:1765:2: ( rule__Rule__PermissionAssignment_3 )
-            // InternalIotlang.g:1765:3: rule__Rule__PermissionAssignment_3
+            // InternalIotlang.g:1823:2: ( rule__Rule__PermissionAssignment_3 )
+            // InternalIotlang.g:1823:3: rule__Rule__PermissionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Rule__PermissionAssignment_3();
@@ -5585,14 +5788,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__4"
-    // InternalIotlang.g:1773:1: rule__Rule__Group__4 : rule__Rule__Group__4__Impl rule__Rule__Group__5 ;
+    // InternalIotlang.g:1831:1: rule__Rule__Group__4 : rule__Rule__Group__4__Impl rule__Rule__Group__5 ;
     public final void rule__Rule__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1777:1: ( rule__Rule__Group__4__Impl rule__Rule__Group__5 )
-            // InternalIotlang.g:1778:2: rule__Rule__Group__4__Impl rule__Rule__Group__5
+            // InternalIotlang.g:1835:1: ( rule__Rule__Group__4__Impl rule__Rule__Group__5 )
+            // InternalIotlang.g:1836:2: rule__Rule__Group__4__Impl rule__Rule__Group__5
             {
             pushFollow(FOLLOW_19);
             rule__Rule__Group__4__Impl();
@@ -5623,17 +5826,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__4__Impl"
-    // InternalIotlang.g:1785:1: rule__Rule__Group__4__Impl : ( ':' ) ;
+    // InternalIotlang.g:1843:1: rule__Rule__Group__4__Impl : ( ':' ) ;
     public final void rule__Rule__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1789:1: ( ( ':' ) )
-            // InternalIotlang.g:1790:1: ( ':' )
+            // InternalIotlang.g:1847:1: ( ( ':' ) )
+            // InternalIotlang.g:1848:1: ( ':' )
             {
-            // InternalIotlang.g:1790:1: ( ':' )
-            // InternalIotlang.g:1791:2: ':'
+            // InternalIotlang.g:1848:1: ( ':' )
+            // InternalIotlang.g:1849:2: ':'
             {
              before(grammarAccess.getRuleAccess().getColonKeyword_4()); 
             match(input,33,FOLLOW_2); 
@@ -5660,14 +5863,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__5"
-    // InternalIotlang.g:1800:1: rule__Rule__Group__5 : rule__Rule__Group__5__Impl rule__Rule__Group__6 ;
+    // InternalIotlang.g:1858:1: rule__Rule__Group__5 : rule__Rule__Group__5__Impl rule__Rule__Group__6 ;
     public final void rule__Rule__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1804:1: ( rule__Rule__Group__5__Impl rule__Rule__Group__6 )
-            // InternalIotlang.g:1805:2: rule__Rule__Group__5__Impl rule__Rule__Group__6
+            // InternalIotlang.g:1862:1: ( rule__Rule__Group__5__Impl rule__Rule__Group__6 )
+            // InternalIotlang.g:1863:2: rule__Rule__Group__5__Impl rule__Rule__Group__6
             {
             pushFollow(FOLLOW_20);
             rule__Rule__Group__5__Impl();
@@ -5698,21 +5901,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__5__Impl"
-    // InternalIotlang.g:1812:1: rule__Rule__Group__5__Impl : ( ( rule__Rule__ActionAssignment_5 ) ) ;
+    // InternalIotlang.g:1870:1: rule__Rule__Group__5__Impl : ( ( rule__Rule__ActionAssignment_5 ) ) ;
     public final void rule__Rule__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1816:1: ( ( ( rule__Rule__ActionAssignment_5 ) ) )
-            // InternalIotlang.g:1817:1: ( ( rule__Rule__ActionAssignment_5 ) )
+            // InternalIotlang.g:1874:1: ( ( ( rule__Rule__ActionAssignment_5 ) ) )
+            // InternalIotlang.g:1875:1: ( ( rule__Rule__ActionAssignment_5 ) )
             {
-            // InternalIotlang.g:1817:1: ( ( rule__Rule__ActionAssignment_5 ) )
-            // InternalIotlang.g:1818:2: ( rule__Rule__ActionAssignment_5 )
+            // InternalIotlang.g:1875:1: ( ( rule__Rule__ActionAssignment_5 ) )
+            // InternalIotlang.g:1876:2: ( rule__Rule__ActionAssignment_5 )
             {
              before(grammarAccess.getRuleAccess().getActionAssignment_5()); 
-            // InternalIotlang.g:1819:2: ( rule__Rule__ActionAssignment_5 )
-            // InternalIotlang.g:1819:3: rule__Rule__ActionAssignment_5
+            // InternalIotlang.g:1877:2: ( rule__Rule__ActionAssignment_5 )
+            // InternalIotlang.g:1877:3: rule__Rule__ActionAssignment_5
             {
             pushFollow(FOLLOW_2);
             rule__Rule__ActionAssignment_5();
@@ -5745,14 +5948,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__6"
-    // InternalIotlang.g:1827:1: rule__Rule__Group__6 : rule__Rule__Group__6__Impl ;
+    // InternalIotlang.g:1885:1: rule__Rule__Group__6 : rule__Rule__Group__6__Impl ;
     public final void rule__Rule__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1831:1: ( rule__Rule__Group__6__Impl )
-            // InternalIotlang.g:1832:2: rule__Rule__Group__6__Impl
+            // InternalIotlang.g:1889:1: ( rule__Rule__Group__6__Impl )
+            // InternalIotlang.g:1890:2: rule__Rule__Group__6__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Group__6__Impl();
@@ -5778,21 +5981,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__6__Impl"
-    // InternalIotlang.g:1838:1: rule__Rule__Group__6__Impl : ( ( rule__Rule__Alternatives_6 ) ) ;
+    // InternalIotlang.g:1896:1: rule__Rule__Group__6__Impl : ( ( rule__Rule__Alternatives_6 ) ) ;
     public final void rule__Rule__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1842:1: ( ( ( rule__Rule__Alternatives_6 ) ) )
-            // InternalIotlang.g:1843:1: ( ( rule__Rule__Alternatives_6 ) )
+            // InternalIotlang.g:1900:1: ( ( ( rule__Rule__Alternatives_6 ) ) )
+            // InternalIotlang.g:1901:1: ( ( rule__Rule__Alternatives_6 ) )
             {
-            // InternalIotlang.g:1843:1: ( ( rule__Rule__Alternatives_6 ) )
-            // InternalIotlang.g:1844:2: ( rule__Rule__Alternatives_6 )
+            // InternalIotlang.g:1901:1: ( ( rule__Rule__Alternatives_6 ) )
+            // InternalIotlang.g:1902:2: ( rule__Rule__Alternatives_6 )
             {
              before(grammarAccess.getRuleAccess().getAlternatives_6()); 
-            // InternalIotlang.g:1845:2: ( rule__Rule__Alternatives_6 )
-            // InternalIotlang.g:1845:3: rule__Rule__Alternatives_6
+            // InternalIotlang.g:1903:2: ( rule__Rule__Alternatives_6 )
+            // InternalIotlang.g:1903:3: rule__Rule__Alternatives_6
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Alternatives_6();
@@ -5825,14 +6028,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0__0"
-    // InternalIotlang.g:1854:1: rule__Rule__Group_6_0__0 : rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1 ;
+    // InternalIotlang.g:1912:1: rule__Rule__Group_6_0__0 : rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1 ;
     public final void rule__Rule__Group_6_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1858:1: ( rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1 )
-            // InternalIotlang.g:1859:2: rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1
+            // InternalIotlang.g:1916:1: ( rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1 )
+            // InternalIotlang.g:1917:2: rule__Rule__Group_6_0__0__Impl rule__Rule__Group_6_0__1
             {
             pushFollow(FOLLOW_21);
             rule__Rule__Group_6_0__0__Impl();
@@ -5863,21 +6066,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0__0__Impl"
-    // InternalIotlang.g:1866:1: rule__Rule__Group_6_0__0__Impl : ( ( rule__Rule__ObjectAssignment_6_0_0 ) ) ;
+    // InternalIotlang.g:1924:1: rule__Rule__Group_6_0__0__Impl : ( ( rule__Rule__ObjectAssignment_6_0_0 ) ) ;
     public final void rule__Rule__Group_6_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1870:1: ( ( ( rule__Rule__ObjectAssignment_6_0_0 ) ) )
-            // InternalIotlang.g:1871:1: ( ( rule__Rule__ObjectAssignment_6_0_0 ) )
+            // InternalIotlang.g:1928:1: ( ( ( rule__Rule__ObjectAssignment_6_0_0 ) ) )
+            // InternalIotlang.g:1929:1: ( ( rule__Rule__ObjectAssignment_6_0_0 ) )
             {
-            // InternalIotlang.g:1871:1: ( ( rule__Rule__ObjectAssignment_6_0_0 ) )
-            // InternalIotlang.g:1872:2: ( rule__Rule__ObjectAssignment_6_0_0 )
+            // InternalIotlang.g:1929:1: ( ( rule__Rule__ObjectAssignment_6_0_0 ) )
+            // InternalIotlang.g:1930:2: ( rule__Rule__ObjectAssignment_6_0_0 )
             {
              before(grammarAccess.getRuleAccess().getObjectAssignment_6_0_0()); 
-            // InternalIotlang.g:1873:2: ( rule__Rule__ObjectAssignment_6_0_0 )
-            // InternalIotlang.g:1873:3: rule__Rule__ObjectAssignment_6_0_0
+            // InternalIotlang.g:1931:2: ( rule__Rule__ObjectAssignment_6_0_0 )
+            // InternalIotlang.g:1931:3: rule__Rule__ObjectAssignment_6_0_0
             {
             pushFollow(FOLLOW_2);
             rule__Rule__ObjectAssignment_6_0_0();
@@ -5910,14 +6113,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0__1"
-    // InternalIotlang.g:1881:1: rule__Rule__Group_6_0__1 : rule__Rule__Group_6_0__1__Impl ;
+    // InternalIotlang.g:1939:1: rule__Rule__Group_6_0__1 : rule__Rule__Group_6_0__1__Impl ;
     public final void rule__Rule__Group_6_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1885:1: ( rule__Rule__Group_6_0__1__Impl )
-            // InternalIotlang.g:1886:2: rule__Rule__Group_6_0__1__Impl
+            // InternalIotlang.g:1943:1: ( rule__Rule__Group_6_0__1__Impl )
+            // InternalIotlang.g:1944:2: rule__Rule__Group_6_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Group_6_0__1__Impl();
@@ -5943,33 +6146,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0__1__Impl"
-    // InternalIotlang.g:1892:1: rule__Rule__Group_6_0__1__Impl : ( ( rule__Rule__Group_6_0_1__0 )* ) ;
+    // InternalIotlang.g:1950:1: rule__Rule__Group_6_0__1__Impl : ( ( rule__Rule__Group_6_0_1__0 )* ) ;
     public final void rule__Rule__Group_6_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1896:1: ( ( ( rule__Rule__Group_6_0_1__0 )* ) )
-            // InternalIotlang.g:1897:1: ( ( rule__Rule__Group_6_0_1__0 )* )
+            // InternalIotlang.g:1954:1: ( ( ( rule__Rule__Group_6_0_1__0 )* ) )
+            // InternalIotlang.g:1955:1: ( ( rule__Rule__Group_6_0_1__0 )* )
             {
-            // InternalIotlang.g:1897:1: ( ( rule__Rule__Group_6_0_1__0 )* )
-            // InternalIotlang.g:1898:2: ( rule__Rule__Group_6_0_1__0 )*
+            // InternalIotlang.g:1955:1: ( ( rule__Rule__Group_6_0_1__0 )* )
+            // InternalIotlang.g:1956:2: ( rule__Rule__Group_6_0_1__0 )*
             {
              before(grammarAccess.getRuleAccess().getGroup_6_0_1()); 
-            // InternalIotlang.g:1899:2: ( rule__Rule__Group_6_0_1__0 )*
-            loop14:
+            // InternalIotlang.g:1957:2: ( rule__Rule__Group_6_0_1__0 )*
+            loop15:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( (LA14_0==34) ) {
-                    alt14=1;
+                if ( (LA15_0==34) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt15) {
             	case 1 :
-            	    // InternalIotlang.g:1899:3: rule__Rule__Group_6_0_1__0
+            	    // InternalIotlang.g:1957:3: rule__Rule__Group_6_0_1__0
             	    {
             	    pushFollow(FOLLOW_22);
             	    rule__Rule__Group_6_0_1__0();
@@ -5981,7 +6184,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop15;
                 }
             } while (true);
 
@@ -6008,14 +6211,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0_1__0"
-    // InternalIotlang.g:1908:1: rule__Rule__Group_6_0_1__0 : rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1 ;
+    // InternalIotlang.g:1966:1: rule__Rule__Group_6_0_1__0 : rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1 ;
     public final void rule__Rule__Group_6_0_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1912:1: ( rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1 )
-            // InternalIotlang.g:1913:2: rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1
+            // InternalIotlang.g:1970:1: ( rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1 )
+            // InternalIotlang.g:1971:2: rule__Rule__Group_6_0_1__0__Impl rule__Rule__Group_6_0_1__1
             {
             pushFollow(FOLLOW_5);
             rule__Rule__Group_6_0_1__0__Impl();
@@ -6046,17 +6249,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0_1__0__Impl"
-    // InternalIotlang.g:1920:1: rule__Rule__Group_6_0_1__0__Impl : ( '.' ) ;
+    // InternalIotlang.g:1978:1: rule__Rule__Group_6_0_1__0__Impl : ( '.' ) ;
     public final void rule__Rule__Group_6_0_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1924:1: ( ( '.' ) )
-            // InternalIotlang.g:1925:1: ( '.' )
+            // InternalIotlang.g:1982:1: ( ( '.' ) )
+            // InternalIotlang.g:1983:1: ( '.' )
             {
-            // InternalIotlang.g:1925:1: ( '.' )
-            // InternalIotlang.g:1926:2: '.'
+            // InternalIotlang.g:1983:1: ( '.' )
+            // InternalIotlang.g:1984:2: '.'
             {
              before(grammarAccess.getRuleAccess().getFullStopKeyword_6_0_1_0()); 
             match(input,34,FOLLOW_2); 
@@ -6083,14 +6286,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0_1__1"
-    // InternalIotlang.g:1935:1: rule__Rule__Group_6_0_1__1 : rule__Rule__Group_6_0_1__1__Impl ;
+    // InternalIotlang.g:1993:1: rule__Rule__Group_6_0_1__1 : rule__Rule__Group_6_0_1__1__Impl ;
     public final void rule__Rule__Group_6_0_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1939:1: ( rule__Rule__Group_6_0_1__1__Impl )
-            // InternalIotlang.g:1940:2: rule__Rule__Group_6_0_1__1__Impl
+            // InternalIotlang.g:1997:1: ( rule__Rule__Group_6_0_1__1__Impl )
+            // InternalIotlang.g:1998:2: rule__Rule__Group_6_0_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Group_6_0_1__1__Impl();
@@ -6116,21 +6319,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_0_1__1__Impl"
-    // InternalIotlang.g:1946:1: rule__Rule__Group_6_0_1__1__Impl : ( ( rule__Rule__PortsAssignment_6_0_1_1 ) ) ;
+    // InternalIotlang.g:2004:1: rule__Rule__Group_6_0_1__1__Impl : ( ( rule__Rule__PortsAssignment_6_0_1_1 ) ) ;
     public final void rule__Rule__Group_6_0_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1950:1: ( ( ( rule__Rule__PortsAssignment_6_0_1_1 ) ) )
-            // InternalIotlang.g:1951:1: ( ( rule__Rule__PortsAssignment_6_0_1_1 ) )
+            // InternalIotlang.g:2008:1: ( ( ( rule__Rule__PortsAssignment_6_0_1_1 ) ) )
+            // InternalIotlang.g:2009:1: ( ( rule__Rule__PortsAssignment_6_0_1_1 ) )
             {
-            // InternalIotlang.g:1951:1: ( ( rule__Rule__PortsAssignment_6_0_1_1 ) )
-            // InternalIotlang.g:1952:2: ( rule__Rule__PortsAssignment_6_0_1_1 )
+            // InternalIotlang.g:2009:1: ( ( rule__Rule__PortsAssignment_6_0_1_1 ) )
+            // InternalIotlang.g:2010:2: ( rule__Rule__PortsAssignment_6_0_1_1 )
             {
              before(grammarAccess.getRuleAccess().getPortsAssignment_6_0_1_1()); 
-            // InternalIotlang.g:1953:2: ( rule__Rule__PortsAssignment_6_0_1_1 )
-            // InternalIotlang.g:1953:3: rule__Rule__PortsAssignment_6_0_1_1
+            // InternalIotlang.g:2011:2: ( rule__Rule__PortsAssignment_6_0_1_1 )
+            // InternalIotlang.g:2011:3: rule__Rule__PortsAssignment_6_0_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Rule__PortsAssignment_6_0_1_1();
@@ -6163,14 +6366,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_1__0"
-    // InternalIotlang.g:1962:1: rule__Rule__Group_6_1__0 : rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1 ;
+    // InternalIotlang.g:2020:1: rule__Rule__Group_6_1__0 : rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1 ;
     public final void rule__Rule__Group_6_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1966:1: ( rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1 )
-            // InternalIotlang.g:1967:2: rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1
+            // InternalIotlang.g:2024:1: ( rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1 )
+            // InternalIotlang.g:2025:2: rule__Rule__Group_6_1__0__Impl rule__Rule__Group_6_1__1
             {
             pushFollow(FOLLOW_5);
             rule__Rule__Group_6_1__0__Impl();
@@ -6201,17 +6404,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_1__0__Impl"
-    // InternalIotlang.g:1974:1: rule__Rule__Group_6_1__0__Impl : ( 'message:' ) ;
+    // InternalIotlang.g:2032:1: rule__Rule__Group_6_1__0__Impl : ( 'message:' ) ;
     public final void rule__Rule__Group_6_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1978:1: ( ( 'message:' ) )
-            // InternalIotlang.g:1979:1: ( 'message:' )
+            // InternalIotlang.g:2036:1: ( ( 'message:' ) )
+            // InternalIotlang.g:2037:1: ( 'message:' )
             {
-            // InternalIotlang.g:1979:1: ( 'message:' )
-            // InternalIotlang.g:1980:2: 'message:'
+            // InternalIotlang.g:2037:1: ( 'message:' )
+            // InternalIotlang.g:2038:2: 'message:'
             {
              before(grammarAccess.getRuleAccess().getMessageKeyword_6_1_0()); 
             match(input,35,FOLLOW_2); 
@@ -6238,14 +6441,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_1__1"
-    // InternalIotlang.g:1989:1: rule__Rule__Group_6_1__1 : rule__Rule__Group_6_1__1__Impl ;
+    // InternalIotlang.g:2047:1: rule__Rule__Group_6_1__1 : rule__Rule__Group_6_1__1__Impl ;
     public final void rule__Rule__Group_6_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:1993:1: ( rule__Rule__Group_6_1__1__Impl )
-            // InternalIotlang.g:1994:2: rule__Rule__Group_6_1__1__Impl
+            // InternalIotlang.g:2051:1: ( rule__Rule__Group_6_1__1__Impl )
+            // InternalIotlang.g:2052:2: rule__Rule__Group_6_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Group_6_1__1__Impl();
@@ -6271,21 +6474,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group_6_1__1__Impl"
-    // InternalIotlang.g:2000:1: rule__Rule__Group_6_1__1__Impl : ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) ) ;
+    // InternalIotlang.g:2058:1: rule__Rule__Group_6_1__1__Impl : ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) ) ;
     public final void rule__Rule__Group_6_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2004:1: ( ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) ) )
-            // InternalIotlang.g:2005:1: ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) )
+            // InternalIotlang.g:2062:1: ( ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) ) )
+            // InternalIotlang.g:2063:1: ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) )
             {
-            // InternalIotlang.g:2005:1: ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) )
-            // InternalIotlang.g:2006:2: ( rule__Rule__ObjectMessageAssignment_6_1_1 )
+            // InternalIotlang.g:2063:1: ( ( rule__Rule__ObjectMessageAssignment_6_1_1 ) )
+            // InternalIotlang.g:2064:2: ( rule__Rule__ObjectMessageAssignment_6_1_1 )
             {
              before(grammarAccess.getRuleAccess().getObjectMessageAssignment_6_1_1()); 
-            // InternalIotlang.g:2007:2: ( rule__Rule__ObjectMessageAssignment_6_1_1 )
-            // InternalIotlang.g:2007:3: rule__Rule__ObjectMessageAssignment_6_1_1
+            // InternalIotlang.g:2065:2: ( rule__Rule__ObjectMessageAssignment_6_1_1 )
+            // InternalIotlang.g:2065:3: rule__Rule__ObjectMessageAssignment_6_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Rule__ObjectMessageAssignment_6_1_1();
@@ -6318,14 +6521,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Domain__Group__0"
-    // InternalIotlang.g:2016:1: rule__Domain__Group__0 : rule__Domain__Group__0__Impl rule__Domain__Group__1 ;
+    // InternalIotlang.g:2074:1: rule__Domain__Group__0 : rule__Domain__Group__0__Impl rule__Domain__Group__1 ;
     public final void rule__Domain__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2020:1: ( rule__Domain__Group__0__Impl rule__Domain__Group__1 )
-            // InternalIotlang.g:2021:2: rule__Domain__Group__0__Impl rule__Domain__Group__1
+            // InternalIotlang.g:2078:1: ( rule__Domain__Group__0__Impl rule__Domain__Group__1 )
+            // InternalIotlang.g:2079:2: rule__Domain__Group__0__Impl rule__Domain__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Domain__Group__0__Impl();
@@ -6356,17 +6559,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Domain__Group__0__Impl"
-    // InternalIotlang.g:2028:1: rule__Domain__Group__0__Impl : ( 'domain' ) ;
+    // InternalIotlang.g:2086:1: rule__Domain__Group__0__Impl : ( 'domain' ) ;
     public final void rule__Domain__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2032:1: ( ( 'domain' ) )
-            // InternalIotlang.g:2033:1: ( 'domain' )
+            // InternalIotlang.g:2090:1: ( ( 'domain' ) )
+            // InternalIotlang.g:2091:1: ( 'domain' )
             {
-            // InternalIotlang.g:2033:1: ( 'domain' )
-            // InternalIotlang.g:2034:2: 'domain'
+            // InternalIotlang.g:2091:1: ( 'domain' )
+            // InternalIotlang.g:2092:2: 'domain'
             {
              before(grammarAccess.getDomainAccess().getDomainKeyword_0()); 
             match(input,36,FOLLOW_2); 
@@ -6393,14 +6596,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Domain__Group__1"
-    // InternalIotlang.g:2043:1: rule__Domain__Group__1 : rule__Domain__Group__1__Impl ;
+    // InternalIotlang.g:2101:1: rule__Domain__Group__1 : rule__Domain__Group__1__Impl ;
     public final void rule__Domain__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2047:1: ( rule__Domain__Group__1__Impl )
-            // InternalIotlang.g:2048:2: rule__Domain__Group__1__Impl
+            // InternalIotlang.g:2105:1: ( rule__Domain__Group__1__Impl )
+            // InternalIotlang.g:2106:2: rule__Domain__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Domain__Group__1__Impl();
@@ -6426,21 +6629,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Domain__Group__1__Impl"
-    // InternalIotlang.g:2054:1: rule__Domain__Group__1__Impl : ( ( rule__Domain__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:2112:1: rule__Domain__Group__1__Impl : ( ( rule__Domain__NameAssignment_1 ) ) ;
     public final void rule__Domain__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2058:1: ( ( ( rule__Domain__NameAssignment_1 ) ) )
-            // InternalIotlang.g:2059:1: ( ( rule__Domain__NameAssignment_1 ) )
+            // InternalIotlang.g:2116:1: ( ( ( rule__Domain__NameAssignment_1 ) ) )
+            // InternalIotlang.g:2117:1: ( ( rule__Domain__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:2059:1: ( ( rule__Domain__NameAssignment_1 ) )
-            // InternalIotlang.g:2060:2: ( rule__Domain__NameAssignment_1 )
+            // InternalIotlang.g:2117:1: ( ( rule__Domain__NameAssignment_1 ) )
+            // InternalIotlang.g:2118:2: ( rule__Domain__NameAssignment_1 )
             {
              before(grammarAccess.getDomainAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:2061:2: ( rule__Domain__NameAssignment_1 )
-            // InternalIotlang.g:2061:3: rule__Domain__NameAssignment_1
+            // InternalIotlang.g:2119:2: ( rule__Domain__NameAssignment_1 )
+            // InternalIotlang.g:2119:3: rule__Domain__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Domain__NameAssignment_1();
@@ -6473,14 +6676,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__0"
-    // InternalIotlang.g:2070:1: rule__InstanceThing__Group__0 : rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1 ;
+    // InternalIotlang.g:2128:1: rule__InstanceThing__Group__0 : rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1 ;
     public final void rule__InstanceThing__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2074:1: ( rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1 )
-            // InternalIotlang.g:2075:2: rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1
+            // InternalIotlang.g:2132:1: ( rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1 )
+            // InternalIotlang.g:2133:2: rule__InstanceThing__Group__0__Impl rule__InstanceThing__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__InstanceThing__Group__0__Impl();
@@ -6511,17 +6714,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__0__Impl"
-    // InternalIotlang.g:2082:1: rule__InstanceThing__Group__0__Impl : ( 'instanceThing' ) ;
+    // InternalIotlang.g:2140:1: rule__InstanceThing__Group__0__Impl : ( 'instanceThing' ) ;
     public final void rule__InstanceThing__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2086:1: ( ( 'instanceThing' ) )
-            // InternalIotlang.g:2087:1: ( 'instanceThing' )
+            // InternalIotlang.g:2144:1: ( ( 'instanceThing' ) )
+            // InternalIotlang.g:2145:1: ( 'instanceThing' )
             {
-            // InternalIotlang.g:2087:1: ( 'instanceThing' )
-            // InternalIotlang.g:2088:2: 'instanceThing'
+            // InternalIotlang.g:2145:1: ( 'instanceThing' )
+            // InternalIotlang.g:2146:2: 'instanceThing'
             {
              before(grammarAccess.getInstanceThingAccess().getInstanceThingKeyword_0()); 
             match(input,37,FOLLOW_2); 
@@ -6548,14 +6751,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__1"
-    // InternalIotlang.g:2097:1: rule__InstanceThing__Group__1 : rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2 ;
+    // InternalIotlang.g:2155:1: rule__InstanceThing__Group__1 : rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2 ;
     public final void rule__InstanceThing__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2101:1: ( rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2 )
-            // InternalIotlang.g:2102:2: rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2
+            // InternalIotlang.g:2159:1: ( rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2 )
+            // InternalIotlang.g:2160:2: rule__InstanceThing__Group__1__Impl rule__InstanceThing__Group__2
             {
             pushFollow(FOLLOW_23);
             rule__InstanceThing__Group__1__Impl();
@@ -6586,21 +6789,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__1__Impl"
-    // InternalIotlang.g:2109:1: rule__InstanceThing__Group__1__Impl : ( ( rule__InstanceThing__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:2167:1: rule__InstanceThing__Group__1__Impl : ( ( rule__InstanceThing__NameAssignment_1 ) ) ;
     public final void rule__InstanceThing__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2113:1: ( ( ( rule__InstanceThing__NameAssignment_1 ) ) )
-            // InternalIotlang.g:2114:1: ( ( rule__InstanceThing__NameAssignment_1 ) )
+            // InternalIotlang.g:2171:1: ( ( ( rule__InstanceThing__NameAssignment_1 ) ) )
+            // InternalIotlang.g:2172:1: ( ( rule__InstanceThing__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:2114:1: ( ( rule__InstanceThing__NameAssignment_1 ) )
-            // InternalIotlang.g:2115:2: ( rule__InstanceThing__NameAssignment_1 )
+            // InternalIotlang.g:2172:1: ( ( rule__InstanceThing__NameAssignment_1 ) )
+            // InternalIotlang.g:2173:2: ( rule__InstanceThing__NameAssignment_1 )
             {
              before(grammarAccess.getInstanceThingAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:2116:2: ( rule__InstanceThing__NameAssignment_1 )
-            // InternalIotlang.g:2116:3: rule__InstanceThing__NameAssignment_1
+            // InternalIotlang.g:2174:2: ( rule__InstanceThing__NameAssignment_1 )
+            // InternalIotlang.g:2174:3: rule__InstanceThing__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__InstanceThing__NameAssignment_1();
@@ -6633,14 +6836,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__2"
-    // InternalIotlang.g:2124:1: rule__InstanceThing__Group__2 : rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3 ;
+    // InternalIotlang.g:2182:1: rule__InstanceThing__Group__2 : rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3 ;
     public final void rule__InstanceThing__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2128:1: ( rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3 )
-            // InternalIotlang.g:2129:2: rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3
+            // InternalIotlang.g:2186:1: ( rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3 )
+            // InternalIotlang.g:2187:2: rule__InstanceThing__Group__2__Impl rule__InstanceThing__Group__3
             {
             pushFollow(FOLLOW_23);
             rule__InstanceThing__Group__2__Impl();
@@ -6671,33 +6874,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__2__Impl"
-    // InternalIotlang.g:2136:1: rule__InstanceThing__Group__2__Impl : ( ( rule__InstanceThing__Group_2__0 )* ) ;
+    // InternalIotlang.g:2194:1: rule__InstanceThing__Group__2__Impl : ( ( rule__InstanceThing__Group_2__0 )* ) ;
     public final void rule__InstanceThing__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2140:1: ( ( ( rule__InstanceThing__Group_2__0 )* ) )
-            // InternalIotlang.g:2141:1: ( ( rule__InstanceThing__Group_2__0 )* )
+            // InternalIotlang.g:2198:1: ( ( ( rule__InstanceThing__Group_2__0 )* ) )
+            // InternalIotlang.g:2199:1: ( ( rule__InstanceThing__Group_2__0 )* )
             {
-            // InternalIotlang.g:2141:1: ( ( rule__InstanceThing__Group_2__0 )* )
-            // InternalIotlang.g:2142:2: ( rule__InstanceThing__Group_2__0 )*
+            // InternalIotlang.g:2199:1: ( ( rule__InstanceThing__Group_2__0 )* )
+            // InternalIotlang.g:2200:2: ( rule__InstanceThing__Group_2__0 )*
             {
              before(grammarAccess.getInstanceThingAccess().getGroup_2()); 
-            // InternalIotlang.g:2143:2: ( rule__InstanceThing__Group_2__0 )*
-            loop15:
+            // InternalIotlang.g:2201:2: ( rule__InstanceThing__Group_2__0 )*
+            loop16:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt16=2;
+                int LA16_0 = input.LA(1);
 
-                if ( (LA15_0==38) ) {
-                    alt15=1;
+                if ( (LA16_0==38) ) {
+                    alt16=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt16) {
             	case 1 :
-            	    // InternalIotlang.g:2143:3: rule__InstanceThing__Group_2__0
+            	    // InternalIotlang.g:2201:3: rule__InstanceThing__Group_2__0
             	    {
             	    pushFollow(FOLLOW_24);
             	    rule__InstanceThing__Group_2__0();
@@ -6709,7 +6912,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop15;
+            	    break loop16;
                 }
             } while (true);
 
@@ -6736,14 +6939,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__3"
-    // InternalIotlang.g:2151:1: rule__InstanceThing__Group__3 : rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4 ;
+    // InternalIotlang.g:2209:1: rule__InstanceThing__Group__3 : rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4 ;
     public final void rule__InstanceThing__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2155:1: ( rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4 )
-            // InternalIotlang.g:2156:2: rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4
+            // InternalIotlang.g:2213:1: ( rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4 )
+            // InternalIotlang.g:2214:2: rule__InstanceThing__Group__3__Impl rule__InstanceThing__Group__4
             {
             pushFollow(FOLLOW_5);
             rule__InstanceThing__Group__3__Impl();
@@ -6774,17 +6977,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__3__Impl"
-    // InternalIotlang.g:2163:1: rule__InstanceThing__Group__3__Impl : ( ':' ) ;
+    // InternalIotlang.g:2221:1: rule__InstanceThing__Group__3__Impl : ( ':' ) ;
     public final void rule__InstanceThing__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2167:1: ( ( ':' ) )
-            // InternalIotlang.g:2168:1: ( ':' )
+            // InternalIotlang.g:2225:1: ( ( ':' ) )
+            // InternalIotlang.g:2226:1: ( ':' )
             {
-            // InternalIotlang.g:2168:1: ( ':' )
-            // InternalIotlang.g:2169:2: ':'
+            // InternalIotlang.g:2226:1: ( ':' )
+            // InternalIotlang.g:2227:2: ':'
             {
              before(grammarAccess.getInstanceThingAccess().getColonKeyword_3()); 
             match(input,33,FOLLOW_2); 
@@ -6811,14 +7014,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__4"
-    // InternalIotlang.g:2178:1: rule__InstanceThing__Group__4 : rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5 ;
+    // InternalIotlang.g:2236:1: rule__InstanceThing__Group__4 : rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5 ;
     public final void rule__InstanceThing__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2182:1: ( rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5 )
-            // InternalIotlang.g:2183:2: rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5
+            // InternalIotlang.g:2240:1: ( rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5 )
+            // InternalIotlang.g:2241:2: rule__InstanceThing__Group__4__Impl rule__InstanceThing__Group__5
             {
             pushFollow(FOLLOW_25);
             rule__InstanceThing__Group__4__Impl();
@@ -6849,21 +7052,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__4__Impl"
-    // InternalIotlang.g:2190:1: rule__InstanceThing__Group__4__Impl : ( ( rule__InstanceThing__TypeThingAssignment_4 ) ) ;
+    // InternalIotlang.g:2248:1: rule__InstanceThing__Group__4__Impl : ( ( rule__InstanceThing__TypeThingAssignment_4 ) ) ;
     public final void rule__InstanceThing__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2194:1: ( ( ( rule__InstanceThing__TypeThingAssignment_4 ) ) )
-            // InternalIotlang.g:2195:1: ( ( rule__InstanceThing__TypeThingAssignment_4 ) )
+            // InternalIotlang.g:2252:1: ( ( ( rule__InstanceThing__TypeThingAssignment_4 ) ) )
+            // InternalIotlang.g:2253:1: ( ( rule__InstanceThing__TypeThingAssignment_4 ) )
             {
-            // InternalIotlang.g:2195:1: ( ( rule__InstanceThing__TypeThingAssignment_4 ) )
-            // InternalIotlang.g:2196:2: ( rule__InstanceThing__TypeThingAssignment_4 )
+            // InternalIotlang.g:2253:1: ( ( rule__InstanceThing__TypeThingAssignment_4 ) )
+            // InternalIotlang.g:2254:2: ( rule__InstanceThing__TypeThingAssignment_4 )
             {
              before(grammarAccess.getInstanceThingAccess().getTypeThingAssignment_4()); 
-            // InternalIotlang.g:2197:2: ( rule__InstanceThing__TypeThingAssignment_4 )
-            // InternalIotlang.g:2197:3: rule__InstanceThing__TypeThingAssignment_4
+            // InternalIotlang.g:2255:2: ( rule__InstanceThing__TypeThingAssignment_4 )
+            // InternalIotlang.g:2255:3: rule__InstanceThing__TypeThingAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__InstanceThing__TypeThingAssignment_4();
@@ -6896,14 +7099,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__5"
-    // InternalIotlang.g:2205:1: rule__InstanceThing__Group__5 : rule__InstanceThing__Group__5__Impl ;
+    // InternalIotlang.g:2263:1: rule__InstanceThing__Group__5 : rule__InstanceThing__Group__5__Impl ;
     public final void rule__InstanceThing__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2209:1: ( rule__InstanceThing__Group__5__Impl )
-            // InternalIotlang.g:2210:2: rule__InstanceThing__Group__5__Impl
+            // InternalIotlang.g:2267:1: ( rule__InstanceThing__Group__5__Impl )
+            // InternalIotlang.g:2268:2: rule__InstanceThing__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstanceThing__Group__5__Impl();
@@ -6929,33 +7132,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group__5__Impl"
-    // InternalIotlang.g:2216:1: rule__InstanceThing__Group__5__Impl : ( ( rule__InstanceThing__AnnotationsAssignment_5 )* ) ;
+    // InternalIotlang.g:2274:1: rule__InstanceThing__Group__5__Impl : ( ( rule__InstanceThing__AnnotationsAssignment_5 )* ) ;
     public final void rule__InstanceThing__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2220:1: ( ( ( rule__InstanceThing__AnnotationsAssignment_5 )* ) )
-            // InternalIotlang.g:2221:1: ( ( rule__InstanceThing__AnnotationsAssignment_5 )* )
+            // InternalIotlang.g:2278:1: ( ( ( rule__InstanceThing__AnnotationsAssignment_5 )* ) )
+            // InternalIotlang.g:2279:1: ( ( rule__InstanceThing__AnnotationsAssignment_5 )* )
             {
-            // InternalIotlang.g:2221:1: ( ( rule__InstanceThing__AnnotationsAssignment_5 )* )
-            // InternalIotlang.g:2222:2: ( rule__InstanceThing__AnnotationsAssignment_5 )*
+            // InternalIotlang.g:2279:1: ( ( rule__InstanceThing__AnnotationsAssignment_5 )* )
+            // InternalIotlang.g:2280:2: ( rule__InstanceThing__AnnotationsAssignment_5 )*
             {
              before(grammarAccess.getInstanceThingAccess().getAnnotationsAssignment_5()); 
-            // InternalIotlang.g:2223:2: ( rule__InstanceThing__AnnotationsAssignment_5 )*
-            loop16:
+            // InternalIotlang.g:2281:2: ( rule__InstanceThing__AnnotationsAssignment_5 )*
+            loop17:
             do {
-                int alt16=2;
-                int LA16_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( (LA16_0==RULE_ANNOTATION_ID) ) {
-                    alt16=1;
+                if ( (LA17_0==RULE_ANNOTATION_ID) ) {
+                    alt17=1;
                 }
 
 
-                switch (alt16) {
+                switch (alt17) {
             	case 1 :
-            	    // InternalIotlang.g:2223:3: rule__InstanceThing__AnnotationsAssignment_5
+            	    // InternalIotlang.g:2281:3: rule__InstanceThing__AnnotationsAssignment_5
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__InstanceThing__AnnotationsAssignment_5();
@@ -6967,7 +7170,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop16;
+            	    break loop17;
                 }
             } while (true);
 
@@ -6994,14 +7197,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__0"
-    // InternalIotlang.g:2232:1: rule__InstanceThing__Group_2__0 : rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1 ;
+    // InternalIotlang.g:2290:1: rule__InstanceThing__Group_2__0 : rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1 ;
     public final void rule__InstanceThing__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2236:1: ( rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1 )
-            // InternalIotlang.g:2237:2: rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1
+            // InternalIotlang.g:2294:1: ( rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1 )
+            // InternalIotlang.g:2295:2: rule__InstanceThing__Group_2__0__Impl rule__InstanceThing__Group_2__1
             {
             pushFollow(FOLLOW_26);
             rule__InstanceThing__Group_2__0__Impl();
@@ -7032,17 +7235,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__0__Impl"
-    // InternalIotlang.g:2244:1: rule__InstanceThing__Group_2__0__Impl : ( '[' ) ;
+    // InternalIotlang.g:2302:1: rule__InstanceThing__Group_2__0__Impl : ( '[' ) ;
     public final void rule__InstanceThing__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2248:1: ( ( '[' ) )
-            // InternalIotlang.g:2249:1: ( '[' )
+            // InternalIotlang.g:2306:1: ( ( '[' ) )
+            // InternalIotlang.g:2307:1: ( '[' )
             {
-            // InternalIotlang.g:2249:1: ( '[' )
-            // InternalIotlang.g:2250:2: '['
+            // InternalIotlang.g:2307:1: ( '[' )
+            // InternalIotlang.g:2308:2: '['
             {
              before(grammarAccess.getInstanceThingAccess().getLeftSquareBracketKeyword_2_0()); 
             match(input,38,FOLLOW_2); 
@@ -7069,14 +7272,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__1"
-    // InternalIotlang.g:2259:1: rule__InstanceThing__Group_2__1 : rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2 ;
+    // InternalIotlang.g:2317:1: rule__InstanceThing__Group_2__1 : rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2 ;
     public final void rule__InstanceThing__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2263:1: ( rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2 )
-            // InternalIotlang.g:2264:2: rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2
+            // InternalIotlang.g:2321:1: ( rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2 )
+            // InternalIotlang.g:2322:2: rule__InstanceThing__Group_2__1__Impl rule__InstanceThing__Group_2__2
             {
             pushFollow(FOLLOW_27);
             rule__InstanceThing__Group_2__1__Impl();
@@ -7107,21 +7310,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__1__Impl"
-    // InternalIotlang.g:2271:1: rule__InstanceThing__Group_2__1__Impl : ( ( rule__InstanceThing__NumberAssignment_2_1 ) ) ;
+    // InternalIotlang.g:2329:1: rule__InstanceThing__Group_2__1__Impl : ( ( rule__InstanceThing__NumberAssignment_2_1 ) ) ;
     public final void rule__InstanceThing__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2275:1: ( ( ( rule__InstanceThing__NumberAssignment_2_1 ) ) )
-            // InternalIotlang.g:2276:1: ( ( rule__InstanceThing__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2333:1: ( ( ( rule__InstanceThing__NumberAssignment_2_1 ) ) )
+            // InternalIotlang.g:2334:1: ( ( rule__InstanceThing__NumberAssignment_2_1 ) )
             {
-            // InternalIotlang.g:2276:1: ( ( rule__InstanceThing__NumberAssignment_2_1 ) )
-            // InternalIotlang.g:2277:2: ( rule__InstanceThing__NumberAssignment_2_1 )
+            // InternalIotlang.g:2334:1: ( ( rule__InstanceThing__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2335:2: ( rule__InstanceThing__NumberAssignment_2_1 )
             {
              before(grammarAccess.getInstanceThingAccess().getNumberAssignment_2_1()); 
-            // InternalIotlang.g:2278:2: ( rule__InstanceThing__NumberAssignment_2_1 )
-            // InternalIotlang.g:2278:3: rule__InstanceThing__NumberAssignment_2_1
+            // InternalIotlang.g:2336:2: ( rule__InstanceThing__NumberAssignment_2_1 )
+            // InternalIotlang.g:2336:3: rule__InstanceThing__NumberAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__InstanceThing__NumberAssignment_2_1();
@@ -7154,14 +7357,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__2"
-    // InternalIotlang.g:2286:1: rule__InstanceThing__Group_2__2 : rule__InstanceThing__Group_2__2__Impl ;
+    // InternalIotlang.g:2344:1: rule__InstanceThing__Group_2__2 : rule__InstanceThing__Group_2__2__Impl ;
     public final void rule__InstanceThing__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2290:1: ( rule__InstanceThing__Group_2__2__Impl )
-            // InternalIotlang.g:2291:2: rule__InstanceThing__Group_2__2__Impl
+            // InternalIotlang.g:2348:1: ( rule__InstanceThing__Group_2__2__Impl )
+            // InternalIotlang.g:2349:2: rule__InstanceThing__Group_2__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstanceThing__Group_2__2__Impl();
@@ -7187,17 +7390,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__Group_2__2__Impl"
-    // InternalIotlang.g:2297:1: rule__InstanceThing__Group_2__2__Impl : ( ']' ) ;
+    // InternalIotlang.g:2355:1: rule__InstanceThing__Group_2__2__Impl : ( ']' ) ;
     public final void rule__InstanceThing__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2301:1: ( ( ']' ) )
-            // InternalIotlang.g:2302:1: ( ']' )
+            // InternalIotlang.g:2359:1: ( ( ']' ) )
+            // InternalIotlang.g:2360:1: ( ']' )
             {
-            // InternalIotlang.g:2302:1: ( ']' )
-            // InternalIotlang.g:2303:2: ']'
+            // InternalIotlang.g:2360:1: ( ']' )
+            // InternalIotlang.g:2361:2: ']'
             {
              before(grammarAccess.getInstanceThingAccess().getRightSquareBracketKeyword_2_2()); 
             match(input,39,FOLLOW_2); 
@@ -7224,14 +7427,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__0"
-    // InternalIotlang.g:2313:1: rule__InstancePubSub__Group__0 : rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1 ;
+    // InternalIotlang.g:2371:1: rule__InstancePubSub__Group__0 : rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1 ;
     public final void rule__InstancePubSub__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2317:1: ( rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1 )
-            // InternalIotlang.g:2318:2: rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1
+            // InternalIotlang.g:2375:1: ( rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1 )
+            // InternalIotlang.g:2376:2: rule__InstancePubSub__Group__0__Impl rule__InstancePubSub__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__InstancePubSub__Group__0__Impl();
@@ -7262,17 +7465,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__0__Impl"
-    // InternalIotlang.g:2325:1: rule__InstancePubSub__Group__0__Impl : ( 'instancePubSub' ) ;
+    // InternalIotlang.g:2383:1: rule__InstancePubSub__Group__0__Impl : ( 'instancePubSub' ) ;
     public final void rule__InstancePubSub__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2329:1: ( ( 'instancePubSub' ) )
-            // InternalIotlang.g:2330:1: ( 'instancePubSub' )
+            // InternalIotlang.g:2387:1: ( ( 'instancePubSub' ) )
+            // InternalIotlang.g:2388:1: ( 'instancePubSub' )
             {
-            // InternalIotlang.g:2330:1: ( 'instancePubSub' )
-            // InternalIotlang.g:2331:2: 'instancePubSub'
+            // InternalIotlang.g:2388:1: ( 'instancePubSub' )
+            // InternalIotlang.g:2389:2: 'instancePubSub'
             {
              before(grammarAccess.getInstancePubSubAccess().getInstancePubSubKeyword_0()); 
             match(input,40,FOLLOW_2); 
@@ -7299,14 +7502,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__1"
-    // InternalIotlang.g:2340:1: rule__InstancePubSub__Group__1 : rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2 ;
+    // InternalIotlang.g:2398:1: rule__InstancePubSub__Group__1 : rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2 ;
     public final void rule__InstancePubSub__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2344:1: ( rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2 )
-            // InternalIotlang.g:2345:2: rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2
+            // InternalIotlang.g:2402:1: ( rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2 )
+            // InternalIotlang.g:2403:2: rule__InstancePubSub__Group__1__Impl rule__InstancePubSub__Group__2
             {
             pushFollow(FOLLOW_23);
             rule__InstancePubSub__Group__1__Impl();
@@ -7337,21 +7540,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__1__Impl"
-    // InternalIotlang.g:2352:1: rule__InstancePubSub__Group__1__Impl : ( ( rule__InstancePubSub__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:2410:1: rule__InstancePubSub__Group__1__Impl : ( ( rule__InstancePubSub__NameAssignment_1 ) ) ;
     public final void rule__InstancePubSub__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2356:1: ( ( ( rule__InstancePubSub__NameAssignment_1 ) ) )
-            // InternalIotlang.g:2357:1: ( ( rule__InstancePubSub__NameAssignment_1 ) )
+            // InternalIotlang.g:2414:1: ( ( ( rule__InstancePubSub__NameAssignment_1 ) ) )
+            // InternalIotlang.g:2415:1: ( ( rule__InstancePubSub__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:2357:1: ( ( rule__InstancePubSub__NameAssignment_1 ) )
-            // InternalIotlang.g:2358:2: ( rule__InstancePubSub__NameAssignment_1 )
+            // InternalIotlang.g:2415:1: ( ( rule__InstancePubSub__NameAssignment_1 ) )
+            // InternalIotlang.g:2416:2: ( rule__InstancePubSub__NameAssignment_1 )
             {
              before(grammarAccess.getInstancePubSubAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:2359:2: ( rule__InstancePubSub__NameAssignment_1 )
-            // InternalIotlang.g:2359:3: rule__InstancePubSub__NameAssignment_1
+            // InternalIotlang.g:2417:2: ( rule__InstancePubSub__NameAssignment_1 )
+            // InternalIotlang.g:2417:3: rule__InstancePubSub__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__NameAssignment_1();
@@ -7384,14 +7587,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__2"
-    // InternalIotlang.g:2367:1: rule__InstancePubSub__Group__2 : rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3 ;
+    // InternalIotlang.g:2425:1: rule__InstancePubSub__Group__2 : rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3 ;
     public final void rule__InstancePubSub__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2371:1: ( rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3 )
-            // InternalIotlang.g:2372:2: rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3
+            // InternalIotlang.g:2429:1: ( rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3 )
+            // InternalIotlang.g:2430:2: rule__InstancePubSub__Group__2__Impl rule__InstancePubSub__Group__3
             {
             pushFollow(FOLLOW_23);
             rule__InstancePubSub__Group__2__Impl();
@@ -7422,33 +7625,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__2__Impl"
-    // InternalIotlang.g:2379:1: rule__InstancePubSub__Group__2__Impl : ( ( rule__InstancePubSub__Group_2__0 )* ) ;
+    // InternalIotlang.g:2437:1: rule__InstancePubSub__Group__2__Impl : ( ( rule__InstancePubSub__Group_2__0 )* ) ;
     public final void rule__InstancePubSub__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2383:1: ( ( ( rule__InstancePubSub__Group_2__0 )* ) )
-            // InternalIotlang.g:2384:1: ( ( rule__InstancePubSub__Group_2__0 )* )
+            // InternalIotlang.g:2441:1: ( ( ( rule__InstancePubSub__Group_2__0 )* ) )
+            // InternalIotlang.g:2442:1: ( ( rule__InstancePubSub__Group_2__0 )* )
             {
-            // InternalIotlang.g:2384:1: ( ( rule__InstancePubSub__Group_2__0 )* )
-            // InternalIotlang.g:2385:2: ( rule__InstancePubSub__Group_2__0 )*
+            // InternalIotlang.g:2442:1: ( ( rule__InstancePubSub__Group_2__0 )* )
+            // InternalIotlang.g:2443:2: ( rule__InstancePubSub__Group_2__0 )*
             {
              before(grammarAccess.getInstancePubSubAccess().getGroup_2()); 
-            // InternalIotlang.g:2386:2: ( rule__InstancePubSub__Group_2__0 )*
-            loop17:
+            // InternalIotlang.g:2444:2: ( rule__InstancePubSub__Group_2__0 )*
+            loop18:
             do {
-                int alt17=2;
-                int LA17_0 = input.LA(1);
+                int alt18=2;
+                int LA18_0 = input.LA(1);
 
-                if ( (LA17_0==38) ) {
-                    alt17=1;
+                if ( (LA18_0==38) ) {
+                    alt18=1;
                 }
 
 
-                switch (alt17) {
+                switch (alt18) {
             	case 1 :
-            	    // InternalIotlang.g:2386:3: rule__InstancePubSub__Group_2__0
+            	    // InternalIotlang.g:2444:3: rule__InstancePubSub__Group_2__0
             	    {
             	    pushFollow(FOLLOW_24);
             	    rule__InstancePubSub__Group_2__0();
@@ -7460,7 +7663,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop17;
+            	    break loop18;
                 }
             } while (true);
 
@@ -7487,14 +7690,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__3"
-    // InternalIotlang.g:2394:1: rule__InstancePubSub__Group__3 : rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4 ;
+    // InternalIotlang.g:2452:1: rule__InstancePubSub__Group__3 : rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4 ;
     public final void rule__InstancePubSub__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2398:1: ( rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4 )
-            // InternalIotlang.g:2399:2: rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4
+            // InternalIotlang.g:2456:1: ( rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4 )
+            // InternalIotlang.g:2457:2: rule__InstancePubSub__Group__3__Impl rule__InstancePubSub__Group__4
             {
             pushFollow(FOLLOW_5);
             rule__InstancePubSub__Group__3__Impl();
@@ -7525,17 +7728,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__3__Impl"
-    // InternalIotlang.g:2406:1: rule__InstancePubSub__Group__3__Impl : ( ':' ) ;
+    // InternalIotlang.g:2464:1: rule__InstancePubSub__Group__3__Impl : ( ':' ) ;
     public final void rule__InstancePubSub__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2410:1: ( ( ':' ) )
-            // InternalIotlang.g:2411:1: ( ':' )
+            // InternalIotlang.g:2468:1: ( ( ':' ) )
+            // InternalIotlang.g:2469:1: ( ':' )
             {
-            // InternalIotlang.g:2411:1: ( ':' )
-            // InternalIotlang.g:2412:2: ':'
+            // InternalIotlang.g:2469:1: ( ':' )
+            // InternalIotlang.g:2470:2: ':'
             {
              before(grammarAccess.getInstancePubSubAccess().getColonKeyword_3()); 
             match(input,33,FOLLOW_2); 
@@ -7562,14 +7765,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__4"
-    // InternalIotlang.g:2421:1: rule__InstancePubSub__Group__4 : rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5 ;
+    // InternalIotlang.g:2479:1: rule__InstancePubSub__Group__4 : rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5 ;
     public final void rule__InstancePubSub__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2425:1: ( rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5 )
-            // InternalIotlang.g:2426:2: rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5
+            // InternalIotlang.g:2483:1: ( rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5 )
+            // InternalIotlang.g:2484:2: rule__InstancePubSub__Group__4__Impl rule__InstancePubSub__Group__5
             {
             pushFollow(FOLLOW_28);
             rule__InstancePubSub__Group__4__Impl();
@@ -7600,21 +7803,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__4__Impl"
-    // InternalIotlang.g:2433:1: rule__InstancePubSub__Group__4__Impl : ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) ) ;
+    // InternalIotlang.g:2491:1: rule__InstancePubSub__Group__4__Impl : ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) ) ;
     public final void rule__InstancePubSub__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2437:1: ( ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) ) )
-            // InternalIotlang.g:2438:1: ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) )
+            // InternalIotlang.g:2495:1: ( ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) ) )
+            // InternalIotlang.g:2496:1: ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) )
             {
-            // InternalIotlang.g:2438:1: ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) )
-            // InternalIotlang.g:2439:2: ( rule__InstancePubSub__TypeChannelAssignment_4 )
+            // InternalIotlang.g:2496:1: ( ( rule__InstancePubSub__TypeChannelAssignment_4 ) )
+            // InternalIotlang.g:2497:2: ( rule__InstancePubSub__TypeChannelAssignment_4 )
             {
              before(grammarAccess.getInstancePubSubAccess().getTypeChannelAssignment_4()); 
-            // InternalIotlang.g:2440:2: ( rule__InstancePubSub__TypeChannelAssignment_4 )
-            // InternalIotlang.g:2440:3: rule__InstancePubSub__TypeChannelAssignment_4
+            // InternalIotlang.g:2498:2: ( rule__InstancePubSub__TypeChannelAssignment_4 )
+            // InternalIotlang.g:2498:3: rule__InstancePubSub__TypeChannelAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__TypeChannelAssignment_4();
@@ -7647,14 +7850,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__5"
-    // InternalIotlang.g:2448:1: rule__InstancePubSub__Group__5 : rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6 ;
+    // InternalIotlang.g:2506:1: rule__InstancePubSub__Group__5 : rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6 ;
     public final void rule__InstancePubSub__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2452:1: ( rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6 )
-            // InternalIotlang.g:2453:2: rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6
+            // InternalIotlang.g:2510:1: ( rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6 )
+            // InternalIotlang.g:2511:2: rule__InstancePubSub__Group__5__Impl rule__InstancePubSub__Group__6
             {
             pushFollow(FOLLOW_5);
             rule__InstancePubSub__Group__5__Impl();
@@ -7685,17 +7888,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__5__Impl"
-    // InternalIotlang.g:2460:1: rule__InstancePubSub__Group__5__Impl : ( 'over' ) ;
+    // InternalIotlang.g:2518:1: rule__InstancePubSub__Group__5__Impl : ( 'over' ) ;
     public final void rule__InstancePubSub__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2464:1: ( ( 'over' ) )
-            // InternalIotlang.g:2465:1: ( 'over' )
+            // InternalIotlang.g:2522:1: ( ( 'over' ) )
+            // InternalIotlang.g:2523:1: ( 'over' )
             {
-            // InternalIotlang.g:2465:1: ( 'over' )
-            // InternalIotlang.g:2466:2: 'over'
+            // InternalIotlang.g:2523:1: ( 'over' )
+            // InternalIotlang.g:2524:2: 'over'
             {
              before(grammarAccess.getInstancePubSubAccess().getOverKeyword_5()); 
             match(input,41,FOLLOW_2); 
@@ -7722,14 +7925,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__6"
-    // InternalIotlang.g:2475:1: rule__InstancePubSub__Group__6 : rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7 ;
+    // InternalIotlang.g:2533:1: rule__InstancePubSub__Group__6 : rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7 ;
     public final void rule__InstancePubSub__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2479:1: ( rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7 )
-            // InternalIotlang.g:2480:2: rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7
+            // InternalIotlang.g:2537:1: ( rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7 )
+            // InternalIotlang.g:2538:2: rule__InstancePubSub__Group__6__Impl rule__InstancePubSub__Group__7
             {
             pushFollow(FOLLOW_25);
             rule__InstancePubSub__Group__6__Impl();
@@ -7760,21 +7963,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__6__Impl"
-    // InternalIotlang.g:2487:1: rule__InstancePubSub__Group__6__Impl : ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) ) ;
+    // InternalIotlang.g:2545:1: rule__InstancePubSub__Group__6__Impl : ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) ) ;
     public final void rule__InstancePubSub__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2491:1: ( ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) ) )
-            // InternalIotlang.g:2492:1: ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) )
+            // InternalIotlang.g:2549:1: ( ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) ) )
+            // InternalIotlang.g:2550:1: ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) )
             {
-            // InternalIotlang.g:2492:1: ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) )
-            // InternalIotlang.g:2493:2: ( rule__InstancePubSub__OverProtocolAssignment_6 )
+            // InternalIotlang.g:2550:1: ( ( rule__InstancePubSub__OverProtocolAssignment_6 ) )
+            // InternalIotlang.g:2551:2: ( rule__InstancePubSub__OverProtocolAssignment_6 )
             {
              before(grammarAccess.getInstancePubSubAccess().getOverProtocolAssignment_6()); 
-            // InternalIotlang.g:2494:2: ( rule__InstancePubSub__OverProtocolAssignment_6 )
-            // InternalIotlang.g:2494:3: rule__InstancePubSub__OverProtocolAssignment_6
+            // InternalIotlang.g:2552:2: ( rule__InstancePubSub__OverProtocolAssignment_6 )
+            // InternalIotlang.g:2552:3: rule__InstancePubSub__OverProtocolAssignment_6
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__OverProtocolAssignment_6();
@@ -7807,14 +8010,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__7"
-    // InternalIotlang.g:2502:1: rule__InstancePubSub__Group__7 : rule__InstancePubSub__Group__7__Impl ;
+    // InternalIotlang.g:2560:1: rule__InstancePubSub__Group__7 : rule__InstancePubSub__Group__7__Impl ;
     public final void rule__InstancePubSub__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2506:1: ( rule__InstancePubSub__Group__7__Impl )
-            // InternalIotlang.g:2507:2: rule__InstancePubSub__Group__7__Impl
+            // InternalIotlang.g:2564:1: ( rule__InstancePubSub__Group__7__Impl )
+            // InternalIotlang.g:2565:2: rule__InstancePubSub__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__Group__7__Impl();
@@ -7840,33 +8043,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group__7__Impl"
-    // InternalIotlang.g:2513:1: rule__InstancePubSub__Group__7__Impl : ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* ) ;
+    // InternalIotlang.g:2571:1: rule__InstancePubSub__Group__7__Impl : ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* ) ;
     public final void rule__InstancePubSub__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2517:1: ( ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* ) )
-            // InternalIotlang.g:2518:1: ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* )
+            // InternalIotlang.g:2575:1: ( ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* ) )
+            // InternalIotlang.g:2576:1: ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* )
             {
-            // InternalIotlang.g:2518:1: ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* )
-            // InternalIotlang.g:2519:2: ( rule__InstancePubSub__AnnotationsAssignment_7 )*
+            // InternalIotlang.g:2576:1: ( ( rule__InstancePubSub__AnnotationsAssignment_7 )* )
+            // InternalIotlang.g:2577:2: ( rule__InstancePubSub__AnnotationsAssignment_7 )*
             {
              before(grammarAccess.getInstancePubSubAccess().getAnnotationsAssignment_7()); 
-            // InternalIotlang.g:2520:2: ( rule__InstancePubSub__AnnotationsAssignment_7 )*
-            loop18:
+            // InternalIotlang.g:2578:2: ( rule__InstancePubSub__AnnotationsAssignment_7 )*
+            loop19:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt19=2;
+                int LA19_0 = input.LA(1);
 
-                if ( (LA18_0==RULE_ANNOTATION_ID) ) {
-                    alt18=1;
+                if ( (LA19_0==RULE_ANNOTATION_ID) ) {
+                    alt19=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt19) {
             	case 1 :
-            	    // InternalIotlang.g:2520:3: rule__InstancePubSub__AnnotationsAssignment_7
+            	    // InternalIotlang.g:2578:3: rule__InstancePubSub__AnnotationsAssignment_7
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__InstancePubSub__AnnotationsAssignment_7();
@@ -7878,7 +8081,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop18;
+            	    break loop19;
                 }
             } while (true);
 
@@ -7905,14 +8108,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__0"
-    // InternalIotlang.g:2529:1: rule__InstancePubSub__Group_2__0 : rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1 ;
+    // InternalIotlang.g:2587:1: rule__InstancePubSub__Group_2__0 : rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1 ;
     public final void rule__InstancePubSub__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2533:1: ( rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1 )
-            // InternalIotlang.g:2534:2: rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1
+            // InternalIotlang.g:2591:1: ( rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1 )
+            // InternalIotlang.g:2592:2: rule__InstancePubSub__Group_2__0__Impl rule__InstancePubSub__Group_2__1
             {
             pushFollow(FOLLOW_26);
             rule__InstancePubSub__Group_2__0__Impl();
@@ -7943,17 +8146,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__0__Impl"
-    // InternalIotlang.g:2541:1: rule__InstancePubSub__Group_2__0__Impl : ( '[' ) ;
+    // InternalIotlang.g:2599:1: rule__InstancePubSub__Group_2__0__Impl : ( '[' ) ;
     public final void rule__InstancePubSub__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2545:1: ( ( '[' ) )
-            // InternalIotlang.g:2546:1: ( '[' )
+            // InternalIotlang.g:2603:1: ( ( '[' ) )
+            // InternalIotlang.g:2604:1: ( '[' )
             {
-            // InternalIotlang.g:2546:1: ( '[' )
-            // InternalIotlang.g:2547:2: '['
+            // InternalIotlang.g:2604:1: ( '[' )
+            // InternalIotlang.g:2605:2: '['
             {
              before(grammarAccess.getInstancePubSubAccess().getLeftSquareBracketKeyword_2_0()); 
             match(input,38,FOLLOW_2); 
@@ -7980,14 +8183,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__1"
-    // InternalIotlang.g:2556:1: rule__InstancePubSub__Group_2__1 : rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2 ;
+    // InternalIotlang.g:2614:1: rule__InstancePubSub__Group_2__1 : rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2 ;
     public final void rule__InstancePubSub__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2560:1: ( rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2 )
-            // InternalIotlang.g:2561:2: rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2
+            // InternalIotlang.g:2618:1: ( rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2 )
+            // InternalIotlang.g:2619:2: rule__InstancePubSub__Group_2__1__Impl rule__InstancePubSub__Group_2__2
             {
             pushFollow(FOLLOW_27);
             rule__InstancePubSub__Group_2__1__Impl();
@@ -8018,21 +8221,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__1__Impl"
-    // InternalIotlang.g:2568:1: rule__InstancePubSub__Group_2__1__Impl : ( ( rule__InstancePubSub__NumberAssignment_2_1 ) ) ;
+    // InternalIotlang.g:2626:1: rule__InstancePubSub__Group_2__1__Impl : ( ( rule__InstancePubSub__NumberAssignment_2_1 ) ) ;
     public final void rule__InstancePubSub__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2572:1: ( ( ( rule__InstancePubSub__NumberAssignment_2_1 ) ) )
-            // InternalIotlang.g:2573:1: ( ( rule__InstancePubSub__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2630:1: ( ( ( rule__InstancePubSub__NumberAssignment_2_1 ) ) )
+            // InternalIotlang.g:2631:1: ( ( rule__InstancePubSub__NumberAssignment_2_1 ) )
             {
-            // InternalIotlang.g:2573:1: ( ( rule__InstancePubSub__NumberAssignment_2_1 ) )
-            // InternalIotlang.g:2574:2: ( rule__InstancePubSub__NumberAssignment_2_1 )
+            // InternalIotlang.g:2631:1: ( ( rule__InstancePubSub__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2632:2: ( rule__InstancePubSub__NumberAssignment_2_1 )
             {
              before(grammarAccess.getInstancePubSubAccess().getNumberAssignment_2_1()); 
-            // InternalIotlang.g:2575:2: ( rule__InstancePubSub__NumberAssignment_2_1 )
-            // InternalIotlang.g:2575:3: rule__InstancePubSub__NumberAssignment_2_1
+            // InternalIotlang.g:2633:2: ( rule__InstancePubSub__NumberAssignment_2_1 )
+            // InternalIotlang.g:2633:3: rule__InstancePubSub__NumberAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__NumberAssignment_2_1();
@@ -8065,14 +8268,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__2"
-    // InternalIotlang.g:2583:1: rule__InstancePubSub__Group_2__2 : rule__InstancePubSub__Group_2__2__Impl ;
+    // InternalIotlang.g:2641:1: rule__InstancePubSub__Group_2__2 : rule__InstancePubSub__Group_2__2__Impl ;
     public final void rule__InstancePubSub__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2587:1: ( rule__InstancePubSub__Group_2__2__Impl )
-            // InternalIotlang.g:2588:2: rule__InstancePubSub__Group_2__2__Impl
+            // InternalIotlang.g:2645:1: ( rule__InstancePubSub__Group_2__2__Impl )
+            // InternalIotlang.g:2646:2: rule__InstancePubSub__Group_2__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstancePubSub__Group_2__2__Impl();
@@ -8098,17 +8301,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__Group_2__2__Impl"
-    // InternalIotlang.g:2594:1: rule__InstancePubSub__Group_2__2__Impl : ( ']' ) ;
+    // InternalIotlang.g:2652:1: rule__InstancePubSub__Group_2__2__Impl : ( ']' ) ;
     public final void rule__InstancePubSub__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2598:1: ( ( ']' ) )
-            // InternalIotlang.g:2599:1: ( ']' )
+            // InternalIotlang.g:2656:1: ( ( ']' ) )
+            // InternalIotlang.g:2657:1: ( ']' )
             {
-            // InternalIotlang.g:2599:1: ( ']' )
-            // InternalIotlang.g:2600:2: ']'
+            // InternalIotlang.g:2657:1: ( ']' )
+            // InternalIotlang.g:2658:2: ']'
             {
              before(grammarAccess.getInstancePubSubAccess().getRightSquareBracketKeyword_2_2()); 
             match(input,39,FOLLOW_2); 
@@ -8135,14 +8338,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__0"
-    // InternalIotlang.g:2610:1: rule__InstancePtP__Group__0 : rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1 ;
+    // InternalIotlang.g:2668:1: rule__InstancePtP__Group__0 : rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1 ;
     public final void rule__InstancePtP__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2614:1: ( rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1 )
-            // InternalIotlang.g:2615:2: rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1
+            // InternalIotlang.g:2672:1: ( rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1 )
+            // InternalIotlang.g:2673:2: rule__InstancePtP__Group__0__Impl rule__InstancePtP__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__InstancePtP__Group__0__Impl();
@@ -8173,17 +8376,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__0__Impl"
-    // InternalIotlang.g:2622:1: rule__InstancePtP__Group__0__Impl : ( 'instancePTP' ) ;
+    // InternalIotlang.g:2680:1: rule__InstancePtP__Group__0__Impl : ( 'instancePTP' ) ;
     public final void rule__InstancePtP__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2626:1: ( ( 'instancePTP' ) )
-            // InternalIotlang.g:2627:1: ( 'instancePTP' )
+            // InternalIotlang.g:2684:1: ( ( 'instancePTP' ) )
+            // InternalIotlang.g:2685:1: ( 'instancePTP' )
             {
-            // InternalIotlang.g:2627:1: ( 'instancePTP' )
-            // InternalIotlang.g:2628:2: 'instancePTP'
+            // InternalIotlang.g:2685:1: ( 'instancePTP' )
+            // InternalIotlang.g:2686:2: 'instancePTP'
             {
              before(grammarAccess.getInstancePtPAccess().getInstancePTPKeyword_0()); 
             match(input,42,FOLLOW_2); 
@@ -8210,14 +8413,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__1"
-    // InternalIotlang.g:2637:1: rule__InstancePtP__Group__1 : rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2 ;
+    // InternalIotlang.g:2695:1: rule__InstancePtP__Group__1 : rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2 ;
     public final void rule__InstancePtP__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2641:1: ( rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2 )
-            // InternalIotlang.g:2642:2: rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2
+            // InternalIotlang.g:2699:1: ( rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2 )
+            // InternalIotlang.g:2700:2: rule__InstancePtP__Group__1__Impl rule__InstancePtP__Group__2
             {
             pushFollow(FOLLOW_23);
             rule__InstancePtP__Group__1__Impl();
@@ -8248,21 +8451,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__1__Impl"
-    // InternalIotlang.g:2649:1: rule__InstancePtP__Group__1__Impl : ( ( rule__InstancePtP__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:2707:1: rule__InstancePtP__Group__1__Impl : ( ( rule__InstancePtP__NameAssignment_1 ) ) ;
     public final void rule__InstancePtP__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2653:1: ( ( ( rule__InstancePtP__NameAssignment_1 ) ) )
-            // InternalIotlang.g:2654:1: ( ( rule__InstancePtP__NameAssignment_1 ) )
+            // InternalIotlang.g:2711:1: ( ( ( rule__InstancePtP__NameAssignment_1 ) ) )
+            // InternalIotlang.g:2712:1: ( ( rule__InstancePtP__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:2654:1: ( ( rule__InstancePtP__NameAssignment_1 ) )
-            // InternalIotlang.g:2655:2: ( rule__InstancePtP__NameAssignment_1 )
+            // InternalIotlang.g:2712:1: ( ( rule__InstancePtP__NameAssignment_1 ) )
+            // InternalIotlang.g:2713:2: ( rule__InstancePtP__NameAssignment_1 )
             {
              before(grammarAccess.getInstancePtPAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:2656:2: ( rule__InstancePtP__NameAssignment_1 )
-            // InternalIotlang.g:2656:3: rule__InstancePtP__NameAssignment_1
+            // InternalIotlang.g:2714:2: ( rule__InstancePtP__NameAssignment_1 )
+            // InternalIotlang.g:2714:3: rule__InstancePtP__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__NameAssignment_1();
@@ -8295,14 +8498,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__2"
-    // InternalIotlang.g:2664:1: rule__InstancePtP__Group__2 : rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3 ;
+    // InternalIotlang.g:2722:1: rule__InstancePtP__Group__2 : rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3 ;
     public final void rule__InstancePtP__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2668:1: ( rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3 )
-            // InternalIotlang.g:2669:2: rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3
+            // InternalIotlang.g:2726:1: ( rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3 )
+            // InternalIotlang.g:2727:2: rule__InstancePtP__Group__2__Impl rule__InstancePtP__Group__3
             {
             pushFollow(FOLLOW_23);
             rule__InstancePtP__Group__2__Impl();
@@ -8333,33 +8536,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__2__Impl"
-    // InternalIotlang.g:2676:1: rule__InstancePtP__Group__2__Impl : ( ( rule__InstancePtP__Group_2__0 )* ) ;
+    // InternalIotlang.g:2734:1: rule__InstancePtP__Group__2__Impl : ( ( rule__InstancePtP__Group_2__0 )* ) ;
     public final void rule__InstancePtP__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2680:1: ( ( ( rule__InstancePtP__Group_2__0 )* ) )
-            // InternalIotlang.g:2681:1: ( ( rule__InstancePtP__Group_2__0 )* )
+            // InternalIotlang.g:2738:1: ( ( ( rule__InstancePtP__Group_2__0 )* ) )
+            // InternalIotlang.g:2739:1: ( ( rule__InstancePtP__Group_2__0 )* )
             {
-            // InternalIotlang.g:2681:1: ( ( rule__InstancePtP__Group_2__0 )* )
-            // InternalIotlang.g:2682:2: ( rule__InstancePtP__Group_2__0 )*
+            // InternalIotlang.g:2739:1: ( ( rule__InstancePtP__Group_2__0 )* )
+            // InternalIotlang.g:2740:2: ( rule__InstancePtP__Group_2__0 )*
             {
              before(grammarAccess.getInstancePtPAccess().getGroup_2()); 
-            // InternalIotlang.g:2683:2: ( rule__InstancePtP__Group_2__0 )*
-            loop19:
+            // InternalIotlang.g:2741:2: ( rule__InstancePtP__Group_2__0 )*
+            loop20:
             do {
-                int alt19=2;
-                int LA19_0 = input.LA(1);
+                int alt20=2;
+                int LA20_0 = input.LA(1);
 
-                if ( (LA19_0==38) ) {
-                    alt19=1;
+                if ( (LA20_0==38) ) {
+                    alt20=1;
                 }
 
 
-                switch (alt19) {
+                switch (alt20) {
             	case 1 :
-            	    // InternalIotlang.g:2683:3: rule__InstancePtP__Group_2__0
+            	    // InternalIotlang.g:2741:3: rule__InstancePtP__Group_2__0
             	    {
             	    pushFollow(FOLLOW_24);
             	    rule__InstancePtP__Group_2__0();
@@ -8371,7 +8574,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop19;
+            	    break loop20;
                 }
             } while (true);
 
@@ -8398,14 +8601,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__3"
-    // InternalIotlang.g:2691:1: rule__InstancePtP__Group__3 : rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4 ;
+    // InternalIotlang.g:2749:1: rule__InstancePtP__Group__3 : rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4 ;
     public final void rule__InstancePtP__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2695:1: ( rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4 )
-            // InternalIotlang.g:2696:2: rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4
+            // InternalIotlang.g:2753:1: ( rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4 )
+            // InternalIotlang.g:2754:2: rule__InstancePtP__Group__3__Impl rule__InstancePtP__Group__4
             {
             pushFollow(FOLLOW_5);
             rule__InstancePtP__Group__3__Impl();
@@ -8436,17 +8639,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__3__Impl"
-    // InternalIotlang.g:2703:1: rule__InstancePtP__Group__3__Impl : ( ':' ) ;
+    // InternalIotlang.g:2761:1: rule__InstancePtP__Group__3__Impl : ( ':' ) ;
     public final void rule__InstancePtP__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2707:1: ( ( ':' ) )
-            // InternalIotlang.g:2708:1: ( ':' )
+            // InternalIotlang.g:2765:1: ( ( ':' ) )
+            // InternalIotlang.g:2766:1: ( ':' )
             {
-            // InternalIotlang.g:2708:1: ( ':' )
-            // InternalIotlang.g:2709:2: ':'
+            // InternalIotlang.g:2766:1: ( ':' )
+            // InternalIotlang.g:2767:2: ':'
             {
              before(grammarAccess.getInstancePtPAccess().getColonKeyword_3()); 
             match(input,33,FOLLOW_2); 
@@ -8473,14 +8676,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__4"
-    // InternalIotlang.g:2718:1: rule__InstancePtP__Group__4 : rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5 ;
+    // InternalIotlang.g:2776:1: rule__InstancePtP__Group__4 : rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5 ;
     public final void rule__InstancePtP__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2722:1: ( rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5 )
-            // InternalIotlang.g:2723:2: rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5
+            // InternalIotlang.g:2780:1: ( rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5 )
+            // InternalIotlang.g:2781:2: rule__InstancePtP__Group__4__Impl rule__InstancePtP__Group__5
             {
             pushFollow(FOLLOW_28);
             rule__InstancePtP__Group__4__Impl();
@@ -8511,21 +8714,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__4__Impl"
-    // InternalIotlang.g:2730:1: rule__InstancePtP__Group__4__Impl : ( ( rule__InstancePtP__TypeChannelAssignment_4 ) ) ;
+    // InternalIotlang.g:2788:1: rule__InstancePtP__Group__4__Impl : ( ( rule__InstancePtP__TypeChannelAssignment_4 ) ) ;
     public final void rule__InstancePtP__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2734:1: ( ( ( rule__InstancePtP__TypeChannelAssignment_4 ) ) )
-            // InternalIotlang.g:2735:1: ( ( rule__InstancePtP__TypeChannelAssignment_4 ) )
+            // InternalIotlang.g:2792:1: ( ( ( rule__InstancePtP__TypeChannelAssignment_4 ) ) )
+            // InternalIotlang.g:2793:1: ( ( rule__InstancePtP__TypeChannelAssignment_4 ) )
             {
-            // InternalIotlang.g:2735:1: ( ( rule__InstancePtP__TypeChannelAssignment_4 ) )
-            // InternalIotlang.g:2736:2: ( rule__InstancePtP__TypeChannelAssignment_4 )
+            // InternalIotlang.g:2793:1: ( ( rule__InstancePtP__TypeChannelAssignment_4 ) )
+            // InternalIotlang.g:2794:2: ( rule__InstancePtP__TypeChannelAssignment_4 )
             {
              before(grammarAccess.getInstancePtPAccess().getTypeChannelAssignment_4()); 
-            // InternalIotlang.g:2737:2: ( rule__InstancePtP__TypeChannelAssignment_4 )
-            // InternalIotlang.g:2737:3: rule__InstancePtP__TypeChannelAssignment_4
+            // InternalIotlang.g:2795:2: ( rule__InstancePtP__TypeChannelAssignment_4 )
+            // InternalIotlang.g:2795:3: rule__InstancePtP__TypeChannelAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__TypeChannelAssignment_4();
@@ -8558,14 +8761,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__5"
-    // InternalIotlang.g:2745:1: rule__InstancePtP__Group__5 : rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6 ;
+    // InternalIotlang.g:2803:1: rule__InstancePtP__Group__5 : rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6 ;
     public final void rule__InstancePtP__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2749:1: ( rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6 )
-            // InternalIotlang.g:2750:2: rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6
+            // InternalIotlang.g:2807:1: ( rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6 )
+            // InternalIotlang.g:2808:2: rule__InstancePtP__Group__5__Impl rule__InstancePtP__Group__6
             {
             pushFollow(FOLLOW_5);
             rule__InstancePtP__Group__5__Impl();
@@ -8596,17 +8799,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__5__Impl"
-    // InternalIotlang.g:2757:1: rule__InstancePtP__Group__5__Impl : ( 'over' ) ;
+    // InternalIotlang.g:2815:1: rule__InstancePtP__Group__5__Impl : ( 'over' ) ;
     public final void rule__InstancePtP__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2761:1: ( ( 'over' ) )
-            // InternalIotlang.g:2762:1: ( 'over' )
+            // InternalIotlang.g:2819:1: ( ( 'over' ) )
+            // InternalIotlang.g:2820:1: ( 'over' )
             {
-            // InternalIotlang.g:2762:1: ( 'over' )
-            // InternalIotlang.g:2763:2: 'over'
+            // InternalIotlang.g:2820:1: ( 'over' )
+            // InternalIotlang.g:2821:2: 'over'
             {
              before(grammarAccess.getInstancePtPAccess().getOverKeyword_5()); 
             match(input,41,FOLLOW_2); 
@@ -8633,14 +8836,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__6"
-    // InternalIotlang.g:2772:1: rule__InstancePtP__Group__6 : rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7 ;
+    // InternalIotlang.g:2830:1: rule__InstancePtP__Group__6 : rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7 ;
     public final void rule__InstancePtP__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2776:1: ( rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7 )
-            // InternalIotlang.g:2777:2: rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7
+            // InternalIotlang.g:2834:1: ( rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7 )
+            // InternalIotlang.g:2835:2: rule__InstancePtP__Group__6__Impl rule__InstancePtP__Group__7
             {
             pushFollow(FOLLOW_25);
             rule__InstancePtP__Group__6__Impl();
@@ -8671,21 +8874,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__6__Impl"
-    // InternalIotlang.g:2784:1: rule__InstancePtP__Group__6__Impl : ( ( rule__InstancePtP__OverProtocolAssignment_6 ) ) ;
+    // InternalIotlang.g:2842:1: rule__InstancePtP__Group__6__Impl : ( ( rule__InstancePtP__OverProtocolAssignment_6 ) ) ;
     public final void rule__InstancePtP__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2788:1: ( ( ( rule__InstancePtP__OverProtocolAssignment_6 ) ) )
-            // InternalIotlang.g:2789:1: ( ( rule__InstancePtP__OverProtocolAssignment_6 ) )
+            // InternalIotlang.g:2846:1: ( ( ( rule__InstancePtP__OverProtocolAssignment_6 ) ) )
+            // InternalIotlang.g:2847:1: ( ( rule__InstancePtP__OverProtocolAssignment_6 ) )
             {
-            // InternalIotlang.g:2789:1: ( ( rule__InstancePtP__OverProtocolAssignment_6 ) )
-            // InternalIotlang.g:2790:2: ( rule__InstancePtP__OverProtocolAssignment_6 )
+            // InternalIotlang.g:2847:1: ( ( rule__InstancePtP__OverProtocolAssignment_6 ) )
+            // InternalIotlang.g:2848:2: ( rule__InstancePtP__OverProtocolAssignment_6 )
             {
              before(grammarAccess.getInstancePtPAccess().getOverProtocolAssignment_6()); 
-            // InternalIotlang.g:2791:2: ( rule__InstancePtP__OverProtocolAssignment_6 )
-            // InternalIotlang.g:2791:3: rule__InstancePtP__OverProtocolAssignment_6
+            // InternalIotlang.g:2849:2: ( rule__InstancePtP__OverProtocolAssignment_6 )
+            // InternalIotlang.g:2849:3: rule__InstancePtP__OverProtocolAssignment_6
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__OverProtocolAssignment_6();
@@ -8718,14 +8921,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__7"
-    // InternalIotlang.g:2799:1: rule__InstancePtP__Group__7 : rule__InstancePtP__Group__7__Impl ;
+    // InternalIotlang.g:2857:1: rule__InstancePtP__Group__7 : rule__InstancePtP__Group__7__Impl ;
     public final void rule__InstancePtP__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2803:1: ( rule__InstancePtP__Group__7__Impl )
-            // InternalIotlang.g:2804:2: rule__InstancePtP__Group__7__Impl
+            // InternalIotlang.g:2861:1: ( rule__InstancePtP__Group__7__Impl )
+            // InternalIotlang.g:2862:2: rule__InstancePtP__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__Group__7__Impl();
@@ -8751,33 +8954,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group__7__Impl"
-    // InternalIotlang.g:2810:1: rule__InstancePtP__Group__7__Impl : ( ( rule__InstancePtP__AnnotationsAssignment_7 )* ) ;
+    // InternalIotlang.g:2868:1: rule__InstancePtP__Group__7__Impl : ( ( rule__InstancePtP__AnnotationsAssignment_7 )* ) ;
     public final void rule__InstancePtP__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2814:1: ( ( ( rule__InstancePtP__AnnotationsAssignment_7 )* ) )
-            // InternalIotlang.g:2815:1: ( ( rule__InstancePtP__AnnotationsAssignment_7 )* )
+            // InternalIotlang.g:2872:1: ( ( ( rule__InstancePtP__AnnotationsAssignment_7 )* ) )
+            // InternalIotlang.g:2873:1: ( ( rule__InstancePtP__AnnotationsAssignment_7 )* )
             {
-            // InternalIotlang.g:2815:1: ( ( rule__InstancePtP__AnnotationsAssignment_7 )* )
-            // InternalIotlang.g:2816:2: ( rule__InstancePtP__AnnotationsAssignment_7 )*
+            // InternalIotlang.g:2873:1: ( ( rule__InstancePtP__AnnotationsAssignment_7 )* )
+            // InternalIotlang.g:2874:2: ( rule__InstancePtP__AnnotationsAssignment_7 )*
             {
              before(grammarAccess.getInstancePtPAccess().getAnnotationsAssignment_7()); 
-            // InternalIotlang.g:2817:2: ( rule__InstancePtP__AnnotationsAssignment_7 )*
-            loop20:
+            // InternalIotlang.g:2875:2: ( rule__InstancePtP__AnnotationsAssignment_7 )*
+            loop21:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt21=2;
+                int LA21_0 = input.LA(1);
 
-                if ( (LA20_0==RULE_ANNOTATION_ID) ) {
-                    alt20=1;
+                if ( (LA21_0==RULE_ANNOTATION_ID) ) {
+                    alt21=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt21) {
             	case 1 :
-            	    // InternalIotlang.g:2817:3: rule__InstancePtP__AnnotationsAssignment_7
+            	    // InternalIotlang.g:2875:3: rule__InstancePtP__AnnotationsAssignment_7
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__InstancePtP__AnnotationsAssignment_7();
@@ -8789,7 +8992,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop21;
                 }
             } while (true);
 
@@ -8816,14 +9019,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__0"
-    // InternalIotlang.g:2826:1: rule__InstancePtP__Group_2__0 : rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1 ;
+    // InternalIotlang.g:2884:1: rule__InstancePtP__Group_2__0 : rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1 ;
     public final void rule__InstancePtP__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2830:1: ( rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1 )
-            // InternalIotlang.g:2831:2: rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1
+            // InternalIotlang.g:2888:1: ( rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1 )
+            // InternalIotlang.g:2889:2: rule__InstancePtP__Group_2__0__Impl rule__InstancePtP__Group_2__1
             {
             pushFollow(FOLLOW_26);
             rule__InstancePtP__Group_2__0__Impl();
@@ -8854,17 +9057,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__0__Impl"
-    // InternalIotlang.g:2838:1: rule__InstancePtP__Group_2__0__Impl : ( '[' ) ;
+    // InternalIotlang.g:2896:1: rule__InstancePtP__Group_2__0__Impl : ( '[' ) ;
     public final void rule__InstancePtP__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2842:1: ( ( '[' ) )
-            // InternalIotlang.g:2843:1: ( '[' )
+            // InternalIotlang.g:2900:1: ( ( '[' ) )
+            // InternalIotlang.g:2901:1: ( '[' )
             {
-            // InternalIotlang.g:2843:1: ( '[' )
-            // InternalIotlang.g:2844:2: '['
+            // InternalIotlang.g:2901:1: ( '[' )
+            // InternalIotlang.g:2902:2: '['
             {
              before(grammarAccess.getInstancePtPAccess().getLeftSquareBracketKeyword_2_0()); 
             match(input,38,FOLLOW_2); 
@@ -8891,14 +9094,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__1"
-    // InternalIotlang.g:2853:1: rule__InstancePtP__Group_2__1 : rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2 ;
+    // InternalIotlang.g:2911:1: rule__InstancePtP__Group_2__1 : rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2 ;
     public final void rule__InstancePtP__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2857:1: ( rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2 )
-            // InternalIotlang.g:2858:2: rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2
+            // InternalIotlang.g:2915:1: ( rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2 )
+            // InternalIotlang.g:2916:2: rule__InstancePtP__Group_2__1__Impl rule__InstancePtP__Group_2__2
             {
             pushFollow(FOLLOW_27);
             rule__InstancePtP__Group_2__1__Impl();
@@ -8929,21 +9132,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__1__Impl"
-    // InternalIotlang.g:2865:1: rule__InstancePtP__Group_2__1__Impl : ( ( rule__InstancePtP__NumberAssignment_2_1 ) ) ;
+    // InternalIotlang.g:2923:1: rule__InstancePtP__Group_2__1__Impl : ( ( rule__InstancePtP__NumberAssignment_2_1 ) ) ;
     public final void rule__InstancePtP__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2869:1: ( ( ( rule__InstancePtP__NumberAssignment_2_1 ) ) )
-            // InternalIotlang.g:2870:1: ( ( rule__InstancePtP__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2927:1: ( ( ( rule__InstancePtP__NumberAssignment_2_1 ) ) )
+            // InternalIotlang.g:2928:1: ( ( rule__InstancePtP__NumberAssignment_2_1 ) )
             {
-            // InternalIotlang.g:2870:1: ( ( rule__InstancePtP__NumberAssignment_2_1 ) )
-            // InternalIotlang.g:2871:2: ( rule__InstancePtP__NumberAssignment_2_1 )
+            // InternalIotlang.g:2928:1: ( ( rule__InstancePtP__NumberAssignment_2_1 ) )
+            // InternalIotlang.g:2929:2: ( rule__InstancePtP__NumberAssignment_2_1 )
             {
              before(grammarAccess.getInstancePtPAccess().getNumberAssignment_2_1()); 
-            // InternalIotlang.g:2872:2: ( rule__InstancePtP__NumberAssignment_2_1 )
-            // InternalIotlang.g:2872:3: rule__InstancePtP__NumberAssignment_2_1
+            // InternalIotlang.g:2930:2: ( rule__InstancePtP__NumberAssignment_2_1 )
+            // InternalIotlang.g:2930:3: rule__InstancePtP__NumberAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__NumberAssignment_2_1();
@@ -8976,14 +9179,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__2"
-    // InternalIotlang.g:2880:1: rule__InstancePtP__Group_2__2 : rule__InstancePtP__Group_2__2__Impl ;
+    // InternalIotlang.g:2938:1: rule__InstancePtP__Group_2__2 : rule__InstancePtP__Group_2__2__Impl ;
     public final void rule__InstancePtP__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2884:1: ( rule__InstancePtP__Group_2__2__Impl )
-            // InternalIotlang.g:2885:2: rule__InstancePtP__Group_2__2__Impl
+            // InternalIotlang.g:2942:1: ( rule__InstancePtP__Group_2__2__Impl )
+            // InternalIotlang.g:2943:2: rule__InstancePtP__Group_2__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstancePtP__Group_2__2__Impl();
@@ -9009,17 +9212,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__Group_2__2__Impl"
-    // InternalIotlang.g:2891:1: rule__InstancePtP__Group_2__2__Impl : ( ']' ) ;
+    // InternalIotlang.g:2949:1: rule__InstancePtP__Group_2__2__Impl : ( ']' ) ;
     public final void rule__InstancePtP__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2895:1: ( ( ']' ) )
-            // InternalIotlang.g:2896:1: ( ']' )
+            // InternalIotlang.g:2953:1: ( ( ']' ) )
+            // InternalIotlang.g:2954:1: ( ']' )
             {
-            // InternalIotlang.g:2896:1: ( ']' )
-            // InternalIotlang.g:2897:2: ']'
+            // InternalIotlang.g:2954:1: ( ']' )
+            // InternalIotlang.g:2955:2: ']'
             {
              before(grammarAccess.getInstancePtPAccess().getRightSquareBracketKeyword_2_2()); 
             match(input,39,FOLLOW_2); 
@@ -9046,14 +9249,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__0"
-    // InternalIotlang.g:2907:1: rule__InstancePolicy__Group__0 : rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1 ;
+    // InternalIotlang.g:2965:1: rule__InstancePolicy__Group__0 : rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1 ;
     public final void rule__InstancePolicy__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2911:1: ( rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1 )
-            // InternalIotlang.g:2912:2: rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1
+            // InternalIotlang.g:2969:1: ( rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1 )
+            // InternalIotlang.g:2970:2: rule__InstancePolicy__Group__0__Impl rule__InstancePolicy__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__InstancePolicy__Group__0__Impl();
@@ -9084,17 +9287,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__0__Impl"
-    // InternalIotlang.g:2919:1: rule__InstancePolicy__Group__0__Impl : ( 'instancePolicy' ) ;
+    // InternalIotlang.g:2977:1: rule__InstancePolicy__Group__0__Impl : ( 'instancePolicy' ) ;
     public final void rule__InstancePolicy__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2923:1: ( ( 'instancePolicy' ) )
-            // InternalIotlang.g:2924:1: ( 'instancePolicy' )
+            // InternalIotlang.g:2981:1: ( ( 'instancePolicy' ) )
+            // InternalIotlang.g:2982:1: ( 'instancePolicy' )
             {
-            // InternalIotlang.g:2924:1: ( 'instancePolicy' )
-            // InternalIotlang.g:2925:2: 'instancePolicy'
+            // InternalIotlang.g:2982:1: ( 'instancePolicy' )
+            // InternalIotlang.g:2983:2: 'instancePolicy'
             {
              before(grammarAccess.getInstancePolicyAccess().getInstancePolicyKeyword_0()); 
             match(input,43,FOLLOW_2); 
@@ -9121,14 +9324,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__1"
-    // InternalIotlang.g:2934:1: rule__InstancePolicy__Group__1 : rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2 ;
+    // InternalIotlang.g:2992:1: rule__InstancePolicy__Group__1 : rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2 ;
     public final void rule__InstancePolicy__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2938:1: ( rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2 )
-            // InternalIotlang.g:2939:2: rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2
+            // InternalIotlang.g:2996:1: ( rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2 )
+            // InternalIotlang.g:2997:2: rule__InstancePolicy__Group__1__Impl rule__InstancePolicy__Group__2
             {
             pushFollow(FOLLOW_18);
             rule__InstancePolicy__Group__1__Impl();
@@ -9159,21 +9362,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__1__Impl"
-    // InternalIotlang.g:2946:1: rule__InstancePolicy__Group__1__Impl : ( ( rule__InstancePolicy__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:3004:1: rule__InstancePolicy__Group__1__Impl : ( ( rule__InstancePolicy__NameAssignment_1 ) ) ;
     public final void rule__InstancePolicy__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2950:1: ( ( ( rule__InstancePolicy__NameAssignment_1 ) ) )
-            // InternalIotlang.g:2951:1: ( ( rule__InstancePolicy__NameAssignment_1 ) )
+            // InternalIotlang.g:3008:1: ( ( ( rule__InstancePolicy__NameAssignment_1 ) ) )
+            // InternalIotlang.g:3009:1: ( ( rule__InstancePolicy__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:2951:1: ( ( rule__InstancePolicy__NameAssignment_1 ) )
-            // InternalIotlang.g:2952:2: ( rule__InstancePolicy__NameAssignment_1 )
+            // InternalIotlang.g:3009:1: ( ( rule__InstancePolicy__NameAssignment_1 ) )
+            // InternalIotlang.g:3010:2: ( rule__InstancePolicy__NameAssignment_1 )
             {
              before(grammarAccess.getInstancePolicyAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:2953:2: ( rule__InstancePolicy__NameAssignment_1 )
-            // InternalIotlang.g:2953:3: rule__InstancePolicy__NameAssignment_1
+            // InternalIotlang.g:3011:2: ( rule__InstancePolicy__NameAssignment_1 )
+            // InternalIotlang.g:3011:3: rule__InstancePolicy__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__InstancePolicy__NameAssignment_1();
@@ -9206,14 +9409,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__2"
-    // InternalIotlang.g:2961:1: rule__InstancePolicy__Group__2 : rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3 ;
+    // InternalIotlang.g:3019:1: rule__InstancePolicy__Group__2 : rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3 ;
     public final void rule__InstancePolicy__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2965:1: ( rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3 )
-            // InternalIotlang.g:2966:2: rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3
+            // InternalIotlang.g:3023:1: ( rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3 )
+            // InternalIotlang.g:3024:2: rule__InstancePolicy__Group__2__Impl rule__InstancePolicy__Group__3
             {
             pushFollow(FOLLOW_5);
             rule__InstancePolicy__Group__2__Impl();
@@ -9244,17 +9447,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__2__Impl"
-    // InternalIotlang.g:2973:1: rule__InstancePolicy__Group__2__Impl : ( ':' ) ;
+    // InternalIotlang.g:3031:1: rule__InstancePolicy__Group__2__Impl : ( ':' ) ;
     public final void rule__InstancePolicy__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2977:1: ( ( ':' ) )
-            // InternalIotlang.g:2978:1: ( ':' )
+            // InternalIotlang.g:3035:1: ( ( ':' ) )
+            // InternalIotlang.g:3036:1: ( ':' )
             {
-            // InternalIotlang.g:2978:1: ( ':' )
-            // InternalIotlang.g:2979:2: ':'
+            // InternalIotlang.g:3036:1: ( ':' )
+            // InternalIotlang.g:3037:2: ':'
             {
              before(grammarAccess.getInstancePolicyAccess().getColonKeyword_2()); 
             match(input,33,FOLLOW_2); 
@@ -9281,14 +9484,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__3"
-    // InternalIotlang.g:2988:1: rule__InstancePolicy__Group__3 : rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4 ;
+    // InternalIotlang.g:3046:1: rule__InstancePolicy__Group__3 : rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4 ;
     public final void rule__InstancePolicy__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:2992:1: ( rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4 )
-            // InternalIotlang.g:2993:2: rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4
+            // InternalIotlang.g:3050:1: ( rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4 )
+            // InternalIotlang.g:3051:2: rule__InstancePolicy__Group__3__Impl rule__InstancePolicy__Group__4
             {
             pushFollow(FOLLOW_25);
             rule__InstancePolicy__Group__3__Impl();
@@ -9319,21 +9522,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__3__Impl"
-    // InternalIotlang.g:3000:1: rule__InstancePolicy__Group__3__Impl : ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) ) ;
+    // InternalIotlang.g:3058:1: rule__InstancePolicy__Group__3__Impl : ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) ) ;
     public final void rule__InstancePolicy__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3004:1: ( ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) ) )
-            // InternalIotlang.g:3005:1: ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) )
+            // InternalIotlang.g:3062:1: ( ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) ) )
+            // InternalIotlang.g:3063:1: ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) )
             {
-            // InternalIotlang.g:3005:1: ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) )
-            // InternalIotlang.g:3006:2: ( rule__InstancePolicy__TypePolicyAssignment_3 )
+            // InternalIotlang.g:3063:1: ( ( rule__InstancePolicy__TypePolicyAssignment_3 ) )
+            // InternalIotlang.g:3064:2: ( rule__InstancePolicy__TypePolicyAssignment_3 )
             {
              before(grammarAccess.getInstancePolicyAccess().getTypePolicyAssignment_3()); 
-            // InternalIotlang.g:3007:2: ( rule__InstancePolicy__TypePolicyAssignment_3 )
-            // InternalIotlang.g:3007:3: rule__InstancePolicy__TypePolicyAssignment_3
+            // InternalIotlang.g:3065:2: ( rule__InstancePolicy__TypePolicyAssignment_3 )
+            // InternalIotlang.g:3065:3: rule__InstancePolicy__TypePolicyAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__InstancePolicy__TypePolicyAssignment_3();
@@ -9366,14 +9569,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__4"
-    // InternalIotlang.g:3015:1: rule__InstancePolicy__Group__4 : rule__InstancePolicy__Group__4__Impl ;
+    // InternalIotlang.g:3073:1: rule__InstancePolicy__Group__4 : rule__InstancePolicy__Group__4__Impl ;
     public final void rule__InstancePolicy__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3019:1: ( rule__InstancePolicy__Group__4__Impl )
-            // InternalIotlang.g:3020:2: rule__InstancePolicy__Group__4__Impl
+            // InternalIotlang.g:3077:1: ( rule__InstancePolicy__Group__4__Impl )
+            // InternalIotlang.g:3078:2: rule__InstancePolicy__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__InstancePolicy__Group__4__Impl();
@@ -9399,33 +9602,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__Group__4__Impl"
-    // InternalIotlang.g:3026:1: rule__InstancePolicy__Group__4__Impl : ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* ) ;
+    // InternalIotlang.g:3084:1: rule__InstancePolicy__Group__4__Impl : ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* ) ;
     public final void rule__InstancePolicy__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3030:1: ( ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* ) )
-            // InternalIotlang.g:3031:1: ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* )
+            // InternalIotlang.g:3088:1: ( ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* ) )
+            // InternalIotlang.g:3089:1: ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* )
             {
-            // InternalIotlang.g:3031:1: ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* )
-            // InternalIotlang.g:3032:2: ( rule__InstancePolicy__AnnotationsAssignment_4 )*
+            // InternalIotlang.g:3089:1: ( ( rule__InstancePolicy__AnnotationsAssignment_4 )* )
+            // InternalIotlang.g:3090:2: ( rule__InstancePolicy__AnnotationsAssignment_4 )*
             {
              before(grammarAccess.getInstancePolicyAccess().getAnnotationsAssignment_4()); 
-            // InternalIotlang.g:3033:2: ( rule__InstancePolicy__AnnotationsAssignment_4 )*
-            loop21:
+            // InternalIotlang.g:3091:2: ( rule__InstancePolicy__AnnotationsAssignment_4 )*
+            loop22:
             do {
-                int alt21=2;
-                int LA21_0 = input.LA(1);
+                int alt22=2;
+                int LA22_0 = input.LA(1);
 
-                if ( (LA21_0==RULE_ANNOTATION_ID) ) {
-                    alt21=1;
+                if ( (LA22_0==RULE_ANNOTATION_ID) ) {
+                    alt22=1;
                 }
 
 
-                switch (alt21) {
+                switch (alt22) {
             	case 1 :
-            	    // InternalIotlang.g:3033:3: rule__InstancePolicy__AnnotationsAssignment_4
+            	    // InternalIotlang.g:3091:3: rule__InstancePolicy__AnnotationsAssignment_4
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__InstancePolicy__AnnotationsAssignment_4();
@@ -9437,7 +9640,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop21;
+            	    break loop22;
                 }
             } while (true);
 
@@ -9464,14 +9667,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__0"
-    // InternalIotlang.g:3042:1: rule__NetworkConfiguration__Group__0 : rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1 ;
+    // InternalIotlang.g:3100:1: rule__NetworkConfiguration__Group__0 : rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1 ;
     public final void rule__NetworkConfiguration__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3046:1: ( rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1 )
-            // InternalIotlang.g:3047:2: rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1
+            // InternalIotlang.g:3104:1: ( rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1 )
+            // InternalIotlang.g:3105:2: rule__NetworkConfiguration__Group__0__Impl rule__NetworkConfiguration__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__NetworkConfiguration__Group__0__Impl();
@@ -9502,17 +9705,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__0__Impl"
-    // InternalIotlang.g:3054:1: rule__NetworkConfiguration__Group__0__Impl : ( 'networkConfiguration' ) ;
+    // InternalIotlang.g:3112:1: rule__NetworkConfiguration__Group__0__Impl : ( 'networkConfiguration' ) ;
     public final void rule__NetworkConfiguration__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3058:1: ( ( 'networkConfiguration' ) )
-            // InternalIotlang.g:3059:1: ( 'networkConfiguration' )
+            // InternalIotlang.g:3116:1: ( ( 'networkConfiguration' ) )
+            // InternalIotlang.g:3117:1: ( 'networkConfiguration' )
             {
-            // InternalIotlang.g:3059:1: ( 'networkConfiguration' )
-            // InternalIotlang.g:3060:2: 'networkConfiguration'
+            // InternalIotlang.g:3117:1: ( 'networkConfiguration' )
+            // InternalIotlang.g:3118:2: 'networkConfiguration'
             {
              before(grammarAccess.getNetworkConfigurationAccess().getNetworkConfigurationKeyword_0()); 
             match(input,44,FOLLOW_2); 
@@ -9539,14 +9742,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__1"
-    // InternalIotlang.g:3069:1: rule__NetworkConfiguration__Group__1 : rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2 ;
+    // InternalIotlang.g:3127:1: rule__NetworkConfiguration__Group__1 : rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2 ;
     public final void rule__NetworkConfiguration__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3073:1: ( rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2 )
-            // InternalIotlang.g:3074:2: rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2
+            // InternalIotlang.g:3131:1: ( rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2 )
+            // InternalIotlang.g:3132:2: rule__NetworkConfiguration__Group__1__Impl rule__NetworkConfiguration__Group__2
             {
             pushFollow(FOLLOW_6);
             rule__NetworkConfiguration__Group__1__Impl();
@@ -9577,21 +9780,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__1__Impl"
-    // InternalIotlang.g:3081:1: rule__NetworkConfiguration__Group__1__Impl : ( ( rule__NetworkConfiguration__NameAssignment_1 ) ) ;
+    // InternalIotlang.g:3139:1: rule__NetworkConfiguration__Group__1__Impl : ( ( rule__NetworkConfiguration__NameAssignment_1 ) ) ;
     public final void rule__NetworkConfiguration__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3085:1: ( ( ( rule__NetworkConfiguration__NameAssignment_1 ) ) )
-            // InternalIotlang.g:3086:1: ( ( rule__NetworkConfiguration__NameAssignment_1 ) )
+            // InternalIotlang.g:3143:1: ( ( ( rule__NetworkConfiguration__NameAssignment_1 ) ) )
+            // InternalIotlang.g:3144:1: ( ( rule__NetworkConfiguration__NameAssignment_1 ) )
             {
-            // InternalIotlang.g:3086:1: ( ( rule__NetworkConfiguration__NameAssignment_1 ) )
-            // InternalIotlang.g:3087:2: ( rule__NetworkConfiguration__NameAssignment_1 )
+            // InternalIotlang.g:3144:1: ( ( rule__NetworkConfiguration__NameAssignment_1 ) )
+            // InternalIotlang.g:3145:2: ( rule__NetworkConfiguration__NameAssignment_1 )
             {
              before(grammarAccess.getNetworkConfigurationAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:3088:2: ( rule__NetworkConfiguration__NameAssignment_1 )
-            // InternalIotlang.g:3088:3: rule__NetworkConfiguration__NameAssignment_1
+            // InternalIotlang.g:3146:2: ( rule__NetworkConfiguration__NameAssignment_1 )
+            // InternalIotlang.g:3146:3: rule__NetworkConfiguration__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__NetworkConfiguration__NameAssignment_1();
@@ -9624,14 +9827,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__2"
-    // InternalIotlang.g:3096:1: rule__NetworkConfiguration__Group__2 : rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3 ;
+    // InternalIotlang.g:3154:1: rule__NetworkConfiguration__Group__2 : rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3 ;
     public final void rule__NetworkConfiguration__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3100:1: ( rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3 )
-            // InternalIotlang.g:3101:2: rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3
+            // InternalIotlang.g:3158:1: ( rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3 )
+            // InternalIotlang.g:3159:2: rule__NetworkConfiguration__Group__2__Impl rule__NetworkConfiguration__Group__3
             {
             pushFollow(FOLLOW_6);
             rule__NetworkConfiguration__Group__2__Impl();
@@ -9662,33 +9865,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__2__Impl"
-    // InternalIotlang.g:3108:1: rule__NetworkConfiguration__Group__2__Impl : ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* ) ;
+    // InternalIotlang.g:3166:1: rule__NetworkConfiguration__Group__2__Impl : ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* ) ;
     public final void rule__NetworkConfiguration__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3112:1: ( ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* ) )
-            // InternalIotlang.g:3113:1: ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* )
+            // InternalIotlang.g:3170:1: ( ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* ) )
+            // InternalIotlang.g:3171:1: ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* )
             {
-            // InternalIotlang.g:3113:1: ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* )
-            // InternalIotlang.g:3114:2: ( rule__NetworkConfiguration__AnnotationsAssignment_2 )*
+            // InternalIotlang.g:3171:1: ( ( rule__NetworkConfiguration__AnnotationsAssignment_2 )* )
+            // InternalIotlang.g:3172:2: ( rule__NetworkConfiguration__AnnotationsAssignment_2 )*
             {
              before(grammarAccess.getNetworkConfigurationAccess().getAnnotationsAssignment_2()); 
-            // InternalIotlang.g:3115:2: ( rule__NetworkConfiguration__AnnotationsAssignment_2 )*
-            loop22:
+            // InternalIotlang.g:3173:2: ( rule__NetworkConfiguration__AnnotationsAssignment_2 )*
+            loop23:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( (LA22_0==RULE_ANNOTATION_ID) ) {
-                    alt22=1;
+                if ( (LA23_0==RULE_ANNOTATION_ID) ) {
+                    alt23=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt23) {
             	case 1 :
-            	    // InternalIotlang.g:3115:3: rule__NetworkConfiguration__AnnotationsAssignment_2
+            	    // InternalIotlang.g:3173:3: rule__NetworkConfiguration__AnnotationsAssignment_2
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__NetworkConfiguration__AnnotationsAssignment_2();
@@ -9700,7 +9903,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop23;
                 }
             } while (true);
 
@@ -9727,14 +9930,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__3"
-    // InternalIotlang.g:3123:1: rule__NetworkConfiguration__Group__3 : rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4 ;
+    // InternalIotlang.g:3181:1: rule__NetworkConfiguration__Group__3 : rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4 ;
     public final void rule__NetworkConfiguration__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3127:1: ( rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4 )
-            // InternalIotlang.g:3128:2: rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4
+            // InternalIotlang.g:3185:1: ( rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4 )
+            // InternalIotlang.g:3186:2: rule__NetworkConfiguration__Group__3__Impl rule__NetworkConfiguration__Group__4
             {
             pushFollow(FOLLOW_29);
             rule__NetworkConfiguration__Group__3__Impl();
@@ -9765,17 +9968,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__3__Impl"
-    // InternalIotlang.g:3135:1: rule__NetworkConfiguration__Group__3__Impl : ( '{' ) ;
+    // InternalIotlang.g:3193:1: rule__NetworkConfiguration__Group__3__Impl : ( '{' ) ;
     public final void rule__NetworkConfiguration__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3139:1: ( ( '{' ) )
-            // InternalIotlang.g:3140:1: ( '{' )
+            // InternalIotlang.g:3197:1: ( ( '{' ) )
+            // InternalIotlang.g:3198:1: ( '{' )
             {
-            // InternalIotlang.g:3140:1: ( '{' )
-            // InternalIotlang.g:3141:2: '{'
+            // InternalIotlang.g:3198:1: ( '{' )
+            // InternalIotlang.g:3199:2: '{'
             {
              before(grammarAccess.getNetworkConfigurationAccess().getLeftCurlyBracketKeyword_3()); 
             match(input,21,FOLLOW_2); 
@@ -9802,14 +10005,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__4"
-    // InternalIotlang.g:3150:1: rule__NetworkConfiguration__Group__4 : rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5 ;
+    // InternalIotlang.g:3208:1: rule__NetworkConfiguration__Group__4 : rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5 ;
     public final void rule__NetworkConfiguration__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3154:1: ( rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5 )
-            // InternalIotlang.g:3155:2: rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5
+            // InternalIotlang.g:3212:1: ( rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5 )
+            // InternalIotlang.g:3213:2: rule__NetworkConfiguration__Group__4__Impl rule__NetworkConfiguration__Group__5
             {
             pushFollow(FOLLOW_29);
             rule__NetworkConfiguration__Group__4__Impl();
@@ -9840,33 +10043,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__4__Impl"
-    // InternalIotlang.g:3162:1: rule__NetworkConfiguration__Group__4__Impl : ( ( rule__NetworkConfiguration__Alternatives_4 )* ) ;
+    // InternalIotlang.g:3220:1: rule__NetworkConfiguration__Group__4__Impl : ( ( rule__NetworkConfiguration__Alternatives_4 )* ) ;
     public final void rule__NetworkConfiguration__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3166:1: ( ( ( rule__NetworkConfiguration__Alternatives_4 )* ) )
-            // InternalIotlang.g:3167:1: ( ( rule__NetworkConfiguration__Alternatives_4 )* )
+            // InternalIotlang.g:3224:1: ( ( ( rule__NetworkConfiguration__Alternatives_4 )* ) )
+            // InternalIotlang.g:3225:1: ( ( rule__NetworkConfiguration__Alternatives_4 )* )
             {
-            // InternalIotlang.g:3167:1: ( ( rule__NetworkConfiguration__Alternatives_4 )* )
-            // InternalIotlang.g:3168:2: ( rule__NetworkConfiguration__Alternatives_4 )*
+            // InternalIotlang.g:3225:1: ( ( rule__NetworkConfiguration__Alternatives_4 )* )
+            // InternalIotlang.g:3226:2: ( rule__NetworkConfiguration__Alternatives_4 )*
             {
              before(grammarAccess.getNetworkConfigurationAccess().getAlternatives_4()); 
-            // InternalIotlang.g:3169:2: ( rule__NetworkConfiguration__Alternatives_4 )*
-            loop23:
+            // InternalIotlang.g:3227:2: ( rule__NetworkConfiguration__Alternatives_4 )*
+            loop24:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt24=2;
+                int LA24_0 = input.LA(1);
 
-                if ( ((LA23_0>=36 && LA23_0<=37)||LA23_0==40||(LA23_0>=42 && LA23_0<=43)||(LA23_0>=45 && LA23_0<=46)) ) {
-                    alt23=1;
+                if ( ((LA24_0>=36 && LA24_0<=37)||LA24_0==40||(LA24_0>=42 && LA24_0<=43)||(LA24_0>=45 && LA24_0<=46)||LA24_0==48) ) {
+                    alt24=1;
                 }
 
 
-                switch (alt23) {
+                switch (alt24) {
             	case 1 :
-            	    // InternalIotlang.g:3169:3: rule__NetworkConfiguration__Alternatives_4
+            	    // InternalIotlang.g:3227:3: rule__NetworkConfiguration__Alternatives_4
             	    {
             	    pushFollow(FOLLOW_30);
             	    rule__NetworkConfiguration__Alternatives_4();
@@ -9878,7 +10081,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop24;
                 }
             } while (true);
 
@@ -9905,14 +10108,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__5"
-    // InternalIotlang.g:3177:1: rule__NetworkConfiguration__Group__5 : rule__NetworkConfiguration__Group__5__Impl ;
+    // InternalIotlang.g:3235:1: rule__NetworkConfiguration__Group__5 : rule__NetworkConfiguration__Group__5__Impl ;
     public final void rule__NetworkConfiguration__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3181:1: ( rule__NetworkConfiguration__Group__5__Impl )
-            // InternalIotlang.g:3182:2: rule__NetworkConfiguration__Group__5__Impl
+            // InternalIotlang.g:3239:1: ( rule__NetworkConfiguration__Group__5__Impl )
+            // InternalIotlang.g:3240:2: rule__NetworkConfiguration__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NetworkConfiguration__Group__5__Impl();
@@ -9938,17 +10141,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__Group__5__Impl"
-    // InternalIotlang.g:3188:1: rule__NetworkConfiguration__Group__5__Impl : ( '}' ) ;
+    // InternalIotlang.g:3246:1: rule__NetworkConfiguration__Group__5__Impl : ( '}' ) ;
     public final void rule__NetworkConfiguration__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3192:1: ( ( '}' ) )
-            // InternalIotlang.g:3193:1: ( '}' )
+            // InternalIotlang.g:3250:1: ( ( '}' ) )
+            // InternalIotlang.g:3251:1: ( '}' )
             {
-            // InternalIotlang.g:3193:1: ( '}' )
-            // InternalIotlang.g:3194:2: '}'
+            // InternalIotlang.g:3251:1: ( '}' )
+            // InternalIotlang.g:3252:2: '}'
             {
              before(grammarAccess.getNetworkConfigurationAccess().getRightCurlyBracketKeyword_5()); 
             match(input,22,FOLLOW_2); 
@@ -9974,23 +10177,23 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__NetworkConfiguration__Group__5__Impl"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__Group_4_4__0"
-    // InternalIotlang.g:3204:1: rule__NetworkConfiguration__Group_4_4__0 : rule__NetworkConfiguration__Group_4_4__0__Impl rule__NetworkConfiguration__Group_4_4__1 ;
-    public final void rule__NetworkConfiguration__Group_4_4__0() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__Group_4_5__0"
+    // InternalIotlang.g:3262:1: rule__NetworkConfiguration__Group_4_5__0 : rule__NetworkConfiguration__Group_4_5__0__Impl rule__NetworkConfiguration__Group_4_5__1 ;
+    public final void rule__NetworkConfiguration__Group_4_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3208:1: ( rule__NetworkConfiguration__Group_4_4__0__Impl rule__NetworkConfiguration__Group_4_4__1 )
-            // InternalIotlang.g:3209:2: rule__NetworkConfiguration__Group_4_4__0__Impl rule__NetworkConfiguration__Group_4_4__1
+            // InternalIotlang.g:3266:1: ( rule__NetworkConfiguration__Group_4_5__0__Impl rule__NetworkConfiguration__Group_4_5__1 )
+            // InternalIotlang.g:3267:2: rule__NetworkConfiguration__Group_4_5__0__Impl rule__NetworkConfiguration__Group_4_5__1
             {
             pushFollow(FOLLOW_5);
-            rule__NetworkConfiguration__Group_4_4__0__Impl();
+            rule__NetworkConfiguration__Group_4_5__0__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__NetworkConfiguration__Group_4_4__1();
+            rule__NetworkConfiguration__Group_4_5__1();
 
             state._fsp--;
 
@@ -10009,25 +10212,25 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__Group_4_4__0"
+    // $ANTLR end "rule__NetworkConfiguration__Group_4_5__0"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__Group_4_4__0__Impl"
-    // InternalIotlang.g:3216:1: rule__NetworkConfiguration__Group_4_4__0__Impl : ( 'enforce' ) ;
-    public final void rule__NetworkConfiguration__Group_4_4__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__Group_4_5__0__Impl"
+    // InternalIotlang.g:3274:1: rule__NetworkConfiguration__Group_4_5__0__Impl : ( 'enforce' ) ;
+    public final void rule__NetworkConfiguration__Group_4_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3220:1: ( ( 'enforce' ) )
-            // InternalIotlang.g:3221:1: ( 'enforce' )
+            // InternalIotlang.g:3278:1: ( ( 'enforce' ) )
+            // InternalIotlang.g:3279:1: ( 'enforce' )
             {
-            // InternalIotlang.g:3221:1: ( 'enforce' )
-            // InternalIotlang.g:3222:2: 'enforce'
+            // InternalIotlang.g:3279:1: ( 'enforce' )
+            // InternalIotlang.g:3280:2: 'enforce'
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_4_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_5_0()); 
             match(input,45,FOLLOW_2); 
-             after(grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_4_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getEnforceKeyword_4_5_0()); 
 
             }
 
@@ -10046,21 +10249,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__Group_4_4__0__Impl"
+    // $ANTLR end "rule__NetworkConfiguration__Group_4_5__0__Impl"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__Group_4_4__1"
-    // InternalIotlang.g:3231:1: rule__NetworkConfiguration__Group_4_4__1 : rule__NetworkConfiguration__Group_4_4__1__Impl ;
-    public final void rule__NetworkConfiguration__Group_4_4__1() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__Group_4_5__1"
+    // InternalIotlang.g:3289:1: rule__NetworkConfiguration__Group_4_5__1 : rule__NetworkConfiguration__Group_4_5__1__Impl ;
+    public final void rule__NetworkConfiguration__Group_4_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3235:1: ( rule__NetworkConfiguration__Group_4_4__1__Impl )
-            // InternalIotlang.g:3236:2: rule__NetworkConfiguration__Group_4_4__1__Impl
+            // InternalIotlang.g:3293:1: ( rule__NetworkConfiguration__Group_4_5__1__Impl )
+            // InternalIotlang.g:3294:2: rule__NetworkConfiguration__Group_4_5__1__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__NetworkConfiguration__Group_4_4__1__Impl();
+            rule__NetworkConfiguration__Group_4_5__1__Impl();
 
             state._fsp--;
 
@@ -10079,35 +10282,35 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__Group_4_4__1"
+    // $ANTLR end "rule__NetworkConfiguration__Group_4_5__1"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__Group_4_4__1__Impl"
-    // InternalIotlang.g:3242:1: rule__NetworkConfiguration__Group_4_4__1__Impl : ( ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 ) ) ;
-    public final void rule__NetworkConfiguration__Group_4_4__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__Group_4_5__1__Impl"
+    // InternalIotlang.g:3300:1: rule__NetworkConfiguration__Group_4_5__1__Impl : ( ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 ) ) ;
+    public final void rule__NetworkConfiguration__Group_4_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3246:1: ( ( ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 ) ) )
-            // InternalIotlang.g:3247:1: ( ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 ) )
+            // InternalIotlang.g:3304:1: ( ( ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 ) ) )
+            // InternalIotlang.g:3305:1: ( ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 ) )
             {
-            // InternalIotlang.g:3247:1: ( ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 ) )
-            // InternalIotlang.g:3248:2: ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 )
+            // InternalIotlang.g:3305:1: ( ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 ) )
+            // InternalIotlang.g:3306:2: ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 )
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_4_1()); 
-            // InternalIotlang.g:3249:2: ( rule__NetworkConfiguration__EnforcesAssignment_4_4_1 )
-            // InternalIotlang.g:3249:3: rule__NetworkConfiguration__EnforcesAssignment_4_4_1
+             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_5_1()); 
+            // InternalIotlang.g:3307:2: ( rule__NetworkConfiguration__EnforcesAssignment_4_5_1 )
+            // InternalIotlang.g:3307:3: rule__NetworkConfiguration__EnforcesAssignment_4_5_1
             {
             pushFollow(FOLLOW_2);
-            rule__NetworkConfiguration__EnforcesAssignment_4_4_1();
+            rule__NetworkConfiguration__EnforcesAssignment_4_5_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_4_1()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesAssignment_4_5_1()); 
 
             }
 
@@ -10126,18 +10329,18 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__Group_4_4__1__Impl"
+    // $ANTLR end "rule__NetworkConfiguration__Group_4_5__1__Impl"
 
 
     // $ANTLR start "rule__Bind__Group__0"
-    // InternalIotlang.g:3258:1: rule__Bind__Group__0 : rule__Bind__Group__0__Impl rule__Bind__Group__1 ;
+    // InternalIotlang.g:3316:1: rule__Bind__Group__0 : rule__Bind__Group__0__Impl rule__Bind__Group__1 ;
     public final void rule__Bind__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3262:1: ( rule__Bind__Group__0__Impl rule__Bind__Group__1 )
-            // InternalIotlang.g:3263:2: rule__Bind__Group__0__Impl rule__Bind__Group__1
+            // InternalIotlang.g:3320:1: ( rule__Bind__Group__0__Impl rule__Bind__Group__1 )
+            // InternalIotlang.g:3321:2: rule__Bind__Group__0__Impl rule__Bind__Group__1
             {
             pushFollow(FOLLOW_5);
             rule__Bind__Group__0__Impl();
@@ -10168,17 +10371,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__0__Impl"
-    // InternalIotlang.g:3270:1: rule__Bind__Group__0__Impl : ( 'bind' ) ;
+    // InternalIotlang.g:3328:1: rule__Bind__Group__0__Impl : ( 'bind' ) ;
     public final void rule__Bind__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3274:1: ( ( 'bind' ) )
-            // InternalIotlang.g:3275:1: ( 'bind' )
+            // InternalIotlang.g:3332:1: ( ( 'bind' ) )
+            // InternalIotlang.g:3333:1: ( 'bind' )
             {
-            // InternalIotlang.g:3275:1: ( 'bind' )
-            // InternalIotlang.g:3276:2: 'bind'
+            // InternalIotlang.g:3333:1: ( 'bind' )
+            // InternalIotlang.g:3334:2: 'bind'
             {
              before(grammarAccess.getBindAccess().getBindKeyword_0()); 
             match(input,46,FOLLOW_2); 
@@ -10205,14 +10408,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__1"
-    // InternalIotlang.g:3285:1: rule__Bind__Group__1 : rule__Bind__Group__1__Impl rule__Bind__Group__2 ;
+    // InternalIotlang.g:3343:1: rule__Bind__Group__1 : rule__Bind__Group__1__Impl rule__Bind__Group__2 ;
     public final void rule__Bind__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3289:1: ( rule__Bind__Group__1__Impl rule__Bind__Group__2 )
-            // InternalIotlang.g:3290:2: rule__Bind__Group__1__Impl rule__Bind__Group__2
+            // InternalIotlang.g:3347:1: ( rule__Bind__Group__1__Impl rule__Bind__Group__2 )
+            // InternalIotlang.g:3348:2: rule__Bind__Group__1__Impl rule__Bind__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__Bind__Group__1__Impl();
@@ -10243,33 +10446,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__1__Impl"
-    // InternalIotlang.g:3297:1: rule__Bind__Group__1__Impl : ( ( rule__Bind__NameAssignment_1 )? ) ;
+    // InternalIotlang.g:3355:1: rule__Bind__Group__1__Impl : ( ( rule__Bind__NameAssignment_1 )? ) ;
     public final void rule__Bind__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3301:1: ( ( ( rule__Bind__NameAssignment_1 )? ) )
-            // InternalIotlang.g:3302:1: ( ( rule__Bind__NameAssignment_1 )? )
+            // InternalIotlang.g:3359:1: ( ( ( rule__Bind__NameAssignment_1 )? ) )
+            // InternalIotlang.g:3360:1: ( ( rule__Bind__NameAssignment_1 )? )
             {
-            // InternalIotlang.g:3302:1: ( ( rule__Bind__NameAssignment_1 )? )
-            // InternalIotlang.g:3303:2: ( rule__Bind__NameAssignment_1 )?
+            // InternalIotlang.g:3360:1: ( ( rule__Bind__NameAssignment_1 )? )
+            // InternalIotlang.g:3361:2: ( rule__Bind__NameAssignment_1 )?
             {
              before(grammarAccess.getBindAccess().getNameAssignment_1()); 
-            // InternalIotlang.g:3304:2: ( rule__Bind__NameAssignment_1 )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
+            // InternalIotlang.g:3362:2: ( rule__Bind__NameAssignment_1 )?
+            int alt25=2;
+            int LA25_0 = input.LA(1);
 
-            if ( (LA24_0==RULE_ID) ) {
-                int LA24_1 = input.LA(2);
+            if ( (LA25_0==RULE_ID) ) {
+                int LA25_1 = input.LA(2);
 
-                if ( (LA24_1==RULE_ID) ) {
-                    alt24=1;
+                if ( (LA25_1==RULE_ID) ) {
+                    alt25=1;
                 }
             }
-            switch (alt24) {
+            switch (alt25) {
                 case 1 :
-                    // InternalIotlang.g:3304:3: rule__Bind__NameAssignment_1
+                    // InternalIotlang.g:3362:3: rule__Bind__NameAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__Bind__NameAssignment_1();
@@ -10305,14 +10508,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__2"
-    // InternalIotlang.g:3312:1: rule__Bind__Group__2 : rule__Bind__Group__2__Impl rule__Bind__Group__3 ;
+    // InternalIotlang.g:3370:1: rule__Bind__Group__2 : rule__Bind__Group__2__Impl rule__Bind__Group__3 ;
     public final void rule__Bind__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3316:1: ( rule__Bind__Group__2__Impl rule__Bind__Group__3 )
-            // InternalIotlang.g:3317:2: rule__Bind__Group__2__Impl rule__Bind__Group__3
+            // InternalIotlang.g:3374:1: ( rule__Bind__Group__2__Impl rule__Bind__Group__3 )
+            // InternalIotlang.g:3375:2: rule__Bind__Group__2__Impl rule__Bind__Group__3
             {
             pushFollow(FOLLOW_31);
             rule__Bind__Group__2__Impl();
@@ -10343,21 +10546,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__2__Impl"
-    // InternalIotlang.g:3324:1: rule__Bind__Group__2__Impl : ( ( rule__Bind__ThingInstanceAssignment_2 ) ) ;
+    // InternalIotlang.g:3382:1: rule__Bind__Group__2__Impl : ( ( rule__Bind__ThingInstanceAssignment_2 ) ) ;
     public final void rule__Bind__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3328:1: ( ( ( rule__Bind__ThingInstanceAssignment_2 ) ) )
-            // InternalIotlang.g:3329:1: ( ( rule__Bind__ThingInstanceAssignment_2 ) )
+            // InternalIotlang.g:3386:1: ( ( ( rule__Bind__ThingInstanceAssignment_2 ) ) )
+            // InternalIotlang.g:3387:1: ( ( rule__Bind__ThingInstanceAssignment_2 ) )
             {
-            // InternalIotlang.g:3329:1: ( ( rule__Bind__ThingInstanceAssignment_2 ) )
-            // InternalIotlang.g:3330:2: ( rule__Bind__ThingInstanceAssignment_2 )
+            // InternalIotlang.g:3387:1: ( ( rule__Bind__ThingInstanceAssignment_2 ) )
+            // InternalIotlang.g:3388:2: ( rule__Bind__ThingInstanceAssignment_2 )
             {
              before(grammarAccess.getBindAccess().getThingInstanceAssignment_2()); 
-            // InternalIotlang.g:3331:2: ( rule__Bind__ThingInstanceAssignment_2 )
-            // InternalIotlang.g:3331:3: rule__Bind__ThingInstanceAssignment_2
+            // InternalIotlang.g:3389:2: ( rule__Bind__ThingInstanceAssignment_2 )
+            // InternalIotlang.g:3389:3: rule__Bind__ThingInstanceAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__Bind__ThingInstanceAssignment_2();
@@ -10390,14 +10593,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__3"
-    // InternalIotlang.g:3339:1: rule__Bind__Group__3 : rule__Bind__Group__3__Impl rule__Bind__Group__4 ;
+    // InternalIotlang.g:3397:1: rule__Bind__Group__3 : rule__Bind__Group__3__Impl rule__Bind__Group__4 ;
     public final void rule__Bind__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3343:1: ( rule__Bind__Group__3__Impl rule__Bind__Group__4 )
-            // InternalIotlang.g:3344:2: rule__Bind__Group__3__Impl rule__Bind__Group__4
+            // InternalIotlang.g:3401:1: ( rule__Bind__Group__3__Impl rule__Bind__Group__4 )
+            // InternalIotlang.g:3402:2: rule__Bind__Group__3__Impl rule__Bind__Group__4
             {
             pushFollow(FOLLOW_5);
             rule__Bind__Group__3__Impl();
@@ -10428,21 +10631,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__3__Impl"
-    // InternalIotlang.g:3351:1: rule__Bind__Group__3__Impl : ( ( rule__Bind__DirectionAssignment_3 ) ) ;
+    // InternalIotlang.g:3409:1: rule__Bind__Group__3__Impl : ( ( rule__Bind__DirectionAssignment_3 ) ) ;
     public final void rule__Bind__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3355:1: ( ( ( rule__Bind__DirectionAssignment_3 ) ) )
-            // InternalIotlang.g:3356:1: ( ( rule__Bind__DirectionAssignment_3 ) )
+            // InternalIotlang.g:3413:1: ( ( ( rule__Bind__DirectionAssignment_3 ) ) )
+            // InternalIotlang.g:3414:1: ( ( rule__Bind__DirectionAssignment_3 ) )
             {
-            // InternalIotlang.g:3356:1: ( ( rule__Bind__DirectionAssignment_3 ) )
-            // InternalIotlang.g:3357:2: ( rule__Bind__DirectionAssignment_3 )
+            // InternalIotlang.g:3414:1: ( ( rule__Bind__DirectionAssignment_3 ) )
+            // InternalIotlang.g:3415:2: ( rule__Bind__DirectionAssignment_3 )
             {
              before(grammarAccess.getBindAccess().getDirectionAssignment_3()); 
-            // InternalIotlang.g:3358:2: ( rule__Bind__DirectionAssignment_3 )
-            // InternalIotlang.g:3358:3: rule__Bind__DirectionAssignment_3
+            // InternalIotlang.g:3416:2: ( rule__Bind__DirectionAssignment_3 )
+            // InternalIotlang.g:3416:3: rule__Bind__DirectionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Bind__DirectionAssignment_3();
@@ -10475,14 +10678,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__4"
-    // InternalIotlang.g:3366:1: rule__Bind__Group__4 : rule__Bind__Group__4__Impl rule__Bind__Group__5 ;
+    // InternalIotlang.g:3424:1: rule__Bind__Group__4 : rule__Bind__Group__4__Impl rule__Bind__Group__5 ;
     public final void rule__Bind__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3370:1: ( rule__Bind__Group__4__Impl rule__Bind__Group__5 )
-            // InternalIotlang.g:3371:2: rule__Bind__Group__4__Impl rule__Bind__Group__5
+            // InternalIotlang.g:3428:1: ( rule__Bind__Group__4__Impl rule__Bind__Group__5 )
+            // InternalIotlang.g:3429:2: rule__Bind__Group__4__Impl rule__Bind__Group__5
             {
             pushFollow(FOLLOW_10);
             rule__Bind__Group__4__Impl();
@@ -10513,21 +10716,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__4__Impl"
-    // InternalIotlang.g:3378:1: rule__Bind__Group__4__Impl : ( ( rule__Bind__PubSubInstanceAssignment_4 ) ) ;
+    // InternalIotlang.g:3436:1: rule__Bind__Group__4__Impl : ( ( rule__Bind__PubSubInstanceAssignment_4 ) ) ;
     public final void rule__Bind__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3382:1: ( ( ( rule__Bind__PubSubInstanceAssignment_4 ) ) )
-            // InternalIotlang.g:3383:1: ( ( rule__Bind__PubSubInstanceAssignment_4 ) )
+            // InternalIotlang.g:3440:1: ( ( ( rule__Bind__PubSubInstanceAssignment_4 ) ) )
+            // InternalIotlang.g:3441:1: ( ( rule__Bind__PubSubInstanceAssignment_4 ) )
             {
-            // InternalIotlang.g:3383:1: ( ( rule__Bind__PubSubInstanceAssignment_4 ) )
-            // InternalIotlang.g:3384:2: ( rule__Bind__PubSubInstanceAssignment_4 )
+            // InternalIotlang.g:3441:1: ( ( rule__Bind__PubSubInstanceAssignment_4 ) )
+            // InternalIotlang.g:3442:2: ( rule__Bind__PubSubInstanceAssignment_4 )
             {
              before(grammarAccess.getBindAccess().getPubSubInstanceAssignment_4()); 
-            // InternalIotlang.g:3385:2: ( rule__Bind__PubSubInstanceAssignment_4 )
-            // InternalIotlang.g:3385:3: rule__Bind__PubSubInstanceAssignment_4
+            // InternalIotlang.g:3443:2: ( rule__Bind__PubSubInstanceAssignment_4 )
+            // InternalIotlang.g:3443:3: rule__Bind__PubSubInstanceAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__Bind__PubSubInstanceAssignment_4();
@@ -10560,14 +10763,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__5"
-    // InternalIotlang.g:3393:1: rule__Bind__Group__5 : rule__Bind__Group__5__Impl rule__Bind__Group__6 ;
+    // InternalIotlang.g:3451:1: rule__Bind__Group__5 : rule__Bind__Group__5__Impl rule__Bind__Group__6 ;
     public final void rule__Bind__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3397:1: ( rule__Bind__Group__5__Impl rule__Bind__Group__6 )
-            // InternalIotlang.g:3398:2: rule__Bind__Group__5__Impl rule__Bind__Group__6
+            // InternalIotlang.g:3455:1: ( rule__Bind__Group__5__Impl rule__Bind__Group__6 )
+            // InternalIotlang.g:3456:2: rule__Bind__Group__5__Impl rule__Bind__Group__6
             {
             pushFollow(FOLLOW_5);
             rule__Bind__Group__5__Impl();
@@ -10598,17 +10801,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__5__Impl"
-    // InternalIotlang.g:3405:1: rule__Bind__Group__5__Impl : ( '{' ) ;
+    // InternalIotlang.g:3463:1: rule__Bind__Group__5__Impl : ( '{' ) ;
     public final void rule__Bind__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3409:1: ( ( '{' ) )
-            // InternalIotlang.g:3410:1: ( '{' )
+            // InternalIotlang.g:3467:1: ( ( '{' ) )
+            // InternalIotlang.g:3468:1: ( '{' )
             {
-            // InternalIotlang.g:3410:1: ( '{' )
-            // InternalIotlang.g:3411:2: '{'
+            // InternalIotlang.g:3468:1: ( '{' )
+            // InternalIotlang.g:3469:2: '{'
             {
              before(grammarAccess.getBindAccess().getLeftCurlyBracketKeyword_5()); 
             match(input,21,FOLLOW_2); 
@@ -10635,14 +10838,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__6"
-    // InternalIotlang.g:3420:1: rule__Bind__Group__6 : rule__Bind__Group__6__Impl rule__Bind__Group__7 ;
+    // InternalIotlang.g:3478:1: rule__Bind__Group__6 : rule__Bind__Group__6__Impl rule__Bind__Group__7 ;
     public final void rule__Bind__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3424:1: ( rule__Bind__Group__6__Impl rule__Bind__Group__7 )
-            // InternalIotlang.g:3425:2: rule__Bind__Group__6__Impl rule__Bind__Group__7
+            // InternalIotlang.g:3482:1: ( rule__Bind__Group__6__Impl rule__Bind__Group__7 )
+            // InternalIotlang.g:3483:2: rule__Bind__Group__6__Impl rule__Bind__Group__7
             {
             pushFollow(FOLLOW_32);
             rule__Bind__Group__6__Impl();
@@ -10673,21 +10876,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__6__Impl"
-    // InternalIotlang.g:3432:1: rule__Bind__Group__6__Impl : ( ( rule__Bind__TopicsAssignment_6 ) ) ;
+    // InternalIotlang.g:3490:1: rule__Bind__Group__6__Impl : ( ( rule__Bind__TopicsAssignment_6 ) ) ;
     public final void rule__Bind__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3436:1: ( ( ( rule__Bind__TopicsAssignment_6 ) ) )
-            // InternalIotlang.g:3437:1: ( ( rule__Bind__TopicsAssignment_6 ) )
+            // InternalIotlang.g:3494:1: ( ( ( rule__Bind__TopicsAssignment_6 ) ) )
+            // InternalIotlang.g:3495:1: ( ( rule__Bind__TopicsAssignment_6 ) )
             {
-            // InternalIotlang.g:3437:1: ( ( rule__Bind__TopicsAssignment_6 ) )
-            // InternalIotlang.g:3438:2: ( rule__Bind__TopicsAssignment_6 )
+            // InternalIotlang.g:3495:1: ( ( rule__Bind__TopicsAssignment_6 ) )
+            // InternalIotlang.g:3496:2: ( rule__Bind__TopicsAssignment_6 )
             {
              before(grammarAccess.getBindAccess().getTopicsAssignment_6()); 
-            // InternalIotlang.g:3439:2: ( rule__Bind__TopicsAssignment_6 )
-            // InternalIotlang.g:3439:3: rule__Bind__TopicsAssignment_6
+            // InternalIotlang.g:3497:2: ( rule__Bind__TopicsAssignment_6 )
+            // InternalIotlang.g:3497:3: rule__Bind__TopicsAssignment_6
             {
             pushFollow(FOLLOW_2);
             rule__Bind__TopicsAssignment_6();
@@ -10720,14 +10923,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__7"
-    // InternalIotlang.g:3447:1: rule__Bind__Group__7 : rule__Bind__Group__7__Impl rule__Bind__Group__8 ;
+    // InternalIotlang.g:3505:1: rule__Bind__Group__7 : rule__Bind__Group__7__Impl rule__Bind__Group__8 ;
     public final void rule__Bind__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3451:1: ( rule__Bind__Group__7__Impl rule__Bind__Group__8 )
-            // InternalIotlang.g:3452:2: rule__Bind__Group__7__Impl rule__Bind__Group__8
+            // InternalIotlang.g:3509:1: ( rule__Bind__Group__7__Impl rule__Bind__Group__8 )
+            // InternalIotlang.g:3510:2: rule__Bind__Group__7__Impl rule__Bind__Group__8
             {
             pushFollow(FOLLOW_32);
             rule__Bind__Group__7__Impl();
@@ -10758,33 +10961,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__7__Impl"
-    // InternalIotlang.g:3459:1: rule__Bind__Group__7__Impl : ( ( rule__Bind__Group_7__0 )* ) ;
+    // InternalIotlang.g:3517:1: rule__Bind__Group__7__Impl : ( ( rule__Bind__Group_7__0 )* ) ;
     public final void rule__Bind__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3463:1: ( ( ( rule__Bind__Group_7__0 )* ) )
-            // InternalIotlang.g:3464:1: ( ( rule__Bind__Group_7__0 )* )
+            // InternalIotlang.g:3521:1: ( ( ( rule__Bind__Group_7__0 )* ) )
+            // InternalIotlang.g:3522:1: ( ( rule__Bind__Group_7__0 )* )
             {
-            // InternalIotlang.g:3464:1: ( ( rule__Bind__Group_7__0 )* )
-            // InternalIotlang.g:3465:2: ( rule__Bind__Group_7__0 )*
+            // InternalIotlang.g:3522:1: ( ( rule__Bind__Group_7__0 )* )
+            // InternalIotlang.g:3523:2: ( rule__Bind__Group_7__0 )*
             {
              before(grammarAccess.getBindAccess().getGroup_7()); 
-            // InternalIotlang.g:3466:2: ( rule__Bind__Group_7__0 )*
-            loop25:
+            // InternalIotlang.g:3524:2: ( rule__Bind__Group_7__0 )*
+            loop26:
             do {
-                int alt25=2;
-                int LA25_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( (LA25_0==47) ) {
-                    alt25=1;
+                if ( (LA26_0==47) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt25) {
+                switch (alt26) {
             	case 1 :
-            	    // InternalIotlang.g:3466:3: rule__Bind__Group_7__0
+            	    // InternalIotlang.g:3524:3: rule__Bind__Group_7__0
             	    {
             	    pushFollow(FOLLOW_33);
             	    rule__Bind__Group_7__0();
@@ -10796,7 +10999,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop25;
+            	    break loop26;
                 }
             } while (true);
 
@@ -10823,14 +11026,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__8"
-    // InternalIotlang.g:3474:1: rule__Bind__Group__8 : rule__Bind__Group__8__Impl rule__Bind__Group__9 ;
+    // InternalIotlang.g:3532:1: rule__Bind__Group__8 : rule__Bind__Group__8__Impl rule__Bind__Group__9 ;
     public final void rule__Bind__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3478:1: ( rule__Bind__Group__8__Impl rule__Bind__Group__9 )
-            // InternalIotlang.g:3479:2: rule__Bind__Group__8__Impl rule__Bind__Group__9
+            // InternalIotlang.g:3536:1: ( rule__Bind__Group__8__Impl rule__Bind__Group__9 )
+            // InternalIotlang.g:3537:2: rule__Bind__Group__8__Impl rule__Bind__Group__9
             {
             pushFollow(FOLLOW_25);
             rule__Bind__Group__8__Impl();
@@ -10861,17 +11064,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__8__Impl"
-    // InternalIotlang.g:3486:1: rule__Bind__Group__8__Impl : ( '}' ) ;
+    // InternalIotlang.g:3544:1: rule__Bind__Group__8__Impl : ( '}' ) ;
     public final void rule__Bind__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3490:1: ( ( '}' ) )
-            // InternalIotlang.g:3491:1: ( '}' )
+            // InternalIotlang.g:3548:1: ( ( '}' ) )
+            // InternalIotlang.g:3549:1: ( '}' )
             {
-            // InternalIotlang.g:3491:1: ( '}' )
-            // InternalIotlang.g:3492:2: '}'
+            // InternalIotlang.g:3549:1: ( '}' )
+            // InternalIotlang.g:3550:2: '}'
             {
              before(grammarAccess.getBindAccess().getRightCurlyBracketKeyword_8()); 
             match(input,22,FOLLOW_2); 
@@ -10898,14 +11101,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__9"
-    // InternalIotlang.g:3501:1: rule__Bind__Group__9 : rule__Bind__Group__9__Impl ;
+    // InternalIotlang.g:3559:1: rule__Bind__Group__9 : rule__Bind__Group__9__Impl ;
     public final void rule__Bind__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3505:1: ( rule__Bind__Group__9__Impl )
-            // InternalIotlang.g:3506:2: rule__Bind__Group__9__Impl
+            // InternalIotlang.g:3563:1: ( rule__Bind__Group__9__Impl )
+            // InternalIotlang.g:3564:2: rule__Bind__Group__9__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Bind__Group__9__Impl();
@@ -10931,33 +11134,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group__9__Impl"
-    // InternalIotlang.g:3512:1: rule__Bind__Group__9__Impl : ( ( rule__Bind__AnnotationsAssignment_9 )* ) ;
+    // InternalIotlang.g:3570:1: rule__Bind__Group__9__Impl : ( ( rule__Bind__AnnotationsAssignment_9 )* ) ;
     public final void rule__Bind__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3516:1: ( ( ( rule__Bind__AnnotationsAssignment_9 )* ) )
-            // InternalIotlang.g:3517:1: ( ( rule__Bind__AnnotationsAssignment_9 )* )
+            // InternalIotlang.g:3574:1: ( ( ( rule__Bind__AnnotationsAssignment_9 )* ) )
+            // InternalIotlang.g:3575:1: ( ( rule__Bind__AnnotationsAssignment_9 )* )
             {
-            // InternalIotlang.g:3517:1: ( ( rule__Bind__AnnotationsAssignment_9 )* )
-            // InternalIotlang.g:3518:2: ( rule__Bind__AnnotationsAssignment_9 )*
+            // InternalIotlang.g:3575:1: ( ( rule__Bind__AnnotationsAssignment_9 )* )
+            // InternalIotlang.g:3576:2: ( rule__Bind__AnnotationsAssignment_9 )*
             {
              before(grammarAccess.getBindAccess().getAnnotationsAssignment_9()); 
-            // InternalIotlang.g:3519:2: ( rule__Bind__AnnotationsAssignment_9 )*
-            loop26:
+            // InternalIotlang.g:3577:2: ( rule__Bind__AnnotationsAssignment_9 )*
+            loop27:
             do {
-                int alt26=2;
-                int LA26_0 = input.LA(1);
+                int alt27=2;
+                int LA27_0 = input.LA(1);
 
-                if ( (LA26_0==RULE_ANNOTATION_ID) ) {
-                    alt26=1;
+                if ( (LA27_0==RULE_ANNOTATION_ID) ) {
+                    alt27=1;
                 }
 
 
-                switch (alt26) {
+                switch (alt27) {
             	case 1 :
-            	    // InternalIotlang.g:3519:3: rule__Bind__AnnotationsAssignment_9
+            	    // InternalIotlang.g:3577:3: rule__Bind__AnnotationsAssignment_9
             	    {
             	    pushFollow(FOLLOW_7);
             	    rule__Bind__AnnotationsAssignment_9();
@@ -10969,7 +11172,7 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop26;
+            	    break loop27;
                 }
             } while (true);
 
@@ -10996,14 +11199,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group_7__0"
-    // InternalIotlang.g:3528:1: rule__Bind__Group_7__0 : rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1 ;
+    // InternalIotlang.g:3586:1: rule__Bind__Group_7__0 : rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1 ;
     public final void rule__Bind__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3532:1: ( rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1 )
-            // InternalIotlang.g:3533:2: rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1
+            // InternalIotlang.g:3590:1: ( rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1 )
+            // InternalIotlang.g:3591:2: rule__Bind__Group_7__0__Impl rule__Bind__Group_7__1
             {
             pushFollow(FOLLOW_5);
             rule__Bind__Group_7__0__Impl();
@@ -11034,17 +11237,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group_7__0__Impl"
-    // InternalIotlang.g:3540:1: rule__Bind__Group_7__0__Impl : ( ',' ) ;
+    // InternalIotlang.g:3598:1: rule__Bind__Group_7__0__Impl : ( ',' ) ;
     public final void rule__Bind__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3544:1: ( ( ',' ) )
-            // InternalIotlang.g:3545:1: ( ',' )
+            // InternalIotlang.g:3602:1: ( ( ',' ) )
+            // InternalIotlang.g:3603:1: ( ',' )
             {
-            // InternalIotlang.g:3545:1: ( ',' )
-            // InternalIotlang.g:3546:2: ','
+            // InternalIotlang.g:3603:1: ( ',' )
+            // InternalIotlang.g:3604:2: ','
             {
              before(grammarAccess.getBindAccess().getCommaKeyword_7_0()); 
             match(input,47,FOLLOW_2); 
@@ -11071,14 +11274,14 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group_7__1"
-    // InternalIotlang.g:3555:1: rule__Bind__Group_7__1 : rule__Bind__Group_7__1__Impl ;
+    // InternalIotlang.g:3613:1: rule__Bind__Group_7__1 : rule__Bind__Group_7__1__Impl ;
     public final void rule__Bind__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3559:1: ( rule__Bind__Group_7__1__Impl )
-            // InternalIotlang.g:3560:2: rule__Bind__Group_7__1__Impl
+            // InternalIotlang.g:3617:1: ( rule__Bind__Group_7__1__Impl )
+            // InternalIotlang.g:3618:2: rule__Bind__Group_7__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Bind__Group_7__1__Impl();
@@ -11104,21 +11307,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__Group_7__1__Impl"
-    // InternalIotlang.g:3566:1: rule__Bind__Group_7__1__Impl : ( ( rule__Bind__TopicsAssignment_7_1 ) ) ;
+    // InternalIotlang.g:3624:1: rule__Bind__Group_7__1__Impl : ( ( rule__Bind__TopicsAssignment_7_1 ) ) ;
     public final void rule__Bind__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3570:1: ( ( ( rule__Bind__TopicsAssignment_7_1 ) ) )
-            // InternalIotlang.g:3571:1: ( ( rule__Bind__TopicsAssignment_7_1 ) )
+            // InternalIotlang.g:3628:1: ( ( ( rule__Bind__TopicsAssignment_7_1 ) ) )
+            // InternalIotlang.g:3629:1: ( ( rule__Bind__TopicsAssignment_7_1 ) )
             {
-            // InternalIotlang.g:3571:1: ( ( rule__Bind__TopicsAssignment_7_1 ) )
-            // InternalIotlang.g:3572:2: ( rule__Bind__TopicsAssignment_7_1 )
+            // InternalIotlang.g:3629:1: ( ( rule__Bind__TopicsAssignment_7_1 ) )
+            // InternalIotlang.g:3630:2: ( rule__Bind__TopicsAssignment_7_1 )
             {
              before(grammarAccess.getBindAccess().getTopicsAssignment_7_1()); 
-            // InternalIotlang.g:3573:2: ( rule__Bind__TopicsAssignment_7_1 )
-            // InternalIotlang.g:3573:3: rule__Bind__TopicsAssignment_7_1
+            // InternalIotlang.g:3631:2: ( rule__Bind__TopicsAssignment_7_1 )
+            // InternalIotlang.g:3631:3: rule__Bind__TopicsAssignment_7_1
             {
             pushFollow(FOLLOW_2);
             rule__Bind__TopicsAssignment_7_1();
@@ -11150,18 +11353,546 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Bind__Group_7__1__Impl"
 
 
+    // $ANTLR start "rule__Connect__Group__0"
+    // InternalIotlang.g:3640:1: rule__Connect__Group__0 : rule__Connect__Group__0__Impl rule__Connect__Group__1 ;
+    public final void rule__Connect__Group__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3644:1: ( rule__Connect__Group__0__Impl rule__Connect__Group__1 )
+            // InternalIotlang.g:3645:2: rule__Connect__Group__0__Impl rule__Connect__Group__1
+            {
+            pushFollow(FOLLOW_5);
+            rule__Connect__Group__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__0"
+
+
+    // $ANTLR start "rule__Connect__Group__0__Impl"
+    // InternalIotlang.g:3652:1: rule__Connect__Group__0__Impl : ( 'connect' ) ;
+    public final void rule__Connect__Group__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3656:1: ( ( 'connect' ) )
+            // InternalIotlang.g:3657:1: ( 'connect' )
+            {
+            // InternalIotlang.g:3657:1: ( 'connect' )
+            // InternalIotlang.g:3658:2: 'connect'
+            {
+             before(grammarAccess.getConnectAccess().getConnectKeyword_0()); 
+            match(input,48,FOLLOW_2); 
+             after(grammarAccess.getConnectAccess().getConnectKeyword_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__0__Impl"
+
+
+    // $ANTLR start "rule__Connect__Group__1"
+    // InternalIotlang.g:3667:1: rule__Connect__Group__1 : rule__Connect__Group__1__Impl rule__Connect__Group__2 ;
+    public final void rule__Connect__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3671:1: ( rule__Connect__Group__1__Impl rule__Connect__Group__2 )
+            // InternalIotlang.g:3672:2: rule__Connect__Group__1__Impl rule__Connect__Group__2
+            {
+            pushFollow(FOLLOW_5);
+            rule__Connect__Group__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__1"
+
+
+    // $ANTLR start "rule__Connect__Group__1__Impl"
+    // InternalIotlang.g:3679:1: rule__Connect__Group__1__Impl : ( ( rule__Connect__NameAssignment_1 )? ) ;
+    public final void rule__Connect__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3683:1: ( ( ( rule__Connect__NameAssignment_1 )? ) )
+            // InternalIotlang.g:3684:1: ( ( rule__Connect__NameAssignment_1 )? )
+            {
+            // InternalIotlang.g:3684:1: ( ( rule__Connect__NameAssignment_1 )? )
+            // InternalIotlang.g:3685:2: ( rule__Connect__NameAssignment_1 )?
+            {
+             before(grammarAccess.getConnectAccess().getNameAssignment_1()); 
+            // InternalIotlang.g:3686:2: ( rule__Connect__NameAssignment_1 )?
+            int alt28=2;
+            int LA28_0 = input.LA(1);
+
+            if ( (LA28_0==RULE_ID) ) {
+                int LA28_1 = input.LA(2);
+
+                if ( (LA28_1==RULE_ID) ) {
+                    alt28=1;
+                }
+            }
+            switch (alt28) {
+                case 1 :
+                    // InternalIotlang.g:3686:3: rule__Connect__NameAssignment_1
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__Connect__NameAssignment_1();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getConnectAccess().getNameAssignment_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__1__Impl"
+
+
+    // $ANTLR start "rule__Connect__Group__2"
+    // InternalIotlang.g:3694:1: rule__Connect__Group__2 : rule__Connect__Group__2__Impl rule__Connect__Group__3 ;
+    public final void rule__Connect__Group__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3698:1: ( rule__Connect__Group__2__Impl rule__Connect__Group__3 )
+            // InternalIotlang.g:3699:2: rule__Connect__Group__2__Impl rule__Connect__Group__3
+            {
+            pushFollow(FOLLOW_31);
+            rule__Connect__Group__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__3();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__2"
+
+
+    // $ANTLR start "rule__Connect__Group__2__Impl"
+    // InternalIotlang.g:3706:1: rule__Connect__Group__2__Impl : ( ( rule__Connect__ThingInstanceAssignment_2 ) ) ;
+    public final void rule__Connect__Group__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3710:1: ( ( ( rule__Connect__ThingInstanceAssignment_2 ) ) )
+            // InternalIotlang.g:3711:1: ( ( rule__Connect__ThingInstanceAssignment_2 ) )
+            {
+            // InternalIotlang.g:3711:1: ( ( rule__Connect__ThingInstanceAssignment_2 ) )
+            // InternalIotlang.g:3712:2: ( rule__Connect__ThingInstanceAssignment_2 )
+            {
+             before(grammarAccess.getConnectAccess().getThingInstanceAssignment_2()); 
+            // InternalIotlang.g:3713:2: ( rule__Connect__ThingInstanceAssignment_2 )
+            // InternalIotlang.g:3713:3: rule__Connect__ThingInstanceAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__ThingInstanceAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConnectAccess().getThingInstanceAssignment_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__2__Impl"
+
+
+    // $ANTLR start "rule__Connect__Group__3"
+    // InternalIotlang.g:3721:1: rule__Connect__Group__3 : rule__Connect__Group__3__Impl rule__Connect__Group__4 ;
+    public final void rule__Connect__Group__3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3725:1: ( rule__Connect__Group__3__Impl rule__Connect__Group__4 )
+            // InternalIotlang.g:3726:2: rule__Connect__Group__3__Impl rule__Connect__Group__4
+            {
+            pushFollow(FOLLOW_5);
+            rule__Connect__Group__3__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__4();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__3"
+
+
+    // $ANTLR start "rule__Connect__Group__3__Impl"
+    // InternalIotlang.g:3733:1: rule__Connect__Group__3__Impl : ( ( rule__Connect__DirectionAssignment_3 ) ) ;
+    public final void rule__Connect__Group__3__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3737:1: ( ( ( rule__Connect__DirectionAssignment_3 ) ) )
+            // InternalIotlang.g:3738:1: ( ( rule__Connect__DirectionAssignment_3 ) )
+            {
+            // InternalIotlang.g:3738:1: ( ( rule__Connect__DirectionAssignment_3 ) )
+            // InternalIotlang.g:3739:2: ( rule__Connect__DirectionAssignment_3 )
+            {
+             before(grammarAccess.getConnectAccess().getDirectionAssignment_3()); 
+            // InternalIotlang.g:3740:2: ( rule__Connect__DirectionAssignment_3 )
+            // InternalIotlang.g:3740:3: rule__Connect__DirectionAssignment_3
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__DirectionAssignment_3();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConnectAccess().getDirectionAssignment_3()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__3__Impl"
+
+
+    // $ANTLR start "rule__Connect__Group__4"
+    // InternalIotlang.g:3748:1: rule__Connect__Group__4 : rule__Connect__Group__4__Impl rule__Connect__Group__5 ;
+    public final void rule__Connect__Group__4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3752:1: ( rule__Connect__Group__4__Impl rule__Connect__Group__5 )
+            // InternalIotlang.g:3753:2: rule__Connect__Group__4__Impl rule__Connect__Group__5
+            {
+            pushFollow(FOLLOW_25);
+            rule__Connect__Group__4__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__5();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__4"
+
+
+    // $ANTLR start "rule__Connect__Group__4__Impl"
+    // InternalIotlang.g:3760:1: rule__Connect__Group__4__Impl : ( ( rule__Connect__PtpInstanceAssignment_4 ) ) ;
+    public final void rule__Connect__Group__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3764:1: ( ( ( rule__Connect__PtpInstanceAssignment_4 ) ) )
+            // InternalIotlang.g:3765:1: ( ( rule__Connect__PtpInstanceAssignment_4 ) )
+            {
+            // InternalIotlang.g:3765:1: ( ( rule__Connect__PtpInstanceAssignment_4 ) )
+            // InternalIotlang.g:3766:2: ( rule__Connect__PtpInstanceAssignment_4 )
+            {
+             before(grammarAccess.getConnectAccess().getPtpInstanceAssignment_4()); 
+            // InternalIotlang.g:3767:2: ( rule__Connect__PtpInstanceAssignment_4 )
+            // InternalIotlang.g:3767:3: rule__Connect__PtpInstanceAssignment_4
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__PtpInstanceAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConnectAccess().getPtpInstanceAssignment_4()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__4__Impl"
+
+
+    // $ANTLR start "rule__Connect__Group__5"
+    // InternalIotlang.g:3775:1: rule__Connect__Group__5 : rule__Connect__Group__5__Impl ;
+    public final void rule__Connect__Group__5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3779:1: ( rule__Connect__Group__5__Impl )
+            // InternalIotlang.g:3780:2: rule__Connect__Group__5__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__Group__5__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__5"
+
+
+    // $ANTLR start "rule__Connect__Group__5__Impl"
+    // InternalIotlang.g:3786:1: rule__Connect__Group__5__Impl : ( ( rule__Connect__AnnotationsAssignment_5 )* ) ;
+    public final void rule__Connect__Group__5__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:3790:1: ( ( ( rule__Connect__AnnotationsAssignment_5 )* ) )
+            // InternalIotlang.g:3791:1: ( ( rule__Connect__AnnotationsAssignment_5 )* )
+            {
+            // InternalIotlang.g:3791:1: ( ( rule__Connect__AnnotationsAssignment_5 )* )
+            // InternalIotlang.g:3792:2: ( rule__Connect__AnnotationsAssignment_5 )*
+            {
+             before(grammarAccess.getConnectAccess().getAnnotationsAssignment_5()); 
+            // InternalIotlang.g:3793:2: ( rule__Connect__AnnotationsAssignment_5 )*
+            loop29:
+            do {
+                int alt29=2;
+                int LA29_0 = input.LA(1);
+
+                if ( (LA29_0==RULE_ANNOTATION_ID) ) {
+                    alt29=1;
+                }
+
+
+                switch (alt29) {
+            	case 1 :
+            	    // InternalIotlang.g:3793:3: rule__Connect__AnnotationsAssignment_5
+            	    {
+            	    pushFollow(FOLLOW_7);
+            	    rule__Connect__AnnotationsAssignment_5();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop29;
+                }
+            } while (true);
+
+             after(grammarAccess.getConnectAccess().getAnnotationsAssignment_5()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__Group__5__Impl"
+
+
     // $ANTLR start "rule__IoTLangModel__ThingsAssignment_0"
-    // InternalIotlang.g:3582:1: rule__IoTLangModel__ThingsAssignment_0 : ( ruleThing ) ;
+    // InternalIotlang.g:3802:1: rule__IoTLangModel__ThingsAssignment_0 : ( ruleThing ) ;
     public final void rule__IoTLangModel__ThingsAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3586:1: ( ( ruleThing ) )
-            // InternalIotlang.g:3587:2: ( ruleThing )
+            // InternalIotlang.g:3806:1: ( ( ruleThing ) )
+            // InternalIotlang.g:3807:2: ( ruleThing )
             {
-            // InternalIotlang.g:3587:2: ( ruleThing )
-            // InternalIotlang.g:3588:3: ruleThing
+            // InternalIotlang.g:3807:2: ( ruleThing )
+            // InternalIotlang.g:3808:3: ruleThing
             {
              before(grammarAccess.getIoTLangModelAccess().getThingsThingParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -11192,17 +11923,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IoTLangModel__PoliciesAssignment_1"
-    // InternalIotlang.g:3597:1: rule__IoTLangModel__PoliciesAssignment_1 : ( rulePolicy ) ;
+    // InternalIotlang.g:3817:1: rule__IoTLangModel__PoliciesAssignment_1 : ( rulePolicy ) ;
     public final void rule__IoTLangModel__PoliciesAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3601:1: ( ( rulePolicy ) )
-            // InternalIotlang.g:3602:2: ( rulePolicy )
+            // InternalIotlang.g:3821:1: ( ( rulePolicy ) )
+            // InternalIotlang.g:3822:2: ( rulePolicy )
             {
-            // InternalIotlang.g:3602:2: ( rulePolicy )
-            // InternalIotlang.g:3603:3: rulePolicy
+            // InternalIotlang.g:3822:2: ( rulePolicy )
+            // InternalIotlang.g:3823:3: rulePolicy
             {
              before(grammarAccess.getIoTLangModelAccess().getPoliciesPolicyParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -11233,17 +11964,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IoTLangModel__MessagesAssignment_2"
-    // InternalIotlang.g:3612:1: rule__IoTLangModel__MessagesAssignment_2 : ( ruleMessage ) ;
+    // InternalIotlang.g:3832:1: rule__IoTLangModel__MessagesAssignment_2 : ( ruleMessage ) ;
     public final void rule__IoTLangModel__MessagesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3616:1: ( ( ruleMessage ) )
-            // InternalIotlang.g:3617:2: ( ruleMessage )
+            // InternalIotlang.g:3836:1: ( ( ruleMessage ) )
+            // InternalIotlang.g:3837:2: ( ruleMessage )
             {
-            // InternalIotlang.g:3617:2: ( ruleMessage )
-            // InternalIotlang.g:3618:3: ruleMessage
+            // InternalIotlang.g:3837:2: ( ruleMessage )
+            // InternalIotlang.g:3838:3: ruleMessage
             {
              before(grammarAccess.getIoTLangModelAccess().getMessagesMessageParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -11274,17 +12005,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IoTLangModel__ChannelsAssignment_3"
-    // InternalIotlang.g:3627:1: rule__IoTLangModel__ChannelsAssignment_3 : ( ruleChannel ) ;
+    // InternalIotlang.g:3847:1: rule__IoTLangModel__ChannelsAssignment_3 : ( ruleChannel ) ;
     public final void rule__IoTLangModel__ChannelsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3631:1: ( ( ruleChannel ) )
-            // InternalIotlang.g:3632:2: ( ruleChannel )
+            // InternalIotlang.g:3851:1: ( ( ruleChannel ) )
+            // InternalIotlang.g:3852:2: ( ruleChannel )
             {
-            // InternalIotlang.g:3632:2: ( ruleChannel )
-            // InternalIotlang.g:3633:3: ruleChannel
+            // InternalIotlang.g:3852:2: ( ruleChannel )
+            // InternalIotlang.g:3853:3: ruleChannel
             {
              before(grammarAccess.getIoTLangModelAccess().getChannelsChannelParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -11315,17 +12046,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IoTLangModel__ProtocolsAssignment_4"
-    // InternalIotlang.g:3642:1: rule__IoTLangModel__ProtocolsAssignment_4 : ( ruleProtocol ) ;
+    // InternalIotlang.g:3862:1: rule__IoTLangModel__ProtocolsAssignment_4 : ( ruleProtocol ) ;
     public final void rule__IoTLangModel__ProtocolsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3646:1: ( ( ruleProtocol ) )
-            // InternalIotlang.g:3647:2: ( ruleProtocol )
+            // InternalIotlang.g:3866:1: ( ( ruleProtocol ) )
+            // InternalIotlang.g:3867:2: ( ruleProtocol )
             {
-            // InternalIotlang.g:3647:2: ( ruleProtocol )
-            // InternalIotlang.g:3648:3: ruleProtocol
+            // InternalIotlang.g:3867:2: ( ruleProtocol )
+            // InternalIotlang.g:3868:3: ruleProtocol
             {
              before(grammarAccess.getIoTLangModelAccess().getProtocolsProtocolParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -11356,17 +12087,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IoTLangModel__ConfigsAssignment_5"
-    // InternalIotlang.g:3657:1: rule__IoTLangModel__ConfigsAssignment_5 : ( ruleNetworkConfiguration ) ;
+    // InternalIotlang.g:3877:1: rule__IoTLangModel__ConfigsAssignment_5 : ( ruleNetworkConfiguration ) ;
     public final void rule__IoTLangModel__ConfigsAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3661:1: ( ( ruleNetworkConfiguration ) )
-            // InternalIotlang.g:3662:2: ( ruleNetworkConfiguration )
+            // InternalIotlang.g:3881:1: ( ( ruleNetworkConfiguration ) )
+            // InternalIotlang.g:3882:2: ( ruleNetworkConfiguration )
             {
-            // InternalIotlang.g:3662:2: ( ruleNetworkConfiguration )
-            // InternalIotlang.g:3663:3: ruleNetworkConfiguration
+            // InternalIotlang.g:3882:2: ( ruleNetworkConfiguration )
+            // InternalIotlang.g:3883:3: ruleNetworkConfiguration
             {
              before(grammarAccess.getIoTLangModelAccess().getConfigsNetworkConfigurationParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -11397,17 +12128,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlatformAnnotation__NameAssignment_0"
-    // InternalIotlang.g:3672:1: rule__PlatformAnnotation__NameAssignment_0 : ( RULE_ANNOTATION_ID ) ;
+    // InternalIotlang.g:3892:1: rule__PlatformAnnotation__NameAssignment_0 : ( RULE_ANNOTATION_ID ) ;
     public final void rule__PlatformAnnotation__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3676:1: ( ( RULE_ANNOTATION_ID ) )
-            // InternalIotlang.g:3677:2: ( RULE_ANNOTATION_ID )
+            // InternalIotlang.g:3896:1: ( ( RULE_ANNOTATION_ID ) )
+            // InternalIotlang.g:3897:2: ( RULE_ANNOTATION_ID )
             {
-            // InternalIotlang.g:3677:2: ( RULE_ANNOTATION_ID )
-            // InternalIotlang.g:3678:3: RULE_ANNOTATION_ID
+            // InternalIotlang.g:3897:2: ( RULE_ANNOTATION_ID )
+            // InternalIotlang.g:3898:3: RULE_ANNOTATION_ID
             {
              before(grammarAccess.getPlatformAnnotationAccess().getNameANNOTATION_IDTerminalRuleCall_0_0()); 
             match(input,RULE_ANNOTATION_ID,FOLLOW_2); 
@@ -11434,17 +12165,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PlatformAnnotation__ValueAssignment_1"
-    // InternalIotlang.g:3687:1: rule__PlatformAnnotation__ValueAssignment_1 : ( RULE_STRING_LIT ) ;
+    // InternalIotlang.g:3907:1: rule__PlatformAnnotation__ValueAssignment_1 : ( RULE_STRING_LIT ) ;
     public final void rule__PlatformAnnotation__ValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3691:1: ( ( RULE_STRING_LIT ) )
-            // InternalIotlang.g:3692:2: ( RULE_STRING_LIT )
+            // InternalIotlang.g:3911:1: ( ( RULE_STRING_LIT ) )
+            // InternalIotlang.g:3912:2: ( RULE_STRING_LIT )
             {
-            // InternalIotlang.g:3692:2: ( RULE_STRING_LIT )
-            // InternalIotlang.g:3693:3: RULE_STRING_LIT
+            // InternalIotlang.g:3912:2: ( RULE_STRING_LIT )
+            // InternalIotlang.g:3913:3: RULE_STRING_LIT
             {
              before(grammarAccess.getPlatformAnnotationAccess().getValueSTRING_LITTerminalRuleCall_1_0()); 
             match(input,RULE_STRING_LIT,FOLLOW_2); 
@@ -11471,17 +12202,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__NameAssignment_1"
-    // InternalIotlang.g:3702:1: rule__Thing__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:3922:1: rule__Thing__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Thing__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3706:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3707:2: ( RULE_ID )
+            // InternalIotlang.g:3926:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:3927:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3707:2: ( RULE_ID )
-            // InternalIotlang.g:3708:3: RULE_ID
+            // InternalIotlang.g:3927:2: ( RULE_ID )
+            // InternalIotlang.g:3928:3: RULE_ID
             {
              before(grammarAccess.getThingAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11508,17 +12239,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__AnnotationsAssignment_2"
-    // InternalIotlang.g:3717:1: rule__Thing__AnnotationsAssignment_2 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:3937:1: rule__Thing__AnnotationsAssignment_2 : ( rulePlatformAnnotation ) ;
     public final void rule__Thing__AnnotationsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3721:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:3722:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:3941:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:3942:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:3722:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:3723:3: rulePlatformAnnotation
+            // InternalIotlang.g:3942:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:3943:3: rulePlatformAnnotation
             {
              before(grammarAccess.getThingAccess().getAnnotationsPlatformAnnotationParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -11549,17 +12280,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Thing__PortsAssignment_4"
-    // InternalIotlang.g:3732:1: rule__Thing__PortsAssignment_4 : ( rulePort ) ;
+    // InternalIotlang.g:3952:1: rule__Thing__PortsAssignment_4 : ( rulePort ) ;
     public final void rule__Thing__PortsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3736:1: ( ( rulePort ) )
-            // InternalIotlang.g:3737:2: ( rulePort )
+            // InternalIotlang.g:3956:1: ( ( rulePort ) )
+            // InternalIotlang.g:3957:2: ( rulePort )
             {
-            // InternalIotlang.g:3737:2: ( rulePort )
-            // InternalIotlang.g:3738:3: rulePort
+            // InternalIotlang.g:3957:2: ( rulePort )
+            // InternalIotlang.g:3958:3: rulePort
             {
              before(grammarAccess.getThingAccess().getPortsPortParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -11590,17 +12321,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Channel__PubSubAssignment_0"
-    // InternalIotlang.g:3747:1: rule__Channel__PubSubAssignment_0 : ( rulePubSub ) ;
+    // InternalIotlang.g:3967:1: rule__Channel__PubSubAssignment_0 : ( rulePubSub ) ;
     public final void rule__Channel__PubSubAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3751:1: ( ( rulePubSub ) )
-            // InternalIotlang.g:3752:2: ( rulePubSub )
+            // InternalIotlang.g:3971:1: ( ( rulePubSub ) )
+            // InternalIotlang.g:3972:2: ( rulePubSub )
             {
-            // InternalIotlang.g:3752:2: ( rulePubSub )
-            // InternalIotlang.g:3753:3: rulePubSub
+            // InternalIotlang.g:3972:2: ( rulePubSub )
+            // InternalIotlang.g:3973:3: rulePubSub
             {
              before(grammarAccess.getChannelAccess().getPubSubPubSubParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -11631,17 +12362,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Channel__PointToPointAssignment_1"
-    // InternalIotlang.g:3762:1: rule__Channel__PointToPointAssignment_1 : ( rulePointToPoint ) ;
+    // InternalIotlang.g:3982:1: rule__Channel__PointToPointAssignment_1 : ( rulePointToPoint ) ;
     public final void rule__Channel__PointToPointAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3766:1: ( ( rulePointToPoint ) )
-            // InternalIotlang.g:3767:2: ( rulePointToPoint )
+            // InternalIotlang.g:3986:1: ( ( rulePointToPoint ) )
+            // InternalIotlang.g:3987:2: ( rulePointToPoint )
             {
-            // InternalIotlang.g:3767:2: ( rulePointToPoint )
-            // InternalIotlang.g:3768:3: rulePointToPoint
+            // InternalIotlang.g:3987:2: ( rulePointToPoint )
+            // InternalIotlang.g:3988:3: rulePointToPoint
             {
              before(grammarAccess.getChannelAccess().getPointToPointPointToPointParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -11672,17 +12403,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__NameAssignment_1"
-    // InternalIotlang.g:3777:1: rule__PubSub__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:3997:1: rule__PubSub__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__PubSub__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3781:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3782:2: ( RULE_ID )
+            // InternalIotlang.g:4001:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4002:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3782:2: ( RULE_ID )
-            // InternalIotlang.g:3783:3: RULE_ID
+            // InternalIotlang.g:4002:2: ( RULE_ID )
+            // InternalIotlang.g:4003:3: RULE_ID
             {
              before(grammarAccess.getPubSubAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11709,17 +12440,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PubSub__HasTopicsAssignment_3"
-    // InternalIotlang.g:3792:1: rule__PubSub__HasTopicsAssignment_3 : ( ruleTopic ) ;
+    // InternalIotlang.g:4012:1: rule__PubSub__HasTopicsAssignment_3 : ( ruleTopic ) ;
     public final void rule__PubSub__HasTopicsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3796:1: ( ( ruleTopic ) )
-            // InternalIotlang.g:3797:2: ( ruleTopic )
+            // InternalIotlang.g:4016:1: ( ( ruleTopic ) )
+            // InternalIotlang.g:4017:2: ( ruleTopic )
             {
-            // InternalIotlang.g:3797:2: ( ruleTopic )
-            // InternalIotlang.g:3798:3: ruleTopic
+            // InternalIotlang.g:4017:2: ( ruleTopic )
+            // InternalIotlang.g:4018:3: ruleTopic
             {
              before(grammarAccess.getPubSubAccess().getHasTopicsTopicParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -11750,17 +12481,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PointToPoint__NameAssignment_1"
-    // InternalIotlang.g:3807:1: rule__PointToPoint__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4027:1: rule__PointToPoint__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__PointToPoint__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3811:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3812:2: ( RULE_ID )
+            // InternalIotlang.g:4031:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4032:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3812:2: ( RULE_ID )
-            // InternalIotlang.g:3813:3: RULE_ID
+            // InternalIotlang.g:4032:2: ( RULE_ID )
+            // InternalIotlang.g:4033:3: RULE_ID
             {
              before(grammarAccess.getPointToPointAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11787,17 +12518,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__NameAssignment_1"
-    // InternalIotlang.g:3822:1: rule__Policy__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4042:1: rule__Policy__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Policy__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3826:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3827:2: ( RULE_ID )
+            // InternalIotlang.g:4046:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4047:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3827:2: ( RULE_ID )
-            // InternalIotlang.g:3828:3: RULE_ID
+            // InternalIotlang.g:4047:2: ( RULE_ID )
+            // InternalIotlang.g:4048:3: RULE_ID
             {
              before(grammarAccess.getPolicyAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11824,17 +12555,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Policy__HasRulesAssignment_3"
-    // InternalIotlang.g:3837:1: rule__Policy__HasRulesAssignment_3 : ( ruleRule ) ;
+    // InternalIotlang.g:4057:1: rule__Policy__HasRulesAssignment_3 : ( ruleRule ) ;
     public final void rule__Policy__HasRulesAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3841:1: ( ( ruleRule ) )
-            // InternalIotlang.g:3842:2: ( ruleRule )
+            // InternalIotlang.g:4061:1: ( ( ruleRule ) )
+            // InternalIotlang.g:4062:2: ( ruleRule )
             {
-            // InternalIotlang.g:3842:2: ( ruleRule )
-            // InternalIotlang.g:3843:3: ruleRule
+            // InternalIotlang.g:4062:2: ( ruleRule )
+            // InternalIotlang.g:4063:3: ruleRule
             {
              before(grammarAccess.getPolicyAccess().getHasRulesRuleParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -11865,17 +12596,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Port__NameAssignment_1"
-    // InternalIotlang.g:3852:1: rule__Port__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4072:1: rule__Port__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Port__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3856:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3857:2: ( RULE_ID )
+            // InternalIotlang.g:4076:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4077:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3857:2: ( RULE_ID )
-            // InternalIotlang.g:3858:3: RULE_ID
+            // InternalIotlang.g:4077:2: ( RULE_ID )
+            // InternalIotlang.g:4078:3: RULE_ID
             {
              before(grammarAccess.getPortAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11902,17 +12633,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Protocol__NameAssignment_1"
-    // InternalIotlang.g:3867:1: rule__Protocol__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4087:1: rule__Protocol__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Protocol__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3871:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3872:2: ( RULE_ID )
+            // InternalIotlang.g:4091:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4092:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3872:2: ( RULE_ID )
-            // InternalIotlang.g:3873:3: RULE_ID
+            // InternalIotlang.g:4092:2: ( RULE_ID )
+            // InternalIotlang.g:4093:3: RULE_ID
             {
              before(grammarAccess.getProtocolAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11939,17 +12670,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Message__NameAssignment_1"
-    // InternalIotlang.g:3882:1: rule__Message__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4102:1: rule__Message__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Message__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3886:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3887:2: ( RULE_ID )
+            // InternalIotlang.g:4106:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4107:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3887:2: ( RULE_ID )
-            // InternalIotlang.g:3888:3: RULE_ID
+            // InternalIotlang.g:4107:2: ( RULE_ID )
+            // InternalIotlang.g:4108:3: RULE_ID
             {
              before(grammarAccess.getMessageAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -11976,17 +12707,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__NameAssignment_1"
-    // InternalIotlang.g:3897:1: rule__Topic__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4117:1: rule__Topic__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Topic__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3901:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3902:2: ( RULE_ID )
+            // InternalIotlang.g:4121:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4122:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3902:2: ( RULE_ID )
-            // InternalIotlang.g:3903:3: RULE_ID
+            // InternalIotlang.g:4122:2: ( RULE_ID )
+            // InternalIotlang.g:4123:3: RULE_ID
             {
              before(grammarAccess.getTopicAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12013,21 +12744,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Topic__AcceptedMessagesAssignment_3"
-    // InternalIotlang.g:3912:1: rule__Topic__AcceptedMessagesAssignment_3 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4132:1: rule__Topic__AcceptedMessagesAssignment_3 : ( ( RULE_ID ) ) ;
     public final void rule__Topic__AcceptedMessagesAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3916:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:3917:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4136:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4137:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:3917:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:3918:3: ( RULE_ID )
+            // InternalIotlang.g:4137:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4138:3: ( RULE_ID )
             {
              before(grammarAccess.getTopicAccess().getAcceptedMessagesMessageCrossReference_3_0()); 
-            // InternalIotlang.g:3919:3: ( RULE_ID )
-            // InternalIotlang.g:3920:4: RULE_ID
+            // InternalIotlang.g:4139:3: ( RULE_ID )
+            // InternalIotlang.g:4140:4: RULE_ID
             {
              before(grammarAccess.getTopicAccess().getAcceptedMessagesMessageIDTerminalRuleCall_3_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12058,17 +12789,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__NameAssignment_1"
-    // InternalIotlang.g:3931:1: rule__Rule__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4151:1: rule__Rule__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Rule__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3935:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:3936:2: ( RULE_ID )
+            // InternalIotlang.g:4155:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4156:2: ( RULE_ID )
             {
-            // InternalIotlang.g:3936:2: ( RULE_ID )
-            // InternalIotlang.g:3937:3: RULE_ID
+            // InternalIotlang.g:4156:2: ( RULE_ID )
+            // InternalIotlang.g:4157:3: RULE_ID
             {
              before(grammarAccess.getRuleAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12095,21 +12826,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__SubjectAssignment_2"
-    // InternalIotlang.g:3946:1: rule__Rule__SubjectAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4166:1: rule__Rule__SubjectAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__Rule__SubjectAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3950:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:3951:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4170:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4171:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:3951:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:3952:3: ( RULE_ID )
+            // InternalIotlang.g:4171:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4172:3: ( RULE_ID )
             {
              before(grammarAccess.getRuleAccess().getSubjectThingCrossReference_2_0()); 
-            // InternalIotlang.g:3953:3: ( RULE_ID )
-            // InternalIotlang.g:3954:4: RULE_ID
+            // InternalIotlang.g:4173:3: ( RULE_ID )
+            // InternalIotlang.g:4174:4: RULE_ID
             {
              before(grammarAccess.getRuleAccess().getSubjectThingIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12140,21 +12871,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__PermissionAssignment_3"
-    // InternalIotlang.g:3965:1: rule__Rule__PermissionAssignment_3 : ( ( rule__Rule__PermissionAlternatives_3_0 ) ) ;
+    // InternalIotlang.g:4185:1: rule__Rule__PermissionAssignment_3 : ( ( rule__Rule__PermissionAlternatives_3_0 ) ) ;
     public final void rule__Rule__PermissionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3969:1: ( ( ( rule__Rule__PermissionAlternatives_3_0 ) ) )
-            // InternalIotlang.g:3970:2: ( ( rule__Rule__PermissionAlternatives_3_0 ) )
+            // InternalIotlang.g:4189:1: ( ( ( rule__Rule__PermissionAlternatives_3_0 ) ) )
+            // InternalIotlang.g:4190:2: ( ( rule__Rule__PermissionAlternatives_3_0 ) )
             {
-            // InternalIotlang.g:3970:2: ( ( rule__Rule__PermissionAlternatives_3_0 ) )
-            // InternalIotlang.g:3971:3: ( rule__Rule__PermissionAlternatives_3_0 )
+            // InternalIotlang.g:4190:2: ( ( rule__Rule__PermissionAlternatives_3_0 ) )
+            // InternalIotlang.g:4191:3: ( rule__Rule__PermissionAlternatives_3_0 )
             {
              before(grammarAccess.getRuleAccess().getPermissionAlternatives_3_0()); 
-            // InternalIotlang.g:3972:3: ( rule__Rule__PermissionAlternatives_3_0 )
-            // InternalIotlang.g:3972:4: rule__Rule__PermissionAlternatives_3_0
+            // InternalIotlang.g:4192:3: ( rule__Rule__PermissionAlternatives_3_0 )
+            // InternalIotlang.g:4192:4: rule__Rule__PermissionAlternatives_3_0
             {
             pushFollow(FOLLOW_2);
             rule__Rule__PermissionAlternatives_3_0();
@@ -12187,21 +12918,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__ActionAssignment_5"
-    // InternalIotlang.g:3980:1: rule__Rule__ActionAssignment_5 : ( ( rule__Rule__ActionAlternatives_5_0 ) ) ;
+    // InternalIotlang.g:4200:1: rule__Rule__ActionAssignment_5 : ( ( rule__Rule__ActionAlternatives_5_0 ) ) ;
     public final void rule__Rule__ActionAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3984:1: ( ( ( rule__Rule__ActionAlternatives_5_0 ) ) )
-            // InternalIotlang.g:3985:2: ( ( rule__Rule__ActionAlternatives_5_0 ) )
+            // InternalIotlang.g:4204:1: ( ( ( rule__Rule__ActionAlternatives_5_0 ) ) )
+            // InternalIotlang.g:4205:2: ( ( rule__Rule__ActionAlternatives_5_0 ) )
             {
-            // InternalIotlang.g:3985:2: ( ( rule__Rule__ActionAlternatives_5_0 ) )
-            // InternalIotlang.g:3986:3: ( rule__Rule__ActionAlternatives_5_0 )
+            // InternalIotlang.g:4205:2: ( ( rule__Rule__ActionAlternatives_5_0 ) )
+            // InternalIotlang.g:4206:3: ( rule__Rule__ActionAlternatives_5_0 )
             {
              before(grammarAccess.getRuleAccess().getActionAlternatives_5_0()); 
-            // InternalIotlang.g:3987:3: ( rule__Rule__ActionAlternatives_5_0 )
-            // InternalIotlang.g:3987:4: rule__Rule__ActionAlternatives_5_0
+            // InternalIotlang.g:4207:3: ( rule__Rule__ActionAlternatives_5_0 )
+            // InternalIotlang.g:4207:4: rule__Rule__ActionAlternatives_5_0
             {
             pushFollow(FOLLOW_2);
             rule__Rule__ActionAlternatives_5_0();
@@ -12234,21 +12965,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__ObjectAssignment_6_0_0"
-    // InternalIotlang.g:3995:1: rule__Rule__ObjectAssignment_6_0_0 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4215:1: rule__Rule__ObjectAssignment_6_0_0 : ( ( RULE_ID ) ) ;
     public final void rule__Rule__ObjectAssignment_6_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:3999:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4000:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4219:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4220:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4000:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4001:3: ( RULE_ID )
+            // InternalIotlang.g:4220:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4221:3: ( RULE_ID )
             {
              before(grammarAccess.getRuleAccess().getObjectThingCrossReference_6_0_0_0()); 
-            // InternalIotlang.g:4002:3: ( RULE_ID )
-            // InternalIotlang.g:4003:4: RULE_ID
+            // InternalIotlang.g:4222:3: ( RULE_ID )
+            // InternalIotlang.g:4223:4: RULE_ID
             {
              before(grammarAccess.getRuleAccess().getObjectThingIDTerminalRuleCall_6_0_0_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12279,21 +13010,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__PortsAssignment_6_0_1_1"
-    // InternalIotlang.g:4014:1: rule__Rule__PortsAssignment_6_0_1_1 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4234:1: rule__Rule__PortsAssignment_6_0_1_1 : ( ( RULE_ID ) ) ;
     public final void rule__Rule__PortsAssignment_6_0_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4018:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4019:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4238:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4239:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4019:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4020:3: ( RULE_ID )
+            // InternalIotlang.g:4239:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4240:3: ( RULE_ID )
             {
              before(grammarAccess.getRuleAccess().getPortsPortCrossReference_6_0_1_1_0()); 
-            // InternalIotlang.g:4021:3: ( RULE_ID )
-            // InternalIotlang.g:4022:4: RULE_ID
+            // InternalIotlang.g:4241:3: ( RULE_ID )
+            // InternalIotlang.g:4242:4: RULE_ID
             {
              before(grammarAccess.getRuleAccess().getPortsPortIDTerminalRuleCall_6_0_1_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12324,21 +13055,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__ObjectMessageAssignment_6_1_1"
-    // InternalIotlang.g:4033:1: rule__Rule__ObjectMessageAssignment_6_1_1 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4253:1: rule__Rule__ObjectMessageAssignment_6_1_1 : ( ( RULE_ID ) ) ;
     public final void rule__Rule__ObjectMessageAssignment_6_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4037:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4038:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4257:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4258:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4038:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4039:3: ( RULE_ID )
+            // InternalIotlang.g:4258:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4259:3: ( RULE_ID )
             {
              before(grammarAccess.getRuleAccess().getObjectMessageMessageCrossReference_6_1_1_0()); 
-            // InternalIotlang.g:4040:3: ( RULE_ID )
-            // InternalIotlang.g:4041:4: RULE_ID
+            // InternalIotlang.g:4260:3: ( RULE_ID )
+            // InternalIotlang.g:4261:4: RULE_ID
             {
              before(grammarAccess.getRuleAccess().getObjectMessageMessageIDTerminalRuleCall_6_1_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12369,17 +13100,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Domain__NameAssignment_1"
-    // InternalIotlang.g:4052:1: rule__Domain__NameAssignment_1 : ( RULE_STRING_LIT ) ;
+    // InternalIotlang.g:4272:1: rule__Domain__NameAssignment_1 : ( RULE_STRING_LIT ) ;
     public final void rule__Domain__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4056:1: ( ( RULE_STRING_LIT ) )
-            // InternalIotlang.g:4057:2: ( RULE_STRING_LIT )
+            // InternalIotlang.g:4276:1: ( ( RULE_STRING_LIT ) )
+            // InternalIotlang.g:4277:2: ( RULE_STRING_LIT )
             {
-            // InternalIotlang.g:4057:2: ( RULE_STRING_LIT )
-            // InternalIotlang.g:4058:3: RULE_STRING_LIT
+            // InternalIotlang.g:4277:2: ( RULE_STRING_LIT )
+            // InternalIotlang.g:4278:3: RULE_STRING_LIT
             {
              before(grammarAccess.getDomainAccess().getNameSTRING_LITTerminalRuleCall_1_0()); 
             match(input,RULE_STRING_LIT,FOLLOW_2); 
@@ -12406,17 +13137,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__NameAssignment_1"
-    // InternalIotlang.g:4067:1: rule__InstanceThing__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4287:1: rule__InstanceThing__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__InstanceThing__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4071:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4072:2: ( RULE_ID )
+            // InternalIotlang.g:4291:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4292:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4072:2: ( RULE_ID )
-            // InternalIotlang.g:4073:3: RULE_ID
+            // InternalIotlang.g:4292:2: ( RULE_ID )
+            // InternalIotlang.g:4293:3: RULE_ID
             {
              before(grammarAccess.getInstanceThingAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12443,17 +13174,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__NumberAssignment_2_1"
-    // InternalIotlang.g:4082:1: rule__InstanceThing__NumberAssignment_2_1 : ( RULE_INT ) ;
+    // InternalIotlang.g:4302:1: rule__InstanceThing__NumberAssignment_2_1 : ( RULE_INT ) ;
     public final void rule__InstanceThing__NumberAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4086:1: ( ( RULE_INT ) )
-            // InternalIotlang.g:4087:2: ( RULE_INT )
+            // InternalIotlang.g:4306:1: ( ( RULE_INT ) )
+            // InternalIotlang.g:4307:2: ( RULE_INT )
             {
-            // InternalIotlang.g:4087:2: ( RULE_INT )
-            // InternalIotlang.g:4088:3: RULE_INT
+            // InternalIotlang.g:4307:2: ( RULE_INT )
+            // InternalIotlang.g:4308:3: RULE_INT
             {
              before(grammarAccess.getInstanceThingAccess().getNumberINTTerminalRuleCall_2_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -12480,21 +13211,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__TypeThingAssignment_4"
-    // InternalIotlang.g:4097:1: rule__InstanceThing__TypeThingAssignment_4 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4317:1: rule__InstanceThing__TypeThingAssignment_4 : ( ( RULE_ID ) ) ;
     public final void rule__InstanceThing__TypeThingAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4101:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4102:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4321:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4322:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4102:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4103:3: ( RULE_ID )
+            // InternalIotlang.g:4322:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4323:3: ( RULE_ID )
             {
              before(grammarAccess.getInstanceThingAccess().getTypeThingThingCrossReference_4_0()); 
-            // InternalIotlang.g:4104:3: ( RULE_ID )
-            // InternalIotlang.g:4105:4: RULE_ID
+            // InternalIotlang.g:4324:3: ( RULE_ID )
+            // InternalIotlang.g:4325:4: RULE_ID
             {
              before(grammarAccess.getInstanceThingAccess().getTypeThingThingIDTerminalRuleCall_4_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12525,17 +13256,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceThing__AnnotationsAssignment_5"
-    // InternalIotlang.g:4116:1: rule__InstanceThing__AnnotationsAssignment_5 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4336:1: rule__InstanceThing__AnnotationsAssignment_5 : ( rulePlatformAnnotation ) ;
     public final void rule__InstanceThing__AnnotationsAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4120:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4121:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4340:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4341:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4121:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4122:3: rulePlatformAnnotation
+            // InternalIotlang.g:4341:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4342:3: rulePlatformAnnotation
             {
              before(grammarAccess.getInstanceThingAccess().getAnnotationsPlatformAnnotationParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -12566,17 +13297,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__NameAssignment_1"
-    // InternalIotlang.g:4131:1: rule__InstancePubSub__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4351:1: rule__InstancePubSub__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__InstancePubSub__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4135:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4136:2: ( RULE_ID )
+            // InternalIotlang.g:4355:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4356:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4136:2: ( RULE_ID )
-            // InternalIotlang.g:4137:3: RULE_ID
+            // InternalIotlang.g:4356:2: ( RULE_ID )
+            // InternalIotlang.g:4357:3: RULE_ID
             {
              before(grammarAccess.getInstancePubSubAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12603,17 +13334,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__NumberAssignment_2_1"
-    // InternalIotlang.g:4146:1: rule__InstancePubSub__NumberAssignment_2_1 : ( RULE_INT ) ;
+    // InternalIotlang.g:4366:1: rule__InstancePubSub__NumberAssignment_2_1 : ( RULE_INT ) ;
     public final void rule__InstancePubSub__NumberAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4150:1: ( ( RULE_INT ) )
-            // InternalIotlang.g:4151:2: ( RULE_INT )
+            // InternalIotlang.g:4370:1: ( ( RULE_INT ) )
+            // InternalIotlang.g:4371:2: ( RULE_INT )
             {
-            // InternalIotlang.g:4151:2: ( RULE_INT )
-            // InternalIotlang.g:4152:3: RULE_INT
+            // InternalIotlang.g:4371:2: ( RULE_INT )
+            // InternalIotlang.g:4372:3: RULE_INT
             {
              before(grammarAccess.getInstancePubSubAccess().getNumberINTTerminalRuleCall_2_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -12640,21 +13371,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__TypeChannelAssignment_4"
-    // InternalIotlang.g:4161:1: rule__InstancePubSub__TypeChannelAssignment_4 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4381:1: rule__InstancePubSub__TypeChannelAssignment_4 : ( ( RULE_ID ) ) ;
     public final void rule__InstancePubSub__TypeChannelAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4165:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4166:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4385:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4386:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4166:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4167:3: ( RULE_ID )
+            // InternalIotlang.g:4386:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4387:3: ( RULE_ID )
             {
              before(grammarAccess.getInstancePubSubAccess().getTypeChannelPubSubCrossReference_4_0()); 
-            // InternalIotlang.g:4168:3: ( RULE_ID )
-            // InternalIotlang.g:4169:4: RULE_ID
+            // InternalIotlang.g:4388:3: ( RULE_ID )
+            // InternalIotlang.g:4389:4: RULE_ID
             {
              before(grammarAccess.getInstancePubSubAccess().getTypeChannelPubSubIDTerminalRuleCall_4_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12685,21 +13416,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__OverProtocolAssignment_6"
-    // InternalIotlang.g:4180:1: rule__InstancePubSub__OverProtocolAssignment_6 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4400:1: rule__InstancePubSub__OverProtocolAssignment_6 : ( ( RULE_ID ) ) ;
     public final void rule__InstancePubSub__OverProtocolAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4184:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4185:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4404:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4405:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4185:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4186:3: ( RULE_ID )
+            // InternalIotlang.g:4405:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4406:3: ( RULE_ID )
             {
              before(grammarAccess.getInstancePubSubAccess().getOverProtocolProtocolCrossReference_6_0()); 
-            // InternalIotlang.g:4187:3: ( RULE_ID )
-            // InternalIotlang.g:4188:4: RULE_ID
+            // InternalIotlang.g:4407:3: ( RULE_ID )
+            // InternalIotlang.g:4408:4: RULE_ID
             {
              before(grammarAccess.getInstancePubSubAccess().getOverProtocolProtocolIDTerminalRuleCall_6_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12730,17 +13461,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePubSub__AnnotationsAssignment_7"
-    // InternalIotlang.g:4199:1: rule__InstancePubSub__AnnotationsAssignment_7 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4419:1: rule__InstancePubSub__AnnotationsAssignment_7 : ( rulePlatformAnnotation ) ;
     public final void rule__InstancePubSub__AnnotationsAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4203:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4204:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4423:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4424:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4204:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4205:3: rulePlatformAnnotation
+            // InternalIotlang.g:4424:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4425:3: rulePlatformAnnotation
             {
              before(grammarAccess.getInstancePubSubAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0()); 
             pushFollow(FOLLOW_2);
@@ -12771,17 +13502,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__NameAssignment_1"
-    // InternalIotlang.g:4214:1: rule__InstancePtP__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4434:1: rule__InstancePtP__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__InstancePtP__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4218:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4219:2: ( RULE_ID )
+            // InternalIotlang.g:4438:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4439:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4219:2: ( RULE_ID )
-            // InternalIotlang.g:4220:3: RULE_ID
+            // InternalIotlang.g:4439:2: ( RULE_ID )
+            // InternalIotlang.g:4440:3: RULE_ID
             {
              before(grammarAccess.getInstancePtPAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12808,17 +13539,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__NumberAssignment_2_1"
-    // InternalIotlang.g:4229:1: rule__InstancePtP__NumberAssignment_2_1 : ( RULE_INT ) ;
+    // InternalIotlang.g:4449:1: rule__InstancePtP__NumberAssignment_2_1 : ( RULE_INT ) ;
     public final void rule__InstancePtP__NumberAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4233:1: ( ( RULE_INT ) )
-            // InternalIotlang.g:4234:2: ( RULE_INT )
+            // InternalIotlang.g:4453:1: ( ( RULE_INT ) )
+            // InternalIotlang.g:4454:2: ( RULE_INT )
             {
-            // InternalIotlang.g:4234:2: ( RULE_INT )
-            // InternalIotlang.g:4235:3: RULE_INT
+            // InternalIotlang.g:4454:2: ( RULE_INT )
+            // InternalIotlang.g:4455:3: RULE_INT
             {
              before(grammarAccess.getInstancePtPAccess().getNumberINTTerminalRuleCall_2_1_0()); 
             match(input,RULE_INT,FOLLOW_2); 
@@ -12845,21 +13576,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__TypeChannelAssignment_4"
-    // InternalIotlang.g:4244:1: rule__InstancePtP__TypeChannelAssignment_4 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4464:1: rule__InstancePtP__TypeChannelAssignment_4 : ( ( RULE_ID ) ) ;
     public final void rule__InstancePtP__TypeChannelAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4248:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4249:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4468:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4469:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4249:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4250:3: ( RULE_ID )
+            // InternalIotlang.g:4469:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4470:3: ( RULE_ID )
             {
              before(grammarAccess.getInstancePtPAccess().getTypeChannelPointToPointCrossReference_4_0()); 
-            // InternalIotlang.g:4251:3: ( RULE_ID )
-            // InternalIotlang.g:4252:4: RULE_ID
+            // InternalIotlang.g:4471:3: ( RULE_ID )
+            // InternalIotlang.g:4472:4: RULE_ID
             {
              before(grammarAccess.getInstancePtPAccess().getTypeChannelPointToPointIDTerminalRuleCall_4_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12890,21 +13621,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__OverProtocolAssignment_6"
-    // InternalIotlang.g:4263:1: rule__InstancePtP__OverProtocolAssignment_6 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4483:1: rule__InstancePtP__OverProtocolAssignment_6 : ( ( RULE_ID ) ) ;
     public final void rule__InstancePtP__OverProtocolAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4267:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4268:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4487:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4488:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4268:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4269:3: ( RULE_ID )
+            // InternalIotlang.g:4488:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4489:3: ( RULE_ID )
             {
              before(grammarAccess.getInstancePtPAccess().getOverProtocolProtocolCrossReference_6_0()); 
-            // InternalIotlang.g:4270:3: ( RULE_ID )
-            // InternalIotlang.g:4271:4: RULE_ID
+            // InternalIotlang.g:4490:3: ( RULE_ID )
+            // InternalIotlang.g:4491:4: RULE_ID
             {
              before(grammarAccess.getInstancePtPAccess().getOverProtocolProtocolIDTerminalRuleCall_6_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -12935,17 +13666,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePtP__AnnotationsAssignment_7"
-    // InternalIotlang.g:4282:1: rule__InstancePtP__AnnotationsAssignment_7 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4502:1: rule__InstancePtP__AnnotationsAssignment_7 : ( rulePlatformAnnotation ) ;
     public final void rule__InstancePtP__AnnotationsAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4286:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4287:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4506:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4507:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4287:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4288:3: rulePlatformAnnotation
+            // InternalIotlang.g:4507:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4508:3: rulePlatformAnnotation
             {
              before(grammarAccess.getInstancePtPAccess().getAnnotationsPlatformAnnotationParserRuleCall_7_0()); 
             pushFollow(FOLLOW_2);
@@ -12976,17 +13707,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceChannel__InstancesPubSubAssignment_0"
-    // InternalIotlang.g:4297:1: rule__InstanceChannel__InstancesPubSubAssignment_0 : ( ruleInstancePubSub ) ;
+    // InternalIotlang.g:4517:1: rule__InstanceChannel__InstancesPubSubAssignment_0 : ( ruleInstancePubSub ) ;
     public final void rule__InstanceChannel__InstancesPubSubAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4301:1: ( ( ruleInstancePubSub ) )
-            // InternalIotlang.g:4302:2: ( ruleInstancePubSub )
+            // InternalIotlang.g:4521:1: ( ( ruleInstancePubSub ) )
+            // InternalIotlang.g:4522:2: ( ruleInstancePubSub )
             {
-            // InternalIotlang.g:4302:2: ( ruleInstancePubSub )
-            // InternalIotlang.g:4303:3: ruleInstancePubSub
+            // InternalIotlang.g:4522:2: ( ruleInstancePubSub )
+            // InternalIotlang.g:4523:3: ruleInstancePubSub
             {
              before(grammarAccess.getInstanceChannelAccess().getInstancesPubSubInstancePubSubParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -13017,17 +13748,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstanceChannel__InstancesPtpAssignment_1"
-    // InternalIotlang.g:4312:1: rule__InstanceChannel__InstancesPtpAssignment_1 : ( ruleInstancePtP ) ;
+    // InternalIotlang.g:4532:1: rule__InstanceChannel__InstancesPtpAssignment_1 : ( ruleInstancePtP ) ;
     public final void rule__InstanceChannel__InstancesPtpAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4316:1: ( ( ruleInstancePtP ) )
-            // InternalIotlang.g:4317:2: ( ruleInstancePtP )
+            // InternalIotlang.g:4536:1: ( ( ruleInstancePtP ) )
+            // InternalIotlang.g:4537:2: ( ruleInstancePtP )
             {
-            // InternalIotlang.g:4317:2: ( ruleInstancePtP )
-            // InternalIotlang.g:4318:3: ruleInstancePtP
+            // InternalIotlang.g:4537:2: ( ruleInstancePtP )
+            // InternalIotlang.g:4538:3: ruleInstancePtP
             {
              before(grammarAccess.getInstanceChannelAccess().getInstancesPtpInstancePtPParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -13058,17 +13789,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__NameAssignment_1"
-    // InternalIotlang.g:4327:1: rule__InstancePolicy__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4547:1: rule__InstancePolicy__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__InstancePolicy__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4331:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4332:2: ( RULE_ID )
+            // InternalIotlang.g:4551:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4552:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4332:2: ( RULE_ID )
-            // InternalIotlang.g:4333:3: RULE_ID
+            // InternalIotlang.g:4552:2: ( RULE_ID )
+            // InternalIotlang.g:4553:3: RULE_ID
             {
              before(grammarAccess.getInstancePolicyAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13095,21 +13826,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__TypePolicyAssignment_3"
-    // InternalIotlang.g:4342:1: rule__InstancePolicy__TypePolicyAssignment_3 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4562:1: rule__InstancePolicy__TypePolicyAssignment_3 : ( ( RULE_ID ) ) ;
     public final void rule__InstancePolicy__TypePolicyAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4346:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4347:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4566:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4567:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4347:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4348:3: ( RULE_ID )
+            // InternalIotlang.g:4567:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4568:3: ( RULE_ID )
             {
              before(grammarAccess.getInstancePolicyAccess().getTypePolicyPolicyCrossReference_3_0()); 
-            // InternalIotlang.g:4349:3: ( RULE_ID )
-            // InternalIotlang.g:4350:4: RULE_ID
+            // InternalIotlang.g:4569:3: ( RULE_ID )
+            // InternalIotlang.g:4570:4: RULE_ID
             {
              before(grammarAccess.getInstancePolicyAccess().getTypePolicyPolicyIDTerminalRuleCall_3_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13140,17 +13871,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__InstancePolicy__AnnotationsAssignment_4"
-    // InternalIotlang.g:4361:1: rule__InstancePolicy__AnnotationsAssignment_4 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4581:1: rule__InstancePolicy__AnnotationsAssignment_4 : ( rulePlatformAnnotation ) ;
     public final void rule__InstancePolicy__AnnotationsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4365:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4366:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4585:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4586:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4366:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4367:3: rulePlatformAnnotation
+            // InternalIotlang.g:4586:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4587:3: rulePlatformAnnotation
             {
              before(grammarAccess.getInstancePolicyAccess().getAnnotationsPlatformAnnotationParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -13181,17 +13912,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__NameAssignment_1"
-    // InternalIotlang.g:4376:1: rule__NetworkConfiguration__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4596:1: rule__NetworkConfiguration__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__NetworkConfiguration__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4380:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4381:2: ( RULE_ID )
+            // InternalIotlang.g:4600:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4601:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4381:2: ( RULE_ID )
-            // InternalIotlang.g:4382:3: RULE_ID
+            // InternalIotlang.g:4601:2: ( RULE_ID )
+            // InternalIotlang.g:4602:3: RULE_ID
             {
              before(grammarAccess.getNetworkConfigurationAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13218,17 +13949,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NetworkConfiguration__AnnotationsAssignment_2"
-    // InternalIotlang.g:4391:1: rule__NetworkConfiguration__AnnotationsAssignment_2 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4611:1: rule__NetworkConfiguration__AnnotationsAssignment_2 : ( rulePlatformAnnotation ) ;
     public final void rule__NetworkConfiguration__AnnotationsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4395:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4396:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4615:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4616:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4396:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4397:3: rulePlatformAnnotation
+            // InternalIotlang.g:4616:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4617:3: rulePlatformAnnotation
             {
              before(grammarAccess.getNetworkConfigurationAccess().getAnnotationsPlatformAnnotationParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -13258,26 +13989,67 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__NetworkConfiguration__AnnotationsAssignment_2"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__DomainAssignment_4_0"
-    // InternalIotlang.g:4406:1: rule__NetworkConfiguration__DomainAssignment_4_0 : ( ruleDomain ) ;
-    public final void rule__NetworkConfiguration__DomainAssignment_4_0() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__ConnectsAssignment_4_0"
+    // InternalIotlang.g:4626:1: rule__NetworkConfiguration__ConnectsAssignment_4_0 : ( ruleConnect ) ;
+    public final void rule__NetworkConfiguration__ConnectsAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4410:1: ( ( ruleDomain ) )
-            // InternalIotlang.g:4411:2: ( ruleDomain )
+            // InternalIotlang.g:4630:1: ( ( ruleConnect ) )
+            // InternalIotlang.g:4631:2: ( ruleConnect )
             {
-            // InternalIotlang.g:4411:2: ( ruleDomain )
-            // InternalIotlang.g:4412:3: ruleDomain
+            // InternalIotlang.g:4631:2: ( ruleConnect )
+            // InternalIotlang.g:4632:3: ruleConnect
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_0_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getConnectsConnectParserRuleCall_4_0_0()); 
+            pushFollow(FOLLOW_2);
+            ruleConnect();
+
+            state._fsp--;
+
+             after(grammarAccess.getNetworkConfigurationAccess().getConnectsConnectParserRuleCall_4_0_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__NetworkConfiguration__ConnectsAssignment_4_0"
+
+
+    // $ANTLR start "rule__NetworkConfiguration__DomainAssignment_4_1"
+    // InternalIotlang.g:4641:1: rule__NetworkConfiguration__DomainAssignment_4_1 : ( ruleDomain ) ;
+    public final void rule__NetworkConfiguration__DomainAssignment_4_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4645:1: ( ( ruleDomain ) )
+            // InternalIotlang.g:4646:2: ( ruleDomain )
+            {
+            // InternalIotlang.g:4646:2: ( ruleDomain )
+            // InternalIotlang.g:4647:3: ruleDomain
+            {
+             before(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
             ruleDomain();
 
             state._fsp--;
 
-             after(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_0_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getDomainDomainParserRuleCall_4_1_0()); 
 
             }
 
@@ -13296,29 +14068,29 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__DomainAssignment_4_0"
+    // $ANTLR end "rule__NetworkConfiguration__DomainAssignment_4_1"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__BindsAssignment_4_1"
-    // InternalIotlang.g:4421:1: rule__NetworkConfiguration__BindsAssignment_4_1 : ( ruleBind ) ;
-    public final void rule__NetworkConfiguration__BindsAssignment_4_1() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__BindsAssignment_4_2"
+    // InternalIotlang.g:4656:1: rule__NetworkConfiguration__BindsAssignment_4_2 : ( ruleBind ) ;
+    public final void rule__NetworkConfiguration__BindsAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4425:1: ( ( ruleBind ) )
-            // InternalIotlang.g:4426:2: ( ruleBind )
+            // InternalIotlang.g:4660:1: ( ( ruleBind ) )
+            // InternalIotlang.g:4661:2: ( ruleBind )
             {
-            // InternalIotlang.g:4426:2: ( ruleBind )
-            // InternalIotlang.g:4427:3: ruleBind
+            // InternalIotlang.g:4661:2: ( ruleBind )
+            // InternalIotlang.g:4662:3: ruleBind
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_1_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_2_0()); 
             pushFollow(FOLLOW_2);
             ruleBind();
 
             state._fsp--;
 
-             after(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_1_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getBindsBindParserRuleCall_4_2_0()); 
 
             }
 
@@ -13337,29 +14109,29 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__BindsAssignment_4_1"
+    // $ANTLR end "rule__NetworkConfiguration__BindsAssignment_4_2"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__ThingInstancesAssignment_4_2"
-    // InternalIotlang.g:4436:1: rule__NetworkConfiguration__ThingInstancesAssignment_4_2 : ( ruleInstanceThing ) ;
-    public final void rule__NetworkConfiguration__ThingInstancesAssignment_4_2() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__ThingInstancesAssignment_4_3"
+    // InternalIotlang.g:4671:1: rule__NetworkConfiguration__ThingInstancesAssignment_4_3 : ( ruleInstanceThing ) ;
+    public final void rule__NetworkConfiguration__ThingInstancesAssignment_4_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4440:1: ( ( ruleInstanceThing ) )
-            // InternalIotlang.g:4441:2: ( ruleInstanceThing )
+            // InternalIotlang.g:4675:1: ( ( ruleInstanceThing ) )
+            // InternalIotlang.g:4676:2: ( ruleInstanceThing )
             {
-            // InternalIotlang.g:4441:2: ( ruleInstanceThing )
-            // InternalIotlang.g:4442:3: ruleInstanceThing
+            // InternalIotlang.g:4676:2: ( ruleInstanceThing )
+            // InternalIotlang.g:4677:3: ruleInstanceThing
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_2_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_3_0()); 
             pushFollow(FOLLOW_2);
             ruleInstanceThing();
 
             state._fsp--;
 
-             after(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_2_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getThingInstancesInstanceThingParserRuleCall_4_3_0()); 
 
             }
 
@@ -13378,29 +14150,29 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__ThingInstancesAssignment_4_2"
+    // $ANTLR end "rule__NetworkConfiguration__ThingInstancesAssignment_4_3"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__ChannelInstancesAssignment_4_3"
-    // InternalIotlang.g:4451:1: rule__NetworkConfiguration__ChannelInstancesAssignment_4_3 : ( ruleInstanceChannel ) ;
-    public final void rule__NetworkConfiguration__ChannelInstancesAssignment_4_3() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__ChannelInstancesAssignment_4_4"
+    // InternalIotlang.g:4686:1: rule__NetworkConfiguration__ChannelInstancesAssignment_4_4 : ( ruleInstanceChannel ) ;
+    public final void rule__NetworkConfiguration__ChannelInstancesAssignment_4_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4455:1: ( ( ruleInstanceChannel ) )
-            // InternalIotlang.g:4456:2: ( ruleInstanceChannel )
+            // InternalIotlang.g:4690:1: ( ( ruleInstanceChannel ) )
+            // InternalIotlang.g:4691:2: ( ruleInstanceChannel )
             {
-            // InternalIotlang.g:4456:2: ( ruleInstanceChannel )
-            // InternalIotlang.g:4457:3: ruleInstanceChannel
+            // InternalIotlang.g:4691:2: ( ruleInstanceChannel )
+            // InternalIotlang.g:4692:3: ruleInstanceChannel
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_3_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_4_0()); 
             pushFollow(FOLLOW_2);
             ruleInstanceChannel();
 
             state._fsp--;
 
-             after(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_3_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getChannelInstancesInstanceChannelParserRuleCall_4_4_0()); 
 
             }
 
@@ -13419,33 +14191,33 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__ChannelInstancesAssignment_4_3"
+    // $ANTLR end "rule__NetworkConfiguration__ChannelInstancesAssignment_4_4"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__EnforcesAssignment_4_4_1"
-    // InternalIotlang.g:4466:1: rule__NetworkConfiguration__EnforcesAssignment_4_4_1 : ( ( RULE_ID ) ) ;
-    public final void rule__NetworkConfiguration__EnforcesAssignment_4_4_1() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__EnforcesAssignment_4_5_1"
+    // InternalIotlang.g:4701:1: rule__NetworkConfiguration__EnforcesAssignment_4_5_1 : ( ( RULE_ID ) ) ;
+    public final void rule__NetworkConfiguration__EnforcesAssignment_4_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4470:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4471:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4705:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4706:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4471:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4472:3: ( RULE_ID )
+            // InternalIotlang.g:4706:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4707:3: ( RULE_ID )
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_4_1_0()); 
-            // InternalIotlang.g:4473:3: ( RULE_ID )
-            // InternalIotlang.g:4474:4: RULE_ID
+             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_5_1_0()); 
+            // InternalIotlang.g:4708:3: ( RULE_ID )
+            // InternalIotlang.g:4709:4: RULE_ID
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyIDTerminalRuleCall_4_5_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyIDTerminalRuleCall_4_4_1_0_1()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyIDTerminalRuleCall_4_5_1_0_1()); 
 
             }
 
-             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_4_1_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getEnforcesInstancePolicyCrossReference_4_5_1_0()); 
 
             }
 
@@ -13464,29 +14236,29 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__EnforcesAssignment_4_4_1"
+    // $ANTLR end "rule__NetworkConfiguration__EnforcesAssignment_4_5_1"
 
 
-    // $ANTLR start "rule__NetworkConfiguration__InstancePoliciyAssignment_4_5"
-    // InternalIotlang.g:4485:1: rule__NetworkConfiguration__InstancePoliciyAssignment_4_5 : ( ruleInstancePolicy ) ;
-    public final void rule__NetworkConfiguration__InstancePoliciyAssignment_4_5() throws RecognitionException {
+    // $ANTLR start "rule__NetworkConfiguration__InstancePoliciyAssignment_4_6"
+    // InternalIotlang.g:4720:1: rule__NetworkConfiguration__InstancePoliciyAssignment_4_6 : ( ruleInstancePolicy ) ;
+    public final void rule__NetworkConfiguration__InstancePoliciyAssignment_4_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4489:1: ( ( ruleInstancePolicy ) )
-            // InternalIotlang.g:4490:2: ( ruleInstancePolicy )
+            // InternalIotlang.g:4724:1: ( ( ruleInstancePolicy ) )
+            // InternalIotlang.g:4725:2: ( ruleInstancePolicy )
             {
-            // InternalIotlang.g:4490:2: ( ruleInstancePolicy )
-            // InternalIotlang.g:4491:3: ruleInstancePolicy
+            // InternalIotlang.g:4725:2: ( ruleInstancePolicy )
+            // InternalIotlang.g:4726:3: ruleInstancePolicy
             {
-             before(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_5_0()); 
+             before(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_6_0()); 
             pushFollow(FOLLOW_2);
             ruleInstancePolicy();
 
             state._fsp--;
 
-             after(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_5_0()); 
+             after(grammarAccess.getNetworkConfigurationAccess().getInstancePoliciyInstancePolicyParserRuleCall_4_6_0()); 
 
             }
 
@@ -13505,21 +14277,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__NetworkConfiguration__InstancePoliciyAssignment_4_5"
+    // $ANTLR end "rule__NetworkConfiguration__InstancePoliciyAssignment_4_6"
 
 
     // $ANTLR start "rule__Bind__NameAssignment_1"
-    // InternalIotlang.g:4500:1: rule__Bind__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalIotlang.g:4735:1: rule__Bind__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Bind__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4504:1: ( ( RULE_ID ) )
-            // InternalIotlang.g:4505:2: ( RULE_ID )
+            // InternalIotlang.g:4739:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4740:2: ( RULE_ID )
             {
-            // InternalIotlang.g:4505:2: ( RULE_ID )
-            // InternalIotlang.g:4506:3: RULE_ID
+            // InternalIotlang.g:4740:2: ( RULE_ID )
+            // InternalIotlang.g:4741:3: RULE_ID
             {
              before(grammarAccess.getBindAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13546,21 +14318,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__ThingInstanceAssignment_2"
-    // InternalIotlang.g:4515:1: rule__Bind__ThingInstanceAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4750:1: rule__Bind__ThingInstanceAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__Bind__ThingInstanceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4519:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4520:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4754:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4755:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4520:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4521:3: ( RULE_ID )
+            // InternalIotlang.g:4755:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4756:3: ( RULE_ID )
             {
              before(grammarAccess.getBindAccess().getThingInstanceInstanceThingCrossReference_2_0()); 
-            // InternalIotlang.g:4522:3: ( RULE_ID )
-            // InternalIotlang.g:4523:4: RULE_ID
+            // InternalIotlang.g:4757:3: ( RULE_ID )
+            // InternalIotlang.g:4758:4: RULE_ID
             {
              before(grammarAccess.getBindAccess().getThingInstanceInstanceThingIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13591,21 +14363,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__DirectionAssignment_3"
-    // InternalIotlang.g:4534:1: rule__Bind__DirectionAssignment_3 : ( ( rule__Bind__DirectionAlternatives_3_0 ) ) ;
+    // InternalIotlang.g:4769:1: rule__Bind__DirectionAssignment_3 : ( ( rule__Bind__DirectionAlternatives_3_0 ) ) ;
     public final void rule__Bind__DirectionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4538:1: ( ( ( rule__Bind__DirectionAlternatives_3_0 ) ) )
-            // InternalIotlang.g:4539:2: ( ( rule__Bind__DirectionAlternatives_3_0 ) )
+            // InternalIotlang.g:4773:1: ( ( ( rule__Bind__DirectionAlternatives_3_0 ) ) )
+            // InternalIotlang.g:4774:2: ( ( rule__Bind__DirectionAlternatives_3_0 ) )
             {
-            // InternalIotlang.g:4539:2: ( ( rule__Bind__DirectionAlternatives_3_0 ) )
-            // InternalIotlang.g:4540:3: ( rule__Bind__DirectionAlternatives_3_0 )
+            // InternalIotlang.g:4774:2: ( ( rule__Bind__DirectionAlternatives_3_0 ) )
+            // InternalIotlang.g:4775:3: ( rule__Bind__DirectionAlternatives_3_0 )
             {
              before(grammarAccess.getBindAccess().getDirectionAlternatives_3_0()); 
-            // InternalIotlang.g:4541:3: ( rule__Bind__DirectionAlternatives_3_0 )
-            // InternalIotlang.g:4541:4: rule__Bind__DirectionAlternatives_3_0
+            // InternalIotlang.g:4776:3: ( rule__Bind__DirectionAlternatives_3_0 )
+            // InternalIotlang.g:4776:4: rule__Bind__DirectionAlternatives_3_0
             {
             pushFollow(FOLLOW_2);
             rule__Bind__DirectionAlternatives_3_0();
@@ -13638,21 +14410,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__PubSubInstanceAssignment_4"
-    // InternalIotlang.g:4549:1: rule__Bind__PubSubInstanceAssignment_4 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4784:1: rule__Bind__PubSubInstanceAssignment_4 : ( ( RULE_ID ) ) ;
     public final void rule__Bind__PubSubInstanceAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4553:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4554:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4788:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4789:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4554:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4555:3: ( RULE_ID )
+            // InternalIotlang.g:4789:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4790:3: ( RULE_ID )
             {
              before(grammarAccess.getBindAccess().getPubSubInstanceInstancePubSubCrossReference_4_0()); 
-            // InternalIotlang.g:4556:3: ( RULE_ID )
-            // InternalIotlang.g:4557:4: RULE_ID
+            // InternalIotlang.g:4791:3: ( RULE_ID )
+            // InternalIotlang.g:4792:4: RULE_ID
             {
              before(grammarAccess.getBindAccess().getPubSubInstanceInstancePubSubIDTerminalRuleCall_4_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13683,21 +14455,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__TopicsAssignment_6"
-    // InternalIotlang.g:4568:1: rule__Bind__TopicsAssignment_6 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4803:1: rule__Bind__TopicsAssignment_6 : ( ( RULE_ID ) ) ;
     public final void rule__Bind__TopicsAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4572:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4573:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4807:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4808:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4573:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4574:3: ( RULE_ID )
+            // InternalIotlang.g:4808:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4809:3: ( RULE_ID )
             {
              before(grammarAccess.getBindAccess().getTopicsTopicCrossReference_6_0()); 
-            // InternalIotlang.g:4575:3: ( RULE_ID )
-            // InternalIotlang.g:4576:4: RULE_ID
+            // InternalIotlang.g:4810:3: ( RULE_ID )
+            // InternalIotlang.g:4811:4: RULE_ID
             {
              before(grammarAccess.getBindAccess().getTopicsTopicIDTerminalRuleCall_6_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13728,21 +14500,21 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__TopicsAssignment_7_1"
-    // InternalIotlang.g:4587:1: rule__Bind__TopicsAssignment_7_1 : ( ( RULE_ID ) ) ;
+    // InternalIotlang.g:4822:1: rule__Bind__TopicsAssignment_7_1 : ( ( RULE_ID ) ) ;
     public final void rule__Bind__TopicsAssignment_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4591:1: ( ( ( RULE_ID ) ) )
-            // InternalIotlang.g:4592:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4826:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4827:2: ( ( RULE_ID ) )
             {
-            // InternalIotlang.g:4592:2: ( ( RULE_ID ) )
-            // InternalIotlang.g:4593:3: ( RULE_ID )
+            // InternalIotlang.g:4827:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4828:3: ( RULE_ID )
             {
              before(grammarAccess.getBindAccess().getTopicsTopicCrossReference_7_1_0()); 
-            // InternalIotlang.g:4594:3: ( RULE_ID )
-            // InternalIotlang.g:4595:4: RULE_ID
+            // InternalIotlang.g:4829:3: ( RULE_ID )
+            // InternalIotlang.g:4830:4: RULE_ID
             {
              before(grammarAccess.getBindAccess().getTopicsTopicIDTerminalRuleCall_7_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -13773,17 +14545,17 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Bind__AnnotationsAssignment_9"
-    // InternalIotlang.g:4606:1: rule__Bind__AnnotationsAssignment_9 : ( rulePlatformAnnotation ) ;
+    // InternalIotlang.g:4841:1: rule__Bind__AnnotationsAssignment_9 : ( rulePlatformAnnotation ) ;
     public final void rule__Bind__AnnotationsAssignment_9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalIotlang.g:4610:1: ( ( rulePlatformAnnotation ) )
-            // InternalIotlang.g:4611:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4845:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4846:2: ( rulePlatformAnnotation )
             {
-            // InternalIotlang.g:4611:2: ( rulePlatformAnnotation )
-            // InternalIotlang.g:4612:3: rulePlatformAnnotation
+            // InternalIotlang.g:4846:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4847:3: rulePlatformAnnotation
             {
              before(grammarAccess.getBindAccess().getAnnotationsPlatformAnnotationParserRuleCall_9_0()); 
             pushFollow(FOLLOW_2);
@@ -13811,6 +14583,221 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
         return ;
     }
     // $ANTLR end "rule__Bind__AnnotationsAssignment_9"
+
+
+    // $ANTLR start "rule__Connect__NameAssignment_1"
+    // InternalIotlang.g:4856:1: rule__Connect__NameAssignment_1 : ( RULE_ID ) ;
+    public final void rule__Connect__NameAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4860:1: ( ( RULE_ID ) )
+            // InternalIotlang.g:4861:2: ( RULE_ID )
+            {
+            // InternalIotlang.g:4861:2: ( RULE_ID )
+            // InternalIotlang.g:4862:3: RULE_ID
+            {
+             before(grammarAccess.getConnectAccess().getNameIDTerminalRuleCall_1_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getConnectAccess().getNameIDTerminalRuleCall_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__NameAssignment_1"
+
+
+    // $ANTLR start "rule__Connect__ThingInstanceAssignment_2"
+    // InternalIotlang.g:4871:1: rule__Connect__ThingInstanceAssignment_2 : ( ( RULE_ID ) ) ;
+    public final void rule__Connect__ThingInstanceAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4875:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4876:2: ( ( RULE_ID ) )
+            {
+            // InternalIotlang.g:4876:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4877:3: ( RULE_ID )
+            {
+             before(grammarAccess.getConnectAccess().getThingInstanceInstanceThingCrossReference_2_0()); 
+            // InternalIotlang.g:4878:3: ( RULE_ID )
+            // InternalIotlang.g:4879:4: RULE_ID
+            {
+             before(grammarAccess.getConnectAccess().getThingInstanceInstanceThingIDTerminalRuleCall_2_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getConnectAccess().getThingInstanceInstanceThingIDTerminalRuleCall_2_0_1()); 
+
+            }
+
+             after(grammarAccess.getConnectAccess().getThingInstanceInstanceThingCrossReference_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__ThingInstanceAssignment_2"
+
+
+    // $ANTLR start "rule__Connect__DirectionAssignment_3"
+    // InternalIotlang.g:4890:1: rule__Connect__DirectionAssignment_3 : ( ( rule__Connect__DirectionAlternatives_3_0 ) ) ;
+    public final void rule__Connect__DirectionAssignment_3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4894:1: ( ( ( rule__Connect__DirectionAlternatives_3_0 ) ) )
+            // InternalIotlang.g:4895:2: ( ( rule__Connect__DirectionAlternatives_3_0 ) )
+            {
+            // InternalIotlang.g:4895:2: ( ( rule__Connect__DirectionAlternatives_3_0 ) )
+            // InternalIotlang.g:4896:3: ( rule__Connect__DirectionAlternatives_3_0 )
+            {
+             before(grammarAccess.getConnectAccess().getDirectionAlternatives_3_0()); 
+            // InternalIotlang.g:4897:3: ( rule__Connect__DirectionAlternatives_3_0 )
+            // InternalIotlang.g:4897:4: rule__Connect__DirectionAlternatives_3_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__Connect__DirectionAlternatives_3_0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getConnectAccess().getDirectionAlternatives_3_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__DirectionAssignment_3"
+
+
+    // $ANTLR start "rule__Connect__PtpInstanceAssignment_4"
+    // InternalIotlang.g:4905:1: rule__Connect__PtpInstanceAssignment_4 : ( ( RULE_ID ) ) ;
+    public final void rule__Connect__PtpInstanceAssignment_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4909:1: ( ( ( RULE_ID ) ) )
+            // InternalIotlang.g:4910:2: ( ( RULE_ID ) )
+            {
+            // InternalIotlang.g:4910:2: ( ( RULE_ID ) )
+            // InternalIotlang.g:4911:3: ( RULE_ID )
+            {
+             before(grammarAccess.getConnectAccess().getPtpInstanceInstancePtPCrossReference_4_0()); 
+            // InternalIotlang.g:4912:3: ( RULE_ID )
+            // InternalIotlang.g:4913:4: RULE_ID
+            {
+             before(grammarAccess.getConnectAccess().getPtpInstanceInstancePtPIDTerminalRuleCall_4_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getConnectAccess().getPtpInstanceInstancePtPIDTerminalRuleCall_4_0_1()); 
+
+            }
+
+             after(grammarAccess.getConnectAccess().getPtpInstanceInstancePtPCrossReference_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__PtpInstanceAssignment_4"
+
+
+    // $ANTLR start "rule__Connect__AnnotationsAssignment_5"
+    // InternalIotlang.g:4924:1: rule__Connect__AnnotationsAssignment_5 : ( rulePlatformAnnotation ) ;
+    public final void rule__Connect__AnnotationsAssignment_5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalIotlang.g:4928:1: ( ( rulePlatformAnnotation ) )
+            // InternalIotlang.g:4929:2: ( rulePlatformAnnotation )
+            {
+            // InternalIotlang.g:4929:2: ( rulePlatformAnnotation )
+            // InternalIotlang.g:4930:3: rulePlatformAnnotation
+            {
+             before(grammarAccess.getConnectAccess().getAnnotationsPlatformAnnotationParserRuleCall_5_0()); 
+            pushFollow(FOLLOW_2);
+            rulePlatformAnnotation();
+
+            state._fsp--;
+
+             after(grammarAccess.getConnectAccess().getAnnotationsPlatformAnnotationParserRuleCall_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Connect__AnnotationsAssignment_5"
 
     // Delegated rules
 
@@ -13845,8 +14832,8 @@ public class InternalIotlangParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000000080L});
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x00006D3000400000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x00006D3000000002L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x00016D3000400000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x00016D3000000002L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x00000000000E0000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000800000400000L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000800000000002L});
