@@ -16,12 +16,12 @@ import lang.iotlang.Channel;
 import lang.iotlang.Datatype;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.Topic;
-import lang.iotlang.impl.PointToPointImpl;
+import lang.iotlang.impl.ReqRepImpl;
 import lang.iotlang.impl.PubSubImpl;
 import lang.iotlang.NetworkConfiguration;
-import lang.iotlang.PointToPoint;
+import lang.iotlang.ReqRep;
 import lang.iotlang.InstancePolicy;
-import lang.iotlang.InstancePtP;
+import lang.iotlang.InstanceReqRep;
 import lang.iotlang.InstancePubSub;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
@@ -118,11 +118,11 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<PointToPoint> allPTP(IoTLangModel model) {
-		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
+	public static ArrayList<ReqRep> allPTP(IoTLangModel model) {
+		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
 		for (Channel m : allChannels(model)) {
-			for (PointToPoint t : m.getPointToPoint()) {
-					result.add((PointToPoint)t);
+			for (ReqRep t : m.getReqRep()) {
+					result.add((ReqRep)t);
 			}
 		}
 		return result;
@@ -209,11 +209,11 @@ public class Helpers {
 		}
 		return result;
 	}
-	public static ArrayList<InstancePtP> allPtpinstances(IoTLangModel model) {
-		ArrayList<InstancePtP> result = new ArrayList<InstancePtP>();
+	public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
+		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
 		for (InstanceChannel m : allChannelinstances(model)) {
-			for (InstancePtP t : m.getInstancesPtp()) {
-					result.add((InstancePtP)t);
+			for (InstanceReqRep t : m.getInstancesReqRep()) {
+					result.add((InstanceReqRep)t);
 			}
 		}
 		return result;

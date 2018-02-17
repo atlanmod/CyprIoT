@@ -26,7 +26,7 @@ Thing: // example gateway, arduino, android
 	'}';
 
 Channel: // mqtt, kafka, real simple bus,
-	(pubSub+= PubSub| pointToPoint +=PointToPoint)
+	(pubSub+= PubSub| reqRep +=ReqRep)
 ;
 PubSub:
 	'channel:pubsub' name=ID '{'
@@ -34,8 +34,8 @@ PubSub:
 		'}'
 ;
 
-PointToPoint:
-	'channel:ptp' name=ID '{'
+ReqRep:
+	'channel:reqrep' name=ID '{'
 		
 		'}'
 ;
@@ -82,11 +82,11 @@ InstanceThing:
 InstancePubSub:
 	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
-InstancePtP:
-	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'target' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+InstanceReqRep:
+	'instanceReqRep' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
 InstanceChannel:
-	(instancesPubSub+=InstancePubSub | instancesPtp+=InstancePtP	)
+	(instancesPubSub+=InstancePubSub | instancesReqRep+=InstanceReqRep	)
 ;
 InstancePolicy:
 	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;
@@ -100,5 +100,5 @@ Bind:
 	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=PlatformAnnotation )*;
 
 Connect:
-	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') ptpInstance=[InstancePtP] ( annotations+=PlatformAnnotation )*;
+	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=PlatformAnnotation )*;
 	

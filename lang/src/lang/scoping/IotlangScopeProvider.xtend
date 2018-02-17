@@ -50,13 +50,13 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allPusSub(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.instancePubSub_OverProtocol) {
 			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.instancePtP_TypeChannel) {
+		}else if (reference == iotlangInstance.instanceReqRep_TypeChannel) {
 			return Scopes.scopeFor( Helpers.allPTP(Helpers.findContainingModel(context)));
-		}else if (reference == iotlangInstance.instancePtP_OverProtocol) {
+		}else if (reference == iotlangInstance.instanceReqRep_OverProtocol) {
 			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.connect_ThingInstance) {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
-		}else if (reference == iotlangInstance.connect_PtpInstance) {
+		}else if (reference == iotlangInstance.connect_ReqRepInstance) {
 			return Scopes.scopeFor( Helpers.allPtpinstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_Ports) {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
