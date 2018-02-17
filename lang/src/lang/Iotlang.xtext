@@ -75,15 +75,15 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'platform' platform=STRING_LIT ( annotations+=PlatformAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'target' platform=('cposix' |'nesc'|'java'|'python'|'javascript') ( annotations+=PlatformAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
 InstancePubSub:
-	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'platform' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+	'instancePubSub' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
 InstancePtP:
-	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'platform' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
+	'instancePTP' name=ID (( '[' number+=INT ']')*)? ':' (typeChannel=[PointToPoint]) 'target' platform=STRING_LIT 'over' overProtocol=[Protocol]( annotations+=PlatformAnnotation )*
 ;
 InstanceChannel:
 	(instancesPubSub+=InstancePubSub | instancesPtp+=InstancePtP	)
