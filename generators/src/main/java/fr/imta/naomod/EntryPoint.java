@@ -25,6 +25,7 @@ import lang.iotlang.Topic;
 
 public class EntryPoint {
 	public static void main(String[] args){
+		final String param = "sql";
 		//
 		KeyPairGenerator keyGen;
 		try {
@@ -138,7 +139,7 @@ public class EntryPoint {
             checkEMFErrorsAndWarnings(r, Logger.SYSTEM);
         }
         
-        IoTLangModel m = (IoTLangModel) model.getContents().get(0);
+        IoTLangModel iotModel = (IoTLangModel) model.getContents().get(0);
         
         File outputFile = null;
         outputFile = new File("main.ino");
@@ -146,44 +147,19 @@ public class EntryPoint {
                 
 		try {
 			buffer = new BufferedWriter(new FileWriter(outputFile));
-			for (InstanceThing instanceThing : m.getConfigs().get(0).getThingInstances()) {
-				buffer.write("InstanceThing : "+sign(m.getConfigs().get(0), instanceThing)+"\n");
+			for (InstanceThing instanceThing : iotModel.getConfigs().get(0).getThingInstances()) {
+				buffer.write("InstanceThing : "+sign(iotModel.getConfigs().get(0), instanceThing)+"\n");
 			}
-			for (Bind instanceThing : m.getConfigs().get(0).getBinds()) {
-				buffer.write("Bind : "+m.getConfigs().get(0).getBinds().size()+"\n");
+			for (Bind instanceThing : iotModel.getConfigs().get(0).getBinds()) {
+				buffer.write("Bind : "+iotModel.getConfigs().get(0).getBinds().size()+"\n");
 			}
-			buffer.write("Domain : "+m.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
-			for (Rule rule : m.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
+			buffer.write("Domain : "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
+			for (Rule rule : iotModel.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
 				if(rule.getObject()!=null) {
 					String objectName = rule.getObject().getPorts().get(0).getName();
 					buffer.write("Rules : "+objectName+"\n");
 				}
 			}
-			
-			File sqlFile = null;
-			sqlFile = new File("acl.sql");
-			BufferedWriter bufferSql =null;
-			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
-			StringBuffer rulesSql = new StringBuffer();
-			for (Bind bind : m.getConfigs().get(0).getBinds()) {
-				String signature = sign(m.getConfigs().get(0),bind.getThingInstance());
-				for (Topic topic : bind.getTopics()) {
-					String topicName = topic.getName();
-					int accessRight = accessConverter(bind.getDirection());
-					rulesSql.append(
-							"INSERT INTO acls (username,topic,rw)\n" + 
-							"SELECT * FROM (SELECT "+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
-							"WHERE NOT EXISTS (\n" + 
-							"    SELECT username FROM acls WHERE username = "+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
-							") LIMIT 1;\n \n");
-				}
-				
-			}
-			bufferSql.write("CREATE TABLE  IF NOT EXISTS acls ( id INTEGER AUTO_INCREMENT, username VARCHAR(25) "
-					+ "NOT NULL, topic VARCHAR(256) NOT NULL, rw INTEGER(1) "
-					+ "NOT NULL DEFAULT 1, PRIMARY KEY (id) );\n \n" + 
-					rulesSql);
-			bufferSql.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,7 +175,7 @@ public class EntryPoint {
 	       }
 	     }
         
-        
+		generateSQLRules(iotModel);
         
         
 		System.out.println("It works ! "+input.getAbsolutePath());
@@ -270,5 +246,46 @@ public class EntryPoint {
 		default:
 			return 0;
 		}
+	}
+	public static void generateSQLRules(IoTLangModel iotModel) {
+		File sqlFile = null;
+		sqlFile = new File("acl.sql");
+		BufferedWriter bufferSql =null;
+		try {
+			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
+			StringBuffer rulesSql = new StringBuffer();
+			for (Bind bind : iotModel.getConfigs().get(0).getBinds()) {
+				String signature = sign(iotModel.getConfigs().get(0),bind.getThingInstance());
+				for (Topic topic : bind.getTopics()) {
+					String topicName = topic.getName();
+					int accessRight = accessConverter(bind.getDirection());
+					rulesSql.append(
+							"INSERT INTO acls (username,topic,rw)\n" + 
+							"SELECT * FROM (SELECT "+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
+							"WHERE NOT EXISTS (\n" + 
+							"    SELECT username FROM acls WHERE username = "+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
+							") LIMIT 1;\n \n");
+				}
+				
+			}
+			bufferSql.write("CREATE TABLE  IF NOT EXISTS acls ( id INTEGER AUTO_INCREMENT, username VARCHAR(25) "
+					+ "NOT NULL, topic VARCHAR(256) NOT NULL, rw INTEGER(1) "
+					+ "NOT NULL DEFAULT 1, PRIMARY KEY (id) );\n \n" + 
+					rulesSql);
+			bufferSql.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	          if ( bufferSql != null ) {
+	            try {
+	            	bufferSql.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	       }
+	     }
+		
 	}
 }
