@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -14,8 +16,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.IotlangStandaloneSetup;
+import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
+import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.Rule;
+import lang.iotlang.Topic;
 
 public class EntryPoint {
 	public static void main(String[] args){
@@ -41,43 +47,68 @@ public class EntryPoint {
 		try {
 		output = new BufferedWriter(new FileWriter(input));
 			output.write("thing Temperature {\n" + 
-					"	// Arduino qui récupère la temparature puis l'envoie via Zigbee\n" + 
+					"	// Arduino that senses the temperature\n" + 
+					"	port ok\n" + 
 					"}\n" + 
+					"//thing fragment msgAndPorts{\n" + 
+					"//	message sensorData (value : Int16);\n" + 
+					"//	required port AnalogInput \n" + 
+					"//    {	\n" + 
+					"//		sends sensorData\n" + 
+					"//		receives sensorData\n" + 
+					"//	}\n" + 
+					"//}\n" + 
 					"\n" + 
 					"thing AirConditionner {\n" + 
-					"	// Arduino qui fait fonctionner un climatiseur\n" + 
+					"	// Android that handles the air conditionner\n" + 
+					"	port ok\n" + 
 					"}\n" + 
 					"\n" + 
-					"bus ZigbeeBus {\n" + 
-					"	// Envoie de message de l'arduino\n" + 
-					"	channel defaultChannel\n" + 
+					"thing AndroidUser {\n" + 
+					"	// Simple android application that give the user the possibility to select the temperature\n" + 
+					"	port ok\n" + 
+					"}\n" + 
+					"datatype int <8>;\n" + 
+					"message temperatureMessage(int)\n" + 
+					"protocol mqtt\n" + 
+					"\n" + 
+					"channel:pubsub MqttBus {\n" + 
+					"	topic room1 (temperatureMessage)\n" +
+					"	topic room2 (temperatureMessage)\n" +
 					"}\n" + 
 					"\n" + 
-					"bus MqttBus {\n" + 
-					"	// Envoie de message de la gateway au cloud\n" + 
-					"	channel  room1 = \"myRoom\"\n" + 
+					"channel:reqrep ptp {\n" + 
+					"	\n" + 
 					"}\n" + 
-					"\n" + 
-					"bus BluetoothBus {\n" + 
-					"	// Envoie de message de la gateway au cloud\n" + 
-					"	channel  room1 = \"myRoom\"\n" + 
-					"}\n" + 
-					"\n" + 
 					"policy roomPolicy {\n" + 
-					"	rule Temperature allow action:receive?AirConditionner\n" + 
-					"	rule AirConditionner allow action:receive?Temperature\n" + 
+					"	rule Temperature allow:receive message:temperatureMessage\n" + 
+					"	rule AirConditionner allow:receive Temperature.ok\n" + 
+					"	rule Temperature deny:send AirConditionner.ok\n" + 
 					"}\n" + 
+					"\n" + 
+					"//configuration AndroidConf {\n" + 
+					"//	instance myAndroid:AndroidUser\n" + 
+					"//}\n" + 
+					"//configuration AirConditionnerConf {\n" + 
+					"//	instance myAirConditionner:AirConditionner\n" + 
+					"//	\n" + 
+					"//}\n" + 
+					"//configuration TemperatureConf {\n" + 
+					"//	instance mytemperature:Temperature\n" + 
+					"//}\n" + 
 					"\n" + 
 					"networkConfiguration wsnConfiguration {\n" + 
 					"	domain \"fr.imt.dapi.roomA246\" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change\n" + 
 					"	instancePolicy mypolicy:roomPolicy\n" + 
-					"	enforce mypolicy	 // Will check if the configuration respect the policy, if there is any \n" + 
-					"						//conflict with the configuration the policy will override it\n" + 
-					"	instanceThing instanceTemp[10]:Temperature //@platform \"*:*\"\n" + 
-					"	instanceBus mqtt:MqttBus //@platform \"*:*\"\n" + 
-					"	instanceBus mqttBus:MqttBus //@platform \"*:*\"\n" + 
-					"	bind instanceTemp => mqtt{room1}\n" + 
-					"}");
+					"	enforce mypolicy\n" + 
+					"	instanceThing instanceTemp[10]:Temperature target nesc\n" + 
+					"	instanceThing instanceTemp2[10]:Temperature target cposix\n" + 
+					"	instancePubSub mqtt:MqttBus target \"mosquitto\" over mqtt \n" + 
+					"	instanceReqRep ptp:ptp target \"mosquitto\" over mqtt\n" + 
+					"	bind instanceTemp => mqtt{room1,room2}\n" + 
+					"	connect instanceTemp => ptp\n" + 
+					"}\n" + 
+					"");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,36 +145,45 @@ public class EntryPoint {
 		BufferedWriter buffer=null;
                 
 		try {
-		buffer = new BufferedWriter(new FileWriter(outputFile));
-		buffer.write("#include <dht.h>\n" + 
-				"\n" + 
-				"dht DHT;\n" + 
-				"\n" + 
-				"#define DHT11_PIN 8\n" + 
-				"#include <SoftwareSerial.h>\n" + 
-				"\n" + 
-				"SoftwareSerial mySerial(10, 11); // RX, TX\n" + 
-				"\n" + 
-				"void setup(){\n" + 
-				"  mySerial.begin(9600);\n" + 
-				"}\n" + 
-				"\n" + 
-				"void loop()\n" + 
-				"{\n" + 
-				"  int chk = DHT.read11(DHT11_PIN);\n" + 
-				"\n" + 
-				"  mySerial.println(DHT.temperature);\n" + 
-				"  mySerial.println(DHT.humidity);\n" + 
-				"  \n" + 
-				"  delay(1000);\n" + 
-				"}\n" + 
-				"");
-		 buffer.write("Config : "+m.getConfigs().get(0).getName()+"\n");
-		
-		for (InstanceThing config : m.getConfigs().get(0).getInstances()) {
-			buffer.write("Instance : "+config.getName()+"\n");
-		}
-		
+			buffer = new BufferedWriter(new FileWriter(outputFile));
+			for (InstanceThing instanceThing : m.getConfigs().get(0).getThingInstances()) {
+				buffer.write("InstanceThing : "+sign(m.getConfigs().get(0), instanceThing)+"\n");
+			}
+			for (Bind instanceThing : m.getConfigs().get(0).getBinds()) {
+				buffer.write("Bind : "+m.getConfigs().get(0).getBinds().size()+"\n");
+			}
+			buffer.write("Domain : "+m.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
+			for (Rule rule : m.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
+				if(rule.getObject()!=null) {
+					String objectName = rule.getObject().getPorts().get(0).getName();
+					buffer.write("Rules : "+objectName+"\n");
+				}
+			}
+			
+			File sqlFile = null;
+			sqlFile = new File("acl.sql");
+			BufferedWriter bufferSql =null;
+			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
+			StringBuffer rulesSql = new StringBuffer();
+			for (Bind bind : m.getConfigs().get(0).getBinds()) {
+				String signature = sign(m.getConfigs().get(0),bind.getThingInstance());
+				for (Topic topic : bind.getTopics()) {
+					String topicName = topic.getName();
+					int accessRight = accessConverter(bind.getDirection());
+					rulesSql.append(
+							"INSERT INTO acls (username,topic,rw)\n" + 
+							"SELECT * FROM (SELECT "+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
+							"WHERE NOT EXISTS (\n" + 
+							"    SELECT username FROM acls WHERE username = "+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
+							") LIMIT 1;\n \n");
+				}
+				
+			}
+			bufferSql.write("CREATE TABLE  IF NOT EXISTS acls ( id INTEGER AUTO_INCREMENT, username VARCHAR(25) "
+					+ "NOT NULL, topic VARCHAR(256) NOT NULL, rw INTEGER(1) "
+					+ "NOT NULL DEFAULT 1, PRIMARY KEY (id) );\n \n" + 
+					rulesSql);
+			bufferSql.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,6 +191,7 @@ public class EntryPoint {
 	          if ( buffer != null ) {
 	            try {
 	            	buffer.close();
+	            	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -195,4 +236,39 @@ public class EntryPoint {
         }
         return isOK;
     }
+	
+	public static String sha256(String base) {
+	    try{
+	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+	        StringBuffer hexString = new StringBuffer();
+
+	        for (int i = 0; i < hash.length; i++) {
+	            String hex = Integer.toHexString(0xff & hash[i]);
+	            if(hex.length() == 1) hexString.append('0');
+	            hexString.append(hex);
+	        }
+
+	        return hexString.toString();
+	    } catch(Exception ex){
+	       throw new RuntimeException(ex);
+	    }
+	}
+	
+	public static String sign(NetworkConfiguration config, InstanceThing thing) {
+		String  signature = sha256(config.getDomain().get(0).getName()+thing.getName().toString());
+		return String.valueOf((signature.hashCode() & 0xfffffff));
+	}
+	protected static int accessConverter(String direction) {
+		switch(direction) {
+		case "=>":
+			return 2;
+		case "<=>":
+			return 2;
+		case "<=":
+			return 1;
+		default:
+			return 0;
+		}
+	}
 }
