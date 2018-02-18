@@ -27,6 +27,8 @@ protocol mqtt
 channel:pubsub MqttBus {
 	topic room1 (temperatureMessage)
 	topic room2 (temperatureMessage)
+	topic room3 (temperatureMessage)
+	topic room4 (temperatureMessage)
 }
 
 channel:reqrep ptp {
@@ -38,17 +40,6 @@ policy roomPolicy {
 	rule Temperature deny:send AirConditionner.ok
 }
 
-//configuration AndroidConf {
-//	instance myAndroid:AndroidUser
-//}
-//configuration AirConditionnerConf {
-//	instance myAirConditionner:AirConditionner
-//	
-//}
-//configuration TemperatureConf {
-//	instance mytemperature:Temperature
-//}
-
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
 	instancePolicy mypolicy:roomPolicy
@@ -58,5 +49,6 @@ networkConfiguration wsnConfiguration {
 	instancePubSub mqtt:MqttBus target "mosquitto" over mqtt 
 	instanceReqRep ptp:ptp target "mosquitto" over mqtt
 	bind instanceTemp => mqtt{room1,room2}
+	bind instanceTemp2 <=> mqtt{room2,room3,room4}
 	connect instanceTemp => ptp
 }

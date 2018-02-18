@@ -25,7 +25,7 @@ import lang.iotlang.Topic;
 
 public class EntryPoint {
 	public static void main(String[] args){
-		final String param = "sql";
+		final String param = "txt";
 		//
 		KeyPairGenerator keyGen;
 		try {
@@ -44,85 +44,7 @@ public class EntryPoint {
 		
 		File input = null;
 		input = new File("testing.iotlang");
-		BufferedWriter output=null;
-		try {
-		output = new BufferedWriter(new FileWriter(input));
-			output.write("thing Temperature {\n" + 
-					"	// Arduino that senses the temperature\n" + 
-					"	port ok\n" + 
-					"}\n" + 
-					"//thing fragment msgAndPorts{\n" + 
-					"//	message sensorData (value : Int16);\n" + 
-					"//	required port AnalogInput \n" + 
-					"//    {	\n" + 
-					"//		sends sensorData\n" + 
-					"//		receives sensorData\n" + 
-					"//	}\n" + 
-					"//}\n" + 
-					"\n" + 
-					"thing AirConditionner {\n" + 
-					"	// Android that handles the air conditionner\n" + 
-					"	port ok\n" + 
-					"}\n" + 
-					"\n" + 
-					"thing AndroidUser {\n" + 
-					"	// Simple android application that give the user the possibility to select the temperature\n" + 
-					"	port ok\n" + 
-					"}\n" + 
-					"datatype int <8>;\n" + 
-					"message temperatureMessage(int)\n" + 
-					"protocol mqtt\n" + 
-					"\n" + 
-					"channel:pubsub MqttBus {\n" + 
-					"	topic room1 (temperatureMessage)\n" +
-					"	topic room2 (temperatureMessage)\n" +
-					"}\n" + 
-					"\n" + 
-					"channel:reqrep ptp {\n" + 
-					"	\n" + 
-					"}\n" + 
-					"policy roomPolicy {\n" + 
-					"	rule Temperature allow:receive message:temperatureMessage\n" + 
-					"	rule AirConditionner allow:receive Temperature.ok\n" + 
-					"	rule Temperature deny:send AirConditionner.ok\n" + 
-					"}\n" + 
-					"\n" + 
-					"//configuration AndroidConf {\n" + 
-					"//	instance myAndroid:AndroidUser\n" + 
-					"//}\n" + 
-					"//configuration AirConditionnerConf {\n" + 
-					"//	instance myAirConditionner:AirConditionner\n" + 
-					"//	\n" + 
-					"//}\n" + 
-					"//configuration TemperatureConf {\n" + 
-					"//	instance mytemperature:Temperature\n" + 
-					"//}\n" + 
-					"\n" + 
-					"networkConfiguration wsnConfiguration {\n" + 
-					"	domain \"fr.imt.dapi.roomA246\" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change\n" + 
-					"	instancePolicy mypolicy:roomPolicy\n" + 
-					"	enforce mypolicy\n" + 
-					"	instanceThing instanceTemp[10]:Temperature target nesc\n" + 
-					"	instanceThing instanceTemp2[10]:Temperature target cposix\n" + 
-					"	instancePubSub mqtt:MqttBus target \"mosquitto\" over mqtt \n" + 
-					"	instanceReqRep ptp:ptp target \"mosquitto\" over mqtt\n" + 
-					"	bind instanceTemp => mqtt{room1,room2}\n" + 
-					"	connect instanceTemp => ptp\n" + 
-					"}\n" + 
-					"");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-	          if ( output != null ) {
-	            try {
-					output.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	       }
-	     }
+		
 		registerFactory();
 		ResourceSet rs = new ResourceSetImpl();
         URI xmiuri = URI.createFileURI(input.getAbsolutePath());
@@ -174,8 +96,8 @@ public class EntryPoint {
 				}
 	       }
 	     }
-        
-		generateSQLRules(iotModel);
+        generateSQLRules(iotModel);
+		generateTextRules(iotModel);
         
         
 		System.out.println("It works ! "+input.getAbsolutePath());
@@ -247,6 +169,54 @@ public class EntryPoint {
 			return 0;
 		}
 	}
+	protected static String accessConverterTxt(String direction) {
+		switch(direction) {
+		case "=>":
+			return "readwrite";
+		case "<=>":
+			return "readwrite";
+		case "<=":
+			return "read";
+		default:
+			return "";
+		}
+	}
+	public static void generateTextRules(IoTLangModel iotModel) {
+		File sqlFile = null;
+		sqlFile = new File("acl.txt");
+		BufferedWriter bufferSql =null;
+		try {
+			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
+			StringBuffer rulesSql = new StringBuffer();
+			for (Bind bind : iotModel.getConfigs().get(0).getBinds()) {
+				String signature = sign(iotModel.getConfigs().get(0),bind.getThingInstance());
+				for (Topic topic : bind.getTopics()) {
+					String topicName = topic.getName();
+					String accessRight = accessConverterTxt(bind.getDirection());
+					rulesSql.append(
+							"user "+signature+"\n" + 
+							"topic "+accessRight+" "+topicName+"\n \n");
+				}
+				
+			}
+			bufferSql.write(""+rulesSql);
+			bufferSql.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	          if ( bufferSql != null ) {
+	            try {
+	            	bufferSql.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	       }
+	     }
+		
+	}
+	
 	public static void generateSQLRules(IoTLangModel iotModel) {
 		File sqlFile = null;
 		sqlFile = new File("acl.sql");

@@ -12,3 +12,21 @@ WHERE NOT EXISTS (
     SELECT username FROM acls WHERE username = 242210936 AND topic='room2' AND rw=2
 ) LIMIT 1;
  
+INSERT INTO acls (username,topic,rw)
+SELECT * FROM (SELECT 115763497, 'room2', 2) AS tmp
+WHERE NOT EXISTS (
+    SELECT username FROM acls WHERE username = 115763497 AND topic='room2' AND rw=2
+) LIMIT 1;
+ 
+INSERT INTO acls (username,topic,rw)
+SELECT * FROM (SELECT 115763497, 'room3', 2) AS tmp
+WHERE NOT EXISTS (
+    SELECT username FROM acls WHERE username = 115763497 AND topic='room3' AND rw=2
+) LIMIT 1;
+ 
+INSERT INTO acls (username,topic,rw)
+SELECT * FROM (SELECT 115763497, 'room4', 2) AS tmp
+WHERE NOT EXISTS (
+    SELECT username FROM acls WHERE username = 115763497 AND topic='room4' AND rw=2
+) LIMIT 1;
+ 
