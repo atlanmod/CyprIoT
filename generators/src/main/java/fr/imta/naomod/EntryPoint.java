@@ -1,14 +1,19 @@
 package fr.imta.naomod;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.KeyPairGenerator;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
+import java.util.Scanner;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -17,31 +22,19 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.IotlangStandaloneSetup;
 import lang.iotlang.Bind;
+import lang.iotlang.InstanceChannel;
+import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.PubSub;
 import lang.iotlang.Rule;
 import lang.iotlang.Topic;
 
 public class EntryPoint {
 	public static void main(String[] args){
 		final String param = "txt";
-		//
-		KeyPairGenerator keyGen;
-		try {
-			keyGen = KeyPairGenerator.getInstance("RSA");
-	        keyGen.initialize(512);
-	        byte[] publicKey = keyGen.genKeyPair().getPublic().getEncoded();
-	        StringBuffer retString = new StringBuffer();
-	        for (int i = 0; i < publicKey.length; ++i) {
-	            retString.append(Integer.toHexString(0x0100 + (publicKey[i] & 0x00FF)).substring(1));
-	        }
-	        System.out.println(retString);
-		} catch (NoSuchAlgorithmException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+	
 		File input = null;
 		input = new File("testing.iotlang");
 		
@@ -98,10 +91,32 @@ public class EntryPoint {
 	     }
         generateSQLRules(iotModel);
 		generateTextRules(iotModel);
-        
-        
-		System.out.println("It works ! "+input.getAbsolutePath());
+		
+		GenerateCode generateCode = new GenerateCode();
+		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
+		generateCode.replaceInFile("arduino_xbee_main.ino", "###CLIENT_ID###","fr:imt:dapi:roomA246:140162625");		
+		
 	}
+	
+	public String getTemplateByID(String template_id) {
+        final InputStream input = getClass().getClassLoader().getResourceAsStream(template_id);
+        String result = null;
+        try {
+            if (input != null) {
+                result = org.apache.commons.io.IOUtils.toString(input, java.nio.charset.Charset.forName("UTF-8"));
+                input.close();
+            } else {
+                System.out.println("[Error] Template not found: " + template_id);
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return null; // the template was not found
+        }
+        return result;
+    }
+	
+	
+	
 	
     private static void registerFactory() {
     	IotlangStandaloneSetup.doSetup();
@@ -120,6 +135,8 @@ public class EntryPoint {
             		}
             		log.error("Error in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): " + d.getMessage());
             }
+        } else {
+        	log.info("No error was found !");
         }
 
         if (model.getWarnings().size() > 0) {
@@ -194,7 +211,7 @@ public class EntryPoint {
 					String topicName = topic.getName();
 					String accessRight = accessConverterTxt(bind.getDirection());
 					rulesSql.append(
-							"user "+signature+"\n" + 
+							"user "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+"\n" + 
 							"topic "+accessRight+" "+topicName+"\n \n");
 				}
 				
@@ -231,9 +248,9 @@ public class EntryPoint {
 					int accessRight = accessConverter(bind.getDirection());
 					rulesSql.append(
 							"INSERT INTO acls (username,topic,rw)\n" + 
-							"SELECT * FROM (SELECT "+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
+							"SELECT * FROM (SELECT "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
 							"WHERE NOT EXISTS (\n" + 
-							"    SELECT username FROM acls WHERE username = "+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
+							"    SELECT username FROM acls WHERE username = "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
 							") LIMIT 1;\n \n");
 				}
 				
