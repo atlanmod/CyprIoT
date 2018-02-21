@@ -1,6 +1,7 @@
 thing Temperature {
 	// Arduino that senses the temperature
-	port ok
+	port ok {}
+	code=""
 }
 //thing fragment msgAndPorts{
 //	message sensorData (value : Int16);
@@ -13,12 +14,14 @@ thing Temperature {
 
 thing AirConditionner {
 	// Android that handles the air conditionner
-	port ok
+	port ok {}
+	code=""
 }
 
 thing AndroidUser {
 	// Simple android application that give the user the possibility to select the temperature
-	port ok
+	port ok {}
+	code=""
 }
 datatype int <8>;
 message temperatureMessage(int)
@@ -41,9 +44,8 @@ policy roomPolicy {
 }
 
 networkConfiguration wsnConfiguration {
-	domain "fr:imt:dapi:roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
-	instancePolicy mypolicy:roomPolicy
-	enforce mypolicy
+	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
+	enforce roomPolicy
 	instanceThing instanceTemp[10]:Temperature target cposix
 	instanceThing instanceTemp2[10]:Temperature target cposix
 	instancePubSub mqttbus:MqttBus target "mosquitto" over mqtt:tcp

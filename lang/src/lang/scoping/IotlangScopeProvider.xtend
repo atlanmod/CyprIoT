@@ -32,10 +32,10 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.instanceThing_TypeThing) {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.instancePolicy_TypePolicy) {
+		}/*else if (reference == iotlangInstance.instancePolicy_TypePolicy) {
 			return Scopes.scopeFor( Helpers.allPolicies(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.networkConfiguration_Enforces) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).instancePoliciy);
+		}*/else if (reference == iotlangInstance.networkConfiguration_Enforces) {
+			return Scopes.scopeFor( Helpers.allPolicies(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.bind_ThingInstance) {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
 		}else if (reference == iotlangInstance.bind_PubSubInstance) {

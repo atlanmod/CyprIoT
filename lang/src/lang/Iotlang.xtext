@@ -43,7 +43,6 @@ ReqRep:
 Policy: // mqtt, kafka, real simple bus,
 	'policy' name=ID '{'
 		(hasRules +=Rule)*
-	
 '}'
 ;
 Port :
@@ -89,12 +88,12 @@ InstanceReqRep:
 InstanceChannel:
 	(instancesPubSub+=InstancePubSub | instancesReqRep+=InstanceReqRep	)
 ;
-InstancePolicy:
-	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;
+/*InstancePolicy:
+	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;*/
 
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=PlatformAnnotation )* '{'
-	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[InstancePolicy] | instancePoliciy+=InstancePolicy)*
+	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[Policy] /*| instancePoliciy+=InstancePolicy */)*
 	
 	'}';
 Bind:

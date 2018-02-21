@@ -58,12 +58,12 @@ public class EntryPoint {
 				buffer.write("Bind : "+iotModel.getConfigs().get(0).getBinds().size()+"\n");
 			}
 			buffer.write("Domain : "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
-			for (Rule rule : iotModel.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
+			/*for (Rule rule : iotModel.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
 				if(rule.getObject()!=null) {
 					String objectName = rule.getObject().getPorts().get(0).getName();
 					buffer.write("Rules : "+objectName+"\n");
 				}
-			}
+			}*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
