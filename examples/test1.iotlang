@@ -1,6 +1,7 @@
 thing Temperature {
 	// Arduino that senses the temperature
 	port ok
+	code=""
 }
 //thing fragment msgAndPorts{
 //	message sensorData (value : Int16);
@@ -14,11 +15,13 @@ thing Temperature {
 thing AirConditionner {
 	// Android that handles the air conditionner
 	port ok
+	code=""
 }
 
 thing AndroidUser {
 	// Simple android application that give the user the possibility to select the temperature
 	port ok
+	code=""
 }
 datatype int <8>;
 message temperatureMessage(int)

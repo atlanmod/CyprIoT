@@ -1,19 +1,12 @@
 package fr.imta.naomod;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Scanner;
 
-import org.apache.commons.io.IOUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -22,18 +15,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.IotlangStandaloneSetup;
 import lang.iotlang.Bind;
-import lang.iotlang.InstanceChannel;
-import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
-import lang.iotlang.PubSub;
 import lang.iotlang.Rule;
 import lang.iotlang.Topic;
 
 public class EntryPoint {
 	public static void main(String[] args){
-		final String param = "txt";
 	
 		File input = null;
 		input = new File("testing.iotlang");

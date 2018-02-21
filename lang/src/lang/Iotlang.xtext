@@ -23,7 +23,7 @@ Thing: // example gateway, arduino, android
 	'thing' name=ID
 	( annotations+=PlatformAnnotation )*'{'
 		 (ports+=Port)
-		 (code+=STRING_LIT)
+		 'code='(code+=STRING_LIT)
 	'}';
 
 Channel: // mqtt, kafka, real simple bus,
@@ -47,7 +47,8 @@ Policy: // mqtt, kafka, real simple bus,
 '}'
 ;
 Port :
-	'port' name=ID
+	'port' name=ID '{'
+	'}'
 ;
 Datatype:
 	'datatype' name=ID '<' ByteSize=INT '>'	( annotations+=PlatformAnnotation )* (';')?
@@ -75,15 +76,15 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'target' platform=('cposix'|'java'|'python'|'javascript') ( annotations+=PlatformAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=PlatformAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
 InstancePubSub:
-	'instancePubSub' name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' */) ':'physical=('zigbee'|'tcp'|'udp')( annotations+=PlatformAnnotation )*
+	'instancePubSub' name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')( annotations+=PlatformAnnotation )*
 ;
 InstanceReqRep:
-	'instanceReqRep' name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'over' protocol=('coap'|'http' /*| 'websocket' */)':' physical=('udp'|'tcp'| 'sms')( annotations+=PlatformAnnotation )*
+	'instanceReqRep' name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'over' protocol=('coap'|'http' /*| 'websocket' */)':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=PlatformAnnotation )*
 ;
 InstanceChannel:
 	(instancesPubSub+=InstancePubSub | instancesReqRep+=InstanceReqRep	)
