@@ -1,0 +1,24 @@
+thing myThing {
+	
+message mess()
+
+required port ab2 {
+	sends mess
+	receives mess
+	}
+	
+	
+provided port ab {
+	sends mess
+	receives mess
+	}
+	statechart mything init one{
+		state one {
+			on entry do print "Hello" end
+		}
+	}
+	
+}
+configuration myconfig {
+	instance myThing:myThing
+}

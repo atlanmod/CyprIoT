@@ -12,18 +12,31 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.thingml.compilers.c.CCompilerContext;
+import org.thingml.compilers.c.posix.CCompilerContextPosix;
+import org.thingml.utilities.logging.Logger;
+import org.thingml.xtext.ThingMLStandaloneSetup;
+import org.thingml.xtext.constraints.ThingMLHelpers;
+import org.thingml.xtext.helpers.ConfigurationHelper;
 
+import clang.ClangContext;
 import lang.IotlangStandaloneSetup;
 import lang.iotlang.Bind;
+import lang.iotlang.Configuration;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
-import lang.iotlang.Rule;
+import lang.iotlang.Thing;
 import lang.iotlang.Topic;
+import utilities.ModelHelpers;
+
 
 public class EntryPoint {
-	public static void main(String[] args){
-	
+	public static void main(String[] args) throws IOException {
+		//procedure();
+	}
+
+	private static void procedure() {
 		File input = null;
 		input = new File("testing.iotlang");
 		
@@ -84,9 +97,7 @@ public class EntryPoint {
 		GenerateCode generateCode = new GenerateCode();
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###CLIENT_ID###","fr:imt:dapi:roomA246:140162625");		
-		
 	}
-	
 	public String getTemplateByID(String template_id) {
         final InputStream input = getClass().getClassLoader().getResourceAsStream(template_id);
         String result = null;
@@ -110,7 +121,9 @@ public class EntryPoint {
     private static void registerFactory() {
     	IotlangStandaloneSetup.doSetup();
     }
-	
+    private static void registerFactoryForIoTLang() {
+    	ThingMLStandaloneSetup.doSetup();
+    }
 	private static boolean checkEMFErrorsAndWarnings(Resource model, Logger log) {
     	log.info("Checking for EMF errors and warnings");
         boolean isOK = true;
@@ -231,15 +244,18 @@ public class EntryPoint {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
 			StringBuffer rulesSql = new StringBuffer();
 			for (Bind bind : iotModel.getConfigs().get(0).getBinds()) {
+				String thingName = bind.getThingInstance().getName();
 				String signature = sign(iotModel.getConfigs().get(0),bind.getThingInstance());
+				String allID = iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature;
+				System.out.println("ID for "+thingName+": " + allID);
 				for (Topic topic : bind.getTopics()) {
 					String topicName = topic.getName();
 					int accessRight = accessConverter(bind.getDirection());
 					rulesSql.append(
 							"INSERT INTO acls (username,topic,rw)\n" + 
-							"SELECT * FROM (SELECT "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
+							"SELECT * FROM (SELECT "+allID+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
 							"WHERE NOT EXISTS (\n" + 
-							"    SELECT username FROM acls WHERE username = "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
+							"    SELECT username FROM acls WHERE username = "+allID+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
 							") LIMIT 1;\n \n");
 				}
 				
