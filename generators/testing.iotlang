@@ -1,7 +1,44 @@
 thing Temperature {
 	// Arduino that senses the temperature
-	port ok {}
-	code=""
+	code=#thing Temperature {
+	
+	message sendTemp ();
+	message recTemp ();
+	required port inout 
+    {	
+		sends sendTemp
+       receives recTemp
+	}
+	statechart Temperature init Greetings {
+
+		state Greetings {
+
+			transition -> Bye
+			action do
+		        print "Hello World!\n"
+		        inout!sendTemp()
+      		end
+		}
+
+
+		state Bye {
+			on entry print "Bye.\n"
+
+		}
+	}
+}
+protocol MQTT
+	@mqtt_broker_address "iot.eclipse.org"
+	@mqtt_port_number "8883"
+	@mqtt_escape_null "true"
+	@serializer "JSON"
+;
+configuration myTemperature{
+	instance temp:Temperature
+	connector temp.inout over MQTT
+}#
+	port sendTemp
+	port recTemp
 }
 //thing fragment msgAndPorts{
 //	message sensorData (value : Int16);
@@ -14,14 +51,70 @@ thing Temperature {
 
 thing AirConditionner {
 	// Android that handles the air conditionner
-	port ok {}
-	code=""
+	port port1
+	code=#
+	thing AirConditionner {
+	
+	message sendTemp ();
+	message recTemp ();
+	required port HW 
+    {	
+		sends sendTemp
+        receives recTemp
+	}
+	statechart Temperature init Greetings {
+
+		state Greetings {
+
+			transition -> Bye
+			action do
+		        print "Hello World!\n"
+      		end
+		}
+
+
+		state Bye {
+			on entry print "Bye.\n"
+
+		}
+	}
+}
+configuration myAirConditionner{
+	instance temp:AirConditionner
+}
+	#
 }
 
-thing AndroidUser {
+thing Monitor {
 	// Simple android application that give the user the possibility to select the temperature
-	port ok {}
-	code=""
+	port ok
+	code=#thing Monitor {
+	
+	message recTemp ();
+	required port HW 
+    {	
+        receives recTemp
+	}
+	statechart Monitor init Greetings {
+
+		state Greetings {
+
+			transition -> Bye
+			action do
+		        print "Hello World!\n"
+      		end
+		}
+
+
+		state Bye {
+			on entry print "Bye.\n"
+
+		}
+	}
+}
+configuration myMonitor{
+	instance monitor:Monitor
+}#
 }
 datatype int <8>;
 message temperatureMessage(int)
@@ -34,23 +127,25 @@ channel:pubsub MqttBus {
 	topic room4 (temperatureMessage)
 }
 
-channel:reqrep ptp {
+//channel:reqrep ptp {
 	
-}
+//}
+
 policy roomPolicy {
 	rule Temperature allow:receive message:temperatureMessage
 	rule AirConditionner allow:receive Temperature.ok
-	rule Temperature deny:send AirConditionner.ok
+	rule Temperature deny:send AirConditionner
 }
 
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
 	enforce roomPolicy
-	instanceThing instanceTemp[10]:Temperature target cposix
-	instanceThing instanceTemp2[10]:Temperature target cposix
-	instancePubSub mqttbus:MqttBus target "mosquitto" over mqtt:tcp
-	instanceReqRep ptp:ptp target "mosquitto" over coap:udp
+	
+	instanceThing instanceTemp[10]:Temperature id "instanceTemp" target cposix
+	instanceThing instanceTemp2[10]:Temperature id "instanceTemp2" target cposix
+	instancePubSub mqttbus:MqttBus target "mosquitto" over mqtt:tcp 
+//	instanceReqRep ptp:ptp target "mosquitto" over coap:udp
 	bind instanceTemp => mqttbus{room1,room2}
 	bind instanceTemp2 <=> mqttbus{room2,room3,room4}
-	connect instanceTemp => ptp
+//	connect instanceTemp => ptp
 }

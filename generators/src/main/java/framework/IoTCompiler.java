@@ -1,13 +1,31 @@
 package framework;
 
+import fr.imta.naomod.Context;
+import fr.imta.naomod.Logger;
+import lang.iotlang.Configuration;
+import lang.iotlang.IoTLangModel;
 
-public class IoTCompiler {
+public abstract class IoTCompiler {
 	private ActionCompiler thingActionCompiler;
 	private ApiCompiler thingApiCompiler;
 	private CfgMainGenerator mainCompiler;
 	private CfgBuildCompiler cfgBuildCompiler;
 	private ImplCompiler thingImplCompiler;
-	
+	protected Context ctx = new Context(this);
+	 public abstract IoTCompiler clone();
+	/**
+     * ***********************************************************
+     * META-DATA about this particular compiler
+     * ************************************************************
+     */
+    public abstract String getID();
+
+    public abstract String getName();
+
+    public abstract String getDescription();
+    
+    public abstract void compile(IoTLangModel self,Configuration cfg, Logger log, String... options);
+    
 	public IoTCompiler() {
         this.setThingActionCompiler(new ActionCompiler());
         this.setThingApiCompiler(new ApiCompiler());
@@ -15,6 +33,7 @@ public class IoTCompiler {
         this.setCfgBuildCompiler(new CfgBuildCompiler());
         this.setThingImplCompiler(new ImplCompiler());
     }
+	
 	public ImplCompiler getThingImplCompiler() {
 		return thingImplCompiler;
 	}

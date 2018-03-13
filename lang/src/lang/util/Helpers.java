@@ -180,7 +180,7 @@ public class Helpers {
 	public static ArrayList<NetworkConfiguration> allConfigs(IoTLangModel model) {
 		ArrayList<NetworkConfiguration> result = new ArrayList<NetworkConfiguration>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (NetworkConfiguration t : m.getConfigs()) {
+			for (NetworkConfiguration t : m.getNetworkConfigs()) {
 					result.add((NetworkConfiguration)t);
 			}
 		}

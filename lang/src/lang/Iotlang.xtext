@@ -5,13 +5,15 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(datatypes+=Datatype | things+=Thing |policies+=Policy| messages+=Message | channels+=Channel | protocols += Protocol | configs+=NetworkConfiguration)*;
+		(datatypes+=Datatype | things+=Thing |policies+=Policy| messages+=Message | channels+=Channel | protocols += Protocol | networkConfigs+=NetworkConfiguration | configs+=Configuration)*;
 		
 /* Terminals  */
 
 terminal INT returns ecore::EInt: ('0'..'9')+;
 terminal STRING_LIT	: 
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
+terminal STRING_LISH: 
+			'#' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'#') )* '#';
 terminal ANNOTATION_ID:
 	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
@@ -23,9 +25,8 @@ TargetAnnotation:
 Thing: // example gateway, arduino, android  
 	'thing' name=ID
 	( annotations+=TargetAnnotation )*'{'
-		 (ports+=Port)
-		 'code='(code+=STRING_LIT)
-	'}';
+		 ('code=' code+=STRING_LISH | ports+=Port)*
+'}';
 
 Channel: // mqtt, kafka, real simple bus,
 	(pubSub+= PubSub| reqRep +=ReqRep)
@@ -47,8 +48,7 @@ Policy: // mqtt, kafka, real simple bus,
 '}'
 ;
 Port :
-	'port' name=ID '{'
-	'}'
+	'port' name=ID
 ;
 Datatype:
 	'datatype' name=ID '<' ByteSize=INT '>'	( annotations+=TargetAnnotation )* (';')?
@@ -76,7 +76,7 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing]) 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing])  'id' thingId=STRING_LIT 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
@@ -93,8 +93,8 @@ InstanceChannel:
 	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;*/
 Configuration:
 	'configuration' name=ID '{'
-		instanceThing+=InstanceThing
-		portsConfig+=PortConfiguration
+		//instanceThing+=InstanceThing
+		//portsConfig+=PortConfiguration
 	'}'
 ;
 PortConfiguration:

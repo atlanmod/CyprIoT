@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<thingML:ThingMLModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <types xsi:type="thingML:Thing" name="Temperature">
+    <messages name="sendTemp"/>
+    <messages name="recTemp"/>
+    <ports xsi:type="thingML:RequiredPort" name="HW" sends="//@types.0/@messages.0" receives="//@types.0/@messages.1"/>
+    <behaviour name="Temperature" initial="//@types.0/@behaviour/@substate.0">
+      <substate name="Greetings">
+        <outgoing target="//@types.0/@behaviour/@substate.1">
+          <action xsi:type="thingML:ActionBlock">
+            <actions xsi:type="thingML:PrintAction">
+              <msg xsi:type="thingML:StringLiteral" stringValue="Hello World!\n"/>
+            </actions>
+            <actions xsi:type="thingML:SendAction" port="//@types.0/@ports.0" message="//@types.0/@messages.0"/>
+          </action>
+        </outgoing>
+      </substate>
+      <substate name="Bye">
+        <entry xsi:type="thingML:PrintAction">
+          <msg xsi:type="thingML:StringLiteral" stringValue="Bye.\n"/>
+        </entry>
+      </substate>
+    </behaviour>
+  </types>
+  <protocols name="MQTT">
+    <annotations name="mqtt_broker_address" value="iot.eclipse.org"/>
+    <annotations name="mqtt_port_number" value="8883"/>
+    <annotations name="mqtt_escape_null" value="true"/>
+    <annotations name="serializer" value="JSON"/>
+  </protocols>
+  <configs name="myTemperature">
+    <instances name="temp" type="//@types.0"/>
+    <connectors xsi:type="thingML:ExternalConnector" inst="//@configs.0/@instances.0" port="//@types.0/@ports.0" protocol="//@protocols.0"/>
+  </configs>
+</thingML:ThingMLModel>

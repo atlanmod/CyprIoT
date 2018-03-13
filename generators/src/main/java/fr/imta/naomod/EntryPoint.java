@@ -1,6 +1,7 @@
 package fr.imta.naomod;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,28 +13,27 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.thingml.compilers.c.CCompilerContext;
-import org.thingml.compilers.c.posix.CCompilerContextPosix;
-import org.thingml.utilities.logging.Logger;
+import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.compilers.c.posix.PosixCompiler;
+import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
+import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.xtext.ThingMLStandaloneSetup;
-import org.thingml.xtext.constraints.ThingMLHelpers;
-import org.thingml.xtext.helpers.ConfigurationHelper;
+import org.thingml.xtext.thingML.ThingMLModel;
 
-import clang.ClangContext;
+import clang.ClangCompiler;
+import framework.IoTCompiler;
+import javalang.JavalangCompiler;
 import lang.IotlangStandaloneSetup;
 import lang.iotlang.Bind;
-import lang.iotlang.Configuration;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
-import lang.iotlang.Thing;
 import lang.iotlang.Topic;
-import utilities.ModelHelpers;
 
 
 public class EntryPoint {
 	public static void main(String[] args) throws IOException {
-		//procedure();
+		procedure();
 	}
 
 	private static void procedure() {
@@ -57,20 +57,50 @@ public class EntryPoint {
         }
         
         IoTLangModel iotModel = (IoTLangModel) model.getContents().get(0);
+        for (lang.iotlang.Thing th : iotModel.getThings()) {
+        	String code = th.getCode().get(0);
+            code = code.replace("#", "");
+            //System.out.println(""+code);
+            
+            ThingMLModel thgmodel = loadModel(code);
+            System.out.println(thgmodel.getTypes().get(0).getName());
+            //System.out.println(((Thing) thgmodel.getTypes().get(0)).getPorts().get(0).getName());
+            
+//            System.out.println(thgmodel.getTypes().get(0).getName());
+//            System.out.println(thgmodel.getTypes().get(0).getName());
+            
+            ThingMLCompiler thgCompile = new PosixCompiler();
+            
+            PosixMQTTPlugin mqtt = new PosixMQTTPlugin();
+            PosixJSONSerializerPlugin jsonposix = new PosixJSONSerializerPlugin();
+            thgCompile.addSerializationPlugin(jsonposix);
+            thgCompile.addNetworkPlugin(mqtt);
+            
+            File folder = new File("/home/imad/dev/workspaces/iotlang/generators/output/"+thgmodel.getConfigs().get(0).getName());
+            thgCompile.setOutputDirectory(folder);
+            thgCompile.compile(thgmodel.getConfigs().get(0));
+		}
         
         File outputFile = null;
         outputFile = new File("main.ino");
 		BufferedWriter buffer=null;
-                
+        
+		IoTCompiler compiler = new JavalangCompiler();
+		IoTCompiler compilerC = new ClangCompiler();
+		//System.out.println("Generation pour : " + compiler.getID());
+        //System.out.println("Generation pour : " + compilerC.getID());
+		//compiler.compile(iotModel,iotModel.getConfigs().get(0),Logger.SYSTEM );
+		
+		
 		try {
 			buffer = new BufferedWriter(new FileWriter(outputFile));
-			for (InstanceThing instanceThing : iotModel.getConfigs().get(0).getThingInstances()) {
-				buffer.write("InstanceThing : "+sign(iotModel.getConfigs().get(0), instanceThing)+"\n");
+			for (InstanceThing instanceThing : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
+				buffer.write("InstanceThing : "+sign(iotModel.getNetworkConfigs().get(0), instanceThing)+"\n");
 			}
-			for (Bind instanceThing : iotModel.getConfigs().get(0).getBinds()) {
-				buffer.write("Bind : "+iotModel.getConfigs().get(0).getBinds().size()+"\n");
+			for (Bind instanceThing : iotModel.getNetworkConfigs().get(0).getBinds()) {
+				buffer.write("Bind : "+iotModel.getNetworkConfigs().get(0).getBinds().size()+"\n");
 			}
-			buffer.write("Domain : "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
+			buffer.write("Domain : "+iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
 			/*for (Rule rule : iotModel.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
 				if(rule.getObject()!=null) {
 					String objectName = rule.getObject().getPorts().get(0).getName();
@@ -98,6 +128,22 @@ public class EntryPoint {
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###CLIENT_ID###","fr:imt:dapi:roomA246:140162625");		
 	}
+	 public static ThingMLModel loadModel(String str) {
+		 registerThingMLFactory();
+	        ResourceSet rs = new ResourceSetImpl();
+	        Resource resource = rs.createResource(URI.createURI("dummy:/example.thingml"));
+	        InputStream in = new ByteArrayInputStream(str.getBytes());
+	        try {
+				resource.load(in, rs.getLoadOptions());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				resource.getErrors();
+			}
+	        ThingMLModel model = (ThingMLModel) resource.getContents().get(0);
+	        return model;
+	    }
+	
 	public String getTemplateByID(String template_id) {
         final InputStream input = getClass().getClassLoader().getResourceAsStream(template_id);
         String result = null;
@@ -121,7 +167,7 @@ public class EntryPoint {
     private static void registerFactory() {
     	IotlangStandaloneSetup.doSetup();
     }
-    private static void registerFactoryForIoTLang() {
+    private static void registerThingMLFactory() {
     	ThingMLStandaloneSetup.doSetup();
     }
 	private static boolean checkEMFErrorsAndWarnings(Resource model, Logger log) {
@@ -207,13 +253,13 @@ public class EntryPoint {
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
 			StringBuffer rulesSql = new StringBuffer();
-			for (Bind bind : iotModel.getConfigs().get(0).getBinds()) {
-				String signature = sign(iotModel.getConfigs().get(0),bind.getThingInstance());
+			for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+				String signature = sign(iotModel.getNetworkConfigs().get(0),bind.getThingInstance());
 				for (Topic topic : bind.getTopics()) {
 					String topicName = topic.getName();
 					String accessRight = accessConverterTxt(bind.getDirection());
 					rulesSql.append(
-							"user "+iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+"\n" + 
+							"user "+iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+"\n" + 
 							"topic "+accessRight+" "+topicName+"\n \n");
 				}
 				
@@ -243,10 +289,10 @@ public class EntryPoint {
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
 			StringBuffer rulesSql = new StringBuffer();
-			for (Bind bind : iotModel.getConfigs().get(0).getBinds()) {
+			for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
 				String thingName = bind.getThingInstance().getName();
-				String signature = sign(iotModel.getConfigs().get(0),bind.getThingInstance());
-				String allID = iotModel.getConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature;
+				String signature = sign(iotModel.getNetworkConfigs().get(0),bind.getThingInstance());
+				String allID = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature;
 				System.out.println("ID for "+thingName+": " + allID);
 				for (Topic topic : bind.getTopics()) {
 					String topicName = topic.getName();

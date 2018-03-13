@@ -1,4 +1,4 @@
-package clang;
+package javalang;
 
 import fr.imta.naomod.Context;
 import fr.imta.naomod.Logger;
@@ -9,11 +9,11 @@ import lang.iotlang.Thing;
 import lang.util.Helpers;
 import utilities.ModelHelpers;
 
-public class ClangCompiler extends IoTCompiler{
+public class JavalangCompiler extends IoTCompiler{
 	
 	public void do_call_compiler(IoTLangModel self,Configuration cfg, Logger log, String... options) {
 
-		ClangContext ctx = new ClangContext(this);
+		JavalangContext ctx = new JavalangContext(this);
         //processDebug(cfg);
         ctx.setCurrentConfiguration(cfg);
         //ctx.setOutputDirectory(new File(ctx.getOutputDirectory(), cfg.getName()));
@@ -52,21 +52,21 @@ public class ClangCompiler extends IoTCompiler{
 	
 	@Override
     public IoTCompiler clone() {
-        return new ClangCompiler();
+        return new JavalangCompiler();
     }
 	
 	@Override
     public String getID() {
-        return "c";
+        return "java";
     }
 
     @Override
     public String getName() {
-        return "C/C++ for Linux / Posix";
+        return "Java compiler";
     }
 
     public String getDescription() {
-        return "Generates C/C++ code for Linux or other Posix runtime environments (GCC compiler).";
+        return "Generates Java code for Linux or other Posix runtime environments (GCC compiler).";
     }
 
 	@Override

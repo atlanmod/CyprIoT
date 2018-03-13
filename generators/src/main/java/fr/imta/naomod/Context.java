@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.thingml.compilers.ThingMLCompiler;
 
 import framework.IoTCompiler;
 import lang.iotlang.Configuration;
@@ -21,6 +20,9 @@ public class Context {
 	private IoTCompiler compiler;
 	public  IoTCompiler getCompiler() {
         return compiler;
+    }
+	public Context(IoTCompiler compiler) {
+        this.compiler = compiler;
     }
 	public void setCurrentConfiguration(Configuration currentConfiguration) {
         this.currentConfiguration = currentConfiguration;

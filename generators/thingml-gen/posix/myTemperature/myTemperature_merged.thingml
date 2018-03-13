@@ -1,0 +1,28 @@
+thing Temperature {
+	message sendTemp()
+	message recTemp()
+	required port HW {
+		sends sendTemp receives recTemp
+	}
+	statechart Temperature init Greetings {
+		state Greetings {
+			transition -> Bye action do
+				print "Hello World!\n"
+				HW!sendTemp()
+			end
+		}
+		state Bye {
+			on entry print "Bye.\n"
+		}
+	}
+}
+protocol MQTT
+	@mqtt_broker_address "iot.eclipse.org"
+	@mqtt_port_number "8883"
+	@mqtt_escape_null "true"
+	@serializer "JSON" ;
+
+configuration myTemperature {
+	instance temp : Temperature
+	connector temp.HW over MQTT
+}

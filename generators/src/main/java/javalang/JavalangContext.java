@@ -1,12 +1,12 @@
-package clang;
+package javalang;
 
 
 import fr.imta.naomod.Context;
 import framework.IoTCompiler;
 import lang.iotlang.Thing;
 
-public class ClangContext extends Context{
-	public ClangContext(IoTCompiler compiler) {
+public class JavalangContext extends Context{
+	public JavalangContext(IoTCompiler compiler) {
 		super(compiler);
 		// TODO Auto-generated constructor stub
 	}
