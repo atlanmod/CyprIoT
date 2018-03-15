@@ -8,7 +8,7 @@
         <artifactId>IoTLang</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>language</artifactId>
+    <artifactId>lang</artifactId>
     <packaging>eclipse-plugin</packaging>
 
     <name>Language of IoTLang</name>
@@ -82,20 +82,21 @@
 						<artifactId>org.eclipse.emf.mwe2.launch</artifactId>
 						<version>2.9.0.201605261059</version>
 					</dependency>
+					
 					<dependency>
 						<groupId>org.eclipse.xtext</groupId>
 						<artifactId>org.eclipse.xtext.common.types</artifactId>
-						<version>2.11.0</version>
+						<version>${xtextVersion}</version>
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.xtext</groupId>
 						<artifactId>org.eclipse.xtext.xtext.generator</artifactId>
-						<version>2.11.0</version>
+						<version>${xtextVersion}</version>
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.xtext</groupId>
 						<artifactId>org.eclipse.xtext.xbase</artifactId>
-						<version>2.11.0</version>
+						<version>${xtextVersion}</version>
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.xtext</groupId>

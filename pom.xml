@@ -14,9 +14,9 @@
         <xtextVersion>2.11.0</xtextVersion>
     </properties>
     <modules>
-        <module>language</module>
-        <module>language.ui</module>
-        <module>language.ide</module>
+        <module>lang</module>
+        <module>lang.ui</module>
+        <module>lang.ide</module>
         <module>generators</module>
     </modules>
     <build>

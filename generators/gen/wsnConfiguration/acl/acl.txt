@@ -1,0 +1,15 @@
+user fr.imt.dapi.roomA246:242210936
+topic readwrite room1
+ 
+user fr.imt.dapi.roomA246:242210936
+topic readwrite room2
+ 
+user fr.imt.dapi.roomA246:115763497
+topic readwrite room2
+ 
+user fr.imt.dapi.roomA246:115763497
+topic readwrite room3
+ 
+user fr.imt.dapi.roomA246:115763497
+topic readwrite room4
+ 

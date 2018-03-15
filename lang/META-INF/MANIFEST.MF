@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.common,
  org.eclipse.xtend.lib;bundle-version="2.13.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.apache.log4j
 Export-Package: lang.scoping,
  lang.iotlang.impl,
  lang.services,
@@ -26,4 +27,3 @@ Export-Package: lang.scoping,
  lang.parser.antlr.internal,
  lang.iotlang.util,
  lang.generator
-Import-Package: org.apache.log4j

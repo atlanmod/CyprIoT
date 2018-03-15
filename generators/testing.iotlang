@@ -1,6 +1,6 @@
 thing Temperature {
 	// Arduino that senses the temperature
-	code=#thing Temperature {
+	config=#thing Temperature {
 	
 	message sendTemp ();
 	message recTemp ();
@@ -28,17 +28,14 @@ thing Temperature {
 	}
 }
 protocol MQTT
-	@mqtt_broker_address "iot.eclipse.org"
-	@mqtt_port_number "8883"
-	@mqtt_escape_null "true"
 	@serializer "JSON"
 ;
 configuration myTemperature{
 	instance temp:Temperature
 	connector temp.inout over MQTT
 }#
-	port sendTemp
-	port recTemp
+	exposePort po
+	exposePort recTemp
 }
 //thing fragment msgAndPorts{
 //	message sensorData (value : Int16);
@@ -51,13 +48,13 @@ configuration myTemperature{
 
 thing AirConditionner {
 	// Android that handles the air conditionner
-	port port1
-	code=#
+	exposePort poo
+	config=#
 	thing AirConditionner {
 	
 	message sendTemp ();
 	message recTemp ();
-	required port HW 
+	required port inout 
     {	
 		sends sendTemp
         receives recTemp
@@ -79,20 +76,26 @@ thing AirConditionner {
 		}
 	}
 }
+protocol MQTT
+	@serializer "JSON"
+;
 configuration myAirConditionner{
-	instance temp:AirConditionner
+	instance aircond:AirConditionner
+	connector aircond.inout over MQTT
 }
 	#
 }
 
 thing Monitor {
 	// Simple android application that give the user the possibility to select the temperature
-	port ok
-	code=#thing Monitor {
+	exposePort ok
+	config=#thing Monitor {
 	
+	message sendTemp ();
 	message recTemp ();
-	required port HW 
+	required port inout 
     {	
+		sends sendTemp
         receives recTemp
 	}
 	statechart Monitor init Greetings {
@@ -112,8 +115,12 @@ thing Monitor {
 		}
 	}
 }
+protocol MQTT
+	@serializer "JSON"
+;
 configuration myMonitor{
 	instance monitor:Monitor
+	connector monitor.inout over MQTT
 }#
 }
 datatype int <8>;
@@ -139,11 +146,11 @@ policy roomPolicy {
 
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
-	enforce roomPolicy
-	
-	instanceThing instanceTemp[10]:Temperature id "instanceTemp" target cposix
-	instanceThing instanceTemp2[10]:Temperature id "instanceTemp2" target cposix
-	instancePubSub mqttbus:MqttBus target "mosquitto" over mqtt:tcp 
+	enforce roomPolicy format txt
+	//instanceThing monitor[10]:Monitor id "monitor" target cposix
+	instanceThing instanceTemp[10]:Temperature id "instanceTemp" password "instanceTemp123" target cposix
+	instanceThing instanceTemp2[10]:Temperature id "instanceTemp2" password "instanceTemp123" target java
+	instancePubSub mqttbus:MqttBus target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
 //	instanceReqRep ptp:ptp target "mosquitto" over coap:udp
 	bind instanceTemp => mqttbus{room1,room2}
 	bind instanceTemp2 <=> mqttbus{room2,room3,room4}

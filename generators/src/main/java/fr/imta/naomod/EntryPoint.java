@@ -6,7 +6,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,8 +19,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.compilers.c.posix.PosixCompiler;
+import org.thingml.compilers.debugGUI.plugin.MQTTjs;
+import org.thingml.compilers.java.JavaCompiler;
 import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
+import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
+import org.thingml.networkplugins.java.JavaMQTTPlugin;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
@@ -55,10 +63,20 @@ public class EntryPoint {
         for (Resource r : model.getResourceSet().getResources()) {
             checkEMFErrorsAndWarnings(r, Logger.SYSTEM);
         }
+        Path currentRelativePath = Paths.get("");
+        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
         
         IoTLangModel iotModel = (IoTLangModel) model.getContents().get(0);
-        for (lang.iotlang.Thing th : iotModel.getThings()) {
-        	String code = th.getCode().get(0);
+        if(iotModel.getNetworkConfigs().get(0).getFormat().equals("sql")) {
+        	generateSQLRules(iotModel,pathdirectory);
+        }else if(iotModel.getNetworkConfigs().get(0).getFormat().equals("txt")){
+        	generateTextRules(iotModel,pathdirectory);
+        }
+        
+        
+        
+        for (lang.iotlang.InstanceThing th : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
+        	String code = th.getTypeThing().getCode().get(0);
             code = code.replace("#", "");
             //System.out.println(""+code);
             
@@ -69,16 +87,63 @@ public class EntryPoint {
 //            System.out.println(thgmodel.getTypes().get(0).getName());
 //            System.out.println(thgmodel.getTypes().get(0).getName());
             
-            ThingMLCompiler thgCompile = new PosixCompiler();
             
-            PosixMQTTPlugin mqtt = new PosixMQTTPlugin();
-            PosixJSONSerializerPlugin jsonposix = new PosixJSONSerializerPlugin();
-            thgCompile.addSerializationPlugin(jsonposix);
-            thgCompile.addNetworkPlugin(mqtt);
             
-            File folder = new File("/home/imad/dev/workspaces/iotlang/generators/output/"+thgmodel.getConfigs().get(0).getName());
-            thgCompile.setOutputDirectory(folder);
-            thgCompile.compile(thgmodel.getConfigs().get(0));
+            
+            String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
+            String thingId= domainName+".5665464";
+            String thingPassword= th.getThingPassword().replace("\"", "");
+            
+            // JAVA
+            if(th.getPlatform().equals("java")) {
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/java/"+th.getName());
+            	ThingMLCompiler javaCompile = new JavaCompiler();
+                JavaMQTTPlugin mqttjava = new JavaMQTTPlugin();
+                mqttjava.setmClientId("\""+thingId+"\"");
+                mqttjava.setmUsername("\""+thingId+"\"");
+                mqttjava.setmPassword("\""+thingPassword+"\"");
+                JavaJSONSerializerPlugin jsonJavaMqtt = new JavaJSONSerializerPlugin();
+                javaCompile.addNetworkPlugin(mqttjava);
+                javaCompile.addSerializationPlugin(jsonJavaMqtt);            
+                javaCompile.setOutputDirectory(folder);
+                javaCompile.compile(thgmodel.getConfigs().get(0));
+            }else if(th.getPlatform().equals("cposix")) {
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/posix/"+th.getName());
+
+            	 // POSIX
+                
+                ThingMLCompiler thgCompile = new PosixCompiler();
+
+                PosixMQTTPlugin mqtt = new PosixMQTTPlugin();
+                mqtt.setmClientId("\""+thingId+"\"");
+                mqtt.setmUsername("\""+thingId+"\"");
+                mqtt.setmPassword("\""+thingPassword+"\"");
+                PosixJSONSerializerPlugin jsonposix = new PosixJSONSerializerPlugin();
+                thgCompile.addSerializationPlugin(jsonposix);
+                thgCompile.addNetworkPlugin(mqtt);
+                
+                Set<String> topicList = new HashSet<String>();
+                for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+                	for (Topic topic : bind.getTopics()) {
+           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
+                		if(bind.getThingInstance().getName().equals(th.getName())) {
+    	            		if(bind.getDirection().equals("=>")) {
+    	            			mqtt.addPubTopic(topicToAdd);
+    		       			}else if(bind.getDirection().equals("<=")) {
+    		       				mqtt.addSubTopic(topicToAdd);
+    	            		} else {
+    	            			mqtt.addSubTopic(topicToAdd);
+    	            			mqtt.addPubTopic(topicToAdd);
+    	            		}
+                		}
+                	}
+           		}   
+                
+                
+                thgCompile.setOutputDirectory(folder);
+                thgCompile.compile(thgmodel.getConfigs().get(0));
+            }      
+   
 		}
         
         File outputFile = null;
@@ -121,8 +186,8 @@ public class EntryPoint {
 				}
 	       }
 	     }
-        generateSQLRules(iotModel);
-		generateTextRules(iotModel);
+        //generateSQLRules(iotModel);
+		//generateTextRules(iotModel);
 		
 		GenerateCode generateCode = new GenerateCode();
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
@@ -246,9 +311,10 @@ public class EntryPoint {
 			return "";
 		}
 	}
-	public static void generateTextRules(IoTLangModel iotModel) {
+	public static void generateTextRules(IoTLangModel iotModel, String pathdirectory) {
 		File sqlFile = null;
-		sqlFile = new File("acl.txt");
+        sqlFile = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/acl/acl.txt");
+        sqlFile.getParentFile().mkdirs();
 		BufferedWriter bufferSql =null;
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
@@ -282,9 +348,10 @@ public class EntryPoint {
 		
 	}
 	
-	public static void generateSQLRules(IoTLangModel iotModel) {
+	public static void generateSQLRules(IoTLangModel iotModel, String pathdirectory) {
 		File sqlFile = null;
-		sqlFile = new File("acl.sql");
+        sqlFile = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/acl/acl.sql");
+        sqlFile.getParentFile().mkdirs();
 		BufferedWriter bufferSql =null;
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));

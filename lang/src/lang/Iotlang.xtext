@@ -10,6 +10,10 @@ IoTLangModel returns IoTLangModel:
 /* Terminals  */
 
 terminal INT returns ecore::EInt: ('0'..'9')+;
+
+//terminal DOM: country=('a'..'z')'.'('a'..'z')'.'('a'..'z')'.'('a'..'z');
+
+
 terminal STRING_LIT	: 
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
 terminal STRING_LISH: 
@@ -25,7 +29,7 @@ TargetAnnotation:
 Thing: // example gateway, arduino, android  
 	'thing' name=ID
 	( annotations+=TargetAnnotation )*'{'
-		 ('code=' code+=STRING_LISH | ports+=Port)*
+		 ('config=' code+=STRING_LISH | ports+=Port)*
 '}';
 
 Channel: // mqtt, kafka, real simple bus,
@@ -48,7 +52,7 @@ Policy: // mqtt, kafka, real simple bus,
 '}'
 ;
 Port :
-	'port' name=ID
+	'exposePort' name=ID
 ;
 Datatype:
 	'datatype' name=ID '<' ByteSize=INT '>'	( annotations+=TargetAnnotation )* (';')?
@@ -76,15 +80,15 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing])  'id' thingId=STRING_LIT 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing])  'id' thingId=STRING_LIT 'password' thingPassword=STRING_LIT 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
 InstancePubSub:
-	'instancePubSub' name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')( annotations+=TargetAnnotation )*
+	'instancePubSub' name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')( annotations+=TargetAnnotation )*
 ;
 InstanceReqRep:
-	'instanceReqRep' name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'over' protocol=('coap'|'http' /*| 'websocket' | 'upnp' | 'dds' */)':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=TargetAnnotation )*
+	'instanceReqRep' name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('coap'|'http' /*| 'websocket' | 'upnp' | 'dds' */)':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=TargetAnnotation )*
 ;
 InstanceChannel:
 	(instancesPubSub+=InstancePubSub | instancesReqRep+=InstanceReqRep	)
@@ -104,7 +108,7 @@ PortConfiguration:
 ;
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=TargetAnnotation )* '{'
-	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[Policy] /*| instancePoliciy+=InstancePolicy */)*
+	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[Policy]  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
 	
 	'}';
 Bind:
