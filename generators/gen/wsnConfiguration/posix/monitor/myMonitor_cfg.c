@@ -1,6 +1,6 @@
 /*****************************************************
  *      THIS IS A GENERATED FILE. DO NOT EDIT.
- *      Implementation for Application myTemperature
+ *      Implementation for Application myMonitor
  *  Generated from ThingML (http://www.thingml.org)
  *****************************************************/
 
@@ -14,7 +14,7 @@
 #include <pthread.h>
 #include "thingml_typedefs.h"
 #include "runtime.h"
-#include "Temperature.h"
+#include "Monitor.h"
 
 #include "MQTT.h"
 
@@ -22,13 +22,13 @@
 
 
 /*****************************************************************************
- * Definitions for configuration : myTemperature
+ * Definitions for configuration : myMonitor
  *****************************************************************************/
 
 //Declaration of instance variables
-//Instance temp
+//Instance monitor
 // Variables for the properties of the instance
-struct Temperature_Instance temp_var;
+struct Monitor_Instance monitor_var;
 // Variables for the sessions of the instance
 
 //Instance MQTT for network plugin PosixMQTTPlugin
@@ -69,9 +69,9 @@ break;
 return 1;
 }
 
-void forward_Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance, int mess){
-if(_instance->id_inout == temp_var.id_inout) {
-forward_MQTT_Temperature_send_inout_sendTemp(_instance, mess);
+void forward_Monitor_send_inout_sendTemp(struct Monitor_Instance *_instance){
+if(_instance->id_inout == monitor_var.id_inout) {
+forward_MQTT_Monitor_send_inout_sendTemp(_instance);
 }
 }
 
@@ -104,9 +104,9 @@ fifo_unlock_and_notify();
 }
 }
 
-void initialize_configuration_myTemperature() {
+void initialize_configuration_myMonitor() {
 // Initialize connectors
-register_external_Temperature_send_inout_sendTemp_listener(&forward_Temperature_send_inout_sendTemp);
+register_external_Monitor_send_inout_sendTemp_listener(&forward_Monitor_send_inout_sendTemp);
 
 // Init the ID, state variables and properties for external connector MQTT
 
@@ -119,12 +119,12 @@ pthread_create( &thread_MQTT, NULL, MQTT_start_receiver_thread, NULL);
 
 // End Network Initialization
 
-// Init the ID, state variables and properties for instance temp
-temp_var.active = true;
-temp_var.id_inout = add_instance( (void*) &temp_var);
-temp_var.Temperature_Temperature_State = TEMPERATURE_TEMPERATURE_GREETINGS_STATE;
+// Init the ID, state variables and properties for instance monitor
+monitor_var.active = true;
+monitor_var.id_inout = add_instance( (void*) &monitor_var);
+monitor_var.Monitor_Monitor_State = MONITOR_MONITOR_GREETINGS_STATE;
 
-Temperature_Temperature_OnEntry(TEMPERATURE_TEMPERATURE_STATE, &temp_var);
+Monitor_Monitor_OnEntry(MONITOR_MONITOR_STATE, &monitor_var);
 }
 
 
@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
 
     init_runtime();
     
-    initialize_configuration_myTemperature();
+    initialize_configuration_myMonitor();
 
     while (1) {
         
@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
 int emptyEventConsumed = 1;
 while (emptyEventConsumed != 0) {
 emptyEventConsumed = 0;
-emptyEventConsumed += Temperature_handle_empty_event(&temp_var);
+emptyEventConsumed += Monitor_handle_empty_event(&monitor_var);
 }
 
         processMessageQueue();

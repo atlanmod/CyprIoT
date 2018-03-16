@@ -11,7 +11,7 @@
 #include <time.h>
 #include <mosquitto.h>
 
-#include "Temperature.h"
+#include "Monitor.h"
 
 
 struct MQTT_Instance {
@@ -24,8 +24,8 @@ void MQTT_setup(struct MQTT_Instance *_instance);
 void MQTT_start_receiver_thread();
 void MQTT_loop_poll();
 
-// Forwarding of messages MQTT::Temperature::inout::sendTemp
-void forward_MQTT_Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance, int mess);
+// Forwarding of messages MQTT::Monitor::inout::sendTemp
+void forward_MQTT_Monitor_send_inout_sendTemp(struct Monitor_Instance *_instance);
 
 
 #endif

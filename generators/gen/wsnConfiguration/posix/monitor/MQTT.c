@@ -1,11 +1,12 @@
 #include "MQTT.h"
 
-const char *MQTT_topics[3] = {
-    "fr/imt/dapi/roomA246/room1",
+const char *MQTT_topics[4] = {
     "fr/imt/dapi/roomA246/room2",
-    "ThingML"
+    "fr/imt/dapi/roomA246/room3",
+    "ThingML",
+    "fr/imt/dapi/roomA246/room4"
 };
-int MQTT_topics_subscribed[3];
+int MQTT_topics_subscribed[4];
 
 const int MQTT_qos = 1;
 
@@ -124,7 +125,7 @@ void MQTT_connect_callback(struct mosquitto *mosq, void *_instance, int result)
     int ret, i;
     switch (result) {
         case 0:
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 4; i++) {
                 ret = mosquitto_subscribe(mosq, &MQTT_topics_subscribed[i], MQTT_topics[i], MQTT_qos);
                 if (ret) {
                     fprintf(stderr, "[MQTT] mosquitto_subscribe failed for %s : %s\n", MQTT_topics[i], mosquitto_strerror(result));
@@ -158,7 +159,7 @@ void MQTT_subscribe_callback(struct mosquitto *mosq, void *_instance, int mid, i
     //print = true;
     if (print) {
         // Find subscribed topic
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < 4; i++) {
             if (MQTT_topics_subscribed[i] == mid) break;
         }
         printf("[MQTT] Subscribed to topic '%s' - QoS levels ", MQTT_topics[i]);
@@ -168,7 +169,7 @@ void MQTT_subscribe_callback(struct mosquitto *mosq, void *_instance, int mid, i
     for (i = 0; i < qos_count; i++)
         if (granted_qos[i] == MQTT_qos) return;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 4; i++) {
         if (MQTT_topics_subscribed[i] == mid) break;
     }
     //fprintf(stderr, "[MQTT] Topic '%s' was not granted the specified QoS level\n", MQTT_topics[i]);
@@ -284,11 +285,11 @@ void MQTT_message_callback(struct mosquitto *mosq, void *_instance, const struct
     //printf("[MQTT] Received message (%i bytes) on topic %s\n", msg->payloadlen, msg->topic);
     // Find the topic index of the message
     int i;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 4; i++)
         if (strcmp(msg->topic, MQTT_topics[i]) == 0) break;
 
     // Only parse and enqueue the message if we are listening for it on this topic
-    if (i < 3 && (i == 2)) {
+    if (i < 4 && (i == 0 || i == 1 || i == 2 || i == 3)) {
         MQTT_parser(msg->payload, msg->payloadlen, (struct MQTT_Instance*)_instance);
     }
 }
@@ -298,7 +299,7 @@ void MQTT_message_callback(struct mosquitto *mosq, void *_instance, const struct
 void MQTT_send_message(uint8_t *msg, int msglen, int topic)
 {
     int ret;
-    if (topic < 3) {
+    if (topic < 4) {
         //printf("[MQTT] Sending message (%i bytes) on topic %s\n", msglen, MQTT_topics[topic]);
         ret = mosquitto_publish(MQTT_mosq, NULL, MQTT_topics[topic], msglen, msg, MQTT_qos, false);
         if (ret) {
@@ -308,28 +309,24 @@ void MQTT_send_message(uint8_t *msg, int msglen, int topic)
     }
 }
 
-// Forwarding of messages MQTT::Temperature::inout::sendTemp
-void forward_MQTT_Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance, int mess){
-    uint8_t buffer[35];
+// Forwarding of messages MQTT::Monitor::inout::sendTemp
+void forward_MQTT_Monitor_send_inout_sendTemp(struct Monitor_Instance *_instance){
+    uint8_t buffer[16];
     int index = 0;
     int result;
 
     //Start of serialized message
-    result = sprintf(&buffer[index], "%.*s", 35-index, "{\"sendTemp\":{");
-    if (result >= 0) { index += result; } else { return; }
-    // Parameter mess
-    result = sprintf(&buffer[index], "%.*s", 35-index, "\"mess\":");
-    if (result >= 0) { index += result; } else { return; }
-    result = sprintf(&buffer[index], "%d", mess);
+    result = sprintf(&buffer[index], "%.*s", 16-index, "{\"sendTemp\":{");
     if (result >= 0) { index += result; } else { return; }
     //End of serialized message
-    result = sprintf(&buffer[index], "%.*s", 35-index, "}}");
+    result = sprintf(&buffer[index], "%.*s", 16-index, "}}");
     if (result >= 0) { index += result; } else { return; }
 
     // Publish the serialized message
     MQTT_send_message(buffer, index, 0);
     MQTT_send_message(buffer, index, 1);
     MQTT_send_message(buffer, index, 2);
+    MQTT_send_message(buffer, index, 3);
 }
 
 

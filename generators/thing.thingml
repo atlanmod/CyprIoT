@@ -1,37 +1,43 @@
-thing Temperature {
+
+		datatype Integer<2>
+    @type_checker "Integer"
+	@c_type "int"
+	@c_byte_size "2"
+	@java_type "short"
+  @js_type "short"
+	@java_primitive "true"
+    @ros_type "int16";
+		thing Temperature {
+		
+		message sendTemp (mess :Integer );
+		message recTemp ();
+		provided port inout 
+	    {	
+			sends sendTemp
+	       receives recTemp
+		}
+		statechart Temperature init Greetings {
 	
-	message sendTemp ();
-	message recTemp ();
-	required port HW 
-    {	
-		sends sendTemp
-       receives recTemp
-	}
-	statechart Temperature init Greetings {
-
-		state Greetings {
-
-			transition -> Bye
-			action do
-		        print "Hello World!\n"
-		        HW!sendTemp()
-      		end
-		}
-
-
-		state Bye {
-			on entry print "Bye.\n"
-
+			state Greetings {
+	
+				transition -> Bye
+				action do
+			        print "Hello World!\n"
+	      		end
+			}
+	
+	
+			state Bye {
+				on entry print "Bye.\n"
+				on exit while(true) do inout!sendTemp(1000) end
+	
+			}
 		}
 	}
-}
-protocol MQTT
-	@mqtt_broker_address "iot.eclipse.org"
-	@mqtt_port_number "8883"
-	@mqtt_escape_null "true"
-	@serializer "JSON"
-;
-configuration myTemperature{
-	instance temp:Temperature
-	connector temp.HW over MQTT
-}
+	protocol MQTT
+		@serializer "JSON"
+	;
+	configuration myTemperature{
+		instance temp:Temperature
+		connector temp.inout over MQTT
+	}

@@ -9,9 +9,14 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -36,6 +41,9 @@ import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.Policy;
+import lang.iotlang.Rule;
+import lang.iotlang.Thing;
 import lang.iotlang.Topic;
 
 
@@ -43,7 +51,9 @@ public class EntryPoint {
 	public static void main(String[] args) throws IOException {
 		procedure();
 	}
-
+	public enum PuSubType {  // dans le fichier Civilite.java  
+	    PUB, SUB  
+	}
 	private static void procedure() {
 		File input = null;
 		input = new File("testing.iotlang");
@@ -104,7 +114,23 @@ public class EntryPoint {
                 mqttjava.setmPassword("\""+thingPassword+"\"");
                 JavaJSONSerializerPlugin jsonJavaMqtt = new JavaJSONSerializerPlugin();
                 javaCompile.addNetworkPlugin(mqttjava);
-                javaCompile.addSerializationPlugin(jsonJavaMqtt);            
+                javaCompile.addSerializationPlugin(jsonJavaMqtt);   
+                Set<String> topicList = new HashSet<String>();
+                for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+                	for (Topic topic : bind.getTopics()) {
+           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
+                		if(bind.getThingInstance().getName().equals(th.getName())) {
+    	            		if(bind.getDirection().equals("=>")) {
+    	            			mqttjava.addPubTopic(topicToAdd);
+    		       			}else if(bind.getDirection().equals("<=")) {
+    		       				mqttjava.addSubTopic(topicToAdd);
+    	            		} else {
+    	            			mqttjava.addSubTopic(topicToAdd);
+    	            			mqttjava.addPubTopic(topicToAdd);
+    	            		}
+                		}
+                	}
+           		}  
                 javaCompile.setOutputDirectory(folder);
                 javaCompile.compile(thgmodel.getConfigs().get(0));
             }else if(th.getPlatform().equals("cposix")) {
@@ -142,10 +168,16 @@ public class EntryPoint {
                 
                 thgCompile.setOutputDirectory(folder);
                 thgCompile.compile(thgmodel.getConfigs().get(0));
-            }      
-   
+            }
+            for (Topic topic : getTopicsForThing(iotModel,th.getTypeThing(),PuSubType.PUB)) {
+				System.out.println("Pub : "+topic.getName());
+			}
+            for (Topic topic : getTopicsForThing(iotModel,th.getTypeThing(),PuSubType.SUB)) {
+				System.out.println("Sub : "+topic.getName());
+			}
+            setPolicyRules(iotModel,th.getTypeThing());
+
 		}
-        
         File outputFile = null;
         outputFile = new File("main.ino");
 		BufferedWriter buffer=null;
@@ -192,6 +224,77 @@ public class EntryPoint {
 		GenerateCode generateCode = new GenerateCode();
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
 		generateCode.replaceInFile("arduino_xbee_main.ino", "###CLIENT_ID###","fr:imt:dapi:roomA246:140162625");		
+	}
+	
+	private static HashSet<Topic> getTopicsForThing(IoTLangModel iotModel,Thing thing, PuSubType puSubType) {
+		HashSet<Topic> hs = new HashSet<>();
+		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();
+		for (Bind bind : binds) {
+			if(puSubType == puSubType.PUB && bind.getThingInstance().getTypeThing().getName().equals(thing.getName()) && bind.getDirection().contains(">")) {
+				for (Topic topic : bind.getTopics()) {
+					hs.add(topic);
+				}
+			} else if(puSubType == puSubType.SUB && bind.getThingInstance().getTypeThing().getName().equals(thing.getName()) && bind.getDirection().contains("<")) {
+				for (Topic topic : bind.getTopics()) {
+					hs.add(topic);
+				}
+			}
+		}
+
+		return hs;
+	}	
+	
+	
+	private static void setPolicyRules(IoTLangModel iotModel, Thing thing) {
+		Policy policy = iotModel.getPolicies().get(0);
+		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();
+		EList<Bind> binds2 = iotModel.getNetworkConfigs().get(0).getBinds();
+		/*for (Rule rule : policy.getHasRules()) {
+			if(rule.getSubject().getName().equals(thing.getName())) {
+				if(rule.getPermission().equals("deny") && rule.getAction().equals("send")) {
+					for (Bind bind : binds) {
+						if(bind.getDirection().equals("=>")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection("=");
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						} else if(bind.getDirection().equals("<=>")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection("<=");
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						}
+					}
+				}else if(rule.getPermission().equals("deny") && rule.getAction().equals("receive")) {
+					for (Bind bind : binds2) {
+						if(bind.getDirection().equals("<=")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection("=");
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						} else if(bind.getDirection().equals("<=>")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection("=>");
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						}
+					}
+				}else if(rule.getPermission().equals("allow") && rule.getAction().equals("send")) {
+					for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+						if(!bind.getDirection().contains("=>")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection(bind.getDirection().replace("=", "=>"));
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						}
+					}
+				}else if(rule.getPermission().equals("allow") && rule.getAction().equals("receive")) {
+					for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+						if(bind.getDirection().contains("=>")) {
+							System.out.println(bind.getThingInstance().getName()+" before :"+ bind.getDirection());
+							bind.setDirection(bind.getDirection().replace("=", "=>"));
+							System.out.println(bind.getThingInstance().getName()+" after :"+ bind.getDirection());
+						}
+					}
+				}
+			}
+		}*/
+		
 	}
 	 public static ThingMLModel loadModel(String str) {
 		 registerThingMLFactory();
@@ -295,6 +398,8 @@ public class EntryPoint {
 			return 2;
 		case "<=":
 			return 1;
+		case "=":
+			return 1;
 		default:
 			return 0;
 		}
@@ -307,6 +412,8 @@ public class EntryPoint {
 			return "readwrite";
 		case "<=":
 			return "read";
+		case "=":
+			return "";
 		default:
 			return "";
 		}
@@ -319,14 +426,17 @@ public class EntryPoint {
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
 			StringBuffer rulesSql = new StringBuffer();
+            String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
 			for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
 				String signature = sign(iotModel.getNetworkConfigs().get(0),bind.getThingInstance());
 				for (Topic topic : bind.getTopics()) {
-					String topicName = topic.getName();
+					String topicName = domainName.replace(".", "/")+"/"+topic.getName();
 					String accessRight = accessConverterTxt(bind.getDirection());
+					if(!accessRight.equals("")) {
 					rulesSql.append(
 							"user "+iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature+"\n" + 
 							"topic "+accessRight+" "+topicName+"\n \n");
+					}
 				}
 				
 			}
@@ -356,20 +466,23 @@ public class EntryPoint {
 		try {
 			bufferSql = new BufferedWriter(new FileWriter(sqlFile));
 			StringBuffer rulesSql = new StringBuffer();
+            String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
 			for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
 				String thingName = bind.getThingInstance().getName();
 				String signature = sign(iotModel.getNetworkConfigs().get(0),bind.getThingInstance());
 				String allID = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+":"+signature;
 				System.out.println("ID for "+thingName+": " + allID);
 				for (Topic topic : bind.getTopics()) {
-					String topicName = topic.getName();
+					String topicName = domainName.replace(".", "/")+"/"+topic.getName();
 					int accessRight = accessConverter(bind.getDirection());
+					if(accessRight!=0) {
 					rulesSql.append(
 							"INSERT INTO acls (username,topic,rw)\n" + 
 							"SELECT * FROM (SELECT "+allID+", '"+topicName+"', "+accessRight+") AS tmp\n" + 
 							"WHERE NOT EXISTS (\n" + 
 							"    SELECT username FROM acls WHERE username = "+allID+" AND topic='"+topicName+"' AND rw="+accessRight+"\n" + 
 							") LIMIT 1;\n \n");
+					}
 				}
 				
 			}

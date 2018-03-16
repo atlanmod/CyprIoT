@@ -1,18 +1,28 @@
+datatype Integer<2>
+	@type_checker "Integer"
+	@c_type "int"
+	@c_byte_size "2"
+	@java_type "short"
+	@js_type "short"
+	@java_primitive "true"
+	@ros_type "int16"
 thing Temperature {
-	message sendTemp()
+	message sendTemp(mess : Integer)
 	message recTemp()
-	required port inout {
+	provided port inout {
 		sends sendTemp receives recTemp
 	}
 	statechart Temperature init Greetings {
 		state Greetings {
 			transition -> Bye action do
 				print "Hello World!\n"
-				inout!sendTemp()
 			end
 		}
 		state Bye {
 			on entry print "Bye.\n"
+			on exit while (true) do
+				inout!sendTemp(1000)
+			end
 		}
 	}
 }

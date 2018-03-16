@@ -112,7 +112,7 @@ NetworkConfiguration:
 	
 	'}';
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=TargetAnnotation )*;
+	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=TargetAnnotation )*;
 
 Connect:
 	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=TargetAnnotation )*;

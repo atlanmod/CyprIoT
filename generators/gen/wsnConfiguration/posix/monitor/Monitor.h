@@ -1,11 +1,11 @@
 /*****************************************************
  *      THIS IS A GENERATED FILE. DO NOT EDIT.
- *           Header for Thing Temperature
+ *           Header for Thing Monitor
  *  Generated from ThingML (http://www.thingml.org)
  *****************************************************/
 
-#ifndef Temperature_H_
-#define Temperature_H_
+#ifndef Monitor_H_
+#define Monitor_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,31 +14,31 @@ extern "C" {
 #include "thingml_typedefs.h"
 
 /*****************************************************************************
- * Headers for type : Temperature
+ * Headers for type : Monitor
  *****************************************************************************/
 
 // Definition of the instance struct:
-struct Temperature_Instance {
+struct Monitor_Instance {
 
 // Instances of different sessions
 bool active;
 // Variables for the ID of the ports of the instance
 uint16_t id_inout;
 // Variables for the current instance state
-int Temperature_Temperature_State;
+int Monitor_Monitor_State;
 // Variables for the properties of the instance
 
 };
 // Declaration of prototypes outgoing messages :
-void Temperature_Temperature_OnEntry(int state, struct Temperature_Instance *_instance);
+void Monitor_Monitor_OnEntry(int state, struct Monitor_Instance *_instance);
 // Declaration of callbacks for incoming messages:
-void register_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *, int));
-void register_external_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *, int));
+void register_Monitor_send_inout_sendTemp_listener(void (*_listener)(struct Monitor_Instance *));
+void register_external_Monitor_send_inout_sendTemp_listener(void (*_listener)(struct Monitor_Instance *));
 
 // Definition of the states:
-#define TEMPERATURE_TEMPERATURE_GREETINGS_STATE 0
-#define TEMPERATURE_TEMPERATURE_STATE 1
-#define TEMPERATURE_TEMPERATURE_BYE_STATE 2
+#define MONITOR_MONITOR_GREETINGS_STATE 0
+#define MONITOR_MONITOR_STATE 1
+#define MONITOR_MONITOR_BYE_STATE 2
 
 
 
@@ -46,4 +46,4 @@ void register_external_Temperature_send_inout_sendTemp_listener(void (*_listener
 }
 #endif
 
-#endif //Temperature_H_
+#endif //Monitor_H_

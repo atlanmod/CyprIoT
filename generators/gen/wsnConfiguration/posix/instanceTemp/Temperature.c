@@ -14,7 +14,7 @@
 //Prototypes: State Machine
 void Temperature_Temperature_OnExit(int state, struct Temperature_Instance *_instance);
 //Prototypes: Message Sending
-void Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance);
+void Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance, int mess);
 //Prototypes: Function
 // Declaration of functions:
 
@@ -49,6 +49,10 @@ break;}
 case TEMPERATURE_TEMPERATURE_GREETINGS_STATE:{
 break;}
 case TEMPERATURE_TEMPERATURE_BYE_STATE:{
+while(1) {
+Temperature_send_inout_sendTemp(_instance, 1000);
+
+}
 break;}
 default: break;
 }
@@ -64,7 +68,6 @@ if (1) {
 Temperature_Temperature_OnExit(TEMPERATURE_TEMPERATURE_GREETINGS_STATE, _instance);
 _instance->Temperature_Temperature_State = TEMPERATURE_TEMPERATURE_BYE_STATE;
 fprintf(stdout, "Hello World!\n");
-Temperature_send_inout_sendTemp(_instance);
 Temperature_Temperature_OnEntry(TEMPERATURE_TEMPERATURE_BYE_STATE, _instance);
 return 1;
 }
@@ -75,17 +78,17 @@ return empty_event_consumed;
 }
 
 // Observers for outgoing messages:
-void (*external_Temperature_send_inout_sendTemp_listener)(struct Temperature_Instance *)= 0x0;
-void (*Temperature_send_inout_sendTemp_listener)(struct Temperature_Instance *)= 0x0;
-void register_external_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *)){
+void (*external_Temperature_send_inout_sendTemp_listener)(struct Temperature_Instance *, int)= 0x0;
+void (*Temperature_send_inout_sendTemp_listener)(struct Temperature_Instance *, int)= 0x0;
+void register_external_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *, int)){
 external_Temperature_send_inout_sendTemp_listener = _listener;
 }
-void register_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *)){
+void register_Temperature_send_inout_sendTemp_listener(void (*_listener)(struct Temperature_Instance *, int)){
 Temperature_send_inout_sendTemp_listener = _listener;
 }
-void Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance){
-if (Temperature_send_inout_sendTemp_listener != 0x0) Temperature_send_inout_sendTemp_listener(_instance);
-if (external_Temperature_send_inout_sendTemp_listener != 0x0) external_Temperature_send_inout_sendTemp_listener(_instance);
+void Temperature_send_inout_sendTemp(struct Temperature_Instance *_instance, int mess){
+if (Temperature_send_inout_sendTemp_listener != 0x0) Temperature_send_inout_sendTemp_listener(_instance, mess);
+if (external_Temperature_send_inout_sendTemp_listener != 0x0) external_Temperature_send_inout_sendTemp_listener(_instance, mess);
 ;
 }
 
