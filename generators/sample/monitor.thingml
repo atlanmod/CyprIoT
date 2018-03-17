@@ -1,29 +1,9 @@
-datatype UInt32<4>
-    @type_checker "Integer"
-	@c_type "uint32_t"
-	@c_byte_size "4"
-	@java_type "int"
-  @js_type "int"
-	@java_primitive "true";
- datatype UInt8<1>
-    @type_checker "Integer"
-	@c_type "uint8_t"
-	@c_byte_size "1"
-	@java_type "byte"
-	@js_type "byte"
-	@java_primitive "true";
-object DHT
-	@c_type "dht";
-thing fragment tempMsgs {
-	message temperatureMessage(TemperatureData : UInt32);
-	
+import "reused/messages.thingml"
+
+thing Monitor includes tempMsgs {
 	provided port temperaturePort{
 		receives temperatureMessage
 	}
-}
-
-thing Monitor includes tempMsgs {
-
 	statechart monitorBehavior init Active {
 
 		state Active {
@@ -39,20 +19,8 @@ thing Monitor includes tempMsgs {
 	}
 }
 
-
-protocol MQTT
-	@mqtt_broker_address "127.0.0.1"
-	@mqtt_port_number "1883"
-	@mqtt_escape_null "true"
-	@serializer "Binary"
-	@trace_level "0"
-;
-
 configuration airConfitionnerCfg
 {
-
 	instance monitor: Monitor
-
 	connector monitor.temperaturePort over MQTT
-
 }

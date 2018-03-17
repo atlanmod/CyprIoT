@@ -1,9 +1,3 @@
-object String
-	@type_checker "String"
-	@c_type "char *"
-	@c_byte_size "*"
-	@java_type "String"
-	@js_type "String"
 datatype UInt32<4>
 	@type_checker "Integer"
 	@c_type "uint32_t"
@@ -21,16 +15,13 @@ datatype UInt8<1>
 object DHT @c_type "dht"
 thing fragment tempMsgs {
 	message temperatureMessage(TemperatureData : UInt32)
-	message temperatureMessage2(TemperatureData : UInt32)
-	required port temperaturePort {
-		sends temperatureMessage
-	}
-	required port temperaturePort2 {
-		sends temperatureMessage2
-	}
 }
-thing Temperature includes tempMsgs @c_header "#include <dht.h>" @platform "arduino" {
+thing TemperaturePSM includes tempMsgs @c_header "#include <dht.h>" @platform "arduino" {
+	provided port temperaturePort {
+		sends temperatureMessage receives temperatureMessage
+	}
 	readonly property pin : UInt8 = 8
+	readonly property sampling : UInt8 = 5000
 	property dht : DHT
 	statechart temperatureSensorBehavior init setup {
 		state setup {
@@ -46,24 +37,39 @@ thing Temperature includes tempMsgs @c_header "#include <dht.h>" @platform "ardu
 				'Serial.println(' & dht & '.temperature);'
 				temperaturePort!temperatureMessage('(uint32_t)' & dht & '.temperature')
 			end
-			on exit 'delay(1000);'
 			transition -> samplingRate
 		}
 		state samplingRate {
+			on entry 'delay(' & sampling & ');'
 			transition -> collect
 		}
 	}
 }
+thing TemperaturePIM includes tempMsgs {
+	required port temperaturePort {
+		sends temperatureMessage receives temperatureMessage
+	}
+	statechart pimBehaviour init showTemperature {
+		state showTemperature {
+			internal
+			event e : temperaturePort?temperatureMessage
+			action do
+				print e.TemperatureData
+				temperaturePort!temperatureMessage(e.TemperatureData)
+			end
+		}
+	}
+}
 protocol MQTT
-	@wifi_ssid "iPhone"
-	@wifi_password "project1927"
 	@mqtt_broker_address "127.0.0.1"
 	@mqtt_port_number "1883"
 	@mqtt_escape_null "true"
 	@serializer "Binary"
 	@trace_level "0" ;
 
-configuration myTemperature {
-	instance temp : Temperature
-	connector temp.temperaturePort over MQTT
+configuration temperatureCfg {
+	instance temppsm : TemperaturePSM
+	instance temppim : TemperaturePIM
+	connector temppim.temperaturePort => temppsm . temperaturePort
+	connector temppim.temperaturePort over MQTT
 }
