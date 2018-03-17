@@ -12,4 +12,3 @@ Require-Bundle: lang,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: lang.ide.contentassist.antlr.internal,
  lang.ide.contentassist.antlr
-

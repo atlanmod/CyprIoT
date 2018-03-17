@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ASCII"?>
+<thingML:ThingMLModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <types xsi:type="thingML:ObjectType" name="String">
+    <annotations name="type_checker" value="String"/>
+    <annotations name="c_type" value="char *"/>
+    <annotations name="c_byte_size" value="*"/>
+    <annotations name="java_type" value="String"/>
+    <annotations name="js_type" value="String"/>
+  </types>
+  <types xsi:type="thingML:PrimitiveType" name="Integer" ByteSize="2">
+    <annotations name="c_type" value="int"/>
+    <annotations name="c_byte_size" value="2"/>
+    <annotations name="java_type" value="short"/>
+    <annotations name="java_primitive" value="true"/>
+    <annotations name="scala_type" value="Short"/>
+    <annotations name="SenML_type" value="Double"/>
+    <annotations name="ros_type" value="int16"/>
+  </types>
+  <types xsi:type="thingML:Thing" name="tempMsgs" fragment="true">
+    <messages name="temperatureMessage">
+      <parameters name="TemperatureData">
+        <typeRef type="//@types.1"/>
+      </parameters>
+    </messages>
+    <ports xsi:type="thingML:RequiredPort" name="temperaturePort" sends="//@types.2/@messages.0"/>
+  </types>
+  <types xsi:type="thingML:Thing" name="Temperature" includes="//@types.2">
+    <annotations name="java_type" value="java.util.Random"/>
+    <behaviour name="temperatureSensorBehavior" initial="//@types.3/@behaviour/@substate.0">
+      <substate name="setup">
+        <entry xsi:type="thingML:ActionBlock">
+          <actions xsi:type="thingML:PrintAction">
+            <msg xsi:type="thingML:StringLiteral" stringValue="initialization..."/>
+          </actions>
+        </entry>
+        <outgoing target="//@types.3/@behaviour/@substate.1"/>
+      </substate>
+      <substate name="collect">
+        <entry xsi:type="thingML:LoopAction">
+          <condition xsi:type="thingML:BooleanLiteral" boolValue="true"/>
+          <action xsi:type="thingML:ActionBlock">
+            <actions xsi:type="thingML:SendAction" port="//@types.2/@ports.0" message="//@types.2/@messages.0">
+              <parameters xsi:type="thingML:ExternExpression" expression="(int2)(java.lang.Math.random() * ((100 - 0) + 1))"/>
+            </actions>
+          </action>
+        </entry>
+      </substate>
+    </behaviour>
+  </types>
+  <protocols name="MQTT">
+    <annotations name="mqtt_broker_address" value="127.0.0.1"/>
+    <annotations name="mqtt_port_number" value="1883"/>
+    <annotations name="mqtt_escape_null" value="true"/>
+    <annotations name="serializer" value="JSON"/>
+    <annotations name="trace_level" value="0"/>
+  </protocols>
+  <configs name="myTemperature">
+    <instances name="temp" type="//@types.3"/>
+    <connectors xsi:type="thingML:ExternalConnector" inst="//@configs.0/@instances.0" port="//@types.2/@ports.0" protocol="//@protocols.0"/>
+  </configs>
+</thingML:ThingMLModel>

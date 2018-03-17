@@ -29,7 +29,7 @@ TargetAnnotation:
 Thing: // example gateway, arduino, android  
 	'thing' name=ID
 	( annotations+=TargetAnnotation )*'{'
-		 ('config=' code+=STRING_LISH | ports+=Port)*
+		 ('config=' code+=STRING_LIT | ports+=Port)*
 '}';
 
 Channel: // mqtt, kafka, real simple bus,
@@ -80,7 +80,7 @@ Domain:
 	'domain' name=STRING_LIT
 ;
 InstanceThing:
-	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing])  'id' thingId=STRING_LIT 'password' thingPassword=STRING_LIT 'target' platform=('tinyos'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
+	'instanceThing' name=ID (( '[' number+=INT ']')*)?':' (typeThing=[Thing])  'id' thingId=STRING_LIT 'password' thingPassword=STRING_LIT 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;

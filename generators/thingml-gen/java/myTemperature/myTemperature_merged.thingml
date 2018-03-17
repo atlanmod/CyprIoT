@@ -1,0 +1,46 @@
+object String
+	@type_checker "String"
+	@c_type "char *"
+	@c_byte_size "*"
+	@java_type "String"
+	@js_type "String"
+datatype Integer<2>
+	@c_type "int"
+	@c_byte_size "2"
+	@java_type "short"
+	@java_primitive "true"
+	@scala_type "Short"
+	@SenML_type "Double"
+	@ros_type "int16"
+thing fragment tempMsgs {
+	message temperatureMessage(TemperatureData : Integer)
+	required port temperaturePort {
+		sends temperatureMessage
+	}
+}
+thing Temperature includes tempMsgs @java_type "java.util.Random" {
+	statechart temperatureSensorBehavior init setup {
+		state setup {
+			on entry do
+				print "initialization..."
+			end
+			transition -> collect
+		}
+		state collect {
+			on entry while (true) do
+				temperaturePort!temperatureMessage('(int2)(java.lang.Math.random() * ((100 - 0) + 1))')
+			end
+		}
+	}
+}
+protocol MQTT
+	@mqtt_broker_address "127.0.0.1"
+	@mqtt_port_number "1883"
+	@mqtt_escape_null "true"
+	@serializer "JSON"
+	@trace_level "0" ;
+
+configuration myTemperature {
+	instance temp : Temperature
+	connector temp.temperaturePort over MQTT
+}

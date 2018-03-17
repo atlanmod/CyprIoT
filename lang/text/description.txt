@@ -86,6 +86,8 @@ Package iotlang <http://www.Iotlang.lang>
     Attribute name : EString
     Reference typeChannel : PubSub
     Attribute platform : EString
+    Attribute host : EString
+    Attribute port : EString
     Attribute protocol : EString
     Attribute physical : EString
     Reference annotations : TargetAnnotation<<0..*>>
@@ -94,6 +96,8 @@ Package iotlang <http://www.Iotlang.lang>
     Attribute name : EString
     Reference typeChannel : ReqRep
     Attribute platform : EString
+    Attribute host : EString
+    Attribute port : EString
     Attribute protocol : EString
     Attribute physical : EString
     Reference annotations : TargetAnnotation<<0..*>>
@@ -117,6 +121,7 @@ Package iotlang <http://www.Iotlang.lang>
     Reference thingInstances : InstanceThing<<0..*>>
     Reference channelInstances : InstanceChannel<<0..*>>
     Reference enforces : Policy<<0..*>>
+    Attribute format : EString
 
   Class Bind
     Attribute name : EString

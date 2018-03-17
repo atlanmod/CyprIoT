@@ -34,11 +34,6 @@
     <artifactId>mqtt-client</artifactId>
     <version>1.12</version>
 </dependency>
-<dependency>
-<groupId>com.eclipsesource.minimal-json</groupId>
-<artifactId>minimal-json</artifactId>
-<version>0.9.4</version>
-</dependency>
 <!--DEP-->
 	</dependencies>
 

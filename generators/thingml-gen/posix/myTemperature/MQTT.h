@@ -24,8 +24,8 @@ void MQTT_setup(struct MQTT_Instance *_instance);
 void MQTT_start_receiver_thread();
 void MQTT_loop_poll();
 
-// Forwarding of messages MQTT::Temperature::HW::sendTemp
-void forward_MQTT_Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance);
+// Forwarding of messages MQTT::Temperature::temperaturePort::temperatureMessage
+void forward_MQTT_Temperature_send_temperaturePort_temperatureMessage(struct Temperature_Instance *_instance, int TemperatureData);
 
 
 #endif

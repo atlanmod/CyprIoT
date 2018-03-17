@@ -18,8 +18,8 @@ void MQTT_message_callback(struct mosquitto *, void *, const struct mosquitto_me
 // Setup
 void MQTT_setup(struct MQTT_Instance *_instance)
 {
-    const char *host = "iot.eclipse.org";
-    int port = 8883;
+    const char *host = "127.0.0.1";
+    int port = 1883;
     const char *client_id = NULL;
     const char *username = NULL;
     const char *password = NULL;
@@ -166,87 +166,7 @@ static uint8_t *jump_space(uint8_t *msg, int len, uint8_t *ptr)
     return NULL;
 }
 
-static int parse_recTemp(uint8_t *msg, int size, uint8_t *out_buffer) {
-    uint8_t *ptr = msg;
-    uint8_t *start = NULL;
-    uint8_t *end = NULL;
-    uint8_t *pstart = NULL;
-    int index = 0;
-    // Port-message code
-    out_buffer[index+0] = (1 >> 8);
-    out_buffer[index+1] = (1 & 0xFF);
-    index += 2;
-    // Find all forwarded parameters
-    int np;
-    for (np = 0; np < 0; np++) {
-        // Parameter name
-        ptr = jump_space(msg, size, ptr);
-        if (!ptr || *ptr != '"') return -2;
-        start = ptr+1;
-        ptr = jump_to(msg, size, start, '"', '"');
-        if (!ptr) return -3;
-        end = ptr;
-        // Parameter value
-        ptr = jump_to(msg, size, end, ':', ':');
-        if (!ptr) return -4;
-        ptr = jump_space(msg, size, ptr+1);
-        if (!ptr) return -5;
-        pstart = ptr;
-        ptr = jump_to(msg, size, pstart, ',', '}');
-        if (!ptr) return -6;
-        // Find matching parameter
-        if (ptr-pstart < 1) return -7;
-        ptr = jump_to(msg, size, ptr, ',', '}');
-        if (!ptr) return -8;
-        ptr = ptr+1;
-    }
-    // Zero-init all non-forwarded messages
-    // Make sure we are at the end of the message
-    ptr = jump_space(msg, size, ptr);
-    if (!ptr || *ptr != '}') return -9;
-    // Parsing complete
-    return 2;
-}
-
 void MQTT_parser(uint8_t *msg, int size, struct MQTT_Instance *_instance) {
-    uint8_t *ptr = msg;
-    uint8_t *start = NULL;
-    uint8_t *end = NULL;
-    // Find opening '{'
-    ptr = jump_space(msg, size, ptr);
-    if (!ptr || *ptr != '{') return;
-    // Find start of message name '"'
-    ptr = jump_space(msg, size, ptr+1);
-    if (!ptr || *ptr != '"') return;
-    start = ptr+1;
-    // Find end of message name '"'
-    ptr = jump_to(msg, size, start, '"', '"');
-    if (!ptr) return;
-    end = ptr;
-
-    // Find the message object ':{'
-    ptr = jump_space(msg, size, ptr+1);
-    if (!ptr || *ptr != ':') return;
-    ptr = jump_space(msg, size, ptr+1);
-    if (!ptr || *ptr != '{') return;
-    ptr++;
-
-    // Make room for parsing
-    uint8_t enqueue_buffer[2];
-
-    // Parse the message
-    int result = -1;
-    if (0) {}
-    else if (strncmp("recTemp", start, end-start) == 0) {
-        result = parse_recTemp(ptr, size-(ptr-msg), enqueue_buffer);
-    }
-
-    // Enqueue the message
-    if (result > 0) {
-        externalMessageEnqueue(enqueue_buffer, result, _instance->listener_id);
-    } else {
-        //fprintf(stderr, "[MQTT]: Error parsing message %i\n", result);
-    }
 
 }
 
@@ -276,17 +196,22 @@ void MQTT_send_message(uint8_t *msg, int msglen, int topic)
     }
 }
 
-// Forwarding of messages MQTT::Temperature::HW::sendTemp
-void forward_MQTT_Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance){
-    uint8_t buffer[16];
+// Forwarding of messages MQTT::Temperature::temperaturePort::temperatureMessage
+void forward_MQTT_Temperature_send_temperaturePort_temperatureMessage(struct Temperature_Instance *_instance, int TemperatureData){
+    uint8_t buffer[56];
     int index = 0;
     int result;
 
     //Start of serialized message
-    result = sprintf(&buffer[index], "%.*s", 16-index, "{\"sendTemp\":{");
+    result = sprintf(&buffer[index], "%.*s", 56-index, "{\"temperatureMessage\":{");
+    if (result >= 0) { index += result; } else { return; }
+    // Parameter TemperatureData
+    result = sprintf(&buffer[index], "%.*s", 56-index, "\"TemperatureData\":");
+    if (result >= 0) { index += result; } else { return; }
+    result = sprintf(&buffer[index], "%d", TemperatureData);
     if (result >= 0) { index += result; } else { return; }
     //End of serialized message
-    result = sprintf(&buffer[index], "%.*s", 16-index, "}}");
+    result = sprintf(&buffer[index], "%.*s", 56-index, "}}");
     if (result >= 0) { index += result; } else { return; }
     index += 1; //Also count zero-terminator
 

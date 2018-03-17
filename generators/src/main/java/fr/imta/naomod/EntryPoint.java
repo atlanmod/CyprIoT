@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -23,11 +26,15 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.compilers.c.arduino.ArduinoCompiler;
 import org.thingml.compilers.c.posix.PosixCompiler;
 import org.thingml.compilers.debugGUI.plugin.MQTTjs;
 import org.thingml.compilers.java.JavaCompiler;
+import org.thingml.networkplugins.c.CNoneSerializerPlugin;
+import org.thingml.networkplugins.c.arduino.ESP8266MQTTPlugin;
 import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
+import org.thingml.networkplugins.java.JavaByteArraySerializerPlugin;
 import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
 import org.thingml.networkplugins.java.JavaMQTTPlugin;
 import org.thingml.xtext.ThingMLStandaloneSetup;
@@ -56,7 +63,7 @@ public class EntryPoint {
 	}
 	private static void procedure() {
 		File input = null;
-		input = new File("testing.iotlang");
+		input = new File("sample/testing.iotlang");
 		
 		registerFactory();
 		ResourceSet rs = new ResourceSetImpl();
@@ -86,20 +93,17 @@ public class EntryPoint {
         
         
         for (lang.iotlang.InstanceThing th : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
-        	String code = th.getTypeThing().getCode().get(0);
-            code = code.replace("#", "");
-            //System.out.println(""+code);
-            
+        	String read = th.getTypeThing().getCode().get(0).replace("\"", "");
+        	String code ="";
+        	try {
+				code = readFile("/home/imad/dev/workspaces/iotlang/generators/sample/"+read,StandardCharsets.UTF_8);
+	            
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             ThingMLModel thgmodel = loadModel(code);
-            System.out.println(thgmodel.getTypes().get(0).getName());
-            //System.out.println(((Thing) thgmodel.getTypes().get(0)).getPorts().get(0).getName());
-            
-//            System.out.println(thgmodel.getTypes().get(0).getName());
-//            System.out.println(thgmodel.getTypes().get(0).getName());
-            
-            
-            
-            
+			System.out.println(read);
             String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
             String thingId= domainName+".5665464";
             String thingPassword= th.getThingPassword().replace("\"", "");
@@ -112,7 +116,7 @@ public class EntryPoint {
                 mqttjava.setmClientId("\""+thingId+"\"");
                 mqttjava.setmUsername("\""+thingId+"\"");
                 mqttjava.setmPassword("\""+thingPassword+"\"");
-                JavaJSONSerializerPlugin jsonJavaMqtt = new JavaJSONSerializerPlugin();
+                JavaByteArraySerializerPlugin jsonJavaMqtt = new JavaByteArraySerializerPlugin();
                 javaCompile.addNetworkPlugin(mqttjava);
                 javaCompile.addSerializationPlugin(jsonJavaMqtt);   
                 Set<String> topicList = new HashSet<String>();
@@ -144,7 +148,7 @@ public class EntryPoint {
                 mqtt.setmClientId("\""+thingId+"\"");
                 mqtt.setmUsername("\""+thingId+"\"");
                 mqtt.setmPassword("\""+thingPassword+"\"");
-                PosixJSONSerializerPlugin jsonposix = new PosixJSONSerializerPlugin();
+                CNoneSerializerPlugin jsonposix = new CNoneSerializerPlugin();
                 thgCompile.addSerializationPlugin(jsonposix);
                 thgCompile.addNetworkPlugin(mqtt);
                 
@@ -163,11 +167,37 @@ public class EntryPoint {
     	            		}
                 		}
                 	}
-           		}   
-                
-                
+           		}                   
                 thgCompile.setOutputDirectory(folder);
                 thgCompile.compile(thgmodel.getConfigs().get(0));
+            } else if(th.getPlatform().equals("arduino")) {
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/arduino/"+th.getName());
+            	ThingMLCompiler ardCompile = new ArduinoCompiler();
+                ESP8266MQTTPlugin mqttard = new ESP8266MQTTPlugin();
+                mqttard.setmClientId("\""+thingId+"\"");
+                mqttard.setmUsername("\""+thingId+"\"");
+                mqttard.setmPassword("\""+thingPassword+"\"");
+                CNoneSerializerPlugin jsonJavaMqtt = new CNoneSerializerPlugin();
+                ardCompile.addNetworkPlugin(mqttard);
+                ardCompile.addSerializationPlugin(jsonJavaMqtt);   
+                Set<String> topicList = new HashSet<String>();
+                for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
+                	for (Topic topic : bind.getTopics()) {
+           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
+                		if(bind.getThingInstance().getName().equals(th.getName())) {
+    	            		if(bind.getDirection().equals("=>")) {
+    	            			mqttard.addPubTopic(topicToAdd);
+    		       			}else if(bind.getDirection().equals("<=")) {
+    		       				mqttard.addSubTopic(topicToAdd);
+    	            		} else {
+    	            			mqttard.addSubTopic(topicToAdd);
+    	            			mqttard.addPubTopic(topicToAdd);
+    	            		}
+                		}
+                	}
+           		}  
+                ardCompile.setOutputDirectory(folder);
+                ardCompile.compile(thgmodel.getConfigs().get(0));
             }
             for (Topic topic : getTopicsForThing(iotModel,th.getTypeThing(),PuSubType.PUB)) {
 				System.out.println("Pub : "+topic.getName());
@@ -176,54 +206,7 @@ public class EntryPoint {
 				System.out.println("Sub : "+topic.getName());
 			}
             setPolicyRules(iotModel,th.getTypeThing());
-
 		}
-        File outputFile = null;
-        outputFile = new File("main.ino");
-		BufferedWriter buffer=null;
-        
-		IoTCompiler compiler = new JavalangCompiler();
-		IoTCompiler compilerC = new ClangCompiler();
-		//System.out.println("Generation pour : " + compiler.getID());
-        //System.out.println("Generation pour : " + compilerC.getID());
-		//compiler.compile(iotModel,iotModel.getConfigs().get(0),Logger.SYSTEM );
-		
-		
-		try {
-			buffer = new BufferedWriter(new FileWriter(outputFile));
-			for (InstanceThing instanceThing : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
-				buffer.write("InstanceThing : "+sign(iotModel.getNetworkConfigs().get(0), instanceThing)+"\n");
-			}
-			for (Bind instanceThing : iotModel.getNetworkConfigs().get(0).getBinds()) {
-				buffer.write("Bind : "+iotModel.getNetworkConfigs().get(0).getBinds().size()+"\n");
-			}
-			buffer.write("Domain : "+iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "")+"\n");
-			/*for (Rule rule : iotModel.getConfigs().get(0).getInstancePoliciy().get(0).getTypePolicy().getHasRules()) {
-				if(rule.getObject()!=null) {
-					String objectName = rule.getObject().getPorts().get(0).getName();
-					buffer.write("Rules : "+objectName+"\n");
-				}
-			}*/
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-	          if ( buffer != null ) {
-	            try {
-	            	buffer.close();
-	            	
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	       }
-	     }
-        //generateSQLRules(iotModel);
-		//generateTextRules(iotModel);
-		
-		GenerateCode generateCode = new GenerateCode();
-		generateCode.replaceInFile("arduino_xbee_main.ino", "###TOPIC###","room1");
-		generateCode.replaceInFile("arduino_xbee_main.ino", "###CLIENT_ID###","fr:imt:dapi:roomA246:140162625");		
 	}
 	
 	private static HashSet<Topic> getTopicsForThing(IoTLangModel iotModel,Thing thing, PuSubType puSubType) {
@@ -243,8 +226,22 @@ public class EntryPoint {
 
 		return hs;
 	}	
-	
-	
+	static String readFile(String path, Charset encoding) 
+			  throws IOException 
+			{
+			  byte[] encoded = Files.readAllBytes(Paths.get(path));
+			  return new String(encoded, encoding);
+			}
+	public static ThingMLModel getModelFromRelativeURI(String uri) throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+        URI xmiuri = URI.createFileURI(uri);
+        Resource model = rs.createResource(xmiuri);
+		if (model!= null && model.getContents().size() > 0 && model.getContents().get(0) instanceof ThingMLModel ) {
+			return (ThingMLModel)model.getContents().get(0);
+		} else {
+			throw new Exception("No valid model found for resource "+uri);
+		}
+	}
 	private static void setPolicyRules(IoTLangModel iotModel, Thing thing) {
 		Policy policy = iotModel.getPolicies().get(0);
 		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();

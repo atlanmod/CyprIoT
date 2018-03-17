@@ -12,9 +12,10 @@
 
 // Declaration of prototypes:
 //Prototypes: State Machine
-void Temperature_Temperature_OnExit(int state, struct Temperature_Instance *_instance);
+void Temperature_temperatureSensorBehavior_OnExit(int state, struct Temperature_Instance *_instance);
 //Prototypes: Message Sending
-void Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance);
+void Temperature_send_temperaturePort_temperatureMessage(struct Temperature_Instance *_instance, int TemperatureData);
+void Temperature_send_temperaturePort2_temperatureMessage2(struct Temperature_Instance *_instance, int TemperatureData);
 //Prototypes: Function
 // Declaration of functions:
 
@@ -22,18 +23,25 @@ void Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance);
 
 
 // On Entry Actions:
-void Temperature_Temperature_OnEntry(int state, struct Temperature_Instance *_instance) {
+void Temperature_temperatureSensorBehavior_OnEntry(int state, struct Temperature_Instance *_instance) {
 switch(state) {
-case TEMPERATURE_TEMPERATURE_STATE:{
-_instance->Temperature_Temperature_State = TEMPERATURE_TEMPERATURE_GREETINGS_STATE;
-Temperature_Temperature_OnEntry(_instance->Temperature_Temperature_State, _instance);
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_STATE:{
+_instance->Temperature_temperatureSensorBehavior_State = TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE;
+Temperature_temperatureSensorBehavior_OnEntry(_instance->Temperature_temperatureSensorBehavior_State, _instance);
 break;
 }
-case TEMPERATURE_TEMPERATURE_BYE_STATE:{
-fprintf(stdout, "Bye.\n");
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE:{
 break;
 }
-case TEMPERATURE_TEMPERATURE_GREETINGS_STATE:{
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE:{
+Serial.println(_instance->Temperature_dht_var.temperature);
+Temperature_send_temperaturePort_temperatureMessage(_instance, (int) _instance->Temperature_dht_var.temperature);
+break;
+}
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE:{
+fprintf(stdout, "initialization...");
+Serial.begin(9600);
+			_instance->Temperature_dht_var.read11(_instance->Temperature_pin_var);
 break;
 }
 default: break;
@@ -41,14 +49,17 @@ default: break;
 }
 
 // On Exit Actions:
-void Temperature_Temperature_OnExit(int state, struct Temperature_Instance *_instance) {
+void Temperature_temperatureSensorBehavior_OnExit(int state, struct Temperature_Instance *_instance) {
 switch(state) {
-case TEMPERATURE_TEMPERATURE_STATE:{
-Temperature_Temperature_OnExit(_instance->Temperature_Temperature_State, _instance);
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_STATE:{
+Temperature_temperatureSensorBehavior_OnExit(_instance->Temperature_temperatureSensorBehavior_State, _instance);
 break;}
-case TEMPERATURE_TEMPERATURE_BYE_STATE:{
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE:{
 break;}
-case TEMPERATURE_TEMPERATURE_GREETINGS_STATE:{
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE:{
+delay(1000);
+break;}
+case TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE:{
 break;}
 default: break;
 }
@@ -58,14 +69,28 @@ default: break;
 int Temperature_handle_empty_event(struct Temperature_Instance *_instance) {
  uint8_t empty_event_consumed = 0;
 if(!(_instance->active)) return 0;
-//Region Temperature
-if (_instance->Temperature_Temperature_State == TEMPERATURE_TEMPERATURE_GREETINGS_STATE) {
+//Region temperatureSensorBehavior
+if (_instance->Temperature_temperatureSensorBehavior_State == TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE) {
 if (1) {
-Temperature_Temperature_OnExit(TEMPERATURE_TEMPERATURE_GREETINGS_STATE, _instance);
-_instance->Temperature_Temperature_State = TEMPERATURE_TEMPERATURE_BYE_STATE;
-fprintf(stdout, "Hello World!\n");
-Temperature_send_HW_sendTemp(_instance);
-Temperature_Temperature_OnEntry(TEMPERATURE_TEMPERATURE_BYE_STATE, _instance);
+Temperature_temperatureSensorBehavior_OnExit(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE, _instance);
+_instance->Temperature_temperatureSensorBehavior_State = TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE;
+Temperature_temperatureSensorBehavior_OnEntry(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE, _instance);
+return 1;
+}
+}
+else if (_instance->Temperature_temperatureSensorBehavior_State == TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE) {
+if (1) {
+Temperature_temperatureSensorBehavior_OnExit(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE, _instance);
+_instance->Temperature_temperatureSensorBehavior_State = TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE;
+Temperature_temperatureSensorBehavior_OnEntry(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE, _instance);
+return 1;
+}
+}
+else if (_instance->Temperature_temperatureSensorBehavior_State == TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE) {
+if (1) {
+Temperature_temperatureSensorBehavior_OnExit(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SAMPLINGRATE_STATE, _instance);
+_instance->Temperature_temperatureSensorBehavior_State = TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE;
+Temperature_temperatureSensorBehavior_OnEntry(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_COLLECT_STATE, _instance);
 return 1;
 }
 }
@@ -75,17 +100,30 @@ return empty_event_consumed;
 }
 
 // Observers for outgoing messages:
-void (*external_Temperature_send_HW_sendTemp_listener)(struct Temperature_Instance *)= 0x0;
-void (*Temperature_send_HW_sendTemp_listener)(struct Temperature_Instance *)= 0x0;
-void register_external_Temperature_send_HW_sendTemp_listener(void (*_listener)(struct Temperature_Instance *)){
-external_Temperature_send_HW_sendTemp_listener = _listener;
+void (*external_Temperature_send_temperaturePort_temperatureMessage_listener)(struct Temperature_Instance *, int)= 0x0;
+void (*Temperature_send_temperaturePort_temperatureMessage_listener)(struct Temperature_Instance *, int)= 0x0;
+void register_external_Temperature_send_temperaturePort_temperatureMessage_listener(void (*_listener)(struct Temperature_Instance *, int)){
+external_Temperature_send_temperaturePort_temperatureMessage_listener = _listener;
 }
-void register_Temperature_send_HW_sendTemp_listener(void (*_listener)(struct Temperature_Instance *)){
-Temperature_send_HW_sendTemp_listener = _listener;
+void register_Temperature_send_temperaturePort_temperatureMessage_listener(void (*_listener)(struct Temperature_Instance *, int)){
+Temperature_send_temperaturePort_temperatureMessage_listener = _listener;
 }
-void Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance){
-if (Temperature_send_HW_sendTemp_listener != 0x0) Temperature_send_HW_sendTemp_listener(_instance);
-if (external_Temperature_send_HW_sendTemp_listener != 0x0) external_Temperature_send_HW_sendTemp_listener(_instance);
+void Temperature_send_temperaturePort_temperatureMessage(struct Temperature_Instance *_instance, int TemperatureData){
+if (Temperature_send_temperaturePort_temperatureMessage_listener != 0x0) Temperature_send_temperaturePort_temperatureMessage_listener(_instance, TemperatureData);
+if (external_Temperature_send_temperaturePort_temperatureMessage_listener != 0x0) external_Temperature_send_temperaturePort_temperatureMessage_listener(_instance, TemperatureData);
+;
+}
+void (*external_Temperature_send_temperaturePort2_temperatureMessage2_listener)(struct Temperature_Instance *, int)= 0x0;
+void (*Temperature_send_temperaturePort2_temperatureMessage2_listener)(struct Temperature_Instance *, int)= 0x0;
+void register_external_Temperature_send_temperaturePort2_temperatureMessage2_listener(void (*_listener)(struct Temperature_Instance *, int)){
+external_Temperature_send_temperaturePort2_temperatureMessage2_listener = _listener;
+}
+void register_Temperature_send_temperaturePort2_temperatureMessage2_listener(void (*_listener)(struct Temperature_Instance *, int)){
+Temperature_send_temperaturePort2_temperatureMessage2_listener = _listener;
+}
+void Temperature_send_temperaturePort2_temperatureMessage2(struct Temperature_Instance *_instance, int TemperatureData){
+if (Temperature_send_temperaturePort2_temperatureMessage2_listener != 0x0) Temperature_send_temperaturePort2_temperatureMessage2_listener(_instance, TemperatureData);
+if (external_Temperature_send_temperaturePort2_temperatureMessage2_listener != 0x0) external_Temperature_send_temperaturePort2_temperatureMessage2_listener(_instance, TemperatureData);
 ;
 }
 

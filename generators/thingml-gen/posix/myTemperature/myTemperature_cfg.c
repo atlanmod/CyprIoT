@@ -36,15 +36,6 @@ struct MQTT_Instance MQTT_instance;
 
 
 
-//New dispatcher for messages
-void dispatch_recTemp(uint16_t sender) {
-if (sender == MQTT_instance.listener_id) {
-
-}
-
-}
-
-
 int processMessageQueue() {
 fifo_lock();
 while (fifo_empty()) fifo_wait();
@@ -57,21 +48,13 @@ code += fifo_dequeue();
 
 // Switch to call the appropriate handler
 switch(code) {
-case 1:{
-byte mbuf[4 - 2];
-while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_recTemp = 2;
-dispatch_recTemp((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
 }
 return 1;
 }
 
-void forward_Temperature_send_HW_sendTemp(struct Temperature_Instance *_instance){
-if(_instance->id_HW == temp_var.id_HW) {
-forward_MQTT_Temperature_send_HW_sendTemp(_instance);
+void forward_Temperature_send_temperaturePort_temperatureMessage(struct Temperature_Instance *_instance, int TemperatureData){
+if(_instance->id_temperaturePort == temp_var.id_temperaturePort) {
+forward_MQTT_Temperature_send_temperaturePort_temperatureMessage(_instance, TemperatureData);
 }
 }
 
@@ -80,10 +63,6 @@ void externalMessageEnqueue(uint8_t * msg, uint8_t msgSize, uint16_t listener_id
 if ((msgSize >= 2) && (msg != NULL)) {
 uint8_t msgSizeOK = 0;
 switch(msg[0] * 256 + msg[1]) {
-case 1:
-if(msgSize == 2) {
-msgSizeOK = 1;}
-break;
 }
 
 if(msgSizeOK == 1) {
@@ -106,7 +85,7 @@ fifo_unlock_and_notify();
 
 void initialize_configuration_myTemperature() {
 // Initialize connectors
-register_external_Temperature_send_HW_sendTemp_listener(&forward_Temperature_send_HW_sendTemp);
+register_external_Temperature_send_temperaturePort_temperatureMessage_listener(&forward_Temperature_send_temperaturePort_temperatureMessage);
 
 // Init the ID, state variables and properties for external connector MQTT
 
@@ -121,10 +100,12 @@ pthread_create( &thread_MQTT, NULL, MQTT_start_receiver_thread, NULL);
 
 // Init the ID, state variables and properties for instance temp
 temp_var.active = true;
-temp_var.id_HW = add_instance( (void*) &temp_var);
-temp_var.Temperature_Temperature_State = TEMPERATURE_TEMPERATURE_GREETINGS_STATE;
+temp_var.id_temperaturePort = add_instance( (void*) &temp_var);
+temp_var.id_temperaturePort2 = add_instance( (void*) &temp_var);
+temp_var.Temperature_temperatureSensorBehavior_State = TEMPERATURE_TEMPERATURESENSORBEHAVIOR_SETUP_STATE;
+temp_var.Temperature_pin_var = 8;
 
-Temperature_Temperature_OnEntry(TEMPERATURE_TEMPERATURE_STATE, &temp_var);
+Temperature_temperatureSensorBehavior_OnEntry(TEMPERATURE_TEMPERATURESENSORBEHAVIOR_STATE, &temp_var);
 }
 
 

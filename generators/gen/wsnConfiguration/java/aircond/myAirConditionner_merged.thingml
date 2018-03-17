@@ -15,7 +15,7 @@ thing AirConditionner {
 		}
 	}
 }
-protocol MQTT @serializer "JSON" ;
+protocol MQTT @serializer "Binary" ;
 
 configuration myAirConditionner {
 	instance aircond : AirConditionner
