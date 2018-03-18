@@ -123,7 +123,7 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<Message> allMessages(IoTLangModel model) {
+	/*public static ArrayList<Message> allMessages(IoTLangModel model) {
 		ArrayList<Message> result = new ArrayList<Message>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Message t : m.getMessages()) {
@@ -131,8 +131,8 @@ public class Helpers {
 			}
 		}
 		return result;
-		}
-	public static ArrayList<Datatype> allDatatypes(IoTLangModel model) {
+		}*/
+	/*public static ArrayList<Datatype> allDatatypes(IoTLangModel model) {
 		ArrayList<Datatype> result = new ArrayList<Datatype>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Datatype t : m.getDatatypes()) {
@@ -140,7 +140,7 @@ public class Helpers {
 			}
 		}
 		return result;
-		}
+		}*/
 	public static ArrayList<Port> allPorts(IoTLangModel model) {
 		ArrayList<Port> result = new ArrayList<Port>();
 		for (Thing t : allThings(model)) {

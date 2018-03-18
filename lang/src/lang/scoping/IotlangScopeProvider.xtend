@@ -42,9 +42,9 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.bind_Topics) {
 			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.topic_AcceptedMessages) {
+		}/*else if (reference == iotlangInstance.topic_AcceptedMessages) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.bind_PubSubInstance) {
+		}*/else if (reference == iotlangInstance.bind_PubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.instancePubSub_TypeChannel) {
 			return Scopes.scopeFor( Helpers.allPusSub(Helpers.findContainingModel(context)));
@@ -60,11 +60,11 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allPtpinstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_Ports) {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
-		}else if (reference == iotlangInstance.rule_ObjectMessage) {
+		}/*else if (reference == iotlangInstance.rule_ObjectMessage) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.message_Datatypes) {
 			return Scopes.scopeFor( Helpers.allDatatypes(Helpers.findContainingModel(context)) );
-		}else {
+		}*/else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " + (reference.eContainer as ENamedElement).getName);
 		}
 		return Scopes.scopeFor( EMPTY );

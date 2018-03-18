@@ -1,24 +1,24 @@
-user fr.imt.dapi.roomA246:242210936
-topic readwrite fr/imt/dapi/roomA246/room1
+user instanceTemp1
+topic write fr/imt/dapi/roomA246/room1/#
  
-user fr.imt.dapi.roomA246:242210936
-topic readwrite fr/imt/dapi/roomA246/room2
+user instanceTemp1
+topic write fr/imt/dapi/roomA246/room2/#
  
-user fr.imt.dapi.roomA246:19640852
-topic readwrite fr/imt/dapi/roomA246/room2
+user instanceMonitor1
+topic readwrite fr/imt/dapi/roomA246/room2/#
  
-user fr.imt.dapi.roomA246:19640852
-topic readwrite fr/imt/dapi/roomA246/room3
+user instanceMonitor1
+topic readwrite fr/imt/dapi/roomA246/room3/#
  
-user fr.imt.dapi.roomA246:19640852
-topic readwrite fr/imt/dapi/roomA246/room4
+user instanceMonitor1
+topic readwrite fr/imt/dapi/roomA246/room4/#
  
-user fr.imt.dapi.roomA246:56857574
-topic readwrite fr/imt/dapi/roomA246/room1
+user airConditionner1
+topic readwrite fr/imt/dapi/roomA246/room1/#
  
-user fr.imt.dapi.roomA246:56857574
-topic readwrite fr/imt/dapi/roomA246/room3
+user airConditionner1
+topic readwrite fr/imt/dapi/roomA246/room3/#
  
-user fr.imt.dapi.roomA246:56857574
-topic readwrite fr/imt/dapi/roomA246/room5
+user airConditionner1
+topic readwrite fr/imt/dapi/roomA246/room5/#
  

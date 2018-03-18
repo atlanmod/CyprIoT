@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="ASCII"?>
 <thingML:ThingMLModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <types xsi:type="thingML:Thing" name="TemperaturePSM" includes="//@types.5">
+    <annotations name="c_header" value="#include &lt;dht.h>"/>
+    <annotations name="platform" value="arduino"/>
+    <ports xsi:type="thingML:ProvidedPort" name="temperaturePort" sends="//@types.5/@messages.0" receives="//@types.5/@messages.0"/>
+    <properties name="pin" readonly="true">
+      <typeRef type="//@types.2"/>
+      <init xsi:type="thingML:IntegerLiteral" intValue="8"/>
+    </properties>
+    <properties name="sampling" readonly="true">
+      <typeRef type="//@types.2"/>
+      <init xsi:type="thingML:IntegerLiteral" intValue="5000"/>
+    </properties>
+    <properties name="dht">
+      <typeRef type="//@types.4"/>
+    </properties>
+    <behaviour name="temperatureSensorBehavior" initial="//@types.0/@behaviour/@substate.0">
+      <substate name="setup">
+        <entry xsi:type="thingML:ActionBlock">
+          <actions xsi:type="thingML:PrintAction">
+            <msg xsi:type="thingML:StringLiteral" stringValue="initialization..."/>
+          </actions>
+          <actions xsi:type="thingML:ExternStatement" statement="Serial.begin(9600);&#xA;&#x9;&#x9;&#x9;">
+            <segments xsi:type="thingML:PropertyReference" property="//@types.0/@properties.2"/>
+            <segments xsi:type="thingML:ExternExpression" expression=".read11(">
+              <segments xsi:type="thingML:PropertyReference" property="//@types.0/@properties.0"/>
+              <segments xsi:type="thingML:ExternExpression" expression=");"/>
+            </segments>
+          </actions>
+        </entry>
+        <outgoing target="//@types.0/@behaviour/@substate.1"/>
+      </substate>
+      <substate name="collect">
+        <entry xsi:type="thingML:ActionBlock">
+          <actions xsi:type="thingML:ExternStatement" statement="Serial.println(">
+            <segments xsi:type="thingML:PropertyReference" property="//@types.0/@properties.2"/>
+            <segments xsi:type="thingML:ExternExpression" expression=".temperature);"/>
+          </actions>
+          <actions xsi:type="thingML:SendAction" port="//@types.0/@ports.0" message="//@types.5/@messages.0">
+            <parameters xsi:type="thingML:ExternExpression" expression="(uint32_t)">
+              <segments xsi:type="thingML:PropertyReference" property="//@types.0/@properties.2"/>
+              <segments xsi:type="thingML:ExternExpression" expression=".temperature"/>
+            </parameters>
+          </actions>
+        </entry>
+        <outgoing target="//@types.0/@behaviour/@substate.2"/>
+      </substate>
+      <substate name="samplingRate">
+        <entry xsi:type="thingML:ExternStatement" statement="delay(">
+          <segments xsi:type="thingML:PropertyReference" property="//@types.0/@properties.1"/>
+          <segments xsi:type="thingML:ExternExpression" expression=");"/>
+        </entry>
+        <outgoing target="//@types.0/@behaviour/@substate.1"/>
+      </substate>
+    </behaviour>
+  </types>
+  <types xsi:type="thingML:Thing" name="TemperaturePIM" includes="//@types.5">
+    <ports xsi:type="thingML:RequiredPort" name="temperaturePort" sends="//@types.5/@messages.0" receives="//@types.5/@messages.0"/>
+    <behaviour name="pimBehaviour" initial="//@types.1/@behaviour/@substate.0">
+      <substate name="showTemperature">
+        <internal>
+          <event xsi:type="thingML:ReceiveMessage" name="e" port="//@types.1/@ports.0" message="//@types.5/@messages.0"/>
+          <action xsi:type="thingML:ActionBlock">
+            <actions xsi:type="thingML:PrintAction">
+              <msg xsi:type="thingML:EventReference" receiveMsg="//@types.1/@behaviour/@substate.0/@internal.0/@event" parameter="//@types.5/@messages.0/@parameters.0"/>
+            </actions>
+            <actions xsi:type="thingML:SendAction" port="//@types.1/@ports.0" message="//@types.5/@messages.0">
+              <parameters xsi:type="thingML:EventReference" receiveMsg="//@types.1/@behaviour/@substate.0/@internal.0/@event" parameter="//@types.5/@messages.0/@parameters.0"/>
+            </actions>
+          </action>
+        </internal>
+      </substate>
+    </behaviour>
+  </types>
   <types xsi:type="thingML:PrimitiveType" name="UInt32" ByteSize="4">
     <annotations name="type_checker" value="Integer"/>
     <annotations name="c_type" value="uint32_t"/>
@@ -22,94 +95,21 @@
   <types xsi:type="thingML:Thing" name="tempMsgs" fragment="true">
     <messages name="temperatureMessage">
       <parameters name="TemperatureData">
-        <typeRef type="//@types.0"/>
+        <typeRef type="//@types.2"/>
       </parameters>
     </messages>
-  </types>
-  <types xsi:type="thingML:Thing" name="TemperaturePSM" includes="//@types.3">
-    <annotations name="c_header" value="#include &lt;dht.h>"/>
-    <annotations name="platform" value="arduino"/>
-    <ports xsi:type="thingML:ProvidedPort" name="temperaturePort" sends="//@types.3/@messages.0" receives="//@types.3/@messages.0"/>
-    <properties name="pin" readonly="true">
-      <typeRef type="//@types.1"/>
-      <init xsi:type="thingML:IntegerLiteral" intValue="8"/>
-    </properties>
-    <properties name="sampling" readonly="true">
-      <typeRef type="//@types.1"/>
-      <init xsi:type="thingML:IntegerLiteral" intValue="5000"/>
-    </properties>
-    <properties name="dht">
-      <typeRef type="//@types.2"/>
-    </properties>
-    <behaviour name="temperatureSensorBehavior" initial="//@types.4/@behaviour/@substate.0">
-      <substate name="setup">
-        <entry xsi:type="thingML:ActionBlock">
-          <actions xsi:type="thingML:PrintAction">
-            <msg xsi:type="thingML:StringLiteral" stringValue="initialization..."/>
-          </actions>
-          <actions xsi:type="thingML:ExternStatement" statement="Serial.begin(9600);&#xA;&#x9;&#x9;&#x9;">
-            <segments xsi:type="thingML:PropertyReference" property="//@types.4/@properties.2"/>
-            <segments xsi:type="thingML:ExternExpression" expression=".read11(">
-              <segments xsi:type="thingML:PropertyReference" property="//@types.4/@properties.0"/>
-              <segments xsi:type="thingML:ExternExpression" expression=");"/>
-            </segments>
-          </actions>
-        </entry>
-        <outgoing target="//@types.4/@behaviour/@substate.1"/>
-      </substate>
-      <substate name="collect">
-        <entry xsi:type="thingML:ActionBlock">
-          <actions xsi:type="thingML:ExternStatement" statement="Serial.println(">
-            <segments xsi:type="thingML:PropertyReference" property="//@types.4/@properties.2"/>
-            <segments xsi:type="thingML:ExternExpression" expression=".temperature);"/>
-          </actions>
-          <actions xsi:type="thingML:SendAction" port="//@types.4/@ports.0" message="//@types.3/@messages.0">
-            <parameters xsi:type="thingML:ExternExpression" expression="(uint32_t)">
-              <segments xsi:type="thingML:PropertyReference" property="//@types.4/@properties.2"/>
-              <segments xsi:type="thingML:ExternExpression" expression=".temperature"/>
-            </parameters>
-          </actions>
-        </entry>
-        <outgoing target="//@types.4/@behaviour/@substate.2"/>
-      </substate>
-      <substate name="samplingRate">
-        <entry xsi:type="thingML:ExternStatement" statement="delay(">
-          <segments xsi:type="thingML:PropertyReference" property="//@types.4/@properties.1"/>
-          <segments xsi:type="thingML:ExternExpression" expression=");"/>
-        </entry>
-        <outgoing target="//@types.4/@behaviour/@substate.1"/>
-      </substate>
-    </behaviour>
-  </types>
-  <types xsi:type="thingML:Thing" name="TemperaturePIM" includes="//@types.3">
-    <ports xsi:type="thingML:RequiredPort" name="temperaturePort" sends="//@types.3/@messages.0" receives="//@types.3/@messages.0"/>
-    <behaviour name="pimBehaviour" initial="//@types.5/@behaviour/@substate.0">
-      <substate name="showTemperature">
-        <internal>
-          <event xsi:type="thingML:ReceiveMessage" name="e" port="//@types.5/@ports.0" message="//@types.3/@messages.0"/>
-          <action xsi:type="thingML:ActionBlock">
-            <actions xsi:type="thingML:PrintAction">
-              <msg xsi:type="thingML:EventReference" receiveMsg="//@types.5/@behaviour/@substate.0/@internal.0/@event" parameter="//@types.3/@messages.0/@parameters.0"/>
-            </actions>
-            <actions xsi:type="thingML:SendAction" port="//@types.5/@ports.0" message="//@types.3/@messages.0">
-              <parameters xsi:type="thingML:EventReference" receiveMsg="//@types.5/@behaviour/@substate.0/@internal.0/@event" parameter="//@types.3/@messages.0/@parameters.0"/>
-            </actions>
-          </action>
-        </internal>
-      </substate>
-    </behaviour>
   </types>
   <protocols name="MQTT">
     <annotations name="mqtt_broker_address" value="127.0.0.1"/>
     <annotations name="mqtt_port_number" value="1883"/>
     <annotations name="mqtt_escape_null" value="true"/>
     <annotations name="serializer" value="Binary"/>
+    <annotations name="mqtt_topic" value="thg"/>
     <annotations name="trace_level" value="0"/>
   </protocols>
   <configs name="temperatureCfg">
-    <instances name="temppsm" type="//@types.4"/>
-    <instances name="temppim" type="//@types.5"/>
-    <connectors xsi:type="thingML:Connector" cli="//@configs.0/@instances.1" required="//@types.5/@ports.0" srv="//@configs.0/@instances.0" provided="//@types.4/@ports.0"/>
-    <connectors xsi:type="thingML:ExternalConnector" inst="//@configs.0/@instances.1" port="//@types.5/@ports.0" protocol="//@protocols.0"/>
+    <instances name="temppsm" type="//@types.0"/>
+    <instances name="temppim" type="//@types.1"/>
+    <connectors xsi:type="thingML:Connector" cli="//@configs.0/@instances.1" required="//@types.1/@ports.0" srv="//@configs.0/@instances.0" provided="//@types.0/@ports.0"/>
   </configs>
 </thingML:ThingMLModel>

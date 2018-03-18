@@ -10,8 +10,8 @@ thing TemperaturePSM includes tempMsgs
 		receives temperatureMessage
 	}
 	
-	readonly property pin : UInt8 = 8
-	readonly property sampling : UInt8 = 5000
+	readonly property pin : UInt32 = 8
+	readonly property sampling : UInt32 = 5000
 	property dht : DHT
 	statechart temperatureSensorBehavior init setup{
 		state setup {
@@ -24,7 +24,8 @@ thing TemperaturePSM includes tempMsgs
 		state collect {
 			on entry
 			do 'Serial.println('&dht&'.temperature);'
-				temperaturePort!temperatureMessage('(uint32_t)'&dht&'.temperature') 
+				temperaturePort!temperatureMessage('(uint32_t)'&dht&'.temperature')
+				
 			end
 			transition -> samplingRate
 		}
@@ -54,5 +55,5 @@ configuration temperatureCfg {
 	instance temppsm:TemperaturePSM
 	instance temppim:TemperaturePIM
 	connector temppim.temperaturePort => temppsm.temperaturePort
-	connector temppim.temperaturePort over MQTT
+	//connector temppim.temperaturePort over MQTT
 }

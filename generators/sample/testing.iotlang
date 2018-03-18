@@ -1,47 +1,35 @@
+// Requirements
+// - For each thing you provide a thingml file, the file has to be error free otherwise it will not generate code
+// - The exposed ports has to have the same name than the targeted port in thingml
+// - Imports in the file are not supported, the model has to be self-contained, i.e all the info regarding the file has to be in the file itself
+
 thing Temperature {
 	// Arduino that senses the temperature
-	config="temperature.thingml"
+	config="sample.thingml"
 	exposePort inout
 }
-//thing fragment msgAndPorts{
-//	message sensorData (value : Int16);
-//	required port AnalogInput 
-//    {	
-//		sends sensorData
-//		receives sensorData
-//	}
-//}
 
 thing AirConditionner {
 	// Android that handles the air conditionner
 	exposePort poo
-	config="airconditionner.thingml"
+	config="sample.thingml"
 	exposePort inout
 }
 
 thing Monitor {
 	// Simple android application that give the user the possibility to select the temperature
 	exposePort inout
-	config="monitor.thingml"
+	config="sample.thingml"
 }
-datatype int <8>;
-message temperatureMessage(int)
-//protocol mqtt
 
 channel:pubsub MqttChannel {
-	topic room1 (temperatureMessage)
-	topic room2 (temperatureMessage)
-	topic room3 (temperatureMessage)
-	topic room4 (temperatureMessage)
-	topic room5 (temperatureMessage)
+	topic room1
+	topic room2
+	topic room3
+	topic room4
+	topic room5
 }
-
-//channel:reqrep ptp {
-	
-//}
-
 policy roomPolicy {
-	rule Temperature allow:receive message:temperatureMessage
 	rule AirConditionner deny:send Temperature
 	rule Temperature deny:send AirConditionner
 		// What does this mean?
@@ -65,14 +53,11 @@ policy roomPolicy {
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
 	enforce roomPolicy format txt
-	//instanceThing monitor[10]:Monitor id "monitor" target cposix
-	instanceThing instanceTemp[1]:Temperature id "instanceTemp" password "instanceTemp123" target arduino
-	instanceThing aircond[1]:AirConditionner id "instanceTemp" password "instanceTemp123" target java
-	instanceThing monitor[1]:Monitor id "instanceTemp" password "instanceTemp123" target arduino
+	instanceThing instanceTemp:Temperature id "instanceTemp1" password "instanceTemp123" target arduino
+	instanceThing aircond:AirConditionner id "airConditionner1" password "instanceTemp123" target java
+	instanceThing monitor:Monitor id "instanceMonitor1" password "instanceTemp123" target arduino
 	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
-//	instanceReqRep ptp:ptp target "mosquitto" over coap:udp
 	bind instanceTemp => mqttchannel{room1,room2}
 	bind monitor <=> mqttchannel{room2,room3,room4}
 	bind aircond <=> mqttchannel{room1,room3,room5}
-//	connect instanceTemp => ptp
 }

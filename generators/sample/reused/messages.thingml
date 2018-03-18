@@ -22,5 +22,6 @@ protocol MQTT
 	@mqtt_port_number "1883"
 	@mqtt_escape_null "true"
 	@serializer "Binary"
+	@mqtt_topic "thg"
 	@trace_level "0"
 ;

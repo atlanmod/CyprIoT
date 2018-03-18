@@ -1,0 +1,17 @@
+	
+	public String getTemplateByID(String template_id) {
+        final InputStream input = getClass().getClassLoader().getResourceAsStream(template_id);
+        String result = null;
+        try {
+            if (input != null) {
+                result = org.apache.commons.io.IOUtils.toString(input, java.nio.charset.Charset.forName("UTF-8"));
+                input.close();
+            } else {
+                System.out.println("[Error] Template not found: " + template_id);
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return null; // the template was not found
+        }
+        return result;
+    }
