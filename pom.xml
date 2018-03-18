@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.imta.naomod</groupId>
+    <artifactId>IoTLang</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>IoT modeling language</name>
+    <properties>
+    	<tychoVersion>1.0.0</tychoVersion>
+        <xtextVersion>2.11.0</xtextVersion>
+    </properties>
+    <modules>
+        <module>lang</module>
+        <module>lang.ui</module>
+        <module>lang.ide</module>
+        <module>generators</module>
+    </modules>
+    <build>
+		<plugins>
+			<plugin>
+		      <groupId>org.eclipse.tycho</groupId>
+		      <artifactId>tycho-maven-plugin</artifactId>
+		      <version>${tychoVersion}</version>
+		      <extensions>true</extensions>
+		    </plugin>
+		</plugins>
+    </build>
+
+    <dependencies>
+    
+    </dependencies>
+</project>

@@ -1,0 +1,30 @@
+import "reused/messages.thingml"
+
+thing Monitor includes tempMsgs {
+	provided port temperaturePort{
+		receives temperatureMessage
+	}
+	statechart monitorBehavior init Active {
+
+		state Active {
+			
+			internal event received : temperaturePort?temperatureMessage
+			action do
+				print "Current temperature is : "
+				print received.TemperatureData
+				print "\n"
+			end
+			
+		}
+	}
+}
+
+configuration airConfitionnerCfg
+  @debug "true"
+  @debug_fifo "true"
+  @debug_message_send ".*"
+  @debug_message_receive ".*"
+{
+	instance monitor: Monitor
+	connector monitor.temperaturePort over MQTT
+}
