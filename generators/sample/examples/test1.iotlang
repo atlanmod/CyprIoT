@@ -1,0 +1,56 @@
+thing Temperature {
+	// Arduino that senses the temperature
+	port ok {}
+	code=""
+}
+//thing fragment msgAndPorts{
+//	message sensorData (value : Int16);
+//	required port AnalogInput 
+//    {	
+//		sends sensorData
+//		receives sensorData
+//	}
+//}
+
+thing AirConditionner {
+	// Android that handles the air conditionner
+	port ok {}
+	code=""
+}
+
+thing AndroidUser {
+	// Simple android application that give the user the possibility to select the temperature
+	port ok {}
+	code=""
+}
+datatype int <8>;
+message temperatureMessage(int)
+//protocol mqtt
+
+channel:pubsub MqttBus {
+	topic room1 (temperatureMessage)
+	topic room2 (temperatureMessage)
+	topic room3 (temperatureMessage)
+	topic room4 (temperatureMessage)
+}
+
+channel:reqrep ptp {
+	
+}
+policy roomPolicy {
+	rule Temperature allow:receive message:temperatureMessage
+	rule AirConditionner allow:receive Temperature.ok
+	rule Temperature deny:send AirConditionner.ok
+}
+
+networkConfiguration wsnConfiguration {
+	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
+	enforce roomPolicy
+	instanceThing instanceTemp[10]:Temperature target cposix
+	instanceThing instanceTemp2[10]:Temperature target cposix
+	instancePubSub mqttbus:MqttBus target "mosquitto" over mqtt:tcp
+	instanceReqRep ptp:ptp target "mosquitto" over coap:udp
+	bind instanceTemp => mqttbus{room1,room2}
+	bind instanceTemp2 <=> mqttbus{room2,room3,room4}
+	connect instanceTemp => ptp
+}
