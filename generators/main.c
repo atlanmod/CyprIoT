@@ -1,2 +1,0 @@
-Config : wsnConfiguration
-Instance : instanceTemp
