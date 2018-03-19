@@ -45,19 +45,15 @@
 
 
 thing Temperature {
-	config="sample.thingml"
-	exposePort inout
+	config="temperature.thingml"
 }
 
 thing AirConditionner {
-	exposePort port1
-	config="sample.thingml"
-	exposePort inout
+	config="airconditionner.thingml"
 }
 
 thing Monitor {
-	exposePort inout
-	config="sample.thingml"
+	config="monitor.thingml"
 }
 
 channel:pubsub MqttChannel {
