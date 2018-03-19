@@ -3,7 +3,6 @@ import "reused/messages.thingml"
 thing TemperaturePSM includes tempMsgs
 @c_header "#include <dht.h>"
 @platform "arduino"
-
 {
 	provided port temperaturePort{
 		sends temperatureMessage
@@ -13,7 +12,7 @@ thing TemperaturePSM includes tempMsgs
 	readonly property pin : UInt32 = 8
 	readonly property sampling : UInt32 = 5000
 	property dht : DHT
-	statechart temperatureSensorBehavior init setup{
+	statechart temperatureSensorBehavior init setup {
 		state setup {
 			on entry do print "initialization..." 
 			'Serial.begin(9600);
@@ -35,25 +34,63 @@ thing TemperaturePSM includes tempMsgs
 		}
 	}
 }
-thing TemperaturePIM includes tempMsgs{	
-	required port temperaturePort{
+
+thing TemperatureRandom includes tempMsgs
+@c_header "#include <time.h>"
+@c_header "#include <stdlib.h>"
+@c_header "#include <unistd.h>"
+{
+	provided port temperaturePort{
+		sends temperatureMessage
+		receives temperatureMessage
+	}
+	
+	readonly property sampling : UInt32 = 5
+	statechart temperatureSensorBehavior init setup {
+		state setup {
+			on entry do print "initialization..." 
+			'srand(time(NULL));'
+			end
+			transition -> collect
+		}
+		state collect {
+			on entry
+			do 
+				temperaturePort!temperatureMessage('rand()')
+				
+			end
+			transition -> samplingRate
+		}
+		state samplingRate {
+			on entry 'sleep('&sampling&');'
+			transition -> collect
+		}
+	}
+}
+
+thing TemperaturePIM includes tempMsgs {	
+	required port temperaturePort {
 		receives temperatureMessage
 		sends temperatureMessage
 	}
-	statechart pimBehaviour init showTemperature{
+	provided port provideTemp {
+		sends temperatureMessage
+	}
+	statechart pimBehaviour init showTemperature {
 		state showTemperature {
 			internal event e: temperaturePort?temperatureMessage
 			action do 
 				print e.TemperatureData 
-				temperaturePort!temperatureMessage(e.TemperatureData )
+				provideTemp!temperatureMessage(e.TemperatureData)
 			end
 		}
 	}
 }
 
 configuration temperatureCfg {
-	instance temppsm:TemperaturePSM
+	//instance temppsm:TemperaturePSM
+	instance simulatedTemp:TemperatureRandom
 	instance temppim:TemperaturePIM
-	connector temppim.temperaturePort => temppsm.temperaturePort
-	//connector temppim.temperaturePort over MQTT
+	connector temppim.temperaturePort => simulatedTemp.temperaturePort
+	connector temppim.provideTemp over MQTT
 }

@@ -19,12 +19,12 @@ thing Monitor includes tempMsgs {
 	}
 }
 
-configuration airConfitionnerCfg
+configuration monitorCfg
   @debug "true"
   @debug_fifo "true"
   @debug_message_send ".*"
   @debug_message_receive ".*"
 {
-	instance monitor: Monitor
+	instance monitor:Monitor
 	connector monitor.temperaturePort over MQTT
 }

@@ -1,7 +1,7 @@
 import "reused/messages.thingml"
 
 thing AirConditionner includes tempMsgs {
-	provided port temperaturePort{
+	provided port temperaturePort {
 		receives temperatureMessage
 	}
 	statechart airConditionnerBehavior init Active {
@@ -17,7 +17,7 @@ thing AirConditionner includes tempMsgs {
 					print "The air conditionner is ON"
 				end
 				if(''&received.TemperatureData&' < 25') do
-					print "The air conditionner is ON"
+					print "The air conditionner is OFF"
 				end
 			end
 			
@@ -25,8 +25,8 @@ thing AirConditionner includes tempMsgs {
 	}
 }
 
-configuration airConfitionnerCfg
+configuration airConditionnerCfg
 {
-	instance airConditionner: AirConditionner
+	instance airConditionner:AirConditionner
 	connector airConditionner.temperaturePort over MQTT
 }

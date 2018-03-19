@@ -1,23 +1,61 @@
 // Requirements
-// - For each thing you provide a thingml file, the file has to be error free otherwise it will not generate code
-// - The exposed ports has to have the same name than the targeted port in thingml
-// - Imports in the file are not supported, the model has to be self-contained, i.e all the info regarding the file has to be in the file itself
+// * For each thing you provide a thingml file, the file has to be error free otherwise it will not generate code
+// * The exposed ports has to have the same name than the targeted port in thingml
+// * Imports in the file are not supported, the model has to be self-contained, i.e all the info regarding the file has to be in the file itself
+
+// USE CASE 1 :
+
+
+// We have 4 temperature sensors, temperature is sensed every 5 seconds. The air conditionner 
+// can work only when the average of all temperature data is more than 25. The air conditionner has to receive the temperature
+// data from the 4 sensors through a publish/subscribe channel.
+
+// ## Topic organisation : domain/topicName/thingType/instanceName/portName/sendsOrReceives/
+
+// Each type is owner of a specific topic, permission to the topic is given in the policy
+// We assume all topic are denied
+// Policy strategies :
+// * Override : Access is given according to the network config but policy can block access to topics event if 
+//   they are specified in the network configuration if access is not given in the policy then topic access cannot be possible
+// * Enforce : everything is assumed denied, policy can give access. Otherwise communication is not possible. We ignore rule in
+//   the network configuration.
+
+// ## Example 1 : Temperature deny:send AirConditionner | Temperature allow:send Monitor
+// * Temperature publish (write) to : domain/topic1/Temperature/instanceTemp/#
+// * Monitor can subscribe (read) to domain/topic1/Temperature/instanceTemp/#
+// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
+
+// ## Example 2 : Temperature deny:receive AirConditionner | Temperature allow:receive Monitor
+// * Temperature can publish (write) to : domain/topic1/Monitor/instanceMon/#
+// * Temperature can't subscribe (read) to domain/topic1/AirConditionner/airConditionner/#
+
+// ## Example 3 : AirConditionner deny:send Temperature | Monitor allow:send Temperature
+// * Temperature subscribe (read) to : domain/topic1/Monitor/instanceMon/#
+// * Temperature can't subscribe (read) to domain/topic1/AirConditionner/airConditionner/#
+// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
+
+// ## Example 4 : AirConditionner deny:receive Temperature | Monitor allow:receive Temperature
+// * Temperature publish (write) to : domain/topic1/Temperature/instanceTemp/#
+// * Temperature can subscribe (read) to domain/topic1/Monitor/instanceMon/#
+// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
+
+// ## Example 2 : AirConditionner deny:send Temperature | AirConditionner allow:send Monitor
+// * AirConditionner publish to domain/topic1/AirConditionner/instanceAir/temperatureData/sends
+// * Temperature can't subscribe to domain/topic1/AirConditionner/instanceAir/temperatureData/sends 
+
 
 thing Temperature {
-	// Arduino that senses the temperature
 	config="sample.thingml"
 	exposePort inout
 }
 
 thing AirConditionner {
-	// Android that handles the air conditionner
-	exposePort poo
+	exposePort port1
 	config="sample.thingml"
 	exposePort inout
 }
 
 thing Monitor {
-	// Simple android application that give the user the possibility to select the temperature
 	exposePort inout
 	config="sample.thingml"
 }
@@ -29,29 +67,14 @@ channel:pubsub MqttChannel {
 	topic room4
 	topic room5
 }
-policy roomPolicy {
-	rule AirConditionner deny:send Temperature
-	rule Temperature deny:send AirConditionner
-		// What does this mean?
-	// Does Temperature send to monitor?
-	// 1) a Temperature will not send if the topic is readable by AirConditionner
-	//    Temperature does not send to room2, monitor does not read
-	// 2) a Temperature will not send if the message is read only by AirConditionner
-	//    Temperature sends to room2, monitor reads
-	// 3) same semantics as the inverse rule (do we need send?)
-	//    Temperature sends to room2
-	// 4) We split topics: room2/AirConditionner, room22/Monitor, we block sending to room2/AirConditionner
 
-	// Inverse rule (what's the difference?)
-	// rule AirConditionner deny:receive thing:Temperature
-	
-	// Rules that talk about instances
-	// option 1: rule aircond deny:receive port:Temperature.inout
-	// option 2: rule SpecialAirConditionner deny:receive port:Temperature.inout
+policy roomPolicy {
+	rule AirConditionner allow:send Temperature
+	rule Temperature deny:send AirConditionner
 }
 
 networkConfiguration wsnConfiguration {
-	domain "fr.imt.dapi.roomA246" // thing of  the same domain share the same secret key, a configuration can be deployed into different domain but the domain has to change
+	domain "fr.imt.dapi.roomA246"
 	enforce roomPolicy format txt
 	instanceThing instanceTemp:Temperature id "instanceTemp1" password "instanceTemp123" target arduino
 	instanceThing aircond:AirConditionner id "airConditionner1" password "instanceTemp123" target java
