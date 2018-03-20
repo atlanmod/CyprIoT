@@ -26,5 +26,4 @@ configuration monitorCfg
   @debug_message_receive ".*"
 {
 	instance monitor:Monitor
-	connector monitor.temperaturePort over MQTT
 }

@@ -28,5 +28,4 @@ thing AirConditionner includes tempMsgs {
 configuration airConditionnerCfg
 {
 	instance airConditionner:AirConditionner
-	connector airConditionner.temperaturePort over MQTT
 }

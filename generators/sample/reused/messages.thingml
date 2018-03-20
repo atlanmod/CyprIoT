@@ -20,11 +20,3 @@ object DHT
 thing fragment tempMsgs {
 	message temperatureMessage(TemperatureData : UInt32);
 }
-
-protocol MQTT
-	@mqtt_broker_address "127.0.0.1"
-	@mqtt_port_number "1883"
-	@mqtt_escape_null "true"
-	@serializer "binary"
-	@mqtt_topic "thg"
-	@trace_level "0";

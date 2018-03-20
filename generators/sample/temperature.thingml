@@ -92,5 +92,4 @@ configuration temperatureCfg {
 	instance simulatedTemp:TemperatureRandom
 	instance temppim:TemperaturePIM
 	connector temppim.temperaturePort => simulatedTemp.temperaturePort
-	connector temppim.provideTemp over MQTT
 }
