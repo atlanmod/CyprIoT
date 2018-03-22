@@ -16,8 +16,7 @@ terminal INT returns ecore::EInt: ('0'..'9')+;
 
 terminal STRING_LIT	: 
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
-terminal STRING_LISH: 
-			'#' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'#') )* '#';
+
 terminal ANNOTATION_ID:
 	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
@@ -27,14 +26,13 @@ TargetAnnotation:
 /* Main types  */
 
 Thing: // example gateway, arduino, android  
-	'thing' name=ID
-	( annotations+=TargetAnnotation )*'{'
-		 ('config=' code+=STRING_LIT | ports+=Port)*
-'}';
+	'import' name=ID code+=STRING_LIT '('(ports+=Port (( "," ports+=Port)*)?)')'
+;
 
 Channel: // mqtt, kafka, real simple bus,
 	(pubSub+= PubSub| reqRep +=ReqRep)
 ;
+
 PubSub:
 	'channel:pubsub' name=ID '{'
 		(hasTopics +=Topic)*
@@ -46,30 +44,30 @@ ReqRep:
 		
 		'}'
 ;
+
 Policy: // mqtt, kafka, real simple bus,
 	'policy' name=ID '{'
 		(hasRules +=Rule)*
+		/*(hasRoles +=Role)**/ // last rule will override the past, otherwise use keyword 'override'
 '}'
+;
+Role:
+	'role' name=ID permission=('grant:read' |'grant:write'|'grant:readwrite') topic=[Topic]
 ;
 Port :
 	'exposePort' name=ID
 ;
-Datatype:
-	'datatype' name=ID '<' ByteSize=INT '>'	( annotations+=TargetAnnotation )* (';')?
-;
+
 Protocol :
 	'protocol' name=ID
 ;
 
-Message :
-	'message' name=ID '('datatypes+=[Datatype] (( "," datatypes+=[Datatype])*)?')'
-;
 Topic:
-	'topic'  name=ID /*type=('?' |'!') '(' acceptedMessages=[Message] ')'*/
+	'topic'  name=ID /*type=('?' |'!') '(' acceptedMessages=[Message] ')' // add capacity of subscribers*/
 ;
 
 Rule:
-	'rule' (name=ID)? (subject=[Thing]) permission=('allow' |'deny') ':' action=('send'|'receive') (object=[Thing](( "." ports+=[Port])*)?| 'message:' objectMessage=[Message])
+	'rule' (name=ID)? (subject=[Thing]) permission=('allow' |'deny') ':' action=('send'|'receive') (object=[Thing](( "." ports+=[Port])*)?)
 ;
 
 /* Configuration : Configure the WSN topology */ 
@@ -101,19 +99,18 @@ Configuration:
 		//portsConfig+=PortConfiguration
 	'}'
 ;
-PortConfiguration:
-	'portConfig' name=ID '{'
-	
-	'}'
-;
+
 NetworkConfiguration:
 	'networkConfiguration' name=ID ( annotations+=TargetAnnotation )* '{'
 	(connects+=Connect| domain+=Domain | binds+=Bind| thingInstances+=InstanceThing | channelInstances+=InstanceChannel | 'enforce' enforces+=[Policy]  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
 	
-	'}';
+	'}'
+;
+
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=TargetAnnotation )*;
+	'bind'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=TargetAnnotation )*
+;
 
 Connect:
-	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=TargetAnnotation )*;
-	
+	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=TargetAnnotation )*
+;

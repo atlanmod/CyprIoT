@@ -13,7 +13,7 @@ Workflow {
 				baseName = "lang"
 				rootPath = rootPath
 				runtimeTest = {
-					enabled = true
+					enabled = false
 				}
 				eclipsePlugin = {
 					enabled = true

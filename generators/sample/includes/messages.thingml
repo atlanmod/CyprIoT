@@ -1,0 +1,8 @@
+import "datatypes.thingml"
+
+thing fragment tempMsgs {
+	message temperatureMessage(TemperatureData : UInt32);
+}
+protocol MQTT1
+	@trace_level "0"
+;

@@ -1,3 +1,12 @@
+// ## Process  : 
+//
+// * Input : IoTlang file
+// * IoTllang file contains : 
+//	** import thingml files of each thing involved in the 
+//  ** Network Configuration
+//  ** Policy to be enforced
+// * Code generator that generate code of things using tweaked version of Thingml
+// * Access control rules in various format
 // Requirements
 // * For each thing you provide a thingml file, the file has to be error free otherwise it will not generate code
 // * The exposed ports has to have the same name than the targeted port in thingml
@@ -44,17 +53,11 @@
 // * Temperature can't subscribe to domain/topic1/AirConditionner/instanceAir/temperatureData/sends 
 
 
-thing Temperature {
-	config="temperature.thingml"
-}
+import Temperature "temperature.thingml" (exposePort inout)
 
-thing AirConditionner {
-	config="airconditionner.thingml"
-}
+import AirConditionner "airconditionner.thingml" (exposePort inout)
 
-thing Monitor {
-	config="monitor.thingml"
-}
+import Monitor "monitor.thingml" (exposePort inout)
 
 channel:pubsub MqttChannel {
 	topic room1
@@ -65,16 +68,16 @@ channel:pubsub MqttChannel {
 }
 
 policy roomPolicy {
-	rule AirConditionner allow:send Temperature
-	rule Temperature deny:send AirConditionner
+//	rule AirConditionner allow:send Temperature
+//	rule Temperature deny:send AirConditionner
 }
 
 networkConfiguration wsnConfiguration {
 	domain "fr.imt.dapi.roomA246"
 	enforce roomPolicy format txt
-	instanceThing instanceTemp:Temperature id "instanceTemp1" password "instanceTemp123" target arduino
+	instanceThing instanceTemp:Temperature id "instanceTemp1" password "instanceTemp123" target cposix
 	instanceThing aircond:AirConditionner id "airConditionner1" password "instanceTemp123" target java
-	instanceThing monitor:Monitor id "instanceMonitor1" password "instanceTemp123" target arduino
+	instanceThing monitor:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
 	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
 	bind instanceTemp => mqttchannel{room1,room2}
 	bind monitor <=> mqttchannel{room2,room3,room4}

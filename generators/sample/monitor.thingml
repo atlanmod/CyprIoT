@@ -1,29 +1,28 @@
-import "reused/messages.thingml"
+import "includes/messages.thingml"
+import "includes/datatypes.thingml"
 
 thing Monitor includes tempMsgs {
 	provided port temperaturePort{
 		receives temperatureMessage
 	}
-	statechart monitorBehavior init Active {
-
-		state Active {
-			
+	statechart monitorBehavior init showCurrentTemperature {
+		state showCurrentTemperature {
+			transition -> endSignal
 			internal event received : temperaturePort?temperatureMessage
 			action do
 				print "Current temperature is : "
 				print received.TemperatureData
 				print "\n"
 			end
-			
+		}
+		final state endSignal {
+			on entry print "Current temperature is : "
 		}
 	}
 }
 
 configuration monitorCfg
-  @debug "true"
-  @debug_fifo "true"
-  @debug_message_send ".*"
-  @debug_message_receive ".*"
 {
 	instance monitor:Monitor
+	connector monitor.temperaturePort over MQTT1
 }

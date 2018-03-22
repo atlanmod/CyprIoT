@@ -1,78 +1,12 @@
-import "reused/messages.thingml"
-
-thing TemperaturePSM includes tempMsgs
-@c_header "#include <dht.h>"
-@platform "arduino"
-{
-	provided port temperaturePort{
-		sends temperatureMessage
-		receives temperatureMessage
-	}
-	
-	readonly property pin : UInt32 = 8
-	readonly property sampling : UInt32 = 5000
-	property dht : DHT
-	statechart temperatureSensorBehavior init setup {
-		state setup {
-			on entry do print "initialization..." 
-			'Serial.begin(9600);
-			'&dht&'.read11('&pin&');'
-			end
-			transition -> collect
-		}
-		state collect {
-			on entry
-			do 'Serial.println('&dht&'.temperature);'
-				temperaturePort!temperatureMessage('(uint32_t)'&dht&'.temperature')
-				
-			end
-			transition -> samplingRate
-		}
-		state samplingRate {
-			on entry 'delay('&sampling&');'
-			transition -> collect
-		}
-	}
-}
-
-thing TemperatureRandom includes tempMsgs
-@c_header "#include <time.h>"
-@c_header "#include <stdlib.h>"
-@c_header "#include <unistd.h>"
-{
-	provided port temperaturePort{
-		sends temperatureMessage
-		receives temperatureMessage
-	}
-	
-	readonly property sampling : UInt32 = 5
-	statechart temperatureSensorBehavior init setup {
-		state setup {
-			on entry do print "initialization..." 
-			'srand(time(NULL));'
-			end
-			transition -> collect
-		}
-		state collect {
-			on entry
-			do 
-				temperaturePort!temperatureMessage('rand()')
-				
-			end
-			transition -> samplingRate
-		}
-		state samplingRate {
-			on entry 'sleep('&sampling&');'
-			transition -> collect
-		}
-	}
-}
+import "includes/messages.thingml"
+import "includes/datatypes.thingml"
+import "psm/temperaturePSM.thingml"
 
 thing TemperaturePIM includes tempMsgs {	
 	required port temperaturePort {
 		receives temperatureMessage
-		sends temperatureMessage
 	}
+	
 	provided port provideTemp {
 		sends temperatureMessage
 	}
@@ -92,4 +26,5 @@ configuration temperatureCfg {
 	instance simulatedTemp:TemperatureRandom
 	instance temppim:TemperaturePIM
 	connector temppim.temperaturePort => simulatedTemp.temperaturePort
+	connector temppim.provideTemp over MQTT1
 }

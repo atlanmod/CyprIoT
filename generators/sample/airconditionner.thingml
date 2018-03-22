@@ -1,26 +1,29 @@
-import "reused/messages.thingml"
+import "includes/messages.thingml"
+import "includes/datatypes.thingml"
+
 
 thing AirConditionner includes tempMsgs {
 	provided port temperaturePort {
 		receives temperatureMessage
 	}
-	statechart airConditionnerBehavior init Active {
+	statechart airConditionnerBehavior init turnOn {
 
-		state Active {
-			
-			internal event received : temperaturePort?temperatureMessage
+		 state turnOn {
+		 	transition -> turnOff
+			event received : temperaturePort?temperatureMessage
+			guard (``&received.TemperatureData&` >= 25`)
 			action do
-				print "Receiving temperature...: "
-				print received.TemperatureData
-				print "\n"
-				if(''&received.TemperatureData&' >= 25') do
 					print "The air conditionner is ON"
-				end
-				if(''&received.TemperatureData&' < 25') do
+				end			
+		}
+		
+		state turnOff {
+		 	transition -> turnOn
+			event received : temperaturePort?temperatureMessage
+			guard (``&received.TemperatureData&` < 25`)
+			action do
 					print "The air conditionner is OFF"
-				end
 			end
-			
 		}
 	}
 }
@@ -28,4 +31,5 @@ thing AirConditionner includes tempMsgs {
 configuration airConditionnerCfg
 {
 	instance airConditionner:AirConditionner
+	connector airConditionner.temperaturePort over MQTT1
 }

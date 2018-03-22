@@ -10,16 +10,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.UUID;
 
 import org.atlanmod.iotlang.generators.EntryPoint.PuSubType;
+import org.atlanmod.iotlang.utilities.logs.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.thingml.xtext.ThingMLStandaloneSetup;
+import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 import lang.IotlangStandaloneSetup;
@@ -152,16 +158,51 @@ public class Utils {
 		}
 		return null;
 	}
+	
+	public static ThingMLModel getThgModels(ThingMLModel model) {
+		Copier copier = new Copier();
+		ThingMLModel result = (ThingMLModel)copier.copy(model);
+    	
+    	Collection<ThingMLModel> importedmodels = new ArrayList<ThingMLModel>();
+    	for(ThingMLModel m : ThingMLHelpers.allThingMLModelModels(model)) {
+    		if (m != model) {
+    			importedmodels.add((ThingMLModel)copier.copy(m));
+    		}
+    	}
+    	
+    	copier.copyReferences();
+    		
+    	for(ThingMLModel m : importedmodels) {
+        	if (m != result) {
+        		result.getConfigs().addAll(m.getConfigs());
+        		result.getProtocols().addAll(m.getProtocols());
+        		result.getTypes().addAll(m.getTypes());
+        	}
+        }
+    	
+    	result.getImports().clear();
+    	
+    	// Add the new model to a resource set
+    	String uriString = "memory:/"+UUID.randomUUID().toString()+".thingml";
+    	ResourceSet rs = new ResourceSetImpl();
+        Resource res = rs.createResource(URI.createURI(uriString));
+        res.getContents().add(result);
+    	
+    	return result;
+	}
 
-	public static String readFromFile(InstanceThing th) {
+	public static String getThgFile(InstanceThing th) {
 		String read = th.getTypeThing().getCode().get(0).replace("\"", "");
 		String code = "";
-		code = readFile("/home/imad/dev/workspaces/iotlang/generators/sample/" + read);
+		Path currentRelativePath = Paths.get("");
+        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
+		code = readFile(pathdirectory+"/sample/" + read);
+		System.out.println(pathdirectory);
 		return code;
 	}
 	
 	public static HashSet<Topic> getTopicsForThing(IoTLangModel iotModel,Thing thing, PuSubType puSubType) {
-		HashSet<Topic> hs = new HashSet<>();
+		HashSet<Topic> hs = new HashSet<Topic>();
 		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();
 		for (Bind bind : binds) {
 			if(puSubType == puSubType.PUB && bind.getThingInstance().getTypeThing().getName().equals(thing.getName()) && bind.getDirection().contains(">")) {
@@ -188,7 +229,7 @@ public class Utils {
 			throw new Exception("No valid model found for resource "+uri);
 		}
 	}
-	public static IoTLangModel getIoTModelFromFile(Path path,String fileName) {
+	public static IoTLangModel getIoTModelFromFile(String fileName) {
 		File input = null;
 		input = new File(fileName);
 		//System.out.println(readFile(input.getAbsolutePath()));

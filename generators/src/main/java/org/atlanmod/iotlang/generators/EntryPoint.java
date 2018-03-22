@@ -5,25 +5,42 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
+import org.thingml.compilers.javascript.browser.BrowserJSCompiler;
+import org.thingml.compilers.javascript.node.NodeJSCompiler;
+import org.thingml.compilers.javascript.react.ReactJSCompiler;
 import org.atlanmod.iotlang.utilities.Utils;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.compilers.c.arduino.ArduinoCompiler;
 import org.thingml.compilers.c.posix.PosixCompiler;
 import org.thingml.compilers.java.JavaCompiler;
-import org.thingml.networkplugins.c.CNoneSerializerPlugin;
+import org.thingml.compilers.javascript.browser.BrowserJSCompiler;
+import org.thingml.compilers.javascript.node.NodeJSCompiler;
+import org.thingml.compilers.javascript.react.ReactJSCompiler;
+import org.thingml.compilers.registry.ThingMLCompilerRegistry;
+import org.thingml.compilers.spi.NetworkPlugin;
+import org.thingml.compilers.spi.SerializationPlugin;
+import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
 import org.thingml.networkplugins.c.arduino.ESP8266MQTTPlugin;
+import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
-import org.thingml.networkplugins.java.JavaByteArraySerializerPlugin;
+import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
 import org.thingml.networkplugins.java.JavaMQTTPlugin;
+import org.thingml.xtext.helpers.ConfigurationHelper;
+import org.thingml.xtext.thingML.ExternalConnector;
+import org.thingml.xtext.thingML.PlatformAnnotation;
+import org.thingml.xtext.thingML.Protocol;
+import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.Type;
 
 import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Policy;
+import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
 
@@ -31,10 +48,6 @@ import lang.iotlang.Topic;
 public class EntryPoint {
 	public static void main(String[] args) throws IOException {
 		procedure();
-		Path currentRelativePath = Paths.get("");
-        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
-		IoTLangModel iotModel = Utils.getIoTModelFromFile(currentRelativePath,"sample/testing.iotlang");
-		System.out.println(iotModel.getNetworkConfigs().get(0).getName());
 	}
 	public enum PuSubType {
 	    PUB, SUB  
@@ -42,8 +55,7 @@ public class EntryPoint {
 	private static void procedure() {
 		Path currentRelativePath = Paths.get("");
         String pathdirectory = currentRelativePath.toAbsolutePath().toString();
-		 IoTLangModel iotModel = Utils.getIoTModelFromFile(currentRelativePath,"sample/testing.iotlang");
-        
+		 IoTLangModel iotModel = Utils.getIoTModelFromFile("sample/networkConfig.iotlang");
         if(iotModel.getNetworkConfigs().get(0).getFormat().equals("sql")) {
         	CodeGenerator.generateSQLRules(iotModel,pathdirectory);
         }else if(iotModel.getNetworkConfigs().get(0).getFormat().equals("txt")){
@@ -52,101 +64,113 @@ public class EntryPoint {
         	
         }
         for (InstanceThing th : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
-        	
-            ThingMLModel thgmodel = Utils.loadModel(Utils.readFromFile(th));
-            Boolean externOk = false;
-            
+        	            
             String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
             String instanceId = Utils.sign(iotModel.getNetworkConfigs().get(0),th);
             String thingId= domainName+"."+instanceId;
             String thingPassword= th.getThingPassword().replace("\"", "");
-            
+            File input = null;
+    		String read = th.getTypeThing().getCode().get(0).replace("\"", "");
+    		input = new File(pathdirectory+"/sample/"+read);
+            ThingMLModel thgmodel = ThingMLCompiler.loadModel(input);
+            Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
+            protocol.setName("MQTT");
+			PlatformAnnotation anotHost = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+			anotHost.setName("mqtt_broker_address");
+			anotHost.setValue(iotModel.getNetworkConfigs().get(0).getBinds().get(0).getPubSubInstance().getHost().replace("\"", ""));
+			
+			PlatformAnnotation anotPort = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+			anotPort.setName("mqtt_port_number");
+			anotPort.setValue(iotModel.getNetworkConfigs().get(0).getBinds().get(0).getPubSubInstance().getPort().replace("\"", ""));
+			
+			PlatformAnnotation anotSerializer = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+			anotSerializer.setName("serializer");
+			anotSerializer.setValue("JSON");
+			
+			
+			protocol.getAnnotations().add(anotHost);
+			protocol.getAnnotations().add(anotPort);
+			protocol.getAnnotations().add(anotSerializer);
+            thgmodel.getProtocols().add(protocol);
+			List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
+            extrn.get(0).setProtocol(protocol);
+			/*ExternalConnector externalConnector;
+            externalConnector = ThingMLFactory.eINSTANCE.createExternalConnector();
+            Protocol protocol;
+            protocol = ThingMLFactory.eINSTANCE.createProtocol();
+            thgmodel.eSet(ThingMLPackage.THING_ML_MODEL__PROTOCOLS, protocol);
+            Port portX = thgmodel.getConfigs().get(0).getInstances().get(0).getType().getPorts().get(0);
+            externalConnector.setPort(portX);
+            thgmodel.getConfigs().get(0).eContents().add(externalConnector);*/
             // JAVA
             if(th.getPlatform().equals("java")) {
-                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/java/"+th.getName());
-            	ThingMLCompiler javaCompile = new JavaCompiler();
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+'/'+th.getName()+"/java/");
+//                ThingMLCompilerRegistry registry = ThingMLCompilerRegistry.getInstance();
+//                ThingMLCompiler javaCompile = registry.createCompilerInstanceByName("java");
+                ThingMLCompiler javaCompile = new JavaCompiler();
                 JavaMQTTPlugin mqttjava = new JavaMQTTPlugin();
                 mqttjava.setmClientId("\""+thingId+"\"");
                 mqttjava.setmUsername("\""+thingId+"\"");
                 mqttjava.setmPassword("\""+thingPassword+"\"");
-                JavaByteArraySerializerPlugin jsonJavaMqtt = new JavaByteArraySerializerPlugin();
+                JavaJSONSerializerPlugin jsonJavaMqtt = new JavaJSONSerializerPlugin();
                 javaCompile.addNetworkPlugin(mqttjava);
                 javaCompile.addSerializationPlugin(jsonJavaMqtt);   
                 Set<String> topicList = new HashSet<String>();
+   				
                 for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
                 	for (Topic topic : bind.getTopics()) {
-           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
-                		if(bind.getThingInstance().getName().equals(th.getName())) {
-    	            		if(bind.getDirection().equals("=>")) {
-    	            			mqttjava.addPubTopic(topicToAdd);
-    		       			}else if(bind.getDirection().equals("<=")) {
-    		       				mqttjava.addSubTopic(topicToAdd);
-    	            		} else {
-    	            			mqttjava.addSubTopic(topicToAdd);
-    	            			mqttjava.addPubTopic(topicToAdd);
-    	            		}
-                		}
+                		String topicToAdd = domainName.replace(".", "/")+"/"+topic.getName()+'/'+th.getName();
+           				addTopicToThg(bind, th, thgmodel, topicToAdd);
+
                 	}
            		}  
                 javaCompile.setOutputDirectory(folder);
                 javaCompile.compile(thgmodel.getConfigs().get(0));
             }else if(th.getPlatform().equals("cposix")) {
-                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/posix/"+th.getName());
-
-            	 // POSIX
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+'/'+th.getName()+"/posix/");
+          	
+				// POSIX               
                 
-                ThingMLCompiler thgCompile = new PosixCompiler();
-
+               // ThingMLCompilerRegistry registry =  ThingMLCompilerRegistry.getInstance();
+                //ThingMLCompiler thgCompile = registry.createCompilerInstanceByName("posix");
+                PosixCompiler thgCompile = new PosixCompiler();
                 PosixMQTTPlugin mqtt = new PosixMQTTPlugin();
+                
                 mqtt.setmClientId("\""+thingId+"\"");
                 mqtt.setmUsername("\""+thingId+"\"");
                 mqtt.setmPassword("\""+thingPassword+"\"");
-                CNoneSerializerPlugin jsonposix = new CNoneSerializerPlugin();
+                PosixJSONSerializerPlugin jsonposix = new PosixJSONSerializerPlugin();
                 thgCompile.addSerializationPlugin(jsonposix);
+                
                 thgCompile.addNetworkPlugin(mqtt);
                 
                 Set<String> topicList = new HashSet<String>();
                 for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
                 	for (Topic topic : bind.getTopics()) {
-           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
-                		if(bind.getThingInstance().getName().equals(th.getName())) {
-    	            		if(bind.getDirection().equals("=>")) {
-    	            			mqtt.addPubTopic(topicToAdd);
-    		       			}else if(bind.getDirection().equals("<=")) {
-    		       				mqtt.addSubTopic(topicToAdd);
-    	            		} else {
-    	            			mqtt.addSubTopic(topicToAdd);
-    	            			mqtt.addPubTopic(topicToAdd);
-    	            		}
-                		}
+           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName()+'/'+th.getName();
+           				addTopicToThg(bind, th, thgmodel, topicToAdd);
                 	}
-           		}                   
+           		}
                 thgCompile.setOutputDirectory(folder);
                 thgCompile.compile(thgmodel.getConfigs().get(0));
             } else if(th.getPlatform().equals("arduino")) {
-                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+"/arduino/"+th.getName());
-            	ThingMLCompiler ardCompile = new ArduinoCompiler();
+                File folder = new File(pathdirectory+"/gen/"+iotModel.getNetworkConfigs().get(0).getName()+'/'+th.getName()+"/arduino/");
+//                ThingMLCompilerRegistry registry = ThingMLCompilerRegistry.getInstance();
+//                ThingMLCompiler ardCompile = registry.createCompilerInstanceByName("arduino");
+                
+                ThingMLCompiler ardCompile = new ArduinoCompiler();
                 ESP8266MQTTPlugin mqttard = new ESP8266MQTTPlugin();
                 mqttard.setmClientId("\""+thingId+"\"");
                 mqttard.setmUsername("\""+thingId+"\"");
                 mqttard.setmPassword("\""+thingPassword+"\"");
-                CNoneSerializerPlugin jsonJavaMqtt = new CNoneSerializerPlugin();
+                PosixJSONSerializerPlugin jsonJavaMqtt = new PosixJSONSerializerPlugin();
                 ardCompile.addNetworkPlugin(mqttard);
                 ardCompile.addSerializationPlugin(jsonJavaMqtt);   
                 Set<String> topicList = new HashSet<String>();
                 for (Bind bind : iotModel.getNetworkConfigs().get(0).getBinds()) {
                 	for (Topic topic : bind.getTopics()) {
-           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName();
-                		if(bind.getThingInstance().getName().equals(th.getName())) {
-    	            		if(bind.getDirection().equals("=>")) {
-    	            			mqttard.addPubTopic(topicToAdd);
-    		       			}else if(bind.getDirection().equals("<=")) {
-    		       				mqttard.addSubTopic(topicToAdd);
-    	            		} else {
-    	            			mqttard.addSubTopic(topicToAdd);
-    	            			mqttard.addPubTopic(topicToAdd);
-    	            		}
-                		}
+           				String topicToAdd =domainName.replace(".", "/")+"/"+topic.getName()+'/'+th.getName();
+           				addTopicToThg(bind, th, thgmodel, topicToAdd);
                 	}
            		}  
                 ardCompile.setOutputDirectory(folder);
@@ -158,15 +182,47 @@ public class EntryPoint {
             for (Topic topic : Utils.getTopicsForThing(iotModel,th.getTypeThing(),PuSubType.SUB)) {
 				System.out.println("Sub : "+topic.getName());
 			}
-            setPolicyRules(iotModel,th.getTypeThing());
+            //checkPolicyRules(iotModel,th.getTypeThing());
 		}
 	}
 	
-	
-	private static void setPolicyRules(IoTLangModel iotModel, Thing thing) {
+	public static void addTopicToThg(Bind bind, InstanceThing th, ThingMLModel thgmodel, String topicToAdd) {
+			if(th.getName().equals(bind.getThingInstance().getName())) {
+   				if(bind.getDirection().equals("=>")) {
+   					List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
+   					PlatformAnnotation anot = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+   					anot.setName("mqtt_publish_topic");
+   					anot.setValue(topicToAdd);
+   					extrn.get(0).getAnnotations().add(anot);
+       			} else if(bind.getDirection().equals("<=")) {
+       				List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
+   					PlatformAnnotation anot = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+   					anot.setName("mqtt_subscribe_topic");
+   					anot.setValue(topicToAdd);
+   					extrn.get(0).getAnnotations().add(anot);
+        		} else {
+        			List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
+        			PlatformAnnotation anot = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+   					PlatformAnnotation anot2 = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+   					anot.setName("mqtt_publish_topic");
+   					anot.setValue(topicToAdd);
+   					anot2.setName("mqtt_subscribe_topic");
+   					anot2.setValue(topicToAdd);
+   					extrn.get(0).getAnnotations().add(anot);
+   					extrn.get(0).getAnnotations().add(anot2);
+        		}
+				}
+	}
+	private static boolean checkPolicyRules(IoTLangModel iotModel,InstanceThing th, Topic topicToAdd) {
 		Policy policy = iotModel.getPolicies().get(0);
+		EList<Rule> rules = policy.getHasRules();
 		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();
-		EList<Bind> binds2 = iotModel.getNetworkConfigs().get(0).getBinds();
+		
+		for (Bind bind : binds) {
+			
+		}
+		
+		
 		/*for (Rule rule : policy.getHasRules()) {
 			if(rule.getSubject().getName().equals(thing.getName())) {
 				if(rule.getPermission().equals("deny") && rule.getAction().equals("send")) {
@@ -212,6 +268,6 @@ public class EntryPoint {
 				}
 			}
 		}*/
-		
+		return false;
 	}
 }

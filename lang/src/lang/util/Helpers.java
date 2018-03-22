@@ -12,12 +12,10 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 
 import lang.iotlang.Channel;
-import lang.iotlang.Datatype;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceReqRep;
 import lang.iotlang.IoTLangModel;
-import lang.iotlang.Message;
 import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.Policy;
 import lang.iotlang.Port;
