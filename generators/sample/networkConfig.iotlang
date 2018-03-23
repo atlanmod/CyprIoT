@@ -53,33 +53,37 @@
 // * Temperature can't subscribe to domain/topic1/AirConditionner/instanceAir/temperatureData/sends 
 
 
-import Temperature "temperature.thingml" (exposePort inout)
+import Temperature "temperature.thingml" (exposePort inout) assignRole sensor,globalDevice priority(99)
 
 import AirConditionner "airconditionner.thingml" (exposePort inout)
 
 import Monitor "monitor.thingml" (exposePort inout)
 
+role sensor grant:write dapi priority(5)
+role globalDevice grant:write central priority(5)
+
 channel:pubsub MqttChannel {
-	topic room1
-	topic room2
-	topic room3
-	topic room4
-	topic room5
+	topic dapi
+	topic central
 }
 
 policy roomPolicy {
-//	rule AirConditionner allow:send Temperature
-//	rule Temperature deny:send AirConditionner
+	rule AirConditionner allow:send Temperature priority(2)
+	rule Temperature allow:send AirConditionner
 }
 
-networkConfiguration wsnConfiguration {
+networkConfiguration roomConfiguration {
 	domain "fr.imt.dapi.roomA246"
 	enforce roomPolicy format txt
-	instanceThing instanceTemp:Temperature id "instanceTemp1" password "instanceTemp123" target cposix
-	instanceThing aircond:AirConditionner id "airConditionner1" password "instanceTemp123" target java
-	instanceThing monitor:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
+	instanceThing instanceTemperature1:Temperature id "instanceTemperature" password "instanceTemp123" target cposix
+	instanceThing instanceTemperature2:Temperature id "instanceTemperature2" password "instanceTemp123" target cposix
+	instanceThing instanceTemperature3:Temperature id "instanceTemperature3" password "instanceTemp123" target cposix
+	instanceThing instanceAirconditionner:AirConditionner id "airConditionner1" password "instanceTemp123" target java
+	instanceThing instanceMonitor1:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
 	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
-	bind instanceTemp => mqttchannel{room1,room2}
-	bind monitor <=> mqttchannel{room2,room3,room4}
-	bind aircond <=> mqttchannel{room1,room3,room5}
+	bind instanceTemperature1 => mqttchannel{dapi,central}
+	bind instanceTemperature1 => mqttchannel{dapi,central}
+	bind instanceTemperature1 => mqttchannel{dapi,central}
+	bind instanceMonitor1 <=> mqttchannel{dapi,central}
+	bind instanceAirconditionner <= mqttchannel{dapi}
 }

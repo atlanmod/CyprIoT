@@ -10,7 +10,11 @@ thing TemperaturePIM includes tempMsgs {
 	provided port provideTemp {
 		sends temperatureMessage
 	}
-	statechart pimBehaviour init showTemperature {
+	statechart pimBehaviour init initial {
+		state initial {
+			on entry print "Getting temperature"
+			transition -> showTemperature
+		}
 		state showTemperature {
 			internal event e: temperaturePort?temperatureMessage
 			action do 

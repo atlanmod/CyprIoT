@@ -22,6 +22,7 @@ import lang.iotlang.Port;
 import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
 import lang.iotlang.ReqRep;
+import lang.iotlang.Role;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
 
@@ -84,6 +85,16 @@ public class Helpers {
         
 		return result;
 	}
+	
+	public static ArrayList<Role> allTRoles(IoTLangModel model) {
+		ArrayList<Role> result = new ArrayList<Role>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (Role t : m.getRoles()) {
+					result.add((Role)t);
+			}
+		}
+		return result;
+		}
 	
 	public static ArrayList<Thing> allThings(IoTLangModel model) {
 	ArrayList<Thing> result = new ArrayList<Thing>();
