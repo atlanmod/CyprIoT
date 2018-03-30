@@ -1,89 +1,57 @@
-// ## Process  : 
-//
-// * Input : IoTlang file
-// * IoTllang file contains : 
-//	** import thingml files of each thing involved in the 
-//  ** Network Configuration
-//  ** Policy to be enforced
-// * Code generator that generate code of things using tweaked version of Thingml
-// * Access control rules in various format
-// Requirements
-// * For each thing you provide a thingml file, the file has to be error free otherwise it will not generate code
-// * The exposed ports has to have the same name than the targeted port in thingml
-// * Imports in the file are not supported, the model has to be self-contained, i.e all the info regarding the file has to be in the file itself
+message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32)
 
-// USE CASE 1 :
-
-
-// We have 4 temperature sensors, temperature is sensed every 5 seconds. The air conditionner 
-// can work only when the average of all temperature data is more than 25. The air conditionner has to receive the temperature
-// data from the 4 sensors through a publish/subscribe channel.
-
-// ## Topic organisation : domain/topicName/thingType/instanceName/portName/sendsOrReceives/
-
-// Each type is owner of a specific topic, permission to the topic is given in the policy
-// We assume all topic are denied
-// Policy strategies :
-// * Override : Access is given according to the network config but policy can block access to topics event if 
-//   they are specified in the network configuration if access is not given in the policy then topic access cannot be possible
-// * Enforce : everything is assumed denied, policy can give access. Otherwise communication is not possible. We ignore rule in
-//   the network configuration.
-
-// ## Example 1 : Temperature deny:send AirConditionner | Temperature allow:send Monitor
-// * Temperature publish (write) to : domain/topic1/Temperature/instanceTemp/#
-// * Monitor can subscribe (read) to domain/topic1/Temperature/instanceTemp/#
-// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
-
-// ## Example 2 : Temperature deny:receive AirConditionner | Temperature allow:receive Monitor
-// * Temperature can publish (write) to : domain/topic1/Monitor/instanceMon/#
-// * Temperature can't subscribe (read) to domain/topic1/AirConditionner/airConditionner/#
-
-// ## Example 3 : AirConditionner deny:send Temperature | Monitor allow:send Temperature
-// * Temperature subscribe (read) to : domain/topic1/Monitor/instanceMon/#
-// * Temperature can't subscribe (read) to domain/topic1/AirConditionner/airConditionner/#
-// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
-
-// ## Example 4 : AirConditionner deny:receive Temperature | Monitor allow:receive Temperature
-// * Temperature publish (write) to : domain/topic1/Temperature/instanceTemp/#
-// * Temperature can subscribe (read) to domain/topic1/Monitor/instanceMon/#
-// * AirConditionner can't subscribe (read) to domain/topic1/Temperature/instanceTemp/#
-
-// ## Example 2 : AirConditionner deny:send Temperature | AirConditionner allow:send Monitor
-// * AirConditionner publish to domain/topic1/AirConditionner/instanceAir/temperatureData/sends
-// * Temperature can't subscribe to domain/topic1/AirConditionner/instanceAir/temperatureData/sends 
-
-
-import Temperature "temperature.thingml" (exposePort inout) assignRole sensor,globalDevice priority(99)
-
-import AirConditionner "airconditionner.thingml" (exposePort inout)
-
-import Monitor "monitor.thingml" (exposePort inout)
-
-role sensor grant:write dapi priority(5)
-role globalDevice grant:write central priority(5)
-
-channel:pubsub MqttChannel {
-	topic dapi
-	topic central
+import TemperaturePIM "temperature.thingml" {
+	expose provideTemp.temperatureMessage
+	assign sensor // Check if the port has send and receive methods	
 }
 
-policy roomPolicy {
-	rule AirConditionner allow:send Temperature priority(2)
-	rule Temperature allow:send AirConditionner
+import AirConditionner "airconditionner.thingml" {
+	expose temperaturePort.temperatureMessage
+	assign actuator
+}
+
+import Monitor "monitor.thingml" {
+	expose temperaturePort.temperatureMessage
+	assign actuator
+}
+
+channel:pubsub MqttChannel {
+	topic room1 // One topic per room
+	topic room2
+}
+
+// POLICY : CAN CONTAIN RULES AND ROLES
+
+// FIRST USE CASE
+policy roleBasedPolicy {
+	role actuator allow:receive topic:room1,room2 priority(10) // All sensor can only read data from topics room1 and room2
+	role sensor allow:send topic:room1,room2 priority(10)  // All actuator can only write data to topics room1 and room2
+}
+
+// SECOND USE CASE
+policy networkPolicy {
+	rule AirConditionner.temperaturePort allow:receive topic:room1,room2 priority(1) // plus précis
+	rule Monitor allow:receive topic:room1,room2 priority(1) // when temperatureMessage.currenHour>5 - > event received : temperaturePort?temperatureMessage guard received.currentHour>5
+	rule TemperaturePIM.temperaturePort allow:send thing:Monitor priority(1) // When temperatureMessage.origin="instance1" -> airCon read temperatureMessage/origin/instance1 (exception) otherwise monitor temperatureMessage/# 
+	rule TemperaturePIM.temperaturePort allow:send thing:AirConditionner priority(1)
+}
+
+//THIRD USE CASE
+policy attributeBasedPolicy {
+	rule AirConditionner.temperaturePort allow:receive message:temperatureMessage.TemperatureData < 100 priority(1) // Will add a guard whenever temperatureMessage is received in AirConditionner.temperaturePort
+	rule Monitor allow:receive message:temperatureMessage.currentHour < 23 and  > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
 }
 
 networkConfiguration roomConfiguration {
-	domain "fr.imt.dapi.roomA246"
-	enforce roomPolicy format txt
-	instanceThing instanceTemperature1:Temperature id "instanceTemperature" password "instanceTemp123" target cposix
-	instanceThing instanceTemperature2:Temperature id "instanceTemperature2" password "instanceTemp123" target cposix
-	instanceThing instanceTemperature3:Temperature id "instanceTemperature3" password "instanceTemp123" target cposix
+	domain "fr.naomod.rooms" // topic are formed as follow : fr/naomod/rooms/room1/
+	enforce roleBasedPolicy,networkPolicy,attributeBasedPolicy format txt
+	instanceThing instanceTemperature1:TemperaturePIM id "instanceTemperature" password "instanceTemp123" target cposix
+	instanceThing instanceTemperature2:TemperaturePIM id "instanceTemperature2" password "instanceTemp123" target cposix
 	instanceThing instanceAirconditionner:AirConditionner id "airConditionner1" password "instanceTemp123" target java
 	instanceThing instanceMonitor1:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
 	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
-	bind instanceTemperature1 => mqttchannel{dapi,central}
-	bind instanceTemperature1 => mqttchannel{dapi,central}
-	bind instanceTemperature1 => mqttchannel{dapi,central}
-	bind instanceMonitor1 <=> mqttchannel{dapi,central}
-	bind instanceAirconditionner <= mqttchannel{dapi}
+	bind instanceTemperature1 => mqttchannel{room1} // Sends data to room1 Topic
+	bind instanceTemperature2 => mqttchannel{room2} // Sends data to room2 Topic
+	bind instanceMonitor1 <= mqttchannel{room1,room2} // Show temperature for both rooms
+	bind instanceAirconditionner <= mqttchannel{room1,room2} // the airconditionner is common for both rooms
 }

@@ -1,0 +1,25 @@
+import "../includes/messages.thingml"
+import "../includes/datatypes.thingml"
+
+
+thing Timer includes timerMsgs
+@c_header "#include <time.h>"
+@c_header "#include <stdio.h>"
+{
+	provided port timerPort{
+		sends timerMessage
+		receives getTime
+	}
+	statechart temperatureSensorBehavior init setup {
+		state setup {
+			on entry do 
+			`time_t theTime = time(NULL);
+			struct tm *aTime = localtime(&theTime);`
+			end
+			internal event getMessage : timerPort?getTime
+			action do 
+				timerPort!timerMessage(`aTime->tm_hour`)
+			end
+		}
+	}
+}

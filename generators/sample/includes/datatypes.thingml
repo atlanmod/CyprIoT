@@ -13,6 +13,10 @@ datatype UInt8<1>
 	@java_type "byte"
 	@js_type "byte"
 	@java_primitive "true";
-	
+
+object String
+	@c_type "char *"
+	@type_checker "String";
+
 object DHT
 	@c_type "dht";

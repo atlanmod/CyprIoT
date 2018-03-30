@@ -1,8 +1,15 @@
 import "datatypes.thingml"
 
 thing fragment tempMsgs {
-	message temperatureMessage(TemperatureData : UInt32);
+	message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32);
+}
+thing fragment timerMsgs {
+	message timerMessage(currentHour : UInt32);
+	message getTime();
 }
 protocol MQTT1
+	@trace_level "0"
+;
+protocol MQTT2
 	@trace_level "0"
 ;

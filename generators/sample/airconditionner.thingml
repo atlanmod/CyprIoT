@@ -6,6 +6,11 @@ thing AirConditionner includes tempMsgs {
 	provided port temperaturePort {
 		receives temperatureMessage
 	}
+	
+	provided port statePort {
+		receives temperatureMessage
+	}
+	
 	statechart airConditionnerBehavior init turnOn {
 
 		 state turnOn {
@@ -29,6 +34,8 @@ thing AirConditionner includes tempMsgs {
 }
 
 configuration airConditionnerCfg
+@debug "true"
+@debug_fifo "true"
 {
 	instance airConditionner:AirConditionner
 	connector airConditionner.temperaturePort over MQTT1

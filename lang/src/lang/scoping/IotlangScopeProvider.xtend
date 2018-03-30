@@ -13,6 +13,10 @@ import org.eclipse.xtext.scoping.IScope
 import lang.util.Helpers
 import lang.iotlang.Port
 import lang.iotlang.Thing
+import lang.iotlang.Message
+import lang.iotlang.Parameter
+import lang.iotlang.Rule
+import lang.iotlang.Role
 
 /**
  * This class contains custom scoping description.
@@ -32,8 +36,6 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.thing_Roles) {
 			return Scopes.scopeFor( Helpers.allTRoles(Helpers.findContainingModel(context)) );
-		}else if (reference == iotlangInstance.role_Topic) {
-			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.instanceThing_TypeThing) {
 			return Scopes.scopeFor( Helpers.allThings(Helpers.findContainingModel(context)) );
 		}/*else if (reference == iotlangInstance.instancePolicy_TypePolicy) {
@@ -62,7 +64,25 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
 		}else if (reference == iotlangInstance.connect_ReqRepInstance) {
 			return Scopes.scopeFor( Helpers.allPtpinstances(Helpers.findContainingModel(context)));
-		}else if (reference == iotlangInstance.rule_Ports) {
+		}else if (reference == iotlangInstance.port_Messages) {
+			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.rule_ObjectMess) {
+			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.role_ObjectMess) {
+			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.rule_ObjectTopic) {
+			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.role_ObjectTopic) {
+			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.rule_SubjectPort) {
+			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.rule_TypeMess) {
+			return scopeForConnector_ObjectMess(context as Rule);
+		}else if (reference == iotlangInstance.role_TypeMess) {
+			return scopeForConnector_ObjectMess(context as Role);
+		}else if (reference == iotlangInstance.rule_ObjectPort) {
+			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.role_ObjectPort) {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
 		}/*else if (reference == iotlangInstance.rule_ObjectMessage) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)) );
@@ -72,5 +92,12 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " + (reference.eContainer as ENamedElement).getName);
 		}
 		return Scopes.scopeFor( EMPTY );
+	}
+	
+	def protected IScope scopeForConnector_ObjectMess(Rule context) {
+		Scopes.scopeFor( Helpers.allParameters(context.objectMess) ); 
+	}
+	def protected IScope scopeForConnector_ObjectMess(Role context) {
+		Scopes.scopeFor( Helpers.allParameters(context.objectMess) ); 
 	}
 }

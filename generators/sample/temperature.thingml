@@ -1,34 +1,46 @@
 import "includes/messages.thingml"
 import "includes/datatypes.thingml"
 import "psm/temperaturePSM.thingml"
+import "psm/timer.thingml"
 
-thing TemperaturePIM includes tempMsgs {	
+thing TemperaturePIM includes tempMsgs,timerMsgs {
+	property currentTemperature : UInt32 = 0
 	required port temperaturePort {
-		receives temperatureMessage
+		receives temperatureMessage,timerMessage
 	}
 	
 	provided port provideTemp {
 		sends temperatureMessage
 	}
+	
 	statechart pimBehaviour init initial {
 		state initial {
-			on entry print "Getting temperature"
+			on entry do print "Getting temperature" end
 			transition -> showTemperature
 		}
 		state showTemperature {
-			internal event e: temperaturePort?temperatureMessage
+			internal event tempMessage: temperaturePort?temperatureMessage
+			//internal event time : temperaturePort?getTime
 			action do 
-				print e.TemperatureData 
-				provideTemp!temperatureMessage(e.TemperatureData)
+				currentTemperature = tempMessage.TemperatureData
+			end
+			internal event time : temperaturePort?timerMessage
+			action do
+			provideTemp!temperatureMessage(currentTemperature,time.currentHour)
 			end
 		}
 	}
 }
 
-configuration temperatureCfg {
+configuration temperatureCfg 
+@debug "true"
+@debug_fifo "true"
+{
 	//instance temppsm:TemperaturePSM
 	instance simulatedTemp:TemperatureRandom
 	instance temppim:TemperaturePIM
+	instance timer:Timer
 	connector temppim.temperaturePort => simulatedTemp.temperaturePort
-	connector temppim.provideTemp over MQTT1
+	connector temppim.temperaturePort => timer.timerPort
+	connector temppim.provideTemp over MQTT1 // maybe to generate
 }

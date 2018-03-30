@@ -16,13 +16,16 @@ import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceReqRep;
 import lang.iotlang.IoTLangModel;
+import lang.iotlang.Message;
 import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.Parameter;
 import lang.iotlang.Policy;
 import lang.iotlang.Port;
 import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
 import lang.iotlang.ReqRep;
 import lang.iotlang.Role;
+import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
 
@@ -89,7 +92,7 @@ public class Helpers {
 	public static ArrayList<Role> allTRoles(IoTLangModel model) {
 		ArrayList<Role> result = new ArrayList<Role>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Role t : m.getRoles()) {
+			for (Role t : m.getPolicies().get(0).getHasRoles()) {
 					result.add((Role)t);
 			}
 		}
@@ -181,7 +184,23 @@ public class Helpers {
 		ArrayList<Policy> result = new ArrayList<Policy>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Policy t : m.getPolicies()) {
-					result.add((Policy)t);
+				result.add((Policy)t);
+			}
+		}
+		return result;
+	}
+	
+	public static ArrayList<Parameter> allParameters(Message message) {
+		ArrayList<Parameter> result = new ArrayList<Parameter>();
+		result.addAll(message.getParameters());
+		return result;
+	}
+	
+	public static ArrayList<Message> allMessages(IoTLangModel model) {
+		ArrayList<Message> result = new ArrayList<Message>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (Message t : m.getMessages()) {
+					result.add((Message)t);
 			}
 		}
 		return result;
@@ -204,7 +223,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
 	public static ArrayList<InstancePubSub> allPubSubinstances(IoTLangModel model) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
 		for (InstanceChannel m : allChannelinstances(model)) {
@@ -223,6 +242,7 @@ public class Helpers {
 		}
 		return result;
 	}
+
 //	public static ArrayList<Thing> allThings(IoTLangModel model) {
 //		ArrayList<Thing> result = new ArrayList<Thing>();
 //		for (IoTLangModel m : allThingMLModelModels(model)) {

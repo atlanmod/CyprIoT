@@ -33,8 +33,12 @@ import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.NetworkConfiguration;
+import lang.iotlang.Policy;
+import lang.iotlang.Role;
+import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
+import lang.util.Helpers;
 
 public class Utils {
 	public static int accessConverter(String direction) {
@@ -252,5 +256,25 @@ public class Utils {
         IoTLangModel iotModel = (IoTLangModel) model.getContents().get(0);
         return iotModel;
         
+	}
+	
+	private static ArrayList<Rule> getAllEnforcedPolicyRules(IoTLangModel iotmodel) {
+		ArrayList<Rule> result = new ArrayList<Rule>();
+		for (Policy policy : Helpers.allPolicies(iotmodel)) {
+			for (Rule rule : policy.getHasRules()) {
+				result.add((Rule)rule);
+			}
+		}
+		return result;
+	}
+	
+	private static ArrayList<Role> getAllEnforcedPolicyRoles(IoTLangModel iotmodel) {
+		ArrayList<Role> result = new ArrayList<Role>();
+		for (Policy policy : Helpers.allPolicies(iotmodel)) {
+			for (Role role : policy.getHasRoles()) {
+				result.add((Role)role);
+			}
+		}
+		return result;
 	}
 }

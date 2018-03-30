@@ -27,7 +27,7 @@ thing TemperaturePSM includes tempMsgs
 		final state collect {
 			on entry
 			do  `Serial.println(`&dht&`.temperature);`
-				temperaturePort!temperatureMessage(`(uint32_t)`&dht&`.temperature`)
+				temperaturePort!temperatureMessage(`(uint32_t)`&dht&`.temperature`,8)
 				while(true) do `delay(`&sampling&`);` end
 			end
 		}
@@ -53,10 +53,11 @@ thing TemperatureRandom includes tempMsgs
 			transition -> collect
 		}
 		state collect {
-			on entry
-			do 
-				temperaturePort!temperatureMessage(`rand()`)
-				while(true) do `sleep(`&sampling&`);` end 
+			on entry do
+				while(true) do
+					print `rand()`
+					temperaturePort!temperatureMessage(`rand()`,6)
+				end
 			end
 		}
 	}

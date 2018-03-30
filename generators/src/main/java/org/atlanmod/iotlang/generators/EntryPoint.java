@@ -4,25 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.thingml.compilers.javascript.browser.BrowserJSCompiler;
-import org.thingml.compilers.javascript.node.NodeJSCompiler;
-import org.thingml.compilers.javascript.react.ReactJSCompiler;
 import org.atlanmod.iotlang.utilities.Utils;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.compilers.c.arduino.ArduinoCompiler;
 import org.thingml.compilers.c.posix.PosixCompiler;
 import org.thingml.compilers.java.JavaCompiler;
-import org.thingml.compilers.javascript.browser.BrowserJSCompiler;
-import org.thingml.compilers.javascript.node.NodeJSCompiler;
-import org.thingml.compilers.javascript.react.ReactJSCompiler;
-import org.thingml.compilers.registry.ThingMLCompilerRegistry;
-import org.thingml.compilers.spi.NetworkPlugin;
-import org.thingml.compilers.spi.SerializationPlugin;
-import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
 import org.thingml.networkplugins.c.arduino.ESP8266MQTTPlugin;
 import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
@@ -30,32 +21,78 @@ import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
 import org.thingml.networkplugins.java.JavaMQTTPlugin;
 import org.thingml.xtext.helpers.ConfigurationHelper;
 import org.thingml.xtext.thingML.ExternalConnector;
+import org.thingml.xtext.thingML.Instance;
 import org.thingml.xtext.thingML.PlatformAnnotation;
+import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.Protocol;
 import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
-import org.thingml.xtext.thingML.Type;
-
 import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Policy;
+import lang.iotlang.Role;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
+import lang.util.Helpers;
 
 
 public class EntryPoint {
+	private static boolean isErrorFree=true;
 	public static void main(String[] args) throws IOException {
-		procedure();
+		 IoTLangModel iotModel = Utils.getIoTModelFromFile("sample/networkConfig.iotlang");	        
+		 for (Thing thing : iotModel.getThings()) {
+			 if(!ThingMLConfigExists(thing)) {
+				 isErrorFree = false;
+			 }
+			 
+		 }
+		if(isErrorFree) {
+			procedure(iotModel);
+		}else {
+			System.err.println("There are some errors in your model");
+		}
 	}
+	
 	public enum PuSubType {
 	    PUB, SUB  
 	}
-	private static void procedure() {
+	
+	public static boolean ThingMLConfigExists(Thing thing) {
+		File input = null;
 		Path currentRelativePath = Paths.get("");
         String pathdirectory = currentRelativePath.toAbsolutePath().toString();
-		 IoTLangModel iotModel = Utils.getIoTModelFromFile("sample/networkConfig.iotlang");
+    	String read = thing.getCode().get(0).replace("\"", "");
+    	input = new File(pathdirectory+"/sample/"+read);
+    	ThingMLModel thgmodel = ThingMLCompiler.loadModel(input);
+        if(thgmodel.getConfigs().size()==0) {
+        	System.err.println("No Configuration found in the ThingML file for '"+thing.getName()+"'");
+        	return false;
+        } else {
+        	System.out.println("Configuration found !");
+        	for (Instance instance : thgmodel.getConfigs().get(0).getInstances()) {
+        		if(instance.getType().getName().equals(thing.getName())) {
+        			System.out.println("Thing "+thing.getName()+" found in ThingML file !");
+        			for(lang.iotlang.Port port : thing.getPorts()) {
+        				if(instance.getType().getPorts().stream().map(Port::getName).filter(port.getName()::equals).findFirst().isPresent()) {
+                			System.out.println("Port "+port.getName()+" for thing '"+instance.getType().getName()+"'  found in ThingML file !");
+        				}else {
+                			System.err.println("Port "+port.getName()+" for thing '"+instance.getType().getName()+"' not found in ThingML file !");
+                			return false;
+        				}
+        			}
+
+        		}
+        		//System.err.println("Thing '"+thing.getName()+"' not found in ThingML file");
+			}
+        }
+        return true;
+	}
+
+	private static void procedure(IoTLangModel iotModel) {
+		Path currentRelativePath = Paths.get("");
+        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
         if(iotModel.getNetworkConfigs().get(0).getFormat().equals("sql")) {
         	CodeGenerator.generateSQLRules(iotModel,pathdirectory);
         }else if(iotModel.getNetworkConfigs().get(0).getFormat().equals("txt")){
