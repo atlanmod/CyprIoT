@@ -19,14 +19,28 @@ import org.thingml.networkplugins.c.posix.PosixJSONSerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
 import org.thingml.networkplugins.java.JavaMQTTPlugin;
+import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.helpers.ConfigurationHelper;
+import org.thingml.xtext.helpers.ThingHelper;
+import org.thingml.xtext.services.ThingMLGrammarAccess.PrimaryElements;
+import org.thingml.xtext.thingML.CastExpression;
+import org.thingml.xtext.thingML.EventReference;
+import org.thingml.xtext.thingML.Expression;
+import org.thingml.xtext.thingML.ExpressionGroup;
+import org.thingml.xtext.thingML.ExternExpression;
 import org.thingml.xtext.thingML.ExternalConnector;
 import org.thingml.xtext.thingML.Instance;
+import org.thingml.xtext.thingML.NotExpression;
 import org.thingml.xtext.thingML.PlatformAnnotation;
 import org.thingml.xtext.thingML.Port;
+import org.thingml.xtext.thingML.Property;
+import org.thingml.xtext.thingML.PropertyReference;
 import org.thingml.xtext.thingML.Protocol;
+import org.thingml.xtext.thingML.ReceiveMessage;
 import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.Transition;
+
 import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
@@ -129,6 +143,24 @@ public class EntryPoint {
 			protocol.getAnnotations().add(anotPort);
 			protocol.getAnnotations().add(anotSerializer);
             thgmodel.getProtocols().add(protocol);
+            ArrayList<org.thingml.xtext.thingML.Thing> allThings = ThingMLHelpers.allThings(thgmodel);
+            for (org.thingml.xtext.thingML.Thing thing : allThings) {
+				System.out.println("#################### "+thing.getName());
+				for (Transition transition: ThingHelper.allTransitionsWithAction(thing)) {
+					System.out.println("###GUAD " + ((ReceiveMessage) transition.getEvent()).getMessage().getName());
+					if(((ReceiveMessage) transition.getEvent()).getMessage().getName().equals("temperatureMessage")) {
+						if(transition.getGuard()!=null) {
+							System.out.println("Present ");
+							NotExpression notExpr = ThingMLFactory.eINSTANCE.createNotExpression();
+							ExpressionGroup ok = (ExpressionGroup) transition.getGuard();
+							System.out.println(ok.eContents().get(0).getClass());
+						}
+					}
+				}
+			}
+            //ThingHelper.allTransitionsWithAction(ThingMLHelpers.);
+            
+            
 			List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
             extrn.get(0).setProtocol(protocol);
 			/*ExternalConnector externalConnector;

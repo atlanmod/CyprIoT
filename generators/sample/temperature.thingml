@@ -17,9 +17,12 @@ thing TemperaturePIM includes tempMsgs,timerMsgs {
 		state initial {
 			on entry do print "Getting temperature" end
 			transition -> showTemperature
+			event tempMessage: temperaturePort?temperatureMessage
+			guard tempMessage.currentHour>5
 		}
 		state showTemperature {
 			internal event tempMessage: temperaturePort?temperatureMessage
+			guard tempMessage.currentHour>5
 			//internal event time : temperaturePort?getTime
 			action do 
 				currentTemperature = tempMessage.TemperatureData

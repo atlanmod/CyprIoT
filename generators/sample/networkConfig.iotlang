@@ -28,30 +28,28 @@ policy roleBasedPolicy {
 	role sensor allow:send topic:room1,room2 priority(10)  // All actuator can only write data to topics room1 and room2
 }
 
-// SECOND USE CASE
-policy networkPolicy {
+//THIRD USE CASE
+policy attributeBasedPolicy {
 	rule AirConditionner.temperaturePort allow:receive topic:room1,room2 priority(1) // plus précis
 	rule Monitor allow:receive topic:room1,room2 priority(1) // when temperatureMessage.currenHour>5 - > event received : temperaturePort?temperatureMessage guard received.currentHour>5
 	rule TemperaturePIM.temperaturePort allow:send thing:Monitor priority(1) // When temperatureMessage.origin="instance1" -> airCon read temperatureMessage/origin/instance1 (exception) otherwise monitor temperatureMessage/# 
 	rule TemperaturePIM.temperaturePort allow:send thing:AirConditionner priority(1)
-}
-
-//THIRD USE CASE
-policy attributeBasedPolicy {
 	rule AirConditionner.temperaturePort allow:receive message:temperatureMessage.TemperatureData < 100 priority(1) // Will add a guard whenever temperatureMessage is received in AirConditionner.temperaturePort
 	rule Monitor allow:receive message:temperatureMessage.currentHour < 23 and  > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
 }
 
 networkConfiguration roomConfiguration {
 	domain "fr.naomod.rooms" // topic are formed as follow : fr/naomod/rooms/room1/
-	enforce roleBasedPolicy,networkPolicy,attributeBasedPolicy format txt
+	enforce roleBasedPolicy,attributeBasedPolicy format txt
 	instanceThing instanceTemperature1:TemperaturePIM id "instanceTemperature" password "instanceTemp123" target cposix
 	instanceThing instanceTemperature2:TemperaturePIM id "instanceTemperature2" password "instanceTemp123" target cposix
-	instanceThing instanceAirconditionner:AirConditionner id "airConditionner1" password "instanceTemp123" target java
+	instanceThing instanceAirconditionner1:AirConditionner id "airConditionner1" password "instanceTemp123" target java
+	instanceThing instanceAirconditionner2:AirConditionner id "airConditionner2" password "instanceTemp123" target java
 	instanceThing instanceMonitor1:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
 	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
 	bind instanceTemperature1 => mqttchannel{room1} // Sends data to room1 Topic
 	bind instanceTemperature2 => mqttchannel{room2} // Sends data to room2 Topic
+	bind instanceAirconditionner1 <= mqttchannel{room1} // the airconditionner is common for both rooms
+	bind instanceAirconditionner2 <= mqttchannel{room2} // the airconditionner is common for both rooms
 	bind instanceMonitor1 <= mqttchannel{room1,room2} // Show temperature for both rooms
-	bind instanceAirconditionner <= mqttchannel{room1,room2} // the airconditionner is common for both rooms
 }
