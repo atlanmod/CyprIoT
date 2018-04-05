@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 
 import lang.iotlang.Channel;
+import lang.iotlang.Instance;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePubSub;
 import lang.iotlang.InstanceReqRep;
+import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
 import lang.iotlang.NetworkConfiguration;
@@ -28,6 +30,7 @@ import lang.iotlang.Role;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
+import lang.iotlang.User;
 
 
 public class Helpers {
@@ -214,11 +217,20 @@ public class Helpers {
 		}
 		return result;
 		}
+	public static ArrayList<InstanceThing> allThinginstances(IoTLangModel model) {
+		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
+		for (NetworkConfiguration m : allConfigs(model)) {
+			for (Instance t : m.getInstances() ) {
+				if ( t instanceof InstanceThing) result.add((InstanceThing)t);
+			}
+		}
+		return result;
+	}
 	public static ArrayList<InstanceChannel> allChannelinstances(IoTLangModel model) {
 		ArrayList<InstanceChannel> result = new ArrayList<InstanceChannel>();
 		for (NetworkConfiguration m : allConfigs(model)) {
-			for (InstanceChannel t : m.getChannelInstances()) {
-					result.add((InstanceChannel)t);
+			for (Instance t : m.getInstances() ) {
+				if ( t instanceof InstanceChannel) result.add((InstanceChannel)t);
 			}
 		}
 		return result;
@@ -242,6 +254,15 @@ public class Helpers {
 		}
 		return result;
 	}
+	public static ArrayList<User> allUsers(IoTLangModel model) {
+		ArrayList<User> result = new ArrayList<User>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (User t : m.getUsers()) {
+					result.add((User)t);
+			}
+		}
+		return result;
+		}
 
 //	public static ArrayList<Thing> allThings(IoTLangModel model) {
 //		ArrayList<Thing> result = new ArrayList<Thing>();

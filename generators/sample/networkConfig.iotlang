@@ -1,55 +1,64 @@
+user mainUser password "pa$$w0rd"
+
 message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32)
+message telemetryMessage(TemperatureData : UInt32 , currentHour: UInt32)
 
 import TemperaturePIM "temperature.thingml" {
-	expose provideTemp.temperatureMessage
+	declare provideTemp.temperatureMessage
 	assign sensor // Check if the port has send and receive methods	
 }
 
 import AirConditionner "airconditionner.thingml" {
-	expose temperaturePort.temperatureMessage
+	declare temperaturePort.temperatureMessage,telemetryPort.telemetryMessage
 	assign actuator
 }
 
 import Monitor "monitor.thingml" {
-	expose temperaturePort.temperatureMessage
+	declare temperaturePort.temperatureMessage,telemetryPort.telemetryMessage
 	assign actuator
 }
 
 channel:pubsub MqttChannel {
-	topic room1 // One topic per room
+	topic room1
 	topic room2
+	topic temperatureData belongsTo room1
+	topic temperatureData2 belongsTo room2
+	topic airConditionnerTelemetry belongsTo room1 
+	topic airConditionnerTelemetry2 belongsTo room2
 }
 
 // POLICY : CAN CONTAIN RULES AND ROLES
 
 // FIRST USE CASE
 policy roleBasedPolicy {
-	role actuator allow:receive topic:room1,room2 priority(10) // All sensor can only read data from topics room1 and room2
-	role sensor allow:send topic:room1,room2 priority(10)  // All actuator can only write data to topics room1 and room2
+	role actuator allow:receive topic:temperatureData,temperatureData2 priority(10) // All sensor can only read data from topics room1 and room2
+	role sensor allow:receive topic:temperatureData,temperatureData2 priority(10)  // All actuator can only write data to topics room1 and room2
 }
 
-//THIRD USE CASE
+//SECOND USE CASE
 policy attributeBasedPolicy {
-	rule AirConditionner.temperaturePort allow:receive topic:room1,room2 priority(1) // plus précis
-	rule Monitor allow:receive topic:room1,room2 priority(1) // when temperatureMessage.currenHour>5 - > event received : temperaturePort?temperatureMessage guard received.currentHour>5
+	rule AirConditionner.temperaturePort allow:receive topic:temperatureData,temperatureData2 priority(1) // plus précis
+	rule Monitor allow:receive topic:temperatureData,temperatureData2 priority(1) // when temperatureMessage.currenHour>5 - > event received : temperaturePort?temperatureMessage guard received.currentHour>5
 	rule TemperaturePIM.temperaturePort allow:send thing:Monitor priority(1) // When temperatureMessage.origin="instance1" -> airCon read temperatureMessage/origin/instance1 (exception) otherwise monitor temperatureMessage/# 
 	rule TemperaturePIM.temperaturePort allow:send thing:AirConditionner priority(1)
 	rule AirConditionner.temperaturePort allow:receive message:temperatureMessage.TemperatureData < 100 priority(1) // Will add a guard whenever temperatureMessage is received in AirConditionner.temperaturePort
-	rule Monitor allow:receive message:temperatureMessage.currentHour < 23 and  > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
+	rule Monitor allow:send message:temperatureMessage.currentHour < 23 and temperatureMessage.currentHour > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
 }
 
-networkConfiguration roomConfiguration {
-	domain "fr.naomod.rooms" // topic are formed as follow : fr/naomod/rooms/room1/
+networkConfiguration smarthomeConfiguration {
+	domain "fr.naomod.smarthome"
 	enforce roleBasedPolicy,attributeBasedPolicy format txt
-	instanceThing instanceTemperature1:TemperaturePIM id "instanceTemperature" password "instanceTemp123" target cposix
-	instanceThing instanceTemperature2:TemperaturePIM id "instanceTemperature2" password "instanceTemp123" target cposix
-	instanceThing instanceAirconditionner1:AirConditionner id "airConditionner1" password "instanceTemp123" target java
-	instanceThing instanceAirconditionner2:AirConditionner id "airConditionner2" password "instanceTemp123" target java
-	instanceThing instanceMonitor1:Monitor id "instanceMonitor1" password "instanceTemp123" target cposix
-	instancePubSub mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
-	bind instanceTemperature1 => mqttchannel{room1} // Sends data to room1 Topic
-	bind instanceTemperature2 => mqttchannel{room2} // Sends data to room2 Topic
-	bind instanceAirconditionner1 <= mqttchannel{room1} // the airconditionner is common for both rooms
-	bind instanceAirconditionner2 <= mqttchannel{room2} // the airconditionner is common for both rooms
-	bind instanceMonitor1 <= mqttchannel{room1,room2} // Show temperature for both rooms
+	instance instanceTemperature1:TemperaturePIM owner mainUser target cposix
+	instance instanceTemperature2:TemperaturePIM owner mainUser target cposix
+	instance instanceAirconditionner1:AirConditionner owner mainUser target cposix
+	instance instanceAirconditionner2:AirConditionner owner mainUser target cposix
+	instance instanceMonitor1:Monitor owner mainUser target java
+	instance mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
+	bind instanceTemperature1.provideTemp => mqttchannel{temperatureData}
+	bind instanceTemperature2.provideTemp => mqttchannel{temperatureData2}
+	bind instanceAirconditionner1.temperaturePort <= mqttchannel{temperatureData}
+	bind instanceAirconditionner1.temperaturePort => mqttchannel{airConditionnerTelemetry}
+	bind instanceAirconditionner2.telemetryPort => mqttchannel{airConditionnerTelemetry2}
+	bind instanceMonitor1.temperaturePort <= mqttchannel{temperatureData,temperatureData2}
+	bind instanceMonitor1.telemetryPort <= mqttchannel{airConditionnerTelemetry,airConditionnerTelemetry2}
 }

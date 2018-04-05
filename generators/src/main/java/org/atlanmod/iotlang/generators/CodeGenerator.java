@@ -30,7 +30,7 @@ public class CodeGenerator {
 					String wildcard = "/#";
 					if(!accessRight.equals("")) {
 					rulesSql.append(
-							"user "+bind.getThingInstance().getThingId().replace("\"", "")+"\n" + 
+							"user "+bind.getThingInstance().getOwner().getName().replace("\"", "")+"\n" + 
 							"topic "+accessRight+" "+topicName+wildcard+"\n \n");
 					}
 				}

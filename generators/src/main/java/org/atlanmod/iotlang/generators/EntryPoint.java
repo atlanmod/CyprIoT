@@ -20,6 +20,8 @@ import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.networkplugins.java.JavaJSONSerializerPlugin;
 import org.thingml.networkplugins.java.JavaMQTTPlugin;
 import org.thingml.xtext.constraints.ThingMLHelpers;
+import org.thingml.xtext.helpers.ActionHelper;
+import org.thingml.xtext.thingML.SendAction;
 import org.thingml.xtext.helpers.ConfigurationHelper;
 import org.thingml.xtext.helpers.ThingHelper;
 import org.thingml.xtext.services.ThingMLGrammarAccess.PrimaryElements;
@@ -30,6 +32,7 @@ import org.thingml.xtext.thingML.ExpressionGroup;
 import org.thingml.xtext.thingML.ExternExpression;
 import org.thingml.xtext.thingML.ExternalConnector;
 import org.thingml.xtext.thingML.Instance;
+import org.thingml.xtext.thingML.IntegerLiteral;
 import org.thingml.xtext.thingML.NotExpression;
 import org.thingml.xtext.thingML.PlatformAnnotation;
 import org.thingml.xtext.thingML.Port;
@@ -39,11 +42,13 @@ import org.thingml.xtext.thingML.Protocol;
 import org.thingml.xtext.thingML.ReceiveMessage;
 import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.ThingMLPackage;
 import org.thingml.xtext.thingML.Transition;
 
 import lang.iotlang.Bind;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
+import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.Policy;
 import lang.iotlang.Role;
 import lang.iotlang.Rule;
@@ -56,10 +61,34 @@ public class EntryPoint {
 	private static boolean isErrorFree=true;
 	public static void main(String[] args) throws IOException {
 		 IoTLangModel iotModel = Utils.getIoTModelFromFile("sample/networkConfig.iotlang");	        
+		 checkPolicyRules(iotModel);
 		 for (Thing thing : iotModel.getThings()) {
-			 if(!ThingMLConfigExists(thing)) {
-				 isErrorFree = false;
-			 }
+			 File input = null;
+				Path currentRelativePath = Paths.get("");
+		        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
+		    	String read = thing.getCode().get(0).replace("\"", "");
+		    	input = new File(pathdirectory+"/sample/"+read);
+		    	ThingMLModel thgmodel = ThingMLCompiler.loadModel(input);
+		    for (org.thingml.xtext.thingML.Thing th : ThingMLHelpers.allThings(thgmodel)) {
+		    	for (SendAction send : ActionHelper.getAllActions(th, SendAction.class)) {
+					if(send.getMessage().getName().equals("temperatureMessage")) {
+						System.out.println("Port: "+send.getPort().getName());
+						System.out.println("OutMessgae: "+send.getMessage().getName());
+						for (Expression expression : send.getParameters()) {
+							if(expression instanceof ExternExpression) {
+								System.out.println("External : "+((ExternExpression) expression).getExpression());
+							} else if(expression instanceof IntegerLiteral) {
+								System.out.println("Integer : "+((IntegerLiteral) expression).getIntValue());
+							}
+						}
+						
+					}
+				}
+			}
+			 
+//			 if(!ThingMLConfigExists(thing)) {
+//				 isErrorFree = false;
+//			 }
 			 
 		 }
 		if(isErrorFree) {
@@ -119,7 +148,7 @@ public class EntryPoint {
             String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
             String instanceId = Utils.sign(iotModel.getNetworkConfigs().get(0),th);
             String thingId= domainName+"."+instanceId;
-            String thingPassword= th.getThingPassword().replace("\"", "");
+            String thingPassword= th.getOwner().getPassword().replace("\"", "");
             File input = null;
     		String read = th.getTypeThing().getCode().get(0).replace("\"", "");
     		input = new File(pathdirectory+"/sample/"+read);
@@ -147,13 +176,10 @@ public class EntryPoint {
             for (org.thingml.xtext.thingML.Thing thing : allThings) {
 				System.out.println("#################### "+thing.getName());
 				for (Transition transition: ThingHelper.allTransitionsWithAction(thing)) {
-					System.out.println("###GUAD " + ((ReceiveMessage) transition.getEvent()).getMessage().getName());
+					System.out.println("###GUARD " + ((ReceiveMessage) transition.getEvent()).getMessage().getName());
 					if(((ReceiveMessage) transition.getEvent()).getMessage().getName().equals("temperatureMessage")) {
 						if(transition.getGuard()!=null) {
 							System.out.println("Present ");
-							NotExpression notExpr = ThingMLFactory.eINSTANCE.createNotExpression();
-							ExpressionGroup ok = (ExpressionGroup) transition.getGuard();
-							System.out.println(ok.eContents().get(0).getClass());
 						}
 					}
 				}
@@ -282,13 +308,16 @@ public class EntryPoint {
         		}
 				}
 	}
-	private static boolean checkPolicyRules(IoTLangModel iotModel,InstanceThing th, Topic topicToAdd) {
-		Policy policy = iotModel.getPolicies().get(0);
-		EList<Rule> rules = policy.getHasRules();
-		EList<Bind> binds = iotModel.getNetworkConfigs().get(0).getBinds();
-		
-		for (Bind bind : binds) {
-			
+	private static boolean checkPolicyRules(IoTLangModel iotModel/*,InstanceThing th, Topic topicToAdd*/) {
+		NetworkConfiguration netConfig = iotModel.getNetworkConfigs().get(0);
+		EList<Policy> policies = netConfig.getEnforces();
+		for (Policy policy : policies) {
+			EList<Rule> rules = policy.getHasRules();
+			for (Rule rule : rules) {
+				if(rule.getAction().equals("receive") && rule.getObjectMess()!= null) {
+
+				}
+			}
 		}
 		
 		

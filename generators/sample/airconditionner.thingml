@@ -8,7 +8,7 @@ thing AirConditionner includes tempMsgs {
 	}
 	
 	provided port statePort {
-		receives temperatureMessage
+		receives telemetryMessage
 	}
 	
 	statechart airConditionnerBehavior init turnOn {

@@ -7,9 +7,12 @@ thing Monitor includes tempMsgs {
 		receives temperatureMessage
 		
 	}
+	required port telemetryPort{
+		receives telemetryMessage
+		
+	}
 	statechart monitorBehavior init showCurrentTemperature {
 		state showCurrentTemperature {
-			transition -> endSignal
 			internal event received : temperaturePort?temperatureMessage
 			guard received.TemperatureData!=currentTemperature 
 			action do
@@ -18,9 +21,14 @@ thing Monitor includes tempMsgs {
 				print received.TemperatureData
 				print "\n"
 			end
-		}
-		final state endSignal {
-			on entry print "Current temperature is : "
+			internal event telemetry : telemetryPort?telemetryMessage
+			action do
+				print "Current Telemetry: Power"
+				print telemetry.power
+				print " Air Conditionner is On : "
+				print telemetry.stateOnOff
+				print "\n"
+			end
 		}
 	}
 }
@@ -30,4 +38,5 @@ configuration monitorCfg
 {
 	instance monitor:Monitor
 	connector monitor.temperaturePort over MQTT1
+	connector monitor.telemetryPort over MQTT1
 }

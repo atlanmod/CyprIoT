@@ -17,6 +17,12 @@ datatype UInt8<1>
 object String
 	@c_type "char *"
 	@type_checker "String";
-
+	
+datatype Boolean<1>	
+	@c_type "uint8_t"
+	@c_byte_size "2"
+	@java_type "boolean"
+	@java_primitive "true";
+	
 object DHT
 	@c_type "dht";

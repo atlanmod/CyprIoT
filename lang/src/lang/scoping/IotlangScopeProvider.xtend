@@ -43,9 +43,13 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 		}*/else if (reference == iotlangInstance.networkConfiguration_Enforces) {
 			return Scopes.scopeFor( Helpers.allPolicies(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.bind_ThingInstance) {
-			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
+			return Scopes.scopeFor( Helpers.allThinginstances(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.bind_PubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.bind_Topics) {
+			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
+		}else if (reference == iotlangInstance.topic_Belongs) {
+			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
 		}else if (reference == iotlangInstance.bind_Topics) {
 			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)) );
 		}/*else if (reference == iotlangInstance.topic_AcceptedMessages) {
@@ -60,10 +64,12 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 			return Scopes.scopeFor( Helpers.allPTP(Helpers.findContainingModel(context)));
 		}/*else if (reference == iotlangInstance.instanceReqRep_OverProtocol) {
 			return Scopes.scopeFor( Helpers.allProtocol(Helpers.findContainingModel(context)) );
-		}*/else if (reference == iotlangInstance.connect_ThingInstance) {
+		}else if (reference == iotlangInstance.connect_ThingInstance) {
 			return Scopes.scopeFor( Helpers.allConfigs(Helpers.findContainingModel(context)).get(0).thingInstances );
-		}else if (reference == iotlangInstance.connect_ReqRepInstance) {
+		}*/else if (reference == iotlangInstance.connect_ReqRepInstance) {
 			return Scopes.scopeFor( Helpers.allPtpinstances(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.instanceThing_Owner) {
+			return Scopes.scopeFor( Helpers.allUsers(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.port_Messages) {
 			return Scopes.scopeFor( Helpers.allMessages(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_ObjectMess) {
@@ -75,6 +81,8 @@ class IotlangScopeProvider extends AbstractIotlangScopeProvider {
 		}else if (reference == iotlangInstance.role_ObjectTopic) {
 			return Scopes.scopeFor( Helpers.allTopics(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_SubjectPort) {
+			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
+		}else if (reference == iotlangInstance.bind_SubjectPort) {
 			return Scopes.scopeFor( Helpers.allPorts(Helpers.findContainingModel(context)));
 		}else if (reference == iotlangInstance.rule_TypeMess) {
 			return scopeForConnector_ObjectMess(context as Rule);
