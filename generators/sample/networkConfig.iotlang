@@ -21,9 +21,9 @@ import Monitor "monitor.thingml" {
 channel:pubsub MqttChannel {
 	topic room1
 	topic room2
-	topic temperatureData belongsTo room1
+	topic temperatureData1 belongsTo room1
 	topic temperatureData2 belongsTo room2
-	topic airConditionnerTelemetry belongsTo room1 
+	topic airConditionnerTelemetry1 belongsTo room1 
 	topic airConditionnerTelemetry2 belongsTo room2
 }
 
@@ -54,11 +54,12 @@ networkConfiguration smarthomeConfiguration {
 	instance instanceAirconditionner2:AirConditionner owner mainUser target cposix
 	instance instanceMonitor1:Monitor owner mainUser target java
 	instance mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
-	bind instanceTemperature1.provideTemp => mqttchannel{temperatureData}
+	bind instanceTemperature1.provideTemp => mqttchannel{temperatureData1}
 	bind instanceTemperature2.provideTemp => mqttchannel{temperatureData2}
-	bind instanceAirconditionner1.temperaturePort <= mqttchannel{temperatureData}
-	bind instanceAirconditionner1.temperaturePort => mqttchannel{airConditionnerTelemetry}
+	bind instanceAirconditionner1.temperaturePort <= mqttchannel{temperatureData1}
+	bind instanceAirconditionner2.temperaturePort <= mqttchannel{temperatureData2}
+	bind instanceAirconditionner1.telemetryPort => mqttchannel{airConditionnerTelemetry1}
 	bind instanceAirconditionner2.telemetryPort => mqttchannel{airConditionnerTelemetry2}
-	bind instanceMonitor1.temperaturePort <= mqttchannel{temperatureData,temperatureData2}
-	bind instanceMonitor1.telemetryPort <= mqttchannel{airConditionnerTelemetry,airConditionnerTelemetry2}
+	bind instanceMonitor1.temperaturePort <= mqttchannel{temperatureData1,temperatureData2}
+	bind instanceMonitor1.telemetryPort <= mqttchannel{airConditionnerTelemetry1,airConditionnerTelemetry2}
 }

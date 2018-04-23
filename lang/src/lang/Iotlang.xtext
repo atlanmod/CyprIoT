@@ -5,7 +5,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(/*datatypes+=Datatype | roles+=Role|*/ messages+=Message | things+=Thing |policies+=Policy /*| messages+=Message  */| channels+=Channel | protocols += Protocol | networkConfigs+=NetworkConfiguration | configs+=Configuration | users+=User)*;
+		(/*datatypes+=Datatype | roles+=Role|*/ messages+=Message | things+=Thing |policies+=Policy /*| messages+=Message  */| channels+=Channel /* | protocols += Protocol */| networkConfigs+=NetworkConfiguration /* | configs+=Configuration */| users+=User)*;
 		
 /* Terminals  */
 
@@ -20,9 +20,9 @@ terminal STRING_LIT	:
 terminal ANNOTATION_ID:
 	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-TargetAnnotation:
+/*TargetAnnotation:
 	name=ANNOTATION_ID value=STRING_LIT ;
-	
+	*/
 /* Main types  */
 
 Thing: // example gateway, arduino, android  
@@ -33,7 +33,7 @@ Thing: // example gateway, arduino, android
 ;
 
 Channel: // mqtt, kafka, real simple bus,
-	(pubSub+= PubSub| reqRep +=ReqRep)
+	(pubSub= PubSub/* | reqRep +=ReqRep*/)
 ;
 
 PubSub:
@@ -42,11 +42,11 @@ PubSub:
 		'}'
 ;
 
-ReqRep:
+/*ReqRep:
 	'channel:reqrep' name=ID '{'
 		
 		'}'
-;
+;*/
 
 User :
 	'user' name=ID ('password' password=STRING_LIT)?
@@ -67,9 +67,9 @@ Message :
 Parameter returns Parameter:
 	name=ID ':' typeRef=ID 
 ;
-Protocol :
+/*Protocol :
 	'protocol' name=ID
-;
+;*/
 
 Topic:
 	'topic'  name=ID  ('belongsTo' belongs+=[Topic])? /*type=('?' |'!') '(' acceptedMessages=[Message] ')' // add capacity of subscribers*/
@@ -92,39 +92,39 @@ Instance :
 	'instance' InstanceThing | 'instance' InstanceChannel
 ;
 InstanceThing:
-	name=ID /*(( '[' number+=INT ']')*)?*/ ':' (typeThing=[Thing])  'owner' owner=[User] 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript') ( annotations+=TargetAnnotation )*;
+	name=ID /*(( '[' number+=INT ']')*)?*/ ':' (typeThing=[Thing])  'owner' owner=[User] 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript');
 
 //instanceGateway:
 //	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
 InstancePubSub:
-	name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')( annotations+=TargetAnnotation )*
+	name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')
 ;
-InstanceReqRep:
-	name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('coap'|'http' /*| 'websocket' | 'upnp' | 'dds' */)':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=TargetAnnotation )*
-;
+/*InstanceReqRep:
+	name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('coap'|'http' | 'websocket' | 'upnp' | 'dds' )':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=TargetAnnotation )*
+;*/
 InstanceChannel:
-	instancesPubSub+=InstancePubSub | instancesReqRep+=InstanceReqRep
+	instancesPubSub=InstancePubSub /*| instancesReqRep+=InstanceReqRep */
 ;
 /*InstancePolicy:
 	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;*/
-Configuration:
+/*Configuration:
 	'configuration' name=ID '{'
 		//instanceThing+=InstanceThing
 		//portsConfig+=PortConfiguration
 	'}'
 ;
-
+*/
 NetworkConfiguration:
-	'networkConfiguration' name=ID ( annotations+=TargetAnnotation )* '{'
-	(connects+=Connect| domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] ((',' enforces+=[Policy])*)?  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
+	'networkConfiguration' name=ID '{'
+	(/*connects+=Connect| */ domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] ((',' enforces+=[Policy])*)?  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
 	
 	'}'
 ;
 
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}' ( annotations+=TargetAnnotation )*
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}'
 ;
 
-Connect:
+/*Connect:
 	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=TargetAnnotation )*
-;
+;*/

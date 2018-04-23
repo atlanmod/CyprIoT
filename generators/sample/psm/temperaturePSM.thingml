@@ -36,6 +36,7 @@ thing TemperaturePSM includes tempMsgs
 
 thing TemperatureRandom includes tempMsgs
 @c_header "#include <time.h>"
+@c_header "#include <stdio.h>"
 @c_header "#include <stdlib.h>"
 @c_header "#include <unistd.h>"
 {
@@ -45,6 +46,7 @@ thing TemperatureRandom includes tempMsgs
 	}
 	
 	readonly property sampling : UInt32 = 5
+	property rand : UInt32
 	statechart temperatureSensorBehavior init setup {
 		state setup {
 			on entry do print "initialization..." 
@@ -55,8 +57,10 @@ thing TemperatureRandom includes tempMsgs
 		state collect {
 			on entry do
 				while(true) do
-					print `rand()`
-					temperaturePort!temperatureMessage(`rand()`,6)
+					rand = `rand() % 100`
+					print rand
+					if(not(rand<15)) do temperaturePort!temperatureMessage(rand,6) end
+					`sleep(5);`
 				end
 			end
 		}

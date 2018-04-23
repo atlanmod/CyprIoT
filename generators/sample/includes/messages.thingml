@@ -8,9 +8,10 @@ thing fragment timerMsgs {
 	message timerMessage(currentHour : UInt32);
 	message getTime();
 }
-protocol MQTT1
+protocol MQTT
 	@trace_level "0"
-;
-protocol MQTT2
-	@trace_level "0"
+	@mqtt_broker_port "1883"
+	@mqtt_broker_address "iot.eclipse.org"
+	@mqtt_escape_null "true"
+	@serializer "Binary"
 ;

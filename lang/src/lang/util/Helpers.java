@@ -15,7 +15,7 @@ import lang.iotlang.Channel;
 import lang.iotlang.Instance;
 import lang.iotlang.InstanceChannel;
 import lang.iotlang.InstancePubSub;
-import lang.iotlang.InstanceReqRep;
+//import lang.iotlang.InstanceReqRep;
 import lang.iotlang.InstanceThing;
 import lang.iotlang.IoTLangModel;
 import lang.iotlang.Message;
@@ -23,9 +23,9 @@ import lang.iotlang.NetworkConfiguration;
 import lang.iotlang.Parameter;
 import lang.iotlang.Policy;
 import lang.iotlang.Port;
-import lang.iotlang.Protocol;
+//import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
-import lang.iotlang.ReqRep;
+//import lang.iotlang.ReqRep;
 import lang.iotlang.Role;
 import lang.iotlang.Rule;
 import lang.iotlang.Thing;
@@ -129,7 +129,7 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<ReqRep> allPTP(IoTLangModel model) {
+	/*public static ArrayList<ReqRep> allPTP(IoTLangModel model) {
 		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
 		for (Channel m : allChannels(model)) {
 			for (ReqRep t : m.getReqRep()) {
@@ -137,7 +137,7 @@ public class Helpers {
 			}
 		}
 		return result;
-		}
+		}*/
 	/*public static ArrayList<Message> allMessages(IoTLangModel model) {
 		ArrayList<Message> result = new ArrayList<Message>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
@@ -163,7 +163,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
+	/*public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
 		ArrayList<Protocol> result = new ArrayList<Protocol>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Protocol t : m.getProtocols()) {
@@ -172,7 +172,7 @@ public class Helpers {
 		}
 		return result;
 		}
-	
+	*/
 	public static ArrayList<Topic> allTopics(IoTLangModel model) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 		for (PubSub m : allPusSub(model)) {
@@ -245,7 +245,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
+	/*public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
 		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
 		for (InstanceChannel m : allChannelinstances(model)) {
 			for (InstanceReqRep t : m.getInstancesReqRep()) {
@@ -253,7 +253,7 @@ public class Helpers {
 			}
 		}
 		return result;
-	}
+	}*/
 	public static ArrayList<User> allUsers(IoTLangModel model) {
 		ArrayList<User> result = new ArrayList<User>();
 		for (IoTLangModel m : allIoTLangModels(model)) {

@@ -38,5 +38,5 @@ configuration airConditionnerCfg
 @debug_fifo "true"
 {
 	instance airConditionner:AirConditionner
-	connector airConditionner.temperaturePort over MQTT1
+	connector airConditionner.temperaturePort over MQTT
 }

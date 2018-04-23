@@ -5,6 +5,7 @@ import "psm/timer.thingml"
 
 thing TemperaturePIM includes tempMsgs,timerMsgs {
 	property currentTemperature : UInt32 = 0
+	property currentHour : UInt32 = 0
 	required port temperaturePort {
 		receives temperatureMessage,timerMessage
 	}
@@ -17,19 +18,18 @@ thing TemperaturePIM includes tempMsgs,timerMsgs {
 		state initial {
 			on entry do print "Getting temperature" end
 			transition -> showTemperature
-			event tempMessage: temperaturePort?temperatureMessage
-			guard tempMessage.currentHour>5
 		}
 		state showTemperature {
 			internal event tempMessage: temperaturePort?temperatureMessage
-			guard tempMessage.currentHour>5
-			//internal event time : temperaturePort?getTime
-			action do 
-				currentTemperature = tempMessage.TemperatureData
-			end
-			internal event time : temperaturePort?timerMessage
+			guard tempMessage.currentHour < 23 and tempMessage.currentHour > 6
 			action do
-			provideTemp!temperatureMessage(currentTemperature,time.currentHour)
+			currentTemperature = tempMessage.TemperatureData
+			currentHour = tempMessage.currentHour
+			print "Temperature : "
+			print currentTemperature
+			print "Hour : "
+			print currentHour
+			provideTemp!temperatureMessage(currentTemperature,currentHour)
 			end
 		}
 	}
@@ -39,11 +39,8 @@ configuration temperatureCfg
 @debug "true"
 @debug_fifo "true"
 {
-	//instance temppsm:TemperaturePSM
 	instance simulatedTemp:TemperatureRandom
 	instance temppim:TemperaturePIM
-	instance timer:Timer
 	connector temppim.temperaturePort => simulatedTemp.temperaturePort
-	connector temppim.temperaturePort => timer.timerPort
-	connector temppim.provideTemp over MQTT1 // maybe to generate
+	connector temppim.provideTemp over MQTT // maybe to generate
 }
