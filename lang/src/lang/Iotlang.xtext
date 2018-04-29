@@ -5,14 +5,11 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(/*datatypes+=Datatype | roles+=Role|*/ messages+=Message | things+=Thing |policies+=Policy /*| messages+=Message  */| channels+=Channel /* | protocols += Protocol */| networkConfigs+=NetworkConfiguration /* | configs+=Configuration */| users+=User)*;
+		(/*datatypes+=Datatype | roles+=Role|*/ declareMessages+=Message | importThings+=Thing | policies+=Policy /*| messages+=Message  */| channels+=Channel /* | protocols += Protocol */| networkConfigs+=NetworkConfiguration /* | configs+=Configuration */| users+=User)*;
 		
-/* Terminals  */
 
+@Override 
 terminal INT returns ecore::EInt: ('0'..'9')+;
-
-//terminal DOM: country=('a'..'z')'.'('a'..'z')'.'('a'..'z')'.'('a'..'z');
-
 
 terminal STRING_LIT	: 
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
@@ -20,20 +17,16 @@ terminal STRING_LIT	:
 terminal ANNOTATION_ID:
 	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-/*TargetAnnotation:
-	name=ANNOTATION_ID value=STRING_LIT ;
-	*/
-/* Main types  */
 
-Thing: // example gateway, arduino, android  
-	'import' name=ID code+=STRING_LIT '{'
-	('declare' ports+=Port (( "," ports+=Port)*)?) 
-	('assign' roles+=[Role] (( "," roles+=[Role])*)? ( override+='priority' ('('weight=INT')')? )?)?
+Thing:
+	'import' name=ID importPath=STRING_LIT '{'
+	('declare' hasPort+=Port ( "," hasPort+=Port)*)?
+	('assign' isAssignedRole+=[Role] ( "," isAssignedRole+=[Role])*)? /*( override+='priority' ('('weight=INT')')? )?*/
 	'}'
 ;
 
-Channel: // mqtt, kafka, real simple bus,
-	(pubSub= PubSub/* | reqRep +=ReqRep*/)
+Channel:
+	isOfTypePubSub= PubSub
 ;
 
 PubSub:
@@ -42,89 +35,69 @@ PubSub:
 		'}'
 ;
 
-/*ReqRep:
-	'channel:reqrep' name=ID '{'
-		
-		'}'
-;*/
-
 User :
 	'user' name=ID ('password' password=STRING_LIT)?
 ;
 
-Policy: // mqtt, kafka, real simple bus,
+Policy:
 	'policy' name=ID '{'
 		(hasRules +=Rule | hasRoles +=Role)*
-		/*(hasRoles +=Role)**/ // last rule will override the past, otherwise use keyword 'override'
 '}'
 ;
+
 Port :
 	name=ID '.' messages+=[Message]
 ;
+
 Message :
 	'message' name=ID '(' ( parameters+=Parameter ( "," parameters+=Parameter)* )? ')'
 ;
+
 Parameter returns Parameter:
 	name=ID ':' typeRef=ID 
 ;
-/*Protocol :
-	'protocol' name=ID
-;*/
 
 Topic:
-	'topic'  name=ID  ('belongsTo' belongs+=[Topic])? /*type=('?' |'!') '(' acceptedMessages=[Message] ')' // add capacity of subscribers*/
+	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
+;
+
+Permission :
+	permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing] ( "." objectPort+=[Port])* | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('<' lowerInt=INT ('and' objectMess2=[Message]'.' typeMess2=[Parameter|ID] '>' higherInt=INT)?)) | 'topic:' objectTopic+=[Topic](','objectTopic+=[Topic])*)
 ;
 
 Rule:
-	'rule' (name=ID)? (subject=[Thing]( "." subjectPort+=[Port])*) permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing](( "." objectPort+=[Port])*)? | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('<' lowerInt=INT ('and' objectMess=[Message]'.' typeMess=[Parameter|ID] '>' higherInt=INT)?)) | 'topic:' objectTopic=[Topic]((','objectTopic=[Topic])*)?) ( override+='priority' ('('weight=INT')')? )?
+	'rule' (name=ID)? subject=[Thing]( "." subjectPort=[Port])? permission=Permission
 ;
 Role:
-	'role' (name=ID)? permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing](( "." objectPort+=[Port])*)? | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('>' lowerInt=INT ('and' objectMess=[Message]'.' typeMess=[Parameter|ID] '<' higherInt=INT)?)) | 'topic:' objectTopic=[Topic]((','objectTopic=[Topic])*)?) ( override+='priority' ('('weight=INT')')? )?
+	'role' (name=ID)? permission=Permission
 ;
-/* Configuration : Configure the WSN topology */ 
-
-// Generate the topic description
 
 Domain:
 	'domain' name=STRING_LIT
 ;
+
 Instance :
 	'instance' InstanceThing | 'instance' InstanceChannel
 ;
-InstanceThing:
-	name=ID /*(( '[' number+=INT ']')*)?*/ ':' (typeThing=[Thing])  'owner' owner=[User] 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript');
 
-//instanceGateway:
-//	'instanceGateway' name=ID (( '[' number+=INT ']')*)?':' (type=[Thing]) ( annotations+=PlatformAnnotation )*;
+InstanceThing:
+	name=ID ':' (typeThing=[Thing])  'owner' owner=[User] 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript');
+	
 InstancePubSub:
 	name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')
 ;
-/*InstanceReqRep:
-	name=ID ':' (typeChannel=[ReqRep]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('coap'|'http' | 'websocket' | 'upnp' | 'dds' )':' physical=('udp'|'tcp'|'sms'|'serial')( annotations+=TargetAnnotation )*
-;*/
+
 InstanceChannel:
-	instancesPubSub=InstancePubSub /*| instancesReqRep+=InstanceReqRep */
+	instancesPubSub=InstancePubSub
 ;
-/*InstancePolicy:
-	'instancePolicy' name=ID ':' (typePolicy=[Policy]) ( annotations+=PlatformAnnotation )*;*/
-/*Configuration:
-	'configuration' name=ID '{'
-		//instanceThing+=InstanceThing
-		//portsConfig+=PortConfiguration
-	'}'
-;
-*/
+
 NetworkConfiguration:
 	'networkConfiguration' name=ID '{'
-	(/*connects+=Connect| */ domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] ((',' enforces+=[Policy])*)?  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
+	(domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] (',' enforces+=[Policy])*  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
 	
 	'}'
 ;
 
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] direction=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] (( "," topics+=[Topic])*)?'}'
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] readOrWrite=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
-
-/*Connect:
-	'connect'	(name=ID)? thingInstance=[InstanceThing] direction=('=>' |'<=>'|'<=') reqRepInstance=[InstanceReqRep] ( annotations+=TargetAnnotation )*
-;*/
