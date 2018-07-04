@@ -62,11 +62,11 @@ public class EntryPoint {
 	public static void main(String[] args) throws IOException {
 		 IoTLangModel iotModel = Utils.getIoTModelFromFile("sample/networkConfig.iotlang");	        
 		 checkPolicyRules(iotModel);
-		 for (Thing thing : iotModel.getThings()) {
+		 for (Thing thing : iotModel.getImportThings()) {
 			 File input = null;
 				Path currentRelativePath = Paths.get("");
 		        String pathdirectory = currentRelativePath.toAbsolutePath().toString();
-		    	String read = thing.getCode().get(0).replace("\"", "");
+		    	String read = thing.getImportPath().replace("\"", "");
 		    	input = new File(pathdirectory+"/sample/"+read);
 		    	ThingMLModel thgmodel = ThingMLCompiler.loadModel(input);
 		    for (org.thingml.xtext.thingML.Thing th : ThingMLHelpers.allThings(thgmodel)) {
@@ -106,7 +106,7 @@ public class EntryPoint {
 		File input = null;
 		Path currentRelativePath = Paths.get("");
         String pathdirectory = currentRelativePath.toAbsolutePath().toString();
-    	String read = thing.getCode().get(0).replace("\"", "");
+    	String read = thing.getImportPath().replace("\"", "");
     	input = new File(pathdirectory+"/sample/"+read);
     	ThingMLModel thgmodel = ThingMLCompiler.loadModel(input);
         if(thgmodel.getConfigs().size()==0) {
@@ -117,7 +117,7 @@ public class EntryPoint {
         	for (Instance instance : thgmodel.getConfigs().get(0).getInstances()) {
         		if(instance.getType().getName().equals(thing.getName())) {
         			System.out.println("Thing "+thing.getName()+" found in ThingML file !");
-        			for(lang.iotlang.Port port : thing.getPorts()) {
+        			for(lang.iotlang.Port port : thing.getHasPort()) {
         				if(instance.getType().getPorts().stream().map(Port::getName).filter(port.getName()::equals).findFirst().isPresent()) {
                 			System.out.println("Port "+port.getName()+" for thing '"+instance.getType().getName()+"'  found in ThingML file !");
         				}else {
@@ -143,7 +143,7 @@ public class EntryPoint {
         } else {
         	
         }
-        for (InstanceThing th : iotModel.getNetworkConfigs().get(0).getThingInstances()) {
+        for (InstanceThing th : (InstanceThing) iotModel.getNetworkConfigs().get(0).getInstances()) {
         	            
             String domainName = iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "");
             String instanceId = Utils.sign(iotModel.getNetworkConfigs().get(0),th);
@@ -283,13 +283,13 @@ public class EntryPoint {
 	
 	public static void addTopicToThg(Bind bind, InstanceThing th, ThingMLModel thgmodel, String topicToAdd) {
 			if(th.getName().equals(bind.getThingInstance().getName())) {
-   				if(bind.getDirection().equals("=>")) {
+   				if(bind.getReadOrWrite().equals("=>")) {
    					List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
    					PlatformAnnotation anot = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
    					anot.setName("mqtt_publish_topic");
    					anot.setValue(topicToAdd);
    					extrn.get(0).getAnnotations().add(anot);
-       			} else if(bind.getDirection().equals("<=")) {
+       			} else if(bind.getReadOrWrite().equals("<=")) {
        				List<ExternalConnector> extrn = ConfigurationHelper.getExternalConnectors(thgmodel.getConfigs().get(0));
    					PlatformAnnotation anot = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
    					anot.setName("mqtt_subscribe_topic");

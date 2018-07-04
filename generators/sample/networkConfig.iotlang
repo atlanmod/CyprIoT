@@ -21,18 +21,18 @@ import Monitor "monitor.thingml" {
 channel:pubsub MqttChannel {
 	topic room1
 	topic room2
-	topic temperatureData1 belongsTo room1
-	topic temperatureData2 belongsTo room2
-	topic airConditionnerTelemetry1 belongsTo room1 
-	topic airConditionnerTelemetry2 belongsTo room2
+	topic temperatureData1 subtopicOf room1
+	topic temperatureData2 subtopicOf room2
+	topic airConditionnerTelemetry1 subtopicOf room1 
+	topic airConditionnerTelemetry2 subtopicOf room2
 }
 
 // POLICY : CAN CONTAIN RULES AND ROLES
 
 // FIRST USE CASE
 policy roleBasedPolicy {
-	role actuator allow:receive topic:temperatureData,temperatureData2 priority(10) // All sensor can only read data from topics room1 and room2
-	role sensor allow:receive topic:temperatureData,temperatureData2 priority(10)  // All actuator can only write data to topics room1 and room2
+	rule role:actuator allow:receive topic:temperatureData,temperatureData2 priority(10) // All sensor can only read data from topics room1 and room2
+	rule role:sensor allow:receive topic:temperatureData,temperatureData2 priority(10)  // All actuator can only write data to topics room1 and room2
 }
 
 //SECOND USE CASE
@@ -45,7 +45,7 @@ policy attributeBasedPolicy {
 	rule Monitor allow:send message:temperatureMessage.currentHour < 23 and temperatureMessage.currentHour > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
 }
 
-networkConfiguration smarthomeConfiguration {
+networkConfig smarthomeConfiguration {
 	domain "fr.naomod.smarthome"
 	enforce roleBasedPolicy,attributeBasedPolicy format txt
 	instance instanceTemperature1:TemperaturePIM owner mainUser target cposix

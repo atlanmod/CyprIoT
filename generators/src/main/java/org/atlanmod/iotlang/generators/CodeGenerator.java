@@ -25,7 +25,7 @@ public class CodeGenerator {
 				String signature = Utils.sign(iotModel.getNetworkConfigs().get(0),bind.getThingInstance());
 				for (Topic topic : bind.getTopics()) {
 					String topicName = domainName.replace(".", "/")+"/"+topic.getName();
-					String accessRight = Utils.accessConverterTxt(bind.getDirection());
+					String accessRight = Utils.accessConverterTxt(bind.getReadOrWrite());
 					String clientId =iotModel.getNetworkConfigs().get(0).getDomain().get(0).getName().replace("\"", "").replace(".", ":")+":"+bind.getThingInstance().getName()+":"+signature;
 					String wildcard = "/#";
 					if(!accessRight.equals("")) {
@@ -85,7 +85,7 @@ public class CodeGenerator {
 				System.out.println("ID for "+thingName+": " + allID);
 				for (Topic topic : bind.getTopics()) {
 					String topicName = domainName.replace(".", "/")+"/"+topic.getName();
-					int accessRight = Utils.accessConverter(bind.getDirection());
+					int accessRight = Utils.accessConverter(bind.getReadOrWrite());
 					if(accessRight!=0) {
 					rulesSql.append(
 							"INSERT INTO acls (username,topic,rw)\n" + 

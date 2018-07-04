@@ -10,6 +10,7 @@ package lang.util;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import lang.iotlang.Channel;
 import lang.iotlang.Instance;
@@ -91,12 +92,13 @@ public class Helpers {
         
 		return result;
 	}
-	
 	public static ArrayList<Role> allTRoles(IoTLangModel model) {
 		ArrayList<Role> result = new ArrayList<Role>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Role t : m.getPolicies().get(0).getHasRoles()) {
-					result.add((Role)t);
+			for (Policy p : m.getPolicies()) {
+				for (Rule t : p.getHasRules()) {
+					
+				}
 			}
 		}
 		return result;
@@ -105,7 +107,7 @@ public class Helpers {
 	public static ArrayList<Thing> allThings(IoTLangModel model) {
 	ArrayList<Thing> result = new ArrayList<Thing>();
 	for (IoTLangModel m : allIoTLangModels(model)) {
-		for (Thing t : m.getThings()) {
+		for (Thing t : m.getImportThings()) {
 				result.add((Thing)t);
 		}
 	}
@@ -123,9 +125,7 @@ public class Helpers {
 	public static ArrayList<PubSub> allPusSub(IoTLangModel model) {
 		ArrayList<PubSub> result = new ArrayList<PubSub>();
 		for (Channel m : allChannels(model)) {
-			for (PubSub t : m.getPubSub()) {
-					result.add((PubSub)t);
-			}
+			if(m instanceof PubSub) result.add((PubSub)m);
 		}
 		return result;
 		}
@@ -159,7 +159,7 @@ public class Helpers {
 	public static ArrayList<Port> allPorts(IoTLangModel model) {
 		ArrayList<Port> result = new ArrayList<Port>();
 		for (Thing t : allThings(model)) {
-			result.addAll(t.getPorts());
+			result.addAll(t.getHasPort());
 		}
 		return result;
 	}
@@ -202,7 +202,7 @@ public class Helpers {
 	public static ArrayList<Message> allMessages(IoTLangModel model) {
 		ArrayList<Message> result = new ArrayList<Message>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Message t : m.getMessages()) {
+			for (Message t : m.getDeclareMessages()) {
 					result.add((Message)t);
 			}
 		}
@@ -239,9 +239,7 @@ public class Helpers {
 	public static ArrayList<InstancePubSub> allPubSubinstances(IoTLangModel model) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
 		for (InstanceChannel m : allChannelinstances(model)) {
-			for (InstancePubSub t : m.getInstancesPubSub()) {
-					result.add((InstancePubSub)t);
-			}
+			if(m instanceof InstancePubSub) result.add((InstancePubSub)m);
 		}
 		return result;
 	}

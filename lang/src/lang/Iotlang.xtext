@@ -5,18 +5,20 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(/*datatypes+=Datatype | roles+=Role|*/ declareMessages+=Message | importThings+=Thing | policies+=Policy /*| messages+=Message  */| channels+=Channel /* | protocols += Protocol */| networkConfigs+=NetworkConfiguration /* | configs+=Configuration */| users+=User)*;
-		
+		(	declareMessages+=Message | 
+			importThings+=Thing | 
+			policies+=Policy
+			channels+=Channel
+			networkConfigs+=NetworkConfiguration
+			users+=User
+		)*;
 
-@Override 
-terminal INT returns ecore::EInt: ('0'..'9')+;
 
-terminal STRING_LIT	: 
-			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
+// Domain Model
 
-terminal ANNOTATION_ID:
-	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-
+User :
+	'user' name=ID ('password' password=STRING_LIT)?
+;
 
 Thing:
 	'import' name=ID importPath=STRING_LIT '{'
@@ -24,7 +26,15 @@ Thing:
 	('assign' isAssignedRole+=[Role] ( "," isAssignedRole+=[Role])*)? /*( override+='priority' ('('weight=INT')')? )?*/
 	'}'
 ;
-
+Resource:
+	DeviceResource | NetworkResouce
+;
+DeviceResource:
+	Port
+;
+NetworkResouce:
+	Channel
+;
 Channel:
 	isOfTypePubSub= PubSub
 ;
@@ -35,14 +45,8 @@ PubSub:
 		'}'
 ;
 
-User :
-	'user' name=ID ('password' password=STRING_LIT)?
-;
-
-Policy:
-	'policy' name=ID '{'
-		(hasRules +=Rule | hasRoles +=Role)*
-'}'
+Topic:
+	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 Port :
@@ -55,21 +59,6 @@ Message :
 
 Parameter returns Parameter:
 	name=ID ':' typeRef=ID 
-;
-
-Topic:
-	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
-;
-
-Permission :
-	permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing] ( "." objectPort+=[Port])* | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('<' lowerInt=INT ('and' objectMess2=[Message]'.' typeMess2=[Parameter|ID] '>' higherInt=INT)?)) | 'topic:' objectTopic+=[Topic](','objectTopic+=[Topic])*)
-;
-
-Rule:
-	'rule' (name=ID)? subject=[Thing]( "." subjectPort=[Port])? permission=Permission
-;
-Role:
-	'role' (name=ID)? permission=Permission
 ;
 
 Domain:
@@ -92,7 +81,7 @@ InstanceChannel:
 ;
 
 NetworkConfiguration:
-	'networkConfiguration' name=ID '{'
+	'networkConfig' name=ID '{'
 	(domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] (',' enforces+=[Policy])*  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
 	
 	'}'
@@ -101,3 +90,35 @@ NetworkConfiguration:
 Bind:
 	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] readOrWrite=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
+
+// Rule System
+
+Policy:
+	'policy' name=ID '{'
+		(hasRules +=Rule)*
+'}'
+;
+
+Rule:
+	'rule' (name=ID)? (role=Role | subject=[Thing]( "." subjectPort=[Port])?) permission=Permission
+;
+
+Permission :
+	'assignPermission' permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing] ( "." objectPort+=[Port])* | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('<' lowerInt=INT ('and' objectMess2=[Message]'.' typeMess2=[Parameter|ID] '>' higherInt=INT)?)) | 'topic:' objectTopic+=[Topic](','objectTopic+=[Topic])*)
+;
+
+Role:
+	'role:' name=STRING_LIT 
+;
+
+// Terminals
+
+
+@Override 
+terminal INT returns ecore::EInt: ('0'..'9')+;
+
+terminal STRING_LIT	: 
+			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
+
+terminal ANNOTATION_ID:
+	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
