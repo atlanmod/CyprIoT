@@ -8,27 +8,16 @@
 package lang.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
-import lang.iotlang.Channel;
-import lang.iotlang.Instance;
-import lang.iotlang.InstanceChannel;
-import lang.iotlang.InstancePubSub;
-//import lang.iotlang.InstanceReqRep;
-import lang.iotlang.InstanceThing;
+import lang.iotlang.AbstractInstance;
 import lang.iotlang.IoTLangModel;
-import lang.iotlang.Message;
-import lang.iotlang.NetworkConfiguration;
-import lang.iotlang.Parameter;
-import lang.iotlang.Policy;
-import lang.iotlang.Port;
-//import lang.iotlang.Protocol;
 import lang.iotlang.PubSub;
+import lang.iotlang.ReqRep;
 //import lang.iotlang.ReqRep;
 import lang.iotlang.Role;
-import lang.iotlang.Rule;
 import lang.iotlang.Thing;
 import lang.iotlang.Topic;
 import lang.iotlang.User;
@@ -92,17 +81,22 @@ public class Helpers {
         
 		return result;
 	}
-	public static ArrayList<Role> allTRoles(IoTLangModel model) {
+	public static ArrayList<Role> allRoles(IoTLangModel model) {
 		ArrayList<Role> result = new ArrayList<Role>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (Policy p : m.getPolicies()) {
-				for (Rule t : p.getHasRules()) {
-					
-				}
+			for (Role r : m.getRoles()) {
+				result.add((Role)r);
 			}
 		}
 		return result;
-		}
+	}
+	
+	public static ArrayList<AbstractInstance> allInstances(IoTLangModel model) {
+		ArrayList<AbstractInstance> result = new ArrayList<AbstractInstance>();
+		result.add((AbstractInstance) allThings(model));
+
+		return result;
+	}
 	
 	public static ArrayList<Thing> allThings(IoTLangModel model) {
 	ArrayList<Thing> result = new ArrayList<Thing>();
@@ -113,7 +107,32 @@ public class Helpers {
 	}
 	return result;
 	}
-	public static ArrayList<Channel> allChannels(IoTLangModel model) {
+	public static ArrayList<PubSub> allPusSub(IoTLangModel model) {
+		ArrayList<PubSub> result = new ArrayList<PubSub>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (PubSub t : m.getPubsubs()) {
+				result.add((PubSub)t);
+			}
+		}
+		return result;
+	}
+	public static ArrayList<ReqRep> allReqRep(IoTLangModel model) {
+		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (ReqRep t : m.getReqreps()) {
+				result.add((ReqRep)t);
+			}
+		}
+		return result;
+	}
+	public static ArrayList<Topic> allTopics(PubSub pubSub) {
+		ArrayList<Topic> result = new ArrayList<Topic>();
+			for (Topic t : pubSub.getHasTopics()) {
+				result.add((Topic)t);		
+			}
+		return result;
+	}
+	/*public static ArrayList<Channel> allChannels(IoTLangModel model) {
 		ArrayList<Channel> result = new ArrayList<Channel>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Channel t : m.getChannels()) {
@@ -122,13 +141,7 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<PubSub> allPusSub(IoTLangModel model) {
-		ArrayList<PubSub> result = new ArrayList<PubSub>();
-		for (Channel m : allChannels(model)) {
-			if(m instanceof PubSub) result.add((PubSub)m);
-		}
-		return result;
-		}
+	*/
 	/*public static ArrayList<ReqRep> allPTP(IoTLangModel model) {
 		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
 		for (Channel m : allChannels(model)) {
@@ -155,7 +168,7 @@ public class Helpers {
 			}
 		}
 		return result;
-		}*/
+		}
 	public static ArrayList<Port> allPorts(IoTLangModel model) {
 		ArrayList<Port> result = new ArrayList<Port>();
 		for (Thing t : allThings(model)) {
@@ -163,7 +176,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	/*public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
+	public static ArrayList<Protocol> allProtocol(IoTLangModel model) {
 		ArrayList<Protocol> result = new ArrayList<Protocol>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (Protocol t : m.getProtocols()) {
@@ -172,16 +185,8 @@ public class Helpers {
 		}
 		return result;
 		}
-	*/
-	public static ArrayList<Topic> allTopics(IoTLangModel model) {
-		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (PubSub m : allPusSub(model)) {
-			for (Topic t : m.getHasTopics()) {
-					result.add((Topic)t);
-			}
-		}
-		return result;
-		}
+
+	
 	
 	public static ArrayList<Policy> allPolicies(IoTLangModel model) {
 		ArrayList<Policy> result = new ArrayList<Policy>();
@@ -208,7 +213,7 @@ public class Helpers {
 		}
 		return result;
 		}
-	public static ArrayList<NetworkConfiguration> allConfigs(IoTLangModel model) {
+/*	public static ArrayList<NetworkConfiguration> allConfigs(IoTLangModel model) {
 		ArrayList<NetworkConfiguration> result = new ArrayList<NetworkConfiguration>();
 		for (IoTLangModel m : allIoTLangModels(model)) {
 			for (NetworkConfiguration t : m.getNetworkConfigs()) {
@@ -242,7 +247,7 @@ public class Helpers {
 			if(m instanceof InstancePubSub) result.add((InstancePubSub)m);
 		}
 		return result;
-	}
+	}*/
 	/*public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
 		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
 		for (InstanceChannel m : allChannelinstances(model)) {

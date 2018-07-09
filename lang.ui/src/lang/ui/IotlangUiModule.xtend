@@ -4,10 +4,19 @@
 package lang.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+//import org.eclipse.xtext.ide.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper
+//import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class IotlangUiModule extends AbstractIotlangUiModule {
+	/*def Class<? extends AbstractAntlrTokenToAttributeIdMapper> bindAbstractAntlrTokenToAttributeIdMapper() {
+		IotlangAntlrToAttributeId
+	}
+	
+	def Class<? extends DefaultHighlightingConfiguration> bindDefaultHighlightingConfiguration() {
+		IotlangextendsHighlighting
+}*/
 }

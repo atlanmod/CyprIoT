@@ -5,114 +5,118 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate iotlang "http://www.Iotlang.lang"
 
 IoTLangModel returns IoTLangModel:
-		(	declareMessages+=Message | 
-			importThings+=Thing | 
-			policies+=Policy
-			channels+=Channel
-			networkConfigs+=NetworkConfiguration
-			users+=User
-		)*;
+		(imports+=Import | 
+		types+=Type | 
+		importThings+=Thing | 
+		pubsubs+=PubSub |
+		reqreps+=ReqRep |
+		networks+=Network |
+		users+=User |
+		roles+=Role)*;
 
+
+QualifiedName: ID ('.' ID)*
+;
+Import: 'import' importURI=STRING
+;
+QualifiedNameWithWildcard: QualifiedName '.*'?
+;
+Type:
+DataType ;
+
+DataType: 'datatype' name = ID
+;
 
 // Domain Model
+Role:
+	'role:' name=ID
+;
 
 User :
-	'user' name=ID ('password' password=STRING_LIT)?
+	'user:' name=ID 'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
 ;
 
 Thing:
-	'import' name=ID importPath=STRING_LIT '{'
-	('declare' hasPort+=Port ( "," hasPort+=Port)*)?
-	('assign' isAssignedRole+=[Role] ( "," isAssignedRole+=[Role])*)? /*( override+='priority' ('('weight=INT')')? )?*/
+	'thing:' name=ID 
+		'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
+		'import' importPath=STRING_LIT
+;
+
+Property:
+	'property' name=ID '=' propertyValue=STRING_LIT
+;
+
+Capacity:
+	'property' name='capacity' '=' capacityValue=INT
+;
+Domain:
+	'property' name='domain' '=' capacityValue=QualifiedNameWithWildcard
+;
+Network:
+	'network' name=ID '{'
+		(domain=Domain (capacity=Capacity)?)?|
+		(capacity=Capacity (domain=Domain)?)?
+		(networkProperty+=Property |
+		instances+=AbstractInstance |
+		binfs+=Bind
+		)*
 	'}'
 ;
-Resource:
-	DeviceResource | NetworkResouce
+
+
+
+AbstractInstance :
+	(sink ?= 'sink')? 'instance'  typeInstances=Instance
 ;
-DeviceResource:
-	Port
+Instance:
+	InstanceThing | InstancePubSub | InstanceReqRep
 ;
-NetworkResouce:
-	Channel
+InstanceThing :
+	'thing:'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])?
 ;
-Channel:
-	isOfTypePubSub= PubSub
+InstancePubSub :
+	'pubsub:'typePubSub=[PubSub] '~' name=ID
+;
+InstanceReqRep :
+	'reqrep:'typeReqRep=[ReqRep] '~' name=ID
+;
+ReqRep:
+	'channel:reqrep' name=ID '{'
+		(hasEndpoints +=Endpoint)*
+	'}'
+;
+
+Endpoint:
+	'endpoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
 ;
 
 PubSub:
 	'channel:pubsub' name=ID '{'
-		(hasTopics +=Topic)*
-		'}'
+		(	chanProperties+=Property|
+			hasTopics +=Topic
+		)*
+	'}'
 ;
 
 Topic:
 	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
-Port :
-	name=ID '.' messages+=[Message]
+/*Bind:
+	'bind'	(name=ID)? thingInstance=[Instance]"." subjectPort=ID readOrWrite=('=>' |'<=') bindsChannel=BindChannel
+;
+BindChannel :
+	PubSubBind | ReqRepBind
+;
+PubSubBind :
+	pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
-Message :
-	'message' name=ID '(' ( parameters+=Parameter ( "," parameters+=Parameter)* )? ')'
+ReqRepBind :
+	reqRepInstance=[InstanceReqRep] '.' endpoints+=[Endpoint]
 ;
-
-Parameter returns Parameter:
-	name=ID ':' typeRef=ID 
-;
-
-Domain:
-	'domain' name=STRING_LIT
-;
-
-Instance :
-	'instance' InstanceThing | 'instance' InstanceChannel
-;
-
-InstanceThing:
-	name=ID ':' (typeThing=[Thing])  'owner' owner=[User] 'target' platform=('arduino'|'contiki'|'riot'|'cposix'|'java'|'python'|'javascript');
-	
-InstancePubSub:
-	name=ID ':' (typeChannel=[PubSub]) 'target' platform=STRING_LIT 'host' host=STRING_LIT 'port' port=STRING_LIT 'over' protocol=('mqtt' |'coap'|'amqp'|'stomp'/*| 'websocket' | 'upnp' | 'dds' */) ':'physical=('zigbee'|'tcp'|'udp'|'serial')
-;
-
-InstanceChannel:
-	instancesPubSub=InstancePubSub
-;
-
-NetworkConfiguration:
-	'networkConfig' name=ID '{'
-	(domain+=Domain | binds+=Bind| instances+=Instance | 'enforce' enforces+=[Policy] (',' enforces+=[Policy])*  'format' format=('sql' |'txt'|'redis'|'http')/*| instancePoliciy+=InstancePolicy */)*
-	
-	'}'
-;
-
-Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort+=[Port] readOrWrite=('=>' |'<=>'|'<='|'=') pubSubInstance=[InstancePubSub]'{' topics+=[Topic] ( "," topics+=[Topic])*'}'
-;
-
-// Rule System
-
-Policy:
-	'policy' name=ID '{'
-		(hasRules +=Rule)*
-'}'
-;
-
-Rule:
-	'rule' (name=ID)? (role=Role | subject=[Thing]( "." subjectPort=[Port])?) permission=Permission
-;
-
-Permission :
-	'assignPermission' permission=('allow' |'deny') ':' action=('send'|'receive') ('thing:' object=[Thing] ( "." objectPort+=[Port])* | 'message:' objectMess=[Message]'.' typeMess=[Parameter|ID] ('=' stringMessage+=STRING_LIT | ('<' lowerInt=INT ('and' objectMess2=[Message]'.' typeMess2=[Parameter|ID] '>' higherInt=INT)?)) | 'topic:' objectTopic+=[Topic](','objectTopic+=[Topic])*)
-;
-
-Role:
-	'role:' name=STRING_LIT 
-;
-
+*/
 // Terminals
-
 
 @Override 
 terminal INT returns ecore::EInt: ('0'..'9')+;

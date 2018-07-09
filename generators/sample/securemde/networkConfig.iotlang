@@ -1,0 +1,73 @@
+/*
+role:sensor
+role:actuator
+role:actor
+
+// User Declaration
+user: mainUser
+
+message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32)
+message telemetryMessage(TemperatureData : UInt32 , currentHour: UInt32)
+
+import TemperaturePIM "temperature.thingml" {
+	declare provideTemp.temperatureMessage
+	assign sensor // Check if the port has send and receive methods	
+}
+
+import AirConditionner "airconditionner.thingml" {
+	declare temperaturePort.temperatureMessage,telemetryPort.telemetryMessage
+	assign actuator
+}
+
+import Monitor "monitor.thingml" {
+	declare temperaturePort.temperatureMessage,telemetryPort.telemetryMessage
+	assign actuator
+}
+
+
+channel:pubsub MqttChannel {
+	topic room1
+	topic room2
+	topic temperatureData1 subtopicOf room1
+	topic temperatureData2 subtopicOf room2
+	topic airConditionnerTelemetry1 subtopicOf room1 
+	topic airConditionnerTelemetry2 subtopicOf room2
+}
+
+// RULE SYSTEM
+
+// FIRST USE CASE
+policy roleBasedPolicy {
+	rule role:actuator allow:receive topic:temperatureData,temperatureData2 priority(10) // All sensor can only read data from topics room1 and room2
+	rule role:sensor allow:receive topic:temperatureData,temperatureData2 priority(10)  // All actuator can only write data to topics room1 and room2
+}
+
+//SECOND USE CASE
+//policy attributeBasedPolicy {
+//	rule AirConditionner.temperaturePort allow:receive topic:temperatureData,temperatureData2 priority(1) // plus précis
+//	rule Monitor allow:receive topic:temperatureData,temperatureData2 priority(1) // when temperatureMessage.currenHour>5 - > event received : temperaturePort?temperatureMessage guard received.currentHour>5
+//	rule TemperaturePIM.temperaturePort allow:send thing:Monitor priority(1) // When temperatureMessage.origin="instance1" -> airCon read temperatureMessage/origin/instance1 (exception) otherwise monitor temperatureMessage/# 
+//	rule TemperaturePIM.temperaturePort allow:send thing:AirConditionner priority(1)
+//	rule AirConditionner.temperaturePort allow:receive message:temperatureMessage.TemperatureData < 100 priority(1) // Will add a guard whenever temperatureMessage is received in AirConditionner.temperaturePort
+//	rule Monitor allow:send message:temperatureMessage.currentHour < 23 and temperatureMessage.currentHour > 6 priority(1) // Will add a guard whenever temperatureMessage is received Monitor
+//}
+
+//networkConfig smarthomeConfiguration {
+//	domain "fr.naomod.smarthome"
+//	enforce roleBasedPolicy,attributeBasedPolicy format txt
+//	instance instanceTemperature1:TemperaturePIM owner mainUser target cposix
+//	instance instanceTemperature2:TemperaturePIM owner mainUser target cposix
+//	instance instanceAirconditionner1:AirConditionner owner mainUser target cposix
+//	instance instanceAirconditionner2:AirConditionner owner mainUser target cposix
+//	instance instanceMonitor1:Monitor owner mainUser target java
+//	instance mqttchannel:MqttChannel target "mosquitto" host "iot.eclipse.org" port "1883" over mqtt:tcp 
+//	bind instanceTemperature1.provideTemp => mqttchannel{temperatureData1}
+//	bind instanceTemperature2.provideTemp => mqttchannel{temperatureData2}
+//	bind instanceAirconditionner1.temperaturePort <= mqttchannel{temperatureData1}
+//	bind instanceAirconditionner2.temperaturePort <= mqttchannel{temperatureData2}
+//	bind instanceAirconditionner1.telemetryPort => mqttchannel{airConditionnerTelemetry1}
+//	bind instanceAirconditionner2.telemetryPort => mqttchannel{airConditionnerTelemetry2}
+//	bind instanceMonitor1.temperaturePort <= mqttchannel{temperatureData1,temperatureData2}
+//	bind instanceMonitor1.telemetryPort <= mqttchannel{airConditionnerTelemetry1,airConditionnerTelemetry2}
+//}
+*/
