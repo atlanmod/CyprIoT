@@ -1,6 +1,12 @@
-A prototype for wireless sensor and actuator networks (wsan) modeling language.
+![NotML Logo](logo.png)
 
-## Getting started
+A Domain-Specific language (DSL) to design network of things easily.
+
+## Overview
 
 * Code syntax is formalized in lang/iotlang.xtext
 * Code generators are available in generators package
+
+### Prerequisites
+
+### Installing
