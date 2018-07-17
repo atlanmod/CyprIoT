@@ -1,5 +1,7 @@
 grammar lang.Iotlang with org.eclipse.xtext.common.Terminals
+
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
 
 
 generate iotlang "http://www.Iotlang.lang"
@@ -13,8 +15,6 @@ IoTLangModel returns IoTLangModel:
 		networks+=Network |
 		users+=User |
 		roles+=Role)*;
-
-
 QualifiedName: ID ('.' ID)*
 ;
 Import: 'import' importURI=STRING
@@ -40,6 +40,7 @@ Thing:
 	'thing:' name=ID 
 		'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
 		'import' importPath=STRING_LIT
+		ports+=[Port]
 ;
 
 Property:
@@ -52,10 +53,11 @@ Capacity:
 Domain:
 	'property' name='domain' '=' capacityValue=QualifiedNameWithWildcard
 ;
+
+// Dynamicity of the configuration
+
 Network:
 	'network' name=ID '{'
-		(domain=Domain (capacity=Capacity)?)?|
-		(capacity=Capacity (domain=Domain)?)?
 		(networkProperty+=Property |
 		instances+=AbstractInstance |
 		binfs+=Bind
@@ -85,6 +87,17 @@ ReqRep:
 		(hasEndpoints +=Endpoint)*
 	'}'
 ;
+Port:
+	name=ID
+;
+/*Stream:
+	'channel:stream' name=ID '{'
+		
+	'}'
+;*/
+Group:
+	'group' name=ID
+;
 
 Endpoint:
 	'endpoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
@@ -102,8 +115,8 @@ Topic:
 	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
-/*Bind:
-	'bind'	(name=ID)? thingInstance=[Instance]"." subjectPort=ID readOrWrite=('=>' |'<=') bindsChannel=BindChannel
+Bind:
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') bindsChannel=BindChannel
 ;
 BindChannel :
 	PubSubBind | ReqRepBind
@@ -115,7 +128,6 @@ PubSubBind :
 ReqRepBind :
 	reqRepInstance=[InstanceReqRep] '.' endpoints+=[Endpoint]
 ;
-*/
 // Terminals
 
 @Override 

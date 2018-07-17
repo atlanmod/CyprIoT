@@ -1,0 +1,31 @@
+thing Blink1 { 
+
+	message tic() @xms_tic "500";
+	
+	required port clock {
+		receives tic
+	}
+
+	statechart Blink1 init OFF {
+	
+		on entry `pinMode(12, OUTPUT);`
+	
+		state OFF {
+			on entry `digitalWrite(12, LOW);`
+			transition -> ON event clock?tic 
+		}	
+		
+		state ON {
+			on entry `digitalWrite(12, HIGH);`
+			transition -> OFF event clock?tic 
+		}	
+	}
+}
+
+protocol Timer;
+
+configuration Blink1App
+{
+	instance blink1 : Blink1
+	connector blink1.clock over Timer
+}

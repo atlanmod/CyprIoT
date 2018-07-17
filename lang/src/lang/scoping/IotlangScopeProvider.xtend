@@ -11,6 +11,11 @@ import org.eclipse.emf.ecore.ENamedElement
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.Scopes
+import lang.iotlang.InstancePubSub
+import org.eclipse.xtext.EcoreUtil2
+import lang.iotlang.Instance
+import lang.iotlang.InstanceThing
+import org.eclipse.xtext.scoping.impl.FilteringScope
 
 /**
  * This class contains custom scoping description.

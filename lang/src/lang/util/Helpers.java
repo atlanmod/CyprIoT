@@ -11,9 +11,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.resource.EObjectDescription;
 
 import lang.iotlang.AbstractInstance;
+import lang.iotlang.Instance;
+import lang.iotlang.InstancePubSub;
+import lang.iotlang.InstanceReqRep;
 import lang.iotlang.IoTLangModel;
+import lang.iotlang.IotlangFactory;
+import lang.iotlang.Network;
 import lang.iotlang.PubSub;
 import lang.iotlang.ReqRep;
 //import lang.iotlang.ReqRep;
@@ -132,6 +138,26 @@ public class Helpers {
 			}
 		return result;
 	}
+	/*public static ArrayList<InstanceReqRep> allPubSubinstances(IoTLangModel model) {
+		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
+		for (IoTLangModel m : allIoTLangModels(model)) {
+			for (ReqRep t : m.getReqreps()) {
+				result.add((ReqRep)t);
+			}
+		}
+		return result;
+	}
+	*/
+	/*public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
+		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
+		for (InstanceChannel m : allChannelinstances(model)) {
+			for (InstanceReqRep t : m.getInstancesReqRep()) {
+					result.add((InstanceReqRep)t);
+			}
+		}
+		return result;
+	}*/
+	
 	/*public static ArrayList<Channel> allChannels(IoTLangModel model) {
 		ArrayList<Channel> result = new ArrayList<Channel>();
 		for (IoTLangModel m : allIoTLangModels(model)) {

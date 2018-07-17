@@ -21,9 +21,9 @@ thing:Car
 	
 thing:Monitor 
 	assigned actuator
-	import "monitor.thingml"
+	import "monitor.ino"
 		
-// Communication channels decalaration
+// Communication channels declaration
 channel:reqrep Central {
 	endpoint accident
 }
@@ -41,6 +41,7 @@ network stlsNetwork {
 	instance thing:Car~car[2] owner anyuser
 	instance pubsub:Broker~mqtt
 	instance reqrep:Central~rest
+	bind okok.
 	//instance trafficlight1:trafficlight owner cityUser
 	//instance car1:car owner anyuser
 	//instance centralCoap:central
