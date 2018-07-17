@@ -110,5 +110,6 @@ garbage/
 # Ignore plugin.xml_gen and feature.xml_gen files, when build Eclipse Plugins.
 *.xml_gen
 
-
+*.project
+*.jar
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse
