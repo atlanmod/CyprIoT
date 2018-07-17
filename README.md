@@ -6,7 +6,7 @@ A Domain-Specific language (DSL) to design network of things easily.
 * Xtext 2.14+
 * EMF
 
-## Installation
+## Installation
 
 The project consists of the following artifacts : 
 
@@ -25,6 +25,6 @@ How to get started :
 
 The DSL can be used to model a network of heterogeneous devices. Device modeling has to be done using [ThingML](https://github.com/TelluIoT/ThingML). The configuration should have an external port. The latter will be overriden by the network configuration.
 
-## Contributors
+## Contributors
 
 * imberium
