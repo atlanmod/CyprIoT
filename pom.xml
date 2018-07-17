@@ -4,8 +4,8 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.imta.naomod</groupId>
-    <artifactId>IoTLang</artifactId>
+    <groupId>org.atlanmod.notml</groupId>
+    <artifactId>notml</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <name>IoT modeling language</name>
@@ -14,10 +14,8 @@
         <xtextVersion>2.11.0</xtextVersion>
     </properties>
     <modules>
-        <module>lang</module>
-        <module>lang.ui</module>
-        <module>lang.ide</module>
-        <module>generators</module>
+        <module>language</module>
+        <module>language.gen</module>
     </modules>
     <build>
 		<plugins>

@@ -4,11 +4,11 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>fr.imta.naomod</groupId>
-        <artifactId>IoTLang</artifactId>
+        <groupId>org.atlanmod.notml</groupId>
+        <artifactId>notml</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>lang</artifactId>
+    <artifactId>language</artifactId>
     <packaging>eclipse-plugin</packaging>
 
     <name>Language of IoTLang</name>
