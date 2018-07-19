@@ -5,6 +5,7 @@ A Domain-Specific language (DSL) to design network of things easily.
 ## Prerequisites
 * Xtext 2.14+
 * EMF
+* Maven
 
 ## Installation
 

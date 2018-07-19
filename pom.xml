@@ -11,11 +11,11 @@
     <name>IoT modeling language</name>
     <properties>
     	<tychoVersion>1.0.0</tychoVersion>
-        <xtextVersion>2.11.0</xtextVersion>
+        <xtextVersion>2.14.0</xtextVersion>
     </properties>
     <modules>
         <module>language</module>
-        <module>language.gen</module>
+        <module>generators</module>
     </modules>
     <build>
 		<plugins>
