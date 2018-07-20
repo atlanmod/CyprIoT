@@ -4,4 +4,4 @@ dist: trusty
 jdk: oraclejdk8
 install:
   # Resolve all dependencies
-- mvn -V install
+- mvn -V -X -U install
