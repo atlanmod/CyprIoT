@@ -4,48 +4,48 @@
 	<extension
 		point="org.eclipse.ui.editors">
 		<editor
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
 			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
 			default="true"
 			extensions="iotlang"
-			id="language.Iotlang"
+			id="org.atlanmod.cypriot.Iotlang"
 			name="Iotlang Editor">
 		</editor>
 	</extension>
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
 			commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
 			<activeWhen>
 				<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-			commandId="language.Iotlang.validate">
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+			commandId="org.atlanmod.cypriot.Iotlang.validate">
 		<activeWhen>
 			<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 			</reference>
 		</activeWhen>
 		</handler>
 		<!-- copy qualified name -->
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedNameHandler"
 			commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName">
 			<activeWhen>
-				<reference definitionId="language.Iotlang.Editor.opened" />
+				<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened" />
 			</activeWhen>
 		</handler>
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedNameHandler"
 			commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.OutlineCopyQualifiedName">
 			<activeWhen>
 				<and>
-					<reference definitionId="language.Iotlang.XtextEditor.opened" />
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.XtextEditor.opened" />
 					<iterate>
 						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 					</iterate>
@@ -54,22 +54,22 @@
 		</handler>
 	</extension>
 	<extension point="org.eclipse.core.expressions.definitions">
-		<definition id="language.Iotlang.Editor.opened">
+		<definition id="org.atlanmod.cypriot.Iotlang.Editor.opened">
 			<and>
 				<reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
 				<with variable="activeEditor">
 					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
-						value="language.Iotlang"
+						value="org.atlanmod.cypriot.Iotlang"
 						forcePluginActivation="true"/>
 				</with>
 			</and>
 		</definition>
-		<definition id="language.Iotlang.XtextEditor.opened">
+		<definition id="org.atlanmod.cypriot.Iotlang.XtextEditor.opened">
 			<and>
 				<reference definitionId="isXtextEditorActive"/>
 				<with variable="activeEditor">
 					<test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName"
-						value="language.Iotlang"
+						value="org.atlanmod.cypriot.Iotlang"
 						forcePluginActivation="true"/>
 				</with>
 			</and>
@@ -78,33 +78,33 @@
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-			id="language.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang"
 			name="Iotlang">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 		</page>
 		<page
-			category="language.Iotlang"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-			id="language.Iotlang.coloring"
+			category="org.atlanmod.cypriot.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang.coloring"
 			name="Syntax Coloring">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 		</page>
 		<page
-			category="language.Iotlang"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-			id="language.Iotlang.templates"
+			category="org.atlanmod.cypriot.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+			id="org.atlanmod.cypriot.Iotlang.templates"
 			name="Templates">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 		</page>
 	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
 		<page
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-			id="language.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang"
 			name="Iotlang">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 			<enabledWhen>
 				<adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -114,14 +114,14 @@
 	<extension
 		point="org.eclipse.ui.keywords">
 		<keyword
-			id="language.ui.keyword_Iotlang"
+			id="org.atlanmod.cypriot.ui.keyword_Iotlang"
 			label="Iotlang"/>
 	</extension>
 	<extension
 		point="org.eclipse.ui.commands">
 	<command
 			description="Trigger expensive validation"
-			id="language.Iotlang.validate"
+			id="org.atlanmod.cypriot.Iotlang.validate"
 			name="Validate">
 	</command>
 	<!-- copy qualified name -->
@@ -142,12 +142,12 @@
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.edit">
 			 <command
-				 commandId="language.Iotlang.validate"
+				 commandId="org.atlanmod.cypriot.Iotlang.validate"
 				 style="push"
 				 tooltip="Trigger expensive validation">
 			<visibleWhen checkEnabled="false">
 				<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 				</reference>
 			</visibleWhen>
 		</command>
@@ -157,7 +157,7 @@
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
 				style="push" tooltip="Copy Qualified Name">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="language.Iotlang.Editor.opened" />
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened" />
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -165,7 +165,7 @@
 			<command commandId="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
 				style="push" tooltip="Copy Qualified Name">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="language.Iotlang.Editor.opened" />
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened" />
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -174,7 +174,7 @@
 				style="push" tooltip="Copy Qualified Name">
 				<visibleWhen checkEnabled="false">
 					<and>
-						<reference definitionId="language.Iotlang.XtextEditor.opened" />
+						<reference definitionId="org.atlanmod.cypriot.Iotlang.XtextEditor.opened" />
 						<iterate>
 							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
 						</iterate>
@@ -187,7 +187,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="language.Iotlang.Editor.opened">
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 					</reference>
 				</visibleWhen>
 			</command>
@@ -195,11 +195,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
 			commandId="org.eclipse.xtext.ui.editor.FindReferences">
 			<activeWhen>
 				<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -208,7 +208,7 @@
 		<content-type
 			base-type="org.eclipse.core.runtime.text"
 			file-extensions="iotlang"
-			id="language.Iotlang.contenttype"
+			id="org.atlanmod.cypriot.Iotlang.contenttype"
 			name="Iotlang File"
 			priority="normal">
 		</content-type>
@@ -217,17 +217,17 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="iotlang">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
 		<resourceServiceProvider
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
 			uriExtension="iotlang">
 		</resourceServiceProvider>
 	</extension>
-	<!-- marker definitions for language.Iotlang -->
+	<!-- marker definitions for org.atlanmod.cypriot.Iotlang -->
 	<extension
 			id="iotlang.check.fast"
 			name="Iotlang Problem"
@@ -251,25 +251,25 @@
 	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
 			fileExtensions="iotlang"/>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page
-			category="language.Iotlang"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-			id="language.Iotlang.compiler.preferencePage"
+			category="org.atlanmod.cypriot.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang.compiler.preferencePage"
 			name="Compiler">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 		</page>
 	</extension>
 	<extension point="org.eclipse.ui.propertyPages">
 		<page
-			category="language.Iotlang"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
-			id="language.Iotlang.compiler.propertyPage"
+			category="org.atlanmod.cypriot.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang.compiler.propertyPage"
 			name="Compiler">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 			<enabledWhen>
 				<adapt type="org.eclipse.core.resources.IProject"/>
 			</enabledWhen>
@@ -280,20 +280,20 @@
 		<menuContribution locationURI="popup:#TextEditorContext?after=xtext.ui.openDeclaration">
 			<command
 				commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand"
-				id="language.Iotlang.OpenGeneratedCode"
+				id="org.atlanmod.cypriot.Iotlang.OpenGeneratedCode"
 				style="push">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="language.Iotlang.Editor.opened" />
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened" />
 				</visibleWhen>
 			</command>
 		</menuContribution>
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 		<handler
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.generator.trace.OpenGeneratedFileHandler"
 			commandId="org.eclipse.xtext.ui.OpenGeneratedFileCommand">
 			<activeWhen>
-				<reference definitionId="language.Iotlang.Editor.opened" />
+				<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened" />
 			</activeWhen>
 		</handler>
 	</extension>
@@ -301,11 +301,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -325,16 +325,16 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="language.Iotlang.Editor.opened"/>
+					<reference definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
 	</extension>
-	<!-- quickfix marker resolution generator for language.Iotlang -->
+	<!-- quickfix marker resolution generator for org.atlanmod.cypriot.Iotlang -->
 	<extension
 			point="org.eclipse.ui.ide.markerResolution">
 		<markerResolutionGenerator
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
 			markerType="org.atlanmod.cypriot.ui.iotlang.check.fast">
 			<attribute
 				name="FIXABLE_KEY"
@@ -342,7 +342,7 @@
 			</attribute>
 		</markerResolutionGenerator>
 		<markerResolutionGenerator
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
 			markerType="org.atlanmod.cypriot.ui.iotlang.check.normal">
 			<attribute
 				name="FIXABLE_KEY"
@@ -350,7 +350,7 @@
 			</attribute>
 		</markerResolutionGenerator>
 		<markerResolutionGenerator
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
 			markerType="org.atlanmod.cypriot.ui.iotlang.check.expensive">
 			<attribute
 				name="FIXABLE_KEY"
@@ -361,11 +361,11 @@
 	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.DefaultRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
-					definitionId="language.Iotlang.Editor.opened">
+					definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -377,7 +377,7 @@
 				style="push">
 				<visibleWhen checkEnabled="false">
 					<reference
-						definitionId="language.Iotlang.Editor.opened">
+						definitionId="org.atlanmod.cypriot.Iotlang.Editor.opened">
 					</reference>
 				</visibleWhen>
 			</command>
@@ -385,28 +385,28 @@
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page
-			category="language.Iotlang"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
-			id="language.Iotlang.refactoring"
+			category="org.atlanmod.cypriot.Iotlang"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+			id="org.atlanmod.cypriot.Iotlang.refactoring"
 			name="Refactoring">
-			<keywordReference id="language.ui.keyword_Iotlang"/>
+			<keywordReference id="org.atlanmod.cypriot.ui.keyword_Iotlang"/>
 		</page>
 	</extension>
 	<extension point="org.eclipse.compare.contentViewers">
-		<viewer id="language.Iotlang.compare.contentViewers"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+		<viewer id="org.atlanmod.cypriot.Iotlang.compare.contentViewers"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="iotlang">
 		</viewer>
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
-		<viewer id="language.Iotlang.compare.contentMergeViewers"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
+		<viewer id="org.atlanmod.cypriot.Iotlang.compare.contentMergeViewers"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="iotlang" label="Iotlang Compare">
 		</viewer>
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
-		<provider id="language.Iotlang.editors.documentProviders"
-			class="language.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
+		<provider id="org.atlanmod.cypriot.Iotlang.editors.documentProviders"
+			class="org.atlanmod.cypriot.ui.IotlangExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
 			extensions="iotlang">
 		</provider>
 	</extension>
