@@ -112,7 +112,5 @@ garbage/
 
 *.project
 *.jar
-lang.ui/
-lang.tests/
-lang.ide/
+old
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse

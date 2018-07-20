@@ -1,4 +1,4 @@
-![NotML Logo](logo.png)
+![CyprIoT Logo](logo.png)
 
 A Domain-Specific language (DSL) to design network of things easily.
 
