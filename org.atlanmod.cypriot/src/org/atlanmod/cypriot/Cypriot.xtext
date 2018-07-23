@@ -41,13 +41,6 @@ Property:
 	'property' name=ID '=' propertyValue=STRING_LIT
 ;
 
-Capacity:
-	'property' name='capacity' '=' capacityValue=INT
-;
-Domain:
-	'property' name='domain' '=' capacityValue=QualifiedNameWithWildcard
-;
-
 // Dynamicity of the configuration
 
 Network:
