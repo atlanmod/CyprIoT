@@ -1,4 +1,5 @@
 ![CyprIoT Logo](logo.png)
+[![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
 
 A Domain-Specific language (DSL) to design network of things easily.
 
