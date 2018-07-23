@@ -8,6 +8,7 @@ A Domain-Specific language (DSL) to design network of things easily.
 * Xtext 2.14+
 * EMF
 * Maven
+* Eclipse Oxygen or newer
 
 ## Installation
 
