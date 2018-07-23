@@ -115,4 +115,5 @@ garbage/
 old
 plugin.xml
 plugin.xml_gen
+build.properties
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse

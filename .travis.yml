@@ -2,6 +2,6 @@ os: linux
 sudo: false
 dist: trusty
 jdk: oraclejdk8
+language: java
 install:
-  # Resolve all dependencies
 - mvn -V -X -U install
