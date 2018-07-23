@@ -18,9 +18,8 @@ The project consists of the following artifacts :
 
 How to get started :
 
-* Run
-``mvn clean install``
-* Right-Click on language
+* Run ``mvn clean install``
+* Using Eclipse Right-Click on ``org.atlanmod.cypriot`` package
 * Hit Run As -> Eclipse Application
 * Enjoy network modeling !
 
