@@ -9,14 +9,17 @@ package org.atlanmod.cypriot.util;
 
 import java.util.ArrayList;
 
-import org.atlanmod.cypriot.iotlang.AbstractInstance;
-import org.atlanmod.cypriot.iotlang.IoTLangModel;
-import org.atlanmod.cypriot.iotlang.PubSub;
-import org.atlanmod.cypriot.iotlang.ReqRep;
-import org.atlanmod.cypriot.iotlang.Role;
-import org.atlanmod.cypriot.iotlang.Thing;
-import org.atlanmod.cypriot.iotlang.Topic;
-import org.atlanmod.cypriot.iotlang.User;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
+import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
+import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.Network;
+import org.atlanmod.cypriot.cyprIoT.PubSub;
+import org.atlanmod.cypriot.cyprIoT.ReqRep;
+import org.atlanmod.cypriot.cyprIoT.Role;
+import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.Topic;
+import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.ecore.EObject;
 
 
@@ -32,14 +35,17 @@ public class Helpers {
 		return (C) eObject;
 	}
 	
-	public static IoTLangModel findContainingModel(EObject object) {
-		return findContainer(object, IoTLangModel.class);
+	public static CyprIoTModel findContainingModel(EObject object) {
+		return findContainer(object, CyprIoTModel.class);
 	}
 	public static Thing findContainingThing(EObject object) {
 		return findContainer(object,Thing.class);
 	}
-	public static ArrayList<IoTLangModel> allIoTLangModels(IoTLangModel model) {
-		ArrayList<IoTLangModel> result = new ArrayList<IoTLangModel>();
+	public static PubSub findContainingPubSub(EObject object) {
+		return findContainer(object,PubSub.class);
+	}
+	public static ArrayList<CyprIoTModel> allIoTLangModels(CyprIoTModel model) {
+		ArrayList<CyprIoTModel> result = new ArrayList<CyprIoTModel>();
 		result.add(model);
 		/*
 		ResourceSet rs = model.eResource().getResourceSet();
@@ -52,7 +58,7 @@ public class Helpers {
 		}
 		*/
 
-        ArrayList<IoTLangModel> temp = new ArrayList<IoTLangModel>();
+        ArrayList<CyprIoTModel> temp = new ArrayList<CyprIoTModel>();
 
         int prevSize = result.size();
         int newSize = prevSize;
@@ -68,7 +74,7 @@ public class Helpers {
 //                    }
 //                }
 //            }
-            for (IoTLangModel m : temp) {
+            for (CyprIoTModel m : temp) {
                 if (!result.contains(m)) {
                     result.add(m);
                 }
@@ -79,9 +85,9 @@ public class Helpers {
         
 		return result;
 	}
-	public static ArrayList<Role> allRoles(IoTLangModel model) {
+	public static ArrayList<Role> allRoles(CyprIoTModel model) {
 		ArrayList<Role> result = new ArrayList<Role>();
-		for (IoTLangModel m : allIoTLangModels(model)) {
+		for (CyprIoTModel m : allIoTLangModels(model)) {
 			for (Role r : m.getRoles()) {
 				result.add((Role)r);
 			}
@@ -89,34 +95,27 @@ public class Helpers {
 		return result;
 	}
 	
-	public static ArrayList<AbstractInstance> allInstances(IoTLangModel model) {
-		ArrayList<AbstractInstance> result = new ArrayList<AbstractInstance>();
-		result.add((AbstractInstance) allThings(model));
-
-		return result;
-	}
-	
-	public static ArrayList<Thing> allThings(IoTLangModel model) {
+	public static ArrayList<Thing> allThings(CyprIoTModel model) {
 	ArrayList<Thing> result = new ArrayList<Thing>();
-	for (IoTLangModel m : allIoTLangModels(model)) {
+	for (CyprIoTModel m : allIoTLangModels(model)) {
 		for (Thing t : m.getImportThings()) {
 				result.add((Thing)t);
 		}
 	}
 	return result;
 	}
-	public static ArrayList<PubSub> allPusSub(IoTLangModel model) {
+	public static ArrayList<PubSub> allPusSub(CyprIoTModel model) {
 		ArrayList<PubSub> result = new ArrayList<PubSub>();
-		for (IoTLangModel m : allIoTLangModels(model)) {
+		for (CyprIoTModel m : allIoTLangModels(model)) {
 			for (PubSub t : m.getPubsubs()) {
 				result.add((PubSub)t);
 			}
 		}
 		return result;
 	}
-	public static ArrayList<ReqRep> allReqRep(IoTLangModel model) {
+	public static ArrayList<ReqRep> allReqRep(CyprIoTModel model) {
 		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
-		for (IoTLangModel m : allIoTLangModels(model)) {
+		for (CyprIoTModel m : allIoTLangModels(model)) {
 			for (ReqRep t : m.getReqreps()) {
 				result.add((ReqRep)t);
 			}
@@ -130,16 +129,38 @@ public class Helpers {
 			}
 		return result;
 	}
-	/*public static ArrayList<InstanceReqRep> allPubSubinstances(IoTLangModel model) {
-		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
-		for (IoTLangModel m : allIoTLangModels(model)) {
-			for (ReqRep t : m.getReqreps()) {
-				result.add((ReqRep)t);
-			}
+	
+	public static ArrayList<InstanceThing> allThinginstances(CyprIoTModel model) {
+		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
+			for (InstanceThing t : model.getNetworks().get(0).getInstancesThing() ) {
+				if ( t instanceof InstanceThing) result.add((InstanceThing)t);
 		}
 		return result;
 	}
-	*/
+	
+	public static ArrayList<InstancePubSub> allPubSubinstances(CyprIoTModel model) {
+		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
+		for (InstancePubSub t : model.getNetworks().get(0).getInstancesPubsub() ) {
+			if ( t instanceof InstancePubSub) result.add((InstancePubSub)t);
+		}
+		return result;
+	}
+	
+	public static ArrayList<InstanceReqRep> allReqRepinstances(CyprIoTModel model) {
+		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
+		for (InstanceReqRep t : model.getNetworks().get(0).getInstancesReqrep() ) {
+			if ( t instanceof InstanceReqRep) result.add((InstanceReqRep)t);
+		}
+		return result;
+	}
+	
+	public static ArrayList<Topic> allTopicsPubSub(PubSub pubsub) {
+		ArrayList<Topic> result = new ArrayList<Topic>();
+		for (Topic t : pubsub.getHasTopics() ) {
+			if ( t instanceof Topic) result.add((Topic)t);
+		}
+		return result;
+	}
 	/*public static ArrayList<InstanceReqRep> allPtpinstances(IoTLangModel model) {
 		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
 		for (InstanceChannel m : allChannelinstances(model)) {
@@ -275,9 +296,9 @@ public class Helpers {
 		}
 		return result;
 	}*/
-	public static ArrayList<User> allUsers(IoTLangModel model) {
+	public static ArrayList<User> allUsers(CyprIoTModel model) {
 		ArrayList<User> result = new ArrayList<User>();
-		for (IoTLangModel m : allIoTLangModels(model)) {
+		for (CyprIoTModel m : allIoTLangModels(model)) {
 			for (User t : m.getUsers()) {
 					result.add((User)t);
 			}

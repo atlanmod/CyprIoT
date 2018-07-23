@@ -1,0 +1,68 @@
+import "../includes/messages.thingml"
+import "../includes/datatypes.thingml"
+
+
+thing TemperaturePSM includes tempMsgs
+@c_header "#include <dht.h>"
+@platform "arduino"
+{
+	provided port temperaturePort{
+		sends temperatureMessage
+		receives temperatureMessage
+	}
+	
+	readonly property pin : UInt32 = 8
+	readonly property sampling : UInt32 = 5000
+	property dht : DHT
+	statechart temperatureSensorBehavior init setup {
+		state setup {
+			on entry 
+			do
+			print "initialization..."
+			`Serial.begin(9600);`
+			&dht&`.read11(&pin&);`
+			end
+			transition -> collect
+		}
+		final state collect {
+			on entry
+			do  `Serial.println(`&dht&`.temperature);`
+				temperaturePort!temperatureMessage(`(uint32_t)`&dht&`.temperature`,8)
+				while(true) do `delay(`&sampling&`);` end
+			end
+		}
+	}
+}
+
+thing TemperatureRandom includes tempMsgs
+@c_header "#include <time.h>"
+@c_header "#include <stdio.h>"
+@c_header "#include <stdlib.h>"
+@c_header "#include <unistd.h>"
+{
+	provided port temperaturePort{
+		sends temperatureMessage
+		receives temperatureMessage
+	}
+	
+	readonly property sampling : UInt32 = 5
+	property rand : UInt32
+	statechart temperatureSensorBehavior init setup {
+		state setup {
+			on entry do print "initialization..." 
+			`srand(time(NULL));`
+			end
+			transition -> collect
+		}
+		state collect {
+			on entry do
+				while(true) do
+					rand = `rand() % 100`
+					print rand
+					if(not(rand<15)) do temperaturePort!temperatureMessage(rand,6) end
+					`sleep(5);`
+				end
+			end
+		}
+	}
+}

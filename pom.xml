@@ -12,6 +12,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<module>org.atlanmod.cypriot</module>
 		<module>org.atlanmod.cypriot.ide</module>
 		<module>org.atlanmod.cypriot.ui</module>
+		<module>examples</module>
 		<!--<module>org.atlanmod.cypriot.tests</module>
 		<module>org.atlanmod.cypriot.sdk</module>
 		<module>org.atlanmod.cypriot.updatesite</module>!-->

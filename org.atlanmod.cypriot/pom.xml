@@ -70,7 +70,10 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-	
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -78,6 +81,12 @@
 					<filesets combine.children="append">
 						<fileset>
 							<directory>${basedir}/../org.atlanmod.cypriot/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot/xtend-gen/</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>
@@ -96,6 +105,18 @@
 						</fileset>
 						<fileset>
 							<directory>${basedir}/../org.atlanmod.cypriot.ui/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot.ide/xtend-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot.ui/xtend-gen/</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>

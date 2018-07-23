@@ -1,0 +1,17 @@
+import "datatypes.thingml"
+
+thing fragment tempMsgs {
+	message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32);
+	message telemetryMessage(power : UInt32 , stateOnOff: Boolean);
+}
+thing fragment timerMsgs {
+	message timerMessage(currentHour : UInt32);
+	message getTime();
+}
+protocol MQTT
+	@trace_level "0"
+	@mqtt_broker_port "1883"
+	@mqtt_broker_address "iot.eclipse.org"
+	@mqtt_escape_null "true"
+	@serializer "Binary"
+;

@@ -21,11 +21,12 @@ Import-Package: org.apache.log4j
 Export-Package: org.atlanmod.cypriot.validation,
  org.atlanmod.cypriot,
  org.atlanmod.cypriot.parser.antlr.internal,
- org.atlanmod.cypriot.iotlang,
- org.atlanmod.cypriot.iotlang.impl,
+ org.atlanmod.cypriot.cyprIoT.impl,
+ org.atlanmod.cypriot.cyprIoT,
  org.atlanmod.cypriot.scoping,
  org.atlanmod.cypriot.generator,
  org.atlanmod.cypriot.parser.antlr,
- org.atlanmod.cypriot.iotlang.util,
+ org.atlanmod.cypriot.cyprIoT.util,
  org.atlanmod.cypriot.services,
- org.atlanmod.cypriot.serializer
+ org.atlanmod.cypriot.serializer,
+ org.atlanmod.cypriot.jvmmodel

@@ -30,8 +30,8 @@ Workflow {
 			}
 		}
 		language = StandardLanguage {
-			name = "org.atlanmod.cypriot.Iotlang"
-			fileExtensions = "iotlang"
+			name = "org.atlanmod.cypriot.Cypriot"
+			fileExtensions = "cy"
 
 			serializer = {
 				generateStub = false

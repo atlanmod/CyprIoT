@@ -3,8 +3,8 @@
 <plugin>
 	<extension point="org.eclipse.emf.ecore.generated_package">
 		<package 
-			uri = "http://www.Iotlang.lang"
-			class = "org.atlanmod.cypriot.iotlang.IotlangPackage"
-			genModel = "model/generated/Iotlang.genmodel" />
+			uri = "http://www.atlanmod.org/CyprIoT"
+			class = "org.atlanmod.cypriot.cyprIoT.CyprIoTPackage"
+			genModel = "model/generated/Cypriot.genmodel" />
 	</extension>
 </plugin>
