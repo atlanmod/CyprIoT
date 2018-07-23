@@ -13,7 +13,7 @@ A Domain-Specific language (DSL) to design network of things easily.
 
 The project consists of the following artifacts : 
 
-* A Code syntax, formalized in language/iotlang.xtext
+* A Code syntax, formalized [here] https://github.com/atlanmod/CyprIoT/tree/master/org.atlanmod.cypriot/src/org/atlanmod/cypriot
 * Code generators, available in generators package
 
 How to get started :
