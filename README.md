@@ -18,7 +18,7 @@ The project consists of the following artifacts :
 
 How to get started :
 
-* Right-click on language/src/GenerateIotlang.mwe2
+* Right-click on org.atlanmod.cypriot/src/org/atlanmod/cypriot/GenerateIotlang.mwe2
 * Hit Run As -> MWE2 Workflow
 * Right-Click on language
 * Hit Run As -> Eclipse Application
