@@ -1,0 +1,79 @@
+//import "includes/messages.thingml"
+//import "includes/datatypes.thingml"
+
+thing Monitor
+@c_global "#include <ESP8266WiFi.h>"
+@c_global "#include <PubSubClient.h>"
+@c_global "const char* ssid = 'iphonewifi';"
+@c_global "const char* password =  'project1927';"
+@c_global "const char* mqttServer = ''iot.eclipse.org';"
+@c_global "const int mqttPort = 1883;"
+@c_global "const char* mqttUser = '';"
+@c_global "const char* mqttPassword = '';"
+@c_global "void callback(char* topic, byte* payload, unsigned int length) {
+
+  Serial.print('Message arrived in topic: ');
+  Serial.println(topic);
+
+  Serial.print('Message:');
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+
+  Serial.println();
+}"
+
+{	
+	statechart CarBehavior init setup {
+
+		 state setup {
+		 	transition -> loop
+		 	action do 
+		 		`Serial.begin(115200);
+				  WiFi.begin(ssid, password);
+				
+				  while (WiFi.status() != WL_CONNECTED) {
+				    delay(500);
+				    Serial.println("Connecting to WiFi..");
+				  }
+				  Serial.println("Connected to the WiFi network");
+				
+				  client.setServer(mqttServer, mqttPort);
+				  client.setCallback(callback);
+				
+				  while (!client.connected()) {
+				    Serial.println("Connecting to MQTT...");
+				
+				    if (client.connect("ESP8266Client", mqttUser, mqttPassword )) {
+				
+				      Serial.println("connected");  
+				
+				    } else {
+				
+				      Serial.print("failed with state ");
+				      Serial.print(client.state());
+				      delay(2000);
+				
+				    }
+				  }
+				  client.publish("esp/test", "Hello from ESP8266");
+				  client.subscribe("esp/test");
+		 		`
+		 	end
+		}
+		
+		state loop 
+		@ignore "sink"
+		{
+		 	on entry
+		 	while(true) do
+		 		`client.loop();`
+		 	end
+		}
+	}
+}
+
+configuration monitorCfg
+{
+	instance monitor:Monitor
+}

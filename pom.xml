@@ -13,8 +13,8 @@
 		<module>org.atlanmod.cypriot.ide</module>
 		<module>org.atlanmod.cypriot.ui</module>
 		<module>examples</module>
-		<!--<module>org.atlanmod.cypriot.tests</module>
-		<module>org.atlanmod.cypriot.sdk</module>
+		<module>org.atlanmod.cypriot.tests</module>
+		<!--<module>org.atlanmod.cypriot.sdk</module>
 		<module>org.atlanmod.cypriot.updatesite</module>!-->
 	</modules>
 	

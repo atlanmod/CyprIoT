@@ -34,7 +34,7 @@
 				<configuration>
 					<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
 					<arguments>
-						<argument>/${project.basedir}/src/org/atlanmod/cypriot/GenerateIotlang.mwe2</argument>
+						<argument>/${project.basedir}/src/org/atlanmod/cypriot/GenerateCypriot.mwe2</argument>
 						<argument>-p</argument>
 						<argument>rootPath=/${project.basedir}/..</argument>
 					</arguments>
@@ -92,25 +92,7 @@
 							</includes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../org.atlanmod.cypriot.tests/src-gen/</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/../org.atlanmod.cypriot.ide/src-gen/</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</fileset>
-						<fileset>
 							<directory>${basedir}/../org.atlanmod.cypriot.ui/src-gen/</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</fileset>
-						<fileset>
-							<directory>${basedir}/../org.atlanmod.cypriot.ide/xtend-gen/</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>
@@ -122,7 +104,25 @@
 							</includes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../org.atlanmod.cypriot.ui.tests/src-gen/</directory>
+							<directory>${basedir}/../org.atlanmod.cypriot.ide/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot.ide/xtend-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot.tests/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../org.atlanmod.cypriot.tests/xtend-gen/</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>

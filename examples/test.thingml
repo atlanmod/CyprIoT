@@ -1,0 +1,20 @@
+thing Hello
+{	
+	statechart HelloBehavior init setup {
+
+		 state setup 
+		 @ignore "sink"
+		 {
+		 	on entry 
+		 	do 
+		 		print "Hello"
+		 	end
+		 	}
+		 	
+		}
+}
+
+configuration monitorCfg
+{
+	instance hello:Hello
+}
