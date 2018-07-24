@@ -5,10 +5,10 @@ A Domain-Specific language (DSL) to design network of things easily.
 [![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
 
 ## Prerequisites
+
+* Eclipse Modeling Tools Oxygen or newer
 * Xtext 2.14+
-* EMF
 * Maven
-* Eclipse Oxygen or newer
 
 ## Installation
 
