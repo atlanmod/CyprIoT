@@ -29,6 +29,12 @@ How to get started :
 
 The DSL can be used to model a network of heterogeneous devices. Device modeling has to be done using [ThingML](https://github.com/TelluIoT/ThingML). The configuration should have an external port. The latter will be overriden by the network configuration.
 
+To run some examples of the language :
+
+* In the Eclipse Application launched earlier
+* Import the folder example as a maven project
+* Open any .cy file
+
 ## Contributors
 
 * imberium
