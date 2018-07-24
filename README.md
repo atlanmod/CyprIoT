@@ -3,6 +3,7 @@
 A Domain-Specific language (DSL) to design network of things easily.
 
 [![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
+[![Coverage Status](https://coveralls.io/repos/github/atlanmod/CyprIoT/badge.svg?branch=master)](https://coveralls.io/github/atlanmod/CyprIoT?branch=master)
 
 ## Project Structure
 
