@@ -33,7 +33,7 @@ To run some examples of the language :
 
 * In the Eclipse Application launched earlier
 * Import the folder ``examples`` as a maven project
-* Open any ``.cy`` file
+* Open any ``.cy`` file, enjoy network modeling !
 
 ## Contributors
 
