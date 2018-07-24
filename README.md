@@ -19,7 +19,7 @@ The project consists of the following artifacts :
 
 How to get started :
 
-* Run ``mvn clean install``
+* Run ``mvn clean install`` at the root of the project
 * Import the project into Eclipse
 * Right-Click on ``org.atlanmod.cypriot`` package
 * Hit Run As -> Eclipse Application
