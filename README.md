@@ -32,8 +32,8 @@ The DSL can be used to model a network of heterogeneous devices. Device modeling
 To run some examples of the language :
 
 * In the Eclipse Application launched earlier
-* Import the folder example as a maven project
-* Open any .cy file
+* Import the folder ``examples`` as a maven project
+* Open any ``.cy`` file
 
 ## Contributors
 
