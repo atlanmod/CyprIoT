@@ -13,7 +13,6 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.ReqRep;
 import org.atlanmod.cypriot.cyprIoT.Role;

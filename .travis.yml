@@ -4,4 +4,11 @@ dist: trusty
 jdk: oraclejdk8
 language: java
 install:
-- travis_wait mvn -V -X -U install
+- travis_wait mvn -V -X -U clean install
+addons:
+  sonarqube:
+    organization: "atlanmod"
+    token:
+      secure: 577cb5f629f3ea3b7f0dcd244d006b1ff5d04714
+script:
+  - sonar-scanner
