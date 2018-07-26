@@ -5,7 +5,7 @@
  * @author imad
  *
  */
-package org.atlanmod.cypriot.util;
+package org.atlanmod.cypriot.cyutil;
 
 import java.util.ArrayList;
 

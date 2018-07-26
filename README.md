@@ -7,6 +7,7 @@ A Domain-Specific language (DSL) to design network of things easily.
 ## Project Structure
 
 * ``org.atlanmod.cypriot`` : Provides the Xtext grammar definition and the scoping
+* ``org.atlanmod.cypriot.generator`` : Code generator
 * ``org.atlanmod.cypriot.ide`` : Platform-independent IDE functionality 
 * ``org.atlanmod.cypriot.ui`` : Eclipse editor for the language
 * ``org.atlanmod.cypriot.test`` : Language unit tests

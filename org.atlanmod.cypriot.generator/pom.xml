@@ -3,19 +3,24 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<relativePath>../pom.xml</relativePath>
 		<groupId>org.atlanmod.cypriot</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>org.atlanmod.cypriot.generator</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>CyprIoT Generator</name>
 	<dependencies>
+		<dependency>
+			<groupId>org.atlanmod.cypriot</groupId>
+			<artifactId>org.atlanmod.cypriot</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.thingml</groupId>
 			<artifactId>thingml-registry</artifactId>
@@ -23,6 +28,35 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/thingml-registry.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>com.beust</groupId>
+			<artifactId>jcommander</artifactId>
+			<version>1.72</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>3.3.9</version>
+		</dependency>
 	</dependencies>
-	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>gen-clean</id>
+						<phase>clean</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
