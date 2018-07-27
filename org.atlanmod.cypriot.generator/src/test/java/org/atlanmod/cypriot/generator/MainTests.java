@@ -1,11 +1,17 @@
 package org.atlanmod.cypriot.generator;
 
+import static org.junit.Assert.assertNotNull;
+
+import org.atlanmod.cypriot.generator.main.Utils;
+import org.junit.Test;
+import org.thingml.xtext.thingML.ThingMLModel;
+
 public class MainTests {
-	/*@Test
+	@Test
 	public void loadThingMLFromString() 
 	{
 		String thingmlModel = "thing Hello{}";
-	    ThingMLModel loadedModel = Utils.loadThingMLModel(thingmlModel);
+	    ThingMLModel loadedModel = Utils.loadThingMLModelFromString(thingmlModel);
 	    assertNotNull(loadedModel);
 	}
 	
@@ -14,5 +20,5 @@ public class MainTests {
 	{
 	    String projectVersion = Utils.getProjectVersion();
 	    assertNotNull(projectVersion);
-	}*/
+	}
 }
