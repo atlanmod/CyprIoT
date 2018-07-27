@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.main;
+package org.atlanmod.cypriot.generator.commons;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-public class Utils {
+public class Utilities {
 	
 	/**
 	 * A method to register the ThingML factory, mandatory to load a model
@@ -40,7 +40,7 @@ public class Utils {
 	 * @return
 	 */
 	public static ThingMLModel loadThingMLModelFromString(String string) {
-		Utils.registerThingMLFactory();
+		Utilities.registerThingMLFactory();
 		Resource resource = loadResourceFromString(string);
 		ThingMLModel model = loadThingMLModelFromResource(resource);
 		return model;
@@ -52,19 +52,19 @@ public class Utils {
 	 * @return
 	 */
 	public static CyprIoTModel loadCypriotModel(String str) {
-		Utils.registerCypriotFactory();
+		Utilities.registerCypriotFactory();
 		Resource resource = loadResourceFromString(str);
 		CyprIoTModel model = loadCypriotModelFromResource(resource);
 		return model;
 	}
-
 
 	/**
 	 * Load a ThingML model from a loaded resource
 	 * @param resource
 	 * @return
 	 */
-	private static ThingMLModel loadThingMLModelFromResource(Resource resource) {
+
+	public static ThingMLModel loadThingMLModelFromResource(Resource resource) {
 		ThingMLModel model = (ThingMLModel) resource.getContents().get(0);
 		return model;
 	}
@@ -74,7 +74,7 @@ public class Utils {
 	 * @param string
 	 * @return
 	 */
-	private static Resource loadResourceFromString(String string) {
+	public static Resource loadResourceFromString(String string) {
 		ResourceSet rs = new ResourceSetImpl();
 		Resource resource = rs.createResource(URI.createURI("dummy:/example.thingml"));
 		InputStream in = new ByteArrayInputStream(string.getBytes());
@@ -92,13 +92,14 @@ public class Utils {
 	 * @param resource
 	 * @return
 	 */
-	private static CyprIoTModel loadCypriotModelFromResource(Resource resource) {
+	public static CyprIoTModel loadCypriotModelFromResource(Resource resource) {
 		CyprIoTModel model = (CyprIoTModel) resource.getContents().get(0);
 		return model;
 	}
 	
 	/**
 	 * Get the project version as defined in maven pom.xml
+	 * @return
 	 */
 	public static String getProjectVersion() {
 		MavenXpp3Reader reader = new MavenXpp3Reader();
@@ -108,13 +109,10 @@ public class Utils {
 			String projectVersion = model.getVersion();
 			return projectVersion;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

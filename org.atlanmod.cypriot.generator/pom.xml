@@ -29,9 +29,9 @@
 			<systemPath>${project.basedir}/lib/thingml-registry.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>com.beust</groupId>
-			<artifactId>jcommander</artifactId>
-			<version>1.72</version>
+			<groupId>info.picocli</groupId>
+			<artifactId>picocli</artifactId>
+			<version>3.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -56,6 +56,17 @@
 						<phase>clean</phase>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.atlanmod.cypriot.generator.main.App</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
