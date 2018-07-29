@@ -23,7 +23,27 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xtext.version>2.13.0</xtext.version>
 	</properties>
-	
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+	</dependencies>
+
 	<repositories>
 		<repository>
 			<id>eclipse</id>
@@ -36,7 +56,7 @@
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.version}/</url>
 		</repository>
 	</repositories>
-	
+
 	<build>
 
 		<pluginManagement>
@@ -51,6 +71,11 @@
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtext.version}</version>
 					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.platform</groupId>
+							<artifactId>org.eclipse.equinox.registry</artifactId>
+							<version>[3.8.0,4.0.0)</version>
+						</dependency>
 						<dependency>
 							<groupId>org.eclipse.platform</groupId>
 							<artifactId>org.eclipse.equinox.common</artifactId>
