@@ -1,9 +1,11 @@
 package org.atlanmod.cypriot.generator.commons;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -17,14 +19,53 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-
 public class Utilities {
-	
+
 	static final Logger log = Logger.getLogger(Utilities.class.getName());
 
+	/**
+	 * @param textToWrite
+	 * @param fileName
+	 * @param fileExtenstion
+	 * @return
+	 */
+	public static File writeStringToFile(String textToWrite, String fileName, String fileExtenstion) {
+		File file = null;
+		FileWriter fw =null;
+		BufferedWriter bw = null;
+		try {
+			file = File.createTempFile( fileName, fileExtenstion);
+			fw = new FileWriter(file);
+			bw = new BufferedWriter(fw);
+			bw.write(textToWrite);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+		}
+		log.debug("File Content : " + getContentFromFile(file) );
+		log.debug("Absolute Path : " + file.getAbsolutePath());
+		return file;
+	}
+	
 	/**
 	 * Read a file and returns its content
 	 * 
@@ -78,7 +119,7 @@ public class Utilities {
 		registerThingMLFactory();
 		Resource resource = loadResourceFromString(string);
 		ThingMLModel model = loadThingMLModelFromResource(resource);
-		return null;
+		return model;
 	}
 
 	/**
@@ -113,10 +154,24 @@ public class Utilities {
 	 * @return
 	 */
 	public static CyprIoTModel loadCypriotModelFromFile(File file) {
-		String content = getContentFromFile(file);
-		Resource res = loadResourceFromString(content);
-		CyprIoTModel cypriotModel = loadCypriotModelFromResource(res);
-		return cypriotModel;
+		registerCypriotFactory();
+		ResourceSet rs = new ResourceSetImpl();
+		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
+		log.debug("URI : "+ xmiuri.path());
+		Resource model = rs.createResource(xmiuri);
+		try {
+			model.load(null);
+			EcoreUtil.resolveAll(model);
+			for (Resource r : model.getResourceSet().getResources()) {
+				checkEMFErrorsAndWarnings(r, log);
+			}
+			CyprIoTModel m = (CyprIoTModel) model.getContents().get(0);
+			return m;
+
+		} catch (Exception e) {
+			log.error("Error loading CyprIoT model", e);
+		}
+		return null;
 	}
 
 	/**
@@ -131,6 +186,10 @@ public class Utilities {
 		InputStream in = new ByteArrayInputStream(string.getBytes());
 		try {
 			resource.load(in, rs.getLoadOptions());
+			EcoreUtil.resolveAll(resource);
+			for (Resource r : resource.getResourceSet().getResources()) {
+				checkEMFErrorsAndWarnings(r, log);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			resource.getErrors();
@@ -170,32 +229,34 @@ public class Utilities {
 		}
 		return null;
 	}
-	
-	private static boolean checkEMFErrorsAndWarnings(Resource model, Logger log) {
-    	log.info("Checking for EMF errors and warnings");
-        boolean isOK = true;
-        if (model.getErrors().size() > 0) {
-            isOK = false;
-            log.error("ERROR: The input model contains " + model.getErrors().size() + " errors.");
-            for (Resource.Diagnostic d : model.getErrors()) {    
-            		String location = d.getLocation();
-            		if (location == null) {
-            			location = model.getURI().toFileString();
-            		}
-            		log.error("Error in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): " + d.getMessage());
-            }
-        }
 
-        if (model.getWarnings().size() > 0) {
-        	log.warn("WARNING: The input model contains " + model.getWarnings().size() + " warnings.");
-            for (Resource.Diagnostic d : model.getWarnings()) {
-          		String location = d.getLocation();
-        		if (location == null) {
-        			location = model.getURI().toFileString();
-        		}
-        		log.warn("Warning in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): " + d.getMessage());
-            }
-        }
-        return isOK;
-    }
+	private static boolean checkEMFErrorsAndWarnings(Resource model, Logger log) {
+		log.info("Checking for EMF errors and warnings");
+		boolean isOK = true;
+		if (model.getErrors().size() > 0) {
+			isOK = false;
+			log.error("ERROR: The input model contains " + model.getErrors().size() + " errors.");
+			for (Resource.Diagnostic d : model.getErrors()) {
+				String location = d.getLocation();
+				if (location == null) {
+					location = model.getURI().toFileString();
+				}
+				log.error("Error in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): "
+						+ d.getMessage());
+			}
+		}
+
+		if (model.getWarnings().size() > 0) {
+			log.warn("WARNING: The input model contains " + model.getWarnings().size() + " warnings.");
+			for (Resource.Diagnostic d : model.getWarnings()) {
+				String location = d.getLocation();
+				if (location == null) {
+					location = model.getURI().toFileString();
+				}
+				log.warn("Warning in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): "
+						+ d.getMessage());
+			}
+		}
+		return isOK;
+	}
 }

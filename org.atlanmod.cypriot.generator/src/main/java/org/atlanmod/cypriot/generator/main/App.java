@@ -31,7 +31,7 @@ public class App implements Runnable {
         if (verbose.length > 1) {
         	log.debug(cypriotInputFile.getAbsolutePath());
         }
-        //Utilities.loadCypriotModelFromFile(cypriotInputFile);
+        Utilities.loadCypriotModelFromString(Utilities.getContentFromFile(cypriotInputFile));
     }
 	
 	public static void main(String[] args) {
