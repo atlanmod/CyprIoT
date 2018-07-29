@@ -12,20 +12,18 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.main.App;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.XtextResource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
+
 public class Utilities {
 	
-	static Logger log = Logger.getLogger(Utilities.class.getName());
+	static final Logger log = Logger.getLogger(Utilities.class.getName());
 
 	/**
 	 * Read a file and returns its content
@@ -129,7 +127,7 @@ public class Utilities {
 	 */
 	public static Resource loadResourceFromString(String string) {
 		ResourceSet rs = new ResourceSetImpl();
-		Resource resource = rs.createResource(URI.createURI("dummy:/example.thingml"));
+		Resource resource = rs.createResource(URI.createURI("dummy:/example.cy"));
 		InputStream in = new ByteArrayInputStream(string.getBytes());
 		try {
 			resource.load(in, rs.getLoadOptions());

@@ -1,23 +1,26 @@
 package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
+
 import org.apache.log4j.Logger;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.Utilities;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
-	static Logger log = Logger.getLogger(App.class.getName());
+	
+	static final Logger log = Logger.getLogger(App.class.getName());
+	
 	@Option(names = { "-v", "--verbose" }, 
 			description = "Verbose mode. Helpful for troubleshooting. " +
             "Multiple -v options increase the verbosity.")
 	private boolean[] verbose = new boolean[0];
 	
 	@Option(names = { "-i", "--input" }, paramLabel = "INPUT", description = "The input file for the code generator")
-	static	File cypriotInputFile;
+	File cypriotInputFile;
 	
 	public void run() {
 		System.out.println("CyprIoT v"+Utilities.getProjectVersion());
@@ -28,7 +31,7 @@ public class App implements Runnable {
         if (verbose.length > 1) {
         	log.debug(cypriotInputFile.getAbsolutePath());
         }
-        Utilities.loadCypriotModelFromFile(cypriotInputFile);
+        //Utilities.loadCypriotModelFromFile(cypriotInputFile);
     }
 	
 	public static void main(String[] args) {
