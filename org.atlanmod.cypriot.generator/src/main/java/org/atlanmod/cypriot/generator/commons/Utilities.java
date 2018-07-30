@@ -12,49 +12,44 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.atlanmod.cypriot.CypriotStandaloneSetup;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.thingml.xtext.ThingMLStandaloneSetup;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Utilities {
 
 	static final Logger log = Logger.getLogger(Utilities.class.getName());
 
 	/**
+	 * Write a given string into a temporary file
 	 * @param textToWrite
 	 * @param fileName
 	 * @param fileExtenstion
 	 * @return
 	 */
-	public static File writeStringToFile(String textToWrite, String fileName, String fileExtenstion) {
+	public static File writeStringToTemporaryFile(String textToWrite, String fileName, String fileExtenstion, Logger log) {
 		File file = null;
-		FileWriter fw =null;
+		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
+			log.debug("Creating a temporary file("+fileName+fileExtenstion+")");
 			file = File.createTempFile( fileName, fileExtenstion);
+			file.deleteOnExit();
 			fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 			bw.write(textToWrite);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-
 			try {
-
 				if (bw != null)
 					bw.close();
 
 				if (fw != null)
 					fw.close();
-
 			} catch (IOException ex) {
 
 				ex.printStackTrace();
@@ -96,82 +91,18 @@ public class Utilities {
 	}
 
 	/**
-	 * A method to register the ThingML factory, mandatory to load a model
-	 */
-	public static void registerThingMLFactory() {
-		ThingMLStandaloneSetup.doSetup();
-	}
-
-	/**
-	 * A method to register the Cypriot factory, mandatory to load a model
-	 */
-	public static void registerCypriotFactory() {
-		CypriotStandaloneSetup.doSetup();
-	}
-
-	/**
-	 * Load a ThingML model from a string
-	 * 
-	 * @param string
-	 * @return
-	 */
-	public static ThingMLModel loadThingMLModelFromString(String string) {
-		registerThingMLFactory();
-		Resource resource = loadResourceFromString(string);
-		ThingMLModel model = loadThingMLModelFromResource(resource);
-		return model;
-	}
-
-	/**
-	 * Load a Cypriot model from a string
-	 * 
-	 * @param string
-	 * @return
-	 */
-	public static CyprIoTModel loadCypriotModelFromString(String str) {
-		registerCypriotFactory();
-		Resource resource = loadResourceFromString(str);
-		CyprIoTModel model = loadCypriotModelFromResource(resource);
-		return model;
-	}
-
-	/**
-	 * Load a ThingML model from a loaded resource
-	 * 
-	 * @param resource
-	 * @return
-	 */
-
-	public static ThingMLModel loadThingMLModelFromResource(Resource resource) {
-		ThingMLModel model = (ThingMLModel) resource.getContents().get(0);
-		return model;
-	}
-
-	/**
-	 * Load the EMF graph of the model from a File
-	 * 
+	 * Create a Xtext resource from a file
 	 * @param file
+	 * @param log
 	 * @return
 	 */
-	public static CyprIoTModel loadCypriotModelFromFile(File file) {
-		registerCypriotFactory();
-		ResourceSet rs = new ResourceSetImpl();
+	public static Resource createResourceFromFile(File file, Logger log) {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
 		log.debug("URI : "+ xmiuri.path());
+		
+		ResourceSet rs = new ResourceSetImpl();
 		Resource model = rs.createResource(xmiuri);
-		try {
-			model.load(null);
-			EcoreUtil.resolveAll(model);
-			for (Resource r : model.getResourceSet().getResources()) {
-				checkEMFErrorsAndWarnings(r, log);
-			}
-			CyprIoTModel m = (CyprIoTModel) model.getContents().get(0);
-			return m;
-
-		} catch (Exception e) {
-			log.error("Error loading CyprIoT model", e);
-		}
-		return null;
+		return model;
 	}
 
 	/**
@@ -188,24 +119,17 @@ public class Utilities {
 			resource.load(in, rs.getLoadOptions());
 			EcoreUtil.resolveAll(resource);
 			for (Resource r : resource.getResourceSet().getResources()) {
-				checkEMFErrorsAndWarnings(r, log);
+				if(!checkErrorsInModel(r, log)) {
+					throw new Exception();
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			resource.getErrors();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return resource;
-	}
-
-	/**
-	 * Load a Cypriot model from a loaded resource
-	 * 
-	 * @param resource
-	 * @return
-	 */
-	public static CyprIoTModel loadCypriotModelFromResource(Resource resource) {
-		CyprIoTModel model = (CyprIoTModel) resource.getContents().get(0);
-		return model;
 	}
 
 	/**
@@ -230,7 +154,13 @@ public class Utilities {
 		return null;
 	}
 
-	private static boolean checkEMFErrorsAndWarnings(Resource model, Logger log) {
+	/**
+	 * Check if there are syntactic errors in the model
+	 * @param model
+	 * @param log
+	 * @return
+	 */
+	public static boolean checkErrorsInModel(Resource model, Logger log) {
 		log.info("Checking for EMF errors and warnings");
 		boolean isOK = true;
 		if (model.getErrors().size() > 0) {
@@ -259,4 +189,5 @@ public class Utilities {
 		}
 		return isOK;
 	}
+	
 }
