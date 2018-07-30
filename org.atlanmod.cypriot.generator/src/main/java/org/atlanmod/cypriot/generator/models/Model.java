@@ -4,12 +4,15 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.generator.commons.Utilities;
-import org.atlanmod.cypriot.generator.exceptions.ModelNotFoundException;
+import org.atlanmod.cypriot.generator.exceptions.ExceptionHandler;
+import org.atlanmod.cypriot.generator.exceptions.ModeExceptionHandler;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public abstract class Model {
+	
+	final protected ExceptionHandler exceptionHandler = new ModeExceptionHandler();
 	
 	public Model() {
 		this.loadModel();
@@ -23,9 +26,9 @@ public abstract class Model {
 	 * 
 	 * @param file
 	 * @return
-	 * @throws ModelNotFoundException 
+	 * @throws ModeExceptionHandler 
 	 */
-	public <T extends EObject> T loadModelFromFile(File file, Class<T> type, Logger log) throws ModelNotFoundException {
+	public <T extends EObject> T loadModelFromFile(File file, Class<T> type, Logger log) {
 		registerFactory();
 		Resource model = Utilities.createResourceFromFile(file, log);
 		
@@ -41,7 +44,8 @@ public abstract class Model {
 			return type.cast(model.getContents().get(0));
 
 		} catch (Exception e) {
-			throw new ModelNotFoundException("The model couldn't be loaded");
+			this.exceptionHandler.handle(e, "The model couldn't be loaded");
 		}
+		return null;
 	}
 }

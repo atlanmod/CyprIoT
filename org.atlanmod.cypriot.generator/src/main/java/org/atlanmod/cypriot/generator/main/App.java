@@ -34,7 +34,9 @@ public class App implements Runnable {
     }
 	
 	public static void main(String[] args) {
+		ExecutionContext.pre(App.class.getName(), "main");
 		CommandLine.run(new App(), System.out, args);
+		ExecutionContext.post();
 	}
 	
 	

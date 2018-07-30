@@ -12,6 +12,7 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.atlanmod.cypriot.generator.templates.FileProcessingTemplate;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -68,26 +69,7 @@ public class Utilities {
 	 * @return
 	 */
 	public static String getContentFromFile(File file) {
-		String content = null;
-		FileReader reader = null;
-		try {
-			reader = new FileReader(file);
-			char[] chars = new char[(int) file.length()];
-			reader.read(chars);
-			content = new String(chars);
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) { // Always check if a reference is not null inside a try block
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return content;
+		return new FileProcessingTemplate(){}.process(file);
 	}
 
 	/**
@@ -99,7 +81,6 @@ public class Utilities {
 	public static Resource createResourceFromFile(File file, Logger log) {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
 		log.debug("URI : "+ xmiuri.path());
-		
 		ResourceSet rs = new ResourceSetImpl();
 		Resource model = rs.createResource(xmiuri);
 		return model;
@@ -138,9 +119,9 @@ public class Utilities {
 	 * @return
 	 */
 	public static String getProjectVersion() {
-		MavenXpp3Reader reader = new MavenXpp3Reader();
-		Model model;
 		try {
+			MavenXpp3Reader reader = new MavenXpp3Reader();
+			Model model;
 			model = reader.read(new FileReader("../pom.xml"));
 			String projectVersion = model.getVersion();
 			return projectVersion;
@@ -162,6 +143,18 @@ public class Utilities {
 	 */
 	public static boolean checkErrorsInModel(Resource model, Logger log) {
 		log.info("Checking for EMF errors and warnings");
+		boolean noErrors = checkErrorsInResource(model, log);
+		checkWarningInResource(model, log);
+		return noErrors;
+	}
+
+	/**
+	 * Check if there is any error in the model
+	 * @param model
+	 * @param log
+	 * @return
+	 */
+	public static boolean checkErrorsInResource(Resource model, Logger log) {
 		boolean isOK = true;
 		if (model.getErrors().size() > 0) {
 			isOK = false;
@@ -175,7 +168,15 @@ public class Utilities {
 						+ d.getMessage());
 			}
 		}
+		return isOK;
+	}
 
+	/**
+	 * Check if there is any warning in the resource
+	 * @param model
+	 * @param log
+	 */
+	public static void checkWarningInResource(Resource model, Logger log) {
 		if (model.getWarnings().size() > 0) {
 			log.warn("WARNING: The input model contains " + model.getWarnings().size() + " warnings.");
 			for (Resource.Diagnostic d : model.getWarnings()) {
@@ -187,7 +188,6 @@ public class Utilities {
 						+ d.getMessage());
 			}
 		}
-		return isOK;
 	}
 	
 }
