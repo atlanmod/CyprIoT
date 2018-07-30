@@ -7,6 +7,7 @@ import java.io.File;
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.exceptions.ModelNotFoundException;
 import org.atlanmod.cypriot.generator.models.CypriotLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLLoader;
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class MainTests {
 
 
 	@Test
-	public void loadCyriotModelFromFileTest() 
+	public void loadCyriotModelFromFileTest() throws ModelNotFoundException 
 	{
 		String textToWrite = "role:sensor";
 		String fileName ="temp";
@@ -30,7 +31,7 @@ public class MainTests {
 	}
 
 	@Test
-	public void loadThingMLFromStringTest() {
+	public void loadThingMLFromStringTest() throws ModelNotFoundException {
 		String textToWrite = "thing Hello{}";
 		String fileName ="temp";
 		String fileExtenstion = ".thingml";

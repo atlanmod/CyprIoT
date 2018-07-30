@@ -79,7 +79,7 @@ public class Utilities {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (reader != null) {
+			if (reader != null) { // Always check if a reference is not null inside a try block
 				try {
 					reader.close();
 				} catch (IOException e) {
