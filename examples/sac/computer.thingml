@@ -1,0 +1,22 @@
+import "includes/messages.thingml"
+import "includes/datatypes.thingml"
+
+
+thing Computer includes tempMsgs {
+	
+	provided port dataEntryPoint {
+		receives temperatureMessage
+	}
+	statechart computer init showData{
+		state showData {
+			internal
+			event rec : dataEntryPoint?temperatureMessage
+			action print rec.TemperatureData
+		}
+	}
+}
+
+configuration computerCfg {
+	instance computer:Computer
+	connector computer.dataEntryPoint over MQTT
+}
