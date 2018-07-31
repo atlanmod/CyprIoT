@@ -2,6 +2,7 @@
 
 A Domain-Specific language (DSL) to design network of things easily.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/72b49101c49245b3b7127635419acad6)](https://app.codacy.com/app/imberium/CyprIoT?utm_source=github.com&utm_medium=referral&utm_content=atlanmod/CyprIoT&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
 
 ## Project Structure
