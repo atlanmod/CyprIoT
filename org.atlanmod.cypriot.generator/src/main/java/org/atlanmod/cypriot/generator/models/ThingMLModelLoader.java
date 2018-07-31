@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-public class ThingMLLoader extends Model {
+public class ThingMLModelLoader extends ModelLoader {
 	
 	static final Logger log = Logger.getLogger(Utilities.class.getName());
 	

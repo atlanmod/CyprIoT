@@ -6,7 +6,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class CypriotLoader extends Model {
+public class CypriotModelLoader extends ModelLoader {
 	
 	static final Logger log = Logger.getLogger(Utilities.class.getName());
 	

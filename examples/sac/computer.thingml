@@ -1,5 +1,4 @@
 import "includes/messages.thingml"
-import "includes/datatypes.thingml"
 
 
 thing Computer includes tempMsgs {
@@ -11,7 +10,7 @@ thing Computer includes tempMsgs {
 		state showData {
 			internal
 			event rec : dataEntryPoint?temperatureMessage
-			action print rec.TemperatureData
+			action print "Current Temperature is : "+rec.TemperatureData
 		}
 	}
 }

@@ -10,11 +10,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-public abstract class Model {
+public abstract class ModelLoader {
 	
 	final protected ExceptionHandler exceptionHandler = new ModeExceptionHandler();
 	
-	public Model() {
+	public ModelLoader() {
 		this.loadModel();
 	}
 	
