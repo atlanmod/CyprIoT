@@ -2,7 +2,12 @@
 
 A Domain-Specific language (DSL) to design network of things easily.
 
-[![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
+[![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/514aac3f5239460281668f1bc65305d3)](https://www.codacy.com/app/imberium/CyprIoT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atlanmod/CyprIoT&amp;utm_campaign=Badge_Grade) [![codecov](https://codecov.io/gh/atlanmod/CyprIoT/branch/master/graph/badge.svg)](https://codecov.io/gh/atlanmod/CyprIoT)
+
+## Features
+
+* Model a network of things using a DSL, formalized using Xtext [here](https://github.com/atlanmod/CyprIoT/tree/master/org.atlanmod.cypriot/src/org/atlanmod/cypriot)
+* Generate code working code of the network from the model
 
 ## Project Structure
 
@@ -19,13 +24,6 @@ A Domain-Specific language (DSL) to design network of things easily.
 * Maven 3.5+
 
 ## Installation
-
-The project consists of the following artifacts : 
-
-* A Code syntax, formalized [here](https://github.com/atlanmod/CyprIoT/tree/master/org.atlanmod.cypriot/src/org/atlanmod/cypriot)
-* Code generators, available in generators package
-
-How to get started :
 
 * Run ``mvn clean install`` at the root of the project	
 * Import the project into Eclipse

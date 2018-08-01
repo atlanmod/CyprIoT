@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.eclipse.m2m.atl.emftvm.standalone.ATLRunner;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -23,7 +24,7 @@ public class App implements Runnable {
 	File cypriotInputFile;
 	
 	public void run() {
-		System.out.println("CyprIoT v"+Utilities.getProjectVersion());
+		System.out.println("CyprIoT v"+Utilities.getProjectVersionFromMaven());
         if (verbose.length > 0) {
         	log.info("Verbose mode enabled");
         	log.debug("Processing "+ cypriotInputFile.getName() + " file...");
@@ -31,6 +32,7 @@ public class App implements Runnable {
         if (verbose.length > 1) {
         	log.debug(cypriotInputFile.getAbsolutePath());
         }
+        
     }
 	
 	public static void main(String[] args) {

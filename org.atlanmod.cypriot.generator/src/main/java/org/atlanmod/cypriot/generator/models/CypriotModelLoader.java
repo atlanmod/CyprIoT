@@ -3,23 +3,24 @@ package org.atlanmod.cypriot.generator.models;
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.eclipse.emf.ecore.resource.Resource;
 
 public class CypriotModelLoader extends ModelLoader {
 	
-	static final Logger log = Logger.getLogger(Utilities.class.getName());
+	private static final Logger log = Logger.getLogger(CypriotModelLoader.class.getName());
 	
 	CyprIoTModel cypriotModel;
-	@Override
-	void loadModel() {
 		
+	public CypriotModelLoader() {
+		super();
 	}
 	
 	/**
 	 * A method to register the Cypriot factory, mandatory to load a model
 	 */
-	public void registerFactory() {
+	@Override
+	void registerFactory() {
+		log.debug("Registering Cypriot factory");
 		CypriotStandaloneSetup.doSetup();
 	}
 	
@@ -29,22 +30,10 @@ public class CypriotModelLoader extends ModelLoader {
 	 * @param string
 	 * @return
 	 */
-	CyprIoTModel loadCypriotModelFromString(String str) {
-		registerFactory();
-		Resource resource = Utilities.loadResourceFromString(str);
-		cypriotModel = loadCypriotModelFromResource(resource);
+	CyprIoTModel loadCypriotModelFromString(String string) {
+		Resource resource = loadResourceFromString(string);
+		cypriotModel = loadModelFromResource(resource,CyprIoTModel.class);
 		return cypriotModel;
-	}
-	
-	/**
-	 * Load a Cypriot model from a loaded resource
-	 * 
-	 * @param resource
-	 * @return
-	 */
-	public CyprIoTModel loadCypriotModelFromResource(Resource resource) {
-		CyprIoTModel model = (CyprIoTModel) resource.getContents().get(0);
-		return model;
 	}
 
 }

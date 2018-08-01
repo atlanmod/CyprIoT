@@ -22,6 +22,13 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>atl-emftvm</groupId>
+			<artifactId>atl-emftvm</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/atl-emftvm-fatjar.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>org.thingml</groupId>
 			<artifactId>thingml-registry</artifactId>
 			<version>1.0</version>
@@ -56,6 +63,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -111,10 +119,6 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.1</version>
-				<configuration>
-					<destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-					<dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-				</configuration>
 				<executions>
 					<execution>
 						<id>jacoco-initialize</id>
@@ -124,14 +128,7 @@
 					</execution>
 					<execution>
 						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>jacoco-site</id>
-						<phase>package</phase>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>

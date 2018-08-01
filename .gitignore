@@ -112,6 +112,8 @@ garbage/
 
 *.project
 *.jar
+!thingml-registry.jar
+!atl-emftvm-fatjar.jar
 old
 plugin.xml
 plugin.xml_gen
