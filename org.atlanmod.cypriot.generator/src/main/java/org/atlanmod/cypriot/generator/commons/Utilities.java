@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.generator.templates.FileProcessingTemplate;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
@@ -22,25 +23,40 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 public class Utilities {
 
 	private static final Logger log = Logger.getLogger(Utilities.class.getName());
-	
-	
+
+	public static String appendStrings(EList<? extends EObject> list,String separator) {
+		String currentSeparator = "";
+		StringBuilder builder = new StringBuilder();
+		for (EObject eObject : list) {
+		    builder.append(currentSeparator);
+		    if (eObject instanceof NamedElement) {
+		        String name = ((NamedElement)eObject).getName();
+			    builder.append(name);
+
+		     }
+		    currentSeparator = separator;
+		}
+		return builder.toString();
+	}
+
 	/**
 	 * Return all types in a network
+	 * 
 	 * @param model
 	 * @return
 	 */
 	public static <T extends EObject> ArrayList<T> allTypesInNetwork(CyprIoTModel model, Class<T> type) {
 		EList<EObject> allNetworkEObjects = ((EObject) model.getNetworks().get(0)).eContents();
-        ArrayList<T> instanceThings = new ArrayList<T>();
-        for (EObject eObject : allNetworkEObjects) {
-        	
-        	if(type.isInstance(eObject)) {
-        		instanceThings.add((T)eObject);
-        	}
+		ArrayList<T> instanceThings = new ArrayList<T>();
+		for (EObject eObject : allNetworkEObjects) {
+
+			if (type.isInstance(eObject)) {
+				instanceThings.add((T) eObject);
+			}
 		}
 		return instanceThings;
 	}
-	
+
 	/**
 	 * Read a file and returns its content
 	 * 
@@ -48,18 +64,20 @@ public class Utilities {
 	 * @return
 	 */
 	public static String getContentFromFile(File file) {
-		return new FileProcessingTemplate(){}.process(file);
+		return new FileProcessingTemplate() {
+		}.process(file);
 	}
 
 	/**
 	 * Create a Xtext resource from a file
+	 * 
 	 * @param file
 	 * @param log
 	 * @return
 	 */
 	public static Resource createResourceFromFile(File file) {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
-		log.debug("URI : "+ xmiuri.path());
+		log.debug("URI : " + xmiuri.path());
 		ResourceSet rs = new ResourceSetImpl();
 		Resource model = rs.createResource(xmiuri);
 		return model;
@@ -85,13 +103,13 @@ public class Utilities {
 
 	/**
 	 * A private method to help separating error handling from logic
+	 * 
 	 * @return
 	 * @throws IOException
 	 * @throws XmlPullParserException
 	 * @throws FileNotFoundException
 	 */
-	private static String readVersionMavenFile()
-			throws IOException, XmlPullParserException, FileNotFoundException {
+	private static String readVersionMavenFile() throws IOException, XmlPullParserException, FileNotFoundException {
 		MavenXpp3Reader reader = new MavenXpp3Reader();
 		Model model;
 		model = reader.read(new FileReader("../pom.xml"));
@@ -101,6 +119,7 @@ public class Utilities {
 
 	/**
 	 * Check if there are syntactic errors in the model
+	 * 
 	 * @param model
 	 * @param log
 	 * @return
@@ -114,6 +133,7 @@ public class Utilities {
 
 	/**
 	 * Check if there is any error in the model
+	 * 
 	 * @param model
 	 * @param log
 	 * @return
@@ -137,6 +157,7 @@ public class Utilities {
 
 	/**
 	 * Check if there is any warning in the resource
+	 * 
 	 * @param model
 	 * @param log
 	 */
@@ -156,5 +177,5 @@ public class Utilities {
 		}
 		return noWarning;
 	}
-	
+
 }
