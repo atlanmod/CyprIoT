@@ -30,24 +30,24 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 	override IScope getScope(EObject context, EReference reference) {
 
 		if (reference == cypriotInstance.user_AssignedRoles || reference == cypriotInstance.thing_AssignedRoles) {
-			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instanceThing_TypeThing) {
-			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instancePubSub_TypePubSub) {
-			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instanceReqRep_TypeReqRep) {
-			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instanceThing_Owner) {
-			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopics(context.eContainer as PubSub));
 		} else if (reference == cypriotInstance.bindPubSub_ThingInstance ||
 			reference == cypriotInstance.bindReqRep_ThingInstance) {
-			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bindPubSub_PubSubInstance) {
-			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bindReqRep_ReqRepInstance) {
-			return Scopes.scopeFor(Helpers.allReqRepinstances(Helpers.findContainingModel(context as CyprIoTModel)));
+			return Scopes.scopeFor(Helpers.allReqRepinstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bindPubSub_Topics) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Topic)

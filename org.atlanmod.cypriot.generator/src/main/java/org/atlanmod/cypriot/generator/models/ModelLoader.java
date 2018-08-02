@@ -15,9 +15,16 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+/**
+ * The {@link ModelLoader} class loads a model
+ * @author imberium
+ *
+ */
 public abstract class ModelLoader {
 	
 	final protected ExceptionHandler exceptionHandler = new ModelExceptionHandler();
+	
+	String fileContent;
 	
 	
 	public ModelLoader() {
@@ -25,6 +32,7 @@ public abstract class ModelLoader {
 	}
 	
 	abstract void registerFactory();
+	abstract <T extends EObject> T loadModel();
 	
 	/**
 	 * Load the EMF graph of the model from a File
@@ -54,6 +62,23 @@ public abstract class ModelLoader {
 	}
 	
 	/**
+	 * Load the EMF graph of the model from a String
+	 * 
+	 * @param string
+	 * @return
+	 */
+	public Resource loadResourceFromString(String string) {
+		try {
+			return loadStringAsResouce(string);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
 	 * Load a model from a loaded resource
 	 * 
 	 * @param resource
@@ -64,24 +89,6 @@ public abstract class ModelLoader {
 		T model = type.cast(resource.getContents().get(0));
 		return model;
 	}
-	
-	
-	/**
-	 * Load the EMF graph of the model from a String
-	 * 
-	 * @param string
-	 * @return
-	 */
-	public static Resource loadResourceFromString(String string) {
-		try {
-			return loadStringAsResouce(string);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	/**
 	 * A private method to help separating error handling from logic
@@ -91,7 +98,7 @@ public abstract class ModelLoader {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	private static Resource loadStringAsResouce(String string) throws IOException, Exception {
+	private Resource loadStringAsResouce(String string) throws IOException, Exception {
 		ResourceSet rs = new ResourceSetImpl();
 		Resource resources = rs.createResource(URI.createURI("dummy:/example.cy"));
 		InputStream in = new ByteArrayInputStream(string.getBytes());
@@ -106,7 +113,7 @@ public abstract class ModelLoader {
 	 * @param resources
 	 * @throws Exception
 	 */
-	private static void checkProblemsInChildResources(Resource resources) throws Exception {
+	private void checkProblemsInChildResources(Resource resources) throws Exception {
 		for (Resource r : resources.getResourceSet().getResources()) {
 			if(!Utilities.checkProblemsInModel(r)) {
 				throw new Exception();

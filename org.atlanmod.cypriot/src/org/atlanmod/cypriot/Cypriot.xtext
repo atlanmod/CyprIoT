@@ -110,7 +110,7 @@ BindReqRep:
 // Terminals
 
 @Override 
-terminal INT returns ecore::EInt: ('0'..'9')+;
+terminal INT returns ecore::EInt: ('1'..'9')('0'..'9')*;
 
 terminal STRING_LIT	: 
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';

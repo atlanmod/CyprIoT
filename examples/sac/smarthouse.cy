@@ -40,7 +40,7 @@ channel:pubsub CommandBroker {
 //Network Configuration
 network stlsNetwork {
 	instanceThing Monitor~gateway owner cityUser
-	instanceThing Car~car[2] owner anyuser
+	instanceThing Car~car[1] owner anyuser
 	instancePubsub Broker~CentralMqtt
 	instancePubsub CommandBroker~commandsMqtt
 	instanceReqrep Central~rest

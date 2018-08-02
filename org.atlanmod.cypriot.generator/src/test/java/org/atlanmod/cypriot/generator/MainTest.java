@@ -11,6 +11,7 @@ import org.atlanmod.cypriot.generator.commons.TemporaryFileProcessor;
 import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.models.ModelLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
@@ -23,7 +24,8 @@ public class MainTest {
 	@Test
 	public void loadResourceFromStringTest() throws Exception {
 		String string = "role:anyrole";
-		Resource resource = CypriotModelLoader.loadResourceFromString(string);
+		ModelLoader cypriotModelLoader = new CypriotModelLoader(null);
+		Resource resource = cypriotModelLoader.loadResourceFromString(string);
 		assertTrue(Utilities.checkProblemsInModel(resource));
 		assertTrue(Utilities.checkErrorsInResource(resource));
 		assertTrue(Utilities.checkWarningInResource(resource));
@@ -33,7 +35,8 @@ public class MainTest {
 	@Test(expected = NullPointerException.class)
 	public void loadResourceFromStringTestException() throws Exception {
 		String string = "blabla*\\$$";
-		Resource resource = CypriotModelLoader.loadResourceFromString(string);
+		ModelLoader cypriotModelLoader = new CypriotModelLoader(null);
+		Resource resource = cypriotModelLoader.loadResourceFromString(string);
 		Utilities.checkProblemsInModel(resource);
 //		assertFalse(Utilities.checkProblemsInModel(resource));
 //		assertFalse(Utilities.checkErrorsInResource(resource));
@@ -46,7 +49,7 @@ public class MainTest {
 		String textToWrite = "role:anyrole";
 		String fileName ="temp";
 		String fileExtenstion = ".cy";
-		CypriotModelLoader model = new CypriotModelLoader();
+		CypriotModelLoader model = new CypriotModelLoader(null);
 		FileProcessor fileprocessor = new TemporaryFileProcessor();
 		fileprocessor.setTextToWrite(textToWrite);
 		fileprocessor.setFileName(fileName);

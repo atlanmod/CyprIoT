@@ -4,13 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.templates.FileProcessingTemplate;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -18,7 +22,25 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 public class Utilities {
 
 	private static final Logger log = Logger.getLogger(Utilities.class.getName());
-
+	
+	
+	/**
+	 * Return all types in a network
+	 * @param model
+	 * @return
+	 */
+	public static <T extends EObject> ArrayList<T> allTypesInNetwork(CyprIoTModel model, Class<T> type) {
+		EList<EObject> allNetworkEObjects = ((EObject) model.getNetworks().get(0)).eContents();
+        ArrayList<T> instanceThings = new ArrayList<T>();
+        for (EObject eObject : allNetworkEObjects) {
+        	
+        	if(type.isInstance(eObject)) {
+        		instanceThings.add((T)eObject);
+        	}
+		}
+		return instanceThings;
+	}
+	
 	/**
 	 * Read a file and returns its content
 	 * 
