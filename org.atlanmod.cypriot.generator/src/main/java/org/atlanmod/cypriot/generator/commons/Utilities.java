@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.generator.templates.FileProcessingTemplate;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
