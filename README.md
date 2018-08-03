@@ -44,3 +44,6 @@ To run some examples of the language :
 ## Contributors
 
 * imberium
+
+LoC
+1337

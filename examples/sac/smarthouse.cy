@@ -11,13 +11,13 @@ user:anyuser
 	assigned actor
 
 // Devices declaration
-thing:Trafficlight 
+thing:LightSensor 
 	assigned sensor,actuator
-	import "trafficlight.thingml"
+	import "light_sensor.thingml"
 
-thing:Car
+thing:Temperature
 	assigned sensor,actuator
-	import "car.thingml"
+	import "temperature_sensor.ino"
 	
 thing:Computer 
 	assigned actuator
@@ -40,19 +40,7 @@ channel:pubsub CommandBroker {
 //STLS Network Configuration
 network stlsNetwork {
 	instanceThing Computer~gateway owner cityUser
-	instanceThing Car~car[1] owner anyuser
-	instancePubsub Broker~CentralMqtt
-	instancePubsub CommandBroker~commandsMqtt
-	instanceReqrep Central~rest
-	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
-	bindPubSub gateway.cloud => CentralMqtt{room1}
-	bindReqRep car.speed => rest.speed
-}
-
-//Home Network Configuration
-network homeNetwork {
-	instanceThing Computer~gateway owner cityUser
-	instanceThing Car~car[1] owner anyuser
+	instanceThing Temperature~car[1] owner anyuser
 	instancePubsub Broker~CentralMqtt
 	instancePubsub CommandBroker~commandsMqtt
 	instanceReqrep Central~rest

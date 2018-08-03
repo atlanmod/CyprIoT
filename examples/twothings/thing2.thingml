@@ -1,0 +1,21 @@
+import "includes/messages.thingml"
+
+
+thing Thing2 includes tempMsgs {
+	
+	required port dataEntryPoint {
+		receives temperatureMessage
+	}
+	statechart thing2 init showData{
+		state showData {
+			internal
+			event rec : dataEntryPoint?temperatureMessage
+			action print "Current Temperature is : "+rec.TemperatureData
+		}
+	}
+}
+
+configuration thing1Exec {
+	instance computer:Thing2
+	connector computer.dataEntryPoint over MQTT
+}
