@@ -75,6 +75,7 @@ public class SimpleNetworkGenerator {
 			}
 			String roles = Utilities.appendStrings(getAssignedRolesToThing(instanceThing), ",");
 			log.debug("Roles : " + roles);
+			log.debug("Roles : " + roles);
 		}
 
 		ArrayList<InstancePubSub> pubSubs = Utilities.allTypesInNetwork(network, InstancePubSub.class);
