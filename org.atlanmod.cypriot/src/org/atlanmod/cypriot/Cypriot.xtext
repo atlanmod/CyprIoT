@@ -63,13 +63,13 @@ Network:
 
 
 InstanceThing :
-	'instanceThing'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])?
+	'instanceThing'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
 ;
 InstancePubSub :
-	'instancePubsub'typePubSub=[PubSub] '~' name=ID
+	'instancePubsub'typePubSub=[PubSub] '~' name=ID  platform=('@mqtt' | '@amqp' )
 ;
 InstanceReqRep :
-	'instanceReqrep'typeReqRep=[ReqRep] '~' name=ID
+	'instanceReqrep'typeReqRep=[ReqRep] '~' name=ID platform=('@http' | '@coap' )
 ;
 ReqRep:
 	'channel:reqrep' name=ID '{'
@@ -83,10 +83,10 @@ Port:
 	'channel:stream' name=ID '{'
 		
 	'}'
-;*/
+;
 Group:
 	'group' name=ID
-;
+;*/
 
 Endpoint:
 	'endpoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
@@ -121,4 +121,4 @@ terminal STRING_LIT	:
 			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
 
 terminal ANNOTATION_ID:
-	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*; 

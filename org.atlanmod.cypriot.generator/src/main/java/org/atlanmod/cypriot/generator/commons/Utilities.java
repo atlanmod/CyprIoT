@@ -40,16 +40,16 @@ public class Utilities {
 	}
 
 	/**
-	 * Return all types in a network
+	 * Return all types in a given EObject
 	 * 
 	 * @param model
 	 * @return
 	 */
-	public static <T extends EObject> ArrayList<T> allTypesInNetwork(CyprIoTModel model, Class<T> type) {
-		EList<EObject> allNetworkEObjects = ((EObject) model.getNetworks().get(0)).eContents();
+	public static <T extends EObject> ArrayList<T> allTypesInNetwork(EObject supertype, Class<T> type) {
+		
+		EList<EObject> allChildrenTypes = supertype.eContents();
 		ArrayList<T> instanceThings = new ArrayList<T>();
-		for (EObject eObject : allNetworkEObjects) {
-
+		for (EObject eObject : allChildrenTypes) {
 			if (type.isInstance(eObject)) {
 				instanceThings.add((T) eObject);
 			}

@@ -37,8 +37,20 @@ channel:pubsub CommandBroker {
 	topic realTimeCommand
 }
 
-//Network Configuration
+//STLS Network Configuration
 network stlsNetwork {
+	instanceThing Monitor~gateway owner cityUser
+	instanceThing Car~car[1] owner anyuser
+	instancePubsub Broker~CentralMqtt
+	instancePubsub CommandBroker~commandsMqtt
+	instanceReqrep Central~rest
+	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
+	bindPubSub gateway.cloud => CentralMqtt{room1}
+	bindReqRep car.speed => rest.speed
+}
+
+//Home Network Configuration
+network homeNetwork {
 	instanceThing Monitor~gateway owner cityUser
 	instanceThing Car~car[1] owner anyuser
 	instancePubsub Broker~CentralMqtt
