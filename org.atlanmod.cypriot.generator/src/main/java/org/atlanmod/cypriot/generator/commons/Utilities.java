@@ -63,8 +63,9 @@ public class Utilities {
 	 * @return
 	 */
 	public static String getContentFromFile(File file) {
-		return new FileProcessingTemplate() {
-		}.process(file);
+		String content = new FileProcessingTemplate() {}.process(file);
+		log.debug(" \n \n ##### File Content "+file.getName()+ " ##### \n \n"+content);
+		return content;
 	}
 
 	/**

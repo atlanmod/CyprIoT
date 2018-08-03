@@ -19,9 +19,9 @@ thing:Car
 	assigned sensor,actuator
 	import "car.thingml"
 	
-thing:Monitor 
+thing:Computer 
 	assigned actuator
-	import "monitor.ino"
+	import "computer.thingml"
 		
 // Communication channels declaration
 channel:reqrep Central {
@@ -39,7 +39,7 @@ channel:pubsub CommandBroker {
 
 //STLS Network Configuration
 network stlsNetwork {
-	instanceThing Monitor~gateway owner cityUser
+	instanceThing Computer~gateway owner cityUser
 	instanceThing Car~car[1] owner anyuser
 	instancePubsub Broker~CentralMqtt
 	instancePubsub CommandBroker~commandsMqtt
@@ -51,7 +51,7 @@ network stlsNetwork {
 
 //Home Network Configuration
 network homeNetwork {
-	instanceThing Monitor~gateway owner cityUser
+	instanceThing Computer~gateway owner cityUser
 	instanceThing Car~car[1] owner anyuser
 	instancePubsub Broker~CentralMqtt
 	instancePubsub CommandBroker~commandsMqtt

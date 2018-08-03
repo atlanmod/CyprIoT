@@ -57,6 +57,7 @@ public class SimpleNetworkGenerator {
 
 	}
 
+	
 	/**
 	 * @param network
 	 */
@@ -64,12 +65,15 @@ public class SimpleNetworkGenerator {
 		log.debug("######## Network : "+network.getName()+" ########");
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);
 		for (InstanceThing instanceThing : instanceThings) {
-			InstanceThing instance = (InstanceThing) instanceThing;
-			String instanceName = getIdNameOfEobject(instance);
-			log.debug("Thing Name : " + instanceName + " Number : " + instance.getNumberOfInstances());
-			String fullThingPath = getImportedThingPath(instance);			
+			String instanceName = getIdNameOfEobject(instanceThing);
+			log.debug("Thing Name : " + instanceName + " Number : " + instanceThing.getNumberOfInstances());
+			String fullThingPath = getImportedThingPath(instanceThing);			
 			
-			String roles = Utilities.appendStrings(getAssignedRolesToThing(instance), ",");
+			File file = getFileFromPath(fullThingPath);
+			if(file!=null) {
+				Utilities.getContentFromFile(file);
+			}
+			String roles = Utilities.appendStrings(getAssignedRolesToThing(instanceThing), ",");
 			log.debug("Roles : " + roles);
 		}
 
@@ -100,7 +104,35 @@ public class SimpleNetworkGenerator {
 		}
 	}
 
+	
 	/**
+	 * Utility function to check if a file exist in the given path
+	 * @param instance
+	 * @return
+	 */
+	public boolean isFileExists(File file) {
+		if(file.exists() && !file.isDirectory()) {
+			log.debug("Thing model file is present");
+		    return true;
+		}
+		log.error("Thing model file does not exist");
+		return false;
+	}
+
+	/**
+	 * @param filePathString
+	 * @return
+	 */
+	public File getFileFromPath(String filePathString) {
+		File file = new File(filePathString);
+		if(isFileExists(file)) {
+			return file;
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the name of any EObject
 	 * @param instance
 	 * @return
 	 */
@@ -113,6 +145,7 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
+	 * Get the assigned roles to the thing corresponding to the instanceThing
 	 * @param instance
 	 * @return
 	 */
@@ -121,6 +154,7 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
+	 * Get the full path of the imported thing model
 	 * @param instance
 	 * @return
 	 */
@@ -129,7 +163,7 @@ public class SimpleNetworkGenerator {
 		thingPath = thingPath.replace("\"","");
 		String fullThingPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/"+thingPath;
 		log.debug("Full thing path : "+fullThingPath);
-		log.debug("Import path" + thingPath);
+		log.debug("Import path : " + thingPath);
 		return fullThingPath;
 	}
 }
