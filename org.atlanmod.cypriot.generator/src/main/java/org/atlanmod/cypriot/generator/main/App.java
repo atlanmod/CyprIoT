@@ -31,9 +31,9 @@ public class App implements Runnable {
 		if (verbose.length > 1) {
 			log.debug(cypriotInputFile.getAbsolutePath());
 		}
-		String fileContent = Utilities.getContentFromFile(cypriotInputFile);
 		SimpleNetworkGenerator networkGenerator = new SimpleNetworkGenerator();
-		networkGenerator.generate(fileContent);
+		networkGenerator.setCypriotFile(cypriotInputFile);
+		networkGenerator.generate();
 
 	}
 

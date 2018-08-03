@@ -1,5 +1,6 @@
 package org.atlanmod.cypriot.generator.networkgenerator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -23,15 +24,32 @@ import org.eclipse.emf.common.util.EList;
 public class SimpleNetworkGenerator {
 
 	final Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
+	
+	private File cypriotFile;
 
-	public void generate(String fileContent) {
+	/**
+	 * @return the cypriotFile
+	 */
+	public File getCypriotFile() {
+		return cypriotFile;
+	}
+
+	/**
+	 * @param cypriotFile the cypriotFile to set
+	 */
+	public void setCypriotFile(File cypriotFile) {
+		this.cypriotFile = cypriotFile;
+	}
+
+	public void generate() {
+		String fileContent = Utilities.getContentFromFile(cypriotFile);
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader(fileContent);
 		CyprIoTModel model = cypriotModelLoader.loadModel();
 
 		EList<Network> allNetworks = model.getNetworks();
 
 		for (Network network : allNetworks) {
-			getallNetworksInfo(network);
+			allNetworksInfo(network);
 		}
 
 	}
@@ -39,13 +57,15 @@ public class SimpleNetworkGenerator {
 	/**
 	 * @param network
 	 */
-	public void getallNetworksInfo(Network network) {
+	public void allNetworksInfo(Network network) {
 		log.debug("######## Network : "+network.getName()+" ########");
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);
 		for (InstanceThing instanceThing : instanceThings) {
 			InstanceThing instance = (InstanceThing) instanceThing;
-			log.debug("Thing Name : " + instance.getName() + " Number : " + instance.getNumberOfInstances());
-			log.debug("Import path" + instance.getTypeThing().getImportPath());
+			String instanceName = instance.getName();
+			log.debug("Thing Name : " + instanceName + " Number : " + instance.getNumberOfInstances());
+			String fullThingPath = getImportedThingPath(instance);			
+			
 			String roles = Utilities.appendStrings(instance.getTypeThing().getAssignedRoles(), ",");
 			log.debug("Roles : " + roles);
 		}
@@ -53,13 +73,15 @@ public class SimpleNetworkGenerator {
 		ArrayList<InstancePubSub> pubSubs = Utilities.allTypesInNetwork(network, InstancePubSub.class);
 
 		for (InstancePubSub pubSub : pubSubs) {
-			log.debug("PubSub Name : " + ((InstancePubSub) pubSub).getName());
+			String pubSubName = ((InstancePubSub) pubSub).getName();
+			log.debug("PubSub Name : " + pubSubName);
 		}
 
 		ArrayList<InstanceReqRep> reqReps = Utilities.allTypesInNetwork(network, InstanceReqRep.class);
 
 		for (InstanceReqRep reqRep : reqReps) {
-			log.debug("ReqRep Name : " + ((InstanceReqRep) reqRep).getName());
+			String ReqRepName = ((InstanceReqRep) reqRep).getName();
+			log.debug("ReqRep Name : " + ReqRepName);
 		}
 
 		ArrayList<BindPubSub> bindPubSubs = Utilities.allTypesInNetwork(network, BindPubSub.class);
@@ -73,5 +95,18 @@ public class SimpleNetworkGenerator {
 			log.debug("Bind ThingInstance : " + instanceThing.getName() + " port : " + subjectPort + " PubSub : "
 					+ pubsub.getName() + " Topics : " + topics);
 		}
+	}
+
+	/**
+	 * @param instance
+	 * @return
+	 */
+	public String getImportedThingPath(InstanceThing instance) {
+		String thingPath= instance.getTypeThing().getImportPath();
+		thingPath = thingPath.replace("\"","");
+		String fullThingPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/"+thingPath;
+		log.debug("Full thing path : "+fullThingPath);
+		log.debug("Import path" + thingPath);
+		return fullThingPath;
 	}
 }
