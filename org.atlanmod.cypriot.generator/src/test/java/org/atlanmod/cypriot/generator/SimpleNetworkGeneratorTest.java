@@ -15,6 +15,7 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.networkgenerator.NetworkHelper;
 import org.atlanmod.cypriot.generator.networkgenerator.SimpleNetworkGenerator;
 import org.eclipse.emf.common.util.EList;
 import org.junit.After;
@@ -44,26 +45,26 @@ public class SimpleNetworkGeneratorTest {
 
 	@Test
 	public void testIsFileExists() {
-		assertTrue(networkGen.isFileExists(cypriotFile));;
-		assertFalse(networkGen.isFileExists(doesNotExist));
+		assertTrue(NetworkHelper.isFileExists(cypriotFile));;
+		assertFalse(NetworkHelper.isFileExists(doesNotExist));
 	}
 
 	@Test
 	public void testGetFileFromPath() throws FileNotFoundException {
-		File file = networkGen.getFileFromPath(fileUnderTestPath);
+		File file = NetworkHelper.getFileFromPath(fileUnderTestPath);
 		assertNotNull(file);
 	}
 
 	@Test
 	public void testGetIdNameOfEobject() {
-		String objectName = networkGen.getIdNameOfEobject(instanceThing);
+		String objectName = NetworkHelper.getIdNameOfEobject(instanceThing);
 		assertNotNull(objectName);
 		assertEquals(objectName, "thing1");
 	}
 
 	@Test
 	public void testGetAssignedRolesToThing() {
-		EList<Role> rolesInstance = networkGen.getAssignedRolesToThing(instanceThing);
+		EList<Role> rolesInstance = NetworkHelper.getAssignedRolesToThing(instanceThing);
 		EList<Role> roleThing = cyModel.getImportThings().get(0).getAssignedRoles();
 		rolesInstance.equals(roleThing);	
 	}
@@ -72,7 +73,7 @@ public class SimpleNetworkGeneratorTest {
 	public void testGetImportedThingPath() {
 		
 		String fullPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/thing1.thingml";
-		assertEquals(fullPath, networkGen.getImportedThingPath(instanceThing));
+		assertEquals(fullPath, NetworkHelper.getImportedThingPath(instanceThing,cypriotFile));
 	}
 
 }
