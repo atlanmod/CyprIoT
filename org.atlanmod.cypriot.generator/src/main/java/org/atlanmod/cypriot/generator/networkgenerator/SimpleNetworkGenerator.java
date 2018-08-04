@@ -5,10 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.atlanmod.cypriot.cyprIoT.BindPubSub;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
-import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.generator.commons.Utilities;
@@ -48,7 +45,7 @@ public class SimpleNetworkGenerator {
 	public void generateTheNetwork() {
 		for (Network network : allNetworks) {
 			generateForAllInstanceThings(network);
-			NetworkDebug name = new NetworkDebug(log,cypriotFile,network);
+			new NetworkDebug(log,cypriotFile,network);
 		}
 	}
 

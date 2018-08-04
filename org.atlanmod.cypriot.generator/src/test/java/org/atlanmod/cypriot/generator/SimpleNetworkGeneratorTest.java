@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.networkgenerator.NetworkHelper;
 import org.atlanmod.cypriot.generator.networkgenerator.SimpleNetworkGenerator;

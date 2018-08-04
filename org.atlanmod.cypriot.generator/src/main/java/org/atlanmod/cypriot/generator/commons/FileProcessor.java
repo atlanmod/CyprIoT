@@ -2,13 +2,11 @@ package org.atlanmod.cypriot.generator.commons;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.generator.exceptions.ExceptionHandler;
 import org.atlanmod.cypriot.generator.exceptions.ModelExceptionHandler;
 
 public abstract class FileProcessor {
 
-	private static final Logger log = Logger.getLogger(FileProcessor.class.getName());
 	final protected ExceptionHandler exceptionHandler = new ModelExceptionHandler();
 
 	String textToWrite = null;

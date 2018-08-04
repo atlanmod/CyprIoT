@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
  * The {@link CypriotModelLoader} class loads a CyprIoT model
@@ -43,6 +42,7 @@ public class CypriotModelLoader extends ModelLoader {
 	 * @param string
 	 * @return
 	 */
+	@SuppressWarnings("unchecked") // I know what I am doing
 	@Override
 	protected CyprIoTModel loadModel() {
 		Resource resource = loadResourceFromString(fileContent);

@@ -44,6 +44,7 @@ public class Utilities {
 	 * @param model
 	 * @return
 	 */
+	@SuppressWarnings("unchecked") // I know what I am doing
 	public static <T extends EObject> ArrayList<T> allTypesInNetwork(EObject supertype, Class<T> type) {
 		
 		EList<EObject> allChildrenTypes = supertype.eContents();

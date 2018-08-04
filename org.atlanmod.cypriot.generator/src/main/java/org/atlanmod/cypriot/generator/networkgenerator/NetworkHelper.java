@@ -3,7 +3,6 @@ package org.atlanmod.cypriot.generator.networkgenerator;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Role;
@@ -18,7 +17,6 @@ import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkHelper {
-	private Logger log;
 
 	/**
 	 * Get the ID name of any EObject

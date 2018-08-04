@@ -1,6 +1,6 @@
 package org.atlanmod.cypriot.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
@@ -9,11 +9,8 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.FileProcessor;
 import org.atlanmod.cypriot.generator.commons.TemporaryFileProcessor;
 import org.atlanmod.cypriot.generator.commons.Utilities;
-import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
-import org.atlanmod.cypriot.generator.models.ModelLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 import org.thingml.xtext.thingML.ThingMLModel;
 

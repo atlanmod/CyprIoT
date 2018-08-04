@@ -3,7 +3,6 @@ package org.atlanmod.cypriot.generator.models;
 import java.io.File;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -43,6 +42,7 @@ public class ThingMLModelLoader extends ModelLoader {
 	 * @param string
 	 * @return
 	 */
+	@SuppressWarnings("unchecked") // I know what I am doing
 	@Override
 	protected ThingMLModel loadModel() {
 		Resource resource = loadResourceFromString(fileContent);
