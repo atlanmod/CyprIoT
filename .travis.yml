@@ -3,5 +3,6 @@ sudo: false
 dist: trusty
 jdk: oraclejdk8
 language: java
+script: mvn clean verify -U
 after_success:
   - bash <(curl -s https://codecov.io/bash)

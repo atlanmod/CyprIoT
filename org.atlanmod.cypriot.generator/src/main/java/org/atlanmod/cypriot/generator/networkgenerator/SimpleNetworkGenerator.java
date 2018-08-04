@@ -18,12 +18,9 @@ import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.junit.Ignore;
-import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.compilers.c.posixmt.PosixMTCompiler;
 import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
-import org.thingml.networkplugins.c.posix.PosixSerialPlugin;
 import org.thingml.utilities.logging.SystemLogger;
 import org.thingml.xtext.thingML.ThingMLModel;
 
@@ -54,7 +51,6 @@ public class SimpleNetworkGenerator {
 		this.cypriotFile = cypriotFile;
 	}
 	
-	@Ignore
 	public void generate() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
@@ -115,7 +111,6 @@ public class SimpleNetworkGenerator {
 	/**
 	 * @param network
 	 */
-	@Ignore
 	public void allNetworksInfo(Network network) {
 		log.debug("######## Network : "+network.getName()+" ########");
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);

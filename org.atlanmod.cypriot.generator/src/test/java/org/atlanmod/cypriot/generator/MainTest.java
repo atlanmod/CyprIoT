@@ -32,7 +32,6 @@ public class MainTest {
 		assertNotNull(resource);*/
 	}
 	
-	@Test(expected = NullPointerException.class)
 	public void loadResourceFromStringTestException() throws Exception {
 /*		String string = "blabla*\\$$";
 		ModelLoader cypriotModelLoader = new CypriotModelLoader(null);
