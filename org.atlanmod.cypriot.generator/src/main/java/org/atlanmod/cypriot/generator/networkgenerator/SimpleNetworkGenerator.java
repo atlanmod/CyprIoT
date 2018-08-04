@@ -40,40 +40,80 @@ public class SimpleNetworkGenerator {
 	
 	private File cypriotFile;
 	private File cypriotOutputDirectory;
+	EList<Network> allNetworks;
 	
-	public void generate() {
-		EList<Network> allNetworks = getNetworksInFile();
-		
-		for (Network network : allNetworks) {
-			
-			for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-				
-				ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
-				
-				ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
-				File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
-				
-				thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-				
-				SystemLogger loggerThg = new SystemLogger();
-				
-				thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);				
-				
-				log.debug("ThingML thing name : "+thingmlModel.getTypes().get(0).getName());
-				
-			}
-			allNetworksInfo(network);
-		}
-
-	}
-
-
 	/**
 	 * Debug function, will be removed
 	 * @param network
 	 */
-	public void allNetworksInfo(Network network) {
+	public void debugNetworksInfo(Network network) {
 		log.debug("######## Network : "+network.getName()+" ########");
+		
+		debugInstanceThings(network);
+
+		debugChannels(network);
+
+		debugBindPubSubs(network);
+	}
+
+	/**
+	 * Debug trace for all the channels in the network
+	 * @param network
+	 */
+	public void debugChannels(Network network) {
+		debugPubSubInstances(network);
+		debugReqRepInstances(network);
+	}
+
+	/**
+	 * Debug trace for all the PubSub Binds in the network
+	 * @param network
+	 */
+	public void debugBindPubSubs(Network network) {
+		ArrayList<BindPubSub> bindPubSubs = Utilities.allTypesInNetwork(network, BindPubSub.class);
+
+		for (BindPubSub pubSub : bindPubSubs) {
+			InstanceThing instanceThing = ((BindPubSub) pubSub).getThingInstance();
+			String subjectPort = ((BindPubSub) pubSub).getSubjectPort();
+			InstancePubSub pubsub = ((BindPubSub) pubSub).getPubSubInstance();
+
+			String topics = Utilities.appendStrings(((BindPubSub) pubSub).getTopics(), ",");
+			log.debug("Bind ThingInstance : " + getIdNameOfEobject(instanceThing) + " port : " + subjectPort + " PubSub : "
+					+ pubsub.getName() + " Topics : " + topics);
+		}
+	}
+
+	/**
+	 * Debug trace for all the ReqRep Binds in the network
+	 * @param network
+	 */
+	public void debugReqRepInstances(Network network) {
+		ArrayList<InstanceReqRep> reqReps = Utilities.allTypesInNetwork(network, InstanceReqRep.class);
+
+		for (InstanceReqRep reqRep : reqReps) {
+			String ReqRepName = ((InstanceReqRep) reqRep).getName();
+			log.debug("ReqRep Name : " + ReqRepName);
+		}
+	}
+
+	/**
+	 * Debug trace for all the PubSubInstances in the network
+	 * @param network
+	 */
+	public void debugPubSubInstances(Network network) {
+		ArrayList<InstancePubSub> pubSubs = Utilities.allTypesInNetwork(network, InstancePubSub.class);
+
+		for (InstancePubSub pubSub : pubSubs) {
+			String pubSubName = ((InstancePubSub) pubSub).getName();
+			log.debug("PubSub Name : " + pubSubName);
+		}
+	}
+
+	/**
+	 * Debug trace for all the instanceThings in the network
+	 * @param network
+	 */
+	public void debugInstanceThings(Network network) {
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);
 		for (InstanceThing instanceThing : instanceThings) {
 			String instanceName = getIdNameOfEobject(instanceThing);
@@ -95,31 +135,46 @@ public class SimpleNetworkGenerator {
 			log.debug("Roles : " + roles);
 			log.debug("Roles : " + roles);
 		}
+	}
+	
+	/**
+	 * Process code generation for the whole cy file
+	 */
+	public void generate() {
+		getNetworksInFile();
+		generateTheNetwork();
+	}
 
-		ArrayList<InstancePubSub> pubSubs = Utilities.allTypesInNetwork(network, InstancePubSub.class);
-
-		for (InstancePubSub pubSub : pubSubs) {
-			String pubSubName = ((InstancePubSub) pubSub).getName();
-			log.debug("PubSub Name : " + pubSubName);
+	/**
+	 * Process code generation for the whole network 
+	 */
+	public void generateTheNetwork() {
+		for (Network network : allNetworks) {
+			generateForAllInstanceThings(network);
+			debugNetworksInfo(network);
 		}
+	}
 
-		ArrayList<InstanceReqRep> reqReps = Utilities.allTypesInNetwork(network, InstanceReqRep.class);
-
-		for (InstanceReqRep reqRep : reqReps) {
-			String ReqRepName = ((InstanceReqRep) reqRep).getName();
-			log.debug("ReqRep Name : " + ReqRepName);
-		}
-
-		ArrayList<BindPubSub> bindPubSubs = Utilities.allTypesInNetwork(network, BindPubSub.class);
-
-		for (BindPubSub reqRep : bindPubSubs) {
-			InstanceThing instanceThing = ((BindPubSub) reqRep).getThingInstance();
-			String subjectPort = ((BindPubSub) reqRep).getSubjectPort();
-			InstancePubSub pubsub = ((BindPubSub) reqRep).getPubSubInstance();
-
-			String topics = Utilities.appendStrings(((BindPubSub) reqRep).getTopics(), ",");
-			log.debug("Bind ThingInstance : " + getIdNameOfEobject(instanceThing) + " port : " + subjectPort + " PubSub : "
-					+ pubsub.getName() + " Topics : " + topics);
+	/** 
+	 * Generate code for evey instanceThing in the network
+	 * @param network
+	 */
+	public void generateForAllInstanceThings(Network network) {
+		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
+			
+			ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
+			
+			ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
+			File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
+			
+			thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
+			
+			SystemLogger loggerThg = new SystemLogger();
+			
+			thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);				
+			
+			log.debug("ThingML thing name : "+thingmlModel.getTypes().get(0).getName());
+			
 		}
 	}
 
@@ -134,6 +189,7 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
+	 * Set the network and serialization plugins for the ThingML compiler
 	 * @return
 	 */
 	public ThingMLCompiler setThingMLCompilerPlugins() {
@@ -153,15 +209,12 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
-	 * Get all the network in a cy file
-	 * @return The list of the network in the file
+	 * Set  all the network in a cy file
 	 */
-	public EList<Network> getNetworksInFile() {
+	public void getNetworksInFile() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
-
-		EList<Network> allNetworks = model.getNetworks();
-		return allNetworks;
+		allNetworks = model.getNetworks();
 	}
 	
 	/**
@@ -193,7 +246,6 @@ public class SimpleNetworkGenerator {
 			thingMLFile = getFileFromPath(thingPath);
 			thingmlModel= thingmlloader.loadFromFile(thingMLFile);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return thingmlModel;
