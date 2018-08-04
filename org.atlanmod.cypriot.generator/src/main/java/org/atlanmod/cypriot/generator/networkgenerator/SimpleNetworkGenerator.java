@@ -36,20 +36,6 @@ public class SimpleNetworkGenerator {
 	final Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
 	
 	private File cypriotFile;
-
-	/**
-	 * @return the cypriotFile
-	 */
-	public File getCypriotFile() {
-		return cypriotFile;
-	}
-
-	/**
-	 * @param cypriotFile the cypriotFile to set
-	 */
-	public void setCypriotFile(File cypriotFile) {
-		this.cypriotFile = cypriotFile;
-	}
 	
 	public void generate() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
@@ -59,7 +45,7 @@ public class SimpleNetworkGenerator {
 		
 		for (Network network : allNetworks) {
 			
-			for (InstanceThing instanceThing : instancesInNetwork(network)) {
+			for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
 				File cypriotFolder = new File("/home/imad/dev/eclipse/phd/CyprIoT/org.atlanmod.cypriot.generator/../examples/twothings/gen/"+instanceThing.getName()+"/");
 				ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
 				PosixMTCompiler thingmlCompiler = new PosixMTCompiler();
@@ -84,7 +70,7 @@ public class SimpleNetworkGenerator {
 	/**
 	 * Check whether there is only one configuration in the imported ThingML file
 	 * @param thingmlModel
-	 * @return
+	 * @return True if there is only one configuration, False if not.
 	 */
 	public boolean isConfigCountOne(ThingMLModel thingmlModel) {
 		int configCount = thingmlModel.getConfigs().size();
@@ -96,8 +82,9 @@ public class SimpleNetworkGenerator {
 		return false;
 	}
 	/**
+	 * Get the ThingML model imported by an InstanceThing
 	 * @param instanceThing
-	 * @return
+	 * @return The imported ThingML model
 	 */
 	public ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
 		String thingPath = getImportedThingPath(instanceThing);
@@ -115,16 +102,18 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
+	 * Get the instances of things present in a network
 	 * @param network
-	 * @return
+	 * @return 
 	 */
-	public ArrayList<InstanceThing> instancesInNetwork(Network network) {
+	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
 		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network, InstanceThing.class);
 		return instanceThings;
 	}
 
 	
 	/**
+	 * Debug function, will be removed
 	 * @param network
 	 */
 	public void allNetworksInfo(Network network) {
@@ -182,7 +171,7 @@ public class SimpleNetworkGenerator {
 	/**
 	 * Utility function to check if a file exist in the given path
 	 * @param instance
-	 * @return
+	 * @return True if the file exist, False if not
 	 */
 	public boolean isFileExists(File file) {
 		if(file.exists() && !file.isDirectory()) {
@@ -194,6 +183,7 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
+	 * Utility function to get the file from a path
 	 * @param filePathString
 	 * @return
 	 * @throws FileNotFoundException 
@@ -212,9 +202,9 @@ public class SimpleNetworkGenerator {
 	}
 	
 	/**
-	 * Get the name of any EObject
+	 * Get the ID name of any EObject
 	 * @param instance
-	 * @return
+	 * @return The ID name
 	 */
 	public String getIdNameOfEobject(EObject eObject) {
 		String name =null;
@@ -227,7 +217,7 @@ public class SimpleNetworkGenerator {
 	/**
 	 * Get the assigned roles to the thing corresponding to the instanceThing
 	 * @param instance
-	 * @return
+	 * @return The roles assigned to the instanceThing
 	 */
 	public EList<Role> getAssignedRolesToThing(InstanceThing instance) {
 		return instance.getTypeThing().getAssignedRoles();
@@ -236,7 +226,7 @@ public class SimpleNetworkGenerator {
 	/**
 	 * Get the full path of the imported thing model
 	 * @param instance
-	 * @return
+	 * @return The full path
 	 */
 	public String getImportedThingPath(InstanceThing instance) {
 		String thingPath= instance.getTypeThing().getImportPath();
@@ -245,5 +235,21 @@ public class SimpleNetworkGenerator {
 		log.debug("Full thing path : "+fullThingPath);
 		log.debug("Import path : " + thingPath);
 		return fullThingPath;
+	}
+	
+	/**
+	 * Get the Cypriot file being processed
+	 * @return the cypriotFile
+	 */
+	public File getCypriotFile() {
+		return cypriotFile;
+	}
+
+	/**
+	 * Set the Cypriot file being processed
+	 * @param cypriotFile the cypriotFile to set
+	 */
+	public void setCypriotFile(File cypriotFile) {
+		this.cypriotFile = cypriotFile;
 	}
 }
