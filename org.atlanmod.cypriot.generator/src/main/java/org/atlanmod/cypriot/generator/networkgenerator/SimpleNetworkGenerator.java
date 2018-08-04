@@ -51,8 +51,9 @@ public class SimpleNetworkGenerator {
 				ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
 				
 				ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
+				File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
 				
-				thingmlCompiler.setOutputDirectory(cypriotOutputDirectory);
+				thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
 				
 				SystemLogger loggerThg = new SystemLogger();
 				
@@ -67,6 +68,15 @@ public class SimpleNetworkGenerator {
 	}
 
 
+
+	/**
+	 * @param instanceThing
+	 * @return
+	 */
+	public File getInstanceThingGenDirectory(InstanceThing instanceThing) {
+		File cypriotThingOutputDirectory = new File(cypriotOutputDirectory.getAbsolutePath()+"/"+getIdNameOfEobject(instanceThing));
+		return cypriotThingOutputDirectory;
+	}
 
 	/**
 	 * @return
