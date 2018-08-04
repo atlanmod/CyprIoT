@@ -68,97 +68,6 @@ public class SimpleNetworkGenerator {
 	}
 
 
-
-	/**
-	 * @param instanceThing
-	 * @return
-	 */
-	public File getInstanceThingGenDirectory(InstanceThing instanceThing) {
-		File cypriotThingOutputDirectory = new File(cypriotOutputDirectory.getAbsolutePath()+"/"+getIdNameOfEobject(instanceThing));
-		return cypriotThingOutputDirectory;
-	}
-
-	/**
-	 * @return
-	 */
-	public ThingMLCompiler setThingMLCompilerPlugins() {
-		ThingMLCompiler thingmlCompiler = new PosixMTCompiler();
-		log.debug("Compiler ID : "+thingmlCompiler.getID());
-
-		NetworkPlugin networkPlugin = new PosixMQTTPlugin();
-		log.debug("Network Plugin : "+networkPlugin.getName());
-
-		SerializationPlugin serializationPlugin = new CByteArraySerializerPlugin();
-		log.debug("Serialization Plugin : "+serializationPlugin.getName());
-
-		
-		thingmlCompiler.addNetworkPlugin(networkPlugin);
-		thingmlCompiler.addSerializationPlugin(serializationPlugin);
-		return thingmlCompiler;
-	}
-
-
-
-	/**
-	 * Get all the network in a cy file
-	 * @return The list of the network in the file
-	 */
-	public EList<Network> getNetworksInFile() {
-		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
-		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
-
-		EList<Network> allNetworks = model.getNetworks();
-		return allNetworks;
-	}
-	
-	
-
-	/**
-	 * Check whether there is only one configuration in the imported ThingML file
-	 * @param thingmlModel
-	 * @return True if there is only one configuration, False if not.
-	 */
-	public boolean isConfigCountOne(ThingMLModel thingmlModel) {
-		int configCount = thingmlModel.getConfigs().size();
-		if(configCount==1) {
-			log.debug("There is only one configuration : Ok !");
-			return true;
-		}
-		log.debug("There should be only one configuration in the model.");
-		return false;
-	}
-	
-	/**
-	 * Get the ThingML model imported by an InstanceThing
-	 * @param instanceThing
-	 * @return The imported ThingML model
-	 */
-	public ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
-		String thingPath = getImportedThingPath(instanceThing);
-		ThingMLModelLoader thingmlloader = new ThingMLModelLoader();
-		File thingMLFile;
-		ThingMLModel thingmlModel = null;
-		try {
-			thingMLFile = getFileFromPath(thingPath);
-			thingmlModel= thingmlloader.loadFromFile(thingMLFile);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return thingmlModel;
-	}
-
-	/**
-	 * Get the instances of things present in a network
-	 * @param network
-	 * @return 
-	 */
-	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
-		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network, InstanceThing.class);
-		return instanceThings;
-	}
-
-	
 	/**
 	 * Debug function, will be removed
 	 * @param network
@@ -214,6 +123,91 @@ public class SimpleNetworkGenerator {
 		}
 	}
 
+	/**
+	 * Get the directory of generation for a single thing
+	 * @param instanceThing
+	 * @return
+	 */
+	public File getInstanceThingGenDirectory(InstanceThing instanceThing) {
+		File cypriotThingOutputDirectory = new File(cypriotOutputDirectory.getAbsolutePath()+"/"+getIdNameOfEobject(instanceThing));
+		return cypriotThingOutputDirectory;
+	}
+
+	/**
+	 * @return
+	 */
+	public ThingMLCompiler setThingMLCompilerPlugins() {
+		ThingMLCompiler thingmlCompiler = new PosixMTCompiler();
+		log.debug("Compiler ID : "+thingmlCompiler.getID());
+
+		NetworkPlugin networkPlugin = new PosixMQTTPlugin();
+		log.debug("Network Plugin : "+networkPlugin.getName());
+
+		SerializationPlugin serializationPlugin = new CByteArraySerializerPlugin();
+		log.debug("Serialization Plugin : "+serializationPlugin.getName());
+
+		
+		thingmlCompiler.addNetworkPlugin(networkPlugin);
+		thingmlCompiler.addSerializationPlugin(serializationPlugin);
+		return thingmlCompiler;
+	}
+
+	/**
+	 * Get all the network in a cy file
+	 * @return The list of the network in the file
+	 */
+	public EList<Network> getNetworksInFile() {
+		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
+		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
+
+		EList<Network> allNetworks = model.getNetworks();
+		return allNetworks;
+	}
+	
+	/**
+	 * Check whether there is only one configuration in the imported ThingML file
+	 * @param thingmlModel
+	 * @return True if there is only one configuration, False if not.
+	 */
+	public boolean isConfigCountOne(ThingMLModel thingmlModel) {
+		int configCount = thingmlModel.getConfigs().size();
+		if(configCount==1) {
+			log.debug("There is only one configuration : Ok !");
+			return true;
+		}
+		log.debug("There should be only one configuration in the model.");
+		return false;
+	}
+	
+	/**
+	 * Get the ThingML model imported by an InstanceThing
+	 * @param instanceThing
+	 * @return The imported ThingML model
+	 */
+	public ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
+		String thingPath = getImportedThingPath(instanceThing);
+		ThingMLModelLoader thingmlloader = new ThingMLModelLoader();
+		File thingMLFile;
+		ThingMLModel thingmlModel = null;
+		try {
+			thingMLFile = getFileFromPath(thingPath);
+			thingmlModel= thingmlloader.loadFromFile(thingMLFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return thingmlModel;
+	}
+
+	/**
+	 * Get the instances of things present in a network
+	 * @param network
+	 * @return 
+	 */
+	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
+		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network, InstanceThing.class);
+		return instanceThings;
+	}
 	
 	/**
 	 * Utility function to check if a file exist in the given path
@@ -300,18 +294,16 @@ public class SimpleNetworkGenerator {
 		this.cypriotFile = cypriotFile;
 	}
 
-
-
 	/**
+	 * Get the directory of code generation
 	 * @return the cypriotOutputDirectory
 	 */
 	public File getCypriotOutputDirectory() {
 		return cypriotOutputDirectory;
 	}
 
-
-
 	/**
+	 * Set the directory for code generation
 	 * @param cypriotOutputDirectory the cypriotOutputDirectory to set
 	 */
 	public void setCypriotOutputDirectory(File cypriotOutputDirectory) {
