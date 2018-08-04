@@ -1,6 +1,7 @@
 package org.atlanmod.cypriot.generator.networkgenerator;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -14,8 +15,17 @@ import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.junit.Ignore;
+import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.compilers.c.posixmt.PosixMTCompiler;
+import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
+import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
+import org.thingml.networkplugins.c.posix.PosixSerialPlugin;
+import org.thingml.utilities.logging.SystemLogger;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
  * A simple generator that generates a description of the network in human
@@ -43,24 +53,69 @@ public class SimpleNetworkGenerator {
 	public void setCypriotFile(File cypriotFile) {
 		this.cypriotFile = cypriotFile;
 	}
-
+	
+	@Ignore
 	public void generate() {
-		String fileContent = Utilities.getContentFromFile(cypriotFile);
-		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader(fileContent);
-		CyprIoTModel model = cypriotModelLoader.loadModel();
+		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
+		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
 
 		EList<Network> allNetworks = model.getNetworks();
-
+		
 		for (Network network : allNetworks) {
+			
+			for (InstanceThing instanceThing : instancesInNetwork(network)) {
+				File cypriotFolder = new File("/home/imad/dev/eclipse/phd/CyprIoT/org.atlanmod.cypriot.generator/../examples/twothings/gen/"+instanceThing.getName()+"/");
+				ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
+				PosixMTCompiler thingmlCompiler = new PosixMTCompiler();
+				PosixMQTTPlugin mqttPlugin = new PosixMQTTPlugin();
+				thingmlCompiler.addNetworkPlugin(mqttPlugin);
+				CByteArraySerializerPlugin byteSerial = new CByteArraySerializerPlugin();
+				thingmlCompiler.addSerializationPlugin(byteSerial);
+				thingmlCompiler.setOutputDirectory(cypriotFolder);
+				SystemLogger loggerThg = new SystemLogger();
+				thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);
+				log.debug("Compiler ID : "+thingmlCompiler.getID());
+				log.debug("Compiler description : "+thingmlCompiler.getDescription());
+				log.debug("ThingML thing name : "+thingmlModel.getTypes().get(0).getName());
+			}
 			allNetworksInfo(network);
 		}
 
+	}
+
+	/**
+	 * @param instanceThing
+	 * @return
+	 */
+	public ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
+		String thingPath = getImportedThingPath(instanceThing);
+		ThingMLModelLoader thingmlloader = new ThingMLModelLoader();
+		File thingMLFile;
+		ThingMLModel thingmlModel = null;
+		try {
+			thingMLFile = getFileFromPath(thingPath);
+			thingmlModel= thingmlloader.loadFromFile(thingMLFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return thingmlModel;
+	}
+
+	/**
+	 * @param network
+	 * @return
+	 */
+	public ArrayList<InstanceThing> instancesInNetwork(Network network) {
+		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network, InstanceThing.class);
+		return instanceThings;
 	}
 
 	
 	/**
 	 * @param network
 	 */
+	@Ignore
 	public void allNetworksInfo(Network network) {
 		log.debug("######## Network : "+network.getName()+" ########");
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);
@@ -69,10 +124,17 @@ public class SimpleNetworkGenerator {
 			log.debug("Thing Name : " + instanceName + " Number : " + instanceThing.getNumberOfInstances());
 			String fullThingPath = getImportedThingPath(instanceThing);			
 			
-			File file = getFileFromPath(fullThingPath);
-			if(file!=null) {
-				Utilities.getContentFromFile(file);
+			File file;
+			try {
+				file = getFileFromPath(fullThingPath);
+				if(file!=null) {
+					Utilities.getContentFromFile(file);
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 			String roles = Utilities.appendStrings(getAssignedRolesToThing(instanceThing), ",");
 			log.debug("Roles : " + roles);
 			log.debug("Roles : " + roles);
@@ -123,12 +185,18 @@ public class SimpleNetworkGenerator {
 	/**
 	 * @param filePathString
 	 * @return
+	 * @throws FileNotFoundException 
 	 */
-	public File getFileFromPath(String filePathString) {
+	public File getFileFromPath(String filePathString) throws FileNotFoundException {
 		File file = new File(filePathString);
-		if(isFileExists(file)) {
-			return file;
+		try {
+			if(isFileExists(file)) {
+				return file;
+			}
+		} catch (Exception e) {
+			throw new FileNotFoundException();
 		}
+		
 		return null;
 	}
 	

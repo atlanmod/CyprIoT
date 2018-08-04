@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
@@ -28,9 +29,8 @@ public class SimpleNetworkGeneratorTest {
 	final String fileUnderTestPath = "src/test/resources/simple.cy";
 	File cypriotFile = new File(fileUnderTestPath);
 	File doesNotExist = new File("src/test/resources/doesNotExist.cy");
-	String fileContent = Utilities.getContentFromFile(cypriotFile);
-	CypriotModelLoader cyLoader = new CypriotModelLoader(fileContent);
-	CyprIoTModel cyModel = cyLoader.loadModel();
+	CypriotModelLoader cyLoader = new CypriotModelLoader();
+	CyprIoTModel cyModel = cyLoader.loadFromFile(cypriotFile);
 	InstanceThing instanceThing = cyModel.getNetworks().get(0).getInstancesThing().get(0);
 
 	@Before
@@ -49,7 +49,7 @@ public class SimpleNetworkGeneratorTest {
 	}
 
 	@Test
-	public void testGetFileFromPath() {
+	public void testGetFileFromPath() throws FileNotFoundException {
 		File file = networkGen.getFileFromPath(fileUnderTestPath);
 		assertNotNull(file);
 	}

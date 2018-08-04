@@ -112,7 +112,11 @@ garbage/
 
 *.project
 *.jar
-!thingml-registry.jar
+!utilities-2.0.0-SNAPSHOT.jar
+!thingml-lang.jar
+!official-network-plugins-2.0.0-SNAPSHOT.jar
+!compilers.framework-2.0.0-SNAPSHOT.jar
+!compilers.c-2.0.0-SNAPSHOT.jar
 !atl-emftvm-fatjar.jar
 old
 plugin.xml

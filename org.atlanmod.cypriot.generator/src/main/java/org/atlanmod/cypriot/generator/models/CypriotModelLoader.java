@@ -1,9 +1,12 @@
 package org.atlanmod.cypriot.generator.models;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
  * The {@link CypriotModelLoader} class loads a CyprIoT model
@@ -29,7 +32,7 @@ public class CypriotModelLoader extends ModelLoader {
 	 * A method to register the Cypriot factory, mandatory to load a model
 	 */
 	@Override
-	void registerFactory() {
+	protected void registerFactory() {
 		log.debug("Registering Cypriot factory");
 		CypriotStandaloneSetup.doSetup();
 	}
@@ -41,10 +44,13 @@ public class CypriotModelLoader extends ModelLoader {
 	 * @return
 	 */
 	@Override
-	public CyprIoTModel loadModel() {
+	protected CyprIoTModel loadModel() {
 		Resource resource = loadResourceFromString(fileContent);
 		cypriotModel = loadModelFromResource(resource,CyprIoTModel.class);
 		return cypriotModel;
 	}
 
+	public CyprIoTModel loadFromFile(File file) {
+		return loadFromFile(file, CyprIoTModel.class);
+	}
 }

@@ -22,18 +22,44 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>atl-emftvm</groupId>
-			<artifactId>atl-emftvm</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+		<dependency>
+			<groupId>thingml-official-network-plugins</groupId>
+			<artifactId>official-network-plugins-2.0.0-SNAPSHOT</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/atl-emftvm-fatjar.jar</systemPath>
+			<systemPath>${project.basedir}/lib/official-network-plugins-2.0.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>thingml-utilities</groupId>
+			<artifactId>utilities-2.0.0-SNAPSHOT</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/utilities-2.0.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>thingml-framework</groupId>
+			<artifactId>compilers.framework-2.0.0-SNAPSHOT</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/compilers.framework-2.0.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>compilers.c</groupId>
+			<artifactId>compilers.c-2.0.0-SNAPSHOT</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/compilers.c-2.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.thingml</groupId>
-			<artifactId>thingml-registry</artifactId>
+			<artifactId>thingml-lang</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml-registry.jar</systemPath>
+			<systemPath>${project.basedir}/lib/thingml-lang.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>

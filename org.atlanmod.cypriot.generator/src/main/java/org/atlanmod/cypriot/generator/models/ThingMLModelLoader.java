@@ -1,6 +1,9 @@
 package org.atlanmod.cypriot.generator.models;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -28,8 +31,8 @@ public class ThingMLModelLoader extends ModelLoader {
 	/**
 	 * A method to register the ThingML factory, mandatory to load a model
 	 */
-	@Override 
-	void registerFactory() {
+	@Override
+	protected void registerFactory() {
 		log.debug("Registering ThingML factory");
 		ThingMLStandaloneSetup.doSetup();
 	}
@@ -41,11 +44,14 @@ public class ThingMLModelLoader extends ModelLoader {
 	 * @return
 	 */
 	@Override
-	public ThingMLModel loadModel() {
+	protected ThingMLModel loadModel() {
 		Resource resource = loadResourceFromString(fileContent);
 		thingMLModel = loadModelFromResource(resource,ThingMLModel.class);
 		return thingMLModel;
 	}
 
+	public ThingMLModel loadFromFile(File file) {
+		return loadFromFile(file, ThingMLModel.class);
+	}
 
 }

@@ -31,8 +31,8 @@ public abstract class ModelLoader {
 		registerFactory();
 	}
 	
-	abstract void registerFactory();
-	abstract <T extends EObject> T loadModel();
+	protected abstract void registerFactory();
+	protected abstract <T extends EObject> T loadModel();
 	
 	/**
 	 * Load the EMF graph of the model from a File
@@ -41,7 +41,7 @@ public abstract class ModelLoader {
 	 * @return
 	 * @throws ModelExceptionHandler 
 	 */
-	public <T extends EObject> T loadFromFile(File file, Class<T> type) {
+	protected <T extends EObject> T loadFromFile(File file, Class<T> type) {
 		Resource model = Utilities.createResourceFromFile(file);
 		
 		try {
@@ -67,7 +67,7 @@ public abstract class ModelLoader {
 	 * @param string
 	 * @return
 	 */
-	public Resource loadResourceFromString(String string) {
+	protected Resource loadResourceFromString(String string) {
 		try {
 			return loadStringAsResouce(string);
 		} catch (IOException e) {
