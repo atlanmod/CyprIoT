@@ -78,7 +78,23 @@ public class SimpleNetworkGenerator {
 		}
 
 	}
+	
+	
 
+	/**
+	 * Check whether there is only one configuration in the imported ThingML file
+	 * @param thingmlModel
+	 * @return
+	 */
+	public boolean isConfigCountOne(ThingMLModel thingmlModel) {
+		int configCount = thingmlModel.getConfigs().size();
+		if(configCount==1) {
+			log.debug("There is only one configuration : Ok !");
+			return true;
+		}
+		log.debug("There should be only one configuration in the model.");
+		return false;
+	}
 	/**
 	 * @param instanceThing
 	 * @return
