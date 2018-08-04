@@ -18,7 +18,10 @@ import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.compilers.c.posixmt.PosixMTCompiler;
+import org.thingml.compilers.spi.NetworkPlugin;
+import org.thingml.compilers.spi.SerializationPlugin;
 import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.utilities.logging.SystemLogger;
@@ -36,33 +39,66 @@ public class SimpleNetworkGenerator {
 	final Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
 	
 	private File cypriotFile;
+	private File cypriotOutputDirectory;
 	
 	public void generate() {
-		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
-		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
-
-		EList<Network> allNetworks = model.getNetworks();
+		EList<Network> allNetworks = getNetworksInFile();
 		
 		for (Network network : allNetworks) {
 			
 			for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-				File cypriotFolder = new File("/home/imad/dev/eclipse/phd/CyprIoT/org.atlanmod.cypriot.generator/../examples/twothings/gen/"+instanceThing.getName()+"/");
+				
 				ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
-				PosixMTCompiler thingmlCompiler = new PosixMTCompiler();
-				PosixMQTTPlugin mqttPlugin = new PosixMQTTPlugin();
-				thingmlCompiler.addNetworkPlugin(mqttPlugin);
-				CByteArraySerializerPlugin byteSerial = new CByteArraySerializerPlugin();
-				thingmlCompiler.addSerializationPlugin(byteSerial);
-				thingmlCompiler.setOutputDirectory(cypriotFolder);
+				
+				ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
+				
+				thingmlCompiler.setOutputDirectory(cypriotOutputDirectory);
+				
 				SystemLogger loggerThg = new SystemLogger();
-				thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);
-				log.debug("Compiler ID : "+thingmlCompiler.getID());
-				log.debug("Compiler description : "+thingmlCompiler.getDescription());
+				
+				thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);				
+				
 				log.debug("ThingML thing name : "+thingmlModel.getTypes().get(0).getName());
+				
 			}
 			allNetworksInfo(network);
 		}
 
+	}
+
+
+
+	/**
+	 * @return
+	 */
+	public ThingMLCompiler setThingMLCompilerPlugins() {
+		ThingMLCompiler thingmlCompiler = new PosixMTCompiler();
+		log.debug("Compiler ID : "+thingmlCompiler.getID());
+
+		NetworkPlugin networkPlugin = new PosixMQTTPlugin();
+		log.debug("Network Plugin : "+networkPlugin.getName());
+
+		SerializationPlugin serializationPlugin = new CByteArraySerializerPlugin();
+		log.debug("Serialization Plugin : "+serializationPlugin.getName());
+
+		
+		thingmlCompiler.addNetworkPlugin(networkPlugin);
+		thingmlCompiler.addSerializationPlugin(serializationPlugin);
+		return thingmlCompiler;
+	}
+
+
+
+	/**
+	 * Get all the network in a cy file
+	 * @return The list of the network in the file
+	 */
+	public EList<Network> getNetworksInFile() {
+		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
+		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
+
+		EList<Network> allNetworks = model.getNetworks();
+		return allNetworks;
 	}
 	
 	
@@ -81,6 +117,7 @@ public class SimpleNetworkGenerator {
 		log.debug("There should be only one configuration in the model.");
 		return false;
 	}
+	
 	/**
 	 * Get the ThingML model imported by an InstanceThing
 	 * @param instanceThing
@@ -251,5 +288,23 @@ public class SimpleNetworkGenerator {
 	 */
 	public void setCypriotFile(File cypriotFile) {
 		this.cypriotFile = cypriotFile;
+	}
+
+
+
+	/**
+	 * @return the cypriotOutputDirectory
+	 */
+	public File getCypriotOutputDirectory() {
+		return cypriotOutputDirectory;
+	}
+
+
+
+	/**
+	 * @param cypriotOutputDirectory the cypriotOutputDirectory to set
+	 */
+	public void setCypriotOutputDirectory(File cypriotOutputDirectory) {
+		this.cypriotOutputDirectory = cypriotOutputDirectory;
 	}
 }

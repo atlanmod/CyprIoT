@@ -21,6 +21,9 @@ public class App implements Runnable {
 
 	@Option(names = { "-i", "--input" }, paramLabel = "INPUT", description = "The input file for the code generator")
 	File cypriotInputFile;
+	
+	@Option(names = { "-o", "--output" }, paramLabel = "OUTPUT", description = "The output directory")
+	File cypriotOutputDirectory;
 
 	public void run() {
 		System.out.println("CyprIoT v" + Utilities.getProjectVersionFromMaven());
@@ -33,6 +36,15 @@ public class App implements Runnable {
 		}
 		SimpleNetworkGenerator networkGenerator = new SimpleNetworkGenerator();
 		networkGenerator.setCypriotFile(cypriotInputFile);
+		
+		if(cypriotOutputDirectory!=null) {
+			networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
+		} else {
+			cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath()+"/gen");
+			networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
+		}
+		
+		log.debug("Generation Path : " +cypriotOutputDirectory);
 		networkGenerator.generate();
 
 	}
