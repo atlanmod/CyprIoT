@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.exceptions.ExceptionHandler;
 import org.atlanmod.cypriot.generator.exceptions.ModelExceptionHandler;
 import org.eclipse.emf.common.util.URI;
@@ -42,13 +42,13 @@ public abstract class ModelLoader {
 	 * @throws ModelExceptionHandler 
 	 */
 	protected <T extends EObject> T loadFromFile(File file, Class<T> type) {
-		Resource model = Utilities.createResourceFromFile(file);
+		Resource model = Helpers.createResourceFromFile(file);
 		
 		try {
 			model.load(null);
 			EcoreUtil.resolveAll(model);
 			for (Resource ressource : model.getResourceSet().getResources()) {
-				if(!Utilities.checkProblemsInModel(ressource)) {
+				if(!Helpers.checkProblemsInModel(ressource)) {
 					throw new Exception();
 				}
 			}
@@ -115,7 +115,7 @@ public abstract class ModelLoader {
 	 */
 	private void checkProblemsInChildResources(Resource resources) throws Exception {
 		for (Resource r : resources.getResourceSet().getResources()) {
-			if(!Utilities.checkProblemsInModel(r)) {
+			if(!Helpers.checkProblemsInModel(r)) {
 				throw new Exception();
 			}
 		}

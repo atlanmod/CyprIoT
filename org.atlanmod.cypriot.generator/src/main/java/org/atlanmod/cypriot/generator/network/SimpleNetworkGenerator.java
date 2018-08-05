@@ -1,13 +1,15 @@
-package org.atlanmod.cypriot.generator.networkgenerator;
+package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.BindPubSub;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.eclipse.emf.common.util.EList;
 
@@ -51,6 +53,7 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
+			pubSubBindsContainingThingInstances(instanceThing,network);
 			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
 			instanceGen.setCypriotFile(cypriotFile);
 			instanceGen.setInstanceThing(instanceThing);
@@ -59,6 +62,17 @@ public class SimpleNetworkGenerator {
 		}
 	}
 
+	public ArrayList<BindPubSub> pubSubBindsContainingThingInstances(InstanceThing instanceThing,Network network) {
+		ArrayList<BindPubSub> binds = new ArrayList<BindPubSub>();
+		for (BindPubSub bindPubSub : network.getBindsPubsub()) {
+			if(bindPubSub.getThingInstance().equals(instanceThing)) {
+				log.debug("ThingInstance "+instanceThing.getName()+" is bound to "+bindPubSub.getPubSubInstance().getName());
+				binds.add(bindPubSub);
+			}
+		}
+		return binds;
+	}
+	
 	/**
 	 * Set all the network from a cy file
 	 */
@@ -75,7 +89,7 @@ public class SimpleNetworkGenerator {
 	 * @return
 	 */
 	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
-		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network,
+		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Helpers.allTypesInNetwork(network,
 				InstanceThing.class);
 		return instanceThings;
 	}

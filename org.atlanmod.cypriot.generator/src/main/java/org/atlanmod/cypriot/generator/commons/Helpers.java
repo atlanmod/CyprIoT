@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-public class Utilities {
+public class Helpers {
 
-	private static final Logger log = Logger.getLogger(Utilities.class.getName());
+	private static final Logger log = Logger.getLogger(Helpers.class.getName());
 
 	public static String appendStrings(EList<? extends EObject> list,String separator) {
 		String currentSeparator = "";

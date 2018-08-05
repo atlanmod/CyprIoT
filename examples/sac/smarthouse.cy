@@ -41,8 +41,8 @@ channel:pubsub CommandBroker {
 network stlsNetwork {
 	instanceThing Computer~gateway owner cityUser
 	instanceThing Temperature~car[1] owner anyuser
-	instancePubsub Broker~CentralMqtt
-	instancePubsub CommandBroker~commandsMqtt
+	instancePubsub Broker~CentralMqtt @mqtt
+	instancePubsub CommandBroker~commandsMqtt @mqtt
 	instanceReqrep Central~rest
 	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
 	bindPubSub gateway.cloud => CentralMqtt{room1}

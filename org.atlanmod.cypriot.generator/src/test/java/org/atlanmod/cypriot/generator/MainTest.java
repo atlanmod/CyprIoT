@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.FileProcessor;
 import org.atlanmod.cypriot.generator.commons.TemporaryFileProcessor;
-import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.junit.Test;
@@ -72,7 +72,7 @@ public class MainTest {
 
 	@Test
 	public void getProjectVersionTest() throws Exception {
-		String projectVersion = Utilities.getProjectVersionFromMaven();
+		String projectVersion = Helpers.getProjectVersionFromMaven();
 		assertNotNull(projectVersion);
 	}
 
@@ -80,7 +80,7 @@ public class MainTest {
 	public void readFileTest() throws Exception {
 		File file = File.createTempFile("temp", "some-text");
 		file.deleteOnExit();
-		assertNotNull(Utilities.getContentFromFile(file));
+		assertNotNull(Helpers.getContentFromFile(file));
 	}
 
 }

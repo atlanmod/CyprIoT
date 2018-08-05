@@ -1,11 +1,11 @@
-package org.atlanmod.cypriot.generator.networkgenerator;
+package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.utilities.logging.SystemLogger;
@@ -125,13 +125,13 @@ public class InstanceThingGenerator {
 		try {
 			file = NetworkHelper.getFileFromPath(fullThingPath);
 			if (file != null) {
-				Utilities.getContentFromFile(file);
+				Helpers.getContentFromFile(file);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		String roles = Utilities.appendStrings(NetworkHelper.getAssignedRolesToThing(instanceThing), ",");
+		String roles = Helpers.appendStrings(NetworkHelper.getAssignedRolesToThing(instanceThing), ",");
 		log.debug("Roles for " + instanceName + " : " + roles);
 	}
 

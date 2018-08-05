@@ -3,8 +3,8 @@ package org.atlanmod.cypriot.generator.main;
 import java.io.File;
 
 import org.apache.log4j.Logger;
-import org.atlanmod.cypriot.generator.commons.Utilities;
-import org.atlanmod.cypriot.generator.networkgenerator.SimpleNetworkGenerator;
+import org.atlanmod.cypriot.generator.commons.Helpers;
+import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -26,7 +26,7 @@ public class App implements Runnable {
 	File cypriotOutputDirectory;
 
 	public void run() {
-		System.out.println("CyprIoT v" + Utilities.getProjectVersionFromMaven());
+		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven());
 		if (verbose.length > 0) {
 			log.info("Verbose mode enabled");
 			log.debug("Processing " + cypriotInputFile.getName() + " file...");

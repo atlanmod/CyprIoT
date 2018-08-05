@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.networkgenerator;
+package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
 import java.io.FileNotFoundException;

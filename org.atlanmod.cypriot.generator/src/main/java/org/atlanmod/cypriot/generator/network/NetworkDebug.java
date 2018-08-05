@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.networkgenerator;
+package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.generator.commons.Utilities;
+import org.atlanmod.cypriot.generator.commons.Helpers;
 
 public class NetworkDebug {
 	
@@ -49,14 +49,14 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugBindPubSubs(Network network) {
-		ArrayList<BindPubSub> bindPubSubs = Utilities.allTypesInNetwork(network, BindPubSub.class);
+		ArrayList<BindPubSub> bindPubSubs = Helpers.allTypesInNetwork(network, BindPubSub.class);
 
 		for (BindPubSub pubSub : bindPubSubs) {
 			InstanceThing instanceThing = ((BindPubSub) pubSub).getThingInstance();
 			String subjectPort = ((BindPubSub) pubSub).getSubjectPort();
 			InstancePubSub pubsub = ((BindPubSub) pubSub).getPubSubInstance();
 
-			String topics = Utilities.appendStrings(((BindPubSub) pubSub).getTopics(), ",");
+			String topics = Helpers.appendStrings(((BindPubSub) pubSub).getTopics(), ",");
 			log.debug("Bind ThingInstance : " + NetworkHelper.getIdNameOfEobject(instanceThing) + " port : " + subjectPort + " PubSub : "
 					+ pubsub.getName() + " Topics : " + topics);
 		}
@@ -67,7 +67,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
-		ArrayList<InstanceReqRep> reqReps = Utilities.allTypesInNetwork(network, InstanceReqRep.class);
+		ArrayList<InstanceReqRep> reqReps = Helpers.allTypesInNetwork(network, InstanceReqRep.class);
 
 		for (InstanceReqRep reqRep : reqReps) {
 			String ReqRepName = ((InstanceReqRep) reqRep).getName();
@@ -80,7 +80,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugPubSubInstances(Network network) {
-		ArrayList<InstancePubSub> pubSubs = Utilities.allTypesInNetwork(network, InstancePubSub.class);
+		ArrayList<InstancePubSub> pubSubs = Helpers.allTypesInNetwork(network, InstancePubSub.class);
 
 		for (InstancePubSub pubSub : pubSubs) {
 			String pubSubName = ((InstancePubSub) pubSub).getName();
