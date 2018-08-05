@@ -1,7 +1,6 @@
 package org.atlanmod.cypriot.generator.networkgenerator;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -10,15 +9,7 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.generator.commons.Utilities;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
-import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.common.util.EList;
-import org.thingml.compilers.ThingMLCompiler;
-import org.thingml.utilities.logging.SystemLogger;
-import org.thingml.xtext.thingML.AbstractConnector;
-import org.thingml.xtext.thingML.Configuration;
-import org.thingml.xtext.thingML.Connector;
-import org.thingml.xtext.thingML.ExternalConnector;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
  * A simple generator that generates a description of the network in human
@@ -60,53 +51,12 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-			generateUsingThingMLGenerator(instanceThing);
+			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
+			instanceGen.setCypriotFile(cypriotFile);
+			instanceGen.setInstanceThing(instanceThing);
+			instanceGen.setOutputDirectory(cypriotOutputDirectory);
+			instanceGen.generate();
 		}
-	}
-
-	/**
-	 * Generate code for an instanceThing using ThingML compiler
-	 * 
-	 * @param instanceThing
-	 */
-	public void generateUsingThingMLGenerator(InstanceThing instanceThing) {
-		ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
-		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
-		File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
-
-		if (NetworkHelper.isConfigCountOne(thingmlModel)) {
-			Configuration configuration = thingmlModel.getConfigs().get(0);
-			if (NetworkHelper.isConnectorOne(configuration)) {
-				AbstractConnector connector = configuration.getConnectors().get(0);
-				if (isConnectorExternal(connector)) {
-					ThingMLCompiler thingmlCompiler = NetworkHelper.setThingMLCompilerPlugins();
-					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-					SystemLogger loggerThg = new SystemLogger();
-					thingmlCompiler.compile(configuration, loggerThg);
-				}
-			}
-
-		}
-	}
-
-	/**
-	 * @param connector
-	 * @return
-	 */
-	public boolean isConnectorExternal(AbstractConnector connector) {
-		return connector instanceof ExternalConnector;
-	}
-
-	/**
-	 * Get the directory of generation for a single thing
-	 * 
-	 * @param instanceThing
-	 * @return
-	 */
-	public File getInstanceThingGenDirectory(InstanceThing instanceThing) {
-		File cypriotThingOutputDirectory = new File(
-				cypriotOutputDirectory.getAbsolutePath() + "/" + NetworkHelper.getIdNameOfEobject(instanceThing));
-		return cypriotThingOutputDirectory;
 	}
 
 	/**
@@ -116,26 +66,6 @@ public class SimpleNetworkGenerator {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
 		allNetworks = model.getNetworks();
-	}
-
-	/**
-	 * Get the ThingML model imported by an InstanceThing
-	 * 
-	 * @param instanceThing
-	 * @return The imported ThingML model
-	 */
-	public ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
-		String thingPath = NetworkHelper.getImportedThingPath(instanceThing, cypriotFile);
-		ThingMLModelLoader thingmlloader = new ThingMLModelLoader();
-		File thingMLFile;
-		ThingMLModel thingmlModel = null;
-		try {
-			thingMLFile = NetworkHelper.getFileFromPath(thingPath);
-			thingmlModel = thingmlloader.loadFromFile(thingMLFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return thingmlModel;
 	}
 
 	/**

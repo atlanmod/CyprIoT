@@ -3,6 +3,7 @@ package org.atlanmod.cypriot.generator.networkgenerator;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Role;
@@ -18,6 +19,8 @@ import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkHelper {
+	
+	final static Logger log = Logger.getLogger(NetworkHelper.class.getName());
 
 	/**
 	 * Get the ID name of any EObject
@@ -58,10 +61,10 @@ public class NetworkHelper {
 	 */
 	public static boolean isFileExists(File file) {
 		if(file.exists() && !file.isDirectory()) {
-			//SimpleNetworkGenerator.log.debug("Thing model file is present");
+			log.debug("Thing model file is present");
 		    return true;
 		}
-		//SimpleNetworkGenerator.log.error("Thing model file does not exist");
+		log.error("Thing model file does not exist");
 		return false;
 	}
 
@@ -70,7 +73,7 @@ public class NetworkHelper {
 	 * @param thingmlModel
 	 * @return True if there is only one configuration, False if not.
 	 */
-	public static boolean isConfigCountOne(ThingMLModel thingmlModel) {
+	public static boolean isConfigOne(ThingMLModel thingmlModel) {
 		int configCount = thingmlModel.getConfigs().size();
 		return isIntOne(configCount);
 	}
@@ -99,32 +102,18 @@ public class NetworkHelper {
 	 */
 	public static ThingMLCompiler setThingMLCompilerPlugins() {
 		ThingMLCompiler thingmlCompiler = new PosixMTCompiler();
-		//log.debug("Compiler ID : "+thingmlCompiler.getID());
+		log.debug("Compiler ID : "+thingmlCompiler.getID());
 	
 		NetworkPlugin networkPlugin = new PosixMQTTPlugin();
-		//log.debug("Network Plugin : "+networkPlugin.getName());
+		log.debug("Network Plugin : "+networkPlugin.getName());
 	
 		SerializationPlugin serializationPlugin = new CByteArraySerializerPlugin();
-		//log.debug("Serialization Plugin : "+serializationPlugin.getName());
+		log.debug("Serialization Plugin : "+serializationPlugin.getName());
 	
 		
 		thingmlCompiler.addNetworkPlugin(networkPlugin);
 		thingmlCompiler.addSerializationPlugin(serializationPlugin);
 		return thingmlCompiler;
-	}
-
-	/**
-	 * Get the full path of the imported thing model
-	 * @param instance
-	 * @return The full path
-	 */
-	public static String getImportedThingPath(InstanceThing instance, File cypriotFile) {
-		String thingPath= instance.getTypeThing().getImportPath();
-		thingPath = thingPath.replace("\"","");
-		String fullThingPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/"+thingPath;
-		//log.debug("Full thing path : "+fullThingPath);
-		//log.debug("Import path : " + thingPath);
-		return fullThingPath;
 	}
 
 	/**

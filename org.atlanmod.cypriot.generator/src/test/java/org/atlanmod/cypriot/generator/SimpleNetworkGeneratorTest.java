@@ -13,6 +13,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.networkgenerator.InstanceThingGenerator;
 import org.atlanmod.cypriot.generator.networkgenerator.NetworkHelper;
 import org.atlanmod.cypriot.generator.networkgenerator.SimpleNetworkGenerator;
 import org.eclipse.emf.common.util.EList;
@@ -28,6 +29,7 @@ public class SimpleNetworkGeneratorTest {
 	final String fileUnderTestPath = "src/test/resources/simple.cy";
 	File cypriotFile = new File(fileUnderTestPath);
 	File doesNotExist = new File("src/test/resources/doesNotExist.cy");
+	File cypriotOutputDirectory = new File("src/test/resources/");
 	CypriotModelLoader cyLoader = new CypriotModelLoader();
 	CyprIoTModel cyModel = cyLoader.loadFromFile(cypriotFile);
 	InstanceThing instanceThing = cyModel.getNetworks().get(0).getInstancesThing().get(0);
@@ -69,9 +71,13 @@ public class SimpleNetworkGeneratorTest {
 
 	@Test
 	public void testGetImportedThingPath() {
-		
+		InstanceThingGenerator instanceGen = new InstanceThingGenerator();
+		instanceGen.setCypriotFile(cypriotFile);
+		instanceGen.setInstanceThing(instanceThing);
+		instanceGen.setOutputDirectory(cypriotOutputDirectory);
+		instanceGen.generateUsingThingMLGenerator();
 		String fullPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/thing1.thingml";
-		assertEquals(fullPath, NetworkHelper.getImportedThingPath(instanceThing,cypriotFile));
+		assertEquals(fullPath, instanceGen.getImportedThingPath());
 	}
 
 }
