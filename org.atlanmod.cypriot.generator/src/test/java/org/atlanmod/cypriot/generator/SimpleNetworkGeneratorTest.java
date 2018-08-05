@@ -27,15 +27,18 @@ public class SimpleNetworkGeneratorTest {
 
 	SimpleNetworkGenerator networkGen = new SimpleNetworkGenerator();
 	final String fileUnderTestPath = "src/test/resources/simple.cy";
-	File cypriotFile = new File(fileUnderTestPath);
-	File doesNotExist = new File("src/test/resources/doesNotExist.cy");
-	File cypriotOutputDirectory = new File("src/test/resources/");
-	CypriotModelLoader cyLoader = new CypriotModelLoader();
-	CyprIoTModel cyModel = cyLoader.loadFromFile(cypriotFile);
-	InstanceThing instanceThing = cyModel.getNetworks().get(0).getInstancesThing().get(0);
+	final File cypriotFile = new File(fileUnderTestPath);
+	final File doesNotExist = new File("src/test/resources/doesNotExist.cy");
+	final File cypriotOutputDirectory = new File("src/test/resources/");
+	CypriotModelLoader cyLoader;;
+	CyprIoTModel cyModel;
+	InstanceThing instanceThing;
 
 	@Before
 	public void setUp() throws Exception {
+		cyLoader = new CypriotModelLoader();
+		cyModel = cyLoader.loadFromFile(cypriotFile);
+		instanceThing = cyModel.getNetworks().get(0).getInstancesThing().get(0);
 		networkGen.setCypriotFile(cypriotFile);
 	}
 
@@ -67,17 +70,6 @@ public class SimpleNetworkGeneratorTest {
 		EList<Role> rolesInstance = NetworkHelper.getAssignedRolesToThing(instanceThing);
 		EList<Role> roleThing = cyModel.getImportThings().get(0).getAssignedRoles();
 		rolesInstance.equals(roleThing);	
-	}
-
-	@Test
-	public void testGetImportedThingPath() {
-		InstanceThingGenerator instanceGen = new InstanceThingGenerator();
-		instanceGen.setCypriotFile(cypriotFile);
-		instanceGen.setInstanceThing(instanceThing);
-		instanceGen.setOutputDirectory(cypriotOutputDirectory);
-		instanceGen.generateUsingThingMLGenerator();
-		String fullPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath()+"/thing1.thingml";
-		assertEquals(fullPath, instanceGen.getImportedThingPath());
 	}
 
 }
