@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.BindPubSub;
 import org.atlanmod.cypriot.cyprIoT.BindReqRep;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
+import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.eclipse.emf.common.util.EList;
@@ -54,8 +54,13 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-			pubSubBindsContainingThingInstances(instanceThing,network);
-			reqRepBindsContainingThingInstances(instanceThing,network);
+
+			ArrayList<BindPubSub> bindPubSubs = pubSubBindsContainingThingInstances(instanceThing, network);
+
+			ArrayList<Topic> pubTopics = getAllPubTopicsOfThingInstace(instanceThing, bindPubSubs);
+			ArrayList<Topic> subTopics = getAllSubTopicsOfThingInstace(instanceThing, bindPubSubs);
+
+			reqRepBindsContainingThingInstances(instanceThing, network);
 			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
 			instanceGen.setCypriotFile(cypriotFile);
 			instanceGen.setInstanceThing(instanceThing);
@@ -66,39 +71,85 @@ public class SimpleNetworkGenerator {
 
 	
 	/**
+	 * To be refactored
+	 * @param instanceThing
+	 * @param bindPubSubs
+	 * @return
+	 */
+	public ArrayList<Topic> getAllSubTopicsOfThingInstace(InstanceThing instanceThing,
+			ArrayList<BindPubSub> bindPubSubs) {
+		ArrayList<Topic> subTopics = new ArrayList<Topic>();
+
+		for (BindPubSub bindPubSub : bindPubSubs) {
+			EList<Topic> topics = bindPubSub.getTopics();
+			for (Topic topic : topics) {
+				if (bindPubSub.getReadOrWrite().equals("<=")) {
+					log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
+					subTopics.add(topic);
+				} 
+			}				
+		}
+		return subTopics;
+	}
+	/**
+	 * @param instanceThing
+	 * @param bindPubSubs
+	 * @return
+	 */
+	public ArrayList<Topic> getAllPubTopicsOfThingInstace(InstanceThing instanceThing,
+			ArrayList<BindPubSub> bindPubSubs) {
+		ArrayList<Topic> pubTopics = new ArrayList<Topic>();
+
+		for (BindPubSub bindPubSub : bindPubSubs) {
+			EList<Topic> topics = bindPubSub.getTopics();
+			for (Topic topic : topics) {
+				if (bindPubSub.getReadOrWrite().equals("=>")) {
+					log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
+					pubTopics.add(topic);
+				} 
+			}				
+		}
+		return pubTopics;
+	}
+
+	/**
 	 * Find the ReqRep binds using ThingInstance as subject
+	 * 
 	 * @param instanceThing
 	 * @param network
 	 * @return
 	 */
-	public ArrayList<BindReqRep> reqRepBindsContainingThingInstances(InstanceThing instanceThing,Network network) {
+	public ArrayList<BindReqRep> reqRepBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
 		ArrayList<BindReqRep> binds = new ArrayList<BindReqRep>();
 		for (BindReqRep bindReqRep : network.getBindReqRep()) {
-			if(bindReqRep.getThingInstance().equals(instanceThing)) {
-				log.debug("ThingInstance "+instanceThing.getName()+" is bound to the endpoint "+bindReqRep.getEndpoint());
+			if (bindReqRep.getThingInstance().equals(instanceThing)) {
+				log.debug("ThingInstance " + instanceThing.getName() + " is bound to the endpoint "
+						+ bindReqRep.getEndpoint());
 				binds.add(bindReqRep);
 			}
 		}
 		return binds;
 	}
-	
+
 	/**
 	 * Find the PubSub binds using ThingInstance as subject
+	 * 
 	 * @param instanceThing
 	 * @param network
 	 * @return
 	 */
-	public ArrayList<BindPubSub> pubSubBindsContainingThingInstances(InstanceThing instanceThing,Network network) {
+	public ArrayList<BindPubSub> pubSubBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
 		ArrayList<BindPubSub> binds = new ArrayList<BindPubSub>();
 		for (BindPubSub bindPubSub : network.getBindsPubsub()) {
-			if(bindPubSub.getThingInstance().equals(instanceThing)) {
-				log.debug("ThingInstance "+instanceThing.getName()+" is bound to "+bindPubSub.getPubSubInstance().getName());
+			if (bindPubSub.getThingInstance().equals(instanceThing)) {
+				log.debug("ThingInstance " + instanceThing.getName() + " is bound to "
+						+ bindPubSub.getPubSubInstance().getName());
 				binds.add(bindPubSub);
 			}
 		}
 		return binds;
 	}
-	
+
 	/**
 	 * Set all the network from a cy file
 	 */

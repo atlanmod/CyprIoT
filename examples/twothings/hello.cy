@@ -21,6 +21,6 @@ network twoThingsCom {
 	instanceThing Thing1~thing1
 	instanceThing Thing2~thing2
 	instancePubsub Broker~CentralMqtt
-	bindPubSub thing1.command <= CentralMqtt{topic1}
-	bindPubSub thing2.command <= CentralMqtt{topic1}
+	bindPubSub thing1.command <= CentralMqtt{topic1,light}
+	bindPubSub thing2.command => CentralMqtt{topic1}
 }
