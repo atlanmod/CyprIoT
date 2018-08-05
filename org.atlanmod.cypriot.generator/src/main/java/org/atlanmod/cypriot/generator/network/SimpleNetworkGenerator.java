@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.BindPubSub;
+import org.atlanmod.cypriot.cyprIoT.BindReqRep;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
@@ -54,6 +55,7 @@ public class SimpleNetworkGenerator {
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
 			pubSubBindsContainingThingInstances(instanceThing,network);
+			reqRepBindsContainingThingInstances(instanceThing,network);
 			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
 			instanceGen.setCypriotFile(cypriotFile);
 			instanceGen.setInstanceThing(instanceThing);
@@ -62,6 +64,30 @@ public class SimpleNetworkGenerator {
 		}
 	}
 
+	
+	/**
+	 * Find the ReqRep binds using ThingInstance as subject
+	 * @param instanceThing
+	 * @param network
+	 * @return
+	 */
+	public ArrayList<BindReqRep> reqRepBindsContainingThingInstances(InstanceThing instanceThing,Network network) {
+		ArrayList<BindReqRep> binds = new ArrayList<BindReqRep>();
+		for (BindReqRep bindReqRep : network.getBindReqRep()) {
+			if(bindReqRep.getThingInstance().equals(instanceThing)) {
+				log.debug("ThingInstance "+instanceThing.getName()+" is bound to the endpoint "+bindReqRep.getEndpoint());
+				binds.add(bindReqRep);
+			}
+		}
+		return binds;
+	}
+	
+	/**
+	 * Find the PubSub binds using ThingInstance as subject
+	 * @param instanceThing
+	 * @param network
+	 * @return
+	 */
 	public ArrayList<BindPubSub> pubSubBindsContainingThingInstances(InstanceThing instanceThing,Network network) {
 		ArrayList<BindPubSub> binds = new ArrayList<BindPubSub>();
 		for (BindPubSub bindPubSub : network.getBindsPubsub()) {
