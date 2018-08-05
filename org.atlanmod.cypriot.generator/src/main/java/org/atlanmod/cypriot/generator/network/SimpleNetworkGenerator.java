@@ -23,6 +23,11 @@ import org.eclipse.emf.common.util.EList;
  */
 public class SimpleNetworkGenerator {
 
+	public enum TopicTypes {
+	    PUBTOPIC,
+	    SUBTOPIC
+	}
+	
 	final static Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
 
 	private File cypriotFile;
@@ -57,9 +62,6 @@ public class SimpleNetworkGenerator {
 
 			ArrayList<BindPubSub> bindPubSubs = pubSubBindsContainingThingInstances(instanceThing, network);
 
-			ArrayList<Topic> pubTopics = getAllPubTopicsOfThingInstace(instanceThing, bindPubSubs);
-			ArrayList<Topic> subTopics = getAllSubTopicsOfThingInstace(instanceThing, bindPubSubs);
-
 			reqRepBindsContainingThingInstances(instanceThing, network);
 			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
 			instanceGen.setCypriotFile(cypriotFile);
@@ -69,47 +71,28 @@ public class SimpleNetworkGenerator {
 		}
 	}
 
-	
-	/**
-	 * To be refactored
-	 * @param instanceThing
-	 * @param bindPubSubs
-	 * @return
-	 */
-	public ArrayList<Topic> getAllSubTopicsOfThingInstace(InstanceThing instanceThing,
-			ArrayList<BindPubSub> bindPubSubs) {
-		ArrayList<Topic> subTopics = new ArrayList<Topic>();
-
-		for (BindPubSub bindPubSub : bindPubSubs) {
-			EList<Topic> topics = bindPubSub.getTopics();
-			for (Topic topic : topics) {
-				if (bindPubSub.getReadOrWrite().equals("<=")) {
-					log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
-					subTopics.add(topic);
-				} 
-			}				
-		}
-		return subTopics;
-	}
 	/**
 	 * @param instanceThing
 	 * @param bindPubSubs
 	 * @return
 	 */
-	public ArrayList<Topic> getAllPubTopicsOfThingInstace(InstanceThing instanceThing,
-			ArrayList<BindPubSub> bindPubSubs) {
-		ArrayList<Topic> pubTopics = new ArrayList<Topic>();
+	public ArrayList<Topic> getAllTopicsOfType(InstanceThing instanceThing,
+			ArrayList<BindPubSub> bindPubSubs, TopicTypes topicType) {
+		ArrayList<Topic> topics = new ArrayList<Topic>();
 
 		for (BindPubSub bindPubSub : bindPubSubs) {
-			EList<Topic> topics = bindPubSub.getTopics();
-			for (Topic topic : topics) {
-				if (bindPubSub.getReadOrWrite().equals("=>")) {
+			EList<Topic> allTopics = bindPubSub.getTopics();
+			for (Topic topic : allTopics) {
+				if (bindPubSub.getReadOrWrite().equals("=>") && topicType==TopicTypes.PUBTOPIC) {
 					log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
-					pubTopics.add(topic);
-				} 
+					topics.add(topic);
+				} else if(bindPubSub.getReadOrWrite().equals("<=") && topicType==TopicTypes.SUBTOPIC){
+					log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
+					topics.add(topic);
+				}
 			}				
 		}
-		return pubTopics;
+		return topics;
 	}
 
 	/**
