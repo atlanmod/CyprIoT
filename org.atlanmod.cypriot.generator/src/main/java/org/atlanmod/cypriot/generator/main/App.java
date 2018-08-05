@@ -32,7 +32,7 @@ public class App implements Runnable {
 			log.debug("Processing " + cypriotInputFile.getName() + " file...");
 		}
 		if (verbose.length > 1) {
-			log.debug(cypriotInputFile.getAbsolutePath());
+			log.debug("File absolute path : "+cypriotInputFile.getAbsolutePath());
 		}
 		SimpleNetworkGenerator networkGenerator = new SimpleNetworkGenerator();
 		networkGenerator.setCypriotFile(cypriotInputFile);
@@ -44,7 +44,7 @@ public class App implements Runnable {
 			networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
 		}
 		
-		log.debug("Generation Path : " +cypriotOutputDirectory);
+		log.debug("Generation folder : " +cypriotOutputDirectory);
 		networkGenerator.generate();
 
 	}

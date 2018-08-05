@@ -26,11 +26,11 @@ import org.thingml.xtext.thingML.ThingMLModel;
 public class SimpleNetworkGenerator {
 
 	final static Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
-	
+
 	private File cypriotFile;
 	private File cypriotOutputDirectory;
 	EList<Network> allNetworks;
-	
+
 	/**
 	 * Process code generation for the whole cy file
 	 */
@@ -40,59 +40,72 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
-	 * Process code generation for the whole network 
+	 * Process code generation for the whole network
 	 */
 	public void generateTheNetwork() {
 		for (Network network : allNetworks) {
 			generateForAllInstanceThings(network);
-			new NetworkDebug(log,cypriotFile,network);
+			new NetworkDebug(log, cypriotFile, network);
 		}
 	}
 
-	/** 
+	/**
 	 * Generate code for evey instanceThing in the network
+	 * 
 	 * @param network
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-			
-			ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
-			
+			generateUsingThingMLGenerator(instanceThing);
+		}
+	}
+
+	/**
+	 * Generate code for an instanceThing using ThingML compiler
+	 * 
+	 * @param instanceThing
+	 */
+	public void generateUsingThingMLGenerator(InstanceThing instanceThing) {
+		ThingMLModel thingmlModel = getThingmlModelFromInstanceThing(instanceThing);
+		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
+		File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
+
+		if (NetworkHelper.isConfigCountOne(thingmlModel)) {
+
 			ThingMLCompiler thingmlCompiler = NetworkHelper.setThingMLCompilerPlugins();
-			File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
-			
+
 			thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-			
+
 			SystemLogger loggerThg = new SystemLogger();
-			
-			thingmlCompiler.compile(thingmlModel.getConfigs().get(0),loggerThg);				
-			
-			log.debug("ThingML thing name : "+thingmlModel.getTypes().get(0).getName());
-			
+
+			thingmlCompiler.compile(thingmlModel.getConfigs().get(0), loggerThg);
 		}
 	}
 
 	/**
 	 * Get the directory of generation for a single thing
+	 * 
 	 * @param instanceThing
 	 * @return
 	 */
 	public File getInstanceThingGenDirectory(InstanceThing instanceThing) {
-		File cypriotThingOutputDirectory = new File(cypriotOutputDirectory.getAbsolutePath()+"/"+NetworkHelper.getIdNameOfEobject(instanceThing));
+		File cypriotThingOutputDirectory = new File(
+				cypriotOutputDirectory.getAbsolutePath() + "/" + NetworkHelper.getIdNameOfEobject(instanceThing));
 		return cypriotThingOutputDirectory;
 	}
 
 	/**
-	 * Set  all the network from a cy file
+	 * Set all the network from a cy file
 	 */
 	public void getNetworksInFile() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
 		allNetworks = model.getNetworks();
 	}
-	
+
 	/**
 	 * Get the ThingML model imported by an InstanceThing
+	 * 
 	 * @param instanceThing
 	 * @return The imported ThingML model
 	 */
@@ -103,7 +116,7 @@ public class SimpleNetworkGenerator {
 		ThingMLModel thingmlModel = null;
 		try {
 			thingMLFile = NetworkHelper.getFileFromPath(thingPath);
-			thingmlModel= thingmlloader.loadFromFile(thingMLFile);
+			thingmlModel = thingmlloader.loadFromFile(thingMLFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -112,16 +125,19 @@ public class SimpleNetworkGenerator {
 
 	/**
 	 * Get the instances of things present in a network
+	 * 
 	 * @param network
-	 * @return 
+	 * @return
 	 */
 	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
-		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network, InstanceThing.class);
+		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Utilities.allTypesInNetwork(network,
+				InstanceThing.class);
 		return instanceThings;
 	}
-	
+
 	/**
 	 * Get the Cypriot file being processed
+	 * 
 	 * @return the cypriotFile
 	 */
 	public File getCypriotFile() {
@@ -130,6 +146,7 @@ public class SimpleNetworkGenerator {
 
 	/**
 	 * Set the Cypriot file being processed
+	 * 
 	 * @param cypriotFile the cypriotFile to set
 	 */
 	public void setCypriotFile(File cypriotFile) {
@@ -138,6 +155,7 @@ public class SimpleNetworkGenerator {
 
 	/**
 	 * Get the directory of code generation
+	 * 
 	 * @return the cypriotOutputDirectory
 	 */
 	public File getCypriotOutputDirectory() {
@@ -146,6 +164,7 @@ public class SimpleNetworkGenerator {
 
 	/**
 	 * Set the directory for code generation
+	 * 
 	 * @param cypriotOutputDirectory the cypriotOutputDirectory to set
 	 */
 	public void setCypriotOutputDirectory(File cypriotOutputDirectory) {

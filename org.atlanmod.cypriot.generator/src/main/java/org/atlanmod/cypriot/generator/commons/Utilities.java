@@ -65,7 +65,7 @@ public class Utilities {
 	 */
 	public static String getContentFromFile(File file) {
 		String content = new FileProcessingTemplate() {}.process(file);
-		log.debug(" \n \n ##### File Content "+file.getName()+ " ##### \n \n"+content);
+		//log.debug(" \n \n ##### File Content "+file.getName()+ " ##### \n \n"+content);
 		return content;
 	}
 
@@ -126,7 +126,9 @@ public class Utilities {
 	 * @return
 	 */
 	public static boolean checkProblemsInModel(Resource model) {
-		log.info("Checking for EMF errors and warnings");
+		String[] splitURI = model.getURI().toString().split("/");
+		String elementNameFromURI = splitURI[splitURI.length-1];
+		log.info("Checking for EMF errors and warnings of \""+elementNameFromURI+"\"");
 		boolean noErrors = checkErrorsInResource(model);
 		checkWarningInResource(model);
 		return noErrors;
@@ -153,6 +155,7 @@ public class Utilities {
 						+ d.getMessage());
 			}
 		}
+		log.debug("No error was found in the model.");
 		return noErrors;
 	}
 

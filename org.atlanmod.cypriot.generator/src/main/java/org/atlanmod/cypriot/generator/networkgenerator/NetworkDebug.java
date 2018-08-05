@@ -101,7 +101,7 @@ public class NetworkDebug {
 		ArrayList<InstanceThing> instanceThings = Utilities.allTypesInNetwork(network, InstanceThing.class);
 		for (InstanceThing instanceThing : instanceThings) {
 			String instanceName = NetworkHelper.getIdNameOfEobject(instanceThing);
-			log.debug("Thing Name : " + instanceName + " Number : " + instanceThing.getNumberOfInstances());
+			log.debug("Thing Name : " + instanceName + ", number : " + instanceThing.getNumberOfInstances());
 			String fullThingPath = NetworkHelper.getImportedThingPath(instanceThing,cypriotFile);			
 			
 			File file;
@@ -115,7 +115,7 @@ public class NetworkDebug {
 			}
 			
 			String roles = Utilities.appendStrings(NetworkHelper.getAssignedRolesToThing(instanceThing), ",");
-			log.debug("Roles : " + roles);
+			log.debug("Roles for "+instanceName+" : " + roles);
 		}
 	}
 }
