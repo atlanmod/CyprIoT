@@ -14,6 +14,7 @@ import org.thingml.compilers.spi.NetworkPlugin;
 import org.thingml.compilers.spi.SerializationPlugin;
 import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
 import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
+import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkHelper {
@@ -71,12 +72,25 @@ public class NetworkHelper {
 	 */
 	public static boolean isConfigCountOne(ThingMLModel thingmlModel) {
 		int configCount = thingmlModel.getConfigs().size();
-		if(configCount==1) {
-			//log.debug("There is only one configuration : Ok !");
-			return true;
-		}
-		//log.debug("There should be only one configuration in the model.");
-		return false;
+		return isIntOne(configCount);
+	}
+	
+	/**
+	 * Check whether there is only one external connector in the imported ThingML file
+	 * @param thingmlModel
+	 * @return True if there is only one connector, False if not.
+	 */
+	public static boolean isConnectorOne(Configuration configuration) {
+		int configCount = configuration.getConnectors().size();
+		return isIntOne(configCount);
+	}
+
+	/**
+	 * @param configCount
+	 * @return
+	 */
+	public static boolean isIntOne(int configCount) {
+		return configCount==1;
 	}
 
 	/**

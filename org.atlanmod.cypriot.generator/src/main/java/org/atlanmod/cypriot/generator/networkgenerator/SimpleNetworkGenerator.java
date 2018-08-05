@@ -14,6 +14,10 @@ import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.utilities.logging.SystemLogger;
+import org.thingml.xtext.thingML.AbstractConnector;
+import org.thingml.xtext.thingML.Configuration;
+import org.thingml.xtext.thingML.Connector;
+import org.thingml.xtext.thingML.ExternalConnector;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
@@ -71,15 +75,26 @@ public class SimpleNetworkGenerator {
 		File cypriotThingOutputDirectory = getInstanceThingGenDirectory(instanceThing);
 
 		if (NetworkHelper.isConfigCountOne(thingmlModel)) {
+			Configuration configuration = thingmlModel.getConfigs().get(0);
+			if (NetworkHelper.isConnectorOne(configuration)) {
+				AbstractConnector connector = configuration.getConnectors().get(0);
+				if (isConnectorExternal(connector)) {
+					ThingMLCompiler thingmlCompiler = NetworkHelper.setThingMLCompilerPlugins();
+					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
+					SystemLogger loggerThg = new SystemLogger();
+					thingmlCompiler.compile(configuration, loggerThg);
+				}
+			}
 
-			ThingMLCompiler thingmlCompiler = NetworkHelper.setThingMLCompilerPlugins();
-
-			thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-
-			SystemLogger loggerThg = new SystemLogger();
-
-			thingmlCompiler.compile(thingmlModel.getConfigs().get(0), loggerThg);
 		}
+	}
+
+	/**
+	 * @param connector
+	 * @return
+	 */
+	public boolean isConnectorExternal(AbstractConnector connector) {
+		return connector instanceof ExternalConnector;
 	}
 
 	/**
