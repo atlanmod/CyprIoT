@@ -11,6 +11,8 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.commons.Helpers;
+import org.atlanmod.cypriot.generator.compilers.CPosixGenerator;
+import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.eclipse.emf.common.util.EList;
 
@@ -60,13 +62,18 @@ public class SimpleNetworkGenerator {
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
 
-			ArrayList<BindPubSub> bindPubSubs = pubSubBindsContainingThingInstances(instanceThing, network);
+			ArrayList<BindPubSub> pubSubBindsContainingThingInstances = pubSubBindsContainingThingInstances(instanceThing, network);
 
-			reqRepBindsContainingThingInstances(instanceThing, network);
-			InstanceThingGenerator instanceGen = new InstanceThingGenerator();
-			instanceGen.setCypriotFile(cypriotFile);
-			instanceGen.setInstanceThing(instanceThing);
-			instanceGen.setOutputDirectory(cypriotOutputDirectory);
+			ArrayList<BindReqRep> reqRepBindsContainingThingInstances = reqRepBindsContainingThingInstances(instanceThing, network);
+			
+			
+			for (BindReqRep bindReqRep : reqRepBindsContainingThingInstances) {
+				
+			}
+			
+			
+			GeneratorFactory generatorFactory = new CPosixGenerator();
+			InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
 			instanceGen.generate();
 		}
 	}

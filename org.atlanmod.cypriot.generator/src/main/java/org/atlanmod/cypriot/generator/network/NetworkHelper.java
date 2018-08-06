@@ -97,26 +97,6 @@ public class NetworkHelper {
 	}
 
 	/**
-	 * Set the network and serialization plugins for the ThingML compiler
-	 * @return
-	 */
-	public static ThingMLCompiler setThingMLCompilerPlugins() {
-		ThingMLCompiler thingmlCompiler = new PosixMTCompiler();
-		log.debug("Compiler ID : "+thingmlCompiler.getID());
-	
-		NetworkPlugin networkPlugin = new PosixMQTTPlugin();
-		log.debug("Network Plugin : "+networkPlugin.getName());
-	
-		SerializationPlugin serializationPlugin = new CByteArraySerializerPlugin();
-		log.debug("Serialization Plugin : "+serializationPlugin.getName());
-	
-		
-		thingmlCompiler.addNetworkPlugin(networkPlugin);
-		thingmlCompiler.addSerializationPlugin(serializationPlugin);
-		return thingmlCompiler;
-	}
-
-	/**
 	 * Get the assigned roles to the thing corresponding to the instanceThing
 	 * @param instance
 	 * @return The roles assigned to the instanceThing

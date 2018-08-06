@@ -48,6 +48,13 @@
 			<systemPath>${project.basedir}/lib/compilers.framework-2.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
+			<groupId>compilers.java</groupId>
+			<artifactId>compilers.java-2.0.0-SNAPSHOT</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/compilers.java-2.0.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>compilers.c</groupId>
 			<artifactId>compilers.c-2.0.0-SNAPSHOT</artifactId>
 			<version>1.0</version>

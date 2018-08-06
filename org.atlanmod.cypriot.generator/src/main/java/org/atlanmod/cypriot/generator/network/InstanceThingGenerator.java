@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.generator.commons.Helpers;
+import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.utilities.logging.SystemLogger;
@@ -15,11 +16,21 @@ import org.thingml.xtext.thingML.ExternalConnector;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class InstanceThingGenerator {
-	InstanceThing instanceThing;
+	private InstanceThing instanceThing;
 	private File cypriotFile;
-	File outputDirectory;
+	private File outputDirectory;
+	private GeneratorFactory generatorFactory;
 
+	
 	final static Logger log = Logger.getLogger(InstanceThingGenerator.class.getName());
+	
+	
+	public InstanceThingGenerator(File cypriotFile, InstanceThing instanceThing, File outputDirectory, GeneratorFactory generatorFactory) {
+		this.cypriotFile = cypriotFile;
+		this.instanceThing = instanceThing;
+		this.outputDirectory = outputDirectory;
+		this.generatorFactory = generatorFactory;
+	}
 	
 	public void generate() {
 		generateUsingThingMLGenerator();
@@ -41,7 +52,7 @@ public class InstanceThingGenerator {
 			if (NetworkHelper.isConnectorOne(configuration)) {
 				AbstractConnector connector = configuration.getConnectors().get(0);
 				if (isConnectorExternal(connector)) {
-					ThingMLCompiler thingmlCompiler = NetworkHelper.setThingMLCompilerPlugins();
+					ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins(generatorFactory);
 					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
 					SystemLogger loggerThg = new SystemLogger();
 					thingmlCompiler.compile(configuration, loggerThg);
@@ -134,47 +145,17 @@ public class InstanceThingGenerator {
 		String roles = Helpers.appendStrings(NetworkHelper.getAssignedRolesToThing(instanceThing), ",");
 		log.debug("Roles for " + instanceName + " : " + roles);
 	}
+	
 
 	/**
-	 * @return the instanceThing
+	 * Set the network and serialization plugins for the ThingML compiler
+	 * @return
 	 */
-	public InstanceThing getInstanceThing() {
-		return instanceThing;
-	}
-
-	/**
-	 * @return the cypriotFile
-	 */
-	public File getCypriotFile() {
-		return cypriotFile;
-	}
-
-	/**
-	 * @return the outputDirectory
-	 */
-	public File getOutputDirectory() {
-		return outputDirectory;
-	}
-
-	/**
-	 * @param instanceThing the instanceThing to set
-	 */
-	public void setInstanceThing(InstanceThing instanceThing) {
-		this.instanceThing = instanceThing;
-	}
-
-	/**
-	 * @param cypriotFile the cypriotFile to set
-	 */
-	public void setCypriotFile(File cypriotFile) {
-		this.cypriotFile = cypriotFile;
-	}
-
-	/**
-	 * @param outputDirectory the outputDirectory to set
-	 */
-	public void setOutputDirectory(File outputDirectory) {
-		this.outputDirectory = outputDirectory;
+	public ThingMLCompiler setThingMLCompilerPlugins(GeneratorFactory generatorFactory) {
+		ThingMLCompiler thingmlCompiler = generatorFactory.makeGenerator();
+		thingmlCompiler.addNetworkPlugin(generatorFactory.makeNetworkPlugin());
+		thingmlCompiler.addSerializationPlugin(generatorFactory.makeSerializationPlugin());
+		return thingmlCompiler;
 	}
 
 }
