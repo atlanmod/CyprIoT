@@ -25,8 +25,8 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.atlanmod.cypriot.ui.internal.CypriotActivator
+Automatic-Module-Name: org.atlanmod.cypriot.ui
 Export-Package: org.atlanmod.cypriot.ui.quickfix,
  org.atlanmod.cypriot.ui.internal,
  org.atlanmod.cypriot.ui.contentassist,
  org.atlanmod.cypriot.ui.editor
-Automatic-Module-Name: org.atlanmod.cypriot.ui

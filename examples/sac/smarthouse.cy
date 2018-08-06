@@ -29,7 +29,7 @@ channel:reqrep Central {
 }
 
 channel:pubsub Broker {
-	topic room1 
+	topic room1
 	topic light subtopicOf room1
 }
 
@@ -39,11 +39,11 @@ channel:pubsub CommandBroker {
 
 //STLS Network Configuration
 network stlsNetwork {
-	instanceThing Computer~gateway owner cityUser
-	instanceThing Temperature~car[1] owner anyuser
+	instanceThing Computer~gateway owner cityUser @posix
+	instanceThing Temperature~car[1] owner anyuser @posix
 	instancePubsub Broker~CentralMqtt @mqtt
 	instancePubsub CommandBroker~commandsMqtt @mqtt
-	instanceReqrep Central~rest
+	instanceReqrep Central~rest @http
 	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
 	bindPubSub gateway.cloud => CentralMqtt{room1}
 	bindReqRep car.speed => rest.speed
