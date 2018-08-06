@@ -13,6 +13,7 @@ import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.compilers.CPosixGenerator;
 import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
+import org.atlanmod.cypriot.generator.compilers.JavaGenerator;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.eclipse.emf.common.util.EList;
 
@@ -23,11 +24,20 @@ import org.eclipse.emf.common.util.EList;
  * @author imberium
  *
  */
+/**
+ * @author imad
+ *
+ */
 public class SimpleNetworkGenerator {
 
 	public enum TopicTypes {
 	    PUBTOPIC,
 	    SUBTOPIC
+	}
+	
+	public enum GeneratorPlatform {
+	    CPOSIX,
+	    JAVA
 	}
 	
 	final static Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
@@ -71,8 +81,8 @@ public class SimpleNetworkGenerator {
 				
 			}
 			
-			
-			GeneratorFactory generatorFactory = new CPosixGenerator();
+
+			GeneratorFactory generatorFactory = getGeneratorFactory(GeneratorPlatform.CPOSIX);
 			InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
 			instanceGen.generate();
 		}
@@ -100,6 +110,24 @@ public class SimpleNetworkGenerator {
 			}				
 		}
 		return topics;
+	}
+	
+	
+	/**
+	 * Get the factory corresponding to a given platform
+	 * @param generatorPlatform
+	 * @return
+	 */
+	public GeneratorFactory getGeneratorFactory(GeneratorPlatform generatorPlatform) {
+	
+		switch (generatorPlatform) {
+		case CPOSIX:
+			new CPosixGenerator();
+		case JAVA:
+			new JavaGenerator();
+		default:
+			return null;
+		}
 	}
 
 	/**
