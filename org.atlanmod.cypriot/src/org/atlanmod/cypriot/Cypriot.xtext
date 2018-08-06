@@ -65,13 +65,13 @@ Network:
 
 
 InstanceThing :
-	'instanceThing'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? (platform=('@posix' | '@java' | '@arduino' | 'javascript'))?
+	'instanceThing'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
 ;
 InstancePubSub :
-	'instancePubsub'typePubSub=[PubSub] '~' name=ID  (platform=('@mqtt' | '@amqp' ))?
+	'instancePubsub'typePubSub=[PubSub] '~' name=ID  platform=('@mqtt' | '@amqp' )
 ;
 InstanceReqRep :
-	'instanceReqrep'typeReqRep=[ReqRep] '~' name=ID (platform=('@http' | '@coap' ))?
+	'instanceReqrep'typeReqRep=[ReqRep] '~' name=ID platform=('@http' | '@coap' )
 ;
 ReqRep:
 	'channel:reqrep' name=ID '{'

@@ -37,7 +37,9 @@ public class SimpleNetworkGenerator {
 	
 	public enum GeneratorPlatform {
 	    CPOSIX,
-	    JAVA
+	    JAVA,
+	    ARDUINO,
+	    JAVASCRIPT
 	}
 	
 	final static Logger log = Logger.getLogger(SimpleNetworkGenerator.class.getName());
@@ -71,21 +73,29 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-
 			ArrayList<BindPubSub> pubSubBindsContainingThingInstances = pubSubBindsContainingThingInstances(instanceThing, network);
 
 			ArrayList<BindReqRep> reqRepBindsContainingThingInstances = reqRepBindsContainingThingInstances(instanceThing, network);
-			
-			
+						
 			for (BindReqRep bindReqRep : reqRepBindsContainingThingInstances) {
 				
 			}
 			
-
-			GeneratorFactory generatorFactory = getGeneratorFactory(GeneratorPlatform.CPOSIX);
-			InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
-			instanceGen.generate();
+			generateCodeForInstanceThing(instanceThing);
 		}
+	}
+
+	/**
+	 * Generate code for a given instanceThing
+	 * @param instanceThing
+	 */
+	public void generateCodeForInstanceThing(InstanceThing instanceThing) {
+		String platform = instanceThing.getPlatform();
+		log.debug("Target platform : " + platform);
+		GeneratorPlatform generatorPlatform = mapPlatformToEnum(platform);
+		GeneratorFactory generatorFactory = getGeneratorFactory(generatorPlatform);
+		InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
+		instanceGen.generate();
 	}
 
 	/**
@@ -112,19 +122,31 @@ public class SimpleNetworkGenerator {
 		return topics;
 	}
 	
+	public GeneratorPlatform mapPlatformToEnum(String platform) {
+		if(platform.equals("@posix")) {
+			return GeneratorPlatform.CPOSIX;
+		} else if (platform.equals("@java")) {
+			return GeneratorPlatform.JAVA;
+		} else if (platform.equals("@arduino")) {
+			return GeneratorPlatform.ARDUINO;
+		} else if (platform.equals("@javascript")) {
+			return GeneratorPlatform.JAVASCRIPT;
+		}
+		return null;
+	}
 	
 	/**
 	 * Get the factory corresponding to a given platform
 	 * @param generatorPlatform
-	 * @return
+	 * @return	
 	 */
 	public GeneratorFactory getGeneratorFactory(GeneratorPlatform generatorPlatform) {
 	
 		switch (generatorPlatform) {
 		case CPOSIX:
-			new CPosixGenerator();
+			return new CPosixGenerator();
 		case JAVA:
-			new JavaGenerator();
+			return new JavaGenerator();
 		default:
 			return null;
 		}

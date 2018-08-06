@@ -18,9 +18,9 @@ channel:pubsub Broker {
 }
 
 network twoThingsCom {
-	instanceThing Thing1~thing1
-	instanceThing Thing2~thing2
-	instancePubsub Broker~CentralMqtt
+	instanceThing Thing1~thing1 @posix
+	instanceThing Thing2~thing2 @java
+	instancePubsub Broker~CentralMqtt @mqtt
 	bindPubSub thing1.command <= CentralMqtt{topic1,light}
 	bindPubSub thing2.command => CentralMqtt{topic1}
 }

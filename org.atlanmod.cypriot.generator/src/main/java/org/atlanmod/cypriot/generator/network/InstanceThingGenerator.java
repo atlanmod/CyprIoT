@@ -52,7 +52,7 @@ public class InstanceThingGenerator {
 			if (NetworkHelper.isConnectorOne(configuration)) {
 				AbstractConnector connector = configuration.getConnectors().get(0);
 				if (isConnectorExternal(connector)) {
-					ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins(generatorFactory);
+					ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
 					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
 					SystemLogger loggerThg = new SystemLogger();
 					thingmlCompiler.compile(configuration, loggerThg);
@@ -151,7 +151,7 @@ public class InstanceThingGenerator {
 	 * Set the network and serialization plugins for the ThingML compiler
 	 * @return
 	 */
-	public ThingMLCompiler setThingMLCompilerPlugins(GeneratorFactory generatorFactory) {
+	public ThingMLCompiler setThingMLCompilerPlugins() {
 		ThingMLCompiler thingmlCompiler = generatorFactory.makeGenerator();
 		thingmlCompiler.addNetworkPlugin(generatorFactory.makeNetworkPlugin());
 		thingmlCompiler.addSerializationPlugin(generatorFactory.makeSerializationPlugin());
