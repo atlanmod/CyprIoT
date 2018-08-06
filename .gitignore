@@ -112,7 +112,12 @@ garbage/
 
 *.project
 *.jar
-!lib/*.jar
+!utilities-2.0.0-SNAPSHOT.jar
+!thingml-lang.jar
+!official-network-plugins-2.0.0-SNAPSHOT.jar
+!compilers.framework-2.0.0-SNAPSHOT.jar
+!compilers.c-2.0.0-SNAPSHOT.jar
+!compilers.java-2.0.0-SNAPSHOT.jar
 old
 plugin.xml
 plugin.xml_gen
