@@ -13,6 +13,8 @@ import org.thingml.utilities.logging.SystemLogger;
 import org.thingml.xtext.thingML.AbstractConnector;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ExternalConnector;
+import org.thingml.xtext.thingML.Protocol;
+import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class InstanceThingGenerator {
@@ -43,15 +45,16 @@ public class InstanceThingGenerator {
 	 * @param instanceThing
 	 */
 	public void generateUsingThingMLGenerator() {
-		ThingMLModel thingmlModel = getThingmlModelFromInstanceThing();
+		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
 		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
 		File cypriotThingOutputDirectory = getInstanceThingGenDirectory();
-
+		Configuration configuration = getThingMLConfiguration(thingmlModel);
 		if (NetworkHelper.isConfigOne(thingmlModel)) {
-			Configuration configuration = thingmlModel.getConfigs().get(0);
 			if (NetworkHelper.isConnectorOne(configuration)) {
-				AbstractConnector connector = configuration.getConnectors().get(0);
+				AbstractConnector connector = getThingMLConnector(configuration);
 				if (isConnectorExternal(connector)) {
+					clearAnnotationsFromConnector(connector);
+					clearProtocolToX(thingmlModel, connector);
 					ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
 					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
 					SystemLogger loggerThg = new SystemLogger();
@@ -60,6 +63,49 @@ public class InstanceThingGenerator {
 			}
 
 		}
+	}
+
+	/**
+	 * @param thingmlModel
+	 * @param connector
+	 */
+	public void clearProtocolToX(ThingMLModel thingmlModel, AbstractConnector connector) {
+		if(thingmlModel.getProtocols().size()>0) {
+			log.debug("Protocols are present.");
+			thingmlModel.getProtocols().clear();
+		}
+		Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
+		protocol.setName("X");
+		thingmlModel.getProtocols().add(protocol);
+		((ExternalConnector) connector).setProtocol(protocol);
+	}
+
+	/**
+	 * @param connector
+	 */
+	public void clearAnnotationsFromConnector(AbstractConnector connector) {
+		if(connector.getAnnotations().size()>0) {
+			log.debug("Annotations are present in the connector.");
+			connector.getAnnotations().clear();
+		}
+	}
+
+	/**
+	 * @param configuration
+	 * @return
+	 */
+	public AbstractConnector getThingMLConnector(Configuration configuration) {
+		AbstractConnector connector = configuration.getConnectors().get(0);
+		return connector;
+	}
+
+	/**
+	 * @param thingmlModel
+	 * @return
+	 */
+	public Configuration getThingMLConfiguration(ThingMLModel thingmlModel) {
+		Configuration configuration = thingmlModel.getConfigs().get(0);
+		return configuration;
 	}
 
 	/**

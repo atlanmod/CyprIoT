@@ -1,0 +1,63 @@
+thing Thing1 includes tempMsgs {
+	provided port dataEntryPoint {
+		sends temperatureMessage
+	}
+	statechart thing1 init showData {
+		state showData @ignore {
+			on entry do
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+				dataEntryPoint!temperatureMessage(1, 1)
+			end
+		}
+	}
+}
+thing fragment carMsgs {
+	message alert(warning : Boolean)
+}
+thing fragment tempMsgs {
+	message temperatureMessage(TemperatureData : UInt32, currentHour : UInt32)
+	message telemetryMessage(power : UInt32, stateOnOff : Boolean)
+}
+thing fragment timerMsgs {
+	message timerMessage(currentHour : UInt32)
+	message getTime()
+}
+datatype UInt32<4>
+	@type_checker "Integer"
+	@c_type "uint32_t"
+	@c_byte_size "4"
+	@java_type "int"
+	@js_type "int"
+	@java_primitive "true"
+datatype UInt8<1>
+	@type_checker "Integer"
+	@c_type "uint8_t"
+	@c_byte_size "1"
+	@java_type "byte"
+	@js_type "byte"
+	@java_primitive "true"
+object String
+	@c_type "char *"
+	@type_checker "String"
+datatype Boolean<1>
+	@c_type "uint8_t"
+	@c_byte_size "2"
+	@java_type "boolean"
+	@java_primitive "true"
+object DHT @c_type "dht"
+protocol MQTT
+	@trace_level "0"
+	@mqtt_broker_port "1883"
+	@mqtt_broker_address "iot.eclipse.org"
+	@mqtt_escape_null "true"
+	@serializer "Binary"
+
+configuration thing2Exec {
+	instance thing1 : Thing1
+	connector thing1.dataEntryPoint over MQTT
+}

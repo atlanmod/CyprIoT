@@ -67,7 +67,7 @@ public class SimpleNetworkGenerator {
 	}
 
 	/**
-	 * Generate code for evey instanceThing in the network
+	 * Generate code for every instanceThing in the network
 	 * 
 	 * @param network
 	 */

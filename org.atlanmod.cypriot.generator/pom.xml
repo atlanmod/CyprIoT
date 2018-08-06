@@ -27,6 +27,20 @@
             <version>2.6</version>
         </dependency>
 		<dependency>
+			<groupId>org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942</groupId>
+			<artifactId>org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>atl-emftvm-fatjar</groupId>
+			<artifactId>atl-emftvm-fatjar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/atl-emftvm-fatjar.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>thingml-official-network-plugins</groupId>
 			<artifactId>official-network-plugins-2.0.0-SNAPSHOT</artifactId>
 			<version>1.0</version>
