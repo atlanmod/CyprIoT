@@ -118,6 +118,8 @@ garbage/
 !compilers.framework-2.0.0-SNAPSHOT.jar
 !compilers.c-2.0.0-SNAPSHOT.jar
 !compilers.java-2.0.0-SNAPSHOT.jar
+!org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942.jar
+!atl-emftvm-fatjar.jar
 old
 plugin.xml
 plugin.xml_gen
