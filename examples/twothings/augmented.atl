@@ -1,0 +1,22 @@
+-- @path cyprIoT=/CyprIoT/examples/twothings/Cypriot.ecore
+-- @path thingML=/CyprIoT/examples/twothings/ThingML.ecore
+
+module augmented;
+create OUT : thingML from IN : cyprIoT, IN2 :thingML;
+
+helper context thingML!Protocol def : isProtocolX() : Boolean = 
+	if self.name='X' then
+		true
+	else 
+		false
+	endif
+	;
+
+rule cyprtiotProtocol {
+	from
+		n : cyprIoT!Network
+	to
+		nt : thingML!Protocol (
+			name <- n.instancesPubsub.first().platform
+		)
+}

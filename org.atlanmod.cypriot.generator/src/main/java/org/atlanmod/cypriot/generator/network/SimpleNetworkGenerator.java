@@ -1,6 +1,7 @@
 package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -16,6 +17,13 @@ import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.compilers.JavaGenerator;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.xtext.resource.SaveOptions;
 
 /**
  * A simple generator that generates a description of the network in human
@@ -196,7 +204,30 @@ public class SimpleNetworkGenerator {
 	public void getNetworksInFile() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
+		saveCypriotModelAsXMI(model);
 		allNetworks = model.getNetworks();
+	}
+
+	/**
+	 * Save the model as an XMI
+	 * @param model
+	 */
+	public void saveCypriotModelAsXMI(CyprIoTModel model) {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+				new XMIResourceFactoryImpl());
+		ResourceSet rs = new ResourceSetImpl();
+		Resource res = rs.createResource(URI.createFileURI(cypriotOutputDirectory.getAbsolutePath() + "/cypriot.xmi"));
+
+		res.getContents().add(model);
+		EcoreUtil.resolveAll(res);
+
+		SaveOptions opt = SaveOptions.newBuilder().format().noValidation().getOptions();
+		try {
+			res.save(opt.toOptionsMap());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

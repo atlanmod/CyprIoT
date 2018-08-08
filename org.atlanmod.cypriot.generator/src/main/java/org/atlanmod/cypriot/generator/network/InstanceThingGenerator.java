@@ -2,6 +2,7 @@ package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
@@ -46,6 +47,12 @@ public class InstanceThingGenerator {
 	 */
 	public void generateUsingThingMLGenerator() {
 		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
+		try {
+			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath()+"/thgmodel.xmi");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
 		File cypriotThingOutputDirectory = getInstanceThingGenDirectory();
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
@@ -66,6 +73,7 @@ public class InstanceThingGenerator {
 	}
 
 	/**
+	 * Set the protocol name to X, if any protocol is defined
 	 * @param thingmlModel
 	 * @param connector
 	 */
@@ -81,6 +89,7 @@ public class InstanceThingGenerator {
 	}
 
 	/**
+	 * Clear annotation from the connector (they may contain protocol specific properties)
 	 * @param connector
 	 */
 	public void clearAnnotationsFromConnector(AbstractConnector connector) {
