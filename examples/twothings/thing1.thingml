@@ -6,6 +6,9 @@ thing Thing1 includes tempMsgs {
 	provided port dataEntryPoint {
 		sends temperatureMessage
 	}
+	provided port dataEntryPoint2 {
+		sends temperatureMessage
+	}
 	statechart thing1 init showData{
 		state showData @ignore{
 			on entry do 
@@ -23,5 +26,5 @@ thing Thing1 includes tempMsgs {
 
 configuration thing2Exec {
 	instance thing1:Thing1
-	connector thing1.dataEntryPoint over MQTT @mqtt_topic "okok"
+	connector thing1.dataEntryPoint over MQTT @subscribe_topic "realTimeCommand"
 }

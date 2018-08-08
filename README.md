@@ -26,7 +26,7 @@ CyprIoT is tool to help compose a network of things using Model-Driven engineeri
 
 ## Installation
 
-* Run ``mvn clean install`` at the root of the project	
+* Run ``mvn clean install  -U`` at the root of the project	
 * Import the project into Eclipse
 * Right-Click on ``org.atlanmod.cypriot`` package
 * Hit Run As -> Eclipse Application

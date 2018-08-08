@@ -25,7 +25,7 @@ thing:Computer
 		
 // Communication channels declaration
 channel:reqrep Central {
-	endpoint speed
+	endpoint speed // A changer
 }
 
 channel:pubsub Broker {
@@ -41,9 +41,9 @@ channel:pubsub CommandBroker {
 network stlsNetwork {
 	instanceThing Computer~gateway owner cityUser @posix
 	instanceThing Temperature~car[1] owner anyuser @posix
-	instancePubsub Broker~CentralMqtt @mqtt
-	instancePubsub CommandBroker~commandsMqtt @mqtt
-	instanceReqrep Central~rest @http
+	instancePubsub Broker~CentralMqtt platform MQTT
+	instancePubsub CommandBroker~commandsMqtt platform MQTT
+	instanceReqrep Central~rest platform HTTP
 	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
 	bindPubSub gateway.cloud => CentralMqtt{room1}
 	bindReqRep car.speed => rest.speed
