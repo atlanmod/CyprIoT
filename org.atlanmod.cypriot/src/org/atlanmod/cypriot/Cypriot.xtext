@@ -1,8 +1,7 @@
 grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.xbase.Xbase
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-
-
+import "http://www.thingml.org/xtext/ThingML" as thingml
 
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
@@ -30,17 +29,17 @@ DataType: 'datatype' name = ID
 
 // Domain Model
 Role:
-	'role:' name=ID
+	'role' name=ID
 ;
 
 User :
-	'user:' name=ID 'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
+	'user' name=ID 'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
 ;
 
 Thing:
-	'thing:' name=ID 
+	'thing' name=ID 
 		'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
-		'import' importPath=STRING_LIT
+		'import' importPath=[thingml::ThingMLModel]
 		//ports+=[Port]
 ;
 
@@ -65,13 +64,13 @@ Network:
 
 
 InstanceThing :
-	'instanceThing'typeThing=[Thing] '~' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
+	'instanceThing'typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
 ;
 InstancePubSub :
-	'instancePubsub'typePubSub=[PubSub] '~' name=ID  'platform' platform=('MQTT' | 'AMQP' )
+	'instancePubsub'typePubSub=[PubSub] ':' name=ID  'platform' platform=('MQTT' | 'AMQP' )
 ;
 InstanceReqRep :
-	'instanceReqrep'typeReqRep=[ReqRep] '~' name=ID  'platform'  platform=('HTTP' | 'COAP' )
+	'instanceReqrep'typeReqRep=[ReqRep] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
 ;
 ReqRep:
 	'channel:reqrep' name=ID '{'

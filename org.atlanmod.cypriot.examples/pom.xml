@@ -10,6 +10,6 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>examples</artifactId>
+	<artifactId>org.atlanmod.cypriot.examples</artifactId>
 	<name>CyprIoT Language Examples</name>
 </project>

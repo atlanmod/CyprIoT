@@ -22,7 +22,7 @@ CyprIoT is tool to help compose a network of things using Model-Driven engineeri
 
 * Eclipse Modeling Tools Oxygen or newer
 * Xtext 2.14+
-* Maven 3.5+
+* Maven 3.5+ (Maven for Eclipse)
 
 ## Installation
 

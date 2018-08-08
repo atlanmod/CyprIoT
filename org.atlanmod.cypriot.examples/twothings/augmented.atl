@@ -1,5 +1,5 @@
 -- @path cyprIoT=/CyprIoT/examples/twothings/Cypriot.ecore
--- @path thingML=/CyprIoT/examples/twothings/ThingML.ecore
+-- @uri thingML=http://www.thingml.org/xtext/ThingML
 
 module augmented;
 create OUT : thingML from IN : cyprIoT, IN2 :thingML;
