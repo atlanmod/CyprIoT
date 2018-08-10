@@ -3,7 +3,7 @@
 ## What is CyprIoT?
 CyprIoT is tool to help compose a network of things using Model-Driven engineering techniques. A Domain-Specific language (DSL) enables you to design the network. Using code generation you can produce working code to deploy in your network.
 
-[![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/514aac3f5239460281668f1bc65305d3)](https://www.codacy.com/app/imberium/CyprIoT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atlanmod/CyprIoT&amp;utm_campaign=Badge_Grade) [![codecov](https://codecov.io/gh/atlanmod/CyprIoT/branch/master/graph/badge.svg)](https://codecov.io/gh/atlanmod/CyprIoT) LoC:2568
+[![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/514aac3f5239460281668f1bc65305d3)](https://www.codacy.com/app/imberium/CyprIoT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atlanmod/CyprIoT&amp;utm_campaign=Badge_Grade) [![codecov](https://codecov.io/gh/atlanmod/CyprIoT/branch/master/graph/badge.svg)](https://codecov.io/gh/atlanmod/CyprIoT) LoC:2057
 
 ## Features
 
@@ -17,6 +17,7 @@ CyprIoT is tool to help compose a network of things using Model-Driven engineeri
 * ``org.atlanmod.cypriot.ide`` : Platform-independent IDE functionality 
 * ``org.atlanmod.cypriot.ui`` : Eclipse editor for the language
 * ``org.atlanmod.cypriot.test`` : Language unit tests
+* ``org.atlanmod.cypriot.examples`` : Few examples
 
 ## Requirements
 
@@ -27,7 +28,7 @@ CyprIoT is tool to help compose a network of things using Model-Driven engineeri
 ## Installation
 
 * Run ``mvn clean install  -U`` at the root of the project	
-* Import the project into Eclipse
+* Import as a maven the project into Eclipse
 * Right-Click on ``org.atlanmod.cypriot`` package
 * Hit Run As -> Eclipse Application
 * Enjoy network modeling !

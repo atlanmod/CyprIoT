@@ -24,17 +24,16 @@ public class InstanceThingGenerator {
 	private File outputDirectory;
 	private GeneratorFactory generatorFactory;
 
-	
 	final static Logger log = Logger.getLogger(InstanceThingGenerator.class.getName());
-	
-	
-	public InstanceThingGenerator(File cypriotFile, InstanceThing instanceThing, File outputDirectory, GeneratorFactory generatorFactory) {
+
+	public InstanceThingGenerator(File cypriotFile, InstanceThing instanceThing, File outputDirectory,
+			GeneratorFactory generatorFactory) {
 		this.cypriotFile = cypriotFile;
 		this.instanceThing = instanceThing;
 		this.outputDirectory = outputDirectory;
 		this.generatorFactory = generatorFactory;
 	}
-	
+
 	public void generate() {
 		generateUsingThingMLGenerator();
 		debugInstanceThing();
@@ -48,10 +47,9 @@ public class InstanceThingGenerator {
 	public void generateUsingThingMLGenerator() {
 		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
 		try {
-			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath()+"/thgmodel.xmi");
+			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath() + "/thgmodel.xmi");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
 		File cypriotThingOutputDirectory = getInstanceThingGenDirectory();
@@ -68,17 +66,17 @@ public class InstanceThingGenerator {
 					thingmlCompiler.compile(configuration, loggerThg);
 				}
 			}
-
 		}
 	}
 
 	/**
 	 * Set the protocol name to X, if any protocol is defined
+	 * 
 	 * @param thingmlModel
 	 * @param connector
 	 */
 	public void clearProtocolToX(ThingMLModel thingmlModel, AbstractConnector connector) {
-		if(thingmlModel.getProtocols().size()>0) {
+		if (thingmlModel.getProtocols().size() > 0) {
 			log.debug("Protocols are present.");
 			thingmlModel.getProtocols().clear();
 		}
@@ -89,11 +87,13 @@ public class InstanceThingGenerator {
 	}
 
 	/**
-	 * Clear annotation from the connector (they may contain protocol specific properties)
+	 * Clear annotation from the connector (they may contain protocol specific
+	 * properties)
+	 * 
 	 * @param connector
 	 */
 	public void clearAnnotationsFromConnector(AbstractConnector connector) {
-		if(connector.getAnnotations().size()>0) {
+		if (connector.getAnnotations().size() > 0) {
 			log.debug("Annotations are present in the connector.");
 			connector.getAnnotations().clear();
 		}
@@ -172,7 +172,7 @@ public class InstanceThingGenerator {
 		String thingPath = instanceThing.getTypeThing().getImportPath();
 		thingPath = thingPath.replace("\"", "");
 		String fullThingPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath() + "/" + thingPath;
-		log.debug("Full thing path : "+fullThingPath);
+		log.debug("Full thing path : " + fullThingPath);
 		log.debug("Import path : " + thingPath);
 		return fullThingPath;
 	}
@@ -200,10 +200,10 @@ public class InstanceThingGenerator {
 		String roles = Helpers.appendStrings(NetworkHelper.getAssignedRolesToThing(instanceThing), ",");
 		log.debug("Roles for " + instanceName + " : " + roles);
 	}
-	
 
 	/**
 	 * Set the network and serialization plugins for the ThingML compiler
+	 * 
 	 * @return
 	 */
 	public ThingMLCompiler setThingMLCompilerPlugins() {

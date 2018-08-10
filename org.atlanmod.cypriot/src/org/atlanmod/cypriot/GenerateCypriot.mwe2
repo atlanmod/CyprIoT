@@ -2,10 +2,16 @@ module org.atlanmod.cypriot.GenerateCypriot
 
 import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
+import org.eclipse.emf.mwe.utils.*
 
 var rootPath = ".."
 
 Workflow {
+	/* TODO import ThingML
+	 * bean = StandaloneSetup {
+		scanClassPath = true
+		registerGenModelFile = "platform:/resource/org.atlanmod.cypriot/ThingML.genmodel"
+	}*/
 	component = XtextGenerator {
 		configuration = {
 			project = StandardProjectConfig {
@@ -31,7 +37,6 @@ Workflow {
 		language = StandardLanguage {
 			name = "org.atlanmod.cypriot.Cypriot"
 			fileExtensions = "cy"
-
 			serializer = {
 				generateStub = false
 			}
@@ -39,7 +44,7 @@ Workflow {
 				debugGrammar = true
 			}
 			validator = {
-				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}
 		}
 	}

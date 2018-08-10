@@ -18,7 +18,7 @@ class CypriotParsingTest {
 	@Test
 	def void roleDeclaration() {
 		val result = parseHelper.parse('''
-			role:sensor
+			role sensor
 		''')
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -27,7 +27,7 @@ class CypriotParsingTest {
 	@Test
 	def void UserDeclaration() {
 		val result = parseHelper.parse('''
-			user:anyuser
+			user anyuser
 				assigned actor
 		''')
 		Assert.assertNotNull(result)
@@ -38,7 +38,7 @@ class CypriotParsingTest {
 	@Test
 	def void ThingDeclaration() {
 		val result = parseHelper.parse('''
-			thing:Hello 
+			thing Hello 
 				assigned sensor
 				import "Hello.thingml"
 		''')

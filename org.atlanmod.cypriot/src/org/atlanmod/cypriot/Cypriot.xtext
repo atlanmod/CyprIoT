@@ -1,13 +1,12 @@
 grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.xbase.Xbase
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-import "http://www.thingml.org/xtext/ThingML" as thingml
+// TODO import "platform:/resource/org.atlanmod.cypriot/ThingML.ecore" as thingml
 
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
 CyprIoTModel returns CyprIoTModel:
-		(types+=Type | 
-		importThings+=Thing | 
+		(importThings+=Thing | 
 		pubsubs+=PubSub |
 		reqreps+=ReqRep |
 		networks+=Network |
@@ -21,12 +20,6 @@ NamedElement:
 	";" name=ID
 ;
 
-Type:
-DataType ;
-
-DataType: 'datatype' name = ID
-;
-
 // Domain Model
 Role:
 	'role' name=ID
@@ -35,12 +28,11 @@ Role:
 User :
 	'user' name=ID 'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
 ;
-
+// TODO [thingml::ThingMLModel]
 Thing:
 	'thing' name=ID 
 		'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
-		'import' importPath=[thingml::ThingMLModel]
-		//ports+=[Port]
+		'import' importPath=STRING_LIT
 ;
 
 Property:
@@ -77,17 +69,6 @@ ReqRep:
 		(hasEndpoints +=Endpoint)*
 	'}'
 ;
-Port:
-	name=ID
-;
-/*Stream:
-	'channel:stream' name=ID '{'
-		
-	'}'
-;
-Group:
-	'group' name=ID
-;*/
 
 Endpoint:
 	'endpoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
@@ -105,6 +86,7 @@ Topic:
 	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
+// TODO subjectPort=[thingml::Port]
 BindPubSub:
 	'bindPubSub'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;

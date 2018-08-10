@@ -42,7 +42,7 @@ public class MainTest {
 	@Test
 	public void loadCyriotModelFromFileTest() 
 	{
-		String textToWrite = "role:anyrole";
+		String textToWrite = "role anyrole";
 		String fileName ="temp";
 		String fileExtenstion = ".cy";
 		CypriotModelLoader model = new CypriotModelLoader(null);
