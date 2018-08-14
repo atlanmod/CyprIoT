@@ -32,18 +32,17 @@ public class App implements Runnable {
 		checkInputFile(networkGenerator);
 		checkOutputDirectory(networkGenerator);
 		networkGenerator.generate();
-
 	}
 
 	/**
-	 * 
+	 * Show the version of Cypriot in the console
 	 */
 	public void showProjectVersioInConsole() {
 		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven());
 	}
 
 	/**
-	 * 
+	 * Handles the verbosity of the console
 	 */
 	public void handleVerbosity() {
 		if (verbose.length > 0) {
@@ -56,6 +55,7 @@ public class App implements Runnable {
 	}
 
 	/**
+	 * Check whether the output directory is valid before setting it into networkGenerator
 	 * @param networkGenerator
 	 */
 	public void checkOutputDirectory(SimpleNetworkGenerator networkGenerator) {
@@ -74,6 +74,7 @@ public class App implements Runnable {
 	}
 
 	/**
+	 * Check whether the input file is valid before setting it into networkGenerator
 	 * @param networkGenerator
 	 */
 	public void checkInputFile(SimpleNetworkGenerator networkGenerator) {
