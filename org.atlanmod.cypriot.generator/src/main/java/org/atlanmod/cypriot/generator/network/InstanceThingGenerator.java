@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
@@ -24,7 +25,7 @@ public class InstanceThingGenerator {
 	private File outputDirectory;
 	private GeneratorFactory generatorFactory;
 
-	final static Logger log = Logger.getLogger(InstanceThingGenerator.class.getName());
+	final static Logger log = LogManager.getLogger(InstanceThingGenerator.class.getName());
 
 	public InstanceThingGenerator(File cypriotFile, InstanceThing instanceThing, File outputDirectory,
 			GeneratorFactory generatorFactory) {

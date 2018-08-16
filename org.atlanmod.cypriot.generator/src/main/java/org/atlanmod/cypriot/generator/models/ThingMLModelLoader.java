@@ -2,7 +2,8 @@ package org.atlanmod.cypriot.generator.models;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -14,7 +15,7 @@ import org.thingml.xtext.thingML.ThingMLModel;
  */
 public class ThingMLModelLoader extends ModelLoader {
 	
-	private static final Logger log = Logger.getLogger(ThingMLModelLoader.class.getName());
+	private static final Logger log = LogManager.getLogger(ThingMLModelLoader.class.getName());
 	
 	ThingMLModel thingMLModel;
 	

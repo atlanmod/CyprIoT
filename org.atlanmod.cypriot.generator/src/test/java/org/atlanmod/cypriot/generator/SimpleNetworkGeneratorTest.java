@@ -8,12 +8,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
-import org.atlanmod.cypriot.generator.network.InstanceThingGenerator;
 import org.atlanmod.cypriot.generator.network.NetworkHelper;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
 import org.eclipse.emf.common.util.EList;
@@ -23,7 +23,7 @@ import org.junit.Test;
 
 public class SimpleNetworkGeneratorTest {
 	
-	static final Logger log = Logger.getLogger(SimpleNetworkGeneratorTest.class.getName());
+	static final Logger log = LogManager.getLogger(SimpleNetworkGeneratorTest.class.getName());
 
 	SimpleNetworkGenerator networkGen = new SimpleNetworkGenerator();
 	final String fileUnderTestPath = "src/test/resources/simple.cy";

@@ -3,7 +3,7 @@ package org.atlanmod.cypriot.generator.network;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.BindPubSub;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;

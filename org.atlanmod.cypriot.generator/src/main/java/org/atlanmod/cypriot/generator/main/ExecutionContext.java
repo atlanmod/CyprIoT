@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class ExecutionContext {
 
@@ -22,7 +24,7 @@ public class ExecutionContext {
 	protected static Map<Thread, ExecutionNode> currentParents = new ConcurrentHashMap<Thread, ExecutionNode>();
 
 	public static void pre(String contextId, String methodId) {
-		Logger log = Logger.getLogger(contextId);
+		Logger log = LogManager.getLogger(contextId);
 		log.debug("Running method : "+methodId);
 		Thread currentThread = Thread.currentThread();
 		ExecutionNode currentNode = new ExecutionNode();

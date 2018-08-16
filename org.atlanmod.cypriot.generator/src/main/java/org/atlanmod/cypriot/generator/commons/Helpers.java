@@ -6,7 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
@@ -21,7 +22,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 public class Helpers {
 
-	private static final Logger log = Logger.getLogger(Helpers.class.getName());
+	private static final Logger log = LogManager.getLogger(Helpers.class.getName());
 
 	public static String appendStrings(EList<? extends EObject> list,String separator) {
 		String currentSeparator = "";

@@ -2,7 +2,8 @@ package org.atlanmod.cypriot.generator.models;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -14,7 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public class CypriotModelLoader extends ModelLoader {
 	
-	private static final Logger log = Logger.getLogger(CypriotModelLoader.class.getName());
+	private static final Logger log = LogManager.getLogger(CypriotModelLoader.class.getName());
 	
 	CyprIoTModel cypriotModel;
 		

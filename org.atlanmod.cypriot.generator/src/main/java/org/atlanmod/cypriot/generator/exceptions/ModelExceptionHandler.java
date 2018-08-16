@@ -1,10 +1,11 @@
 package org.atlanmod.cypriot.generator.exceptions;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModelExceptionHandler implements ExceptionHandler {
 	
-	static final Logger log = Logger.getLogger(ModelExceptionHandler.class.getName());
+	static final Logger log = LogManager.getLogger(ModelExceptionHandler.class.getName());
 
 	public void handle(Exception e, String errorMessage) {
 		log.debug("A exception  has been thrown");

@@ -3,24 +3,19 @@ package org.atlanmod.cypriot.generator.network;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.thingml.compilers.ThingMLCompiler;
-import org.thingml.compilers.c.posixmt.PosixMTCompiler;
-import org.thingml.compilers.spi.NetworkPlugin;
-import org.thingml.compilers.spi.SerializationPlugin;
-import org.thingml.networkplugins.c.CByteArraySerializerPlugin;
-import org.thingml.networkplugins.c.posix.PosixMQTTPlugin;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkHelper {
 	
-	final static Logger log = Logger.getLogger(NetworkHelper.class.getName());
+	final static Logger log = LogManager.getLogger(NetworkHelper.class.getName());
 
 	/**
 	 * Get the ID name of any EObject

@@ -4,7 +4,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.FileProcessor;
 import org.atlanmod.cypriot.generator.commons.TemporaryFileProcessor;
@@ -16,7 +17,7 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class MainTest {
 	
-	static final Logger log = Logger.getLogger(MainTest.class.getName());
+	static final Logger log = LogManager.getLogger(MainTest.class.getName());
 
 	@Test
 	public void loadResourceFromStringTest() throws Exception {

@@ -5,11 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TemporaryFileProcessor extends FileProcessor {
 	
-	private static final Logger log = Logger.getLogger(TemporaryFileProcessor.class.getName());
+	private static final Logger log = LogManager.getLogger(TemporaryFileProcessor.class.getName());
 	
 	/**
 	 * Write a given string into a temporary file
