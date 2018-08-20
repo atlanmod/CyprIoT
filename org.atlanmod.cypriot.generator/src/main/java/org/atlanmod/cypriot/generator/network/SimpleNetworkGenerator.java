@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.BindPTP;
 import org.atlanmod.cypriot.cyprIoT.BindPubSub;
-import org.atlanmod.cypriot.cyprIoT.BindReqRep;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
@@ -84,9 +84,9 @@ public class SimpleNetworkGenerator {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
 			ArrayList<BindPubSub> pubSubBindsContainingThingInstances = pubSubBindsContainingThingInstances(instanceThing, network);
 
-			ArrayList<BindReqRep> reqRepBindsContainingThingInstances = reqRepBindsContainingThingInstances(instanceThing, network);
+			ArrayList<BindPTP> reqRepBindsContainingThingInstances = reqRepBindsContainingThingInstances(instanceThing, network);
 						
-			for (BindReqRep bindReqRep : reqRepBindsContainingThingInstances) {
+			for (BindPTP bindReqRep : reqRepBindsContainingThingInstances) {
 				
 			}
 			
@@ -168,9 +168,9 @@ public class SimpleNetworkGenerator {
 	 * @param network
 	 * @return
 	 */
-	public ArrayList<BindReqRep> reqRepBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
-		ArrayList<BindReqRep> binds = new ArrayList<BindReqRep>();
-		for (BindReqRep bindReqRep : network.getBindReqRep()) {
+	public ArrayList<BindPTP> reqRepBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
+		ArrayList<BindPTP> binds = new ArrayList<BindPTP>();
+		for (BindPTP bindReqRep : network.getBindPTP()) {
 			if (bindReqRep.getThingInstance().equals(instanceThing)) {
 				log.debug("ThingInstance " + instanceThing.getName() + " is bound to the endpoint "
 						+ bindReqRep.getEndpoint());

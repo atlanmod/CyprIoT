@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.BindPubSub;
+import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
-import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.generator.commons.Helpers;
@@ -67,10 +67,10 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
-		ArrayList<InstanceReqRep> reqReps = Helpers.allTypesInNetwork(network, InstanceReqRep.class);
+		ArrayList<InstancePTP> reqReps = Helpers.allTypesInNetwork(network, InstancePTP.class);
 
-		for (InstanceReqRep reqRep : reqReps) {
-			String ReqRepName = ((InstanceReqRep) reqRep).getName();
+		for (InstancePTP reqRep : reqReps) {
+			String ReqRepName = ((InstancePTP) reqRep).getName();
 			log.debug("ReqRep Name : " + ReqRepName);
 		}
 	}

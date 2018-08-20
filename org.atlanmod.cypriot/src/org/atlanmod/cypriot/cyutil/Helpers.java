@@ -10,11 +10,11 @@ package org.atlanmod.cypriot.cyutil;
 import java.util.ArrayList;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
-import org.atlanmod.cypriot.cyprIoT.InstanceReqRep;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
-import org.atlanmod.cypriot.cyprIoT.ReqRep;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.Topic;
@@ -112,11 +112,11 @@ public class Helpers {
 		}
 		return result;
 	}
-	public static ArrayList<ReqRep> allReqRep(CyprIoTModel model) {
-		ArrayList<ReqRep> result = new ArrayList<ReqRep>();
+	public static ArrayList<PointToPoint> allReqRep(CyprIoTModel model) {
+		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (ReqRep t : m.getReqreps()) {
-				result.add((ReqRep)t);
+			for (PointToPoint t : m.getPointToPoint()) {
+				result.add((PointToPoint)t);
 			}
 		}
 		return result;
@@ -145,10 +145,10 @@ public class Helpers {
 		return result;
 	}
 	
-	public static ArrayList<InstanceReqRep> allReqRepinstances(CyprIoTModel model) {
-		ArrayList<InstanceReqRep> result = new ArrayList<InstanceReqRep>();
-		for (InstanceReqRep t : model.getNetworks().get(0).getInstancesReqrep() ) {
-			if ( t instanceof InstanceReqRep) result.add((InstanceReqRep)t);
+	public static ArrayList<InstancePTP> allPtPinstances(CyprIoTModel model) {
+		ArrayList<InstancePTP> result = new ArrayList<InstancePTP>();
+		for (InstancePTP t : model.getNetworks().get(0).getInstancesReqrep() ) {
+			if ( t instanceof InstancePTP) result.add((InstancePTP)t);
 		}
 		return result;
 	}

@@ -8,15 +8,15 @@ generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 CyprIoTModel returns CyprIoTModel:
 		(importThings+=Thing | 
 		pubsubs+=PubSub |
-		reqreps+=ReqRep |
+		pointToPoint+=PointToPoint |
 		networks+=Network |
 		users+=User |
 		roles+=Role)*;
 
 NamedElement:
-	User | Role | Thing | Network | Topic | ReqRep | PubSub |
-	InstanceThing | InstancePubSub | InstanceReqRep | Endpoint | Topic |
-	BindPubSub | BindReqRep |
+	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
+	InstanceThing | InstancePubSub | InstancePTP | Endpoint | Topic |
+	BindPubSub | BindPTP |
 	";" name=ID
 ;
 
@@ -46,9 +46,9 @@ Network:
 		(networkProperty+=Property |
 		instancesThing+=InstanceThing |
 		instancesPubsub+=InstancePubSub |
-		instancesReqrep+=InstanceReqRep |
+		instancesReqrep+=InstancePTP |
 		bindsPubsub+=BindPubSub | 
-		bindReqRep+=BindReqRep
+		bindPTP+=BindPTP
 		)*
 	'}'
 ;
@@ -61,11 +61,11 @@ InstanceThing :
 InstancePubSub :
 	'instancePubsub'typePubSub=[PubSub] ':' name=ID  'platform' platform=('MQTT' | 'AMQP' )
 ;
-InstanceReqRep :
-	'instanceReqrep'typeReqRep=[ReqRep] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
+InstancePTP :
+	'instancePTP' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
 ;
-ReqRep:
-	'channel:reqrep' name=ID '{'
+PointToPoint:
+	'channel:ptp' name=ID '{'
 		(hasEndpoints +=Endpoint)*
 	'}'
 ;
@@ -91,8 +91,8 @@ BindPubSub:
 	'bindPubSub'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
-BindReqRep:
-	'bindReqRep'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') reqRepInstance=[InstanceReqRep] '.' endpoint=[Endpoint]
+BindPTP:
+	'bindPTP'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') ptpInstance=[InstancePTP] '.' endpoint=[Endpoint]
 ;
 
 // Terminals

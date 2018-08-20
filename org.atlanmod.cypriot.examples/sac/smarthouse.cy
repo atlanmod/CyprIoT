@@ -24,7 +24,7 @@ thing Computer
 	import "computer.thingml"
 		
 // Communication channels declaration
-channel:reqrep Central {
+channel:ptp Central {
 	endpoint speed // A changer
 }
 

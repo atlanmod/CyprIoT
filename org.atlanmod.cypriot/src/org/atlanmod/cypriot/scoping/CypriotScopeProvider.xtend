@@ -35,24 +35,24 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instancePubSub_TypePubSub) {
 			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.instanceReqRep_TypeReqRep) {
+		} else if (reference == cypriotInstance.instancePTP_TypePtP) {
 			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.instanceThing_Owner) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopics(context.eContainer as PubSub));
 		} else if (reference == cypriotInstance.bindPubSub_ThingInstance ||
-			reference == cypriotInstance.bindReqRep_ThingInstance) {
+			reference == cypriotInstance.bindPTP_ThingInstance) {
 			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bindPubSub_PubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.bindReqRep_ReqRepInstance) {
-			return Scopes.scopeFor(Helpers.allReqRepinstances(Helpers.findContainingModel(context)));
+		} else if (reference == cypriotInstance.bindPTP_PtpInstance) {
+			return Scopes.scopeFor(Helpers.allPtPinstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bindPubSub_Topics) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Topic)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.bindReqRep_Endpoint) {
+		} else if (reference == cypriotInstance.bindPTP_Endpoint) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Endpoint)
 			return Scopes.scopeFor(candidates)

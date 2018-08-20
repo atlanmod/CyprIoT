@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="pubsubs" upperBound="-1"
         eType="#//PubSub" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reqreps" upperBound="-1"
-        eType="#//ReqRep" containment="true"/>
+        eType="#//PointToPoint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="networks" upperBound="-1"
         eType="#//Network" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="users" upperBound="-1"
@@ -63,10 +63,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="platform" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstanceReqRep" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeReqRep" eType="#//ReqRep"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeReqRep" eType="#//PointToPoint"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="platform" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReqRep" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasEndpoints" upperBound="-1"
         eType="#//Endpoint" containment="true"/>
   </eClassifiers>

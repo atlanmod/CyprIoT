@@ -61,7 +61,7 @@ class CypriotParsingTest {
 	@Test
 	def void ReqRepDeclaration() {
 		val result = parseHelper.parse('''
-			channel:reqrep Rest {
+			channel:ptp Rest {
 				endpoint speed
 			}
 		''')
