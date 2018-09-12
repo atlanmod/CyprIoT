@@ -9,7 +9,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * The {@link CypriotModelLoader} class loads a CyprIoT model
+ * The {@link CypriotModelLoader} class is responsible for loading a CyprIoT model
  * @author imberium
  *
  */

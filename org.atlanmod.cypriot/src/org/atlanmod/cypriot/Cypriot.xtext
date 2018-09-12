@@ -11,6 +11,7 @@ CyprIoTModel returns CyprIoTModel:
 		pointToPoint+=PointToPoint |
 		networks+=Network |
 		users+=User |
+		policies+=Policy |
 		roles+=Role)*;
 
 NamedElement:
@@ -93,6 +94,20 @@ BindPubSub:
 
 BindPTP:
 	'bindPTP'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') ptpInstance=[InstancePTP] '.' endpoint=[Endpoint]
+;
+
+Policy:
+	'policy' name=ID '{'
+		rules+=Rule
+	'}'
+;
+
+Rule:
+	'rule' (name=ID)? subject=ID effect=('allow'|'deny'|'trigger') action=('send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction' ) object=ID conditions=Condition
+;
+
+Condition:
+	'condition' 
 ;
 
 // Terminals
