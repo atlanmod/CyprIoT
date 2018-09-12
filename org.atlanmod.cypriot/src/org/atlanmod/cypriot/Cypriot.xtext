@@ -31,7 +31,7 @@ User :
 // TODO [thingml::ThingMLModel]
 Thing:
 	'thing' name=ID 
-		'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
+		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 		'import' importPath=STRING_LIT
 ;
 
