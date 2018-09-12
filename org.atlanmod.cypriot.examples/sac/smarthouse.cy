@@ -37,14 +37,19 @@ channel:pubsub CommandBroker {
 	topic realTimeCommand
 }
 
+policy cityPolicy {
+	rule thing1 allow send thing2 when ok > 1
+}
+
 //STLS Network Configuration
 network stlsNetwork {
+	enforce cityPolicy
 	instanceThing Computer:gateway owner cityUser @posix
 	instanceThing Temperature:car[1] owner anyuser @posix
 	instancePubsub Broker:CentralMqtt platform MQTT
 	instancePubsub CommandBroker:commandsMqtt platform MQTT
-	instanceReqrep Central:rest platform HTTP
+	instancePTP Central:rest platform HTTP
 	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
 	bindPubSub gateway.cloud => CentralMqtt{room1}
-	bindReqRep car.speed => rest.speed
+	bindPTP car.speed => rest.speed
 }

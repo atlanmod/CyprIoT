@@ -82,14 +82,6 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-			ArrayList<BindPubSub> pubSubBindsContainingThingInstances = pubSubBindsContainingThingInstances(instanceThing, network);
-
-			ArrayList<BindPTP> reqRepBindsContainingThingInstances = reqRepBindsContainingThingInstances(instanceThing, network);
-						
-			for (BindPTP bindReqRep : reqRepBindsContainingThingInstances) {
-				
-			}
-			
 			generateCodeForInstanceThing(instanceThing);
 		}
 	}

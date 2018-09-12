@@ -42,8 +42,13 @@ Property:
 
 // Dynamicity of the configuration
 
+EnforcePolicy :
+	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])*
+;
+
 Network:
 	'network' name=ID '{'
+		(enforcement=EnforcePolicy)?
 		(networkProperty+=Property |
 		instancesThing+=InstanceThing |
 		instancesPubsub+=InstancePubSub |
@@ -103,14 +108,94 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? subject=ID effect=('allow'|'deny'|'trigger') action=('send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction' ) object=ID conditions=Condition
+	'rule' (name=ID)? subject=ID effect=('allow'|'deny'|'trigger') action=('send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction') object=ID 'when' conditions=ConditionExpression
 ;
 
-Condition:
-	'condition' 
+ConditionExpression:
+	OrExpression
 ;
 
+OrExpression returns Expression:
+	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
+;
+
+AndExpression returns Expression:
+	Equality ({AndExpression.lhs=current} "and" rhs=Equality)*
+;
+
+Equality returns Expression:
+	Comparaison (
+	( {EqualsExpression.lhs=current} "==" rhs=Comparaison ) |
+	( {NotEqualsExpression.lhs=current} "!=" rhs=Comparaison )
+	)*	
+;
+
+Comparaison returns Expression:
+	Addition (
+	( {GreaterExpression.lhs=current} ">" rhs=Addition ) |
+	( {LowerExpression.lhs=current} "<" rhs=Addition ) |
+	( {GreaterOrEqualExpression.lhs=current} ">=" rhs=Addition ) |
+	( {LowerOrEqualExpression.lhs=current} "<=" rhs=Addition )
+	)*
+;
+
+Addition returns Expression:
+	Multiplication (
+	( {PlusExpression.lhs=current} "+" rhs=Multiplication ) |
+	( {MinusExpression.lhs=current} "-" rhs=Multiplication )
+	)*	
+;
+
+Multiplication returns Expression:
+	Primary (
+	( {TimesExpression.lhs=current} "*" rhs=Primary ) |
+	( {DivExpression.lhs=current} "/" rhs=Primary ) |
+	( {ModExpression.lhs=current} "%" rhs=Primary)
+	)*	
+;
+
+Primary returns Expression:
+	{ExpressionGroup} '(' term=ConditionExpression ')' |
+	{NotExpression} "not" term=Primary |
+	{UnaryMinus} '-' term=Primary |
+	AtomicExpression
+;
+
+AtomicExpression returns Expression:
+	Literal
+;
+
+Literal returns Literal:
+	ByteLiteral | CharLiteral | IntegerLiteral | StringLiteral | DoubleLiteral | AnyValue
+;
+
+AnyValue returns AnyValue:
+	anyValue=ID;
+
+ByteLiteral returns ByteLiteral:
+	byteValue=BYTE;
+	
+CharLiteral returns CharLiteral:
+	charValue=CHAR;
+
+IntegerLiteral returns IntegerLiteral:
+	intValue=INT;
+	
+DoubleLiteral returns DoubleLiteral:
+	doubleValue = FLOAT;
+	
+StringLiteral returns StringLiteral:
+	stringValue=STRING_LIT;
+	
 // Terminals
+terminal BYTE returns ecore::EByte: "0x" ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F');
+
+terminal CHAR returns ecore::EByte: "'" ('\\0'|'\\t'|'\\n'|'\\r'|' '..'&'|'\\\''|'('..'['|'\\\\'|']'..'~') "'";
+
+terminal FLOAT returns ecore::EDouble :
+('0'..'9')+ '.' ('0'..'9')* (('e'|'E') ('+' | '-')? ('0'..'9')+)?
+| '.' ('0'..'9')+ (('e'|'E') ('+' | '-')? ('0'..'9')+)?
+| ('0'..'9')+ ('e'|'E') ('+' | '-')? ('0'..'9')+;
 
 @Override 
 terminal INT returns ecore::EInt: ('1'..'9')('0'..'9')*;
