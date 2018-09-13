@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
+import org.atlanmod.cypriot.generator.plugins.Plugin;
+import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -26,9 +28,14 @@ public class App implements Runnable {
 	@Option(names = { "-o", "--output" }, paramLabel = "OUTPUT", description = "The output directory")
 	File cypriotOutputDirectory;
 
+	@Option(names = { "-c", "--config" }, paramLabel = "CONFIG", description = "The configuration file")
+	File cypriotConfigFile;
+	
 	public void run() {
 		showProjectVersioInConsole();
 		handleVerbosity();
+		
+		loadingPluginsFromConfigFile();		
 		SimpleNetworkGenerator networkGenerator = new SimpleNetworkGenerator();
 		checkInputFile(networkGenerator);
 		checkOutputDirectory(networkGenerator);
@@ -36,10 +43,28 @@ public class App implements Runnable {
 	}
 
 	/**
+	 * 
+	 */
+	public void loadingPluginsFromConfigFile() {
+		ExecutionContext.pre(App.class.getName(), "plugin");
+		PluginLoader pluginLoader = new PluginLoader();
+		if (cypriotConfigFile != null) {
+			if (cypriotConfigFile.exists()) {
+				pluginLoader.setApp(this);
+				pluginLoader.setConfigFile(cypriotConfigFile);
+				pluginLoader.load();
+			} else {
+				log.error("Defined configuration file not found");
+			}
+		}
+		ExecutionContext.post();
+	}
+
+	/**
 	 * Show the version of Cypriot in the console
 	 */
 	public void showProjectVersioInConsole() {
-		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven());
+		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven()); 
 	}
 
 	/**
@@ -64,7 +89,7 @@ public class App implements Runnable {
 			if (cypriotOutputDirectory.exists()) {
 				networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
 			} else {
-				log.error("Defined output folder not found");
+				log.error("Defined folder not found");
 			}
 		} else {
 			cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath() + "/gen");
@@ -94,6 +119,7 @@ public class App implements Runnable {
 		ExecutionContext.pre(App.class.getName(), "main");
 		CommandLine.run(new App(), System.out, args);
 		ExecutionContext.post();
+
 	}
 
 }
