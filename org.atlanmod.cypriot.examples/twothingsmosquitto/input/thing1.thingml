@@ -6,9 +6,6 @@ thing Thing1 includes tempMsgs {
 	provided port dataEntryPoint {
 		sends temperatureMessage
 	}
-	provided port dataEntryPoint2 {
-		sends temperatureMessage
-	}
 	statechart thing1 init showData{
 		state showData @ignore{
 			on entry do 
