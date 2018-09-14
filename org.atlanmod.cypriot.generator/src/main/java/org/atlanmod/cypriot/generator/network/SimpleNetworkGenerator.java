@@ -51,6 +51,12 @@ public class SimpleNetworkGenerator {
 	    JAVASCRIPT
 	}
 	
+	public enum CommunicationPlatform {
+	    MQTT,
+	    CoAP,
+	    HTTP
+	}
+	
 	static final Logger log = LogManager.getLogger(SimpleNetworkGenerator.class.getName());
 
 	private File cypriotFile;
@@ -82,7 +88,12 @@ public class SimpleNetworkGenerator {
 	 */
 	public void generateForAllInstanceThings(Network network) {
 		for (InstanceThing instanceThing : getInstanceThingsInNetwork(network)) {
-			generateCodeForInstanceThing(instanceThing);
+			ArrayList<BindPubSub> pubSubBindsContainingThingInstances = pubSubBindsContainingThingInstances(instanceThing, network);
+						
+			ArrayList<Topic> pubTopics = getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,TopicTypes.PUBTOPIC);
+			ArrayList<Topic> subTopics = getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,TopicTypes.SUBTOPIC);
+			
+			generateCodeForInstanceThing(instanceThing,pubTopics, subTopics);
 		}
 	}
 
@@ -90,12 +101,14 @@ public class SimpleNetworkGenerator {
 	 * Generate code for a given instanceThing
 	 * @param instanceThing
 	 */
-	public void generateCodeForInstanceThing(InstanceThing instanceThing) {
+	public void generateCodeForInstanceThing(InstanceThing instanceThing, ArrayList<Topic> pubTopics,ArrayList<Topic> subTopics) {
 		String platform = instanceThing.getPlatform();
 		log.debug("Target platform : " + platform);
 		GeneratorPlatform generatorPlatform = mapPlatformToEnum(platform);
 		GeneratorFactory generatorFactory = getGeneratorFactory(generatorPlatform);
 		InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
+		instanceGen.setPubTopics(pubTopics);
+		instanceGen.setSubTopics(subTopics);
 		instanceGen.generate();
 	}
 
@@ -121,6 +134,17 @@ public class SimpleNetworkGenerator {
 			}				
 		}
 		return topics;
+	}
+	
+	public CommunicationPlatform mapProtocolToEnum(String platform) {
+		if(platform.equals("MQTT")) {
+			return CommunicationPlatform.MQTT;
+		} else if (platform.equals("COAP")) {
+			return CommunicationPlatform.CoAP;
+		} else if (platform.equals("HTTP")) {
+			return CommunicationPlatform.HTTP;
+		}
+		return null;
 	}
 	
 	public GeneratorPlatform mapPlatformToEnum(String platform) {
@@ -197,7 +221,7 @@ public class SimpleNetworkGenerator {
 	public void getNetworksInFile() {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
-		saveCypriotModelAsXMI(model);
+		//saveCypriotModelAsXMI(model);
 		allNetworks = model.getNetworks();
 	}
 
@@ -209,7 +233,7 @@ public class SimpleNetworkGenerator {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
 				new XMIResourceFactoryImpl());
 		ResourceSet rs = new ResourceSetImpl();
-		Resource res = rs.createResource(URI.createFileURI(cypriotOutputDirectory.getAbsolutePath() + "/cypriot.xmi"));
+		Resource res = rs.createResource(URI.createFileURI(cypriotOutputDirectory.getAbsolutePath() + "/output/xmi/cypriot.xmi"));
 
 		res.getContents().add(model);
 		EcoreUtil.resolveAll(res);

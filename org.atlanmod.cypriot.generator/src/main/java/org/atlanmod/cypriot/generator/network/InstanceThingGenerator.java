@@ -3,18 +3,20 @@ package org.atlanmod.cypriot.generator.network;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.thingml.compilers.ThingMLCompiler;
-import org.thingml.utilities.logging.SystemLogger;
 import org.thingml.xtext.thingML.AbstractConnector;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ExternalConnector;
+import org.thingml.xtext.thingML.PlatformAnnotation;
 import org.thingml.xtext.thingML.Protocol;
 import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -24,7 +26,9 @@ public class InstanceThingGenerator {
 	private File cypriotFile;
 	private File outputDirectory;
 	private GeneratorFactory generatorFactory;
-
+	private ArrayList<Topic> pubTopics;
+	private ArrayList<Topic> subTopics;
+	
 	final static Logger log = LogManager.getLogger(InstanceThingGenerator.class.getName());
 
 	public InstanceThingGenerator(File cypriotFile, InstanceThing instanceThing, File outputDirectory,
@@ -39,6 +43,14 @@ public class InstanceThingGenerator {
 		generateUsingThingMLGenerator();
 		debugInstanceThing();
 	}
+	
+	void setCyProtocol() {
+		
+	}
+	
+	void setCyTopic() {
+		
+	}
 
 	/**
 	 * Generate code for an instanceThing using ThingML compiler
@@ -47,11 +59,6 @@ public class InstanceThingGenerator {
 	 */
 	public void generateUsingThingMLGenerator() {
 		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
-		try {
-			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath() + "/thgmodel.xmi");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
 		File cypriotThingOutputDirectory = getInstanceThingGenDirectory();
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
@@ -60,13 +67,54 @@ public class InstanceThingGenerator {
 				AbstractConnector connector = getThingMLConnector(configuration);
 				if (isConnectorExternal(connector)) {
 					clearAnnotationsFromConnector(connector);
-					clearProtocolToX(thingmlModel, connector);
-					ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
-					thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-					SystemLogger loggerThg = new SystemLogger();
-					thingmlCompiler.compile(configuration, loggerThg);
+					clearProtocolToX(thingmlModel, connector,"MQTT");
+					
+					for (Topic topic : pubTopics) {
+						PlatformAnnotation annotation = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+						annotation.setName("publish_topic");
+						annotation.setValue(topic.getName());
+						connector.getAnnotations().add(annotation);
+					}
+					
+					for (Topic topic : subTopics) {
+						PlatformAnnotation annotation = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
+						annotation.setName("subscribe_topic");
+						annotation.setValue(topic.getName());
+						connector.getAnnotations().add(annotation);
+					}
+					//ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
+					//thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
+					//SystemLogger loggerThg = new SystemLogger();
+					//thingmlCompiler.compile(configuration, loggerThg);
 				}
 			}
+		}
+		//saveThingMLModelAsXmi(thingmlModel);
+		saveThingMLAsThingML(thingmlModel);
+	}
+
+	
+	/**
+	 * @param thingmlModel
+	 * @throws RuntimeException
+	 */
+	public void saveThingMLModelAsXmi(ThingMLModel thingmlModel) throws RuntimeException {
+		try {
+			ThingMLCompiler.saveAsThingML(thingmlModel, outputDirectory.getAbsolutePath() + "/../output/xmi/thgmodel.xmi");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * @param thingmlModel
+	 * @throws RuntimeException
+	 */
+	public void saveThingMLAsThingML(ThingMLModel thingmlModel) throws RuntimeException {
+		try {
+			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath() + "/output/"+instanceThing.getName()+"_transformed.thingml");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -76,15 +124,41 @@ public class InstanceThingGenerator {
 	 * @param thingmlModel
 	 * @param connector
 	 */
-	public void clearProtocolToX(ThingMLModel thingmlModel, AbstractConnector connector) {
+	public void clearProtocolToX(ThingMLModel thingmlModel, AbstractConnector connector, String protocolName) {
 		if (thingmlModel.getProtocols().size() > 0) {
 			log.debug("Protocols are present.");
 			thingmlModel.getProtocols().clear();
 		}
-		Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
-		protocol.setName("X");
-		thingmlModel.getProtocols().add(protocol);
+		Protocol protocol = setThingMLProtocolName(protocolName,thingmlModel,connector);
+		setProtocolToExternalConnectorInThingML(connector, protocol);
+	}
+
+	/**
+	 * @param connector
+	 * @param protocol
+	 */
+	public void setProtocolToExternalConnectorInThingML(AbstractConnector connector, Protocol protocol) {
 		((ExternalConnector) connector).setProtocol(protocol);
+	}
+
+	/**
+	 * @param thingmlModel
+	 * @param protocol
+	 */
+	public void addProtocolToThingML(ThingMLModel thingmlModel, Protocol protocol) {
+		thingmlModel.getProtocols().add(protocol);
+	}
+
+	/**
+	 * @param protocolName
+	 * @return
+	 */
+	public Protocol setThingMLProtocolName(String protocolName, ThingMLModel thingmlModel,AbstractConnector connector) {
+		Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
+		protocol.setName(protocolName);
+		addProtocolToThingML(thingmlModel, protocol);
+		
+		return protocol;
 	}
 
 	/**
@@ -212,6 +286,34 @@ public class InstanceThingGenerator {
 		thingmlCompiler.addNetworkPlugin(generatorFactory.makeNetworkPlugin());
 		thingmlCompiler.addSerializationPlugin(generatorFactory.makeSerializationPlugin());
 		return thingmlCompiler;
+	}
+
+	/**
+	 * @return the pubTopics
+	 */
+	public ArrayList<Topic> getPubTopics() {
+		return pubTopics;
+	}
+
+	/**
+	 * @return the subTopics
+	 */
+	public ArrayList<Topic> getSubTopics() {
+		return subTopics;
+	}
+
+	/**
+	 * @param pubTopics the pubTopics to set
+	 */
+	public void setPubTopics(ArrayList<Topic> pubTopics) {
+		this.pubTopics = pubTopics;
+	}
+
+	/**
+	 * @param subTopics the subTopics to set
+	 */
+	public void setSubTopics(ArrayList<Topic> subTopics) {
+		this.subTopics = subTopics;
 	}
 
 }

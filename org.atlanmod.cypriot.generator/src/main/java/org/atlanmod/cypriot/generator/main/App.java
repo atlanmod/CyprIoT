@@ -4,9 +4,10 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.Helpers;
+import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
-import org.atlanmod.cypriot.generator.plugins.Plugin;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 
 import picocli.CommandLine;
@@ -52,10 +53,17 @@ public class App implements Runnable {
 			if (cypriotConfigFile.exists()) {
 				pluginLoader.setApp(this);
 				pluginLoader.setConfigFile(cypriotConfigFile);
+				CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
+				CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotInputFile);
+				pluginLoader.setModel(model);
+				File cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath() + "/../output");
+				pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 				pluginLoader.load();
 			} else {
 				log.error("Defined configuration file not found");
 			}
+		} else {
+			log.info("No plugin found");
 		}
 		ExecutionContext.post();
 	}
@@ -92,7 +100,7 @@ public class App implements Runnable {
 				log.error("Defined folder not found");
 			}
 		} else {
-			cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath() + "/gen");
+			cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath() + "/..");
 			networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
 		}
 

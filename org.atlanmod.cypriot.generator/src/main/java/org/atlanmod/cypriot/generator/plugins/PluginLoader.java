@@ -7,11 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.main.App;
 
 public class PluginLoader {
 	private File configFile;
+	private File outputDirectory;
+	private CyprIoTModel model;
 	private App app;
 
 	public PluginLoader() {
@@ -44,6 +47,7 @@ public class PluginLoader {
 		Class<?> pluginClass = getClass().getClassLoader().loadClass(pluginClassName);
 		Plugin instance = (Plugin) pluginClass.newInstance();
 		instance.attach(app);
+		instance.generate(model, outputDirectory);
 	}
 
 	/**
@@ -72,5 +76,33 @@ public class PluginLoader {
 	 */
 	public void setApp(App app) {
 		this.app = app;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public CyprIoTModel getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(CyprIoTModel model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the outputDirectory
+	 */
+	public File getOutputDirectory() {
+		return outputDirectory;
+	}
+
+	/**
+	 * @param outputDirectory the outputDirectory to set
+	 */
+	public void setOutputDirectory(File outputDirectory) {
+		this.outputDirectory = outputDirectory;
 	}
 }
