@@ -10,6 +10,7 @@ package org.atlanmod.cypriot.cyutil;
 import java.util.ArrayList;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.Instance;
 import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
@@ -131,7 +132,7 @@ public class Helpers {
 	
 	public static ArrayList<InstanceThing> allThinginstances(CyprIoTModel model) {
 		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
-			for (InstanceThing t : model.getNetworks().get(0).getInstancesThing() ) {
+			for (Instance t : model.getNetworks().get(0).getInstances()) {
 				if ( t instanceof InstanceThing) result.add((InstanceThing)t);
 		}
 		return result;
@@ -139,7 +140,7 @@ public class Helpers {
 	
 	public static ArrayList<InstancePubSub> allPubSubinstances(CyprIoTModel model) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
-		for (InstancePubSub t : model.getNetworks().get(0).getInstancesPubsub() ) {
+		for (Instance t : model.getNetworks().get(0).getInstances()) {
 			if ( t instanceof InstancePubSub) result.add((InstancePubSub)t);
 		}
 		return result;
@@ -147,7 +148,7 @@ public class Helpers {
 	
 	public static ArrayList<InstancePTP> allPtPinstances(CyprIoTModel model) {
 		ArrayList<InstancePTP> result = new ArrayList<InstancePTP>();
-		for (InstancePTP t : model.getNetworks().get(0).getInstancesReqrep() ) {
+		for (Instance t : model.getNetworks().get(0).getInstances()) {
 			if ( t instanceof InstancePTP) result.add((InstancePTP)t);
 		}
 		return result;

@@ -16,7 +16,7 @@ CyprIoTModel returns CyprIoTModel:
 
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
-	InstanceThing | InstancePubSub | InstancePTP | Endpoint | Topic |
+	InstanceThing | InstancePubSub | InstancePTP | Point | Topic |
 	BindPubSub | BindPTP |
 	";" name=ID
 ;
@@ -50,34 +50,40 @@ Network:
 	'network' name=ID '{'
 		(enforcement=EnforcePolicy)?
 		(networkProperty+=Property |
-		instancesThing+=InstanceThing |
-		instancesPubsub+=InstancePubSub |
-		instancesReqrep+=InstancePTP |
-		bindsPubsub+=BindPubSub | 
-		bindPTP+=BindPTP
+		instances+=Instance |
+		binds+=Bind
 		)*
 	'}'
 ;
 
-
+Instance:
+	InstanceThing | InstancePubSub | InstancePTP
+;
 
 InstanceThing :
-	'instanceThing'typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
+	'instance' typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
 ;
+
 InstancePubSub :
-	'instancePubsub'typePubSub=[PubSub] ':' name=ID  'platform' platform=('MQTT' | 'AMQP' )
+	'instance' typePubSub=[PubSub] ':' name=ID  'platform' platform=('MQTT' | 'AMQP' )
 ;
+
 InstancePTP :
-	'instancePTP' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
+	'instance' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
 ;
+
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(hasEndpoints +=Endpoint)*
+		(hasEndpoints +=Point)*
 	'}'
 ;
 
-Endpoint:
-	'endpoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
+Channel:
+	PubSub | PointToPoint
+;
+
+Point:
+	'point'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
 ;
 
 PubSub:
@@ -93,22 +99,42 @@ Topic:
 ;
 
 // TODO subjectPort=[thingml::Port]
+
+Bind:
+	BindPubSub | BindPTP
+;
 BindPubSub:
-	'bindPubSub'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
 BindPTP:
-	'bindPTP'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') ptpInstance=[InstancePTP] '.' endpoint=[Endpoint]
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') ptpInstance=[InstancePTP] '.' endpoint=[Point]
 ;
 
 Policy:
 	'policy' name=ID '{'
-		rules+=Rule
+		(rules+=Rule)*
 	'}'
 ;
 
 Rule:
-	'rule' (name=ID)? subject=ID effect=('allow'|'deny'|'trigger') action=('send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction') object=ID 'when' conditions=ConditionExpression
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect action=RuleAction ruleObject=[RuleObject] 'when' ruleConditions=ConditionExpression
+;
+
+RuleEffect:
+	'allow'|'deny'|'trigger'
+;
+
+RuleAction:
+	'send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction'
+;
+
+RuleSubject:
+	Thing | Role | User
+;
+
+RuleObject:
+	Thing | Role | User | Channel | Topic | Point
 ;
 
 ConditionExpression:

@@ -5,9 +5,11 @@ package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.cyprIoT.Endpoint
+import org.atlanmod.cypriot.cyprIoT.Point
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.RuleObject
+import org.atlanmod.cypriot.cyprIoT.RuleSubject
 import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.emf.ecore.ENamedElement
@@ -54,11 +56,19 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bindPTP_Endpoint) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Endpoint)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Point)
 			return Scopes.scopeFor(candidates)
 		 } else if(reference == cypriotInstance.enforcePolicy_PolicyName){
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Policy)
+			return Scopes.scopeFor(candidates)
+		} else if(reference == cypriotInstance.rule_RuleSubject){
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
+			return Scopes.scopeFor(candidates)
+		} else if(reference == cypriotInstance.rule_RuleObject){
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleObject)
 			return Scopes.scopeFor(candidates)
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +

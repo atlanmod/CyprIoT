@@ -11,7 +11,7 @@ user anyuser
 	assigned actor
 
 // Devices declaration
-thing LightSensor 
+thing LightSensor
 	assigned sensor,actuator
 	import "light_sensor.thingml"
 
@@ -25,7 +25,7 @@ thing Computer
 		
 // Communication channels declaration
 channel:ptp Central {
-	endpoint speed // A changer
+	point speed // A changer
 }
 
 channel:pubsub Broker {
@@ -38,18 +38,18 @@ channel:pubsub CommandBroker {
 }
 
 policy cityPolicy {
-	rule thing1 allow send thing2 when ok > 1
+	
 }
 
 //STLS Network Configuration
 network stlsNetwork {
 	enforce cityPolicy
-	instanceThing Computer:gateway owner cityUser @posix
-	instanceThing Temperature:car[1] owner anyuser @posix
-	instancePubsub Broker:CentralMqtt platform MQTT
-	instancePubsub CommandBroker:commandsMqtt platform MQTT
-	instancePTP Central:rest platform HTTP
-	bindPubSub gateway.command <= commandsMqtt{realTimeCommand}
-	bindPubSub gateway.cloud => CentralMqtt{room1}
-	bindPTP car.speed => rest.speed
+	instance Computer:gateway owner cityUser @posix
+	instance Temperature:car[1] owner anyuser @posix
+	instance Broker:CentralMqtt platform MQTT
+	instance CommandBroker:commandsMqtt platform MQTT
+	instance Central:rest platform HTTP
+	bind gateway.command <= commandsMqtt{realTimeCommand}
+	bind gateway.cloud => CentralMqtt{room1}
+	bind car.speed => rest.speed
 }
