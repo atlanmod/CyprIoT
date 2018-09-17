@@ -25,7 +25,7 @@ thing Computer
 		
 // Communication channels declaration
 channel:ptp Central {
-	point speed // A changer
+	ConnectionPoint speed // A changer
 }
 
 channel:pubsub Broker {
@@ -49,7 +49,8 @@ network stlsNetwork {
 	instance Broker:CentralMqtt platform MQTT
 	instance CommandBroker:commandsMqtt platform MQTT
 	instance Central:rest platform HTTP
-	bind gateway.command <= commandsMqtt{realTimeCommand}
+	bind command gateway.command <= commandsMqtt{realTimeCommand}
 	bind gateway.cloud => CentralMqtt{room1}
 	bind car.speed => rest.speed
+	bridge command to CentralMqtt{light}
 }

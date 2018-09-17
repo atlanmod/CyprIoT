@@ -9,6 +9,7 @@ package org.atlanmod.cypriot.cyutil;
 
 import java.util.ArrayList;
 
+import org.atlanmod.cypriot.cyprIoT.Channel;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Instance;
 import org.atlanmod.cypriot.cyprIoT.InstancePTP;
@@ -107,8 +108,10 @@ public class Helpers {
 	public static ArrayList<PubSub> allPusSub(CyprIoTModel model) {
 		ArrayList<PubSub> result = new ArrayList<PubSub>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (PubSub t : m.getPubsubs()) {
-				result.add((PubSub)t);
+			for (Channel t : m.getChannels()) {
+				if(t instanceof PubSub) {
+					result.add((PubSub)t);
+				}
 			}
 		}
 		return result;
@@ -116,8 +119,10 @@ public class Helpers {
 	public static ArrayList<PointToPoint> allReqRep(CyprIoTModel model) {
 		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (PointToPoint t : m.getPointToPoint()) {
-				result.add((PointToPoint)t);
+			for (Channel t : m.getChannels()) {
+				if(t instanceof PointToPoint) {
+					result.add((PointToPoint)t);
+				}
 			}
 		}
 		return result;

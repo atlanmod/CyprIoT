@@ -68,12 +68,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasEndpoints" upperBound="-1"
-        eType="#//Endpoint" containment="true"/>
+        eType="#//ConnectionPoint" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Endpoint" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoint" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasParameters" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedRoles" unique="false"
@@ -102,6 +102,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subjectPort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOrWrite" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reqRepInstance" eType="#//InstanceReqRep"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="endpoint" eType="#//Endpoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endpoint" eType="#//ConnectionPoint"/>
   </eClassifiers>
 </ecore:EPackage>

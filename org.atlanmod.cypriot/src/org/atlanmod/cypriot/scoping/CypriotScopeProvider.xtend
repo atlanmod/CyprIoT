@@ -4,8 +4,8 @@
 package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
+import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.cyprIoT.Point
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.RuleObject
@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.Bind
 
 /**
  * This class contains custom scoping description.
@@ -43,20 +44,19 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopics(context.eContainer as PubSub));
-		} else if (reference == cypriotInstance.bindPubSub_ThingInstance ||
-			reference == cypriotInstance.bindPTP_ThingInstance) {
+		} else if (reference == cypriotInstance.bind_ThingInstance) {
 			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.bindPubSub_PubSubInstance) {
+		} else if (reference == cypriotInstance.pubSubBinding_PubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.bindPTP_PtpInstance) {
+		} else if (reference == cypriotInstance.PTPBinding_PtpInstance) {
 			return Scopes.scopeFor(Helpers.allPtPinstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.bindPubSub_Topics) {
+		} else if (reference == cypriotInstance.pubSubBinding_Topics) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Topic)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.bindPTP_Endpoint) {
+		} else if (reference == cypriotInstance.PTPBinding_ConnectionPoint) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Point)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ConnectionPoint)
 			return Scopes.scopeFor(candidates)
 		 } else if(reference == cypriotInstance.enforcePolicy_PolicyName){
 			val rootElement = EcoreUtil2.getRootContainer(context)
@@ -69,6 +69,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if(reference == cypriotInstance.rule_RuleObject){
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleObject)
+			return Scopes.scopeFor(candidates)
+		} else if(reference == cypriotInstance.channelBridge_Bind){
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Bind)
 			return Scopes.scopeFor(candidates)
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +

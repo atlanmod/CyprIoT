@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.Instance;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
@@ -38,7 +39,14 @@ public class SimpleNetworkGeneratorTest {
 	public void setUp() throws Exception {
 		cyLoader = new CypriotModelLoader();
 		cyModel = cyLoader.loadFromFile(cypriotFile);
-		instanceThing = cyModel.getNetworks().get(0).getInstancesThing().get(0);
+		for (Instance  instance : cyModel.getNetworks().get(0).getInstances()) {
+			if(instance instanceof InstanceThing) {
+				instanceThing = (InstanceThing) instance;
+				break;
+			}
+			
+		}
+		
 		networkGen.setCypriotFile(cypriotFile);
 	}
 

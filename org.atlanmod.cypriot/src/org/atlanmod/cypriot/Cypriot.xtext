@@ -7,19 +7,18 @@ generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
 CyprIoTModel returns CyprIoTModel:
 		(importThings+=Thing | 
-		pubsubs+=PubSub |
-		pointToPoint+=PointToPoint |
+		channels+=Channel|
 		networks+=Network |
 		users+=User |
 		policies+=Policy |
 		roles+=Role)*;
 
-NamedElement:
+/*NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | Point | Topic |
 	BindPubSub | BindPTP |
 	";" name=ID
-;
+;*/
 
 // Domain Model
 Role:
@@ -36,7 +35,11 @@ Thing:
 		'import' importPath=STRING_LIT
 ;
 
-Property:
+NetworkProperty:
+	'property' name=ID '=' propertyValue=STRING_LIT
+;
+
+ChannelProperty:
 	'property' name=ID '=' propertyValue=STRING_LIT
 ;
 
@@ -49,9 +52,10 @@ EnforcePolicy :
 Network:
 	'network' name=ID '{'
 		(enforcement=EnforcePolicy)?
-		(networkProperty+=Property |
+		(networkProperty+=NetworkProperty |
 		instances+=Instance |
-		binds+=Bind
+		binds+=Bind | 
+		channelBridge+=ChannelBridge
 		)*
 	'}'
 ;
@@ -74,21 +78,27 @@ InstancePTP :
 
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(hasEndpoints +=Point)*
+		(	channelProperties+=ChannelProperty |
+			haspoints +=ConnectionPoint
+		)*
 	'}'
+;
+
+ChannelBridge:
+	'bridge' bind=[Bind] 'to' channel=ChannelBinding
 ;
 
 Channel:
 	PubSub | PointToPoint
 ;
 
-Point:
-	'point'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
+ConnectionPoint:
+	'ConnectionPoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
 ;
 
 PubSub:
 	'channel:pubsub' name=ID '{'
-		(	chanProperties+=Property|
+		(	channelProperties+=ChannelProperty |
 			hasTopics +=Topic
 		)*
 	'}'
@@ -99,16 +109,18 @@ Topic:
 ;
 
 // TODO subjectPort=[thingml::Port]
-
 Bind:
-	BindPubSub | BindPTP
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') bindingChannel=ChannelBinding
 ;
-BindPubSub:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
+ChannelBinding:
+	PubSubBinding | PTPBinding
+;
+PubSubBinding:
+	 pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
-BindPTP:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') ptpInstance=[InstancePTP] '.' endpoint=[Point]
+PTPBinding:
+	ptpInstance=[InstancePTP] '.' ConnectionPoint=[ConnectionPoint]
 ;
 
 Policy:
@@ -120,13 +132,18 @@ Policy:
 Rule:
 	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect action=RuleAction ruleObject=[RuleObject] 'when' ruleConditions=ConditionExpression
 ;
-
-RuleEffect:
-	'allow'|'deny'|'trigger'
+enum RuleEffect :
+	DENY='deny' |
+	ALLOW='allow' |
+	TRIGGER='trigger'
 ;
 
-RuleAction:
-	'send' | 'receive' |  'performTransition' | 'goToState' | 'executeFunction'
+enum RuleAction:
+	SEND='send' | 
+	RECEIVE='receive' |  
+	PERFORMTRANSITION='performTransition' | 
+	GOTOSTATE='goToState' | 
+	EXECUTEFUNCTION='executeFunction'
 ;
 
 RuleSubject:
@@ -134,7 +151,7 @@ RuleSubject:
 ;
 
 RuleObject:
-	Thing | Role | User | Channel | Topic | Point
+	Thing | Role | User | Channel | Topic | ConnectionPoint
 ;
 
 ConditionExpression:
