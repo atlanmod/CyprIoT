@@ -23,14 +23,14 @@ thing Computer
 	assigned actuator
 	import "computer.thingml"
 		
-// Communication channels declaration
 channel:ptp Central {
-	ConnectionPoint speed // A changer
+	ConnectionPoint speed
 }
 
 channel:pubsub Broker {
 	topic room1
 	topic light subtopicOf room1
+	topic speed
 }
 
 channel:pubsub CommandBroker {
@@ -41,16 +41,24 @@ policy cityPolicy {
 	
 }
 
+policy homePolicy {
+	
+}
+
+policy govPolicy {
+	
+}
+
 //STLS Network Configuration
 network stlsNetwork {
-	enforce cityPolicy
-	instance Computer:gateway owner cityUser @posix
-	instance Temperature:car[1] owner anyuser @posix
+	enforce cityPolicy, homePolicy, govPolicy
+	instance Computer:gateway owner cityUser platform POSIX
+	instance Temperature:car owner anyuser platform JAVA
 	instance Broker:CentralMqtt platform MQTT
 	instance CommandBroker:commandsMqtt platform MQTT
 	instance Central:rest platform HTTP
-	bind command gateway.command <= commandsMqtt{realTimeCommand}
+	bind gateway.command <= commandsMqtt{realTimeCommand}
 	bind gateway.cloud => CentralMqtt{room1}
-	bind car.speed => rest.speed
-	bridge command to CentralMqtt{light}
+	bind speed car.speed => rest.speed
+	bridge speed to CentralMqtt{speed}
 }
