@@ -11,16 +11,16 @@ CyprIoTModel returns CyprIoTModel:
 		networks+=Network |
 		users+=User |
 		policies+=Policy |
-		roles+=Role)*;
+		roles+=Role |
+		globalBridges+=GlobalBridge)*;
 
-/*NamedElement:
+NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
-	InstanceThing | InstancePubSub | InstancePTP | Point | Topic |
-	BindPubSub | BindPTP |
+	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
+	Bind |
 	";" name=ID
-;*/
+;
 
-// Domain Model
 Role:
 	'role' name=ID
 ;
@@ -55,7 +55,7 @@ Network:
 		(networkProperty+=NetworkProperty |
 		instances+=Instance |
 		binds+=Bind | 
-		channelBridge+=ChannelBridge
+		channelBridge+=NetworkBridge
 		)*
 	'}'
 ;
@@ -65,15 +65,31 @@ Instance:
 ;
 
 InstanceThing :
-	'instance' typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? platform=('@posix' | '@java' | '@arduino' | 'javascript')
+	'instance' typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? 'platform' platform=Platform
+;
+enum Platform:
+	POSIX='POSIX' | 
+	JAVA='JAVA' |
+	ARDUINO='ARDUINO' |
+	JAVASCRIPT='JS'
 ;
 
 InstancePubSub :
-	'instance' typePubSub=[PubSub] ':' name=ID  'platform' platform=('MQTT' | 'AMQP' )
+	'instance' typePubSub=[PubSub] ':' name=ID  'platform' platform=PubSubProtocol
+;
+
+enum PubSubProtocol:
+	MQTT='MQTT' | 
+	AMQP='AMQP' 
 ;
 
 InstancePTP :
-	'instance' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=('HTTP' | 'COAP' )
+	'instance' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=PTPProtocol
+;
+
+enum PTPProtocol:
+	HTTP='HTTP' | 
+	COAP='COAP' 
 ;
 
 PointToPoint:
@@ -82,10 +98,6 @@ PointToPoint:
 			haspoints +=ConnectionPoint
 		)*
 	'}'
-;
-
-ChannelBridge:
-	'bridge' bind=[Bind] 'to' channel=ChannelBinding
 ;
 
 Channel:
@@ -110,17 +122,38 @@ Topic:
 
 // TODO subjectPort=[thingml::Port]
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." subjectPort=ID readOrWrite=('=>' |'<=') bindingChannel=ChannelBinding
+	'bind'	(name=ID)? thingInstance=[InstanceThing]"." portToBind=ID readOrWrite=ReadOrWrite channelToBind=ChannelToBind
 ;
-ChannelBinding:
-	PubSubBinding | PTPBinding
+
+enum ReadOrWrite:
+	READ='<=' |
+	WRITE='=>'
 ;
-PubSubBinding:
+
+ChannelToBind:
+	ToBindPubSub | ToBindPTP
+;
+
+ToBindPubSub:
 	 pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
-PTPBinding:
+ToBindPTP:
 	ptpInstance=[InstancePTP] '.' ConnectionPoint=[ConnectionPoint]
+;
+
+GlobalBridge:
+	'bridge' name=ID '{'
+		
+	'}'
+;
+
+NetworkBridge:
+	'bridge' bind=[BridgeSubject] 'to' channel=ChannelToBind
+;
+
+BridgeSubject:
+	Bind | Topic | ConnectionPoint
 ;
 
 Policy:
@@ -130,7 +163,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect action=RuleAction ruleObject=[RuleObject] 'when' ruleConditions=ConditionExpression
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect action=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
 ;
 enum RuleEffect :
 	DENY='deny' |

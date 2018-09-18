@@ -46,15 +46,15 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allTopics(context.eContainer as PubSub));
 		} else if (reference == cypriotInstance.bind_ThingInstance) {
 			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.pubSubBinding_PubSubInstance) {
+		} else if (reference == cypriotInstance.toBindPubSub_PubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.PTPBinding_PtpInstance) {
+		} else if (reference == cypriotInstance.toBindPTP_PtpInstance) {
 			return Scopes.scopeFor(Helpers.allPtPinstances(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.pubSubBinding_Topics) {
+		} else if (reference == cypriotInstance.toBindPubSub_Topics) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Topic)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.PTPBinding_ConnectionPoint) {
+		} else if (reference == cypriotInstance.toBindPTP_ConnectionPoint) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ConnectionPoint)
 			return Scopes.scopeFor(candidates)
@@ -70,7 +70,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleObject)
 			return Scopes.scopeFor(candidates)
-		} else if(reference == cypriotInstance.channelBridge_Bind){
+		} else if(reference == cypriotInstance.networkBridge_Bind){
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Bind)
 			return Scopes.scopeFor(candidates)
