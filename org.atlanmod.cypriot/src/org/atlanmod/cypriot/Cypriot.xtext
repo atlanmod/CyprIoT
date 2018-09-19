@@ -72,10 +72,11 @@ InstanceThing :
 	'instance' typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? 'platform' platform=Platform
 ;
 enum Platform:
-	POSIX='POSIX' | 
+	POSIX='CPOSIX' | 
 	JAVA='JAVA' |
 	ARDUINO='ARDUINO' |
-	JAVASCRIPT='JS'
+	JAVASCRIPT='JS' |
+	PYTHON='PYTHON'
 ;
 
 InstancePubSub :
@@ -170,7 +171,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect action=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' action=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
 ;
 enum RuleEffect :
 	DENY='deny' |
@@ -193,6 +194,9 @@ RuleSubject:
 
 RuleObject:
 	Thing | Role | User | Channel | Topic | ConnectionPoint
+;
+DomainObject:
+	QualifiedNameWithWildcard | QualifiedNameWithWildcard | QualifiedNameInStaticImport
 ;
 
 ConditionExpression:
