@@ -29,7 +29,7 @@ public class PluginLoader {
 			pluginClassName = properties.getProperty("classes");
 			List<String> classesList = Arrays.asList(pluginClassName.split(","));
 			for (String className : classesList) {
-				loadPlugin(pluginClassName);
+				loadPlugin(className);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.atlanmod.cypriot.generator.commons.Helpers;
-import org.atlanmod.cypriot.generator.exceptions.ExceptionHandler;
-import org.atlanmod.cypriot.generator.exceptions.ModelExceptionHandler;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,8 +19,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *
  */
 public abstract class ModelLoader {
-	
-	final protected ExceptionHandler exceptionHandler = new ModelExceptionHandler();
 	
 	String fileContent;
 	
@@ -56,7 +52,7 @@ public abstract class ModelLoader {
 			return type.cast(model.getContents().get(0));
 
 		} catch (Exception e) {
-			this.exceptionHandler.handle(e, "The model couldn't be loaded");
+			e.printStackTrace();
 		}
 		return null;
 	}

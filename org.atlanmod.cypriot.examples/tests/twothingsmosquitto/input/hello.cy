@@ -10,6 +10,9 @@ channel:pubsub Broker {
 	topic topic2 subtopicOf topic1
 	topic topic3 
 }
+bridge gatewayToBroker {
+	
+}
 
 network twoThingsCom {
 	instance Thing1:thing1 platform POSIX
