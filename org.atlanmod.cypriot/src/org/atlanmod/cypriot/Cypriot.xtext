@@ -49,8 +49,12 @@ EnforcePolicy :
 	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])*
 ;
 
+Domain:
+	'domain' name=QualifiedName
+;
 Network:
 	'network' name=ID '{'
+		domain=Domain
 		(enforcement=EnforcePolicy)?
 		(networkProperty+=NetworkProperty |
 		instances+=Instance |
@@ -89,7 +93,10 @@ InstancePTP :
 
 enum PTPProtocol:
 	HTTP='HTTP' | 
-	COAP='COAP' 
+	COAP='COAP' |
+	UPNP='UPNP' |
+	ZIGBEE='ZIGBEE' |
+	ZWAVE='ZWAVE'
 ;
 
 PointToPoint:
@@ -139,7 +146,7 @@ ToBindPubSub:
 ;
 
 ToBindPTP:
-	ptpInstance=[InstancePTP] '.' ConnectionPoint=[ConnectionPoint]
+	ptpInstance=[InstancePTP] '.' (ConnectionPoint=[ConnectionPoint] | regularExpression=OrRegularExpression | allConnections='*')
 ;
 
 GlobalBridge:
@@ -168,7 +175,8 @@ Rule:
 enum RuleEffect :
 	DENY='deny' |
 	ALLOW='allow' |
-	TRIGGER='trigger'
+	TRIGGER='trigger' |
+	BRIDGE='bridge'
 ;
 
 enum RuleAction:
@@ -262,7 +270,45 @@ DoubleLiteral returns DoubleLiteral:
 	
 StringLiteral returns StringLiteral:
 	stringValue=STRING_LIT;
-	
+
+
+RegularExpression:
+	OrRegularExpression
+;
+
+OrRegularExpression:
+	SequenceExpression ({OrRegularExpression.left = current} '+' right=SequenceExpression)*
+;
+
+SequenceExpression:
+	HighBindExpression ({SequenceExpression.left = current} right = HighBindExpression)*
+;
+
+HighBindExpression:
+        AtomicRegularExpression ('*'{StarExpression.innerExpression=current} '*'* )?
+;
+
+AtomicRegularExpression:
+	BracedExpression | Atom
+;
+
+BracedExpression:
+	'(' innerExpression = RegularExpression ')'
+;
+
+Atom:
+	value = CHARI
+;
+
+terminal CHARI returns ecore::EChar:
+	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
+;
+
+@Override
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+@Override
+terminal ANY_OTHER: .;
+
 // Terminals
 terminal BYTE returns ecore::EByte: "0x" ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F');
 
