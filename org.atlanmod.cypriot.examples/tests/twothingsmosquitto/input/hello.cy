@@ -15,7 +15,8 @@ bridge gatewayToBroker {
 }
 
 network twoThingsCom {
-	instance Thing1:thing1 platform POSIX
+	domain org.atlanmod
+	instance Thing1:thing1 platform CPOSIX
 	instance Thing2:thing2 platform JAVA
 	instance Broker:CentralMqtt platform MQTT
 	bind thing1.command <= CentralMqtt{topic2,topic3}

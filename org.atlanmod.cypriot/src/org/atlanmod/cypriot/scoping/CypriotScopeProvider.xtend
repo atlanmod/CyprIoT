@@ -4,6 +4,7 @@
 package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
+import org.atlanmod.cypriot.cyprIoT.BridgeSubject
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Policy
@@ -18,7 +19,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.Bind
 
 /**
  * This class contains custom scoping description.
@@ -72,7 +72,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if(reference == cypriotInstance.networkBridge_Bind){
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Bind)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject)
 			return Scopes.scopeFor(candidates)
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
