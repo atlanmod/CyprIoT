@@ -18,29 +18,36 @@ import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator.TopicTypes;
 import org.eclipse.emf.common.util.EList;
+import org.thingml.xtext.thingML.ThingMLModel;
 
-public class DefaultACPlugin implements Plugin {
+public class MosquittoACPlugin implements Plugin {
 	StringBuilder subTopicsRules = new StringBuilder();
 	StringBuilder pubTopicsRules = new StringBuilder();
+
+	@Override
+	public String getID() {
+		return "mosquitto";
+	}
+
 	@Override
 	public void attach(App app) {
 		System.out.println("Loading Access Control plugin...");
 	}
 
 	@Override
-	public CyprIoTModel initiliaze(CyprIoTModel model) {
+	public CyprIoTModel initiliaze() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CyprIoTModel loadModel(CyprIoTModel model) {
+	public ArrayList<ThingMLModel> loadModel(CyprIoTModel model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CyprIoTModel validate(CyprIoTModel model) {
+	public Boolean validate(ArrayList<ThingMLModel> thingmlModel) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -130,4 +130,5 @@ network smarthomeNetwork {
 	bridge fridge to privateBroker{fridgeTopic}
 	bridge heater to privateBroker{heaterTopic}
 	bridge temperature to privateBroker{temperatureTopic}
+	
 }

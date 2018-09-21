@@ -1,0 +1,6 @@
+user thing1
+topic read topic2
+topic read topic3
+
+user thing2
+topic write topic1
