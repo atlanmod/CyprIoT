@@ -60,15 +60,15 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public void generate(CyprIoTModel model, File outputDirectory) {
-		EList<Network> allNetworks = model.getNetworks();
+		EList<Network> allNetworks = model.getSpecifyNetworks();
 		for (Network network : allNetworks) {
-			EList<Bind> allBinds = network.getBinds();
+			EList<Bind> allBinds = network.getHasBinds();
 			for (Bind bindPubSub : allBinds) {
 					ChannelToBind channelBinding = bindPubSub.getChannelToBind();
 					if(channelBinding instanceof ToBindPubSub) {
 						
-						String pubSubChannelName = ((ToBindPubSub) channelBinding).getPubSubInstance().getName();
-						InstanceThing instanceThing = bindPubSub.getThingInstance();
+						String pubSubChannelName = ((ToBindPubSub) channelBinding).getTargetedPubSubInstance().getName();
+						InstanceThing instanceThing = bindPubSub.getBindsInstanceThing();
 						
 						ArrayList<Bind> pubSubBindsContainingThingInstances = SimpleNetworkGenerator.pubSubBindsContainingThingInstances(instanceThing, network);
 

@@ -89,7 +89,7 @@ public class Helpers {
 	public static ArrayList<Role> allRoles(CyprIoTModel model) {
 		ArrayList<Role> result = new ArrayList<Role>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (Role r : m.getRoles()) {
+			for (Role r : m.getDeclareRoles()) {
 				result.add((Role)r);
 			}
 		}
@@ -99,7 +99,7 @@ public class Helpers {
 	public static ArrayList<Thing> allThings(CyprIoTModel model) {
 	ArrayList<Thing> result = new ArrayList<Thing>();
 	for (CyprIoTModel m : allIoTLangModels(model)) {
-		for (Thing t : m.getImportThings()) {
+		for (Thing t : m.getDeclareThings()) {
 				result.add((Thing)t);
 		}
 	}
@@ -108,7 +108,7 @@ public class Helpers {
 	public static ArrayList<PubSub> allPusSub(CyprIoTModel model) {
 		ArrayList<PubSub> result = new ArrayList<PubSub>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (Channel t : m.getChannels()) {
+			for (Channel t : m.getDeclareChannels()) {
 				if(t instanceof PubSub) {
 					result.add((PubSub)t);
 				}
@@ -119,7 +119,7 @@ public class Helpers {
 	public static ArrayList<PointToPoint> allReqRep(CyprIoTModel model) {
 		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (Channel t : m.getChannels()) {
+			for (Channel t : m.getDeclareChannels()) {
 				if(t instanceof PointToPoint) {
 					result.add((PointToPoint)t);
 				}
@@ -137,7 +137,7 @@ public class Helpers {
 	
 	public static ArrayList<InstanceThing> allThinginstances(CyprIoTModel model) {
 		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
-			for (Instance t : model.getNetworks().get(0).getInstances()) {
+			for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
 				if ( t instanceof InstanceThing) result.add((InstanceThing)t);
 		}
 		return result;
@@ -145,7 +145,7 @@ public class Helpers {
 	
 	public static ArrayList<InstancePubSub> allPubSubinstances(CyprIoTModel model) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
-		for (Instance t : model.getNetworks().get(0).getInstances()) {
+		for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
 			if ( t instanceof InstancePubSub) result.add((InstancePubSub)t);
 		}
 		return result;
@@ -153,7 +153,7 @@ public class Helpers {
 	
 	public static ArrayList<InstancePTP> allPtPinstances(CyprIoTModel model) {
 		ArrayList<InstancePTP> result = new ArrayList<InstancePTP>();
-		for (Instance t : model.getNetworks().get(0).getInstances()) {
+		for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
 			if ( t instanceof InstancePTP) result.add((InstancePTP)t);
 		}
 		return result;
@@ -304,7 +304,7 @@ public class Helpers {
 	public static ArrayList<User> allUsers(CyprIoTModel model) {
 		ArrayList<User> result = new ArrayList<User>();
 		for (CyprIoTModel m : allIoTLangModels(model)) {
-			for (User t : m.getUsers()) {
+			for (User t : m.getDeclareUsers()) {
 					result.add((User)t);
 			}
 		}

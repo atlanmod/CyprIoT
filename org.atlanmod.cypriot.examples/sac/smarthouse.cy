@@ -4,7 +4,7 @@ role actuator
 role actor
 
 // Users declaration
-user Sarah
+user Daughter
 	assigned actor,actuator
 
 user Mother
@@ -36,9 +36,9 @@ thing smartGlove
 	assigned sensor
 	import "smartGlove.thingml"
 
-thing sarahPhone
+thing phone
 	assigned sensor, actuator
-	import "sarahPhone.thingml"
+	import "daughterPhone.thingml"
 
 // Channels declaration	
 channel:ptp zigbeeHomeNodes {
@@ -65,13 +65,15 @@ channel:ptp upnpHomeNodes {
 }
 
 channel:pubsub broker {
-	topic sarahSmarthome
-	topic temperatureTopic subtopicOf sarahSmarthome
-	topic lockTopic subtopicOf sarahSmarthome
-	topic heaterTopic subtopicOf sarahSmarthome
-	topic fridgeTopic subtopicOf sarahSmarthome
+	topic smarthome
+	topic temperatureTopic subtopicOf smarthome
+	topic lockTopic subtopicOf smarthome
+	topic heaterTopic subtopicOf smarthome
+	topic fridgeTopic subtopicOf smarthome
 }
 
+
+// Policy declaration
 policy cityPolicy {
 	
 }
@@ -89,41 +91,41 @@ network smarthomeNetwork {
 	// Domain of the network
 	domain fr.nantes.sarahSmarthome
 	
-	// Enforfing all policies
+	// Enforcing all policies
 	enforce cityPolicy, homePolicy, manufacturerPolicy
 
-	// Instanciating things
-	instance homeGateway:gateway owner Sarah platform PYTHON
-	instance temperatureSensor:ts owner Sarah platform CPOSIX
-	instance smartLock:sl owner Sarah platform ARDUINO
-	instance smartHeather:sh owner Sarah platform JAVA
-	instance smartFridge:sf owner Sarah platform CPOSIX
+	// Instantiating things
+	instance homeGateway:gateway owner Daughter platform PYTHON
+	instance temperatureSensor:ts owner Daughter platform CPOSIX
+	instance smartLock:sl owner Daughter platform ARDUINO
+	instance smartHeather:sh owner Daughter platform JAVA
+	instance smartFridge:sf owner Daughter platform CPOSIX
 	instance smartGlove:sg owner Mother platform CPOSIX
-	instance sarahPhone:sp owner Sarah platform JAVA
+	instance phone:sarahPhone owner Daughter platform JAVA
 	
-	// Instanciating channels
+	// Instantiating channels
 	instance broker:privateBroker platform MQTT
 	instance zigbeeHomeNodes:zigbeeHomeNodes platform ZIGBEE
 	instance zwaveHomeNodes:zwaveHomeNodes platform ZWAVE
-	instance zwaveHomeNodes:zwaveHomeNodes platform UPNP
+	instance upnpHomeNodes:upnpHomeNodes platform UPNP
 	
 	// Binding sensors and actuators to their ConnectionPoint in the smarthome
 	bind ts.sensedData => zigbeeHomeNodes.temperature
 	bind sl.sensedData => zigbeeHomeNodes.lock
 	bind sh.sensedData => zigbeeHomeNodes.heater
 	bind sf.sensedData => zigbeeHomeNodes.fridge
-	bind sg.sensedData => zigbeeHomeNodes.gloveSensor
+	bind sg.sensedData => zwaveHomeNodes.gloveSensor
 	
 	// Binding all ConnectionPoint to the gateway in a star fashion
 	bind gateway.ZigbeeData <= zigbeeHomeNodes.*
 	bind gateway.ZwaveData <= zwaveHomeNodes.gloveSensor
 	bind gateway.upnp <= zwaveHomeNodes.anyUpnpDevice
 	
-	// Monitoring the smarthome from Sarah's phone
-	bind sp.fridgeData <= privateBroker{fridgeTopic}
-	bind sp.heaterData <= privateBroker{heaterTopic}
-	bind sp.lockData <= privateBroker{lockTopic}
-	bind sp.temperatureData <= privateBroker{temperatureTopic}
+	// Monitoring the Smarthome from Sarah's phone
+	bind sarahPhone.fridgeData <= privateBroker{fridgeTopic}
+	bind sarahPhone.heaterData <= privateBroker{heaterTopic}
+	bind sarahPhone.lockData <= privateBroker{lockTopic}
+	bind sarahPhone.temperatureData <= privateBroker{temperatureTopic}
 	
 	// Bridging data from the gateway to the private broker
 	bridge lock to privateBroker{lockTopic}

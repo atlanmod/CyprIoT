@@ -6,20 +6,19 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
 CyprIoTModel returns CyprIoTModel:
-		(importThings+=Thing | 
-		channels+=Channel|
-		networks+=Network |
-		users+=User |
-		policies+=Policy |
-		roles+=Role |
-		globalBridges+=GlobalBridge)*;
+		(declareThings+=Thing | 
+		declareChannels+=Channel|
+		specifyNetworks+=Network |
+		declareUsers+=User |
+		specifyPolicies+=Policy |
+		declareRoles+=Role)*;
 
-NamedElement:
+/*NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind |
+	Bind | ChannelProperty | NetworkProperty |  Policy | ToBindPTP | ToBindPubSub | RegularExpression | Rule |
 	";" name=ID
-;
+;*/
 
 Role:
 	'role' name=ID
@@ -45,7 +44,7 @@ ChannelProperty:
 
 // Dynamicity of the configuration
 
-EnforcePolicy :
+PoliciesEnforcement :
 	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])*
 ;
 
@@ -55,11 +54,11 @@ Domain:
 Network:
 	'network' name=ID '{'
 		domain=Domain
-		(enforcement=EnforcePolicy)?
-		(networkProperty+=NetworkProperty |
-		instances+=Instance |
-		binds+=Bind | 
-		channelBridge+=NetworkBridge
+		(hasPolicyEnforcement=PoliciesEnforcement)?
+		(hasNetworkProperty+=NetworkProperty |
+		instantiate+=Instance |
+		hasBinds+=Bind | 
+		hasBridges+=NetworkBridge
 		)*
 	'}'
 ;
@@ -69,7 +68,7 @@ Instance:
 ;
 
 InstanceThing :
-	'instance' typeThing=[Thing] ':' name=ID ('['numberOfInstances=INT']')?  ('owner' owner=[User])? 'platform' platform=Platform
+	'instance' name=ID ':' thingToInstantiate=[Thing] ('['declareNumberOfInstances=INT']')?  ('owner' owner=[User])? 'platform' targetedPlatform=Platform
 ;
 enum Platform:
 	POSIX='CPOSIX' | 
@@ -80,7 +79,7 @@ enum Platform:
 ;
 
 InstancePubSub :
-	'instance' typePubSub=[PubSub] ':' name=ID  'platform' platform=PubSubProtocol
+	'instance' name=ID ':' pubSubToInstantiate=[PubSub]   'platform' targetedPlatform=PubSubProtocol
 ;
 
 enum PubSubProtocol:
@@ -89,7 +88,7 @@ enum PubSubProtocol:
 ;
 
 InstancePTP :
-	'instance' typePtP=[PointToPoint] ':' name=ID  'platform'  platform=PTPProtocol
+	'instance' name=ID ':' ptPToInstantiate=[PointToPoint]    'platform'  targetedPlatform=PTPProtocol
 ;
 
 enum PTPProtocol:
@@ -102,8 +101,8 @@ enum PTPProtocol:
 
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(	channelProperties+=ChannelProperty |
-			haspoints +=ConnectionPoint
+		(	hasChannelProperties+=ChannelProperty |
+			hasConnectionPoints +=ConnectionPoint
 		)*
 	'}'
 ;
@@ -113,27 +112,27 @@ Channel:
 ;
 
 ConnectionPoint:
-	'ConnectionPoint'  name=ID ('(' hasParameters+=ID ( "," assignedRoles+=ID)* ')')*
+	'ConnectionPoint'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*
 ;
 
 PubSub:
 	'channel:pubsub' name=ID '{'
-		(	channelProperties+=ChannelProperty |
+		(	hasChannelProperties+=ChannelProperty |
 			hasTopics +=Topic
 		)*
 	'}'
 ;
 
 Topic:
-	'topic'  name=ID  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 // TODO subjectPort=[thingml::Port]
 Bind:
-	'bind'	(name=ID)? thingInstance=[InstanceThing]"." portToBind=ID readOrWrite=ReadOrWrite channelToBind=ChannelToBind
+	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]"." portToBind=ID bindAction=BindAction channelToBind=ChannelToBind
 ;
 
-enum ReadOrWrite:
+enum BindAction:
 	READ='<=' |
 	WRITE='=>'
 ;
@@ -143,21 +142,21 @@ ChannelToBind:
 ;
 
 ToBindPubSub:
-	 pubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
+	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*| filterTopicsUsingRegex=RegularExpression'}'
 ;
 
 ToBindPTP:
-	ptpInstance=[InstancePTP] '.' (ConnectionPoint=[ConnectionPoint] | regularExpression=OrRegularExpression | allConnections='*')
+	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] | filterConnectionPointsUsingRegex=RegularExpression | allConnectionPoints='*')
 ;
 
-GlobalBridge:
+/*GlobalBridge:
 	'bridge' name=ID '{'
 		
 	'}'
-;
+;*/
 
 NetworkBridge:
-	'bridge' bind=[BridgeSubject] 'to' channel=ChannelToBind
+	'bridge' bindSubject=[BridgeSubject] 'to' bridgeToChannel=ChannelToBind
 ;
 
 BridgeSubject:
@@ -166,12 +165,12 @@ BridgeSubject:
 
 Policy:
 	'policy' name=ID '{'
-		(rules+=Rule)*
+		(hasRules+=Rule)*
 	'}'
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' action=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
 ;
 enum RuleEffect :
 	DENY='deny' |
@@ -181,11 +180,20 @@ enum RuleEffect :
 ;
 
 enum RuleAction:
+	CommAction | TriggerAction | BridgeAction
+;
+enum CommAction:
 	SEND='send' | 
-	RECEIVE='receive' |  
+	RECEIVE='receive'
+;
+enum TriggerAction:
 	PERFORMTRANSITION='performTransition' | 
 	GOTOSTATE='goToState' | 
 	EXECUTEFUNCTION='executeFunction'
+;
+enum BridgeAction:
+	BRIDGEFROM='from'| 
+	BRIDGETO='to'
 ;
 
 RuleSubject:
@@ -200,9 +208,14 @@ DomainObject:
 ;
 
 ConditionExpression:
-	OrExpression
+	'expression' name=ID
 ;
 
+RegularExpression:
+	//OrRegularExpression
+	'regularExpression' name=ID
+;
+/*
 OrExpression returns Expression:
 	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
 ;
@@ -274,12 +287,7 @@ DoubleLiteral returns DoubleLiteral:
 	
 StringLiteral returns StringLiteral:
 	stringValue=STRING_LIT;
-
-
-RegularExpression:
-	OrRegularExpression
-;
-
+	
 OrRegularExpression:
 	SequenceExpression ({OrRegularExpression.left = current} '+' right=SequenceExpression)*
 ;
@@ -307,7 +315,7 @@ Atom:
 terminal CHARI returns ecore::EChar:
 	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
 ;
-
+*/
 @Override
 terminal WS			: (' '|'\t'|'\r'|'\n')+;
 @Override

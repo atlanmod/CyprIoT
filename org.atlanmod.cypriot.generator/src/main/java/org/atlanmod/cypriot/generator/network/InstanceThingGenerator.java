@@ -244,7 +244,7 @@ public class InstanceThingGenerator {
 	 * @return The full path
 	 */
 	public String getImportedThingPath() {
-		String thingPath = instanceThing.getTypeThing().getImportPath();
+		String thingPath = instanceThing.getThingToInstantiate().getImportPath();
 		thingPath = thingPath.replace("\"", "");
 		String fullThingPath = cypriotFile.getAbsoluteFile().getParentFile().getAbsolutePath() + "/" + thingPath;
 		log.debug("Full thing path : " + fullThingPath);
@@ -259,7 +259,7 @@ public class InstanceThingGenerator {
 	 */
 	private void debugInstanceThing() {
 		String instanceName = NetworkHelper.getIdNameOfEobject(instanceThing);
-		log.debug("Thing Name : " + instanceName + ", number : " + instanceThing.getNumberOfInstances());
+		log.debug("Thing Name : " + instanceName + ", number : " + instanceThing.getDeclareNumberOfInstances());
 		String fullThingPath = getImportedThingPath();
 
 		File file;

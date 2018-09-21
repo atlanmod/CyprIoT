@@ -39,7 +39,7 @@ public class SimpleNetworkGeneratorTest {
 	public void setUp() throws Exception {
 		cyLoader = new CypriotModelLoader();
 		cyModel = cyLoader.loadFromFile(cypriotFile);
-		for (Instance  instance : cyModel.getNetworks().get(0).getInstances()) {
+		for (Instance  instance : cyModel.getSpecifyNetworks().get(0).getInstantiate()) {
 			if(instance instanceof InstanceThing) {
 				instanceThing = (InstanceThing) instance;
 				break;
@@ -76,7 +76,7 @@ public class SimpleNetworkGeneratorTest {
 	@Test
 	public void testGetAssignedRolesToThing() {
 		EList<Role> rolesInstance = NetworkHelper.getAssignedRolesToThing(instanceThing);
-		EList<Role> roleThing = cyModel.getImportThings().get(0).getAssignedRoles();
+		EList<Role> roleThing = cyModel.getDeclareThings().get(0).getAssignedRoles();
 		rolesInstance.equals(roleThing);	
 	}
 

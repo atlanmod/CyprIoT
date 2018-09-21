@@ -105,7 +105,7 @@ public class SimpleNetworkGenerator {
 	 * @param instanceThing
 	 */
 	public void generateCodeForInstanceThing(InstanceThing instanceThing, ArrayList<Topic> pubTopics,ArrayList<Topic> subTopics) {
-		Platform platform = instanceThing.getPlatform();
+		Platform platform = instanceThing.getTargetedPlatform();
 		log.debug("Target platform : " + platform);
 		GeneratorFactory generatorFactory = getGeneratorFactory(platform);
 		InstanceThingGenerator instanceGen = new InstanceThingGenerator(cypriotFile,instanceThing,cypriotOutputDirectory,generatorFactory);
@@ -126,10 +126,10 @@ public class SimpleNetworkGenerator {
 		for (Bind bind : bindPubSubs) {
 				EList<Topic> allTopics = ((ToBindPubSub)bind.getChannelToBind()).getTopics();
 				for (Topic topic : allTopics) {
-					if (bind.getReadOrWrite().getLiteral().equals("=>") && topicType==TopicTypes.PUBTOPIC) {
+					if (bind.getBindAction().getLiteral().equals("=>") && topicType==TopicTypes.PUBTOPIC) {
 						log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
 						topics.add(topic);
-					} else if(bind.getReadOrWrite().getLiteral().equals("<=") && topicType==TopicTypes.SUBTOPIC){
+					} else if(bind.getBindAction().getLiteral().equals("<=") && topicType==TopicTypes.SUBTOPIC){
 						log.debug("ThingInstance " + instanceThing.getName() + " subscribe to " + topic.getName());
 						topics.add(topic);
 					}
@@ -165,9 +165,9 @@ public class SimpleNetworkGenerator {
 	 */
 	public ArrayList<Bind> reqRepBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
 		ArrayList<Bind> binds = new ArrayList<Bind>();
-		for (Bind bind : network.getBinds()) {
+		for (Bind bind : network.getHasBinds()) {
 			if(bind.getChannelToBind() instanceof ToBindPTP) {
-				if (bind.getThingInstance().equals(instanceThing)) {
+				if (bind.getBindsInstanceThing().equals(instanceThing)) {
 					binds.add(bind);
 				}
 			}
@@ -184,9 +184,9 @@ public class SimpleNetworkGenerator {
 	 */
 	public static ArrayList<Bind> pubSubBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
 		ArrayList<Bind> binds = new ArrayList<Bind>();
-		for (Bind bind : network.getBinds()) {
+		for (Bind bind : network.getHasBinds()) {
 			if(bind.getChannelToBind() instanceof ToBindPubSub) {
-				if (bind.getThingInstance().equals(instanceThing)) {
+				if (bind.getBindsInstanceThing().equals(instanceThing)) {
 					binds.add(bind);
 				}		
 			}
@@ -202,7 +202,7 @@ public class SimpleNetworkGenerator {
 		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotFile);
 		//saveCypriotModelAsXMI(model);
-		allNetworks = model.getNetworks();
+		allNetworks = model.getSpecifyNetworks();
 	}
 
 	/**
