@@ -95,16 +95,16 @@ network smarthomeNetwork {
 	enforce cityPolicy, homePolicy, manufacturerPolicy
 
 	// Instantiating things
-	instance homeGateway:gateway owner Daughter platform PYTHON
-	instance temperatureSensor:ts owner Daughter platform CPOSIX
-	instance smartLock:sl owner Daughter platform ARDUINO
-	instance smartHeather:sh owner Daughter platform JAVA
-	instance smartFridge:sf owner Daughter platform CPOSIX
-	instance smartGlove:sg owner Mother platform CPOSIX
-	instance phone:sarahPhone owner Daughter platform JAVA
+	instance gateway: homeGateway owner Daughter platform PYTHON
+	instance ts: temperatureSensor owner Daughter platform CPOSIX
+	instance sl: smartLock owner Daughter platform ARDUINO
+	instance sh: smartHeather owner Daughter platform JAVA
+	instance sf: smartFridge owner Daughter platform CPOSIX
+	instance sg: smartGlove owner Mother platform CPOSIX
+	instance sarahPhone: phone owner Daughter platform JAVA
 	
 	// Instantiating channels
-	instance broker:privateBroker platform MQTT
+	instance privateBroker: broker platform MQTT
 	instance zigbeeHomeNodes:zigbeeHomeNodes platform ZIGBEE
 	instance zwaveHomeNodes:zwaveHomeNodes platform ZWAVE
 	instance upnpHomeNodes:upnpHomeNodes platform UPNP
@@ -132,5 +132,4 @@ network smarthomeNetwork {
 	bridge fridge to privateBroker{fridgeTopic}
 	bridge heater to privateBroker{heaterTopic}
 	bridge temperature to privateBroker{temperatureTopic}
-	
 }

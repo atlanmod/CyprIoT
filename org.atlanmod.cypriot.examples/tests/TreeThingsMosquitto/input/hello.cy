@@ -16,10 +16,10 @@ channel:pubsub Broker {
 
 network twoThingsCom {
 	domain org.atlanmod
-	instance Thing1:thing1 platform CPOSIX
-	instance Thing2:thing2 platform JAVA
-	instance Thing3:thing3 platform CPOSIX
-	instance Broker:CentralMqtt platform MQTT
+	instance thing1:Thing1 platform CPOSIX
+	instance thing2:Thing2 platform JAVA
+	instance thing3:Thing3 platform CPOSIX
+	instance CentralMqtt:Broker platform MQTT
 	bind thing1.command <= CentralMqtt{topic2,topic3}
 	bind thing2.command => CentralMqtt{topic2}
 	bind thing3.command => CentralMqtt{topic3}

@@ -62,7 +62,7 @@ class CypriotParsingTest {
 	def void ReqRepDeclaration() {
 		val result = parseHelper.parse('''
 			channel:ptp Rest {
-				endpoint speed
+				ConnectionPoint speed
 			}
 		''')
 		Assert.assertNotNull(result)

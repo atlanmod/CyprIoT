@@ -13,12 +13,12 @@ CyprIoTModel returns CyprIoTModel:
 		specifyPolicies+=Policy |
 		declareRoles+=Role)*;
 
-/*NamedElement:
+NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
 	Bind | ChannelProperty | NetworkProperty |  Policy | ToBindPTP | ToBindPubSub | RegularExpression | Rule |
 	";" name=ID
-;*/
+;
 
 Role:
 	'role' name=ID
@@ -57,8 +57,8 @@ Network:
 		(hasPolicyEnforcement=PoliciesEnforcement)?
 		(hasNetworkProperty+=NetworkProperty |
 		instantiate+=Instance |
-		hasBinds+=Bind | 
-		hasBridges+=NetworkBridge
+		hasBinds+=Bind |
+		hasNetworkBridges+=NetworkBridge
 		)*
 	'}'
 ;
@@ -142,18 +142,18 @@ ChannelToBind:
 ;
 
 ToBindPubSub:
-	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*| filterTopicsUsingRegex=RegularExpression'}'
+	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
 ToBindPTP:
 	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] | filterConnectionPointsUsingRegex=RegularExpression | allConnectionPoints='*')
 ;
 
-/*GlobalBridge:
+GlobalBridge:
 	'bridge' name=ID '{'
 		
 	'}'
-;*/
+;
 
 NetworkBridge:
 	'bridge' bindSubject=[BridgeSubject] 'to' bridgeToChannel=ChannelToBind
@@ -165,7 +165,7 @@ BridgeSubject:
 
 Policy:
 	'policy' name=ID '{'
-		(hasRules+=Rule)*
+		//(hasRules+=Rule)*
 	'}'
 ;
 
@@ -212,10 +212,9 @@ ConditionExpression:
 ;
 
 RegularExpression:
-	//OrRegularExpression
-	'regularExpression' name=ID
+	OrRegularExpression
 ;
-/*
+
 OrExpression returns Expression:
 	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
 ;
@@ -315,7 +314,7 @@ Atom:
 terminal CHARI returns ecore::EChar:
 	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
 ;
-*/
+
 @Override
 terminal WS			: (' '|'\t'|'\r'|'\n')+;
 @Override
