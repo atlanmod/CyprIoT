@@ -12,59 +12,59 @@ user Mother
 
 // Devices declaration
 
-thing homeGateway
+thing HomeGateway
 	assigned sensor, actuator
 	import "homeGateway.thingml"
 	
-thing temperatureSensor
+thing TemperatureSensor
 	assigned sensor
 	import "temperatureSensor.thingml"
 
-thing smartLock
+thing SmartLock
 	assigned sensor, actuator
 	import "smartLock.ino"
 
-thing smartHeather
+thing SmartHeather
 	assigned actuator
 	import "smartHeather.thingml"
 
-thing smartFridge
+thing SmartFridge
 	assigned sensor, actuator
 	import "smartFridge.thingml"
 
-thing smartGlove
+thing SmartGlove
 	assigned sensor
 	import "smartGlove.thingml"
 
-thing phone
+thing Phone
 	assigned sensor, actuator
 	import "daughterPhone.thingml"
 
 // Channels declaration	
-channel:ptp zigbeeHomeNodes {
+channel:ptp ZigbeeHomeNodes {
 	ConnectionPoint temperature
 	ConnectionPoint lock
 	ConnectionPoint heater
 	ConnectionPoint fridge
 }
 
-channel:ptp manufacturer {
+channel:ptp Manufacturer {
 	ConnectionPoint smartHomeState
 }
 
-channel:ptp foodStore {
+channel:ptp FoodStore {
 	ConnectionPoint isFoodMissing
 }
 
-channel:ptp zwaveHomeNodes {
+channel:ptp ZwaveHomeNodes {
 	ConnectionPoint gloveSensor
 }
 
-channel:ptp upnpHomeNodes {
+channel:ptp UpnpHomeNodes {
 	ConnectionPoint anyUpnpDevice
 }
 
-channel:pubsub broker {
+channel:pubsub Broker {
 	topic smarthome
 	topic temperatureTopic subtopicOf smarthome
 	topic lockTopic subtopicOf smarthome
@@ -74,40 +74,40 @@ channel:pubsub broker {
 
 
 // Policy declaration
-policy cityPolicy {
+policy CityPolicy {
 	
 }
 
-policy homePolicy {
+policy HomePolicy {
 	
 }
 
-policy manufacturerPolicy {
+policy ManufacturerPolicy {
 	
 }
 
 //Smarthome Network Configuration
-network smarthomeNetwork {
+network SmarthomeNetwork {
 	// Domain of the network
 	domain fr.nantes.sarahSmarthome
 	
 	// Enforcing all policies
-	enforce cityPolicy, homePolicy, manufacturerPolicy
+	enforce CityPolicy, HomePolicy, ManufacturerPolicy
 
 	// Instantiating things
-	instance gateway: homeGateway owner Daughter platform PYTHON
-	instance ts: temperatureSensor owner Daughter platform CPOSIX
-	instance sl: smartLock owner Daughter platform ARDUINO
-	instance sh: smartHeather owner Daughter platform JAVA
-	instance sf: smartFridge owner Daughter platform CPOSIX
-	instance sg: smartGlove owner Mother platform CPOSIX
-	instance sarahPhone: phone owner Daughter platform JAVA
+	instance gateway: HomeGateway owner Daughter platform PYTHON
+	instance ts: TemperatureSensor owner Daughter platform CPOSIX
+	instance sl: SmartLock owner Daughter platform ARDUINO
+	instance sh: SmartHeather owner Daughter platform JAVA
+	instance sf: SmartFridge owner Daughter platform CPOSIX
+	instance sg: SmartGlove owner Mother platform CPOSIX
+	instance sarahPhone: Phone owner Daughter platform JAVA
 	
 	// Instantiating channels
-	instance privateBroker: broker platform MQTT
-	instance zigbeeHomeNodes:zigbeeHomeNodes platform ZIGBEE
-	instance zwaveHomeNodes:zwaveHomeNodes platform ZWAVE
-	instance upnpHomeNodes:upnpHomeNodes platform UPNP
+	instance privateBroker: Broker platform MQTT
+	instance zigbeeHomeNodes:ZigbeeHomeNodes platform ZIGBEE
+	instance zwaveHomeNodes:ZwaveHomeNodes platform ZWAVE
+	instance upnpHomeNodes:UpnpHomeNodes platform UPNP
 	
 	// Binding sensors and actuators to their ConnectionPoint in the smarthome
 	bind ts.sensedData => zigbeeHomeNodes.temperature

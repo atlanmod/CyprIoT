@@ -12,15 +12,15 @@ import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.junit.Test;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-public class MainTest {
+public class ModelLoadingTest {
 	final String fileUnderTestPath = "../org.atlanmod.cypriot.examples/tests/TDD/simple/simple.cy";
 	final File networkModelFile = new File(fileUnderTestPath);
 	CypriotModelLoader loader = new CypriotModelLoader();
 	CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+	
 	@Test
 	public void loadNetworkModel() {
 		assertTrue(networkModelFile.exists());
-
 		assertNotNull(loadNetworkModel);
 	}
 	
@@ -38,5 +38,11 @@ public class MainTest {
 			assertNotNull(thingMLModel);
 		}
 	}
-
+	
+	@Test
+	public void loadConcreteCode() {
+		CypriotModelLoader loader = new CypriotModelLoader();
+		CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+		
+	}
 }
