@@ -76,15 +76,25 @@ public class MosquittoACPlugin implements Plugin {
 						ArrayList<Topic> subTopics = SimpleNetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
 						
 						for (Topic pubTopic : pubTopics) {
-							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic write "+pubTopic.getName()+" \n \n";
+							StringBuilder pubtopicFull = new StringBuilder();
+							if(pubTopic.getSubtopicOf().size()!=0) {
+								pubtopicFull.append(pubTopic.getSubtopicOf().get(0).getName()+"/"+pubTopic.getName());
+							} else {
+								pubtopicFull.append(pubTopic.getName());
+							}
+							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic write "+pubtopicFull+" \n \n";
 							pubTopicsRules.append(mosquittoAcl);
-							//writeToACLFile(outputDirectory, pubSubChannelName, mosquittoAcl);	
 						}
 						
 						for (Topic subTopic : subTopics) {
-							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic read "+subTopic.getName()+" \n \n";
+							StringBuilder subtopicFull = new StringBuilder();
+							if(subTopic.getSubtopicOf().size()!=0) {
+								subtopicFull.append(subTopic.getSubtopicOf().get(0).getName()+"/"+subTopic.getName());
+							} else {
+								subtopicFull.append(subTopic.getName());
+							}
+							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic read "+subtopicFull+" \n \n";
 							subTopicsRules.append(mosquittoAcl);
-							//writeToACLFile(outputDirectory, pubSubChannelName, mosquittoAcl);
 						}
 						
 						String mosquittoACLRules = subTopicsRules+""+pubTopicsRules;

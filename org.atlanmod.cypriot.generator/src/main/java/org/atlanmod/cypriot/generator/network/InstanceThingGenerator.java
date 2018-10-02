@@ -72,14 +72,26 @@ public class InstanceThingGenerator {
 					for (Topic topic : pubTopics) {
 						PlatformAnnotation annotation = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
 						annotation.setName("publish_topic");
-						annotation.setValue(topic.getName());
+						StringBuilder pubtopicFull = new StringBuilder();
+						if(topic.getSubtopicOf().size()!=0) {
+							pubtopicFull.append(topic.getSubtopicOf().get(0).getName()+"/"+topic.getName());
+						} else {
+							pubtopicFull.append(topic.getName());
+						}
+						annotation.setValue(pubtopicFull+"");
 						connector.getAnnotations().add(annotation);
 					}
 					
 					for (Topic topic : subTopics) {
 						PlatformAnnotation annotation = ThingMLFactory.eINSTANCE.createPlatformAnnotation();
 						annotation.setName("subscribe_topic");
-						annotation.setValue(topic.getName());
+						StringBuilder subtopicFull = new StringBuilder();
+						if(topic.getSubtopicOf().size()!=0) {
+							subtopicFull.append(topic.getSubtopicOf().get(0).getName()+"/"+topic.getName());
+						} else {
+							subtopicFull.append(topic.getName());
+						}
+						annotation.setValue(subtopicFull+"");
 						connector.getAnnotations().add(annotation);
 					}
 					//ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();

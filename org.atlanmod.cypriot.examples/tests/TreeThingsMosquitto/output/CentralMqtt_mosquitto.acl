@@ -1,12 +1,12 @@
 user thing1
-topic read topic2 
+topic read topic1/topic2 
  
 user thing1
-topic read topic3 
+topic read topic1/topic3 
  
 user thing2
-topic write topic2 
+topic write topic1/topic2 
  
 user thing3
-topic write topic3 
+topic write topic1/topic3 
  
