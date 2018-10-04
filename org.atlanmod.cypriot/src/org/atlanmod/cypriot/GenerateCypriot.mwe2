@@ -7,11 +7,7 @@ import org.eclipse.emf.mwe.utils.*
 var rootPath = ".."
 
 Workflow {
-	/* TODO import ThingML
-	 * bean = StandaloneSetup {
-		scanClassPath = true
-		registerGenModelFile = "platform:/resource/org.atlanmod.cypriot/ThingML.genmodel"
-	}*/
+
 	component = XtextGenerator {
 		configuration = {
 			project = StandardProjectConfig {
@@ -35,6 +31,7 @@ Workflow {
 			}
 		}
 		language = StandardLanguage {
+			referencedResource = "platform:/resource/org.atlanmod.cypriot/ThingML.genmodel"
 			name = "org.atlanmod.cypriot.Cypriot"
 			fileExtensions = "cy"
 			serializer = {

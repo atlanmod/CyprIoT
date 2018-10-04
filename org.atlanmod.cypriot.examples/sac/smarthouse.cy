@@ -1,14 +1,6 @@
-// Role Declaration
-role sensor
-role actuator
-role actor
+import "role.cy"
+import "policy.cy"
 
-// Users declaration
-user Daughter
-	assigned actor,actuator
-
-user Mother
-	assigned actor
 
 // Devices declaration
 
@@ -70,20 +62,6 @@ channel:pubsub Broker {
 	topic lockTopic subtopicOf smarthome
 	topic heaterTopic subtopicOf smarthome
 	topic fridgeTopic subtopicOf smarthome
-}
-
-
-// Policy declaration
-policy CityPolicy {
-	
-}
-
-policy HomePolicy {
-	
-}
-
-policy ManufacturerPolicy {
-	
 }
 
 //Smarthome Network Configuration

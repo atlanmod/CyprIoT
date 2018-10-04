@@ -38,11 +38,4 @@ public class ModelLoadingTest {
 			assertNotNull(thingMLModel);
 		}
 	}
-	
-	@Test
-	public void loadConcreteCode() {
-		CypriotModelLoader loader = new CypriotModelLoader();
-		CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
-		
-	}
 }

@@ -59,9 +59,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ConnectionPoint)
 			return Scopes.scopeFor(candidates)
 		 } else if(reference == cypriotInstance.policiesEnforcement_PolicyName){
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Policy)
-			return Scopes.scopeFor(candidates)
+			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
 		} else if(reference == cypriotInstance.rule_RuleSubject){
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
