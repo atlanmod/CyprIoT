@@ -1,68 +1,7 @@
-import "role.cy"
-import "policy.cy"
+import "policies.cy"
+import "channels.cy"
+import "things.cy"
 
-
-// Devices declaration
-
-thing HomeGateway
-	assigned sensor, actuator
-	import "homeGateway.thingml"
-	
-thing TemperatureSensor
-	assigned sensor
-	import "temperatureSensor.thingml"
-
-thing SmartLock
-	assigned sensor, actuator
-	import "smartLock.ino"
-
-thing SmartHeather
-	assigned actuator
-	import "smartHeather.thingml"
-
-thing SmartFridge
-	assigned sensor, actuator
-	import "smartFridge.thingml"
-
-thing SmartGlove
-	assigned sensor
-	import "smartGlove.thingml"
-
-thing Phone
-	assigned sensor, actuator
-	import "daughterPhone.thingml"
-
-// Channels declaration	
-channel:ptp ZigbeeHomeNodes {
-	ConnectionPoint temperature
-	ConnectionPoint lock
-	ConnectionPoint heater
-	ConnectionPoint fridge
-}
-
-channel:ptp Manufacturer {
-	ConnectionPoint smartHomeState
-}
-
-channel:ptp FoodStore {
-	ConnectionPoint isFoodMissing
-}
-
-channel:ptp ZwaveHomeNodes {
-	ConnectionPoint gloveSensor
-}
-
-channel:ptp UpnpHomeNodes {
-	ConnectionPoint anyUpnpDevice
-}
-
-channel:pubsub Broker {
-	topic smarthome
-	topic temperatureTopic subtopicOf smarthome
-	topic lockTopic subtopicOf smarthome
-	topic heaterTopic subtopicOf smarthome
-	topic fridgeTopic subtopicOf smarthome
-}
 
 //Smarthome Network Configuration
 network SmarthomeNetwork {
@@ -97,7 +36,7 @@ network SmarthomeNetwork {
 	// Binding all ConnectionPoint to the gateway in a star fashion
 	bind gateway.ZigbeeData <= zigbeeHomeNodes.*
 	bind gateway.ZwaveData <= zwaveHomeNodes.gloveSensor
-	bind gateway.upnp <= zwaveHomeNodes.anyUpnpDevice
+	bind gateway.upnp <= upnpHomeNodes.anyUpnpDevice
 	
 	// Monitoring the Smarthome from Sarah's phone
 	bind sarahPhone.fridgeData <= privateBroker{fridgeTopic}

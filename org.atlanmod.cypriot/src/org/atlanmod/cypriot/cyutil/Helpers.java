@@ -8,8 +8,11 @@
 package org.atlanmod.cypriot.cyutil;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
 import org.atlanmod.cypriot.cyprIoT.Channel;
+import org.atlanmod.cypriot.cyprIoT.ConnectionPoint;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Import;
 import org.atlanmod.cypriot.cyprIoT.Instance;
@@ -26,18 +29,19 @@ import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.EcoreUtil2;
 
 public class Helpers {
 
 	public static CyprIoTModel getModelFromRelativeURI(CyprIoTModel cyModel, String uri) throws Exception {
 		URI new_uri;
-		System.out.println("URI : "+uri);
+		System.out.println("URI : " + uri);
 		// Import local file
 		new_uri = URI.createURI(uri);
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(cyModel.eResource().getURI());
 		}
-		System.out.println("URI : "+new_uri);
+		System.out.println("URI : " + new_uri);
 		// Load the file into the ResourceSet
 		Resource r = cyModel.eResource().getResourceSet().getResource(new_uri, true);
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof CyprIoTModel) {
@@ -111,7 +115,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
 	public static ArrayList<Policy> allPolicies(CyprIoTModel model) {
 		ArrayList<Policy> result = new ArrayList<Policy>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
@@ -157,10 +161,26 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Topic> allTopics(PubSub pubSub) {
+	public static ArrayList<Topic> allTopicsInType(PubSub pubSub) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 		for (Topic t : pubSub.getHasTopics()) {
 			result.add((Topic) t);
+		}
+		return result;
+	}
+
+	public static ArrayList<Topic> allTopics(InstancePubSub pubSub) {
+		ArrayList<Topic> result = new ArrayList<Topic>();
+		for (Topic t : pubSub.getPubSubToInstantiate().getHasTopics()) {
+			result.add((Topic) t);
+		}
+		return result;
+	}
+
+	public static ArrayList<ConnectionPoint> allConnectionPoints(InstancePTP ptp) {
+		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
+		for (ConnectionPoint t : ptp.getPtPToInstantiate().getHasConnectionPoints()) {
+			result.add((ConnectionPoint) t);
 		}
 		return result;
 	}
@@ -192,11 +212,16 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Topic> allTopicsPubSub(PubSub pubsub) {
-		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Topic t : pubsub.getHasTopics()) {
-			if (t instanceof Topic)
-				result.add((Topic) t);
+	public static ArrayList<BridgeSubject> allBridgeSubjects(CyprIoTModel model) {
+		ArrayList<BridgeSubject> result = new ArrayList<BridgeSubject>();
+		for (CyprIoTModel m : allCypriotModels(model)) {
+			EObject rootElement = EcoreUtil2.getRootContainer(m);
+			List<BridgeSubject> subjects = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject.class);
+			for (BridgeSubject bridgeSubject : subjects) {
+				if (bridgeSubject instanceof BridgeSubject) {
+					result.add(bridgeSubject);
+				}
+			}
 		}
 		return result;
 	}
