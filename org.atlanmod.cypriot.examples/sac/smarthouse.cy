@@ -12,7 +12,7 @@ network SmarthomeNetwork {
 	enforce CityPolicy, HomePolicy, ManufacturerPolicy
 
 	// Instantiating things
-	instance gateway[91]: HomeGateway owner Daughter platform PYTHON
+	instance gateway: HomeGateway owner Daughter platform PYTHON
 	instance ts: TemperatureSensor owner Daughter platform CPOSIX
 	instance sl: SmartLock owner Daughter platform ARDUINO
 	instance sh: SmartHeather owner Daughter platform JAVA

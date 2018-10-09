@@ -17,7 +17,7 @@ thing Thing1
 		state state1 {
 			internal event raw : dataEntryPoint?rawData
 			action do 
-			`			
+			`
 			XBee.begin(9600);
 			Serial.begin(9600);			
 			while(true) {
@@ -31,11 +31,11 @@ thing Thing1
 	}
 }
 
-protocol MQTT
+protocol Xbee
 @serializer "Binary"
 ;
 
 configuration thing2Exec {
 	instance thing1:Thing1
-	connector thing1.dataEntryPoint over MQTT
+	connector thing1.dataEntryPoint over Xbee
 }
