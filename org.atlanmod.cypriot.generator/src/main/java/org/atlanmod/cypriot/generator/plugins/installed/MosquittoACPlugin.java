@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.plugins;
+package org.atlanmod.cypriot.generator.plugins.installed;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +17,7 @@ import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator.TopicTypes;
+import org.atlanmod.cypriot.generator.plugins.Plugin;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.ThingMLModel;
 

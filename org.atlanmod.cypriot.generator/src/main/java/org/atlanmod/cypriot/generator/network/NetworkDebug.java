@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.generator.commons.Helpers;
+import org.atlanmod.cypriot.generator.utilities.Helpers;
 
 public class NetworkDebug {
 	
@@ -65,7 +65,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
-		ArrayList<InstancePTP> reqReps = Helpers.allTypesInNetwork(network, InstancePTP.class);
+		ArrayList<InstancePTP> reqReps = Helpers.allEObjectContainedIn(network, InstancePTP.class);
 
 		for (InstancePTP reqRep : reqReps) {
 			String ReqRepName = ((InstancePTP) reqRep).getName();
@@ -78,7 +78,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugPubSubInstances(Network network) {
-		ArrayList<InstancePubSub> pubSubs = Helpers.allTypesInNetwork(network, InstancePubSub.class);
+		ArrayList<InstancePubSub> pubSubs = Helpers.allEObjectContainedIn(network, InstancePubSub.class);
 
 		for (InstancePubSub pubSub : pubSubs) {
 			String pubSubName = ((InstancePubSub) pubSub).getName();

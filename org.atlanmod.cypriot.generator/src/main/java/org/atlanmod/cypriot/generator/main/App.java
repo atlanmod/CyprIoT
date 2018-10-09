@@ -5,10 +5,10 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
+import org.atlanmod.cypriot.generator.utilities.Helpers;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -31,12 +31,12 @@ public class App implements Runnable {
 
 	@Option(names = { "-c", "--config" }, paramLabel = "CONFIG", description = "The configuration file")
 	File cypriotConfigFile;
-	
+
 	public void run() {
 		showProjectVersioInConsole();
 		handleVerbosity();
-		
-		loadingPluginsFromConfigFile();		
+
+		loadingPluginsFromConfigFile();
 		SimpleNetworkGenerator networkGenerator = new SimpleNetworkGenerator();
 		checkInputFile(networkGenerator);
 		checkOutputDirectory(networkGenerator);
@@ -47,7 +47,6 @@ public class App implements Runnable {
 	 * 
 	 */
 	public void loadingPluginsFromConfigFile() {
-		ExecutionContext.pre(App.class.getName(), "plugin");
 		PluginLoader pluginLoader = new PluginLoader();
 		if (cypriotConfigFile != null) {
 			if (cypriotConfigFile.exists()) {
@@ -56,7 +55,8 @@ public class App implements Runnable {
 				CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
 				CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotInputFile);
 				pluginLoader.setModel(model);
-				File cypriotOutputDirectory = new File(cypriotInputFile.getParentFile().getAbsolutePath() + "/../output");
+				File cypriotOutputDirectory = new File(
+						cypriotInputFile.getParentFile().getAbsolutePath() + "/../output");
 				pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 				pluginLoader.load();
 			} else {
@@ -65,14 +65,13 @@ public class App implements Runnable {
 		} else {
 			log.info("No plugin found");
 		}
-		ExecutionContext.post();
 	}
 
 	/**
 	 * Show the version of Cypriot in the console
 	 */
 	public void showProjectVersioInConsole() {
-		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven()); 
+		System.out.println("CyprIoT v" + Helpers.getProjectVersionFromMaven());
 	}
 
 	/**
@@ -89,7 +88,9 @@ public class App implements Runnable {
 	}
 
 	/**
-	 * Check whether the output directory is valid before setting it into networkGenerator
+	 * Check whether the output directory is valid before setting it into
+	 * networkGenerator
+	 * 
 	 * @param networkGenerator
 	 */
 	public void checkOutputDirectory(SimpleNetworkGenerator networkGenerator) {
@@ -109,14 +110,15 @@ public class App implements Runnable {
 
 	/**
 	 * Check whether the input file is valid before setting it into networkGenerator
+	 * 
 	 * @param networkGenerator
 	 */
 	public void checkInputFile(SimpleNetworkGenerator networkGenerator) {
 		if (cypriotInputFile != null && cypriotInputFile.exists()) {
-				networkGenerator.setCypriotFile(cypriotInputFile);
+			networkGenerator.setCypriotFile(cypriotInputFile);
 		} else {
 			if (cypriotInputFile != null) {
-				log.error("File "+cypriotInputFile.getPath()+" not found");
+				log.error("File " + cypriotInputFile.getPath() + " not found");
 			} else {
 				log.error("File cypriotInputFile is null");
 			}
@@ -124,10 +126,7 @@ public class App implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		ExecutionContext.pre(App.class.getName(), "main");
 		CommandLine.run(new App(), System.out, args);
-		ExecutionContext.post();
-
 	}
 
 }

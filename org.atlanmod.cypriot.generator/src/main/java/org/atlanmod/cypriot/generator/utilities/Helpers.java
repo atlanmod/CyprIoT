@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.commons;
+package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
-import org.atlanmod.cypriot.generator.commons.file.FileProcessingTemplate;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -24,30 +23,15 @@ public class Helpers {
 
 	private static final Logger log = LogManager.getLogger(Helpers.class.getName());
 
-	public static String appendStrings(EList<? extends EObject> list,String separator) {
-		String currentSeparator = "";
-		StringBuilder builder = new StringBuilder();
-		for (EObject eObject : list) {
-		    builder.append(currentSeparator);
-		    if (eObject instanceof NamedElement) {
-		        String name = ((NamedElement)eObject).getName();
-			    builder.append(name);
-
-		     }
-		    currentSeparator = separator;
-		}
-		return builder.toString();
-	}
-
 	/**
-	 * Return all types in a given EObject
+	 * Return EObject of a given type contained by a given EObject
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@SuppressWarnings("unchecked") // I know what I am doing
-	public static <T extends EObject> ArrayList<T> allTypesInNetwork(EObject supertype, Class<T> type) {
-		
+	public static <T extends EObject> ArrayList<T> allEObjectContainedIn(EObject supertype, Class<T> type) {
+
 		EList<EObject> allChildrenTypes = supertype.eContents();
 		ArrayList<T> instanceThings = new ArrayList<T>();
 		for (EObject eObject : allChildrenTypes) {
@@ -59,25 +43,13 @@ public class Helpers {
 	}
 
 	/**
-	 * Read a file and returns its content
-	 * 
-	 * @param file File to read
-	 * @return
-	 */
-	public static String getContentFromFile(File file) {
-		String content = new FileProcessingTemplate() {}.process(file);
-		//log.debug(" \n \n ##### File Content "+file.getName()+ " ##### \n \n"+content);
-		return content;
-	}
-
-	/**
 	 * Create a Xtext resource from a file
 	 * 
 	 * @param file
 	 * @param log
 	 * @return
 	 */
-	public static Resource createResourceFromFile(File file) {
+	public static Resource createEMFResourceFromFile(File file) {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
 		log.debug("URI : " + xmiuri.path());
 		ResourceSet rs = new ResourceSetImpl();
@@ -85,6 +57,22 @@ public class Helpers {
 		return model;
 	}
 
+	/**
+	 * Check if there are errors and warning inside an EMF resource
+	 * 
+	 * @param resource
+	 * @param log
+	 * @return
+	 */
+	public static boolean checkProblemsInEMFResource(Resource resource) {
+		String[] splitURI = resource.getURI().toString().split("/");
+		String elementNameFromURI = splitURI[splitURI.length - 1];
+		log.info("Checking for EMF errors and warnings of \"" + elementNameFromURI + "\"");
+		boolean noErrors = checkErrorsInResource(resource);
+		checkWarningInResource(resource);
+		return noErrors;
+	}
+	
 	/**
 	 * Get the project version as defined in maven pom.xml
 	 * 
@@ -104,7 +92,59 @@ public class Helpers {
 	}
 
 	/**
-	 * A private method to help separating error handling from logic
+	 * Read a file and returns its content
+	 * 
+	 * @param file File to read
+	 * @return
+	 */
+	public static String getContentFromFile(File file) {
+		String content = null;
+		FileReader reader = null;
+		try {
+			reader = new FileReader(file);
+			char[] chars = new char[(int) file.length()];
+			reader.read(chars);
+			content = new String(chars);
+			return content;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) { // Always check if a reference is not null inside a try block
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return content;
+	}
+	
+	/**
+	 * Append EObject names separated by a given separator ("," or ";"..etc)
+	 * 
+	 * @param list
+	 * @param separator
+	 * @return
+	 */
+	public static String appendStrings(EList<? extends EObject> list, String separator) {
+		String currentSeparator = "";
+		StringBuilder builder = new StringBuilder();
+		for (EObject eObject : list) {
+			builder.append(currentSeparator);
+			if (eObject instanceof NamedElement) {
+				String name = ((NamedElement) eObject).getName();
+				builder.append(name);
+
+			}
+			currentSeparator = separator;
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * A method encapsulating the logic to used to read the version in Maven file,
+	 * used by {@link #getProjectVersionFromMaven()}
 	 * 
 	 * @return
 	 * @throws IOException
@@ -120,37 +160,22 @@ public class Helpers {
 	}
 
 	/**
-	 * Check if there are syntactic errors in the model
+	 * Check if there is any error in the model, used by
+	 * {@link #checkProblemsInModel()}
 	 * 
-	 * @param model
+	 * @param resource
 	 * @param log
 	 * @return
 	 */
-	public static boolean checkProblemsInModel(Resource model) {
-		String[] splitURI = model.getURI().toString().split("/");
-		String elementNameFromURI = splitURI[splitURI.length-1];
-		log.info("Checking for EMF errors and warnings of \""+elementNameFromURI+"\"");
-		boolean noErrors = checkErrorsInResource(model);
-		checkWarningInResource(model);
-		return noErrors;
-	}
-
-	/**
-	 * Check if there is any error in the model
-	 * 
-	 * @param model
-	 * @param log
-	 * @return
-	 */
-	public static boolean checkErrorsInResource(Resource model) {
+	private static boolean checkErrorsInResource(Resource resource) {
 		boolean noErrors = true;
-		if (model.getErrors().size() > 0) {
+		if (resource.getErrors().size() > 0) {
 			noErrors = false;
-			log.error("ERROR: The input model contains " + model.getErrors().size() + " errors.");
-			for (Resource.Diagnostic d : model.getErrors()) {
+			log.error("ERROR: The input model contains " + resource.getErrors().size() + " errors.");
+			for (Resource.Diagnostic d : resource.getErrors()) {
 				String location = d.getLocation();
 				if (location == null) {
-					location = model.getURI().toFileString();
+					location = resource.getURI().toFileString();
 				}
 				log.error("Error in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): "
 						+ d.getMessage());
@@ -161,12 +186,13 @@ public class Helpers {
 	}
 
 	/**
-	 * Check if there is any warning in the resource
+	 * Check if there is any warning in the resource, used by
+	 * {@link #checkProblemsInModel()}
 	 * 
 	 * @param model
 	 * @param log
 	 */
-	public static boolean checkWarningInResource(Resource model) {
+	private static boolean checkWarningInResource(Resource model) {
 		boolean noWarning = true;
 		if (model.getWarnings().size() > 0) {
 			noWarning = false;

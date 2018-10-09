@@ -14,11 +14,11 @@ import org.atlanmod.cypriot.cyprIoT.Platform;
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.compilers.CPosixGenerator;
 import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.compilers.JavaGenerator;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.utilities.Helpers;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -234,7 +234,7 @@ public class SimpleNetworkGenerator {
 	 * @return
 	 */
 	public ArrayList<InstanceThing> getInstanceThingsInNetwork(Network network) {
-		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Helpers.allTypesInNetwork(network,
+		ArrayList<InstanceThing> instanceThings = (ArrayList<InstanceThing>) Helpers.allEObjectContainedIn(network,
 				InstanceThing.class);
 		return instanceThings;
 	}

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.commons.Helpers;
 import org.atlanmod.cypriot.generator.main.App;
+import org.atlanmod.cypriot.generator.utilities.Helpers;
 
 public class PluginLoader {
 	private File configFile;
