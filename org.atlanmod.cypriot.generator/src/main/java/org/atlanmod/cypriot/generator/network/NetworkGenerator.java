@@ -219,7 +219,7 @@ public class NetworkGenerator {
 		res.getContents().add(model);
 		EcoreUtil.resolveAll(res);
 
-		SaveOptions opt = SaveOptions.newBuilder().format().noValidation().getOptions();
+		SaveOptions opt = SaveOptions.newBuilder().format().getOptions();
 		try {
 			res.save(opt.toOptionsMap());
 		} catch (IOException e) {

@@ -3,6 +3,7 @@ package org.atlanmod.cypriot.generator.plugins.installed;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
@@ -128,7 +129,7 @@ public class MosquittoACPlugin implements Plugin {
 			}
 		} else {
 			try {
-				FileUtils.writeStringToFile(fileMosquittoAcl, mosquittoAcl);
+				FileUtils.writeStringToFile(fileMosquittoAcl, mosquittoAcl, Charset.forName("utf-8"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

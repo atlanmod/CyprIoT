@@ -94,14 +94,9 @@ public class InstanceThingGenerator {
 						annotation.setValue(subtopicFull+"");
 						connector.getAnnotations().add(annotation);
 					}
-					//ThingMLCompiler thingmlCompiler = setThingMLCompilerPlugins();
-					//thingmlCompiler.setOutputDirectory(cypriotThingOutputDirectory);
-					//SystemLogger loggerThg = new SystemLogger();
-					//thingmlCompiler.compile(configuration, loggerThg);
 				}
 			}
 		}
-		//saveThingMLModelAsXmi(thingmlModel);
 		saveThingMLAsThingML(thingmlModel);
 	}
 
