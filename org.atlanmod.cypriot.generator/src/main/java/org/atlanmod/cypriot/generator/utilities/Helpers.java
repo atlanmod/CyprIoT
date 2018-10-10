@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
@@ -21,15 +19,13 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 public class Helpers {
 
-	private static final Logger log = LogManager.getLogger(Helpers.class.getName());
-
 	/**
 	 * Return EObject of a given type contained by a given EObject
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") // I know what I am doing
+	@SuppressWarnings("unchecked")
 	public static <T extends EObject> ArrayList<T> allEObjectContainedIn(EObject supertype, Class<T> type) {
 
 		EList<EObject> allChildrenTypes = supertype.eContents();
@@ -51,7 +47,6 @@ public class Helpers {
 	 */
 	public static Resource createEMFResourceFromFile(File file) {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
-		log.debug("URI : " + xmiuri.path());
 		ResourceSet rs = new ResourceSetImpl();
 		Resource model = rs.createResource(xmiuri);
 		return model;
@@ -65,9 +60,6 @@ public class Helpers {
 	 * @return
 	 */
 	public static boolean checkProblemsInEMFResource(Resource resource) {
-		String[] splitURI = resource.getURI().toString().split("/");
-		String elementNameFromURI = splitURI[splitURI.length - 1];
-		log.info("Checking for EMF errors and warnings of \"" + elementNameFromURI + "\"");
 		boolean noErrors = checkErrorsInResource(resource);
 		checkWarningInResource(resource);
 		return noErrors;
@@ -116,7 +108,7 @@ public class Helpers {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (reader != null) { // Always check if a reference is not null inside a try block
+			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
@@ -178,17 +170,13 @@ public class Helpers {
 		boolean noErrors = true;
 		if (resource.getErrors().size() > 0) {
 			noErrors = false;
-			log.error("ERROR: The input model contains " + resource.getErrors().size() + " errors.");
 			for (Resource.Diagnostic d : resource.getErrors()) {
 				String location = d.getLocation();
 				if (location == null) {
 					location = resource.getURI().toFileString();
 				}
-				log.error("Error in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): "
-						+ d.getMessage());
 			}
 		}
-		log.debug("No error was found in the model.");
 		return noErrors;
 	}
 
@@ -203,14 +191,11 @@ public class Helpers {
 		boolean noWarning = true;
 		if (model.getWarnings().size() > 0) {
 			noWarning = false;
-			log.warn("WARNING: The input model contains " + model.getWarnings().size() + " warnings.");
 			for (Resource.Diagnostic d : model.getWarnings()) {
 				String location = d.getLocation();
 				if (location == null) {
 					location = model.getURI().toFileString();
 				}
-				log.warn("Warning in file  " + location + " (" + d.getLine() + ", " + d.getColumn() + "): "
-						+ d.getMessage());
 			}
 		}
 		return noWarning;

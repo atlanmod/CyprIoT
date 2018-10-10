@@ -1,10 +1,8 @@
-package org.atlanmod.cypriot.generator.network;
+package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Role;
@@ -15,8 +13,6 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkHelper {
 	
-	final static Logger log = LogManager.getLogger(NetworkHelper.class.getName());
-
 	/**
 	 * Get the ID name of any EObject
 	 * @param instance
@@ -56,10 +52,8 @@ public class NetworkHelper {
 	 */
 	public static boolean isFileExists(File file) {
 		if(file.exists() && !file.isDirectory()) {
-			log.debug("Thing model file is present");
 		    return true;
 		}
-		log.error("Thing model file does not exist");
 		return false;
 	}
 

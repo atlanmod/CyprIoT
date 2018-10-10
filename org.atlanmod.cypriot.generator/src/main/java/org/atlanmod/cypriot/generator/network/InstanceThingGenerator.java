@@ -12,6 +12,7 @@ import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.xtext.thingML.AbstractConnector;
 import org.thingml.xtext.thingML.Configuration;
@@ -60,7 +61,6 @@ public class InstanceThingGenerator {
 	public void generateUsingThingMLGenerator() {
 		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
 		log.debug("ThingML thing name : " + thingmlModel.getTypes().get(0).getName());
-		File cypriotThingOutputDirectory = getInstanceThingGenDirectory();
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
 		if (NetworkHelper.isConfigOne(thingmlModel)) {
 			if (NetworkHelper.isConnectorOne(configuration)) {
@@ -124,7 +124,7 @@ public class InstanceThingGenerator {
 	 */
 	public void saveThingMLAsThingML(ThingMLModel thingmlModel) throws RuntimeException {
 		try {
-			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath() + "/output/"+instanceThing.getName()+"_transformed.thingml");
+			ThingMLCompiler.saveAsXMI(thingmlModel, outputDirectory.getAbsolutePath() + "/"+instanceThing.getName()+"_transformed.thingml");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

@@ -19,6 +19,7 @@ import org.atlanmod.cypriot.generator.compilers.GeneratorFactory;
 import org.atlanmod.cypriot.generator.compilers.JavaGenerator;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;

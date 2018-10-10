@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -64,42 +63,47 @@ public class MosquittoACPlugin implements Plugin {
 		for (Network network : allNetworks) {
 			EList<Bind> allBinds = network.getHasBinds();
 			for (Bind bindPubSub : allBinds) {
-					ChannelToBind channelBinding = bindPubSub.getChannelToBind();
-					if(channelBinding instanceof ToBindPubSub) {
-						
-						String pubSubChannelName = ((ToBindPubSub) channelBinding).getTargetedPubSubInstance().getName();
-						InstanceThing instanceThing = bindPubSub.getBindsInstanceThing();
-						
-						ArrayList<Bind> pubSubBindsContainingThingInstances = NetworkGenerator.pubSubBindsContainingThingInstances(instanceThing, network);
+				ChannelToBind channelBinding = bindPubSub.getChannelToBind();
+				if (channelBinding instanceof ToBindPubSub) {
 
-						ArrayList<Topic> pubTopics = NetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.PUBTOPIC);
-						ArrayList<Topic> subTopics = NetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
-						
-						for (Topic pubTopic : pubTopics) {
-							StringBuilder pubtopicFull = new StringBuilder();
-							if(pubTopic.getSubtopicOf().size()!=0) {
-								pubtopicFull.append(pubTopic.getSubtopicOf().get(0).getName()+"/"+pubTopic.getName());
-							} else {
-								pubtopicFull.append(pubTopic.getName());
-							}
-							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic write "+pubtopicFull+" \n \n";
-							pubTopicsRules.append(mosquittoAcl);
+					String pubSubChannelName = ((ToBindPubSub) channelBinding).getTargetedPubSubInstance().getName();
+					InstanceThing instanceThing = bindPubSub.getBindsInstanceThing();
+
+					ArrayList<Bind> pubSubBindsContainingThingInstances = NetworkGenerator
+							.pubSubBindsContainingThingInstances(instanceThing, network);
+
+					ArrayList<Topic> pubTopics = NetworkGenerator.getAllTopicsOfType(instanceThing,
+							pubSubBindsContainingThingInstances, TopicTypes.PUBTOPIC);
+					ArrayList<Topic> subTopics = NetworkGenerator.getAllTopicsOfType(instanceThing,
+							pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
+
+					for (Topic pubTopic : pubTopics) {
+						StringBuilder pubtopicFull = new StringBuilder();
+						if (pubTopic.getSubtopicOf().size() != 0) {
+							pubtopicFull.append(pubTopic.getSubtopicOf().get(0).getName() + "/" + pubTopic.getName());
+						} else {
+							pubtopicFull.append(pubTopic.getName());
 						}
-						
-						for (Topic subTopic : subTopics) {
-							StringBuilder subtopicFull = new StringBuilder();
-							if(subTopic.getSubtopicOf().size()!=0) {
-								subtopicFull.append(subTopic.getSubtopicOf().get(0).getName()+"/"+subTopic.getName());
-							} else {
-								subtopicFull.append(subTopic.getName());
-							}
-							String mosquittoAcl = "user " +instanceThing.getName()+"\n" + "topic read "+subtopicFull+" \n \n";
-							subTopicsRules.append(mosquittoAcl);
-						}
-						
-						String mosquittoACLRules = subTopicsRules+""+pubTopicsRules;
-						writeToACLFile(outputDirectory, pubSubChannelName, mosquittoACLRules);
+						String mosquittoAcl = "user " + instanceThing.getName() + "\n" + "topic write " + pubtopicFull
+								+ " \n \n";
+						pubTopicsRules.append(mosquittoAcl);
 					}
+
+					for (Topic subTopic : subTopics) {
+						StringBuilder subtopicFull = new StringBuilder();
+						if (subTopic.getSubtopicOf().size() != 0) {
+							subtopicFull.append(subTopic.getSubtopicOf().get(0).getName() + "/" + subTopic.getName());
+						} else {
+							subtopicFull.append(subTopic.getName());
+						}
+						String mosquittoAcl = "user " + instanceThing.getName() + "\n" + "topic read " + subtopicFull
+								+ " \n \n";
+						subTopicsRules.append(mosquittoAcl);
+					}
+
+					String mosquittoACLRules = subTopicsRules + "" + pubTopicsRules;
+					writeToACLFile(outputDirectory, pubSubChannelName, mosquittoACLRules);
+				}
 
 			}
 		}
@@ -111,19 +115,16 @@ public class MosquittoACPlugin implements Plugin {
 	 * @param mosquittoAcl
 	 */
 	public void writeToACLFile(File outputDirectory, String pubSubChannelName, String mosquittoAcl) {
-		String filename = outputDirectory.getParentFile().getAbsolutePath() + "/output/"
-				+ pubSubChannelName+"_mosquitto.acl";
+		String filename = outputDirectory.getParentFile().getAbsolutePath() + "/output/" + pubSubChannelName
+				+ "_mosquitto.acl";
 		File fileMosquittoAcl = new File(filename);
 		if (fileMosquittoAcl.exists()) {
-			try
-			{
-			    FileWriter fw = new FileWriter(filename,false);
-			    fw.write(mosquittoAcl);
-			    fw.close();
-			}
-			catch(IOException ioe)
-			{
-			    System.err.println("IOException: " + ioe.getMessage());
+			try {
+				FileWriter fw = new FileWriter(filename, false);
+				fw.write(mosquittoAcl);
+				fw.close();
+			} catch (IOException ioe) {
+				System.err.println("IOException: " + ioe.getMessage());
 			}
 		} else {
 			try {

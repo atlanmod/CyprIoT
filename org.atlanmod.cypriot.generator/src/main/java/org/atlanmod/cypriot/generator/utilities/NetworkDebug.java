@@ -1,33 +1,37 @@
-package org.atlanmod.cypriot.generator.network;
+package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
 import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
+import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 
 public class NetworkDebug {
-	
-	 private Logger log;
-	 private Network network;
-	
-	 public NetworkDebug(Logger log, File cypriotFile, Network network) {
-		 this.log=log;
-		 this.network=network;
-		 debugNetworksInfo();
-	 }
+
+	private Logger log;
+	private Network network;
+
+	public NetworkDebug(Logger log, File cypriotFile, Network network) {
+		this.log = log;
+		this.network = network;
+		debugNetworksInfo();
+	}
 
 	/**
 	 * Debug function, will be removed
+	 * 
 	 * @param network
 	 */
 	private void debugNetworksInfo() {
 
-		log.debug("######## Network : "+network.getName()+" ########");
-		
+		log.debug("######## Network : " + network.getName() + " ########");
+
 		debugChannels(network);
 
 		debugBindPubSubs(network);
@@ -35,6 +39,7 @@ public class NetworkDebug {
 
 	/**
 	 * Debug trace for all the channels in the network
+	 * 
 	 * @param network
 	 */
 	private void debugChannels(Network network) {
@@ -43,25 +48,30 @@ public class NetworkDebug {
 	}
 
 	/**
-	 * TODO : Rewrite the method
 	 * Debug trace for all the PubSub Binds in the network
 	 * @param network
 	 */
 	private void debugBindPubSubs(Network network) {
-		/*ArrayList<Bind> bindPubSubs = Helpers.allTypesInNetwork(network, Bind.class);
-
-		for (Bind pubSub : bindPubSubs) {
-			InstanceThing instanceThing = ((Bind) pubSub).getThingInstance();
-			String subjectPort = ((Bind) pubSub).getSubjectPort();
-			ChannelBinding channelBinding = ((Bind) pubSub).getBindingChannel();
-			String topics = Helpers.appendStrings(((Bind) pubSub).getTopics(), ",");
-			log.debug("Bind ThingInstance : " + NetworkHelper.getIdNameOfEobject(instanceThing) + " port : " + subjectPort + " PubSub : "
-					+ channelBinding.getName() + " Topics : " + topics);
-		}*/
+		ArrayList<Bind> allBinds = Helpers.allEObjectContainedIn(network, Bind.class);
+		for (Bind bind : allBinds) {
+			InstanceThing instanceThing = bind.getBindsInstanceThing();
+			String portToBind = bind.getPortToBind();
+			ChannelToBind channelToBinds = bind.getChannelToBind();
+			String channeName=null;
+			String channelTopics=null;
+			if(channelToBinds instanceof ToBindPubSub) {
+				ToBindPubSub channel = ((ToBindPubSub) channelToBinds);
+				channeName = channel.getTargetedPubSubInstance().getName();
+				channelTopics = Helpers.appendStrings(channel.getTopics(), ",");
+			}
+			log.debug("Bind ThingInstance : " + NetworkHelper.getIdNameOfEobject(instanceThing) + " port : " + portToBind + " PubSub : "
+					+ channeName + " Topics : " + channelTopics);
+		}
 	}
 
 	/**
 	 * Debug trace for all the ReqRep Binds in the network
+	 * 
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
@@ -75,6 +85,7 @@ public class NetworkDebug {
 
 	/**
 	 * Debug trace for all the PubSubInstances in the network
+	 * 
 	 * @param network
 	 */
 	private void debugPubSubInstances(Network network) {
