@@ -4,11 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.main.App;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public interface Plugin {
-	void attach(App app);
+	void attach();
 	String getID();
 	CyprIoTModel initiliaze();
 	ArrayList<ThingMLModel> loadModel(CyprIoTModel model);

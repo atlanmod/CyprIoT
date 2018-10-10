@@ -39,7 +39,7 @@ import org.eclipse.xtext.resource.SaveOptions;
  * @author imad
  *
  */
-public class SimpleNetworkGenerator {
+public class NetworkGenerator {
 
 	public enum TopicTypes {
 	    PUBTOPIC,
@@ -59,7 +59,7 @@ public class SimpleNetworkGenerator {
 	    HTTP
 	}
 	
-	static final Logger log = LogManager.getLogger(SimpleNetworkGenerator.class.getName());
+	static final Logger log = LogManager.getLogger(NetworkGenerator.class.getName());
 
 	private File cypriotFile;
 	private File cypriotOutputDirectory;

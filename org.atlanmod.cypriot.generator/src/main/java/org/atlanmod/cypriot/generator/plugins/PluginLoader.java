@@ -15,7 +15,6 @@ public class PluginLoader {
 	private File configFile;
 	private File outputDirectory;
 	private CyprIoTModel model;
-	private App app;
 
 	public PluginLoader() {
 	}
@@ -44,7 +43,7 @@ public class PluginLoader {
 	private void loadPlugin(String pluginClassName) throws Exception {
 		Class<?> pluginClass = getClass().getClassLoader().loadClass(pluginClassName);
 		Plugin instance = (Plugin) pluginClass.newInstance();
-		instance.attach(app);
+		instance.attach();
 		instance.generate(model, outputDirectory);
 	}
 
@@ -60,20 +59,6 @@ public class PluginLoader {
 	 */
 	public void setConfigFile(File configFile) {
 		this.configFile = configFile;
-	}
-
-	/**
-	 * @return the app
-	 */
-	public App getApp() {
-		return app;
-	}
-
-	/**
-	 * @param app the app to set
-	 */
-	public void setApp(App app) {
-		this.app = app;
 	}
 
 	/**

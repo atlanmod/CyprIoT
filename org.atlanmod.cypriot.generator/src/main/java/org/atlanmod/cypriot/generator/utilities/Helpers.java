@@ -74,6 +74,13 @@ public class Helpers {
 	}
 	
 	/**
+	 * Show the version of Cypriot in the console
+	 */
+	public static void showProjectVersioInConsole() {
+		System.out.println("CyprIoT v" + getProjectVersionFromMaven());
+	}
+
+	/**
 	 * Get the project version as defined in maven pom.xml
 	 * 
 	 * @return

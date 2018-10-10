@@ -14,9 +14,8 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.main.App;
-import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator;
-import org.atlanmod.cypriot.generator.network.SimpleNetworkGenerator.TopicTypes;
+import org.atlanmod.cypriot.generator.network.NetworkGenerator;
+import org.atlanmod.cypriot.generator.network.NetworkGenerator.TopicTypes;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -31,7 +30,7 @@ public class MosquittoACPlugin implements Plugin {
 	}
 
 	@Override
-	public void attach(App app) {
+	public void attach() {
 		System.out.println("Loading Access Control plugin...");
 	}
 
@@ -71,10 +70,10 @@ public class MosquittoACPlugin implements Plugin {
 						String pubSubChannelName = ((ToBindPubSub) channelBinding).getTargetedPubSubInstance().getName();
 						InstanceThing instanceThing = bindPubSub.getBindsInstanceThing();
 						
-						ArrayList<Bind> pubSubBindsContainingThingInstances = SimpleNetworkGenerator.pubSubBindsContainingThingInstances(instanceThing, network);
+						ArrayList<Bind> pubSubBindsContainingThingInstances = NetworkGenerator.pubSubBindsContainingThingInstances(instanceThing, network);
 
-						ArrayList<Topic> pubTopics = SimpleNetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.PUBTOPIC);
-						ArrayList<Topic> subTopics = SimpleNetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
+						ArrayList<Topic> pubTopics = NetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.PUBTOPIC);
+						ArrayList<Topic> subTopics = NetworkGenerator.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
 						
 						for (Topic pubTopic : pubTopics) {
 							StringBuilder pubtopicFull = new StringBuilder();
