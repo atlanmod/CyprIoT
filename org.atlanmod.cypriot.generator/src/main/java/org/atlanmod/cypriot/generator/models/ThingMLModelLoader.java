@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
@@ -23,11 +22,6 @@ public class ThingMLModelLoader extends ModelLoader {
 		super();
 	}
 	
-	public ThingMLModelLoader(String fileContent) {
-		super();
-		this.fileContent=fileContent;
-	}
-	
 	/**
 	 * A method to register the ThingML factory, mandatory to load a model
 	 */
@@ -43,16 +37,10 @@ public class ThingMLModelLoader extends ModelLoader {
 	 * @param string
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") // I know what I am doing
+	@SuppressWarnings("unchecked")
 	@Override
-	protected ThingMLModel loadModel() {
-		Resource resource = loadResourceFromString(fileContent);
-		thingMLModel = loadModelFromResource(resource,ThingMLModel.class);
-		return thingMLModel;
-	}
-
-	public ThingMLModel loadFromFile(File file) {
-		return loadFromFile(file, ThingMLModel.class);
+	public ThingMLModel loadModel(File inputFile) {
+		return loadFromFile(inputFile, ThingMLModel.class);
 	}
 
 }
