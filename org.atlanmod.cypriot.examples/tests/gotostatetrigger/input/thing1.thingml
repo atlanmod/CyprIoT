@@ -1,0 +1,17 @@
+thing Thing1{
+	
+	statechart thing1 init state1{
+		state state1 {
+			// Some behavior
+		}
+		state state2 {
+			// Some behavior
+		}
+	}
+}
+
+protocol MQTT;
+
+configuration thing2Exec {
+	instance thing1:Thing1
+}

@@ -2,7 +2,7 @@ import "includes/messages.thingml"
 
 
 thing Thing1 includes tempMsgs {
-	
+	message temperatureMessage(TemperatureData : UInt32 , currentHour: UInt32);
 	provided port dataEntryPoint {
 		sends temperatureMessage
 	}

@@ -1,0 +1,35 @@
+thing Thing2 {
+	
+	// Added new Port for triggers
+	message triggerTransition()
+	provided port trigger {
+		receives triggerTransition
+	}
+	
+	statechart thing1 init state1{
+		state state1 {
+			// Some behavior
+			
+			// Added Code (Added in each state other than state2)
+			transition -> state2
+			event trigger?triggerTransition // Waiting for the trigger
+		}
+		state state2 {
+			// Some behavior
+		}
+		state state3 {
+			// Some behavior
+			
+			// Added Code (Added in each state other than state2)
+			transition -> state2
+			event trigger?triggerTransition // Waiting for the trigger
+		}
+	}
+}
+
+protocol MQTT;
+
+configuration thing2Exec {
+	instance thing2:Thing2
+	connector thing2.trigger over MQTT @mqtt_subscribe "org/domainname/trigger" // Receiving the trigger
+}

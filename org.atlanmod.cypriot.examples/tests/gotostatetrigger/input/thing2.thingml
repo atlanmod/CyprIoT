@@ -1,0 +1,18 @@
+thing Thing2 {
+
+	statechart thing1 init state1{
+		state state1 {
+			// Some behavior
+		}
+		state state2 {
+			// Some behavior
+		}
+		state state3 {
+			// Some behavior
+		}
+	}
+}
+
+configuration thing2Exec {
+	instance thing2:Thing2
+}

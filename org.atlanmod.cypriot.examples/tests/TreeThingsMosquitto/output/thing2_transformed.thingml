@@ -44,9 +44,11 @@ datatype Boolean<1>
 	@java_type "boolean"
 	@java_primitive "true"
 object DHT @c_type "dht"
+protocol X
+
 protocol MQTT
 
 configuration thing1Exec {
 	instance computer : Thing2
-	connector computer.dataEntryPoint over MQTT @publish_topic "topic1/topic2"
+	connector computer.dataEntryPoint over MQTT @publish_topic "topic2"
 }
