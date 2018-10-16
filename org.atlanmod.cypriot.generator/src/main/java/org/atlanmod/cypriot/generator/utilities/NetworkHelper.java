@@ -2,16 +2,38 @@ package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
+import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Role;
+import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
+import org.atlanmod.cypriot.cyprIoT.Topic;
+import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-public class NetworkHelper {
+public final class NetworkHelper {
+	
+	public enum TopicTypes {
+		PUBTOPIC, SUBTOPIC
+	}
+
+	public enum GeneratorPlatform {
+		CPOSIX, JAVA, ARDUINO, JAVASCRIPT
+	}
+
+	public enum CommunicationPlatform {
+		MQTT, COAP, HTTP
+	}
+
+	private NetworkHelper() {}
 	
 	/**
 	 * Get the ID name of any EObject
@@ -92,6 +114,65 @@ public class NetworkHelper {
 	 */
 	public static EList<Role> getAssignedRolesToThing(InstanceThing instance) {
 		return instance.getThingToInstantiate().getAssignedRoles();
+	}
+
+	/**
+	 * @param instanceThing
+	 * @param bindPubSubs
+	 * @return
+	 */
+	public static List<Topic> getAllTopicsOfType(InstanceThing instanceThing, List<Bind> bindPubSubs,
+			NetworkHelper.TopicTypes topicType) {
+		ArrayList<Topic> topics = new ArrayList<Topic>();
+	
+		for (Bind bind : bindPubSubs) {
+			EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
+			for (Topic topic : allTopics) {
+				if (bind.getBindAction().getLiteral().equals("=>") && topicType == NetworkHelper.TopicTypes.PUBTOPIC) {
+					NetworkGenerator.log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
+					topics.add(topic);
+				} else if (bind.getBindAction().getLiteral().equals("<=") && topicType == NetworkHelper.TopicTypes.SUBTOPIC) {
+					NetworkGenerator.log.debug("ThingInstance " + instanceThing.getName() + " subscribe to " + topic.getName());
+					topics.add(topic);
+				}
+			}
+		}
+		return topics;
+	}
+
+	/**
+	 * Find the PubSub binds using ThingInstance as subject
+	 * 
+	 * @param instanceThing
+	 * @param network
+	 * @return
+	 */
+	public static List<Bind> pubSubBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
+		ArrayList<Bind> binds = new ArrayList<Bind>();
+		for (Bind bind : network.getHasBinds()) {
+			ChannelToBind channelToBind = bind.getChannelToBind();
+			if (isChannelToBindPubSub(channelToBind) && isInstanceThingInBind(instanceThing, bind)) {
+				binds.add(bind);
+			}
+		}
+		return binds;
+	}
+
+	/**
+	 * @param channelToBind
+	 * @return
+	 */
+	public static boolean isChannelToBindPubSub(ChannelToBind channelToBind) {
+		return channelToBind instanceof ToBindPubSub;
+	}
+
+	/**
+	 * @param instanceThing
+	 * @param bind
+	 * @return
+	 */
+	public static boolean isInstanceThingInBind(InstanceThing instanceThing, Bind bind) {
+		return bind.getBindsInstanceThing().equals(instanceThing);
 	}
 
 }

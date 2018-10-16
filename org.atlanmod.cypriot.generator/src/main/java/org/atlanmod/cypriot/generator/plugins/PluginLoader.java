@@ -4,20 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
 
 public class PluginLoader {
 	private File configFile;
 	private File outputDirectory;
 	private CyprIoTModel model;
-
-	public PluginLoader() {
-	}
+	HashSet<Plugin> loaderPlugins = new HashSet<Plugin>();
 	
 	public void load() {
 		Properties properties = new Properties();
@@ -30,6 +28,11 @@ public class PluginLoader {
 			for (String className : classesList) {
 				loadPlugin(className);
 			}
+			StringBuilder loadedPlugins = new StringBuilder();
+			for (Plugin plugin : loaderPlugins) {
+				loadedPlugins.append(plugin.getID()+",");
+			}
+			System.out.println("Loaded plugins : "+loadedPlugins);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -43,6 +46,7 @@ public class PluginLoader {
 	private void loadPlugin(String pluginClassName) throws Exception {
 		Class<?> pluginClass = getClass().getClassLoader().loadClass(pluginClassName);
 		Plugin instance = (Plugin) pluginClass.newInstance();
+		loaderPlugins.add(instance);
 		instance.attach();
 		instance.generate(model, outputDirectory);
 	}

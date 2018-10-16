@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -17,8 +18,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-public class Helpers {
+public final class Helpers {
 
+	private Helpers() {}
+	
 	/**
 	 * Return EObject of a given type contained by a given EObject
 	 * 
@@ -26,7 +29,7 @@ public class Helpers {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends EObject> ArrayList<T> allEObjectContainedIn(EObject supertype, Class<T> type) {
+	public static <T extends EObject> List<T> allEObjectContainedIn(EObject supertype, Class<T> type) {
 
 		EList<EObject> allChildrenTypes = supertype.eContents();
 		ArrayList<T> instanceThings = new ArrayList<T>();

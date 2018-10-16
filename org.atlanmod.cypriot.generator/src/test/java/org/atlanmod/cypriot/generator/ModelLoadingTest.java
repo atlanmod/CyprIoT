@@ -16,7 +16,7 @@ public class ModelLoadingTest {
 	final String fileUnderTestPath = "../org.atlanmod.cypriot.examples/tests/TDD/simple/simple.cy";
 	final File networkModelFile = new File(fileUnderTestPath);
 	CypriotModelLoader loader = new CypriotModelLoader();
-	CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+	CyprIoTModel loadNetworkModel = loader.loadModel(networkModelFile);
 	
 	@Test
 	public void loadNetworkModel() {
@@ -27,14 +27,14 @@ public class ModelLoadingTest {
 	@Test
 	public void loadThingMLModel() {
 		CypriotModelLoader loader = new CypriotModelLoader();
-		CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+		CyprIoTModel loadNetworkModel = loader.loadModel(networkModelFile);
 		for (Thing thing : loadNetworkModel.getDeclareThings()) {
 			String importPath = thing.getImportPath().replaceAll("\"", "");
 			String fullThingMLpPath = networkModelFile.getParentFile().getAbsolutePath()+"/"+importPath;
 			File thingMLFile = new File(fullThingMLpPath);
 			assertTrue(thingMLFile.exists());
 			ThingMLModelLoader loadThing = new ThingMLModelLoader();
-			ThingMLModel thingMLModel = loadThing.loadFromFile(thingMLFile);
+			ThingMLModel thingMLModel = loadThing.loadModel(thingMLFile);
 			assertNotNull(thingMLModel);
 		}
 	}

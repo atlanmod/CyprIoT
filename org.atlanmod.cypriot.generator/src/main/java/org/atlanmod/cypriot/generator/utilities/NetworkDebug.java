@@ -1,8 +1,7 @@
 package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
-import java.util.ArrayList;
-
+import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
@@ -52,7 +51,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugBindPubSubs(Network network) {
-		ArrayList<Bind> allBinds = Helpers.allEObjectContainedIn(network, Bind.class);
+		List<Bind> allBinds = Helpers.allEObjectContainedIn(network, Bind.class);
 		for (Bind bind : allBinds) {
 			InstanceThing instanceThing = bind.getBindsInstanceThing();
 			String portToBind = bind.getPortToBind();
@@ -75,7 +74,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
-		ArrayList<InstancePTP> reqReps = Helpers.allEObjectContainedIn(network, InstancePTP.class);
+		List<InstancePTP> reqReps = Helpers.allEObjectContainedIn(network, InstancePTP.class);
 
 		for (InstancePTP reqRep : reqReps) {
 			String ReqRepName = ((InstancePTP) reqRep).getName();
@@ -89,7 +88,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugPubSubInstances(Network network) {
-		ArrayList<InstancePubSub> pubSubs = Helpers.allEObjectContainedIn(network, InstancePubSub.class);
+		List<InstancePubSub> pubSubs = Helpers.allEObjectContainedIn(network, InstancePubSub.class);
 
 		for (InstancePubSub pubSub : pubSubs) {
 			String pubSubName = ((InstancePubSub) pubSub).getName();

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
+import org.atlanmod.cypriot.generator.models.ModelLoader;
 import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
@@ -32,8 +33,8 @@ public class App implements Runnable {
 		Helpers.showProjectVersioInConsole();
 		
 		// Model loading
-		CypriotModelLoader cypriotModelLoader = new CypriotModelLoader();
-		CyprIoTModel model = cypriotModelLoader.loadFromFile(cypriotInputFile);
+		ModelLoader cypriotModelLoader = new CypriotModelLoader();
+		CyprIoTModel model = cypriotModelLoader.loadModel(cypriotInputFile);
 		
 		// Plugin Loading
 		PluginLoader pluginLoader = new PluginLoader();
@@ -45,7 +46,6 @@ public class App implements Runnable {
 		// Network Generation
 		NetworkGenerator networkGenerator = new NetworkGenerator();
 		networkGenerator.setCypriotFile(cypriotInputFile);
-		networkGenerator.setCypriotOutputDirectory(cypriotOutputDirectory);
 		networkGenerator.generate();
 	}
 

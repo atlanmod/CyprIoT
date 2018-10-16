@@ -11,12 +11,10 @@ public class ConcreteCodeLoadingTest {
 	final String fileUnderTestPath = "../org.atlanmod.cypriot.examples/tests/TDD/concretecode/concretecode.cy";
 	final File networkModelFile = new File(fileUnderTestPath);
 	CypriotModelLoader loader = new CypriotModelLoader();
-	CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+	CyprIoTModel loadNetworkModel = loader.loadModel(networkModelFile);
 	
 	@Test
-	public void loadConcreteCode() {
-		CypriotModelLoader loader = new CypriotModelLoader();
-		CyprIoTModel loadNetworkModel = loader.loadFromFile(networkModelFile);
+	public void loadConcreteCode() {	
 		
 	}
 }

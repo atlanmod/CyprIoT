@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -14,9 +15,9 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.network.NetworkGenerator;
-import org.atlanmod.cypriot.generator.network.NetworkGenerator.TopicTypes;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
+import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
+import org.atlanmod.cypriot.generator.utilities.NetworkHelper.TopicTypes;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.ThingMLModel;
 
@@ -26,7 +27,7 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public String getID() {
-		return "mosquitto";
+		return "mosquittoPlugin";
 	}
 
 	@Override
@@ -70,17 +71,17 @@ public class MosquittoACPlugin implements Plugin {
 					String pubSubChannelName = ((ToBindPubSub) channelBinding).getTargetedPubSubInstance().getName();
 					InstanceThing instanceThing = bindPubSub.getBindsInstanceThing();
 
-					ArrayList<Bind> pubSubBindsContainingThingInstances = NetworkGenerator
+					List<Bind> pubSubBindsContainingThingInstances = NetworkHelper
 							.pubSubBindsContainingThingInstances(instanceThing, network);
 
-					ArrayList<Topic> pubTopics = NetworkGenerator.getAllTopicsOfType(instanceThing,
-							pubSubBindsContainingThingInstances, TopicTypes.PUBTOPIC);
-					ArrayList<Topic> subTopics = NetworkGenerator.getAllTopicsOfType(instanceThing,
-							pubSubBindsContainingThingInstances, TopicTypes.SUBTOPIC);
+					List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(instanceThing,
+							pubSubBindsContainingThingInstances, NetworkHelper.TopicTypes.PUBTOPIC);
+					List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(instanceThing,
+							pubSubBindsContainingThingInstances, NetworkHelper.TopicTypes.SUBTOPIC);
 
 					for (Topic pubTopic : pubTopics) {
 						StringBuilder pubtopicFull = new StringBuilder();
-						if (pubTopic.getSubtopicOf().size() != 0) {
+						if (pubTopic.getSubtopicOf().isEmpty()) {
 							pubtopicFull.append(pubTopic.getSubtopicOf().get(0).getName() + "/" + pubTopic.getName());
 						} else {
 							pubtopicFull.append(pubTopic.getName());
@@ -131,7 +132,6 @@ public class MosquittoACPlugin implements Plugin {
 			try {
 				FileUtils.writeStringToFile(fileMosquittoAcl, mosquittoAcl, Charset.forName("utf-8"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
