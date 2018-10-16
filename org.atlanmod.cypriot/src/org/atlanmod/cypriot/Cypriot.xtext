@@ -135,7 +135,7 @@ Topic:
 
 // TODO subjectPort=[thingml::Port]
 Bind:
-	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]"." portToBind=ID bindAction=BindAction channelToBind=ChannelToBind
+	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]("." portToBind=ID)? bindAction=BindAction channelToBind=ChannelToBind
 ;
 
 enum BindAction:
@@ -171,12 +171,12 @@ BridgeSubject:
 
 Policy:
 	'policy' name=ID '{'
-		//(hasRules+=Rule)*
+		(hasRules+=Rule)*
 	'}'
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction ruleObject=[RuleObject] ('when' ruleConditions=ConditionExpression)?
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction ruleObject=[RuleObject] ("." argument=ID)? ('when' ruleConditions=ConditionExpression)?
 ;
 enum RuleEffect :
 	DENY='deny' |
@@ -186,18 +186,11 @@ enum RuleEffect :
 ;
 
 enum RuleAction:
-	CommAction | TriggerAction | BridgeAction
-;
-enum CommAction:
 	SEND='send' | 
-	RECEIVE='receive'
-;
-enum TriggerAction:
+	RECEIVE='receive' |
 	PERFORMTRANSITION='performTransition' | 
 	GOTOSTATE='goToState' | 
-	EXECUTEFUNCTION='executeFunction'
-;
-enum BridgeAction:
+	EXECUTEFUNCTION='executeFunction' |
 	BRIDGEFROM='from'| 
 	BRIDGETO='to'
 ;
@@ -214,7 +207,7 @@ DomainObject:
 ;
 
 ConditionExpression:
-	'expression' name=ID
+	'currentState:' name=ID ('.' state=ID)
 ;
 
 RegularExpression:
