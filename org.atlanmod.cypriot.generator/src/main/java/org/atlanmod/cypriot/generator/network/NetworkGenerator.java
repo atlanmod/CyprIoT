@@ -1,21 +1,15 @@
 package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.cyprIoT.Topic;
+import org.atlanmod.cypriot.generator.load.ModelLoader;
+import org.atlanmod.cypriot.generator.load.ModelBehavior;
+import org.atlanmod.cypriot.generator.transform.BindingTransformation;
+import org.atlanmod.cypriot.generator.transform.PolicyTransformation;
+import org.atlanmod.cypriot.generator.transform.Transformation;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
-import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
-import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
@@ -28,61 +22,51 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkGenerator {
 
-	public static final Logger log = LogManager.getLogger(NetworkGenerator.class.getName());
-
-	EList<Network> allNetworks;
+	CyprIoTModel networkModel;
 	File cypriotOutputDirectory;
-	CyprIoTModel model;
-	Map<String, ThingMLModel> transformedModels = new HashMap<String, ThingMLModel>();
-
+	ModelLoader modelLoader = new ModelBehavior();
+	Transformation binding = new BindingTransformation();
+	Transformation enfocePolicy = new PolicyTransformation();
+	
 	/**
 	 * @param model the model to set
 	 */
 	public NetworkGenerator(CyprIoTModel model, File cypriotOutputDirectory) {
-		this.model = model;
-		this.cypriotOutputDirectory=cypriotOutputDirectory;
-		allNetworks = model.getSpecifyNetworks();
+		this.networkModel = model;
+		this.cypriotOutputDirectory= cypriotOutputDirectory;
 	}
-	
+
+	/**
+	 * @param enfocePolicy the enfocePolicy to set
+	 */
+	public void setEnfocePolicy(Transformation enfocePolicy) {
+		this.enfocePolicy = enfocePolicy;
+	}
+
 	/**
 	 * Process code generation for the whole cypriot file
 	 */
 	public void generate() {
-		generateTheNetwork();
+		transformsThingModels();
+		saveArtifacts();
 	}
-	
+
 	/**
-	 * @return the transformedModels
+	 * 
 	 */
-	public Map<String, ThingMLModel> getTransformedModels() {
-		return transformedModels;
+	public void saveArtifacts() {
+		for (Map.Entry<String, ThingMLModel> thingModel : modelLoader.loadBehaviorModels(networkModel).entrySet()) {
+			Helpers.saveAsThingML(thingModel.getValue(), cypriotOutputDirectory+File.separator+thingModel.getKey()+"_transformed.thingml");
+		}
 	}
 
 	/**
 	 * Process code generation for the whole network
 	 */
-	private void generateTheNetwork() {
-		for (Network network : allNetworks) {
-			generateForAllInstanceThings(network);
+	private void transformsThingModels() {
+		for (ThingMLModel thingModel : modelLoader.loadBehaviorModels(networkModel).values()) {
+			binding.transform(networkModel, thingModel);
+			enfocePolicy.transform(networkModel, thingModel);
 		}
-	}
-
-	/**
-	 * Generate code for every instanceThing in the network
-	 * 
-	 * @param network
-	 */
-	private void generateForAllInstanceThings(Network network) {
-		for (InstanceThing instanceThing : Helpers.allEObjectContainedIn(network, InstanceThing.class)) {
-			List<Bind> pubSubBindsContainingThingInstances = NetworkHelper
-					.pubSubBindsContainingThingInstances(instanceThing, network);
-			List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
-					NetworkHelper.TopicTypes.PUBTOPIC);
-			List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
-					NetworkHelper.TopicTypes.SUBTOPIC);
-			InstanceThingGenerator instanceGen = new InstanceThingGenerator(instanceThing, pubTopics, subTopics);
-			transformedModels.put(instanceThing.getName(),instanceGen.generate());
-		}
-		new NetworkDebug(log, network);
 	}
 }

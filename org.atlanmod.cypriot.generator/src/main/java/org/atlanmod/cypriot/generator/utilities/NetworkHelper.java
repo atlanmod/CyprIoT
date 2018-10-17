@@ -13,7 +13,6 @@ import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.thingml.xtext.thingML.Configuration;
@@ -129,10 +128,8 @@ public final class NetworkHelper {
 			EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
 			for (Topic topic : allTopics) {
 				if (bind.getBindAction().getLiteral().equals("=>") && topicType == NetworkHelper.TopicTypes.PUBTOPIC) {
-					NetworkGenerator.log.debug("ThingInstance " + instanceThing.getName() + " publish to " + topic.getName());
 					topics.add(topic);
 				} else if (bind.getBindAction().getLiteral().equals("<=") && topicType == NetworkHelper.TopicTypes.SUBTOPIC) {
-					NetworkGenerator.log.debug("ThingInstance " + instanceThing.getName() + " subscribe to " + topic.getName());
 					topics.add(topic);
 				}
 			}

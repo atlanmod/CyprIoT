@@ -1,16 +1,18 @@
-package org.atlanmod.cypriot.generator.network;
+package org.atlanmod.cypriot.generator.transform;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.models.ThingMLModelLoader;
+import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.thingml.compilers.ThingMLCompiler;
+import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.AbstractConnector;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ExternalConnector;
@@ -19,26 +21,28 @@ import org.thingml.xtext.thingML.Protocol;
 import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
 
-public class InstanceThingGenerator {
-	private InstanceThing instanceThing;
+public class BindingTransformation implements Transformation {
 	private List<Topic> pubTopics;
 	private List<Topic> subTopics;
 
-	static final Logger log = LogManager.getLogger(InstanceThingGenerator.class.getName());
+	static final Logger log = LogManager.getLogger(BindingTransformation.class.getName());
 
-	public InstanceThingGenerator(InstanceThing instanceThing, List<Topic> pubTopics,List<Topic> subTopics) {
-		this.instanceThing = instanceThing;
-		this.pubTopics = pubTopics;
-		this.subTopics = subTopics;
-	}
 
-	/**
-	 * Generate code for an instanceThing using ThingML compiler
-	 * 
-	 * @param instanceThing
-	 */
-	public ThingMLModel generate() {
-		ThingMLModel thingmlModel = ThingMLCompiler.flattenModel(getThingmlModelFromInstanceThing());
+	@Override
+	public ThingMLModel transform(CyprIoTModel networkModel, ThingMLModel thingmlModel) {
+		EList<Network> allNetworks = networkModel.getSpecifyNetworks();
+		for (Network network : allNetworks) {
+			for (InstanceThing instanceThing : Helpers.allEObjectContainedIn(network, InstanceThing.class)) {
+				List<Bind> pubSubBindsContainingThingInstances = NetworkHelper
+						.pubSubBindsContainingThingInstances(instanceThing, network);
+				pubTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
+						NetworkHelper.TopicTypes.PUBTOPIC);
+				subTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
+						NetworkHelper.TopicTypes.SUBTOPIC);
+			}
+			new NetworkDebug(log, network);
+		}
+		
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
 		if (NetworkHelper.isConfigOne(thingmlModel) && NetworkHelper.isConnectorOne(configuration)) {
 			AbstractConnector connector = getThingMLConnector(configuration);
@@ -179,40 +183,6 @@ public class InstanceThingGenerator {
 		}
 		log.error("The connector in the configuration must be external.");
 		return false;
-	}
-
-	/**
-	 * Get the ThingML model imported by an InstanceThing
-	 * 
-	 * @param instanceThing
-	 * @return The imported ThingML model
-	 */
-	private ThingMLModel getThingmlModelFromInstanceThing() {
-		String parentThingPath = getImportedThingPath();
-		ThingMLModelLoader thingmlloader = new ThingMLModelLoader();
-		File thingMLFile;
-		ThingMLModel thingmlModel = null;
-		try {
-			String thingPath = instanceThing.getThingToInstantiate().getImportPath();
-			thingPath = thingPath.replace("\"", "");
-			thingMLFile = NetworkHelper.getFileFromPath(parentThingPath+File.separator+thingPath);
-			thingmlModel = thingmlloader.loadModel(thingMLFile);
-		} catch (FileNotFoundException e) {
-			log.error(e);
-		}
-		return thingmlModel;
-	}
-
-	/**
-	 * Get the full path of the imported thing model
-	 * 
-	 * @param instance
-	 * @return The full path
-	 */
-	private String getImportedThingPath() {
-		File file = new File(instanceThing.eContainer().eResource().getURI().toFileString());
-		file = file.getParentFile();
-		return file.getAbsolutePath();
 	}
 
 }

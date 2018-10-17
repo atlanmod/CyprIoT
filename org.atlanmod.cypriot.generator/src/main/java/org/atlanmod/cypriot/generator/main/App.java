@@ -1,17 +1,13 @@
 package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.models.CypriotModelLoader;
-import org.atlanmod.cypriot.generator.models.ModelLoader;
 import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -35,8 +31,7 @@ public class App implements Runnable {
 		Helpers.showProjectVersioInConsole();
 		
 		// Network Model Loading
-		ModelLoader cypriotModelLoader = new CypriotModelLoader();
-		CyprIoTModel model = cypriotModelLoader.loadModel(cypriotInputFile);
+		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		
 		// Plugin Loading
 		PluginLoader pluginLoader = new PluginLoader();
@@ -46,11 +41,8 @@ public class App implements Runnable {
 		pluginLoader.load();
 
 		// Network Generation
-		NetworkGenerator networkGenerator = new NetworkGenerator(model,cypriotOutputDirectory);
+		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
 		networkGenerator.generate();
-		for (Map.Entry<String, ThingMLModel> transformedThingML : networkGenerator.getTransformedModels().entrySet()) {
-			Helpers.saveAsThingML(transformedThingML.getValue(), cypriotOutputDirectory+File.separator+transformedThingML.getKey()+"_transformed.thingml");
-		}
 
 	}
 

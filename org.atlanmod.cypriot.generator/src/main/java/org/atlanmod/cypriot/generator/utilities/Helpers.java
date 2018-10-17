@@ -6,9 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.atlanmod.cypriot.CypriotStandaloneSetup;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
@@ -17,17 +20,52 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public final class Helpers {
-
+	static final Logger log = LogManager.getLogger(Helpers.class.getName());
+	
 	private Helpers() {}
+	
+	/**
+	 * Load the EMF graph of the model from a File
+	 * 
+	 * @param file
+	 * @return
+	 * @throws ModelExceptionHandler 
+	 */
+	public static <T extends EObject> T loadModelFromFile(File file, Class<T> type) {
+		if(type.isAssignableFrom(CyprIoTModel.class)) {
+			CypriotStandaloneSetup.doSetup();
+		} else if(type.isAssignableFrom(ThingMLModel.class)){
+			ThingMLStandaloneSetup.doSetup();
+		}
+		Resource model = createEMFResourceFromFile(file);
+		
+		try {
+			model.load(null);
+			EcoreUtil.resolveAll(model);
+			for (Resource ressource : model.getResourceSet().getResources()) {
+				if(!Helpers.checkProblemsInEMFResource(ressource)) {
+					throw new Exception();
+				}
+			}
+			;
+			return type.cast(model.getContents().get(0));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * Return EObject of a given type contained by a given EObject
 	 * 
-	 * @param model
+	 * @param networkModel
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -49,7 +87,7 @@ public final class Helpers {
 	 */
 	public static void saveAsThingML(ThingMLModel thingmlModel, String location) {
 		try {
-			ThingMLCompiler.saveAsXMI(thingmlModel, location);
+			ThingMLCompiler.saveAsXMI(ThingMLCompiler.flattenModel(thingmlModel), location);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

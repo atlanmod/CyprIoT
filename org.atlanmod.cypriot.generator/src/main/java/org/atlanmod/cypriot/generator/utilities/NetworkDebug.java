@@ -32,7 +32,6 @@ public class NetworkDebug {
 		log.debug("######## Network : " + network.getName() + " ########");
 
 		debugChannels(network);
-
 		debugBindPubSubs(network);
 	}
 
