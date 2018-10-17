@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 public final class Helpers {
 
@@ -39,6 +41,18 @@ public final class Helpers {
 			}
 		}
 		return instanceThings;
+	}
+	
+	/**
+	 * @param thingmlModel
+	 * @throws RuntimeException
+	 */
+	public static void saveAsThingML(ThingMLModel thingmlModel, String location) {
+		try {
+			ThingMLCompiler.saveAsXMI(thingmlModel, location);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

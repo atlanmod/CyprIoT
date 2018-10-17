@@ -1,7 +1,7 @@
 package org.atlanmod.cypriot.generator.utilities;
 
-import java.io.File;
 import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
@@ -16,7 +16,7 @@ public class NetworkDebug {
 	private Logger log;
 	private Network network;
 
-	public NetworkDebug(Logger log, File cypriotFile, Network network) {
+	public NetworkDebug(Logger log, Network network) {
 		this.log = log;
 		this.network = network;
 		debugNetworksInfo();
@@ -95,4 +95,5 @@ public class NetworkDebug {
 			log.debug("PubSub Name : " + pubSubName);
 		}
 	}
+
 }
