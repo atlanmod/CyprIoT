@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
-import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -28,10 +28,10 @@ public class App implements Runnable {
 	File cypriotConfigFile;
 
 	public void run() {
-		Helpers.showProjectVersioInConsole();
+		NetworkHelper.showProjectVersioInConsole();
 		
 		// Network Model Loading
-		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		CyprIoTModel model = NetworkHelper.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		
 		// Plugin Loading
 		PluginLoader pluginLoader = new PluginLoader();

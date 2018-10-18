@@ -5,14 +5,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.BindAction;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Topic;
-import org.atlanmod.cypriot.generator.utilities.Helpers;
-import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.AbstractConnector;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ExternalConnector;
@@ -27,21 +25,14 @@ public class BindingTransformation implements Transformation {
 
 	static final Logger log = LogManager.getLogger(BindingTransformation.class.getName());
 
-
 	@Override
-	public ThingMLModel transform(CyprIoTModel networkModel, ThingMLModel thingmlModel) {
-		EList<Network> allNetworks = networkModel.getSpecifyNetworks();
-		for (Network network : allNetworks) {
-			for (InstanceThing instanceThing : Helpers.allEObjectContainedIn(network, InstanceThing.class)) {
-				List<Bind> pubSubBindsContainingThingInstances = NetworkHelper
-						.pubSubBindsContainingThingInstances(instanceThing, network);
-				pubTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
-						NetworkHelper.TopicTypes.PUBTOPIC);
-				subTopics = NetworkHelper.getAllTopicsOfType(instanceThing, pubSubBindsContainingThingInstances,
-						NetworkHelper.TopicTypes.SUBTOPIC);
-			}
-			new NetworkDebug(log, network);
-		}
+	public ThingMLModel transform(CyprIoTModel networkModel, InstanceThing instanceThing) {
+		Network network = (Network) instanceThing.eContainer();
+		List<Bind> bindsContainingThingInstances = NetworkHelper
+				.pubSubBindsContainingThingInstances(instanceThing, network);
+		pubTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.WRITE);
+		subTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.READ);
+		ThingMLModel thingmlModel = NetworkHelper.getThingmlModelFromInstanceThing(instanceThing);
 		
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
 		if (NetworkHelper.isConfigOne(thingmlModel) && NetworkHelper.isConnectorOne(configuration)) {
@@ -60,7 +51,8 @@ public class BindingTransformation implements Transformation {
 	 * @param connector
 	 * @param topics
 	 */
-	private void addTopicsToInstance(AbstractConnector connector, List<Topic> topics, NetworkHelper.TopicTypes topicType) {
+	private void addTopicsToInstance(AbstractConnector connector, List<Topic> topics,
+			NetworkHelper.TopicTypes topicType) {
 		for (Topic topic : topics) {
 			PlatformAnnotation annotation = setTopicAnnotation(topicType);
 			annotation.setValue(getTopicFullPath(topic) + "");
@@ -150,7 +142,7 @@ public class BindingTransformation implements Transformation {
 	 * @param connector
 	 */
 	private void clearAnnotationsFromConnector(AbstractConnector connector) {
-		if (connector.getAnnotations().isEmpty()) {
+		if (!connector.getAnnotations().isEmpty()) {
 			log.debug("Annotations are present in the connector.");
 			connector.getAnnotations().clear();
 		}
@@ -178,7 +170,7 @@ public class BindingTransformation implements Transformation {
 	 */
 	private boolean isConnectorExternal(AbstractConnector connector) {
 		if (connector instanceof ExternalConnector) {
-			log.debug("The connector is external.");
+			log.debug("The connector of "+((ExternalConnector)connector).getInst().getName()+" is external.");
 			return true;
 		}
 		log.error("The connector in the configuration must be external.");

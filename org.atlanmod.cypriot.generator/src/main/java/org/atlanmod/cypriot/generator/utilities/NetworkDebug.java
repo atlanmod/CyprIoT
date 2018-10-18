@@ -50,7 +50,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugBindPubSubs(Network network) {
-		List<Bind> allBinds = Helpers.allEObjectContainedIn(network, Bind.class);
+		List<Bind> allBinds = NetworkHelper.allEObjectContainedIn(network, Bind.class);
 		for (Bind bind : allBinds) {
 			InstanceThing instanceThing = bind.getBindsInstanceThing();
 			String portToBind = bind.getPortToBind();
@@ -60,7 +60,7 @@ public class NetworkDebug {
 			if(channelToBinds instanceof ToBindPubSub) {
 				ToBindPubSub channel = ((ToBindPubSub) channelToBinds);
 				channeName = channel.getTargetedPubSubInstance().getName();
-				channelTopics = Helpers.appendStrings(channel.getTopics(), ",");
+				channelTopics = NetworkHelper.appendStrings(channel.getTopics(), ",");
 			}
 			log.debug("Bind ThingInstance : " + NetworkHelper.getIdNameOfEobject(instanceThing) + " port : " + portToBind + " PubSub : "
 					+ channeName + " Topics : " + channelTopics);
@@ -73,7 +73,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugReqRepInstances(Network network) {
-		List<InstancePTP> reqReps = Helpers.allEObjectContainedIn(network, InstancePTP.class);
+		List<InstancePTP> reqReps = NetworkHelper.allEObjectContainedIn(network, InstancePTP.class);
 
 		for (InstancePTP reqRep : reqReps) {
 			String ReqRepName = ((InstancePTP) reqRep).getName();
@@ -87,7 +87,7 @@ public class NetworkDebug {
 	 * @param network
 	 */
 	private void debugPubSubInstances(Network network) {
-		List<InstancePubSub> pubSubs = Helpers.allEObjectContainedIn(network, InstancePubSub.class);
+		List<InstancePubSub> pubSubs = NetworkHelper.allEObjectContainedIn(network, InstancePubSub.class);
 
 		for (InstancePubSub pubSub : pubSubs) {
 			String pubSubName = ((InstancePubSub) pubSub).getName();

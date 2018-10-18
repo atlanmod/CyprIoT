@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.BindAction;
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
@@ -17,7 +18,6 @@ import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.atlanmod.cypriot.generator.utilities.NetworkHelper.TopicTypes;
 import org.eclipse.emf.common.util.EList;
 import org.thingml.xtext.thingML.ThingMLModel;
 
@@ -74,10 +74,9 @@ public class MosquittoACPlugin implements Plugin {
 					List<Bind> pubSubBindsContainingThingInstances = NetworkHelper
 							.pubSubBindsContainingThingInstances(instanceThing, network);
 
-					List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(instanceThing,
-							pubSubBindsContainingThingInstances, NetworkHelper.TopicTypes.PUBTOPIC);
-					List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(instanceThing,
-							pubSubBindsContainingThingInstances, NetworkHelper.TopicTypes.SUBTOPIC);
+					List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(pubSubBindsContainingThingInstances, BindAction.WRITE
+							);
+					List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(pubSubBindsContainingThingInstances, BindAction.READ);
 
 					for (Topic pubTopic : pubTopics) {
 						StringBuilder pubtopicFull = new StringBuilder();

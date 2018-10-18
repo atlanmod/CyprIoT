@@ -2,24 +2,40 @@ package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
+import org.atlanmod.cypriot.cyprIoT.BindAction;
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Network;
+import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public final class NetworkHelper {
-	
+
 	public enum TopicTypes {
 		PUBTOPIC, SUBTOPIC
 	}
@@ -32,54 +48,226 @@ public final class NetworkHelper {
 		MQTT, COAP, HTTP
 	}
 
-	private NetworkHelper() {}
-	
+	private NetworkHelper() {
+	}
+
+	/**
+	 * Load the EMF graph of the model from a File
+	 * 
+	 * @param file
+	 * @return
+	 * @throws ModelExceptionHandler
+	 */
+	public static <T extends EObject> T loadModelFromFile(File file, Class<T> type) {
+		if (type.isAssignableFrom(CyprIoTModel.class)) {
+			CypriotStandaloneSetup.doSetup();
+		} else if (type.isAssignableFrom(ThingMLModel.class)) {
+			ThingMLStandaloneSetup.doSetup();
+		}
+		Resource model = createEMFResourceFromFile(file);
+
+		try {
+			model.load(null);
+			EcoreUtil.resolveAll(model);
+			for (Resource ressource : model.getResourceSet().getResources()) {
+				if (!checkProblemsInEMFResource(ressource)) {
+					throw new Exception();
+				}
+			}
+			;
+			return type.cast(model.getContents().get(0));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Return EObject of a given type contained by a given EObject
+	 * 
+	 * @param networkModel
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends EObject> List<T> allEObjectContainedIn(EObject supertype, Class<T> type) {
+
+		EList<EObject> allChildrenTypes = supertype.eContents();
+		ArrayList<T> instanceThings = new ArrayList<T>();
+		for (EObject eObject : allChildrenTypes) {
+			if (type.isInstance(eObject)) {
+				instanceThings.add((T) eObject);
+			}
+		}
+		return instanceThings;
+	}
+
+	/**
+	 * @param thingmlModel
+	 * @throws RuntimeException
+	 */
+	public static void saveAsThingML(ThingMLModel thingmlModel, String location) {
+		try {
+			ThingMLCompiler.saveAsXMI(ThingMLCompiler.flattenModel(thingmlModel), location);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create a Xtext resource from a file
+	 * 
+	 * @param file
+	 * @param log
+	 * @return
+	 */
+	public static Resource createEMFResourceFromFile(File file) {
+		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
+		ResourceSet rs = new ResourceSetImpl();
+		return rs.createResource(xmiuri);
+	}
+
+	/**
+	 * Check if there are errors and warning inside an EMF resource
+	 * 
+	 * @param resource
+	 * @param log
+	 * @return
+	 */
+	public static boolean checkProblemsInEMFResource(Resource resource) {
+		boolean noErrors = true;
+		if (!resource.getErrors().isEmpty()) {
+			noErrors = false;
+		}
+		return noErrors;
+	}
+
+	/**
+	 * Show the version of Cypriot in the console
+	 */
+	public static void showProjectVersioInConsole() {
+		System.out.println("CyprIoT v" + getProjectVersionFromMaven());
+	}
+
+	/**
+	 * Get the project version as defined in maven pom.xml
+	 * 
+	 * @return
+	 */
+	public static String getProjectVersionFromMaven() {
+		try {
+			MavenXpp3Reader reader = new MavenXpp3Reader();
+			Model model;
+			model = reader.read(new FileReader("../pom.xml"));
+			return model.getVersion();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Read a file and returns its content
+	 * 
+	 * @param file File to read
+	 * @return
+	 */
+	public static String getContentFromFile(File file) {
+		String content = null;
+		FileReader reader = null;
+		try {
+			reader = new FileReader(file);
+			char[] chars = new char[(int) file.length()];
+			reader.read(chars);
+			content = new String(chars);
+			return content;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return content;
+	}
+
+	/**
+	 * Append EObject names separated by a given separator ("," or ";"..etc)
+	 * 
+	 * @param list
+	 * @param separator
+	 * @return
+	 */
+	public static String appendStrings(EList<? extends EObject> list, String separator) {
+		String currentSeparator = "";
+		StringBuilder builder = new StringBuilder();
+		for (EObject eObject : list) {
+			builder.append(currentSeparator);
+			if (eObject instanceof NamedElement) {
+				String name = ((NamedElement) eObject).getName();
+				builder.append(name);
+
+			}
+			currentSeparator = separator;
+		}
+		return builder.toString();
+	}
+
 	/**
 	 * Get the ID name of any EObject
+	 * 
 	 * @param instance
 	 * @return The ID name
 	 */
 	public static String getIdNameOfEobject(EObject eObject) {
-		String name =null;
+		String name = null;
 		if (eObject instanceof NamedElement) {
-			name = ((NamedElement)eObject).getName();
+			name = ((NamedElement) eObject).getName();
 		}
 		return name;
 	}
 
 	/**
 	 * Utility function to get the file from a path
+	 * 
 	 * @param filePathString
 	 * @return
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public static File getFileFromPath(String filePathString) throws FileNotFoundException {
 		File file = new File(filePathString);
 		try {
-			if(isFileExists(file)) {
+			if (isFileExists(file)) {
 				return file;
 			}
 		} catch (Exception e) {
 			throw new FileNotFoundException();
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Utility function to check if a file exist in the given path
+	 * 
 	 * @param instance
 	 * @return True if the file exist, False if not
 	 */
 	public static boolean isFileExists(File file) {
-		if(file.exists() && !file.isDirectory()) {
-		    return true;
-		}
-		return false;
+		return file.exists() && !file.isDirectory();
 	}
 
 	/**
 	 * Check whether there is only one configuration in the imported ThingML file
+	 * 
 	 * @param thingmlModel
 	 * @return True if there is only one configuration, False if not.
 	 */
@@ -87,9 +275,11 @@ public final class NetworkHelper {
 		int configCount = thingmlModel.getConfigs().size();
 		return isIntOne(configCount);
 	}
-	
+
 	/**
-	 * Check whether there is only one external connector in the imported ThingML file
+	 * Check whether there is only one external connector in the imported ThingML
+	 * file
+	 * 
 	 * @param thingmlModel
 	 * @return True if there is only one connector, False if not.
 	 */
@@ -103,11 +293,12 @@ public final class NetworkHelper {
 	 * @return
 	 */
 	public static boolean isIntOne(int configCount) {
-		return configCount==1;
+		return configCount == 1;
 	}
 
 	/**
 	 * Get the assigned roles to the thing corresponding to the instanceThing
+	 * 
 	 * @param instance
 	 * @return The roles assigned to the instanceThing
 	 */
@@ -116,24 +307,20 @@ public final class NetworkHelper {
 	}
 
 	/**
-	 * @param instanceThing
 	 * @param bindPubSubs
 	 * @return
 	 */
-	public static List<Topic> getAllTopicsOfType(InstanceThing instanceThing, List<Bind> bindPubSubs,
-			NetworkHelper.TopicTypes topicType) {
+	public static List<Topic> getAllTopicsOfType(List<Bind> bindPubSubs, BindAction bindAction) {
 		ArrayList<Topic> topics = new ArrayList<Topic>();
-	
 		for (Bind bind : bindPubSubs) {
-			EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
-			for (Topic topic : allTopics) {
-				if (bind.getBindAction().getLiteral().equals("=>") && topicType == NetworkHelper.TopicTypes.PUBTOPIC) {
-					topics.add(topic);
-				} else if (bind.getBindAction().getLiteral().equals("<=") && topicType == NetworkHelper.TopicTypes.SUBTOPIC) {
+			if(bind.getBindAction() == bindAction) {
+				EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
+				for (Topic topic : allTopics) {
 					topics.add(topic);
 				}
 			}
 		}
+		
 		return topics;
 	}
 
@@ -172,4 +359,71 @@ public final class NetworkHelper {
 		return bind.getBindsInstanceThing().equals(instanceThing);
 	}
 
+	/**
+	 * Get the full path of the imported thing model
+	 * 
+	 * @param instance
+	 * @return The full path
+	 */
+	public static String getImportedThingPath(InstanceThing instanceThing) {
+		File file = new File(instanceThing.eContainer().eResource().getURI().toFileString());
+		file = file.getParentFile();
+		return file.getAbsolutePath();
+	}
+
+	/**
+	 * Get the ThingML model imported by an InstanceThing
+	 * 
+	 * @param instanceThing
+	 * @return The imported ThingML model
+	 */
+	public static ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
+		String parentThingPath = getImportedThingPath(instanceThing);
+		File thingMLFile;
+		ThingMLModel thingmlModel = null;
+		try {
+			String thingPath = instanceThing.getThingToInstantiate().getImportPath();
+			thingPath = thingPath.replace("\"", "");
+			thingMLFile = getFileFromPath(parentThingPath + File.separator + thingPath);
+			thingmlModel = loadModelFromFile(thingMLFile, ThingMLModel.class);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return thingmlModel;
+	}
+
+	/**
+	 * @param network
+	 */
+	public static List<InstanceThing> getAllInstanceThingBehaviorInNetwork(Network network) {
+		List<InstanceThing> allModelsInNetwork = new ArrayList<InstanceThing>();
+		for (InstanceThing instanceThing : allEObjectContainedIn(network, InstanceThing.class)) {
+			allModelsInNetwork.add(instanceThing);
+		}
+		return allModelsInNetwork;
+	}
+
+	/**
+	 * @param networkModel
+	 * @return
+	 */
+	public static EList<Network> getAllNetworksInModel(CyprIoTModel networkModel) {
+		return networkModel.getSpecifyNetworks();
+	}
+
+	/**
+	 * @param networkModel
+	 * @return
+	 */
+	public static boolean isPolicyEnforced(Network network) {
+		return network.getHasPolicyEnforcement() != null;
+	}
+
+	public static EList<Policy> getEnforcedPolicies(Network network) {
+		EList<Policy> policies = null;
+		if (NetworkHelper.isPolicyEnforced(network)) {
+			policies = network.getHasPolicyEnforcement().getPolicyName();
+		}
+		return policies;
+	}
 }

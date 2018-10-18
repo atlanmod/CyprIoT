@@ -1,15 +1,21 @@
 package org.atlanmod.cypriot.generator.network;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.load.ModelLoader;
+import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.generator.load.ModelBehavior;
+import org.atlanmod.cypriot.generator.load.ModelLoader;
 import org.atlanmod.cypriot.generator.transform.BindingTransformation;
 import org.atlanmod.cypriot.generator.transform.PolicyTransformation;
 import org.atlanmod.cypriot.generator.transform.Transformation;
-import org.atlanmod.cypriot.generator.utilities.Helpers;
+import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
+import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 /**
@@ -22,18 +28,21 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class NetworkGenerator {
 
+	static final Logger log = LogManager.getLogger(NetworkGenerator.class.getName());
+
 	CyprIoTModel networkModel;
 	File cypriotOutputDirectory;
 	ModelLoader modelLoader = new ModelBehavior();
 	Transformation binding = new BindingTransformation();
 	Transformation enfocePolicy = new PolicyTransformation();
-	
+	Map<InstanceThing, ThingMLModel> transformedThingModel = new HashMap<InstanceThing, ThingMLModel>();
+
 	/**
 	 * @param model the model to set
 	 */
 	public NetworkGenerator(CyprIoTModel model, File cypriotOutputDirectory) {
 		this.networkModel = model;
-		this.cypriotOutputDirectory= cypriotOutputDirectory;
+		this.cypriotOutputDirectory = cypriotOutputDirectory;
 	}
 
 	/**
@@ -55,8 +64,9 @@ public class NetworkGenerator {
 	 * 
 	 */
 	public void saveArtifacts() {
-		for (Map.Entry<String, ThingMLModel> thingModel : modelLoader.loadBehaviorModels(networkModel).entrySet()) {
-			Helpers.saveAsThingML(thingModel.getValue(), cypriotOutputDirectory+File.separator+thingModel.getKey()+"_transformed.thingml");
+		for (Map.Entry<InstanceThing, ThingMLModel> thingModel : transformedThingModel.entrySet()) {
+			NetworkHelper.saveAsThingML(thingModel.getValue(),
+					cypriotOutputDirectory + File.separator + thingModel.getKey().getName() + "_transformed.thingml");
 		}
 	}
 
@@ -64,9 +74,15 @@ public class NetworkGenerator {
 	 * Process code generation for the whole network
 	 */
 	private void transformsThingModels() {
-		for (ThingMLModel thingModel : modelLoader.loadBehaviorModels(networkModel).values()) {
-			binding.transform(networkModel, thingModel);
-			enfocePolicy.transform(networkModel, thingModel);
+
+		for (Network network : NetworkHelper.getAllNetworksInModel(networkModel)) {
+			for (InstanceThing instanceThing : NetworkHelper.getAllInstanceThingBehaviorInNetwork(network)) {
+				 ThingMLModel thingModel = binding.transform(networkModel, instanceThing);
+				// thingModel = enfocePolicy.transform(networkModel, thingModel);
+				transformedThingModel.put(instanceThing, thingModel);
+			}
+			new NetworkDebug(log, network);
 		}
 	}
+
 }
