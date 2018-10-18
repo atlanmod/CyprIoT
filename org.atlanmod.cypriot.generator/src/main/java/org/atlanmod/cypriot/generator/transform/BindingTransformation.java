@@ -20,9 +20,7 @@ import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class BindingTransformation implements Transformation {
-	private List<Topic> pubTopics;
-	private List<Topic> subTopics;
-
+	
 	static final Logger log = LogManager.getLogger(BindingTransformation.class.getName());
 
 	@Override
@@ -30,16 +28,20 @@ public class BindingTransformation implements Transformation {
 		Network network = (Network) instanceThing.eContainer();
 		List<Bind> bindsContainingThingInstances = NetworkHelper
 				.pubSubBindsContainingThingInstances(instanceThing, network);
-		pubTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.WRITE);
-		subTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.READ);
+		List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.WRITE);
+		List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.READ);
 		ThingMLModel thingmlModel = NetworkHelper.getThingmlModelFromInstanceThing(instanceThing);
 		
 		Configuration configuration = getThingMLConfiguration(thingmlModel);
 		if (NetworkHelper.isConfigOne(thingmlModel) && NetworkHelper.isConnectorOne(configuration)) {
 			AbstractConnector connector = getThingMLConnector(configuration);
 			if (isConnectorExternal(connector)) {
-				clearAnnotationsFromConnector(connector);
-				clearProtocolToX(thingmlModel, connector, "MQTT");
+				connector.getAnnotations().clear();
+				thingmlModel.getProtocols().clear();
+				Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
+				protocol.setName("MQTT");
+				thingmlModel.getProtocols().add(protocol);
+				((ExternalConnector) connector).setProtocol(protocol);
 				addTopicsToInstance(connector, pubTopics, NetworkHelper.TopicTypes.PUBTOPIC);
 				addTopicsToInstance(connector, subTopics, NetworkHelper.TopicTypes.SUBTOPIC);
 			}
@@ -92,62 +94,7 @@ public class BindingTransformation implements Transformation {
 		}
 		return annotation;
 	}
-
-	/**
-	 * Set the protocol name to X, if any protocol is defined
-	 * 
-	 * @param thingmlModel
-	 * @param connector
-	 */
-	private void clearProtocolToX(ThingMLModel thingmlModel, AbstractConnector connector, String protocolName) {
-		if (!thingmlModel.getProtocols().isEmpty()) {
-			log.debug("Protocols are present.");
-			thingmlModel.getProtocols().clear();
-		}
-		Protocol protocol = setThingMLProtocolName(protocolName, thingmlModel);
-		setProtocolToExternalConnectorInThingML(connector, protocol);
-	}
-
-	/**
-	 * @param connector
-	 * @param protocol
-	 */
-	private void setProtocolToExternalConnectorInThingML(AbstractConnector connector, Protocol protocol) {
-		((ExternalConnector) connector).setProtocol(protocol);
-	}
-
-	/**
-	 * @param thingmlModel
-	 * @param protocol
-	 */
-	private void addProtocolToThingML(ThingMLModel thingmlModel, Protocol protocol) {
-		thingmlModel.getProtocols().add(protocol);
-	}
-
-	/**
-	 * @param protocolName
-	 * @return
-	 */
-	private Protocol setThingMLProtocolName(String protocolName, ThingMLModel thingmlModel) {
-		Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
-		protocol.setName(protocolName);
-		addProtocolToThingML(thingmlModel, protocol);
-		return protocol;
-	}
-
-	/**
-	 * Clear annotation from the connector (they may contain protocol specific
-	 * properties)
-	 * 
-	 * @param connector
-	 */
-	private void clearAnnotationsFromConnector(AbstractConnector connector) {
-		if (!connector.getAnnotations().isEmpty()) {
-			log.debug("Annotations are present in the connector.");
-			connector.getAnnotations().clear();
-		}
-	}
-
+	
 	/**
 	 * @param configuration
 	 * @return
@@ -169,12 +116,7 @@ public class BindingTransformation implements Transformation {
 	 * @return
 	 */
 	private boolean isConnectorExternal(AbstractConnector connector) {
-		if (connector instanceof ExternalConnector) {
-			log.debug("The connector of "+((ExternalConnector)connector).getInst().getName()+" is external.");
-			return true;
-		}
-		log.error("The connector in the configuration must be external.");
-		return false;
+		return connector instanceof ExternalConnector;
 	}
 
 }
