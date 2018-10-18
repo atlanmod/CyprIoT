@@ -31,8 +31,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.xtext.ThingMLStandaloneSetup;
+import org.thingml.xtext.thingML.CompositeState;
 import org.thingml.xtext.thingML.Configuration;
+import org.thingml.xtext.thingML.State;
+import org.thingml.xtext.thingML.Thing;
 import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.Type;
 
 public final class NetworkHelper {
 
@@ -264,6 +268,36 @@ public final class NetworkHelper {
 	public static boolean isFileExists(File file) {
 		return file.exists() && !file.isDirectory();
 	}
+	
+	/**
+	 * Check whether there is only one Thing type
+	 * 
+	 * @param thingmlModel
+	 * @return True if there is only one Thing type, False if not.
+	 */
+	public static boolean isThingOne(ThingMLModel thingModel) {
+		List<Thing> things = new ArrayList<Thing>();
+		List<Type> alltypes = thingModel.getTypes();
+		for (Type type : alltypes) {
+			if( type instanceof Thing) {
+				things.add((Thing)type);
+			}
+		}
+		return things.size() == 1;
+	}
+	
+	/**
+	 * Check whether there is only one external connector in the imported ThingML
+	 * file
+	 * 
+	 * @param thingmlModel
+	 * @return True if there is only one connector, False if not.
+	 */
+	public static boolean isConnectorOne(Configuration configuration) {
+		int connnectorsCount = configuration.getConnectors().size();
+		return connnectorsCount == 1;
+	}
+	
 
 	/**
 	 * Check whether there is only one configuration in the imported ThingML file
@@ -273,26 +307,6 @@ public final class NetworkHelper {
 	 */
 	public static boolean isConfigOne(ThingMLModel thingmlModel) {
 		int configCount = thingmlModel.getConfigs().size();
-		return isIntOne(configCount);
-	}
-
-	/**
-	 * Check whether there is only one external connector in the imported ThingML
-	 * file
-	 * 
-	 * @param thingmlModel
-	 * @return True if there is only one connector, False if not.
-	 */
-	public static boolean isConnectorOne(Configuration configuration) {
-		int configCount = configuration.getConnectors().size();
-		return isIntOne(configCount);
-	}
-
-	/**
-	 * @param configCount
-	 * @return
-	 */
-	public static boolean isIntOne(int configCount) {
 		return configCount == 1;
 	}
 
@@ -389,7 +403,7 @@ public final class NetworkHelper {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return thingmlModel;
+		return ThingMLCompiler.flattenModel(thingmlModel);
 	}
 
 	/**
@@ -425,5 +439,16 @@ public final class NetworkHelper {
 			policies = network.getHasPolicyEnforcement().getPolicyName();
 		}
 		return policies;
+	}
+
+	/**
+	 * @param thingModel
+	 * @return
+	 */
+	public static EList<State> getAllStateInThingMLModel(ThingMLModel thingModel) {
+		Thing thing = (Thing)thingModel.getTypes().get(0);
+		CompositeState statechart = (CompositeState)thing.getBehaviour();
+		EList<State> allStates = statechart.getSubstate();
+		return allStates;
 	}
 }

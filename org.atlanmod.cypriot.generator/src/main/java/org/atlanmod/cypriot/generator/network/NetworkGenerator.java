@@ -77,8 +77,8 @@ public class NetworkGenerator {
 
 		for (Network network : NetworkHelper.getAllNetworksInModel(networkModel)) {
 			for (InstanceThing instanceThing : NetworkHelper.getAllInstanceThingBehaviorInNetwork(network)) {
-				 ThingMLModel thingModel = binding.transform(networkModel, instanceThing);
-				// thingModel = enfocePolicy.transform(networkModel, thingModel);
+				//ThingMLModel thingModel = binding.transform(networkModel, instanceThing);
+				ThingMLModel thingModel = enfocePolicy.transform(networkModel, instanceThing);
 				transformedThingModel.put(instanceThing, thingModel);
 			}
 			new NetworkDebug(log, network);
