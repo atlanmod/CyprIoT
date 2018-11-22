@@ -9,44 +9,44 @@ network SmarthomeNetwork {
 	domain fr.nantes.sarahSmarthome
 	
 	// Enforcing all policies
-	enforce CityPolicy, HomePolicy, ManufacturerPolicy
+	enforce CityPolicy, HomePolicy, ManufacturerPolicy override-deny
 
 	// Instantiating things
 	instance gateway: HomeGateway owner Daughter platform PYTHON
-	instance ts: TemperatureSensor owner Daughter platform CPOSIX
-	instance sl: SmartLock owner Daughter platform ARDUINO
-	instance sh: SmartHeather owner Daughter platform JAVA
-	instance sf: SmartFridge owner Daughter platform CPOSIX
-	instance sg: SmartGlove owner Mother platform CPOSIX
-	instance sarahPhone: Phone owner Daughter platform JAVA
-	
-	// Instantiating channels
-	instance privateBroker: Broker platform MQTT
+//	instance ts: TemperatureSensor owner Daughter platform CPOSIX
+//	instance sl: SmartLock owner Daughter platform ARDUINO
+//	instance sh: SmartHeather owner Daughter platform JAVA
+//	instance sf: SmartFridge owner Daughter platform CPOSIX
+//	instance sg: SmartGlove owner Mother platform CPOSIX
+//	instance sarahPhone: Phone owner Daughter platform JAVA
+//	
+//	// Instantiating channels
+//	instance privateBroker: Broker platform MQTT
 	instance zigbeeHomeNodes:ZigbeeHomeNodes platform ZIGBEE
-	instance zwaveHomeNodes:ZwaveHomeNodes platform ZWAVE
-	instance upnpHomeNodes:UpnpHomeNodes platform UPNP
-	
-	// Binding sensors and actuators to their ConnectionPoint in the smarthome
-	bind ts.sensedData => zigbeeHomeNodes.temperature
-	bind sl.sensedData => zigbeeHomeNodes.lock
-	bind sh.sensedData => zigbeeHomeNodes.heater
-	bind sf.sensedData => zigbeeHomeNodes.fridge
-	bind sg.sensedData => zwaveHomeNodes.gloveSensor
-	
-	// Binding all ConnectionPoint to the gateway in a star fashion
-	bind gateway.ZigbeeData <= zigbeeHomeNodes.*
-	bind gateway.ZwaveData <= zwaveHomeNodes.gloveSensor
-	bind gateway.upnp <= upnpHomeNodes.anyUpnpDevice
-	
-	// Monitoring the Smarthome from Sarah's phone
-	bind sarahPhone.fridgeData <= privateBroker{fridgeTopic}
-	bind sarahPhone.heaterData <= privateBroker{heaterTopic}
-	bind sarahPhone.lockData <= privateBroker{lockTopic}
-	bind sarahPhone.temperatureData <= privateBroker{temperatureTopic}
-	
-	// Bridging data from the gateway to the private broker
-	bridge lock to privateBroker{lockTopic}
-	bridge fridge to privateBroker{fridgeTopic}
-	bridge heater to privateBroker{heaterTopic}
-	bridge temperature to privateBroker{temperatureTopic}
+//	instance zwaveHomeNodes:ZwaveHomeNodes platform ZWAVE 
+//	instance upnpHomeNodes:UpnpHomeNodes platform UPNP
+//	
+//	// Binding sensors and actuators to their ConnectionPoint in the smarthome
+//	bind ts.sensedData => zigbeeHomeNodes.temperature
+//	bind sl.sensedData => zigbeeHomeNodes.lock
+//	bind sh.sensedData => zigbeeHomeNodes.heater
+//	bind sf.sensedData => zigbeeHomeNodes.fridge
+//	bind sg.sensedData => zwaveHomeNodes.gloveSensor
+//	
+//	// Binding all ConnectionPoint to the gateway in a star fashion
+	bind gateway.dataEntryPoint <= zigbeeHomeNodes.*
+//	bind gateway.ZwaveData <= zwaveHomeNodes.gloveSensor
+//	bind gateway.upnp <= upnpHomeNodes.anyUpnpDevice
+//	
+//	// Monitoring the Smarthome from Sarah's phone
+//	bind sarahPhone.fridgeData <= privateBroker{fridgeTopic}
+//	bind sarahPhone.heaterData <= privateBroker{heaterTopic}
+//	bind sarahPhone.lockData <= privateBroker{lockTopic}
+//	bind sarahPhone.temperatureData <= privateBroker{temperatureTopic}
+//	
+//	// Bridging data from the gateway to the private broker
+//	bridge lock to privateBroker{lockTopic}
+//	bridge fridge to privateBroker{fridgeTopic}
+//	bridge heater to privateBroker{heaterTopic}
+//	bridge temperature to privateBroker{temperatureTopic}
 }

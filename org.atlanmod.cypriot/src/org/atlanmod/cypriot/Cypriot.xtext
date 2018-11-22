@@ -1,7 +1,7 @@
 grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.xbase.Xbase
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-//import "platform:/resource/org.atlanmod.cypriot/ThingML.ecore" as thingml
+import "platform:/resource/org.atlanmod.cypriot/model/ThingML.ecore" as thingml
 
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
@@ -37,7 +37,7 @@ Thing:
 	'thing' name=ID 
 		('assigned' assignedRoles+=[Role|ID] ( "," assignedRoles+=[Role])*)?
 		'import' importPath=STRING
-		//'model' modelFile=[thingml::ThingMLModel]
+		('model' modelFile=[thingml::ThingMLModel])?
 ;
 
 NetworkProperty:
@@ -51,7 +51,11 @@ ChannelProperty:
 // Dynamicity of the configuration
 
 PoliciesEnforcement :
-	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])*
+	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])* combiningAlgo=CombiningAlgo
+;
+enum CombiningAlgo:
+	DENY='override-deny' | 
+	ALLOW='override-allow'
 ;
 
 Domain:
@@ -76,6 +80,16 @@ Instance:
 InstanceThing :
 	'instance' name=ID  ('['declareNumberOfInstances=INT']')? ':' thingToInstantiate=[Thing] ('owner' owner=[User])? 'platform' targetedPlatform=Platform
 ;
+
+
+InstancePubSub :
+	'instance' name=ID ':' pubSubToInstantiate=[PubSub]   'platform' targetedPlatform=PubSubProtocol
+;
+
+InstancePTP :
+	'instance' name=ID ':' ptPToInstantiate=[PointToPoint]    'platform'  targetedPlatform=PTPProtocol
+;
+
 enum Platform:
 	POSIX='CPOSIX' | 
 	JAVA='JAVA' |
@@ -84,17 +98,9 @@ enum Platform:
 	PYTHON='PYTHON'
 ;
 
-InstancePubSub :
-	'instance' name=ID ':' pubSubToInstantiate=[PubSub]   'platform' targetedPlatform=PubSubProtocol
-;
-
 enum PubSubProtocol:
 	MQTT='MQTT' | 
 	AMQP='AMQP' 
-;
-
-InstancePTP :
-	'instance' name=ID ':' ptPToInstantiate=[PointToPoint]    'platform'  targetedPlatform=PTPProtocol
 ;
 
 enum PTPProtocol:
@@ -135,7 +141,7 @@ Topic:
 
 // TODO subjectPort=[thingml::Port]
 Bind:
-	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]("." portToBind=ID)? bindAction=BindAction channelToBind=ChannelToBind
+	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
 ;
 
 enum BindAction:
