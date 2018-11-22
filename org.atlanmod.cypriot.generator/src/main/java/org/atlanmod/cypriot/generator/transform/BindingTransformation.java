@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BindAction;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Topic;
@@ -24,29 +23,28 @@ public class BindingTransformation implements Transformation {
 	static final Logger log = LogManager.getLogger(BindingTransformation.class.getName());
 
 	@Override
-	public ThingMLModel transform(CyprIoTModel networkModel, InstanceThing instanceThing) {
+	public ThingMLModel transform(InstanceThing instanceThing, ThingMLModel modelToTransform) {
 		Network network = (Network) instanceThing.eContainer();
 		List<Bind> bindsContainingThingInstances = NetworkHelper
 				.pubSubBindsContainingThingInstances(instanceThing, network);
 		List<Topic> pubTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.WRITE);
 		List<Topic> subTopics = NetworkHelper.getAllTopicsOfType(bindsContainingThingInstances, BindAction.READ);
-		ThingMLModel thingmlModel = NetworkHelper.getThingmlModelFromInstanceThing(instanceThing);
 		
-		Configuration configuration = getThingMLConfiguration(thingmlModel);
-		if (NetworkHelper.isConfigOne(thingmlModel) && NetworkHelper.isConnectorOne(configuration)) {
+		Configuration configuration = getThingMLConfiguration(modelToTransform);
+		if (NetworkHelper.isConfigOne(modelToTransform) && NetworkHelper.isConnectorOne(configuration)) {
 			AbstractConnector connector = getThingMLConnector(configuration);
 			if (isConnectorExternal(connector)) {
 				connector.getAnnotations().clear();
-				thingmlModel.getProtocols().clear();
+				modelToTransform.getProtocols().clear();
 				Protocol protocol = ThingMLFactory.eINSTANCE.createProtocol();
 				protocol.setName("MQTT");
-				thingmlModel.getProtocols().add(protocol);
+				modelToTransform.getProtocols().add(protocol);
 				((ExternalConnector) connector).setProtocol(protocol);
 				addTopicsToInstance(connector, pubTopics, NetworkHelper.TopicTypes.PUBTOPIC);
 				addTopicsToInstance(connector, subTopics, NetworkHelper.TopicTypes.SUBTOPIC);
 			}
 		}
-		return thingmlModel;
+		return modelToTransform;
 	}
 
 	/**

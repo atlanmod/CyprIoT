@@ -5,8 +5,11 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.network.NetworkGenerator;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
+import org.atlanmod.cypriot.generator.transform.BindingTransformation;
+import org.atlanmod.cypriot.generator.transform.PolicyEnforcementTransformation;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 
 import picocli.CommandLine;
@@ -31,7 +34,7 @@ public class App implements Runnable {
 		NetworkHelper.showProjectVersioInConsole();
 		
 		// Network Model Loading
-		CyprIoTModel model = NetworkHelper.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		
 		// Plugin Loading
 		PluginLoader pluginLoader = new PluginLoader();
@@ -42,6 +45,8 @@ public class App implements Runnable {
 
 		// Network Generation
 		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
+		networkGenerator.setBinding(new BindingTransformation());
+		networkGenerator.setEnfocePolicy(new PolicyEnforcementTransformation());
 		networkGenerator.generate();
 
 	}
