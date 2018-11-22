@@ -12,6 +12,7 @@ thing Thing2 includes tempMsgs {
 			event rec : dataEntryPoint?temperatureMessage
 			action print "Current Temperature is : "+rec.TemperatureData
 		}
+		state showData2 {}
 	}
 }
 

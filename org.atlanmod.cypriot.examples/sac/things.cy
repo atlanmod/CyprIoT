@@ -4,7 +4,7 @@ import "users.cy"
 
 thing HomeGateway
 	assigned sensor, actuator
-	import "homeGateway.thingml"
+	import "thing1.thingml"
 	
 thing TemperatureSensor
 	assigned sensor

@@ -14,6 +14,8 @@ thing Thing1 includes tempMsgs {
 				dataEntryPoint!temperatureMessage(1, 1)
 			end
 		}
+		state showData2 {
+		}
 	}
 }
 thing fragment carMsgs {
@@ -50,11 +52,9 @@ datatype Boolean<1>
 	@java_type "boolean"
 	@java_primitive "true"
 object DHT @c_type "dht"
-protocol X
-
 protocol MQTT
 
 configuration thing2Exec {
 	instance thing1 : Thing1
-	connector thing1.dataEntryPoint over MQTT @subscribe_topic "topic2" @subscribe_topic "topic3"
+	connector thing1.dataEntryPoint over MQTT @subscribe_topic "topic1/topic2" @subscribe_topic "topic1/topic3"
 }

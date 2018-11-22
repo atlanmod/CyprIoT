@@ -18,6 +18,7 @@ thing Thing1 includes tempMsgs {
 				dataEntryPoint!temperatureMessage(1,1) 
 			end
 		}
+		state showData2 {}
 	}
 }
 
