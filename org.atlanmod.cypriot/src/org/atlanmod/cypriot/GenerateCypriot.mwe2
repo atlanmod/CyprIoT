@@ -31,7 +31,7 @@ Workflow {
 			}
 		}
 		language = StandardLanguage {
-			//referencedResource = "platform:/resource/org.atlanmod.cypriot/ThingML.genmodel"
+			referencedResource = "platform:/resource/org.atlanmod.cypriot/model/ThingML.genmodel"
 			name = "org.atlanmod.cypriot.Cypriot"
 			fileExtensions = "cy"
 			serializer = {

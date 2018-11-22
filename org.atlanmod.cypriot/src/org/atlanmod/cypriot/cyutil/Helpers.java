@@ -7,9 +7,13 @@
  */
 package org.atlanmod.cypriot.cyutil;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.atlanmod.cypriot.CypriotStandaloneSetup;
+import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
 import org.atlanmod.cypriot.cyprIoT.Channel;
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint;
@@ -26,10 +30,21 @@ import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.thingml.compilers.ThingMLCompiler;
+import org.thingml.xtext.ThingMLStandaloneSetup;
+import org.thingml.xtext.constraints.ThingMLHelpers;
+import org.thingml.xtext.thingML.Port;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Helpers {
 
@@ -67,6 +82,9 @@ public class Helpers {
 
 	public static PubSub findContainingPubSub(EObject object) {
 		return findContainer(object, PubSub.class);
+	}
+	public static Bind findContainingBind(EObject object) {
+		return findContainer(object, Bind.class);
 	}
 
 	public static ArrayList<CyprIoTModel> allCypriotModels(CyprIoTModel model) {
@@ -222,7 +240,7 @@ public class Helpers {
 		}
 		return result;
 	}
-
+	
 	public static ArrayList<User> allUsers(CyprIoTModel model) {
 		ArrayList<User> result = new ArrayList<User>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
@@ -232,4 +250,107 @@ public class Helpers {
 		}
 		return result;
 	}
+	
+	public static ArrayList<Port> allPortsThingML(Bind bind) {
+		ThingMLModel thingmlModel = null;
+		try {
+			thingmlModel = getThingMLFromURI(bind.getBindsInstanceThing());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ArrayList<Port> result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		return result; 
+	}
+	
+	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
+		URI new_uri;
+		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
+		new_uri = URI.createURI(instanceThing.getThingToInstantiate().getImportPath());
+		if (new_uri.isRelative()) {
+			new_uri = new_uri.resolve(instanceThing.eResource().getURI());
+		}
+		System.out.println("URI : " + new_uri);
+		Resource r = instanceThing.eResource().getResourceSet().getResource(new_uri, true);
+		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
+			return (ThingMLModel) r.getContents().get(0);
+		} else {
+			throw new Exception("No valid model found for resource " + instanceThing.getThingToInstantiate().getImportPath());
+		}
+	}
+	
+	
+	/**
+	 * Load the EMF graph of the model from a File
+	 * 
+	 * @param file
+	 * @return
+	 * @throws ModelExceptionHandler
+	 */
+	public static <T extends EObject> T loadModelFromFile(File file, Class<T> type) {
+		if (type.isAssignableFrom(CyprIoTModel.class)) {
+			CypriotStandaloneSetup.doSetup();
+		} else if (type.isAssignableFrom(ThingMLModel.class)) {
+			ThingMLStandaloneSetup.doSetup();
+		}
+		Resource model = createEMFResourceFromFile(file);
+
+		try {
+			model.load(null);
+			EcoreUtil.resolveAll(model);
+			for (Resource ressource : model.getResourceSet().getResources()) {
+				if (!checkProblemsInEMFResource(ressource)) {
+					throw new Exception();
+				}
+			}
+			;
+			return type.cast(model.getContents().get(0));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Utility function to check if a file exist in the given path
+	 * 
+	 * @param instance
+	 * @return True if the file exist, False if not
+	 */
+	public static boolean isFileExists(File file) {
+		return file.exists() && !file.isDirectory();
+	}
+	
+
+	/**
+	 * Check if there are errors and warning inside an EMF resource
+	 * 
+	 * @param resource
+	 * @param log
+	 * @return
+	 */
+	public static boolean checkProblemsInEMFResource(Resource resource) {
+		boolean noErrors = true;
+		if (!resource.getErrors().isEmpty()) {
+			noErrors = false;
+		}
+		return noErrors;
+	}
+	
+	/**
+	 * Create a Xtext resource from a file
+	 * 
+	 * @param file
+	 * @param log
+	 * @return
+	 */
+	public static Resource createEMFResourceFromFile(File file) {
+		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
+		ResourceSet rs = new ResourceSetImpl();
+		return rs.createResource(xmiuri);
+	}
+
+
 }
