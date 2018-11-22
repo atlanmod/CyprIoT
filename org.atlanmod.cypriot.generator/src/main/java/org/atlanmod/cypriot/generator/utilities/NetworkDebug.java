@@ -53,7 +53,7 @@ public class NetworkDebug {
 		List<Bind> allBinds = NetworkHelper.allEObjectContainedIn(network, Bind.class);
 		for (Bind bind : allBinds) {
 			InstanceThing instanceThing = bind.getBindsInstanceThing();
-			String portToBind = bind.getPortToBind();
+			String portToBind = ""; //bind.getPortToBind();
 			ChannelToBind channelToBinds = bind.getChannelToBind();
 			String channeName=null;
 			String channelTopics=null;

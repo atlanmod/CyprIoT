@@ -28,6 +28,13 @@
 		</dependency>
 		<!-- TODO Remove local dependencies -->
 		<dependency>
+			<groupId>org.thingml</groupId>
+			<artifactId>thingml-lang</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/thingml-lang.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>thingml-official-network-plugins</groupId>
 			<artifactId>official-network-plugins-2.0.0-SNAPSHOT</artifactId>
 			<version>1.0</version>
@@ -61,13 +68,6 @@
 			<version>1.0</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/compilers.c-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.thingml</groupId>
-			<artifactId>thingml-lang</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml-lang.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>

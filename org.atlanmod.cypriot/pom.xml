@@ -14,8 +14,13 @@
 	<artifactId>org.atlanmod.cypriot</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>CyprIoT Language Core</name>
-
-
+	<dependencies>
+		<dependency>
+			<groupId>org.atlanmod.cypriot</groupId>
+			<artifactId>org.atlanmod.cypriot.generator</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -43,6 +48,13 @@
 					<cleanupDaemonThreads>false</cleanupDaemonThreads><!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
 				</configuration>
 				<dependencies>
+					<dependency>
+						<groupId>org.thingml</groupId>
+						<artifactId>thingml-lang</artifactId>
+						<version>1.0</version>
+						<scope>system</scope>
+						<systemPath>${project.basedir}/../org.atlanmod.cypriot.generator/lib/thingml-lang.jar</systemPath>
+					</dependency>
 					<dependency>
 						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.mwe2.launch</artifactId>

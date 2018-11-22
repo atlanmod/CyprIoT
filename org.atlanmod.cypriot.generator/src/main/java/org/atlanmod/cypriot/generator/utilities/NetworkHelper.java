@@ -31,8 +31,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.thingml.compilers.ThingMLCompiler;
 import org.thingml.xtext.ThingMLStandaloneSetup;
+import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.thingML.CompositeState;
 import org.thingml.xtext.thingML.Configuration;
+import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.State;
 import org.thingml.xtext.thingML.Thing;
 import org.thingml.xtext.thingML.ThingMLModel;
@@ -53,38 +55,6 @@ public final class NetworkHelper {
 	}
 
 	private NetworkHelper() {
-	}
-
-	/**
-	 * Load the EMF graph of the model from a File
-	 * 
-	 * @param file
-	 * @return
-	 * @throws ModelExceptionHandler
-	 */
-	public static <T extends EObject> T loadModelFromFile(File file, Class<T> type) {
-		if (type.isAssignableFrom(CyprIoTModel.class)) {
-			CypriotStandaloneSetup.doSetup();
-		} else if (type.isAssignableFrom(ThingMLModel.class)) {
-			ThingMLStandaloneSetup.doSetup();
-		}
-		Resource model = createEMFResourceFromFile(file);
-
-		try {
-			model.load(null);
-			EcoreUtil.resolveAll(model);
-			for (Resource ressource : model.getResourceSet().getResources()) {
-				if (!checkProblemsInEMFResource(ressource)) {
-					throw new Exception();
-				}
-			}
-			;
-			return type.cast(model.getContents().get(0));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	/**
@@ -117,35 +87,7 @@ public final class NetworkHelper {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Create a Xtext resource from a file
-	 * 
-	 * @param file
-	 * @param log
-	 * @return
-	 */
-	public static Resource createEMFResourceFromFile(File file) {
-		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
-		ResourceSet rs = new ResourceSetImpl();
-		return rs.createResource(xmiuri);
-	}
-
-	/**
-	 * Check if there are errors and warning inside an EMF resource
-	 * 
-	 * @param resource
-	 * @param log
-	 * @return
-	 */
-	public static boolean checkProblemsInEMFResource(Resource resource) {
-		boolean noErrors = true;
-		if (!resource.getErrors().isEmpty()) {
-			noErrors = false;
-		}
-		return noErrors;
-	}
-
+	
 	/**
 	 * Show the version of Cypriot in the console
 	 */
@@ -240,36 +182,6 @@ public final class NetworkHelper {
 	}
 
 	/**
-	 * Utility function to get the file from a path
-	 * 
-	 * @param filePathString
-	 * @return
-	 * @throws FileNotFoundException
-	 */
-	public static File getFileFromPath(String filePathString) throws FileNotFoundException {
-		File file = new File(filePathString);
-		try {
-			if (isFileExists(file)) {
-				return file;
-			}
-		} catch (Exception e) {
-			throw new FileNotFoundException();
-		}
-
-		return null;
-	}
-
-	/**
-	 * Utility function to check if a file exist in the given path
-	 * 
-	 * @param instance
-	 * @return True if the file exist, False if not
-	 */
-	public static boolean isFileExists(File file) {
-		return file.exists() && !file.isDirectory();
-	}
-	
-	/**
 	 * Check whether there is only one Thing type
 	 * 
 	 * @param thingmlModel
@@ -279,13 +191,13 @@ public final class NetworkHelper {
 		List<Thing> things = new ArrayList<Thing>();
 		List<Type> alltypes = thingModel.getTypes();
 		for (Type type : alltypes) {
-			if( type instanceof Thing) {
-				things.add((Thing)type);
+			if (type instanceof Thing) {
+				things.add((Thing) type);
 			}
 		}
 		return things.size() == 1;
 	}
-	
+
 	/**
 	 * Check whether there is only one external connector in the imported ThingML
 	 * file
@@ -297,7 +209,6 @@ public final class NetworkHelper {
 		int connnectorsCount = configuration.getConnectors().size();
 		return connnectorsCount == 1;
 	}
-	
 
 	/**
 	 * Check whether there is only one configuration in the imported ThingML file
@@ -327,14 +238,14 @@ public final class NetworkHelper {
 	public static List<Topic> getAllTopicsOfType(List<Bind> bindPubSubs, BindAction bindAction) {
 		ArrayList<Topic> topics = new ArrayList<Topic>();
 		for (Bind bind : bindPubSubs) {
-			if(bind.getBindAction() == bindAction) {
+			if (bind.getBindAction() == bindAction) {
 				EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
 				for (Topic topic : allTopics) {
 					topics.add(topic);
 				}
 			}
 		}
-		
+
 		return topics;
 	}
 
@@ -371,39 +282,6 @@ public final class NetworkHelper {
 	 */
 	public static boolean isInstanceThingInBind(InstanceThing instanceThing, Bind bind) {
 		return bind.getBindsInstanceThing().equals(instanceThing);
-	}
-
-	/**
-	 * Get the full path of the imported thing model
-	 * 
-	 * @param instance
-	 * @return The full path
-	 */
-	public static String getImportedThingPath(InstanceThing instanceThing) {
-		File file = new File(instanceThing.eContainer().eResource().getURI().toFileString());
-		file = file.getParentFile();
-		return file.getAbsolutePath();
-	}
-
-	/**
-	 * Get the ThingML model imported by an InstanceThing
-	 * 
-	 * @param instanceThing
-	 * @return The imported ThingML model
-	 */
-	public static ThingMLModel getThingmlModelFromInstanceThing(InstanceThing instanceThing) {
-		String parentThingPath = getImportedThingPath(instanceThing);
-		File thingMLFile;
-		ThingMLModel thingmlModel = null;
-		try {
-			String thingPath = instanceThing.getThingToInstantiate().getImportPath();
-			thingPath = thingPath.replace("\"", "");
-			thingMLFile = getFileFromPath(parentThingPath + File.separator + thingPath);
-			thingmlModel = loadModelFromFile(thingMLFile, ThingMLModel.class);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return ThingMLCompiler.flattenModel(thingmlModel);
 	}
 
 	/**
@@ -446,9 +324,10 @@ public final class NetworkHelper {
 	 * @return
 	 */
 	public static EList<State> getAllStateInThingMLModel(ThingMLModel thingModel) {
-		Thing thing = (Thing)thingModel.getTypes().get(0);
-		CompositeState statechart = (CompositeState)thing.getBehaviour();
+		Thing thing = (Thing) thingModel.getTypes().get(0);
+		CompositeState statechart = (CompositeState) thing.getBehaviour();
 		EList<State> allStates = statechart.getSubstate();
 		return allStates;
 	}
+
 }

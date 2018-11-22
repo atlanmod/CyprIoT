@@ -9,10 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.generator.load.ModelBehavior;
-import org.atlanmod.cypriot.generator.load.ModelLoader;
-import org.atlanmod.cypriot.generator.transform.BindingTransformation;
-import org.atlanmod.cypriot.generator.transform.PolicyTransformation;
+import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.transform.Transformation;
 import org.atlanmod.cypriot.generator.utilities.NetworkDebug;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
@@ -32,9 +29,8 @@ public class NetworkGenerator {
 
 	CyprIoTModel networkModel;
 	File cypriotOutputDirectory;
-	ModelLoader modelLoader = new ModelBehavior();
-	Transformation binding = new BindingTransformation();
-	Transformation enfocePolicy = new PolicyTransformation();
+	Transformation binding;
+	Transformation enfocePolicy;
 	Map<InstanceThing, ThingMLModel> transformedThingModel = new HashMap<InstanceThing, ThingMLModel>();
 
 	/**
@@ -52,6 +48,14 @@ public class NetworkGenerator {
 		this.enfocePolicy = enfocePolicy;
 	}
 
+
+	/**
+	 * @param binding the binding to set
+	 */
+	public void setBinding(Transformation binding) {
+		this.binding = binding;
+	}
+	
 	/**
 	 * Process code generation for the whole cypriot file
 	 */
@@ -77,9 +81,15 @@ public class NetworkGenerator {
 
 		for (Network network : NetworkHelper.getAllNetworksInModel(networkModel)) {
 			for (InstanceThing instanceThing : NetworkHelper.getAllInstanceThingBehaviorInNetwork(network)) {
-				//ThingMLModel thingModel = binding.transform(networkModel, instanceThing);
-				ThingMLModel thingModel = enfocePolicy.transform(networkModel, instanceThing);
-				transformedThingModel.put(instanceThing, thingModel);
+				ThingMLModel thingmlModel;
+				try {
+					thingmlModel = Helpers.getThingMLFromURI(instanceThing);
+					thingmlModel = binding.transform(instanceThing,thingmlModel);
+					thingmlModel = enfocePolicy.transform(instanceThing, thingmlModel);
+					transformedThingModel.put(instanceThing, thingmlModel);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			new NetworkDebug(log, network);
 		}
