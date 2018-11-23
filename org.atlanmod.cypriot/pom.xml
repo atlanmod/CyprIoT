@@ -14,13 +14,6 @@
 	<artifactId>org.atlanmod.cypriot</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>CyprIoT Language Core</name>
-	<dependencies>
-		<dependency>
-			<groupId>org.atlanmod.cypriot</groupId>
-			<artifactId>org.atlanmod.cypriot.generator</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
