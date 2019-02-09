@@ -4,28 +4,28 @@ import "users.cy"
 
 thing HomeGateway
 	assigned sensor, actuator
-	import "gateway.thingml"
+	import "models/gateway.thingml"
 	
 thing TemperatureSensor
 	assigned sensor
-	import "temperatureSensor.thingml"
+	import "models/temperatureSensor.thingml"
 
 thing SmartLock
 	assigned sensor, actuator
-	import "smartLock.ino"
+	import "models/smartLock.ino"
 
 thing SmartHeather
 	assigned actuator
-	import "smartHeather.thingml"
+	import "models/smartHeather.thingml"
 
 thing SmartFridge
 	assigned sensor, actuator
-	import "smartFridge.thingml"
+	import "models/smartFridge.thingml"
 
 thing SmartGlove
 	assigned sensor
-	import "smartGlove.thingml"
+	import "models/smartGlove.thingml"
 
 thing Phone
 	assigned sensor, actuator
-	import "sarah.thingml"
+	import "models/sarah.thingml"
