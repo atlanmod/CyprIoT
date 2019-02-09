@@ -14,5 +14,5 @@ network concreteCodeConfig {
 	domain org.name
 	instance thing1:Thing1 platform CPOSIX
 	instance CentralMqtt:Broker platform MQTT
-	bind thing1.command => CentralMqtt{topic1}
+	bind thing1.command => CentralMqtt{topic1} 
 }

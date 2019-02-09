@@ -249,6 +249,7 @@ public class Helpers {
 	
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
 		ThingMLModel thingmlModel = null;
+		ArrayList<Port> result = new ArrayList<Port>();
 		try {
 			thingmlModel = getThingMLFromURI(bind.getBindsInstanceThing());
 		} catch (FileNotFoundException e) {
@@ -256,7 +257,7 @@ public class Helpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ArrayList<Port> result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
 		return result; 
 	}
 	
