@@ -94,7 +94,7 @@ enum Platform:
 	POSIX='CPOSIX' | 
 	JAVA='JAVA' |
 	ARDUINO='ARDUINO' |
-	JAVASCRIPT='JS' |
+	JS='JS' |
 	PYTHON='PYTHON'
 ;
 
@@ -139,7 +139,6 @@ Topic:
 	'topic'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
-// TODO subjectPort=[thingml::Port]
 Bind:
 	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
 ;
@@ -185,20 +184,20 @@ Rule:
 	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction ruleObject=[RuleObject] ("." argument=ID)? ('when' ruleConditions=ConditionExpression)?
 ;
 enum RuleEffect :
-	DENY='deny' |
-	ALLOW='allow' |
-	TRIGGER='trigger' |
-	BRIDGE='bridge'
+	deny='deny' |
+	allow='allow' |
+	trigger='trigger' |
+	bridge='bridge'
 ;
 
 enum RuleAction:
-	SEND='send' | 
-	RECEIVE='receive' |
-	PERFORMTRANSITION='performTransition' | 
-	GOTOSTATE='goToState' | 
-	EXECUTEFUNCTION='executeFunction' |
-	BRIDGEFROM='from'| 
-	BRIDGETO='to'
+	send='send' | 
+	receive='receive' |
+	performTransition='performTransition' | 
+	goToState='goToState' | 
+	executeFunction='executeFunction' |
+	from='from'| 
+	to='to'
 ;
 
 RuleSubject:

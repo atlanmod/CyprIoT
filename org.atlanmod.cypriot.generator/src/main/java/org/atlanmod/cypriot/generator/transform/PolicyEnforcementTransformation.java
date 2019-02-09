@@ -36,7 +36,7 @@ public class PolicyEnforcementTransformation implements Transformation {
 
 					}
 					if (rule.getRuleEffect().equals(RuleEffect.TRIGGER)) {
-						if (rule.getRuleAction().equals(RuleAction.GOTOSTATE)) {
+						if (rule.getRuleAction().equals(RuleAction.GO_TO_STATE)) {
 							if (ruleSubject instanceof Thing) {
 								String thingName = ((Thing) ruleSubject).getName();
 								if (((InstanceThing) instanceThing).getThingToInstantiate().getName()

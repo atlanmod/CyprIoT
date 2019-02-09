@@ -20,7 +20,7 @@ network twoThingsCom {
 	instance thing2:Thing2 platform JAVA
 	instance thing3:Thing3 platform CPOSIX
 	instance CentralMqtt:Broker platform MQTT
-	bind thing1.command <= CentralMqtt{topic2,topic3}
-	bind thing2.command => CentralMqtt{topic2}
-	bind thing3.command => CentralMqtt{topic3}
+	bind thing1.dataEntryPoint <= CentralMqtt{topic2,topic3}
+	bind thing2.dataEntryPoint => CentralMqtt{topic2}
+	bind thing3.dataEntryPoint => CentralMqtt{topic3}
 }

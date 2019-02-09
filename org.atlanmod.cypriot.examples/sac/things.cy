@@ -4,7 +4,7 @@ import "users.cy"
 
 thing HomeGateway
 	assigned sensor, actuator
-	import "thing1.thingml"
+	import "gateway.thingml"
 	
 thing TemperatureSensor
 	assigned sensor
@@ -28,4 +28,4 @@ thing SmartGlove
 
 thing Phone
 	assigned sensor, actuator
-	import "daughterPhone.thingml"
+	import "sarah.thingml"

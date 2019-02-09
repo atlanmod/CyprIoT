@@ -1,0 +1,29 @@
+import "includes/messages.thingml"
+
+
+thing gateway includes msgs {
+	
+	provided port zwavePort {
+		sends temperatureMessage
+	}
+	provided port zigbeePort {
+		sends temperatureMessage
+	}
+	provided port upnpPort {
+		sends temperatureMessage
+	}
+
+	statechart thing1 init showData{
+		state showData @ignore{
+			on entry do 
+				zwavePort!temperatureMessage(1,1) 
+				zwavePort!temperatureMessage(1,1) 
+			end
+		}
+	}
+}
+
+configuration gatewayConf {
+	instance gateway:gateway
+}
+ 

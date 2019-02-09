@@ -21,6 +21,6 @@ network twoThingsCom {
 	instance thing1:Thing1 platform CPOSIX
 	instance thing2:Thing2 platform JAVA
 	instance CentralMqtt:Broker platform MQTT
-	bind thing1.command => CentralMqtt{light}
-	bind thing2.command <= CentralMqtt{light}
+	bind thing1.dataEntryPoint => CentralMqtt{light}
+	bind thing2.dataEntryPoint <= CentralMqtt{light}
 }

@@ -46,7 +46,7 @@
 						<artifactId>thingml-lang</artifactId>
 						<version>1.0</version>
 						<scope>system</scope>
-						<systemPath>${project.basedir}/../org.atlanmod.cypriot.generator/lib/thingml-lang.jar</systemPath>
+						<systemPath>${project.basedir}/lib/thingml-lang.jar</systemPath>
 					</dependency>
 					<dependency>
 						<groupId>org.eclipse.emf</groupId>

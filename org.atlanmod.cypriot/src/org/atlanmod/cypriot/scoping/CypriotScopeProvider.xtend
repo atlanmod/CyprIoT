@@ -67,8 +67,6 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if(reference == cypriotInstance.networkBridge_BindSubject){
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
 		} else if(reference == cypriotInstance.bind_PortToBind){
-			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
-				(reference.eContainer as ENamedElement).getName);
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
 				
 		} else {

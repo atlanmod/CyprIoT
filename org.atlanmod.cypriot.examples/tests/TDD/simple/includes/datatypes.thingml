@@ -1,0 +1,28 @@
+datatype UInt32<4>
+	@type_checker "Integer"
+	@c_type "uint32_t"
+	@c_byte_size "4"
+	@java_type "int"
+	@js_type "int"
+	@java_primitive "true";
+	
+datatype UInt8<1>
+	@type_checker "Integer"
+	@c_type "uint8_t"
+	@c_byte_size "1"
+	@java_type "byte"
+	@js_type "byte"
+	@java_primitive "true";
+
+object String
+	@c_type "char *"
+	@type_checker "String";
+	
+datatype Boolean<1>	
+	@c_type "uint8_t"
+	@c_byte_size "2"
+	@java_type "boolean"
+	@java_primitive "true";
+	
+object DHT
+	@c_type "dht";
