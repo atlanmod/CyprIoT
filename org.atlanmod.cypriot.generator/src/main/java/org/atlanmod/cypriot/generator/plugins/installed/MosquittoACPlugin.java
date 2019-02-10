@@ -80,7 +80,7 @@ public class MosquittoACPlugin implements Plugin {
 
 					for (Topic pubTopic : pubTopics) {
 						StringBuilder pubtopicFull = new StringBuilder();
-						if (pubTopic.getSubtopicOf().isEmpty()) {
+						if (!pubTopic.getSubtopicOf().isEmpty()) {
 							pubtopicFull.append(pubTopic.getSubtopicOf().get(0).getName() + "/" + pubTopic.getName());
 						} else {
 							pubtopicFull.append(pubTopic.getName());

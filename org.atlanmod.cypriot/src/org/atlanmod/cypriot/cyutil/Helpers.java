@@ -36,11 +36,13 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.xtext.EcoreUtil2;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.thingML.Port;
-import org.thingml.xtext.thingML.ThingMLModel; 
+import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.impl.ThingMLFactoryImpl; 
 
 public class Helpers {
 
@@ -264,7 +266,10 @@ public class Helpers {
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
 		URI new_uri;
 		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
-		new_uri = URI.createURI(instanceThing.getThingToInstantiate().getImportPath());
+		new_uri = URI.createFileURI(instanceThing.getThingToInstantiate().getImportPath());
+		ThingMLStandaloneSetup.doSetup();
+		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new ThingMLFactoryImpl());
+		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml", new ThingMLFactoryImpl());
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(instanceThing.eResource().getURI());
 		}
