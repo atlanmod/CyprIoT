@@ -16,4 +16,13 @@ public class UsecasesTests {
 	    App.main(args);
 	}
 	
+	@Test
+	public void testTreeThingsMosquitto() {
+		String [] args = new String[3];
+	    args[0] = rootInput+"2_TreeThingsMosquitto/input/main.cy";
+	    args[1] = rootOutput+"2_TreeThingsMosquitto/output";
+	    args[2] = rootGen+"config.cfg";
+	    App.main(args);
+	}
+	
 }
