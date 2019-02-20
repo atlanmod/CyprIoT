@@ -29,6 +29,9 @@ public class App implements Runnable {
 
 	@Option(names = { "-c", "--config" }, required = true, paramLabel = "CONFIG", description = "The configuration file")
 	File cypriotConfigFile;
+	
+	@Option(names = { "-d", "--disable-plugins" }, description = "The configuration file")
+    boolean disablePlugin;
 
 	public void run() {
 		NetworkHelper.showProjectVersioInConsole();
@@ -37,12 +40,14 @@ public class App implements Runnable {
 		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		
 		// Plugin Loading
-		PluginLoader pluginLoader = new PluginLoader();
-		pluginLoader.setConfigFile(cypriotConfigFile);
-		pluginLoader.setModel(model);
-		pluginLoader.setOutputDirectory(cypriotOutputDirectory);
-		pluginLoader.load();
+		if(!disablePlugin) {
+			PluginLoader pluginLoader = new PluginLoader();
+			pluginLoader.setConfigFile(cypriotConfigFile);
+			pluginLoader.setModel(model);
+			pluginLoader.setOutputDirectory(cypriotOutputDirectory);
+			pluginLoader.load();
 
+		}
 		// Network Generation
 		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
 		networkGenerator.setBinding(new BindingTransformation());

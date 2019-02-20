@@ -25,4 +25,14 @@ public class UsecasesTests {
 	    App.main(args);
 	}
 	
+	@Test
+	public void testDisablePlugin() {
+		String [] args = new String[4];
+	    args[0] = rootInput+"3_IgnorePlugins/input/main.cy";
+	    args[1] = rootOutput+"3_IgnorePlugins/output";
+	    args[2] = rootGen+"config.cfg";
+	    args[3] = "-d";
+	    App.main(args);
+	}
+	
 }
