@@ -30,14 +30,18 @@ Role:
 ;
 
 User :
-	'user' name=ID 'assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*
+	'user' name=ID ('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 ;
 
 Thing:
 	'thing' name=ID 
 		('assigned' assignedRoles+=[Role|ID] ( "," assignedRoles+=[Role])*)?
 		'import' importPath=STRING
-		('model' modelFile=[thingml::ThingMLModel])?
+		(model=Model)?
+;
+
+Model:
+	'model' modelFile=[thingml::Thing]
 ;
 
 NetworkProperty:
@@ -59,7 +63,7 @@ enum CombiningAlgo:
 ;
 
 Domain:
-	'domain' name=QualifiedName
+	'domain' name=DomainId
 ;
 Network:
 	'network' name=ID '{'
@@ -181,8 +185,17 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction ruleObject=[RuleObject] ("." argument=ID)? ('when' ruleConditions=ConditionExpression)?
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction (ruleObject=[RuleObject] | domainObject=DomainObject) ('when' ruleConditions=ConditionExpression)?
 ;
+
+DomainId:
+	ValidID (=>'.' ValidID)+
+;
+
+DomainObject :
+	DomainId  ('.' '*')?
+;
+	
 enum RuleEffect :
 	deny='deny' |
 	allow='allow' |
@@ -206,9 +219,6 @@ RuleSubject:
 
 RuleObject:
 	Thing | Role | User | Channel | Topic | ConnectionPoint
-;
-DomainObject:
-	QualifiedNameWithWildcard | QualifiedNameWithWildcard | QualifiedNameInStaticImport
 ;
 
 ConditionExpression:
@@ -314,6 +324,15 @@ BracedExpression:
 Atom:
 	value = CHARI
 ;
+
+
+//terminal TIME:
+//	
+//;
+//
+//terminal LOCATION:
+//	
+//;
 
 terminal CHARI returns ecore::EChar:
 	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
