@@ -1,0 +1,19 @@
+import "includes/messages.thingml"
+
+
+thing LightSwitch includes switchMsg {
+	
+	required port CommunicatingLightStatePort {
+		sends lightState
+		receives lightState
+	}
+	statechart LightSwitch init Off {
+		state Off {}		
+		state On {}
+	}
+}
+
+configuration thing1Exec {
+	instance lightSwitch:LightSwitch
+	connector lightSwitch.CommunicatingLightStatePort over X
+} 

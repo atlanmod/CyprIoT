@@ -4,10 +4,10 @@
 package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
-import org.atlanmod.cypriot.cyprIoT.Bind
+import org.atlanmod.cypriot.cyprIoT.ConditionExpression
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.RuleObject
+import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleSubject
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.thingml.xtext.thingML.ThingMLPackage
 
 /**
  * This class contains custom scoping description.
@@ -54,21 +53,27 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance));
 		} else if (reference == cypriotInstance.toBindPTP_BindsToConnectionPoint) {
 			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance));
-		 } else if(reference == cypriotInstance.policiesEnforcement_PolicyName){
+		} else if (reference == cypriotInstance.policiesEnforcement_PolicyName) {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
-		} else if(reference == cypriotInstance.rule_RuleSubject){
+		} else if (reference == cypriotInstance.rule_RuleSubject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
 			return Scopes.scopeFor(candidates)
-		} else if(reference == cypriotInstance.rule_RuleObject){
+		} else if (reference == cypriotInstance.rule_RuleObject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleObject)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
 			return Scopes.scopeFor(candidates)
-		} else if(reference == cypriotInstance.networkBridge_BindSubject){
+		} else if (reference == cypriotInstance.networkBridge_BindSubject) {
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
-		} else if(reference == cypriotInstance.bind_PortToBind){
+		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
-				
+		} else if (reference == cypriotInstance.conditions_ConditionExpression) {
+//			val conditions = new ArrayList<ConditionExpression>();
+//			conditions.add((context.eContainer as Rule).ruleSubject)
+			val candidates = EcoreUtil2.getAllContentsOfType(context.eContainer, RuleSubject)
+			System.err.println("INFO: Ref name: " + reference.eContainer);
+			return Scopes.scopeFor(candidates)
+			// Helpers.findContainingRuleSubject(context);
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

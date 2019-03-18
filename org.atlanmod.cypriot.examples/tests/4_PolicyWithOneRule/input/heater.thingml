@@ -1,0 +1,18 @@
+import "includes/messages.thingml"
+
+
+thing Heater includes tempMsgs {
+	
+	required port ReceivingTemperaturePort {
+		receives temperatureMessage
+	}
+	statechart airConditionner init idle {
+		state idle {}
+		state work {}
+	}
+}
+
+configuration thing1Exec {
+	instance heater:Heater
+	connector heater.ReceivingTemperaturePort over X
+} 

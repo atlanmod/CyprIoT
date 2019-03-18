@@ -185,7 +185,15 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction (ruleObject=[RuleObject] | domainObject=DomainObject) ('when' ruleConditions=ConditionExpression)?
+	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject) (conditions=Conditions)?
+;
+
+Conditions:
+	'when' conditionExpression+=[ConditionExpression] (conditionOperator+=('and'|'or') conditionExpression+=[ConditionExpression])*
+;
+
+ConditionExpression:
+	Thing | Role | User | Channel | Topic | ConnectionPoint
 ;
 
 DomainId:
@@ -217,13 +225,10 @@ RuleSubject:
 	Thing | Role | User
 ;
 
-RuleObject:
-	Thing | Role | User | Channel | Topic | ConnectionPoint
-;
+//RuleObject:
+//	Thing | Role | User | Channel | Topic | ConnectionPoint
+//;
 
-ConditionExpression:
-	'currentState:' name=ID ('.' state=ID)
-;
 
 RegularExpression:
 	OrRegularExpression

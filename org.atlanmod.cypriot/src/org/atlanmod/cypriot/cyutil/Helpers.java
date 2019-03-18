@@ -27,6 +27,7 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
+import org.atlanmod.cypriot.cyprIoT.RuleSubject;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
@@ -36,13 +37,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.xtext.EcoreUtil2;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.thingML.Port;
-import org.thingml.xtext.thingML.ThingMLModel;
-import org.thingml.xtext.thingML.impl.ThingMLFactoryImpl; 
+import org.thingml.xtext.thingML.ThingMLModel; 
 
 public class Helpers {
 
@@ -83,6 +82,10 @@ public class Helpers {
 	}
 	public static Bind findContainingBind(EObject object) {
 		return findContainer(object, Bind.class);
+	}
+	
+	public static RuleSubject findContainingRuleSubject(EObject object) {
+		return findContainer(object, RuleSubject.class);
 	}
 
 	public static ArrayList<CyprIoTModel> allCypriotModels(CyprIoTModel model) {
