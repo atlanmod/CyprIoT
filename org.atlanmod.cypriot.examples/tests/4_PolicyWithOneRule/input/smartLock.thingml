@@ -1,0 +1,19 @@
+import "includes/messages.thingml"
+
+
+thing SmartLock includes LockMsg {
+	
+	required port CommunicatingLockStatePort {
+		sends lockState
+		receives lockState
+	}
+	statechart SmartLock init Close {
+		state Close {}		
+		state Open {}
+	}
+}
+
+configuration thing1Exec {
+	instance smartLock:SmartLock
+	connector smartLock.CommunicatingLockStatePort over X
+} 
