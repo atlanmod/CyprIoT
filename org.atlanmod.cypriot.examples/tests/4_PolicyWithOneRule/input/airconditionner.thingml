@@ -12,7 +12,7 @@ thing AirConditioner includes tempMsgs {
 	}
 }
 
-configuration thing1Exec {
+configuration AirConditionerCfg {
 	instance airConditioner:AirConditioner
 	connector airConditioner.ReceivingTemperaturePort over X
 } 

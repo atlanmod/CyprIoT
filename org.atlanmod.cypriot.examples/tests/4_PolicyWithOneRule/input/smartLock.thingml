@@ -13,7 +13,7 @@ thing SmartLock includes LockMsg {
 	}
 }
 
-configuration thing1Exec {
+configuration SmartLockCfg {
 	instance smartLock:SmartLock
 	connector smartLock.CommunicatingLockStatePort over X
 } 

@@ -12,7 +12,7 @@ thing Heater includes tempMsgs {
 	}
 }
 
-configuration thing1Exec {
+configuration HeaterCfg {
 	instance heater:Heater
 	connector heater.ReceivingTemperaturePort over X
 } 

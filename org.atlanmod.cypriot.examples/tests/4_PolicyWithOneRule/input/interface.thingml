@@ -1,0 +1,19 @@
+import "includes/messages.thingml"
+
+
+thing Interface includes interfaceMsgs {
+	
+	required port CommunicatingInterfacePort {
+		sends interfaceUpdate
+		receives interfaceUpdate
+	}
+	statechart Interface init idle {
+		state idle {}		
+		state update {}
+	}
+}
+
+configuration LightSwitchCfg {
+	instance interface:Interface
+	connector interface.CommunicatingInterfacePort over X
+}

@@ -12,7 +12,7 @@ thing TemperatureSensor includes tempMsgs {
 	}
 }
 
-configuration thing2Exec {
+configuration TemperatureSensorCfg {
 	instance temperatureSensor:TemperatureSensor
 	connector temperatureSensor.SendingTemperaturePort over X
 }

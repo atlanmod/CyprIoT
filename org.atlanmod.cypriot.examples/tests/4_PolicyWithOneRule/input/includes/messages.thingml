@@ -4,6 +4,10 @@ thing fragment carMsgs {
 	message alert(warning:Boolean);
 }
 
+thing fragment interfaceMsgs {
+	message interfaceUpdate(warning:Boolean);
+}
+
 thing fragment LockMsg {
 	message lockState(lockState : Boolean);
 }

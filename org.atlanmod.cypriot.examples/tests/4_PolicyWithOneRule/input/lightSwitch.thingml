@@ -13,7 +13,7 @@ thing LightSwitch includes switchMsg {
 	}
 }
 
-configuration thing1Exec {
+configuration LightSwitchCfg {
 	instance lightSwitch:LightSwitch
 	connector lightSwitch.CommunicatingLightStatePort over X
 } 
