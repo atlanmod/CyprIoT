@@ -8,7 +8,7 @@ thing fragment interfaceMsgs {
 	message interfaceUpdate(warning:Boolean);
 }
 
-thing fragment LockMsg {
+thing fragment lockMsg {
 	message lockState(lockState : Boolean);
 }
 

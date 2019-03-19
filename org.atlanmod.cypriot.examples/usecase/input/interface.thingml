@@ -1,11 +1,11 @@
 import "includes/messages.thingml"
 
 
-thing Interface includes interfaceMsgs {
+thing Interface includes tempMsgs {
 	
-	required port CommunicatingInterfacePort {
-		sends interfaceUpdate
-		receives interfaceUpdate
+	required port ReadingTemperaturePort {
+		sends temperatureMessage
+		receives temperatureMessage
 	}
 	statechart Interface init idle {
 		state idle {}		
@@ -15,5 +15,5 @@ thing Interface includes interfaceMsgs {
 
 configuration LightSwitchCfg {
 	instance interface:Interface
-	connector interface.CommunicatingInterfacePort over X
+	connector interface.ReadingTemperaturePort over X
 }

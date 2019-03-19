@@ -1,7 +1,7 @@
 import "includes/messages.thingml"
 
 
-thing SmartLock includes LockMsg {
+thing SmartLock includes lockMsg {
 	
 	required port CommunicatingLockStatePort {
 		sends lockState

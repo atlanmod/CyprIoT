@@ -1,0 +1,18 @@
+import "includes/messages.thingml"
+
+
+thing SmokeSensor includes tempMsgs {
+	
+	required port sendingEmergencyPort {
+		receives temperatureMessage
+	}
+	statechart airConditionner init idle {
+		state idle {}
+		state emergency {}
+	}
+}
+
+configuration HeaterCfg {
+	instance smokeSensor:SmokeSensor
+	connector smokeSensor.sendingEmergencyPort over X
+} 

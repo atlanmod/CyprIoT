@@ -21,21 +21,66 @@ thing SmartLock
 thing Interface
 	import "interface.thingml"
 
-channel:pubsub Broker {
-	topic topic1
-	topic topic2 subtopicOf topic1
+thing SmokeSensor
+	import "smokeSensor.thingml"
+
+channel:pubsub MQTTBroker {
+	topic measurements
+	topic temperatureReading subtopicOf measurements
+}
+
+channel:ptp HTTPManufacturerPoint {
+	ConnectionPoint maintenanceAlert
+}
+
+channel:ptp HTTPFoodStore {
+	ConnectionPoint remainingMilk
+}
+
+channel:ptp CoAPFireFighter {
+	ConnectionPoint alert
 }
 
 policy myPolicy {
 	//rule bob deny:receive org.atlanmod.* when 
 }
 
-network twoThingsCom {
-	domain org.atlanmod.smartheat
-	instance thing1:TemperatureSensor platform CPOSIX
-	instance thing2:AirConditionnner platform JAVA
-	instance CentralMqtt:Broker platform MQTT
-	bind thing1.SendingTemperaturePort => CentralMqtt{topic2}
-	bind data thing2.ReceivingTemperaturePort <= CentralMqtt{topic2}
-	bridge data to CentralMqtt{topic2}
+network smartHomeCfg {
+	
+	// Identifying the nerwork
+	domain org.atlanmod.smarthome
+	
+	// Declaration of things
+	instance temperatureSensor:TemperatureSensor platform CPOSIX
+	instance airConditionnner:AirConditionnner platform JAVA
+	instance heater:Heater platform JAVA
+	instance lightSwitch:LightSwitch platform CPOSIX
+	instance smartLock:SmartLock platform CPOSIX
+	instance interface:Interface platform JS
+	
+	// Declaration of channels
+	instance mqttBroker:MQTTBroker platform MQTT
+	instance manufacturerPoint:HTTPManufacturerPoint platform HTTP
+	
+	// Binding things' ports to channels
+	bind temperatureSensor.SendingTemperaturePort => mqttBroker{temperatureReading}
+	bind ACBinding airConditionnner.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
+	bind HeaterBiding heater.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
+	bind interface.ReadingTemperaturePort <= mqttBroker{temperatureReading}
+	
+	// Bridging existing bindings elsewhere
+	bridge ACBinding to mqttBroker{temperatureReading}
+}
+
+network emergency {
+	domain org.atlanmod.smarthome.emergency
+	
+	// Declaration of the firefighter point
+	instance coapFirefighter:CoAPFireFighter platform COAP
+	
+	// Declaration of the smokeSensor
+	instance smokeSensor:SmokeSensor platform CPOSIX
+	
+	// Binding the smokeSensor to the firefighter point
+	bind smokeSensor.sendingEmergencyPort => coapFirefighter.alert
 }
