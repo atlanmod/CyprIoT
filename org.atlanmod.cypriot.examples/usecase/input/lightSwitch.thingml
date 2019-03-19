@@ -7,9 +7,9 @@ thing LightSwitch includes switchMsg {
 		sends lightState
 		receives lightState
 	}
-	statechart LightSwitch init Off {
-		state Off {}		
-		state On {}
+	statechart LightSwitch init offState {
+		state offState {}		
+		state onState {}
 	}
 }
 

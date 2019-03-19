@@ -9,6 +9,18 @@ thing TemperatureSensor
 thing AirConditionnner
 	import "airconditionner.thingml"
 	
+thing Heater 
+	import "heater.thingml"
+
+thing LightSwitch
+	import "lightSwitch.thingml"
+
+thing SmartLock 
+	import "smartLock.thingml"
+
+thing Interface
+	import "interface.thingml"
+
 channel:pubsub Broker {
 	topic topic1
 	topic topic2 subtopicOf topic1
