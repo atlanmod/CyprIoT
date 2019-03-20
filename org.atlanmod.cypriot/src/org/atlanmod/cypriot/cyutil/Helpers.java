@@ -23,6 +23,7 @@ import org.atlanmod.cypriot.cyprIoT.Instance;
 import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
+import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
@@ -201,9 +202,9 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<InstanceThing> allThinginstances(CyprIoTModel model) {
+	public static ArrayList<InstanceThing> allThinginstances(Network network) {
 		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
-		for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
+		for (Instance t : network.getInstantiate()) {
 			if (t instanceof InstanceThing)
 				result.add((InstanceThing) t);
 		}

@@ -82,5 +82,5 @@ network emergency {
 	instance smokeSensor:SmokeSensor platform CPOSIX
 	
 	// Binding the smokeSensor to the firefighter point
-	bind smokeSensor.sendingEmergencyPort => coapFirefighter.alert
+	//bind smokeSensor.sendingEmergencyPort => coapFirefighter.alert
 }

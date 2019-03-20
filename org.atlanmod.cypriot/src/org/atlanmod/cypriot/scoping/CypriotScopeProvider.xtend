@@ -4,10 +4,9 @@
 package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
-import org.atlanmod.cypriot.cyprIoT.ConditionExpression
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleSubject
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
@@ -44,7 +43,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopicsInType(context.eContainer as PubSub));
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
-			return Scopes.scopeFor(Helpers.allThinginstances(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network));
 		} else if (reference == cypriotInstance.toBindPubSub_TargetedPubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.toBindPTP_TargetedPtpInstance) {
