@@ -45,9 +45,9 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
 			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network));
 		} else if (reference == cypriotInstance.toBindPubSub_TargetedPubSubInstance) {
-			return Scopes.scopeFor(Helpers.allPubSubinstances(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network));
 		} else if (reference == cypriotInstance.toBindPTP_TargetedPtpInstance) {
-			return Scopes.scopeFor(Helpers.allPtPinstances(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allPtPinstances(context.eContainer.eContainer as Network));
 		} else if (reference == cypriotInstance.toBindPubSub_Topics) {
 			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance));
 		} else if (reference == cypriotInstance.toBindPTP_BindsToConnectionPoint) {

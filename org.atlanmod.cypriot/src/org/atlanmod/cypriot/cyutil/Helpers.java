@@ -211,18 +211,18 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<InstancePubSub> allPubSubinstances(CyprIoTModel model) {
+	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
-		for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
+		for (Instance t : network.getInstantiate()) {
 			if (t instanceof InstancePubSub)
 				result.add((InstancePubSub) t);
 		}
 		return result;
 	}
 
-	public static ArrayList<InstancePTP> allPtPinstances(CyprIoTModel model) {
+	public static ArrayList<InstancePTP> allPtPinstances(Network network) {
 		ArrayList<InstancePTP> result = new ArrayList<InstancePTP>();
-		for (Instance t : model.getSpecifyNetworks().get(0).getInstantiate()) {
+		for (Instance t : network.getInstantiate()) {
 			if (t instanceof InstancePTP)
 				result.add((InstancePTP) t);
 		}
