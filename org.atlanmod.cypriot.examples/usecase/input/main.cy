@@ -3,6 +3,10 @@ role sensor
 user bob
 
 // Devices declaration
+
+thing Gateway 
+	import "gateway.thingml"
+
 thing TemperatureSensor 
 	import "temperature.thingml"
 
@@ -50,6 +54,9 @@ network smartHomeCfg {
 	// Identifying the nerwork
 	domain org.atlanmod.smarthome
 	
+	// Declaration of the gateway
+	instance gateway:Gateway platform PYTHON
+	
 	// Declaration of things
 	instance temperatureSensor:TemperatureSensor platform CPOSIX
 	instance airConditionnner:AirConditionnner platform JAVA
@@ -64,12 +71,12 @@ network smartHomeCfg {
 	
 	// Binding things' ports to channels
 	bind temperatureSensor.SendingTemperaturePort => mqttBroker{temperatureReading}
-	bind ACBinding airConditionnner.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
-	bind HeaterBiding heater.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
+	bind airConditionnner.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
+	bind heater.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
 	bind interface.ReadingTemperaturePort <= mqttBroker{temperatureReading}
 	
 	// Bridging existing bindings elsewhere
-	bridge ACBinding to mqttBroker{temperatureReading}
+	//bridge ACBinding to mqttBroker{temperatureReading}
 }
 
 network emergency {

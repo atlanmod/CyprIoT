@@ -144,7 +144,7 @@ Topic:
 ;
 
 Bind:
-	'bind'	(name=ID)? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
 ;
 
 enum BindAction:
