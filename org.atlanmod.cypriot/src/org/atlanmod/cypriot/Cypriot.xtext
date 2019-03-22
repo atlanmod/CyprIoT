@@ -189,7 +189,11 @@ Rule:
 ;
 
 Conditions:
-	'when' conditionExpression+=[RuleSubject] (conditionOperator+=('and'|'or') conditionExpression+=[RuleSubject])*
+	'when' conditionExpression+=[SubjectAndObject] (conditionOperator+=('and'|'or') conditionExpression+=[SubjectAndObject])* 
+;
+
+SubjectAndObject:
+	RuleSubject | RuleObject
 ;
 
 ConditionExpression:
