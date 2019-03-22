@@ -189,11 +189,11 @@ Rule:
 ;
 
 Conditions:
-	'when' conditionExpression+=[ConditionExpression] (conditionOperator+=('and'|'or') conditionExpression+=[ConditionExpression])*
+	'when' conditionExpression+=[RuleSubject] (conditionOperator+=('and'|'or') conditionExpression+=[RuleSubject])*
 ;
 
 ConditionExpression:
-	Thing | Role | User | Channel | Topic | ConnectionPoint
+	conditionExpression=DomainObject /* | conditionExpression=[RuleObject] */
 ;
 
 DomainId:
@@ -225,9 +225,9 @@ RuleSubject:
 	Thing | Role | User
 ;
 
-//RuleObject:
-//	Thing | Role | User | Channel | Topic | ConnectionPoint
-//;
+RuleObject:
+	Thing | Role | User | Channel | Topic | ConnectionPoint
+;
 
 
 RegularExpression:

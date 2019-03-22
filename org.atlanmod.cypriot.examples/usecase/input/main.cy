@@ -46,7 +46,7 @@ channel:ptp CoAPFireFighter {
 }
 
 policy myPolicy {
-	//rule bob deny:receive org.atlanmod.* when 
+	rule bob deny:receive org.atlanmod.* when bob and bob or bob
 }
 
 network smartHomeCfg {

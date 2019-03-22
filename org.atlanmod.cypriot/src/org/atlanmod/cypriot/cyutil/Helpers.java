@@ -28,6 +28,7 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
+import org.atlanmod.cypriot.cyprIoT.Rule;
 import org.atlanmod.cypriot.cyprIoT.RuleSubject;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.Topic;
@@ -208,6 +209,12 @@ public class Helpers {
 			if (t instanceof InstanceThing)
 				result.add((InstanceThing) t);
 		}
+		return result;
+	}
+	
+	public static ArrayList<RuleSubject> allSubjectConditions(Rule rule) {
+		ArrayList<RuleSubject> result = new ArrayList<RuleSubject>();
+		result.add(rule.getRuleSubject());
 		return result;
 	}
 

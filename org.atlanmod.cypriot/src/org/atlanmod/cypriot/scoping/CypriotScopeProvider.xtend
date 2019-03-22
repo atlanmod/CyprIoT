@@ -7,6 +7,7 @@ import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleSubject
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
@@ -67,12 +68,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
 		} else if (reference == cypriotInstance.conditions_ConditionExpression) {
-//			val conditions = new ArrayList<ConditionExpression>();
-//			conditions.add((context.eContainer as Rule).ruleSubject)
-			val candidates = EcoreUtil2.getAllContentsOfType(context.eContainer, RuleSubject)
-			System.err.println("INFO: Ref name: " + reference.eContainer);
-			return Scopes.scopeFor(candidates)
-			// Helpers.findContainingRuleSubject(context);
+			System.err.println("Container : " + context.eContainer.eContainer);
+			return Scopes.scopeFor(Helpers.allSubjectConditions(context.eContainer as Rule))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
