@@ -189,7 +189,21 @@ Rule:
 ;
 
 Conditions:
-	'when' conditionExpression+=[SubjectAndObject] (conditionOperator+=('and'|'or') conditionExpression+=[SubjectAndObject])* 
+	'when' conditionExpression=ConditionsExp
+;
+
+ConditionsExp: OrExpression;
+
+OrExpression returns Expression:
+	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
+;
+
+AndExpression returns Expression:
+	Exp ({AndExpression.lhs=current} "and" rhs=Exp)*
+;
+
+Exp:
+	conditionExpression=[SubjectAndObject]
 ;
 
 SubjectAndObject:
@@ -238,13 +252,13 @@ RegularExpression:
 	OrRegularExpression
 ;
 
-OrExpression returns Expression:
-	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
-;
-
-AndExpression returns Expression:
-	Equality ({AndExpression.lhs=current} "and" rhs=Equality)*
-;
+//OrExpression returns Expression:
+//	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
+//;
+//
+//AndExpression returns Expression:
+//	Equality ({AndExpression.lhs=current} "and" rhs=Equality)*
+//;
 
 Equality returns Expression:
 	Comparaison (
