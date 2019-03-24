@@ -46,7 +46,7 @@ channel:ptp CoAPFireFighter {
 }
 
 policy myPolicy {
-	rule bob deny:receive AirConditionnner when bob and AirConditionnner
+	rule bob deny:receive AirConditionnner when bob and AirConditionnner and bob and bob
 }
 
 network smartHomeCfg {
@@ -63,7 +63,7 @@ network smartHomeCfg {
 	instance heater:Heater platform JAVA
 	instance lightSwitch:LightSwitch platform CPOSIX
 	instance smartLock:SmartLock platform CPOSIX
-	instance interface:Interface platform JS
+	instance interface[1]:Interface platform JS
 	
 	// Declaration of channels
 	instance mqttBroker:MQTTBroker platform MQTT

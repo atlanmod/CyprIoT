@@ -189,21 +189,21 @@ Rule:
 ;
 
 Conditions:
-	'when' conditionExpression=ConditionsExp
+	'when' conditionExpression=ConditionsExpression
 ;
 
-ConditionsExp: OrExpression;
+ConditionsExpression: OrExpression;
 
 OrExpression returns Expression:
 	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
 ;
 
 AndExpression returns Expression:
-	Exp ({AndExpression.lhs=current} "and" rhs=Exp)*
+	ExpressionAttribute ({AndExpression.lhs=current} "and" rhs=ExpressionAttribute)*
 ;
 
-Exp:
-	conditionExpression=[SubjectAndObject]
+ExpressionAttribute:
+	attribute=[SubjectAndObject]
 ;
 
 SubjectAndObject:
@@ -362,12 +362,12 @@ terminal CHARI returns ecore::EChar:
 ;
 
 @Override
+terminal INT returns ecore::EInt: '1';
+
+@Override
 terminal WS			: (' '|'\t'|'\r'|'\n')+;
 @Override
 terminal ANY_OTHER: .;
-
-@Override
-terminal INT returns ecore::EInt: '1'..'9' ('0'..'9')*;
 
 // Terminals
 terminal BYTE returns ecore::EByte: "0x" ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F');
