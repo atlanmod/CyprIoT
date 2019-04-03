@@ -63,7 +63,7 @@ network smartHomeCfg {
 	instance heater:Heater platform JAVA
 	instance lightSwitch:LightSwitch platform CPOSIX
 	instance smartLock:SmartLock platform CPOSIX
-	instance interface[1]:Interface platform JS
+	instance interface[5]:Interface platform JS
 	
 	// Declaration of channels
 	instance mqttBroker:MQTTBroker platform MQTT
@@ -73,7 +73,7 @@ network smartHomeCfg {
 	bind temperatureSensor.SendingTemperaturePort => mqttBroker{temperatureReading}
 	bind airConditionnner.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
 	bind heater.ReceivingTemperaturePort <= mqttBroker{temperatureReading}
-	bind interface.ReadingTemperaturePort <= mqttBroker{temperatureReading}
+	//bind interface.ReadingTemperaturePort <= mqttBroker{temperatureReading}
 	
 	// Bridging existing bindings elsewhere
 	//bridge ACBinding to mqttBroker{temperatureReading}

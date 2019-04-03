@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind | ChannelProperty | NetworkProperty |  Policy | ToBindPTP | ToBindPubSub | RegularExpression | Rule |
+	Bind | ChannelProperty | NetworkProperty |  Policy | ToBindPTP | ToBindPubSub | Rule |
 	";" name=ID
 ;
 
@@ -161,7 +161,7 @@ ToBindPubSub:
 ;
 
 ToBindPTP:
-	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] | filterConnectionPointsUsingRegex=RegularExpression | allConnectionPoints='*')
+	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/)
 ;
 
 GlobalBridge:
@@ -247,83 +247,11 @@ RuleObject:
 	Thing | Role | User | Channel | Topic | ConnectionPoint
 ;
 
-
+/*
 RegularExpression:
 	OrRegularExpression
 ;
 
-//OrExpression returns Expression:
-//	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
-//;
-//
-//AndExpression returns Expression:
-//	Equality ({AndExpression.lhs=current} "and" rhs=Equality)*
-//;
-
-Equality returns Expression:
-	Comparaison (
-	( {EqualsExpression.lhs=current} "==" rhs=Comparaison ) |
-	( {NotEqualsExpression.lhs=current} "!=" rhs=Comparaison )
-	)*	
-;
-
-Comparaison returns Expression:
-	Addition (
-	( {GreaterExpression.lhs=current} ">" rhs=Addition ) |
-	( {LowerExpression.lhs=current} "<" rhs=Addition ) |
-	( {GreaterOrEqualExpression.lhs=current} ">=" rhs=Addition ) |
-	( {LowerOrEqualExpression.lhs=current} "<=" rhs=Addition )
-	)*
-;
-
-Addition returns Expression:
-	Multiplication (
-	( {PlusExpression.lhs=current} "+" rhs=Multiplication ) |
-	( {MinusExpression.lhs=current} "-" rhs=Multiplication )
-	)*	
-;
-
-Multiplication returns Expression:
-	Primary (
-	( {TimesExpression.lhs=current} "*" rhs=Primary ) |
-	( {DivExpression.lhs=current} "/" rhs=Primary ) |
-	( {ModExpression.lhs=current} "%" rhs=Primary)
-	)*	
-;
-
-Primary returns Expression:
-	{ExpressionGroup} '(' term=ConditionExpression ')' |
-	{NotExpression} "not" term=Primary |
-	{UnaryMinus} '-' term=Primary |
-	AtomicExpression
-;
-
-AtomicExpression returns Expression:
-	Literal
-;
-
-Literal returns Literal:
-	ByteLiteral | CharLiteral | IntegerLiteral | StringLiteral | DoubleLiteral | AnyValue
-;
-
-AnyValue returns AnyValue:
-	anyValue=ID;
-
-ByteLiteral returns ByteLiteral:
-	byteValue=BYTE;
-	
-CharLiteral returns CharLiteral:
-	charValue=CHAR;
-
-IntegerLiteral returns IntegerLiteral:
-	intValue=INT;
-	
-DoubleLiteral returns DoubleLiteral:
-	doubleValue = FLOAT;
-	
-StringLiteral returns StringLiteral:
-	stringValue=STRING;
-	
 OrRegularExpression:
 	SequenceExpression ({OrRegularExpression.left = current} '+' right=SequenceExpression)*
 ;
@@ -348,36 +276,16 @@ Atom:
 	value = CHARI
 ;
 
-
-//terminal TIME:
-//	
-//;
-//
-//terminal LOCATION:
-//	
-//;
-
 terminal CHARI returns ecore::EChar:
 	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
 ;
 
-@Override
-terminal INT returns ecore::EInt: '1';
+terminal TIME:
+	
+;
 
-@Override
-terminal WS			: (' '|'\t'|'\r'|'\n')+;
-@Override
-terminal ANY_OTHER: .;
+terminal LOCATION:
+	
+;*/
 
-// Terminals
-terminal BYTE returns ecore::EByte: "0x" ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F');
 
-terminal CHAR returns ecore::EByte: "'" ('\\0'|'\\t'|'\\n'|'\\r'|' '..'&'|'\\\''|'('..'['|'\\\\'|']'..'~') "'";
-
-terminal FLOAT returns ecore::EDouble :
-('0'..'9')+ '.' ('0'..'9')* (('e'|'E') ('+' | '-')? ('0'..'9')+)?
-| '.' ('0'..'9')+ (('e'|'E') ('+' | '-')? ('0'..'9')+)?
-| ('0'..'9')+ ('e'|'E') ('+' | '-')? ('0'..'9')+;
-
-terminal ANNOTATION_ID:
-	"@" ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*; 

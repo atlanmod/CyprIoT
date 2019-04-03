@@ -12,6 +12,7 @@ channel:ptp ZigbeeHomeNodes {
 	ConnectionPoint lock
 	ConnectionPoint heater
 	ConnectionPoint fridge
+	ConnectionPoint all
 }
 
 channel:ptp Manufacturer {

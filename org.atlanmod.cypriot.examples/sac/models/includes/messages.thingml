@@ -13,3 +13,4 @@ thing fragment timerMsgs {
 	message getTime();
 }
 protocol X;
+

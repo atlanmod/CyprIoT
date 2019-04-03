@@ -34,7 +34,7 @@ network SmarthomeNetwork {
 	bind sg => zwaveHomeNodes.gloveSensor
 	
 	// Binding all ConnectionPoint to the gateway in a star fashion
-	bind gateway.zigbeePort <= zigbeeHomeNodes.*
+	bind gateway.zigbeePort <= zigbeeHomeNodes.all
 	bind gateway.zwavePort <= zwaveHomeNodes.gloveSensor
 	bind gateway.upnpPort <= upnpHomeNodes.anyUpnpDevice
 	
