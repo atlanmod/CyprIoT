@@ -203,7 +203,7 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject]
+	attribute=[SubjectAndObject] (currentState?='.currentState=' | nextState?='.nextState=' ) subjectState=[thingml::State]
 ;
 
 SubjectAndObject:

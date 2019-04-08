@@ -44,6 +44,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.thingML.Port;
+import org.thingml.xtext.thingML.State;
 import org.thingml.xtext.thingML.ThingMLModel; 
 
 public class Helpers {
@@ -222,6 +223,16 @@ public class Helpers {
 		result.add(rule.getRuleSubject());
 		return result;
 	}
+	
+	public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
+		ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
+		
+		if(rule.getRuleObject()!=null) {
+			result.add(rule.getRuleObject());
+		}
+		result.add(rule.getRuleSubject());
+		return result;
+	}
 
 	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
@@ -279,22 +290,36 @@ public class Helpers {
 		return result; 
 	}
 	
+	public static ArrayList<State> allStatesThingML(Thing thing) {
+		ThingMLModel thingmlModel = null;
+		ArrayList<State> result = new ArrayList<State>();
+		try {
+			thingmlModel = getThingMLFromURI(bind.getBindsInstanceThing());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		return result; 
+	}
+	
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
-		URI new_uri;
-		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
-		new_uri = URI.createFileURI(instanceThing.getThingToInstantiate().getImportPath());
+				System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
+		Thing thingToInstantiate = instanceThing.getThingToInstantiate();
+		new_uri = URI.createFileURI(thingToInstantiate.getImportPath());
 		ThingMLStandaloneSetup.doSetup();
 		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new ThingMLFactoryImpl());
 		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml", new ThingMLFactoryImpl());
 		if (new_uri.isRelative()) {
-			new_uri = new_uri.resolve(instanceThing.eResource().getURI());
+			new_uri = new_uri.resolve(thingToInstantiate.eResource().getURI());
 		}
 		System.out.println("URI : " + new_uri);
-		Resource r = instanceThing.eResource().getResourceSet().getResource(new_uri, true);
+		Resource r = thingToInstantiate.eResource().getResourceSet().getResource(new_uri, true);
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
 			return (ThingMLModel) r.getContents().get(0);
 		} else {
-			throw new Exception("No valid model found for resource " + instanceThing.getThingToInstantiate().getImportPath());
+			throw new Exception("No valid model found for resource " + thingToInstantiate.getImportPath());
 		}
 	}
 	

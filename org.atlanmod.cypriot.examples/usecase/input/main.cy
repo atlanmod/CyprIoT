@@ -46,7 +46,7 @@ channel:ptp CoAPFireFighter {
 }
 
 policy myPolicy {
-	rule bob deny:receive AirConditionnner when bob and AirConditionnner and bob and bob
+	rule bob deny:receive AirConditionnner when bob.currentState=
 }
 
 network smartHomeCfg {
