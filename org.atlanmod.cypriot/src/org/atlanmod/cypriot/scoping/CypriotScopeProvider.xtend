@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.ExpressionAttribute
+import org.atlanmod.cypriot.cyprIoT.Thing
 
 /**
  * This class contains custom scoping description.
@@ -70,8 +72,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.expressionAttribute_Attribute) {
 			return Scopes.scopeFor(Helpers.allSubjectConditions(Helpers.findContainer(context, Rule) as Rule))
 		} else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
-			return Scopes.scopeFor(Helpers.allSubjectConditions(Helpers.findContainer(context, Rule) as Rule))
-		}else {
+			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ExpressionAttribute).attribute as Thing)))
+		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
 		}

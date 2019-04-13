@@ -7,8 +7,8 @@ thing AirConditioner includes tempMsgs {
 		receives temperatureMessage
 	}
 	statechart airConditionner init idle {
-		state idle {}
-		state work {}
+		state idleAC {}
+		state workAC {}
 	}
 }
 

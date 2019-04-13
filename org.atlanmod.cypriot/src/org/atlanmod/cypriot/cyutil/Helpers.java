@@ -43,6 +43,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
+import org.thingml.xtext.helpers.CompositeStateHelper;
+import org.thingml.xtext.thingML.CompositeState;
 import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.State;
 import org.thingml.xtext.thingML.ThingMLModel; 
@@ -224,15 +226,6 @@ public class Helpers {
 		return result;
 	}
 	
-	public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
-		ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
-		
-		if(rule.getRuleObject()!=null) {
-			result.add(rule.getRuleObject());
-		}
-		result.add(rule.getRuleSubject());
-		return result;
-	}
 
 	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
@@ -294,36 +287,48 @@ public class Helpers {
 		ThingMLModel thingmlModel = null;
 		ArrayList<State> result = new ArrayList<State>();
 		try {
-			thingmlModel = getThingMLFromURI(bind.getBindsInstanceThing());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			thingmlModel = getThingInThingML(thing);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		if(thingmlModel!=null) {
+			CompositeState compositeState = ThingMLHelpers.allStateMachines((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)).get(0);
+			ArrayList<State> states = new ArrayList<State>(CompositeStateHelper.allContainedStatesExludingSessions(compositeState));
+			for (State state : states) {
+				result.add(state);
+			}
+		}
 		return result; 
 	}
 	
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
-				System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
+		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
 		Thing thingToInstantiate = instanceThing.getThingToInstantiate();
-		new_uri = URI.createFileURI(thingToInstantiate.getImportPath());
+		return getThingInThingML(thingToInstantiate);
+	}
+	
+	public static ThingMLModel getThingInThingML(Thing thing) {
+		URI new_uri = URI.createFileURI(thing.getImportPath());
 		ThingMLStandaloneSetup.doSetup();
 		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new ThingMLFactoryImpl());
 		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml", new ThingMLFactoryImpl());
 		if (new_uri.isRelative()) {
-			new_uri = new_uri.resolve(thingToInstantiate.eResource().getURI());
+			new_uri = new_uri.resolve(thing.eResource().getURI());
 		}
 		System.out.println("URI : " + new_uri);
-		Resource r = thingToInstantiate.eResource().getResourceSet().getResource(new_uri, true);
+		Resource r = thing.eResource().getResourceSet().getResource(new_uri, true);
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
 			return (ThingMLModel) r.getContents().get(0);
 		} else {
-			throw new Exception("No valid model found for resource " + thingToInstantiate.getImportPath());
+			try {
+				throw new Exception("No valid model found for resource " + thing.getImportPath());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		return null;
 	}
-	
-	
 	/**
 	 * Load the EMF graph of the model from a File
 	 * 
