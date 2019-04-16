@@ -185,7 +185,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID)? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ':' ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject) (conditions=Conditions)?
+	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject) (conditions=Conditions)?
 ;
 
 Conditions:
@@ -223,10 +223,10 @@ DomainObject :
 ;
 	
 enum RuleEffect :
-	deny='deny' |
-	allow='allow' |
-	trigger='trigger' |
-	bridge='bridge'
+	deny='deny:' |
+	allow='allow:' |
+	trigger='trigger:' |
+	bridge='bridge:'
 ;
 
 enum RuleAction:
