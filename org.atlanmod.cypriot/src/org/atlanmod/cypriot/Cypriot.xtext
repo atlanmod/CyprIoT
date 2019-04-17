@@ -185,7 +185,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject) (conditions=Conditions)?
+	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject)  (conditions=Conditions)?
 ;
 
 Conditions:
@@ -203,7 +203,7 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject] (currentState?='.currentState=' | nextState?='.nextState=' ) subjectState=[thingml::State]
+	attribute=[SubjectAndObject] ((currentState?='.currentState=' | nextState?='.nextState=')? subjectState=[thingml::State] | '.' subjectProperty=[thingml::Property] '=' propertyEqual=STRING) 
 ;
 
 SubjectAndObject:

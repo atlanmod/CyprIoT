@@ -6,8 +6,7 @@ import "things.cy"
 //Smarthome Network Configuration
 network SmarthomeNetwork {
 	// Domain of the network
-	domain fr.nantes.sarahSmarthome
-	
+	domain fr.nantes.smarthome	
 	// Enforcing all policies
 	enforce CityPolicy, HomePolicy, ManufacturerPolicy override-deny
 

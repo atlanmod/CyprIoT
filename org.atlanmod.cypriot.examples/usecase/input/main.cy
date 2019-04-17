@@ -46,10 +46,10 @@ channel:ptp CoAPFireFighter {
 }
 
 policy myPolicy {
-	rule Gateway deny:receive AirConditionnner when Gateway.currentState=idle and AirConditionnner.currentState=workAC
-	rule bob allow:send org.atlanmod 
-	rule AirConditionnner allow:send Gateway
-	
+	rule Gateway deny:receive AirConditionnner when Gateway.currentState=idle and AirConditionnner.nextState=workAC
+	rule bob allow:send org.atlanmod
+	rule AirConditionnner allow:send Gateway when AirConditionnner.currentState=idleAC
+	rule TemperatureSensor trigger:goToState AirConditionnner  when AirConditionnner.^model="Brand"
 }
 
 network smartHomeCfg {

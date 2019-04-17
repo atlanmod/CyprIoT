@@ -46,6 +46,7 @@ import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.helpers.CompositeStateHelper;
 import org.thingml.xtext.thingML.CompositeState;
 import org.thingml.xtext.thingML.Port;
+import org.thingml.xtext.thingML.Property;
 import org.thingml.xtext.thingML.State;
 import org.thingml.xtext.thingML.ThingMLModel; 
 
@@ -296,6 +297,23 @@ public class Helpers {
 			ArrayList<State> states = new ArrayList<State>(CompositeStateHelper.allContainedStatesExludingSessions(compositeState));
 			for (State state : states) {
 				result.add(state);
+			}
+		}
+		return result; 
+	}
+	
+	public static ArrayList<Property> allPropertiesThingML(Thing thing) {
+		ThingMLModel thingmlModel = null;
+		ArrayList<Property> result = new ArrayList<Property>();
+		try {
+			thingmlModel = getThingInThingML(thing);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(thingmlModel!=null) {
+			ArrayList<Property> properties = ThingMLHelpers.allProperties(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+			for (Property property : properties) {
+				result.add(property);
 			}
 		}
 		return result; 
