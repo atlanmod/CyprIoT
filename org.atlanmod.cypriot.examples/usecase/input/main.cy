@@ -47,8 +47,10 @@ channel:ptp CoAPFireFighter {
 
 policy myPolicy {
 	rule Gateway deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC
-	rule bob allow:send org.atlanmod.smarthome
-	rule AirConditionnner allow:send Gateway when AirConditionnner->currentState:idleAC
+	rule bob deny:send org.atlanmod.smarthome
+	rule Heater deny:receive org.atlanmod.smarthome.emergency
+	rule LightSwitch->port:CommunicatingLightStatePort deny:send org.atlanmod.smarthome
+	rule AirConditionnner->port:ReceivingTemperaturePort allow:send Gateway->port:ReceivingTemperaturePort when AirConditionnner->currentState:idleAC
 	rule TemperatureSensor trigger:goToState AirConditionnner->state:idleAC  
 		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
 	// Any thing of type Heater is allowed to receive from the instance interface when its current State is work

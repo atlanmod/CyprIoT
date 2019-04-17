@@ -237,6 +237,7 @@ enum RuleEffect :
 enum RuleAction:
 	send='send' | 
 	receive='receive' |
+	sendreceive='send-receive' |
 	performTransition='performTransition' | 
 	goToState='goToState' | 
 	executeFunction='executeFunction' |
@@ -249,7 +250,7 @@ RuleSubject:
 ;
 
 RuleObject:
-	Thing | Role | User | Instance | Channel | Topic | ConnectionPoint
+	Thing | Role | User | Instance | PubSub | PointToPoint | Topic | ConnectionPoint
 ;
 
 /*
