@@ -185,7 +185,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] | domainObject=DomainObject)  (conditions=Conditions)?
+	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] ('.state=' subjectState=[thingml::State])? | domainObject=DomainObject)  (conditions=Conditions)?
 ;
 
 Conditions:

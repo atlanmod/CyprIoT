@@ -2,7 +2,7 @@ import "includes/messages.thingml"
 
 
 thing AirConditioner includes tempMsgs {
-	property model : String = "CarrierBrand"
+	property modelAC : String = "CarrierBrand"
 	required port ReceivingTemperaturePort {
 		receives temperatureMessage
 	}
