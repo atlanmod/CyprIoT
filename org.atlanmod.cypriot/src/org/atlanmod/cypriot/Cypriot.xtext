@@ -245,11 +245,11 @@ enum RuleAction:
 ;
 
 RuleSubject:
-	Thing | Role | User
+	Thing | Role | User | Instance
 ;
 
 RuleObject:
-	Thing | Role | User | Channel | Topic | ConnectionPoint
+	Thing | Role | User | Instance | Channel | Topic | ConnectionPoint
 ;
 
 /*

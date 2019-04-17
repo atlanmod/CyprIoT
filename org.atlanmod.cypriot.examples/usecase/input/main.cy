@@ -51,6 +51,7 @@ policy myPolicy {
 	rule AirConditionnner allow:send Gateway when AirConditionnner->currentState=idleAC
 	rule TemperatureSensor trigger:goToState AirConditionnner->state=idleAC  
 		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
+	rule heater allow:receive interface
 }
 
 network smartHomeCfg {
