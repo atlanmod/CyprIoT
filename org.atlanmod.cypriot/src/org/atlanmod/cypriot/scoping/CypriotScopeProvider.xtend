@@ -68,6 +68,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.rule_SubjectState) {
 			return Scopes.scopeFor(Helpers.allStatesThingML(((context as Rule).ruleObject as Thing)))
+		} else if (reference == cypriotInstance.rule_ThingSubjectPort) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleSubject as Thing)))
+		} else if (reference == cypriotInstance.rule_ThingObjectPort) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleObject as Thing)))
 		} else if (reference == cypriotInstance.networkBridge_BindSubject) {
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bind_PortToBind) {

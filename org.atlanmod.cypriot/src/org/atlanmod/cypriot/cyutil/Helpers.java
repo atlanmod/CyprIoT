@@ -274,16 +274,21 @@ public class Helpers {
 	
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
 		ThingMLModel thingmlModel = null;
-		ArrayList<Port> result = new ArrayList<Port>();
-		try {
-			thingmlModel = getThingMLFromURI(bind.getBindsInstanceThing());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		Thing thingToInstanciate = (bind.getBindsInstanceThing().getThingToInstantiate());
+		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result; 
+	}
+
+	/**
+	 * @param thingToInstanciate
+	 * @return
+	 */
+	public static ArrayList<Port> getAllPortsThing(Thing thingToInstanciate) {
+		ThingMLModel thingmlModel;
+		ArrayList<Port> result = new ArrayList<Port>();
+		thingmlModel = getThingInThingML(thingToInstanciate);
+		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		return result;
 	}
 	
 	public static ArrayList<State> allStatesThingML(Thing thing) {

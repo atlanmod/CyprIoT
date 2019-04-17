@@ -185,7 +185,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] ('->' 'state=' subjectState=[thingml::State])? | domainObject=DomainObject)  
+	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ('->' 'port:' thingSubjectPort=[thingml::Port])? ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] ('->' 'port:' thingObjectPort=[thingml::Port])? ('->' 'state:' subjectState=[thingml::State])? | domainObject=DomainObject)  
 		(conditions=Conditions)?
 ;
 
@@ -204,7 +204,7 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject] ((currentState?='->' 'currentState=' | nextState?='->' 'nextState=')? subjectState=[thingml::State] | ( '->' 'property:' subjectProperty=[thingml::Property] | '->' 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING) 
+	attribute=[SubjectAndObject] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING) 
 ;
 
 ThingFeature:

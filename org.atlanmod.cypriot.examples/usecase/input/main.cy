@@ -46,18 +46,22 @@ channel:ptp CoAPFireFighter {
 }
 
 policy myPolicy {
-	rule Gateway deny:receive AirConditionnner when Gateway->currentState=idle and AirConditionnner->nextState=workAC
+	rule Gateway deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC
 	rule bob allow:send org.atlanmod.smarthome
-	rule AirConditionnner allow:send Gateway when AirConditionnner->currentState=idleAC
-	rule TemperatureSensor trigger:goToState AirConditionnner->state=idleAC  
+	rule AirConditionnner allow:send Gateway when AirConditionnner->currentState:idleAC
+	rule TemperatureSensor trigger:goToState AirConditionnner->state:idleAC  
 		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
-	rule heater allow:receive interface
+	// Any thing of type Heater is allowed to receive from the instance interface when its current State is work
+	rule Heater allow:receive interface when Heater->currentState:work
+	rule AirConditionnner->port:ReceivingTemperaturePort bridge:from manufacturerPoint
+	rule TemperatureSensor->port:SendingTemperaturePort bridge:to AirConditionnner->port:ReceivingTemperaturePort
 }
 
 network smartHomeCfg {
 	
 	// Identifying the nerwork
 	domain org.atlanmod.smarthome
+	
 	enforce myPolicy override-deny
 	// Declaration of the gateway
 	instance gateway:Gateway platform PYTHON
