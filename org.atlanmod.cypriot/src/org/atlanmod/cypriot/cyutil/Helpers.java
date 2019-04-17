@@ -45,6 +45,7 @@ import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.helpers.CompositeStateHelper;
 import org.thingml.xtext.thingML.CompositeState;
+import org.thingml.xtext.thingML.Message;
 import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.Property;
 import org.thingml.xtext.thingML.State;
@@ -314,6 +315,23 @@ public class Helpers {
 			ArrayList<Property> properties = ThingMLHelpers.allProperties(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
 			for (Property property : properties) {
 				result.add(property);
+			}
+		}
+		return result; 
+	}
+	
+	public static ArrayList<Message> allMessagesThingML(Thing thing) {
+		ThingMLModel thingmlModel = null;
+		ArrayList<Message> result = new ArrayList<Message>();
+		try {
+			thingmlModel = getThingInThingML(thing);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(thingmlModel!=null) {
+			ArrayList<Message> messages = ThingMLHelpers.allMessages(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+			for (Message message : messages) {
+				result.add(message);
 			}
 		}
 		return result; 

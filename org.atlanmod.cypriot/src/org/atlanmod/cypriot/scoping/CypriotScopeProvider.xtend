@@ -75,6 +75,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
 			return Scopes.scopeFor(Helpers.allPropertiesThingML(((context as ExpressionAttribute).attribute as Thing)))
+		} else if (reference == cypriotInstance.expressionAttribute_SubjectMessage) {
+			return Scopes.scopeFor(Helpers.allMessagesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

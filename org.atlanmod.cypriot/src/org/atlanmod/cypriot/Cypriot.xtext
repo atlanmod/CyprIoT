@@ -203,7 +203,11 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject] ((currentState?='.currentState=' | nextState?='.nextState=')? subjectState=[thingml::State] | '.' subjectProperty=[thingml::Property] '=' propertyEqual=STRING) 
+	attribute=[SubjectAndObject] ((currentState?='.currentState=' | nextState?='.nextState=')? subjectState=[thingml::State] | ( '.property:' subjectProperty=[thingml::Property] | '.message:' subjectMessage=[thingml::Message]) '=' subjectContentEqual=STRING) 
+;
+
+ThingFeature:
+	RuleSubject | RuleObject
 ;
 
 SubjectAndObject:

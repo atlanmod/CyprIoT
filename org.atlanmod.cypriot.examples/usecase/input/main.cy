@@ -49,7 +49,7 @@ policy myPolicy {
 	rule Gateway deny:receive AirConditionnner when Gateway.currentState=idle and AirConditionnner.nextState=workAC
 	rule bob allow:send org.atlanmod
 	rule AirConditionnner allow:send Gateway when AirConditionnner.currentState=idleAC
-	rule TemperatureSensor trigger:goToState AirConditionnner  when AirConditionnner.^model="Brand"
+	rule TemperatureSensor trigger:goToState AirConditionnner  when AirConditionnner.message:telemetryMessage="ok"
 }
 
 network smartHomeCfg {
