@@ -20,6 +20,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.atlanmod.cypriot.cyprIoT.ExpressionAttribute
 import org.atlanmod.cypriot.cyprIoT.Thing
+import org.thingml.xtext.thingML.Message
 
 /**
  * This class contains custom scoping description.
@@ -79,6 +80,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allPropertiesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else if (reference == cypriotInstance.expressionAttribute_SubjectMessage) {
 			return Scopes.scopeFor(Helpers.allMessagesThingML(((context as ExpressionAttribute).attribute as Thing)))
+		} else if (reference == cypriotInstance.expressionAttribute_ParameterMessage) {
+			return Scopes.scopeFor(Helpers.allMessageParametersThingML(((context as ExpressionAttribute).subjectMessage as Message)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

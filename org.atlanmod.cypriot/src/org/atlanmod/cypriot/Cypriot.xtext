@@ -204,7 +204,7 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject] ((currentState?='->' 'currentState=' | nextState?='->' 'nextState=')? subjectState=[thingml::State] | ( '->' 'property:' subjectProperty=[thingml::Property] | '->' 'message:' subjectMessage=[thingml::Message]) '=' subjectContentEqual=STRING) 
+	attribute=[SubjectAndObject] ((currentState?='->' 'currentState=' | nextState?='->' 'nextState=')? subjectState=[thingml::State] | ( '->' 'property:' subjectProperty=[thingml::Property] | '->' 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING) 
 ;
 
 ThingFeature:

@@ -50,7 +50,7 @@ policy myPolicy {
 	rule bob allow:send org.atlanmod.smarthome
 	rule AirConditionnner allow:send Gateway when AirConditionnner->currentState=idleAC
 	rule TemperatureSensor trigger:goToState AirConditionnner->state=idleAC  
-		when AirConditionnner->message:telemetryMessage="ok" and AirConditionnner->property:modelAC="Brand"
+		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
 }
 
 network smartHomeCfg {
