@@ -168,10 +168,10 @@ Policy:
 
 Rule:
 	'rule' (name=ID ':')? ruleSubject=RuleSubject ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=RuleSubject | domainObject=DomainObject)  
-		(conditions=Conditions)?
+		//(conditions=Conditions)?
 ;
 
-Conditions:
+/*Conditions:
 	'when' conditionExpression=ConditionsExpression
 ;
 
@@ -191,7 +191,7 @@ ExpressionAttribute:
 
 SubjectAndObject:
 	RuleSubject | RuleObject
-;
+;*/
 
 DomainId:
 	ValidID (=>'.' ValidID)+
@@ -220,7 +220,19 @@ enum RuleAction:
 ;
 
 RuleSubject:
-	ThingSubject /*| role=[Role] | user=[User] | instance=[Instance]*/
+	ThingSubject | RoleSubject | UserSubject | InstanceSubject
+;
+
+InstanceSubject:
+	instanceSubject=[Instance]
+;
+
+UserSubject:
+	userSubject=[User]
+;
+
+RoleSubject:
+	roleSubject=[Role]
 ;
 
 ThingSubject:
