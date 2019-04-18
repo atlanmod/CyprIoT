@@ -21,6 +21,7 @@ import org.eclipse.xtext.scoping.Scopes
 import org.atlanmod.cypriot.cyprIoT.ExpressionAttribute
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.thingml.xtext.thingML.Message
+import org.atlanmod.cypriot.cyprIoT.ThingSubject
 
 /**
  * This class contains custom scoping description.
@@ -58,29 +59,29 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance));
 		} else if (reference == cypriotInstance.policiesEnforcement_PolicyName) {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.rule_RuleSubject) {
+		} else if (reference == cypriotInstance.thingSubject_ThingSubject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Thing)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.rule_RuleObject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.rule_SubjectState) {
-			return Scopes.scopeFor(Helpers.allStatesThingML(((context as Rule).ruleObject as Thing)))
-		} else if (reference == cypriotInstance.rule_ThingSubjectPort) {
-			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleSubject as Thing)))
-		} else if (reference == cypriotInstance.rule_ThingObjectPort) {
+		} else if (reference == cypriotInstance.thingSubject_ThingSubjectState) {
+			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ThingSubject).thingSubject as Thing)))
+		} else if (reference == cypriotInstance.thingSubject_ThingSubjectPort) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubject).thingSubject as Thing)))
+		} /*else if (reference == cypriotInstance.rule_ThingObjectPort) {
 			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleObject as Thing)))
-		} else if (reference == cypriotInstance.networkBridge_BindSubject) {
+		} */else if (reference == cypriotInstance.networkBridge_BindSubject) {
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
 		} else if (reference == cypriotInstance.expressionAttribute_Attribute) {
 			return Scopes.scopeFor(Helpers.allSubjectConditions(Helpers.findContainer(context, Rule) as Rule))
-		} else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
+		} /*else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
 			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ExpressionAttribute).attribute as Thing)))
-		} else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
+		} */else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
 			return Scopes.scopeFor(Helpers.allPropertiesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else if (reference == cypriotInstance.expressionAttribute_SubjectMessage) {
 			return Scopes.scopeFor(Helpers.allMessagesThingML(((context as ExpressionAttribute).attribute as Thing)))

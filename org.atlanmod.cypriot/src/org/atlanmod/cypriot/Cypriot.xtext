@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind | ChannelProperty | NetworkProperty |  Policy | ToBindPTP | ToBindPubSub | Rule |
+	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule |
 	";" name=ID
 ;
 
@@ -37,19 +37,6 @@ Thing:
 	'thing' name=ID 
 		('assigned' assignedRoles+=[Role|ID] ( "," assignedRoles+=[Role])*)?
 		'import' importPath=STRING
-		(model=Model)?
-;
-
-Model:
-	'model' modelFile=[thingml::Thing]
-;
-
-NetworkProperty:
-	'property' name=ID '=' propertyValue=STRING
-;
-
-ChannelProperty:
-	'property' name=ID '=' propertyValue=STRING
 ;
 
 // Dynamicity of the configuration
@@ -69,8 +56,7 @@ Network:
 	'network' name=ID '{'
 		domain=Domain
 		(hasPolicyEnforcement=PoliciesEnforcement)?
-		(hasNetworkProperty+=NetworkProperty |
-		instantiate+=Instance |
+		(instantiate+=Instance |
 		hasBinds+=Bind |
 		hasNetworkBridges+=NetworkBridge
 		)*
@@ -117,9 +103,7 @@ enum PTPProtocol:
 
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(	hasChannelProperties+=ChannelProperty |
-			hasConnectionPoints +=ConnectionPoint
-		)*
+		(hasConnectionPoints +=ConnectionPoint)*
 	'}'
 ;
 
@@ -133,9 +117,7 @@ ConnectionPoint:
 
 PubSub:
 	'channel:pubsub' name=ID '{'
-		(	hasChannelProperties+=ChannelProperty |
-			hasTopics +=Topic
-		)*
+		(hasTopics +=Topic)*
 	'}'
 ;
 
@@ -185,7 +167,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=[RuleSubject] ('->' 'port:' thingSubjectPort=[thingml::Port])? ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=[RuleSubject] ('->' 'port:' thingObjectPort=[thingml::Port])? ('->' 'state:' subjectState=[thingml::State])? | domainObject=DomainObject)  
+	'rule' (name=ID ':')? ruleSubject=RuleSubject ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=RuleSubject | domainObject=DomainObject)  
 		(conditions=Conditions)?
 ;
 
@@ -204,19 +186,11 @@ AndExpression returns Expression:
 ;
 
 ExpressionAttribute:
-	attribute=[SubjectAndObject] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING) 
-;
-
-ThingFeature:
-	RuleSubject | RuleObject
+	attribute=[SubjectAndObject] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING)
 ;
 
 SubjectAndObject:
 	RuleSubject | RuleObject
-;
-
-ConditionExpression:
-	conditionExpression=DomainObject /* | conditionExpression=[RuleObject] */
 ;
 
 DomainId:
@@ -246,7 +220,11 @@ enum RuleAction:
 ;
 
 RuleSubject:
-	Thing | Role | User | Instance
+	ThingSubject /*| role=[Role] | user=[User] | instance=[Instance]*/
+;
+
+ThingSubject:
+	thingSubject=[Thing] '->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State] )?
 ;
 
 RuleObject:
