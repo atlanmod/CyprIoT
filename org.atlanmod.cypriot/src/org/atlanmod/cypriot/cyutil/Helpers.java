@@ -217,6 +217,21 @@ public class Helpers {
 		return result;
 	}
 	
+//	public static ArrayList<ThingSubjectAny> allThingSubject(CyprIoTModel cypriotModel) {
+//		ArrayList<ThingSubjectAny> result = new ArrayList<ThingSubjectAny>();
+//		
+//		
+//		for (Network network : cypriotModel.getSpecifyNetworks()) {
+//			for (Instance instance : network.getInstantiate()) {
+//				//System.out.println("thingins : "+ ((InstanceThing) instance).getName());
+//				if (instance instanceof InstanceThing)
+//					result.add((InstanceThing) instance);
+//			}
+//		}
+//		result.addAll(cypriotModel.getDeclareThings());
+//		return result;
+//	}
+//	
 	/*public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
 		ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
 		

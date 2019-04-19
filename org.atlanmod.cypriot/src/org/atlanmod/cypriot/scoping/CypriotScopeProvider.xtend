@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.InstanceThing
 
 /**
  * This class contains custom scoping description.
@@ -68,7 +69,12 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.thingSubject_ThingSubjectState) {
 			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ThingSubject).thingSubject as Thing)))
 		} else if (reference == cypriotInstance.thingSubject_ThingSubjectPort) {
-			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubject).thingSubject as Thing)))
+			if(((context as ThingSubject).thingSubject instanceof Thing)) {
+				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubject).thingSubject as Thing)))
+			} else {
+				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubject).thingSubject as InstanceThing).thingToInstantiate))
+			}
+			
 		} /*else if (reference == cypriotInstance.rule_ThingObjectPort) {
 			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleObject as Thing)))
 		} */else if (reference == cypriotInstance.networkBridge_BindSubject) {

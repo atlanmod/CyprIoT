@@ -233,7 +233,7 @@ RoleSubject:
 ;
 
 ThingSubject:
-	thingSubject=[InstanceThing] '->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State] )?
+	thingSubject=[ThingSubjectAny] ('->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State])) ?
 ;
 
 ThingSubjectAny:
