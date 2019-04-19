@@ -10,6 +10,7 @@ import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.RuleSubject
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ThingSubject
+import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyutil.Helpers
@@ -19,8 +20,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny
-import org.atlanmod.cypriot.cyprIoT.InstanceThing
 
 /**
  * This class contains custom scoping description.
