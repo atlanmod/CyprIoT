@@ -44,6 +44,7 @@ Thing:
 PoliciesEnforcement :
 	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])* combiningAlgo=CombiningAlgo
 ;
+
 enum CombiningAlgo:
 	DENY='override-deny' | 
 	ALLOW='override-allow'
@@ -80,6 +81,34 @@ InstancePTP :
 	'instance' name=ID ':' ptPToInstantiate=[PointToPoint]    'platform'  targetedPlatform=PTPProtocol
 ;
 
+Channel:
+	PubSub | PointToPoint
+;
+
+PubSub:
+	'channel:pubsub' name=ID '{'
+		(hasTopics +=Topic)*
+	'}'
+;
+
+Topic:
+	'topic'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
+;
+
+PointToPoint:
+	'channel:ptp' name=ID '{'
+		(hasConnectionPoints +=ConnectionPoint)*
+	'}'
+;
+
+ConnectionPoint:
+	'ConnectionPoint'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*
+;
+
+Bind:
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
+;
+
 enum Platform:
 	POSIX='CPOSIX' | 
 	JAVA='JAVA' |
@@ -99,34 +128,6 @@ enum PTPProtocol:
 	UPNP='UPNP' |
 	ZIGBEE='ZIGBEE' |
 	ZWAVE='ZWAVE'
-;
-
-PointToPoint:
-	'channel:ptp' name=ID '{'
-		(hasConnectionPoints +=ConnectionPoint)*
-	'}'
-;
-
-Channel:
-	PubSub | PointToPoint
-;
-
-ConnectionPoint:
-	'ConnectionPoint'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*
-;
-
-PubSub:
-	'channel:pubsub' name=ID '{'
-		(hasTopics +=Topic)*
-	'}'
-;
-
-Topic:
-	'topic'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
-;
-
-Bind:
-	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing]("." portToBind=[thingml::Port])? bindAction=BindAction channelToBind=ChannelToBind
 ;
 
 enum BindAction:
@@ -220,11 +221,7 @@ enum RuleAction:
 ;
 
 RuleSubject:
-	ThingSubject | RoleSubject | UserSubject | InstanceSubject
-;
-
-InstanceSubject:
-	instanceSubject=[Instance]
+	ThingSubject /*| RoleSubject | UserSubject */
 ;
 
 UserSubject:
@@ -236,7 +233,11 @@ RoleSubject:
 ;
 
 ThingSubject:
-	thingSubject=[Thing] '->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State] )?
+	thingSubject=[InstanceThing] '->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State] )?
+;
+
+ThingSubjectAny:
+	InstanceThing | Thing
 ;
 
 RuleObject:

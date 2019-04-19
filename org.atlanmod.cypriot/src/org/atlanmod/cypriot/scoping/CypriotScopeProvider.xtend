@@ -7,8 +7,9 @@ import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleSubject
+import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.ThingSubject
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyutil.Helpers
@@ -18,10 +19,8 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.ExpressionAttribute
-import org.atlanmod.cypriot.cyprIoT.Thing
-import org.thingml.xtext.thingML.Message
-import org.atlanmod.cypriot.cyprIoT.ThingSubject
+import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny
+import org.atlanmod.cypriot.cyprIoT.InstanceThing
 
 /**
  * This class contains custom scoping description.
@@ -61,7 +60,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.thingSubject_ThingSubject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Thing)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingSubjectAny)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.rule_RuleObject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
@@ -77,17 +76,17 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
-		} else if (reference == cypriotInstance.expressionAttribute_Attribute) {
+		} /*else if (reference == cypriotInstance.expressionAttribute_Attribute) {
 			return Scopes.scopeFor(Helpers.allSubjectConditions(Helpers.findContainer(context, Rule) as Rule))
-		} /*else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
+		} else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
 			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ExpressionAttribute).attribute as Thing)))
-		} */else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
+		} else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
 			return Scopes.scopeFor(Helpers.allPropertiesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else if (reference == cypriotInstance.expressionAttribute_SubjectMessage) {
 			return Scopes.scopeFor(Helpers.allMessagesThingML(((context as ExpressionAttribute).attribute as Thing)))
 		} else if (reference == cypriotInstance.expressionAttribute_ParameterMessage) {
 			return Scopes.scopeFor(Helpers.allMessageParametersThingML(((context as ExpressionAttribute).subjectMessage as Message)))
-		} else {
+		} */else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
 		}

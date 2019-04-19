@@ -8,7 +8,6 @@
 package org.atlanmod.cypriot.cyutil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +27,9 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.cyprIoT.Rule;
 import org.atlanmod.cypriot.cyprIoT.RuleSubject;
-import org.atlanmod.cypriot.cyprIoT.SubjectAndObject;
 import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.URI;
@@ -219,7 +217,22 @@ public class Helpers {
 		return result;
 	}
 	
-	public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
+	public static ArrayList<ThingSubjectAny> allThingSubject(CyprIoTModel cypriotModel) {
+		ArrayList<ThingSubjectAny> result = new ArrayList<ThingSubjectAny>();
+		
+		
+		for (Network network : cypriotModel.getSpecifyNetworks()) {
+			for (Instance instance : network.getInstantiate()) {
+				//System.out.println("thingins : "+ ((InstanceThing) instance).getName());
+				if (instance instanceof InstanceThing)
+					result.add((InstanceThing) instance);
+			}
+		}
+		result.addAll(cypriotModel.getDeclareThings());
+		return result;
+	}
+	
+	/*public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
 		ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
 		
 		if(rule.getRuleObject()!=null) {
@@ -227,7 +240,7 @@ public class Helpers {
 		}
 		result.add(rule.getRuleSubject());
 		return result;
-	}
+	}*/
 	
 
 	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {

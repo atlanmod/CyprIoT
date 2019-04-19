@@ -45,23 +45,6 @@ channel:ptp CoAPFireFighter {
 	ConnectionPoint alert
 }
 
-policy myPolicy {
-	rule Gateway->port:ReceivingTemperaturePort deny:send AirConditionnner->port:ReceivingTemperaturePort
-	rule AirConditionnner->state:idleAC deny:receive Gateway->state:idle
-//	rule Gateway->port:ReceivingTemperaturePort deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC
-//	rule bob deny:send org.atlanmod.smarthome
-//	rule Heater deny:send-receive org.atlanmod.smarthome.emergency
-//	
-//	rule LightSwitch->port:CommunicatingLightStatePort deny:send org.atlanmod.smarthome
-//	rule AirConditionnner->port:ReceivingTemperaturePort allow:send Gateway->port:ReceivingTemperaturePort when AirConditionnner->currentState:idleAC
-//	rule TemperatureSensor trigger:goToState AirConditionnner->state:idleAC  
-//		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
-//	// Any thing of type Heater is allowed to receive from the instance interface when its current State is work
-//	rule Heater allow:receive interface when Heater->currentState:work
-//	rule AirConditionnner->port:ReceivingTemperaturePort bridge:from manufacturerPoint
-//	rule TemperatureSensor->port:SendingTemperaturePort bridge:to AirConditionnner->port:ReceivingTemperaturePort
-}
-
 network smartHomeCfg {
 	
 	// Identifying the nerwork
@@ -104,4 +87,22 @@ network emergency {
 	
 	// Binding the smokeSensor to the firefighter point
 	bind smokeSensor.sendingEmergencyPort => coapFirefighter.alert
+}
+
+policy myPolicy {
+	rule 
+//	rule Gateway->port:ReceivingTemperaturePort deny:send AirConditionnner->port:ReceivingTemperaturePort
+//	rule AirConditionnner->state:idleAC deny:receive Gateway->state:idle
+//	rule Gateway->port:ReceivingTemperaturePort deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC
+//	rule bob deny:send org.atlanmod.smarthome
+//	rule Heater deny:send-receive org.atlanmod.smarthome.emergency
+//	
+//	rule LightSwitch->port:CommunicatingLightStatePort deny:send org.atlanmod.smarthome
+//	rule AirConditionnner->port:ReceivingTemperaturePort allow:send Gateway->port:ReceivingTemperaturePort when AirConditionnner->currentState:idleAC
+//	rule TemperatureSensor trigger:goToState AirConditionnner->state:idleAC  
+//		when AirConditionnner->message:telemetryMessage.power="12" and AirConditionnner->property:modelAC="Brand"
+//	// Any thing of type Heater is allowed to receive from the instance interface when its current State is work
+//	rule Heater allow:receive interface when Heater->currentState:work
+//	rule AirConditionnner->port:ReceivingTemperaturePort bridge:from manufacturerPoint
+//	rule TemperatureSensor->port:SendingTemperaturePort bridge:to AirConditionnner->port:ReceivingTemperaturePort
 }
