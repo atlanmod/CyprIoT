@@ -29,7 +29,6 @@ import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.RuleSubject;
 import org.atlanmod.cypriot.cyprIoT.Thing;
-import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.URI;
@@ -48,7 +47,7 @@ import org.thingml.xtext.thingML.Parameter;
 import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.Property;
 import org.thingml.xtext.thingML.State;
-import org.thingml.xtext.thingML.ThingMLModel; 
+import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Helpers {
 
@@ -87,10 +86,11 @@ public class Helpers {
 	public static PubSub findContainingPubSub(EObject object) {
 		return findContainer(object, PubSub.class);
 	}
+
 	public static Bind findContainingBind(EObject object) {
 		return findContainer(object, Bind.class);
 	}
-	
+
 	public static RuleSubject findContainingRuleSubject(EObject object) {
 		return findContainer(object, RuleSubject.class);
 	}
@@ -216,7 +216,36 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
+	public static ArrayList<InstanceThing> allInstanceThingsOwnedByUser(User user) {
+		CyprIoTModel cyprIoTModel = (CyprIoTModel) user.eContainer();
+		ArrayList<InstanceThing> result = new ArrayList<InstanceThing>();
+		List<Network> networks = cyprIoTModel.getSpecifyNetworks();
+		for (Network network : networks) {
+			List<Instance> instances = network.getInstantiate();
+			for (Instance instance : instances) {
+				if (instance instanceof InstanceThing) {
+					if (((InstanceThing) instance).getOwner().getName().equals(user.getName())) {
+						result.add((InstanceThing) instance);
+					}
+				}
+			}
+
+		}
+		return result;
+	}
+
+	public static ArrayList<User> allUsersAssignedRole(Role role) {
+		CyprIoTModel cyprIoTModel = (CyprIoTModel) role.eContainer();
+		ArrayList<User> result = new ArrayList<User>();
+		List<User> users = cyprIoTModel.getDeclareUsers();
+		for (User user : users) {
+					if (user.getAssignedRoles().contains(role)) {
+						result.add(user);
+					}
+
+		return result;
+	}
 //	public static ArrayList<ThingSubjectAny> allThingSubject(CyprIoTModel cypriotModel) {
 //		ArrayList<ThingSubjectAny> result = new ArrayList<ThingSubjectAny>();
 //		
@@ -232,16 +261,13 @@ public class Helpers {
 //		return result;
 //	}
 //	
-	/*public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
-		ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
-		
-		if(rule.getRuleObject()!=null) {
-			result.add(rule.getRuleObject());
-		}
-		result.add(rule.getRuleSubject());
-		return result;
-	}*/
-	
+	/*
+	 * public static ArrayList<SubjectAndObject> allSubjectConditions(Rule rule) {
+	 * ArrayList<SubjectAndObject> result = new ArrayList<SubjectAndObject>();
+	 * 
+	 * if(rule.getRuleObject()!=null) { result.add(rule.getRuleObject()); }
+	 * result.add(rule.getRuleSubject()); return result; }
+	 */
 
 	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {
 		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
@@ -274,7 +300,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
 	public static ArrayList<User> allUsers(CyprIoTModel model) {
 		ArrayList<User> result = new ArrayList<User>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
@@ -284,12 +310,12 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
 		ThingMLModel thingmlModel = null;
 		Thing thingToInstanciate = (bind.getBindsInstanceThing().getThingToInstantiate());
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
-		return result; 
+		return result;
 	}
 
 	/**
@@ -300,10 +326,11 @@ public class Helpers {
 		ThingMLModel thingmlModel;
 		ArrayList<Port> result = new ArrayList<Port>();
 		thingmlModel = getThingInThingML(thingToInstanciate);
-		if(thingmlModel!=null) result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+		if (thingmlModel != null)
+			result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
 		return result;
 	}
-	
+
 	public static ArrayList<State> allStatesThingML(Thing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<State> result = new ArrayList<State>();
@@ -312,16 +339,18 @@ public class Helpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(thingmlModel!=null) {
-			CompositeState compositeState = ThingMLHelpers.allStateMachines((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)).get(0);
-			ArrayList<State> states = new ArrayList<State>(CompositeStateHelper.allContainedStatesExludingSessions(compositeState));
+		if (thingmlModel != null) {
+			CompositeState compositeState = ThingMLHelpers
+					.allStateMachines((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)).get(0);
+			ArrayList<State> states = new ArrayList<State>(
+					CompositeStateHelper.allContainedStatesExludingSessions(compositeState));
 			for (State state : states) {
 				result.add(state);
 			}
 		}
-		return result; 
+		return result;
 	}
-	
+
 	public static ArrayList<Property> allPropertiesThingML(Thing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Property> result = new ArrayList<Property>();
@@ -330,15 +359,16 @@ public class Helpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(thingmlModel!=null) {
-			ArrayList<Property> properties = ThingMLHelpers.allProperties(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+		if (thingmlModel != null) {
+			ArrayList<Property> properties = ThingMLHelpers
+					.allProperties(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
 			for (Property property : properties) {
 				result.add(property);
 			}
 		}
-		return result; 
+		return result;
 	}
-	
+
 	public static ArrayList<Message> allMessagesThingML(Thing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Message> result = new ArrayList<Message>();
@@ -347,36 +377,39 @@ public class Helpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(thingmlModel!=null) {
-			ArrayList<Message> messages = ThingMLHelpers.allMessages(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+		if (thingmlModel != null) {
+			ArrayList<Message> messages = ThingMLHelpers
+					.allMessages(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
 			for (Message message : messages) {
 				result.add(message);
 			}
 		}
-		return result; 
+		return result;
 	}
-	
+
 	public static ArrayList<Parameter> allMessageParametersThingML(Message message) {
 		ArrayList<Parameter> result = new ArrayList<Parameter>();
-		if(message!=null) {
+		if (message != null) {
 			for (Parameter parameter : message.getParameters()) {
 				result.add(parameter);
 			}
 		}
-		return result; 
+		return result;
 	}
-	
+
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
 		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
 		Thing thingToInstantiate = instanceThing.getThingToInstantiate();
 		return getThingInThingML(thingToInstantiate);
 	}
-	
+
 	public static ThingMLModel getThingInThingML(Thing thing) {
 		URI new_uri = URI.createFileURI(thing.getImportPath());
 		ThingMLStandaloneSetup.doSetup();
-		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new ThingMLFactoryImpl());
-		//Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml", new ThingMLFactoryImpl());
+		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new
+		// ThingMLFactoryImpl());
+		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml",
+		// new ThingMLFactoryImpl());
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(thing.eResource().getURI());
 		}
@@ -394,6 +427,7 @@ public class Helpers {
 		}
 		return null;
 	}
+
 	/**
 	 * Load the EMF graph of the model from a File
 	 * 
@@ -425,7 +459,7 @@ public class Helpers {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Utility function to check if a file exist in the given path
 	 * 
@@ -435,7 +469,6 @@ public class Helpers {
 	public static boolean isFileExists(File file) {
 		return file.exists() && !file.isDirectory();
 	}
-	
 
 	/**
 	 * Check if there are errors and warning inside an EMF resource
@@ -451,7 +484,7 @@ public class Helpers {
 		}
 		return noErrors;
 	}
-	
+
 	/**
 	 * Create a Xtext resource from a file
 	 * 
@@ -464,6 +497,5 @@ public class Helpers {
 		ResourceSet rs = new ResourceSetImpl();
 		return rs.createResource(xmiuri);
 	}
-
 
 }

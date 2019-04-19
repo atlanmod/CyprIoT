@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule |
+	Bind |  Policy | RuleSubject | ToBindPTP | ToBindPubSub | Rule |
 	";" name=ID
 ;
 
@@ -35,7 +35,7 @@ User :
 
 Thing:
 	'thing' name=ID 
-		('assigned' assignedRoles+=[Role|ID] ( "," assignedRoles+=[Role])*)?
+		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 		'import' importPath=STRING
 ;
 
@@ -168,8 +168,20 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=RuleSubject ruleEffectAction=RuleEffectAction (ruleObject=RuleSubject | domainObject=DomainObject)  
+	'rule' (name=ID ':')? (ruleSubject=ThingSubject | roleSubject=[Role] | userSubject=[User]) ruleEffectAction=RuleEffectAction (ruleObject=RuleSubject | domainObject=DomainObject)  
 		//(conditions=Conditions)?
+;
+
+ThingSubject:
+	thingSubject=[ThingSubjectAny] ('->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State])) ?
+;
+
+ThingSubjectAny:
+	InstanceThing | Thing
+;
+
+RuleObject:
+	Thing | Role | User | Instance | PubSub | PointToPoint | Topic | ConnectionPoint
 ;
 
 /*Conditions:
@@ -235,30 +247,6 @@ enum ActionTrigger:
 	performTransition='performTransition' | 
 	goToState='goToState' | 
 	executeFunction='executeFunction'
-;
-
-RuleSubject:
-	ThingSubject /*| RoleSubject | UserSubject */
-;
-
-UserSubject:
-	userSubject=[User]
-;
-
-RoleSubject:
-	roleSubject=[Role]
-;
-
-ThingSubject:
-	thingSubject=[ThingSubjectAny] ('->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State])) ?
-;
-
-ThingSubjectAny:
-	InstanceThing | Thing
-;
-
-RuleObject:
-	Thing | Role | User | Instance | PubSub | PointToPoint | Topic | ConnectionPoint
 ;
 
 /*

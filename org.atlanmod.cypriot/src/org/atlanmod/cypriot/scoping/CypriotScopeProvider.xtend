@@ -21,6 +21,7 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
+import org.atlanmod.cypriot.cyprIoT.Rule
 
 /**
  * This class contains custom scoping description.
