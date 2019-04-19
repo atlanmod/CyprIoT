@@ -168,7 +168,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? ruleSubject=RuleSubject ruleEffect=RuleEffect ruleAction=RuleAction (ruleObject=RuleSubject | domainObject=DomainObject)  
+	'rule' (name=ID ':')? ruleSubject=RuleSubject ruleEffectAction=RuleEffectAction (ruleObject=RuleSubject | domainObject=DomainObject)  
 		//(conditions=Conditions)?
 ;
 
@@ -202,22 +202,39 @@ DomainObject :
 	DomainId  ('.' '*')?
 ;
 	
-enum RuleEffect :
-	deny='deny:' |
-	allow='allow:' |
-	trigger='trigger:' |
-	bridge='bridge:'
+RuleEffectAction :
+	EffectComm |
+	EffectTrigger |
+	EffectBridge
 ;
 
-enum RuleAction:
+EffectComm:
+	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
+;
+
+EffectBridge :
+	bridge='bridge:' actionBridge=ActionBridge
+;
+
+EffectTrigger :
+	trigger='trigger:' actionTrigger=ActionTrigger
+;
+
+enum ActionComm:
 	send='send' | 
 	receive='receive' |
-	sendreceive='send-receive' |
-	performTransition='performTransition' | 
-	goToState='goToState' | 
-	executeFunction='executeFunction' |
+	sendreceive='send-receive'
+;
+
+enum ActionBridge:
 	from='from'| 
 	to='to'
+;
+
+enum ActionTrigger:
+	performTransition='performTransition' | 
+	goToState='goToState' | 
+	executeFunction='executeFunction'
 ;
 
 RuleSubject:
