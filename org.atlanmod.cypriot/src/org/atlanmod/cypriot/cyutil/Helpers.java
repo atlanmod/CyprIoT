@@ -27,7 +27,6 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.cyprIoT.RuleSubject;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
@@ -89,10 +88,6 @@ public class Helpers {
 
 	public static Bind findContainingBind(EObject object) {
 		return findContainer(object, Bind.class);
-	}
-
-	public static RuleSubject findContainingRuleSubject(EObject object) {
-		return findContainer(object, RuleSubject.class);
 	}
 
 	public static ArrayList<CyprIoTModel> allCypriotModels(CyprIoTModel model) {
@@ -240,10 +235,10 @@ public class Helpers {
 		ArrayList<User> result = new ArrayList<User>();
 		List<User> users = cyprIoTModel.getDeclareUsers();
 		for (User user : users) {
-					if (user.getAssignedRoles().contains(role)) {
-						result.add(user);
-					}
-
+			if (user.getAssignedRoles().contains(role)) {
+				result.add(user);
+			}
+		}
 		return result;
 	}
 //	public static ArrayList<ThingSubjectAny> allThingSubject(CyprIoTModel cypriotModel) {

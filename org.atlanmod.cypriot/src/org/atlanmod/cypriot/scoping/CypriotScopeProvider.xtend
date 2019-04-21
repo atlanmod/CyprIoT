@@ -5,14 +5,16 @@ package org.atlanmod.cypriot.scoping
 
 import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.RuleSubject
+import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ThingSubject
 import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
+import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.emf.ecore.ENamedElement
 import org.eclipse.emf.ecore.EObject
@@ -20,8 +22,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.InstanceThing
-import org.atlanmod.cypriot.cyprIoT.Rule
 
 /**
  * This class contains custom scoping description.
@@ -65,7 +65,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.rule_RuleObject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, RuleSubject)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingSubject)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.thingSubject_ThingSubjectState) {
 			if(((context as ThingSubject).thingSubject instanceof Thing)) {
@@ -79,7 +79,15 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			} else {
 				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubject).thingSubject as InstanceThing).thingToInstantiate))
 			}
-		} /*else if (reference == cypriotInstance.rule_ThingObjectPort) {
+		} else if (reference == cypriotInstance.userSubject_UserSubject) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, User)
+			return Scopes.scopeFor(candidates)
+		} else if (reference == cypriotInstance.roleSubject_RoleSubject) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Role)
+			return Scopes.scopeFor(candidates)
+		}/*else if (reference == cypriotInstance.rule_ThingObjectPort) {
 			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleObject as Thing)))
 		} */else if (reference == cypriotInstance.networkBridge_BindSubject) {
 			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));

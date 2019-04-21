@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind |  Policy | RuleSubject | ToBindPTP | ToBindPubSub | Rule |
+	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule |
 	";" name=ID
 ;
 
@@ -147,14 +147,8 @@ ToBindPTP:
 	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/)
 ;
 
-GlobalBridge:
-	'bridge' name=ID '{'
-		
-	'}'
-;
-
 NetworkBridge:
-	'bridge' bindSubject=[BridgeSubject] 'to' bridgeToChannel=ChannelToBind
+	'bridge' bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
 ;
 
 BridgeSubject:
@@ -167,9 +161,22 @@ Policy:
 	'}'
 ;
 
+
 Rule:
-	'rule' (name=ID ':')? (ruleSubject=ThingSubject | roleSubject=[Role] | userSubject=[User]) ruleEffectAction=RuleEffectAction (ruleObject=RuleSubject | domainObject=DomainObject)  
+	'rule' (name=ID ':')? ruleSubject=CommSubject ruleEffectAction=RuleEffectAction (ruleObject=ThingSubject | domainObject=DomainObject)  
 		//(conditions=Conditions)?
+;
+
+CommSubject:
+	ThingSubject /* | RoleSubject | UserSubject */
+;
+
+UserSubject:
+	userSubject=[User]
+;
+
+RoleSubject:
+	roleSubject=[Role]
 ;
 
 ThingSubject:
@@ -177,7 +184,7 @@ ThingSubject:
 ;
 
 ThingSubjectAny:
-	InstanceThing | Thing
+	InstanceThing | Thing | Role | User
 ;
 
 RuleObject:
