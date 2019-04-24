@@ -58,8 +58,8 @@ Network:
 		domain=Domain
 		(hasPolicyEnforcement=PoliciesEnforcement)?
 		(instantiate+=Instance |
-		hasBinds+=Bind |
-		hasNetworkBridges+=NetworkBridge
+		hasBinds+=Bind 
+		//|hasNetworkBridges+=NetworkBridge
 		)*
 	'}'
 ;
@@ -147,10 +147,6 @@ ToBindPTP:
 	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/)
 ;
 
-NetworkBridge:
-	'bridge' bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
-;
-
 BridgeSubject:
 	Bind | Topic | ConnectionPoint
 ;
@@ -161,14 +157,50 @@ Policy:
 	'}'
 ;
 
+Rule:
+	'rule' (name=ID ':')? ruleSubject=ThingSubjectObject ruleEffectAction=EffectComm ruleObject=ThingSubjectObject 
+		//(conditions=Conditions)?
+
+;
+
+ThingSubjectObject:
+	thingSubject=[ThingSubjectAny] ('->' 'port:' thingSubjectPort=[thingml::Port]) ?
+;
+
+ThingSubjectAny:
+	InstanceThing | Thing
+;
+
+EffectComm:
+	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
+;
+
+enum ActionComm:
+	send='send' | 
+	receive='receive' |
+	sendreceive='send-receive'
+;
+
+DomainId:
+	ValidID (=>'.' ValidID)+
+;
+
+/*
+
+NetworkBridge:
+	'bridge' bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
+;
+
 
 Rule:
 	'rule' (name=ID ':')? ruleSubject=CommSubject ruleEffectAction=RuleEffectAction (ruleObject=ThingSubject | domainObject=DomainObject)  
 		//(conditions=Conditions)?
 ;
 
+
+
 CommSubject:
-	ThingSubject /* | RoleSubject | UserSubject */
+	ThingSubject | RoleSubject | UserSubject
 ;
 
 UserSubject:
@@ -191,7 +223,7 @@ RuleObject:
 	Thing | Role | User | Instance | PubSub | PointToPoint | Topic | ConnectionPoint
 ;
 
-/*Conditions:
+Conditions:
 	'when' conditionExpression=ConditionsExpression
 ;
 
@@ -211,16 +243,12 @@ ExpressionAttribute:
 
 SubjectAndObject:
 	RuleSubject | RuleObject
-;*/
-
-DomainId:
-	ValidID (=>'.' ValidID)+
 ;
 
 DomainObject :
 	DomainId  ('.' '*')?
 ;
-	
+
 RuleEffectAction :
 	EffectComm |
 	EffectTrigger |
@@ -255,7 +283,7 @@ enum ActionTrigger:
 	goToState='goToState' | 
 	executeFunction='executeFunction'
 ;
-
+*/
 /*
 RegularExpression:
 	OrRegularExpression
