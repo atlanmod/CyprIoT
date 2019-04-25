@@ -15,11 +15,6 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.EcoreUtil2
-import org.atlanmod.cypriot.cyprIoT.ThingSubjectAny
-import org.atlanmod.cypriot.cyprIoT.ThingSubjectObject
-import org.atlanmod.cypriot.cyprIoT.Thing
-import org.atlanmod.cypriot.cyprIoT.InstanceThing
 
 /**
  * This class contains custom scoping description.
@@ -59,7 +54,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
-		} else if (reference == cypriotInstance.rule_RuleObject) {
+		} /*else if (reference == cypriotInstance.rule_RuleObject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingSubjectAny)
 			return Scopes.scopeFor(candidates)
@@ -73,7 +68,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			} else {
 				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubjectObject).thingSubject as InstanceThing).thingToInstantiate))
 			}
-		} /*else if (reference == cypriotInstance.thingSubjectObject_ThingSubjectState) {
+		} else if (reference == cypriotInstance.thingSubjectObject_ThingSubjectState) {
 			if(((context as ThingSubjectObject).thingSubject instanceof Thing)) {
 				return Scopes.scopeFor(Helpers.allStatesThingML(((context as ThingSubject).thingSubject as Thing)))
 			} else {

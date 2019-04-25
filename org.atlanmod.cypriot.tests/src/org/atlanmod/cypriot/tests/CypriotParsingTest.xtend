@@ -59,10 +59,75 @@ class CypriotParsingTest {
 	}
 	
 	@Test
-	def void ReqRepDeclaration() {
+	def void PtPDeclaration() {
 		val result = parseHelper.parse('''
 			channel:ptp Rest {
 				ConnectionPoint speed
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void networkDeclaration() {
+		val result = parseHelper.parse('''
+			network anyname {
+				domain org.atlanmod
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void policyDeclaration() {
+		val result = parseHelper.parse('''
+			policy anyname {
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithDenyReceiveBetweenThings() {
+		val result = parseHelper.parse('''
+			policy anyname {
+				rule thing1 deny:receive thing2
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowReceiveBetweenThings() {
+		val result = parseHelper.parse('''
+			policy anyname {
+				rule thing1 allow:receive thing2
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithDenySendBetweenThings() {
+		val result = parseHelper.parse('''
+			policy anyname {
+				rule thing1 deny:send thing2
+			}
+		''')
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenThings() {
+		val result = parseHelper.parse('''
+			policy anyname {
+				rule thing1 allow:send thing2
 			}
 		''')
 		Assert.assertNotNull(result)
