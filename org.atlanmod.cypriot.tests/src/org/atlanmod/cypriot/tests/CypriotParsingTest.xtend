@@ -27,9 +27,13 @@ class CypriotParsingTest {
 	@Test
 	def void UserDeclaration() {
 		val result = parseHelper.parse('''
+			role actor
 			user anyuser
 				assigned actor
 		''')
+		val user = result.declareUsers.get(0)
+		Assert.assertEquals("anyuser",user.name)
+		Assert.assertEquals("actor", user.assignedRoles.get(0).name)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -42,6 +46,8 @@ class CypriotParsingTest {
 				assigned sensor
 				import "Hello.thingml"
 		''')
+		val thing = result.declareThings.get(0)
+		Assert.assertEquals("Hello",thing.name)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
