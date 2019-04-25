@@ -8,6 +8,8 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.Topic
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -70,6 +72,12 @@ class CypriotParsingTest {
 				topic topic2 subtopicOf topic1
 			}
 		''')
+		val topics = (result.declareChannels.get(0) as PubSub).hasTopics
+		val subtopics = (topics.get(1) as Topic).subtopicOf
+		Assert.assertEquals("topic1",topics.get(0).name)
+		Assert.assertEquals("topic1",subtopics.get(0).name)
+		Assert.assertNotNull(subtopics)
+		Assert.assertNotNull(topics)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
