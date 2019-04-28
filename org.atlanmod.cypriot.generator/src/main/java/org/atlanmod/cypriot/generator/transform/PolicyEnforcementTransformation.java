@@ -3,21 +3,10 @@ package org.atlanmod.cypriot.generator.transform;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.PoliciesEnforcement;
-import org.atlanmod.cypriot.cyprIoT.Policy;
-import org.atlanmod.cypriot.cyprIoT.Rule;
-import org.atlanmod.cypriot.cyprIoT.RuleAction;
-import org.atlanmod.cypriot.cyprIoT.RuleEffect;
-import org.atlanmod.cypriot.cyprIoT.RuleSubject;
-import org.atlanmod.cypriot.cyprIoT.Thing;
-import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.eclipse.emf.common.util.EList;
-import org.thingml.xtext.thingML.State;
-import org.thingml.xtext.thingML.ThingMLFactory;
 import org.thingml.xtext.thingML.ThingMLModel;
-import org.thingml.xtext.thingML.Transition;
 
 public class PolicyEnforcementTransformation implements Transformation {
-	RuleEnforcement goToStateEnforce = new GoToStateRule();
+	/*RuleEnforcement goToStateEnforce = new GoToStateRule();
 
 	@Override
 	public ThingMLModel transform(InstanceThing instanceThing, ThingMLModel modelToTransform) {
@@ -66,8 +55,7 @@ public class PolicyEnforcementTransformation implements Transformation {
 			}
 		}
 
-		return modelToTransform;
-	}
+		return modelToTransform;}*/
 
 	/**
 	 * @param network
@@ -76,5 +64,11 @@ public class PolicyEnforcementTransformation implements Transformation {
 	public boolean isPolicyEnforcement(Network network) {
 		PoliciesEnforcement policiesEnforcement = network.getHasPolicyEnforcement();
 		return policiesEnforcement != null;
+	}
+
+	@Override
+	public ThingMLModel transform(InstanceThing instanceThing, ThingMLModel modelToTransform) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
