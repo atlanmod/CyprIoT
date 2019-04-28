@@ -55,7 +55,7 @@ network smartHomeCfg {
 	instance gateway:Gateway platform PYTHON
 	
 	// Declaration of things
-	instance temperatureSensor:TemperatureSensor platform CPOSIX
+	instance temperatureSensor[3]:TemperatureSensor platform CPOSIX
 	instance airConditionnner:AirConditionnner platform JAVA
 	instance heater:Heater platform JAVA
 	instance lightSwitch:LightSwitch platform CPOSIX
@@ -87,10 +87,11 @@ network emergency {
 	
 	// Binding the smokeSensor to the firefighter point
 	bind smokeSensor.sendingEmergencyPort => coapFirefighter.alert
+	
 }
 
 policy myPolicy {
-	rule airConditionnner->port:ReceivingTemperaturePort deny:receive AirConditionnner->port:ReceivingTemperaturePort
+	rule airConditionnner deny:receive AirConditionnner
 //	rule Gateway->port:ReceivingTemperaturePort deny:send AirConditionnner->port:ReceivingTemperaturePort
 //	rule AirConditionnner->state:idleAC deny:receive Gateway->state:idle
 //	rule Gateway->port:ReceivingTemperaturePort deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC

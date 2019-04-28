@@ -2,14 +2,14 @@ package org.atlanmod.cypriot.tests
 
 import com.google.inject.Inject
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
+import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.Thing
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.Topic
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -23,6 +23,7 @@ class CypriotParsingTest {
 			role sensor
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.declareRoles.get(0).name.equals("sensor"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
@@ -73,7 +74,7 @@ class CypriotParsingTest {
 			}
 		''')
 		val topics = (result.declareChannels.get(0) as PubSub).hasTopics
-		val subtopics = (topics.get(1) as Topic).subtopicOf
+		val subtopics = topics.get(1).subtopicOf
 		Assert.assertEquals("topic1",topics.get(0).name)
 		Assert.assertEquals("topic1",subtopics.get(0).name)
 		Assert.assertNotNull(subtopics)
@@ -111,50 +112,67 @@ class CypriotParsingTest {
 			}
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.specifyPolicies.get(0).name.equals("anyname"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
 	@Test
 	def void RuleWithDenyReceiveBetweenThings() {
 		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
 			policy anyname {
 				rule thing1 deny:receive thing2
 			}
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
 	@Test
 	def void RuleWithAllowReceiveBetweenThings() {
 		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
 			policy anyname {
 				rule thing1 allow:receive thing2
 			}
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
 	@Test
 	def void RuleWithDenySendBetweenThings() {
 		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
 			policy anyname {
 				rule thing1 deny:send thing2
 			}
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
 	@Test
 	def void RuleWithAllowSendBetweenThings() {
 		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
 			policy anyname {
 				rule thing1 allow:send thing2
 			}
 		''')
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
+		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 }
