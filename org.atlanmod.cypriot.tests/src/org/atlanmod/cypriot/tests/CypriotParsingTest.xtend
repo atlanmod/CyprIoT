@@ -10,6 +10,8 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.atlanmod.cypriot.cyprIoT.Topic
+import org.atlanmod.cypriot.cyprIoT.Role
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -22,7 +24,9 @@ class CypriotParsingTest {
 		val result = parseHelper.parse('''
 			role sensor
 		''')
+		val role = result.declareRoles.get(0)
 		Assert.assertNotNull(result)
+		Assert.assertTrue(role instanceof Role)
 		Assert.assertTrue(result.declareRoles.get(0).name.equals("sensor"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -38,6 +42,7 @@ class CypriotParsingTest {
 		val role =  result.declareRoles
 		val assignedRole =  user.assignedRoles.get(0)
 		Assert.assertEquals("anyuser",user.name)
+		Assert.assertTrue(assignedRole instanceof Role)
 		Assert.assertEquals("actor",assignedRole.name)
 		Assert.assertNotNull(assignedRole)
 		Assert.assertNotNull(role)
@@ -75,6 +80,7 @@ class CypriotParsingTest {
 		''')
 		val topics = (result.declareChannels.get(0) as PubSub).hasTopics
 		val subtopics = topics.get(1).subtopicOf
+		Assert.assertTrue(topics.get(0) instanceof Topic)
 		Assert.assertEquals("topic1",topics.get(0).name)
 		Assert.assertEquals("topic1",subtopics.get(0).name)
 		Assert.assertNotNull(subtopics)
