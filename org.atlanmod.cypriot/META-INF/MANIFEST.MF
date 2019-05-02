@@ -32,6 +32,5 @@ Export-Package: org.atlanmod.cypriot.validation,
  org.atlanmod.cypriot.parser.antlr,
  org.atlanmod.cypriot.cyprIoT.util,
  org.atlanmod.cypriot.services,
- org.atlanmod.cypriot.serializer,
- org.thingml.xtext.thingML
+ org.atlanmod.cypriot.serializer
 Automatic-Module-Name: org.atlanmod.cypriot
