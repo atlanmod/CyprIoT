@@ -3,6 +3,6 @@ sudo: false
 dist: trusty
 jdk: oraclejdk8
 language: java
-script: mvn clean install -U
+script: mvn clean install -U -X
 after_success:
   - bash <(curl -s https://codecov.io/bash)
