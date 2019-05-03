@@ -7,7 +7,6 @@ import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
-import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyprIoT.Topic
 import org.eclipse.xtext.testing.InjectWith
@@ -19,18 +18,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.assertTrue
+import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.validation.CypriotValidator
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
 class CypriotParsingTest {
 	@Inject
 	ParseHelper<CyprIoTModel> parseHelper
-	@Inject 
+	@Inject
 	extension ValidationTestHelper
-	
-	
+
 	// Testing the declarations
-	
 	@Test
 	def void roleDeclaration() {
 		val result = parseHelper.parse('''
@@ -117,7 +116,6 @@ class CypriotParsingTest {
 	}
 
 	// Testing the policy
-
 	@Test
 	def void policyDeclaration() {
 		val result = parseHelper.parse('''
@@ -131,7 +129,6 @@ class CypriotParsingTest {
 	}
 
 	// Testing the rule
-	
 	@Test
 	def void RuleWithDenyReceiveBetweenThings() { // TODO test rule with ports
 		val result = parseHelper.parse('''
@@ -215,7 +212,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void RuleWithAllowSendBetweenThingAndRole() {
 		val result = parseHelper.parse('''
@@ -231,7 +228,6 @@ class CypriotParsingTest {
 	}
 
 	// Testing the network
-	
 	@Test
 	def void networkDeclaration() {
 		val result = parseHelper.parse('''
@@ -243,7 +239,22 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
+	@Test
+	def void multipleNetworksDeclaration() {
+		val result = parseHelper.parse('''
+			network anyname1 {
+				domain org.atlanmod.anyname1
+			}
+			network anyname2 {
+				domain org.atlanmod.anyname2
+			}
+		''')
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
 	@Test
 	def void NetworkWithAnInstanceThing() {
 		val result = parseHelper.parse('''
@@ -260,7 +271,24 @@ class CypriotParsingTest {
 		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
+	@Test
+	def void NetworkWithDuplicateInstanceThings() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			network anynet {
+				domain org.atlanmod
+				instance th1:thing1 platform JAVA
+				instance th1:thing1 platform JAVA
+			}
+		''')
+		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		Assert.assertTrue(thingInstanciate instanceof InstanceThing)
+		result.assertError(CyprIoTPackage::eINSTANCE.network, "InstanceThing-Uniqueness")
+		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
 	@Test
 	def void NetworkWithAnInstancePubSubChannelMQTT() {
 		val result = parseHelper.parse('''
@@ -275,11 +303,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstancePubSub)
-		assertTrue((pubsubInstanciate  as InstancePubSub).targetedPlatform.getName.equals("MQTT"))
+		assertTrue((pubsubInstanciate as InstancePubSub).targetedPlatform.getName.equals("MQTT"))
 		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePubSubChannelAMQP() {
 		val result = parseHelper.parse('''
@@ -294,11 +322,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstancePubSub)
-		assertTrue((pubsubInstanciate  as InstancePubSub).targetedPlatform.getName.equals("AMQP") )
+		assertTrue((pubsubInstanciate as InstancePubSub).targetedPlatform.getName.equals("AMQP"))
 		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePTPChannelHTTP() {
 		val result = parseHelper.parse('''
@@ -313,11 +341,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		assertTrue((ptpInstanciate  as InstancePTP).targetedPlatform.getName.equals("HTTP") )
+		assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("HTTP"))
 		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePTPChannelCOAP() {
 		val result = parseHelper.parse('''
@@ -332,11 +360,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		assertTrue((ptpInstanciate  as InstancePTP).targetedPlatform.getName.equals("COAP") )
+		assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("COAP"))
 		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePTPChannelUPNP() {
 		val result = parseHelper.parse('''
@@ -351,11 +379,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		assertTrue((ptpInstanciate  as InstancePTP).targetedPlatform.getName.equals("UPNP") )
+		assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("UPNP"))
 		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePTPChannelZIGBEE() {
 		val result = parseHelper.parse('''
@@ -370,11 +398,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		assertTrue((ptpInstanciate  as InstancePTP).targetedPlatform.getName.equals("ZIGBEE") )
+		assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("ZIGBEE"))
 		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithAnInstancePTPChannelZWAVE() {
 		val result = parseHelper.parse('''
@@ -389,11 +417,11 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		assertTrue((ptpInstanciate  as InstancePTP).targetedPlatform.getName.equals("ZWAVE") )
+		assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("ZWAVE"))
 		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithBinding() {
 		val result = parseHelper.parse('''
