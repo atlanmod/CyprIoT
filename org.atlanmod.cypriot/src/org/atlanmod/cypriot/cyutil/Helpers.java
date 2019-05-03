@@ -307,7 +307,6 @@ public class Helpers {
 	}
 
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
-		ThingMLModel thingmlModel = null;
 		Thing thingToInstanciate = (bind.getBindsInstanceThing().getThingToInstantiate());
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result;

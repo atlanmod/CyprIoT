@@ -1,7 +1,7 @@
 grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.xbase.Xbase
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-import "platform:/resource/org.atlanmod.cypriot/model/ThingML.ecore" as thingml
+import "http://www.thingml.org/xtext/ThingML" as thingml
 
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
@@ -39,7 +39,7 @@ Thing:
 		'import' importPath=STRING
 ;
 
-// Dynamicity of the configuration
+// TODO Dynamicity of the configuration
 
 PoliciesEnforcement :
 	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])* combiningAlgo=CombiningAlgo
@@ -158,7 +158,7 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? thingSubject=[ThingAny] (thingSubjectElements=ThingElements)? effectComm=EffectComm thingObject=[ThingAny] (thingObjectElements=ThingElements)?
+	'rule' (name=ID ':')? thingSubject=[ThingAny] /*(thingSubjectElements=ThingElements)?*/ effectComm=EffectComm thingObject=[ThingAny] /*(thingObjectElements=ThingElements)?*/
 		//(conditions=Conditions)?
 
 ;
