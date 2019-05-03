@@ -16,6 +16,8 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import static org.junit.Assert.assertTrue
+import org.atlanmod.cypriot.cyprIoT.InstancePTP
+import org.atlanmod.cypriot.cyprIoT.PointToPoint
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -281,6 +283,101 @@ class CypriotParsingTest {
 		Assert.assertTrue(pubsubInstanciate instanceof InstancePubSub)
 		assertTrue((pubsubInstanciate  as InstancePubSub).targetedPlatform.getName.equals("AMQP") )
 		Assert.assertTrue((pubsubInstanciate as InstancePubSub).pubSubToInstantiate instanceof PubSub)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithAnInstancePTPChannelHTTP() {
+		val result = parseHelper.parse('''
+			channel:ptp anychannel {
+			}
+			network anynet {
+				domain org.atlanmod
+				instance ch1:anychannel platform HTTP
+			}
+		''')
+		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(pubsubInstanciate instanceof InstancePTP)
+		assertTrue((pubsubInstanciate  as InstancePTP).targetedPlatform.getName.equals("HTTP") )
+		Assert.assertTrue((pubsubInstanciate as InstancePTP).ptPToInstantiate instanceof PointToPoint)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithAnInstancePTPChannelCOAP() {
+		val result = parseHelper.parse('''
+			channel:ptp anychannel {
+			}
+			network anynet {
+				domain org.atlanmod
+				instance ch1:anychannel platform COAP
+			}
+		''')
+		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(pubsubInstanciate instanceof InstancePTP)
+		assertTrue((pubsubInstanciate  as InstancePTP).targetedPlatform.getName.equals("COAP") )
+		Assert.assertTrue((pubsubInstanciate as InstancePTP).ptPToInstantiate instanceof PointToPoint)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithAnInstancePTPChannelUPNP() {
+		val result = parseHelper.parse('''
+			channel:ptp anychannel {
+			}
+			network anynet {
+				domain org.atlanmod
+				instance ch1:anychannel platform UPNP
+			}
+		''')
+		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(pubsubInstanciate instanceof InstancePTP)
+		assertTrue((pubsubInstanciate  as InstancePTP).targetedPlatform.getName.equals("UPNP") )
+		Assert.assertTrue((pubsubInstanciate as InstancePTP).ptPToInstantiate instanceof PointToPoint)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithAnInstancePTPChannelZIGBEE() {
+		val result = parseHelper.parse('''
+			channel:ptp anychannel {
+			}
+			network anynet {
+				domain org.atlanmod
+				instance ch1:anychannel platform ZIGBEE
+			}
+		''')
+		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(pubsubInstanciate instanceof InstancePTP)
+		assertTrue((pubsubInstanciate  as InstancePTP).targetedPlatform.getName.equals("ZIGBEE") )
+		Assert.assertTrue((pubsubInstanciate as InstancePTP).ptPToInstantiate instanceof PointToPoint)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithAnInstancePTPChannelZWAVE() {
+		val result = parseHelper.parse('''
+			channel:ptp anychannel {
+			}
+			network anynet {
+				domain org.atlanmod
+				instance ch1:anychannel platform ZWAVE
+			}
+		''')
+		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(pubsubInstanciate instanceof InstancePTP)
+		assertTrue((pubsubInstanciate  as InstancePTP).targetedPlatform.getName.equals("ZWAVE") )
+		Assert.assertTrue((pubsubInstanciate as InstancePTP).ptPToInstantiate instanceof PointToPoint)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
