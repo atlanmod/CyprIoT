@@ -158,9 +158,22 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? thingSubject=[ThingAny] /*(thingSubjectElements=ThingElements)?*/ effectComm=EffectComm thingObject=[ThingAny] /*(thingObjectElements=ThingElements)?*/
+	'rule' (name=ID ':')? commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
 		//(conditions=Conditions)?
 
+;
+
+// TODO making the port optional causes trouble
+CommSubjectObject :
+	thingSubject=[ThingAny] thingSubjectElements=ThingElements | subjectOther=[SubjectObjectOther]
+;
+
+ThingAny:
+	InstanceThing | Thing
+;
+
+SubjectObjectOther:
+	Role | User | ThingAny
 ;
 
 ThingElements:
@@ -173,10 +186,6 @@ ThingPort:
 
 ThingState:
 	'->' 'state:' thingSubjectPort?=[thingml::State]
-;
-
-ThingAny:
-	InstanceThing | Thing | Role | User
 ;
 
 EffectComm:

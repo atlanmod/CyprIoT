@@ -143,8 +143,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -159,8 +157,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -175,8 +171,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -191,8 +185,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -207,8 +199,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -223,8 +213,6 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingSubject instanceof Thing)
-		Assert.assertTrue(result.specifyPolicies.get(0).hasRules.get(0).thingObject instanceof Thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 	
