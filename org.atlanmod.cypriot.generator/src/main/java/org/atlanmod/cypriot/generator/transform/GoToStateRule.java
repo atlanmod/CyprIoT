@@ -7,7 +7,6 @@ public class GoToStateRule implements RuleEnforcement {
 
 	@Override
 	public ThingMLModel enforce(Rule rule, ThingMLModel thingModel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

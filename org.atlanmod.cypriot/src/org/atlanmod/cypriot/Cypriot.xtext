@@ -59,7 +59,7 @@ Network:
 		(hasPolicyEnforcement=PoliciesEnforcement)?
 		(instantiate+=Instance |
 		hasBinds+=Bind 
-		//|hasNetworkBridges+=NetworkBridge
+		|hasNetworkBridges+=NetworkBridge
 		)*
 	'}'
 ;
@@ -158,10 +158,30 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? thingSubject=[ThingAny] /*(thingSubjectElements=ThingElements)?*/ effectComm=EffectComm thingObject=[ThingAny] /*(thingObjectElements=ThingElements)?*/
+	'rule' (name=ID ':')?  commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
 		//(conditions=Conditions)?
 
 ;
+
+CommSubjectObject:
+	(thingSubject=[ThingAny] (thingSubjectElements=ThingElements)?) | otherCommSubjets=[OtherCommSubjets]
+;
+
+Object:
+	'object' (name=ID ':')?  attributeSubject=attributeSubjectObject effect=Effect commObject=attributeSubjectObject
+		//(conditions=Conditions)?
+
+;
+
+attributeSubjectObject:
+	(attributeSubject=[ThingAny] (attributeSubjectElements=SubjectElements)?) | otherCommSubjets=[OtherSubjets]
+;
+
+Effect:
+	in='in' | 
+	out='out'
+;
+
 
 ThingElements:
 	ThingPort | ThingState
@@ -173,6 +193,10 @@ ThingPort:
 
 ThingState:
 	'->' 'state:' thingSubjectPort?=[thingml::State]
+;
+
+OtherCommSubjets:
+	Role | User
 ;
 
 ThingAny:
@@ -193,12 +217,31 @@ DomainId:
 	ValidID (=>'.' ValidID)+
 ;
 
-/*
-
 NetworkBridge:
 	'bridge' bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
 ;
+enum ActionBridge:
+	from='from'| 
+	to='to'
+;
 
+/*
+
+
+// TODO add conditions to rule
+Conditions:
+	'when' conditionExpression=ConditionsExpression
+;
+
+// TODO add time standard declaration
+terminal TIME:
+	
+;
+
+// TODO add location standard declaration
+terminal LOCATION:
+	
+;
 
 Rule:
 	'rule' (name=ID ':')? ruleSubject=CommSubject ruleEffectAction=RuleEffectAction (ruleObject=ThingSubject | domainObject=DomainObject)  
@@ -225,14 +268,6 @@ ThingSubject:
 
 ThingSubjectAny:
 	InstanceThing | Thing | Role | User
-;
-
-RuleObject:
-	Thing | Role | User | Instance | PubSub | PointToPoint | Topic | ConnectionPoint
-;
-
-Conditions:
-	'when' conditionExpression=ConditionsExpression
 ;
 
 ConditionsExpression: OrExpression;
@@ -281,10 +316,7 @@ enum ActionComm:
 	sendreceive='send-receive'
 ;
 
-enum ActionBridge:
-	from='from'| 
-	to='to'
-;
+
 
 enum ActionTrigger:
 	performTransition='performTransition' | 
@@ -292,45 +324,3 @@ enum ActionTrigger:
 	executeFunction='executeFunction'
 ;
 */
-/*
-RegularExpression:
-	OrRegularExpression
-;
-
-OrRegularExpression:
-	SequenceExpression ({OrRegularExpression.left = current} '+' right=SequenceExpression)*
-;
-
-SequenceExpression:
-	HighBindExpression ({SequenceExpression.left = current} right = HighBindExpression)*
-;
-
-HighBindExpression:
-        AtomicRegularExpression ('*'{StarExpression.innerExpression=current} '*'* )?
-;
-
-AtomicRegularExpression:
-	BracedExpression | Atom
-;
-
-BracedExpression:
-	'(' innerExpression = RegularExpression ')'
-;
-
-Atom:
-	value = CHARI
-;
-
-terminal CHARI returns ecore::EChar:
-	('a'..'z'|'A'..'Z'|'0'..'9'|'\\0'|'*')
-;
-
-terminal TIME:
-	
-;
-
-terminal LOCATION:
-	
-;*/
-
-

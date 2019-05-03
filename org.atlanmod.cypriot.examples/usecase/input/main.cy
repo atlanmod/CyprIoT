@@ -91,7 +91,7 @@ network emergency {
 }
 
 policy myPolicy {
-	rule airConditionnner deny:receive AirConditionnner
+	rule   
 //	rule Gateway->port:ReceivingTemperaturePort deny:send AirConditionnner->port:ReceivingTemperaturePort
 //	rule AirConditionnner->state:idleAC deny:receive Gateway->state:idle
 //	rule Gateway->port:ReceivingTemperaturePort deny:receive AirConditionnner when Gateway->currentState:idle and AirConditionnner->nextState:workAC

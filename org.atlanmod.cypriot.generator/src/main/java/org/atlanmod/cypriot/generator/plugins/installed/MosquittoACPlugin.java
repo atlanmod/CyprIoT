@@ -37,25 +37,21 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public CyprIoTModel initiliaze() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<ThingMLModel> loadModel(CyprIoTModel model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Boolean validate(ArrayList<ThingMLModel> thingmlModel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public CyprIoTModel transform(CyprIoTModel model) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -138,13 +134,11 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public void verifiy(CyprIoTModel model) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void deploy(CyprIoTModel model) {
-		// TODO Auto-generated method stub
 
 	}
 

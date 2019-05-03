@@ -68,7 +68,6 @@ public class PolicyEnforcementTransformation implements Transformation {
 
 	@Override
 	public ThingMLModel transform(InstanceThing instanceThing, ThingMLModel modelToTransform) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

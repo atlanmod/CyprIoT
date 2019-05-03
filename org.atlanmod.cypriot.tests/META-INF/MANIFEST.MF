@@ -14,8 +14,7 @@ Require-Bundle: org.atlanmod.cypriot,
  org.eclipse.ui.workbench;resolution:=optional,
  org.objectweb.asm;resolution:=optional,
  org.eclipse.xtext.testing,
- org.eclipse.xtext.xbase.testing,
- org.apache.commons.io;bundle-version="2.6.0"
+ org.eclipse.xtext.xbase.testing
 Import-Package: org.apache.log4j,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",

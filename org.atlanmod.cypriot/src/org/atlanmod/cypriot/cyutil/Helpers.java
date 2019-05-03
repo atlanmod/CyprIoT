@@ -415,7 +415,6 @@ public class Helpers {
 			try {
 				throw new Exception("No valid model found for resource " + thing.getImportPath());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
