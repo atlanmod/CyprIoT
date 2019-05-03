@@ -158,30 +158,10 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')?  commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
+	'rule' (name=ID ':')? thingSubject=[ThingAny] /*(thingSubjectElements=ThingElements)?*/ effectComm=EffectComm thingObject=[ThingAny] /*(thingObjectElements=ThingElements)?*/
 		//(conditions=Conditions)?
 
 ;
-
-CommSubjectObject:
-	(thingSubject=[ThingAny] (thingSubjectElements=ThingElements)?) | otherCommSubjets=[OtherCommSubjets]
-;
-
-Object:
-	'object' (name=ID ':')?  attributeSubject=attributeSubjectObject effect=Effect commObject=attributeSubjectObject
-		//(conditions=Conditions)?
-
-;
-
-attributeSubjectObject:
-	(attributeSubject=[ThingAny] (attributeSubjectElements=SubjectElements)?) | otherCommSubjets=[OtherSubjets]
-;
-
-Effect:
-	in='in' | 
-	out='out'
-;
-
 
 ThingElements:
 	ThingPort | ThingState
@@ -195,12 +175,8 @@ ThingState:
 	'->' 'state:' thingSubjectPort?=[thingml::State]
 ;
 
-OtherCommSubjets:
-	Role | User
-;
-
 ThingAny:
-	InstanceThing | Thing
+	InstanceThing | Thing | Role | User
 ;
 
 EffectComm:
