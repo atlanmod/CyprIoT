@@ -3,23 +3,30 @@
  */
 package org.atlanmod.cypriot.validation
 
+import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.cyprIoT.InstanceThing
+import org.atlanmod.cypriot.cyprIoT.Network
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
- *
+ * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class CypriotValidator extends AbstractCypriotValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					CypriotPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	public static val DUPLICATE_ELEMENT = "org.atlanmod.cypriot.DuplicateElement"
 	
+	@Check(FAST)
+	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
+		val network = instanceThing.eContainer as Network		
+		val allinstanceThings = network.instantiate.filter(i2 | i2 instanceof InstanceThing && (i2 as InstanceThing).name == instanceThing.name)
+		
+		if (allinstanceThings.size() > 1) {
+			val msg = "The instance " + instanceThing.getName() + " is already declared.";
+			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instanceThing),
+				"InstanceThing-Uniqueness")
+		}
+	}
+
 }
