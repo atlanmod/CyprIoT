@@ -22,6 +22,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.ThingAny
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -225,6 +226,9 @@ class CypriotParsingTest {
 			}
 		''')
 		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue(rule.commSubject.subjectOther instanceof ThingAny)
+		Assert.assertTrue(rule.commObject.subjectOther instanceof Role)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
