@@ -7,6 +7,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.eclipse.xtext.validation.Check
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 
 /**
  * This class contains custom validation rules. 
@@ -15,17 +16,30 @@ import org.eclipse.xtext.validation.Check
  */
 class CypriotValidator extends AbstractCypriotValidator {
 	
-	public static val DUPLICATE_ELEMENT = "org.atlanmod.cypriot.DuplicateElement"
+	public static val INSTANCETHING_UNIQUENESS= "InstanceThing-Uniqueness"
+	public static val NETWORK_UNIQUENESS= "Network-Uniqueness"
 	
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
 		val network = instanceThing.eContainer as Network		
-		val allinstanceThings = network.instantiate.filter(i2 | i2 instanceof InstanceThing && (i2 as InstanceThing).name == instanceThing.name)
+		val allinstanceThings = network.instantiate.filter(k | k instanceof InstanceThing && (k as InstanceThing).name == instanceThing.name)
 		
 		if (allinstanceThings.size() > 1) {
-			val msg = "The instance " + instanceThing.getName() + " is already declared.";
+			val msg = "The instance '" + instanceThing.getName() + "' is already declared.";
 			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instanceThing),
-				"InstanceThing-Uniqueness")
+				INSTANCETHING_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkNetworkUniqueness(Network network) {
+		val cypriotModel = network.eContainer as CyprIoTModel		
+		val allNetworks = cypriotModel.specifyNetworks.filter(k | k.name == network.name)
+		
+		if (allNetworks.size() > 1) {
+			val msg = "The network '" + network.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_SpecifyNetworks, cypriotModel.specifyNetworks.indexOf(network),
+				NETWORK_UNIQUENESS)
 		}
 	}
 
