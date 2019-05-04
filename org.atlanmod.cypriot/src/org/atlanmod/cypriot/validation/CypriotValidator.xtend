@@ -8,6 +8,7 @@ import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.eclipse.xtext.validation.Check
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
+import org.atlanmod.cypriot.cyprIoT.Thing
 
 /**
  * This class contains custom validation rules. 
@@ -18,6 +19,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	
 	public static val INSTANCETHING_UNIQUENESS= "InstanceThing-Uniqueness"
 	public static val NETWORK_UNIQUENESS= "Network-Uniqueness"
+	public static val THING_UNIQUENESS= "Thing-Uniqueness"
 	
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
@@ -40,6 +42,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The network '" + network.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_SpecifyNetworks, cypriotModel.specifyNetworks.indexOf(network),
 				NETWORK_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkThingUniqueness(Thing thing) {
+		val cypriotModel = thing.eContainer as CyprIoTModel		
+		val allThings = cypriotModel.declareThings.filter(k | k.name == thing.name)
+		
+		if (allThings.size() > 1) {
+			val msg = "The thing '" + thing.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareThings, cypriotModel.declareThings.indexOf(thing),
+				THING_UNIQUENESS)
 		}
 	}
 
