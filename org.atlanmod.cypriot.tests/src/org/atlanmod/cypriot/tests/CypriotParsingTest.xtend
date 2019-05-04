@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.atlanmod.cypriot.cyprIoT.Network
+import org.atlanmod.cypriot.cyprIoT.Thing
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -289,7 +290,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithDuplicateNetworks() {
 		val result = parseHelper.parse('''
@@ -304,6 +305,19 @@ class CypriotParsingTest {
 		Assert.assertTrue(network instanceof Network)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.NETWORK_UNIQUENESS)
 		Assert.assertNotNull(network)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	@Test
+	def void NetworkWithDuplicateThings() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing1 import "thing1.thingml"
+		''')
+		val thing = result.declareThings.get(0)
+		Assert.assertTrue(thing instanceof Thing)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.THING_UNIQUENESS)
+		Assert.assertNotNull(thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
