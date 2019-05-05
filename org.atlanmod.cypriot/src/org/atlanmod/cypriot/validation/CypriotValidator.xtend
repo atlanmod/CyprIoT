@@ -10,6 +10,7 @@ import org.eclipse.xtext.validation.Check
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.PointToPoint
 
 /**
  * This class contains custom validation rules. 
@@ -69,6 +70,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The channel PubSub '" + pubsub.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels, cypriotModel.declareChannels.indexOf(pubsub),
 				PUBSUB_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkPTPUniqueness(PointToPoint ptp) {
+		val cypriotModel = ptp.eContainer as CyprIoTModel		
+		val allPTPs = cypriotModel.declareChannels.filter(k | k instanceof PointToPoint && (k as PointToPoint).name == ptp.name)
+		
+		if (allPTPs.size() > 1) {
+			val msg = "The channel Point-To-Point '" + ptp.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels, cypriotModel.declareChannels.indexOf(ptp),
+				PTP_UNIQUENESS)
 		}
 	}
 
