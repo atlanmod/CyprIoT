@@ -16,6 +16,8 @@ import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstancePTP
 import org.atlanmod.cypriot.cyprIoT.User
+import org.atlanmod.cypriot.cyprIoT.Topic
+import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 
 /**
  * This class contains custom validation rules. 
@@ -35,6 +37,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PUBSUB_UNIQUENESS= "PubSub-Uniqueness"
 	public static val PTP_UNIQUENESS= "PTP-Uniqueness"
 	public static val POLICY_UNIQUENESS= "Policy-Uniqueness"
+	public static val TOPIC_UNIQUENESS= "Topic-Uniqueness"
+	public static val CONNECTIONPOINT_UNIQUENESS= "ConnectionPoint-Uniqueness"
 	
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
@@ -133,6 +137,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 	
 	@Check(FAST)
+	def checkInstanceTopicUniqueness(Topic topic) {
+		val pubsub = topic.eContainer as PubSub		
+		val allTopics = pubsub.hasTopics.filter(k | k.name == topic.name)
+		
+		if (allTopics.size() > 1) {
+			val msg = "The topic '" + topic.getName() + "' is already declared.";
+			error(msg, pubsub, CyprIoTPackage.eINSTANCE.pubSub_HasTopics, pubsub.hasTopics.indexOf(topic),
+				TOPIC_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
 	def checkPTPUniqueness(PointToPoint ptp) {
 		val cypriotModel = ptp.eContainer as CyprIoTModel		
 		val allPTPs = cypriotModel.declareChannels.filter(k | k instanceof PointToPoint && (k as PointToPoint).name == ptp.name)
@@ -141,6 +157,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The channel Point-To-Point '" + ptp.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels, cypriotModel.declareChannels.indexOf(ptp),
 				PTP_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkInstanceConnectionPointUniqueness(ConnectionPoint connectionPoint) {
+		val ptp = connectionPoint.eContainer as PointToPoint		
+		val allTopics = ptp.hasConnectionPoints.filter(k | k.name == connectionPoint.name)
+		
+		if (allTopics.size() > 1) {
+			val msg = "The connection point '" + connectionPoint.getName() + "' is already declared.";
+			error(msg, ptp, CyprIoTPackage.eINSTANCE.pointToPoint_HasConnectionPoints, ptp.hasConnectionPoints.indexOf(connectionPoint),
+				CONNECTIONPOINT_UNIQUENESS)
 		}
 	}
 	
