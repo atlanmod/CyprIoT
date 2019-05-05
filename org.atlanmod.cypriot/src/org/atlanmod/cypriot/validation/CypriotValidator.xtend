@@ -9,6 +9,7 @@ import org.atlanmod.cypriot.cyprIoT.Network
 import org.eclipse.xtext.validation.Check
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.PubSub
 
 /**
  * This class contains custom validation rules. 
@@ -20,6 +21,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val INSTANCETHING_UNIQUENESS= "InstanceThing-Uniqueness"
 	public static val NETWORK_UNIQUENESS= "Network-Uniqueness"
 	public static val THING_UNIQUENESS= "Thing-Uniqueness"
+	public static val PUBSUB_UNIQUENESS= "PubSub-Uniqueness"
+	public static val PTP_UNIQUENESS= "PTP-Uniqueness"
 	
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
@@ -54,6 +57,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The thing '" + thing.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareThings, cypriotModel.declareThings.indexOf(thing),
 				THING_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkPubSubUniqueness(PubSub pubsub) {
+		val cypriotModel = pubsub.eContainer as CyprIoTModel		
+		val allPubSubs = cypriotModel.declareChannels.filter(k | k instanceof PubSub && (k as PubSub).name == pubsub.name)
+		
+		if (allPubSubs.size() > 1) {
+			val msg = "The channel PubSub '" + pubsub.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels, cypriotModel.declareChannels.indexOf(pubsub),
+				PUBSUB_UNIQUENESS)
 		}
 	}
 
