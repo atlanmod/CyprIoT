@@ -366,6 +366,40 @@ class CypriotParsingTest {
 		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void NetworkWithDuplicateInstancePubSub() {
+		val result = parseHelper.parse('''
+			channel:pubsub anypubsub {}
+			network anynet {
+				domain org.atlanmod
+				instance anypubsub1:anypubsub platform MQTT
+				instance anypubsub1:anypubsub platform MQTT
+			}
+		''')
+		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		Assert.assertTrue(thingInstanciate instanceof InstancePubSub)
+		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCEPUBSUB_UNIQUENESS)
+		Assert.assertNotNull((thingInstanciate as InstancePubSub).pubSubToInstantiate)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void NetworkWithDuplicateInstancePTP() {
+		val result = parseHelper.parse('''
+			channel:ptp anyptp {}
+			network anynet {
+				domain org.atlanmod
+				instance ptp1:anyptp platform HTTP
+				instance ptp1:anyptp platform HTTP
+			}
+		''')
+		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
+		Assert.assertTrue(thingInstanciate instanceof InstancePTP)
+		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCEPTP_UNIQUENESS)
+		Assert.assertNotNull((thingInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	@Test
 	def void NetworkWithDuplicateNetworks() {
