@@ -15,6 +15,7 @@ import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstancePTP
+import org.atlanmod.cypriot.cyprIoT.User
 
 /**
  * This class contains custom validation rules. 
@@ -92,6 +93,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The role '" + role.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareRoles, cypriotModel.declareRoles.indexOf(role),
 				ROLE_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkUserUniqueness(User user) {
+		val cypriotModel = user.eContainer as CyprIoTModel		
+		val allUsers = cypriotModel.declareUsers.filter(k | k.name == user.name)
+		
+		if (allUsers.size() > 1) {
+			val msg = "The user '" + user.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareUsers, cypriotModel.declareUsers.indexOf(user),
+				USER_UNIQUENESS)
 		}
 	}
 	
