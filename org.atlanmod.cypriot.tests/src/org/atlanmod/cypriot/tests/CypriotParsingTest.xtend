@@ -27,6 +27,7 @@ import org.atlanmod.cypriot.cyprIoT.User
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
 class CypriotParsingTest {
+	
 	@Inject
 	ParseHelper<CyprIoTModel> parseHelper
 	@Inject

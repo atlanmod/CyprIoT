@@ -87,7 +87,7 @@ Channel:
 
 PubSub:
 	'channel:pubsub' name=ID '{'
-		(hasTopics +=Topic)*
+		(hasTopics+=Topic)*
 	'}'
 ;
 
@@ -97,7 +97,7 @@ Topic:
 
 PointToPoint:
 	'channel:ptp' name=ID '{'
-		(hasConnectionPoints +=ConnectionPoint)*
+		(hasConnectionPoints+=ConnectionPoint)*
 	'}'
 ;
 
@@ -163,7 +163,6 @@ Rule:
 
 ;
 
-// TODO making the port optional causes trouble
 CommSubjectObject :
 	thingSubject=[ThingAny] thingSubjectElements=ThingElements | subjectOther=[SubjectObjectOther]
 ;
@@ -203,7 +202,7 @@ DomainId:
 ;
 
 NetworkBridge:
-	'bridge' bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
+	'bridge' (name=ID ':')? bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
 ;
 enum ActionBridge:
 	from='from'| 
@@ -211,8 +210,6 @@ enum ActionBridge:
 ;
 
 /*
-
-
 // TODO add conditions to rule
 Conditions:
 	'when' conditionExpression=ConditionsExpression
@@ -226,86 +223,5 @@ terminal TIME:
 // TODO add location standard declaration
 terminal LOCATION:
 	
-;
-
-Rule:
-	'rule' (name=ID ':')? ruleSubject=CommSubject ruleEffectAction=RuleEffectAction (ruleObject=ThingSubject | domainObject=DomainObject)  
-		//(conditions=Conditions)?
-;
-
-
-
-CommSubject:
-	ThingSubject | RoleSubject | UserSubject
-;
-
-UserSubject:
-	userSubject=[User]
-;
-
-RoleSubject:
-	roleSubject=[Role]
-;
-
-ThingSubject:
-	thingSubject=[ThingSubjectAny] ('->' ('port:' thingSubjectPort=[thingml::Port] | 'state:' thingSubjectState=[thingml::State])) ?
-;
-
-ThingSubjectAny:
-	InstanceThing | Thing | Role | User
-;
-
-ConditionsExpression: OrExpression;
-
-OrExpression returns Expression:
-	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
-;
-
-AndExpression returns Expression:
-	ExpressionAttribute ({AndExpression.lhs=current} "and" rhs=ExpressionAttribute)*
-;
-
-ExpressionAttribute:
-	attribute=[SubjectAndObject] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING)
-;
-
-SubjectAndObject:
-	RuleSubject | RuleObject
-;
-
-DomainObject :
-	DomainId  ('.' '*')?
-;
-
-RuleEffectAction :
-	EffectComm |
-	EffectTrigger |
-	EffectBridge
-;
-
-EffectComm:
-	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
-;
-
-EffectBridge :
-	bridge='bridge:' actionBridge=ActionBridge
-;
-
-EffectTrigger :
-	trigger='trigger:' actionTrigger=ActionTrigger
-;
-
-enum ActionComm:
-	send='send' | 
-	receive='receive' |
-	sendreceive='send-receive'
-;
-
-
-
-enum ActionTrigger:
-	performTransition='performTransition' | 
-	goToState='goToState' | 
-	executeFunction='executeFunction'
 ;
 */
