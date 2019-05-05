@@ -12,6 +12,7 @@ import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.Policy
 
 /**
  * This class contains custom validation rules. 
@@ -28,6 +29,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val THING_UNIQUENESS= "Thing-Uniqueness"
 	public static val PUBSUB_UNIQUENESS= "PubSub-Uniqueness"
 	public static val PTP_UNIQUENESS= "PTP-Uniqueness"
+	public static val POLICY_UNIQUENESS= "Policy-Uniqueness"
 	
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
@@ -98,6 +100,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The channel Point-To-Point '" + ptp.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels, cypriotModel.declareChannels.indexOf(ptp),
 				PTP_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkPolicyUniqueness(Policy policy) {
+		val cypriotModel = policy.eContainer as CyprIoTModel		
+		val allPolicies = cypriotModel.specifyPolicies.filter(k | k.name == policy.name)
+		
+		if (allPolicies.size() > 1) {
+			val msg = "The policy '" + policy.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_SpecifyPolicies, cypriotModel.specifyPolicies.indexOf(policy),
+				POLICY_UNIQUENESS)
 		}
 	}
 
