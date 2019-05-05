@@ -13,6 +13,8 @@ import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Policy
+import org.atlanmod.cypriot.cyprIoT.InstancePubSub
+import org.atlanmod.cypriot.cyprIoT.InstancePTP
 
 /**
  * This class contains custom validation rules. 
@@ -25,6 +27,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val ROLE_UNIQUENESS= "Role-Uniqueness"
 	public static val USER_UNIQUENESS= "User-Uniqueness"
 	public static val INSTANCETHING_UNIQUENESS= "InstanceThing-Uniqueness"
+	public static val INSTANCEPUBSUB_UNIQUENESS= "InstancePubSub-Uniqueness"
+	public static val INSTANCEPTP_UNIQUENESS= "InstancePTP-Uniqueness"
 	public static val NETWORK_UNIQUENESS= "Network-Uniqueness"
 	public static val THING_UNIQUENESS= "Thing-Uniqueness"
 	public static val PUBSUB_UNIQUENESS= "PubSub-Uniqueness"
@@ -40,6 +44,30 @@ class CypriotValidator extends AbstractCypriotValidator {
 			val msg = "The instance '" + instanceThing.getName() + "' is already declared.";
 			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instanceThing),
 				INSTANCETHING_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkInstancePubSubUniqueness(InstancePubSub instancePubSub) {
+		val network = instancePubSub.eContainer as Network		
+		val allinstancePubSub = network.instantiate.filter(k | k instanceof InstancePubSub && (k as InstancePubSub).name == instancePubSub.name)
+		
+		if (allinstancePubSub.size() > 1) {
+			val msg = "The instance '" + instancePubSub.getName() + "' is already declared.";
+			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instancePubSub),
+				INSTANCEPUBSUB_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
+	def checkInstancePTPUniqueness(InstancePTP instancePTP) {
+		val network = instancePTP.eContainer as Network		
+		val allinstancePTP = network.instantiate.filter(k | k instanceof InstancePTP && (k as InstancePTP).name == instancePTP.name)
+		
+		if (allinstancePTP.size() > 1) {
+			val msg = "The instance '" + instancePTP.getName() + "' is already declared.";
+			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instancePTP),
+				INSTANCEPTP_UNIQUENESS)
 		}
 	}
 	
