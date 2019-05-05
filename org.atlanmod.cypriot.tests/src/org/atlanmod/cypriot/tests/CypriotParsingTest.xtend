@@ -49,7 +49,19 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.declareRoles.get(0).name.equals("anyrole"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-
+	
+	@Test
+	def void DuplicateRolesDeclaration() {
+		val result = parseHelper.parse('''
+			role anyrole
+			role anyrole
+		''')
+		val role = result.declareRoles.get(0)
+		Assert.assertTrue(role instanceof Role)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.ROLE_UNIQUENESS)
+		Assert.assertNotNull(role)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	@Test
 	def void UserDeclaration() {
