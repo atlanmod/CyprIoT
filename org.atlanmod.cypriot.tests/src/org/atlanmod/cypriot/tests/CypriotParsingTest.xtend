@@ -23,6 +23,7 @@ import org.atlanmod.cypriot.validation.CypriotValidator
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ThingAny
+import org.atlanmod.cypriot.cyprIoT.PointToPoint
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -39,15 +40,16 @@ class CypriotParsingTest {
 	@Test
 	def void roleDeclaration() {
 		val result = parseHelper.parse('''
-			role sensor
+			role anyrole
 		''')
 		val role = result.declareRoles.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(role instanceof Role)
-		Assert.assertTrue(result.declareRoles.get(0).name.equals("sensor"))
+		Assert.assertTrue(result.declareRoles.get(0).name.equals("anyrole"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+
 
 	@Test
 	def void UserDeclaration() {
@@ -144,6 +146,19 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void DuplicatePTPDeclaration() {
+		val result = parseHelper.parse('''
+			channel:ptp anyptp {}
+			channel:ptp anyptp {}
+		''')
+		val ptp = result.declareChannels.get(0)
+		Assert.assertTrue(ptp instanceof PointToPoint)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PTP_UNIQUENESS)
+		Assert.assertNotNull(ptp)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 

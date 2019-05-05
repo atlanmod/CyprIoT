@@ -11,6 +11,7 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
+import org.atlanmod.cypriot.cyprIoT.Role
 
 /**
  * This class contains custom validation rules. 
@@ -19,6 +20,9 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint
  */
 class CypriotValidator extends AbstractCypriotValidator {
 	
+	
+	public static val ROLE_UNIQUENESS= "Role-Uniqueness"
+	public static val USER_UNIQUENESS= "User-Uniqueness"
 	public static val INSTANCETHING_UNIQUENESS= "InstanceThing-Uniqueness"
 	public static val NETWORK_UNIQUENESS= "Network-Uniqueness"
 	public static val THING_UNIQUENESS= "Thing-Uniqueness"
