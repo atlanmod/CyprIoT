@@ -2,13 +2,17 @@ package org.atlanmod.cypriot.tests
 
 import com.google.inject.Inject
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
+import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.InstancePTP
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
+import org.atlanmod.cypriot.cyprIoT.Network
+import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.ThingAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
-import org.atlanmod.cypriot.cyprIoT.Topic
+import org.atlanmod.cypriot.validation.CypriotValidator
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -18,12 +22,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.assertTrue
-import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.validation.CypriotValidator
-import org.atlanmod.cypriot.cyprIoT.Network
-import org.atlanmod.cypriot.cyprIoT.Thing
-import org.atlanmod.cypriot.cyprIoT.ThingAny
-import org.atlanmod.cypriot.cyprIoT.PointToPoint
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -75,7 +73,6 @@ class CypriotParsingTest {
 		val assignedRole = user.assignedRoles.get(0)
 		result.assertNoErrors
 		Assert.assertEquals("anyuser", user.name)
-		Assert.assertTrue(assignedRole instanceof Role)
 		Assert.assertEquals("actor", assignedRole.name)
 		Assert.assertNotNull(assignedRole)
 		Assert.assertNotNull(role)
@@ -110,7 +107,6 @@ class CypriotParsingTest {
 			thing thing1 import "thing1.thingml"
 		''')
 		val thing = result.declareThings.get(0)
-		Assert.assertTrue(thing instanceof Thing)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.THING_UNIQUENESS)
 		Assert.assertNotNull(thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -127,7 +123,6 @@ class CypriotParsingTest {
 		val topics = (result.declareChannels.get(0) as PubSub).hasTopics
 		val subtopics = topics.get(1).subtopicOf
 		result.assertNoErrors
-		Assert.assertTrue(topics.get(0) instanceof Topic)
 		Assert.assertEquals("topic1", topics.get(0).name)
 		Assert.assertEquals("topic1", subtopics.get(0).name)
 		Assert.assertNotNull(subtopics)
@@ -187,6 +182,18 @@ class CypriotParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.specifyPolicies.get(0).name.equals("anyname"))
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void DuplicatePolicyDeclaration() {
+		val result = parseHelper.parse('''
+			policy anyname {}
+			policy anyname {}
+		''')
+		val policy = result.specifyPolicies.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.POLICY_UNIQUENESS)
+		Assert.assertNotNull(policy)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
