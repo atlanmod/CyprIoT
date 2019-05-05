@@ -54,6 +54,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 	
 	@Check(FAST)
+	def checkRoleUniqueness(Role role) {
+		val cypriotModel = role.eContainer as CyprIoTModel		
+		val allroles = cypriotModel.declareRoles.filter(k | k.name == role.name)
+		
+		if (allroles.size() > 1) {
+			val msg = "The role '" + role.getName() + "' is already declared.";
+			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareRoles, cypriotModel.declareRoles.indexOf(role),
+				ROLE_UNIQUENESS)
+		}
+	}
+	
+	@Check(FAST)
 	def checkThingUniqueness(Thing thing) {
 		val cypriotModel = thing.eContainer as CyprIoTModel		
 		val allThings = cypriotModel.declareThings.filter(k | k.name == thing.name)
