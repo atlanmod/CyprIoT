@@ -32,7 +32,10 @@ class CypriotParsingTest {
 	@Inject
 	extension ValidationTestHelper
 
-	// Testing the declarations
+/*******************************
+* DECLARATION TESTS            *
+*******************************/
+
 	@Test
 	def void roleDeclaration() {
 		val result = parseHelper.parse('''
@@ -85,11 +88,24 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void DuplicateThingsDeclaration() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing1 import "thing1.thingml"
+		''')
+		val thing = result.declareThings.get(0)
+		Assert.assertTrue(thing instanceof Thing)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.THING_UNIQUENESS)
+		Assert.assertNotNull(thing)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	@Test
 	def void PubSubDeclaration() {
 		val result = parseHelper.parse('''
-			channel:pubsub Broker {
+			channel:pubsub anypubsub {
 				topic topic1 
 				topic topic2 subtopicOf topic1
 			}
@@ -105,6 +121,19 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void DuplicatePubSubDeclaration() {
+		val result = parseHelper.parse('''
+			channel:pubsub anypubsub {}
+			channel:pubsub anypubsub {}
+		''')
+		val pubsub = result.declareChannels.get(0)
+		Assert.assertTrue(pubsub instanceof PubSub)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PUBSUB_UNIQUENESS)
+		Assert.assertNotNull(pubsub)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	@Test
 	def void PtPDeclaration() {
@@ -118,7 +147,10 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	// Testing the policy
+/*******************************
+* POLICY TESTS                 *
+*******************************/
+
 	@Test
 	def void policyDeclaration() {
 		val result = parseHelper.parse('''
@@ -131,7 +163,10 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	// Testing the rule
+/*******************************
+* RULE TESTS                   *
+*******************************/
+
 	@Test
 	def void RuleWithDenyReceiveBetweenThings() { // TODO test rule with ports
 		val result = parseHelper.parse('''
@@ -233,7 +268,10 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	// Testing the network
+/*******************************
+* NETWORK TESTS                *
+*******************************/
+
 	@Test
 	def void networkDeclaration() {
 		val result = parseHelper.parse('''
@@ -309,19 +347,6 @@ class CypriotParsingTest {
 		Assert.assertTrue(network instanceof Network)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.NETWORK_UNIQUENESS)
 		Assert.assertNotNull(network)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
-	def void NetworkWithDuplicateThings() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			thing thing1 import "thing1.thingml"
-		''')
-		val thing = result.declareThings.get(0)
-		Assert.assertTrue(thing instanceof Thing)
-		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.THING_UNIQUENESS)
-		Assert.assertNotNull(thing)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
