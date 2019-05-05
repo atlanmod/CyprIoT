@@ -157,6 +157,20 @@ class CypriotParsingTest {
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void DuplicateTopicsDeclaration() {
+		val result = parseHelper.parse('''
+			channel:pubsub anypubsub {
+				topic anytopic
+				topic anytopic
+			}
+		''')
+		val pubsub = (result.declareChannels.get(0) as PubSub).hasTopics.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.pubSub, CypriotValidator.TOPIC_UNIQUENESS)
+		Assert.assertNotNull(pubsub)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	@Test
 	def void PtPDeclaration() {
@@ -179,6 +193,20 @@ class CypriotParsingTest {
 		val ptp = result.declareChannels.get(0)
 		Assert.assertTrue(ptp instanceof PointToPoint)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PTP_UNIQUENESS)
+		Assert.assertNotNull(ptp)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void DuplicateConnectionPointsDeclaration() {
+		val result = parseHelper.parse('''
+			channel:ptp anyptp {
+				ConnectionPoint anycp
+				ConnectionPoint anycp
+			}
+		''')
+		val ptp = (result.declareChannels.get(0) as PointToPoint).hasConnectionPoints.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.pointToPoint, CypriotValidator.CONNECTIONPOINT_UNIQUENESS)
 		Assert.assertNotNull(ptp)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
