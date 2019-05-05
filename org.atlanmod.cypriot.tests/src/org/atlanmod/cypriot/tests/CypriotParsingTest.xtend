@@ -22,6 +22,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.assertTrue
+import org.atlanmod.cypriot.cyprIoT.User
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
@@ -77,6 +78,19 @@ class CypriotParsingTest {
 		Assert.assertNotNull(assignedRole)
 		Assert.assertNotNull(role)
 		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void DuplicateUsersDeclaration() {
+		val result = parseHelper.parse('''
+			user anyuser
+			user anyuser
+		''')
+		val user = result.declareUsers.get(0)
+		Assert.assertTrue(user instanceof User)
+		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.USER_UNIQUENESS)
+		Assert.assertNotNull(user)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
