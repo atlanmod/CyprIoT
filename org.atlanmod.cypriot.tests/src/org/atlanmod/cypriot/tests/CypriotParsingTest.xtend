@@ -10,8 +10,10 @@ import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.RuleComm
 import org.atlanmod.cypriot.cyprIoT.ThingAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
+import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -22,21 +24,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.assertTrue
-import org.atlanmod.cypriot.cyprIoT.User
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotInjectorProvider))
 class CypriotParsingTest {
-	
+
 	@Inject
 	ParseHelper<CyprIoTModel> parseHelper
 	@Inject
 	extension ValidationTestHelper
 
-/*******************************
-* DECLARATION TESTS            *
-*******************************/
-
+	/*******************************
+	 * DECLARATION TESTS            *
+	 *******************************/
 	@Test
 	def void roleDeclaration() {
 		val result = parseHelper.parse('''
@@ -49,7 +49,7 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.declareRoles.get(0).name.equals("anyrole"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicateRolesDeclaration() {
 		val result = parseHelper.parse('''
@@ -81,7 +81,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicateUsersDeclaration() {
 		val result = parseHelper.parse('''
@@ -114,7 +114,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicateThingsDeclaration() {
 		val result = parseHelper.parse('''
@@ -145,7 +145,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicatePubSubDeclaration() {
 		val result = parseHelper.parse('''
@@ -158,7 +158,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicateTopicsDeclaration() {
 		val result = parseHelper.parse('''
@@ -184,7 +184,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicatePTPDeclaration() {
 		val result = parseHelper.parse('''
@@ -197,7 +197,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(ptp)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicateConnectionPointsDeclaration() {
 		val result = parseHelper.parse('''
@@ -212,10 +212,9 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-/*******************************
-* POLICY TESTS                 *
-*******************************/
-
+	/*******************************
+	 * POLICY TESTS                 *
+	 *******************************/
 	@Test
 	def void policyDeclaration() {
 		val result = parseHelper.parse('''
@@ -227,7 +226,7 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.specifyPolicies.get(0).name.equals("anyname"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void DuplicatePolicyDeclaration() {
 		val result = parseHelper.parse('''
@@ -240,12 +239,11 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-/*******************************
-* RULE TESTS                   *
-*******************************/
-
+	/*******************************
+	 * RULE TESTS                   *
+	 *******************************/
 	@Test
-	def void RuleWithDenyReceiveBetweenThings() { // TODO test rule with ports
+	def void RuleWithDenyReceiveBetweenThings() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
 			thing thing2 import "thing2.thingml"
@@ -258,6 +256,8 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
+	// TODO test rule with ports
+	// TODO test rule with state
 	@Test
 	def void RuleWithAllowReceiveBetweenThings() {
 		val result = parseHelper.parse('''
@@ -339,16 +339,15 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
-		Assert.assertTrue(rule.commSubject.subjectOther instanceof ThingAny)
-		Assert.assertTrue(rule.commObject.subjectOther instanceof Role)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof ThingAny)
+		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Role)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-/*******************************
-* NETWORK TESTS                *
-*******************************/
-
+	/*******************************
+	 * NETWORK TESTS                *
+	 *******************************/
 	@Test
 	def void networkDeclaration() {
 		val result = parseHelper.parse('''
@@ -409,7 +408,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithDuplicateInstancePubSub() {
 		val result = parseHelper.parse('''
@@ -426,7 +425,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull((thingInstanciate as InstancePubSub).pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void NetworkWithDuplicateInstancePTP() {
 		val result = parseHelper.parse('''
