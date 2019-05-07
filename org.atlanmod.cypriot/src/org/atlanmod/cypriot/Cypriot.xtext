@@ -158,13 +158,20 @@ Policy:
 ;
 
 Rule:
-	'rule' (name=ID ':')? commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
-		//(conditions=Conditions)?
+	(RuleComm | RuleTrigger) (conditions=Conditions)?
 
 ;
 
+RuleComm:
+	'rule' (name=ID ':')? commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
+;
+
+RuleTrigger:
+	'rule' (name=ID ':')? thingWithState=ThingWithState effectTrigger=EffectTrigger
+;
+
 CommSubjectObject :
-	thingSubject=[ThingAny] thingSubjectElements=ThingElements | subjectOther=[SubjectObjectOther]
+	thingWithStateOrPort=ThingWithStateOrPort | subjectOther=[SubjectObjectOther]
 ;
 
 ThingAny:
@@ -175,7 +182,11 @@ SubjectObjectOther:
 	Role | User | ThingAny
 ;
 
-ThingElements:
+ThingWithStateOrPort:
+	thingSubject=[ThingAny] thingSubjectElements=ThingPortOrState
+;
+
+ThingPortOrState:
 	ThingPort | ThingState
 ;
 
@@ -187,14 +198,54 @@ ThingState:
 	'->' 'state:' thingSubjectPort?=[thingml::State]
 ;
 
+ThingFunction:
+	'->' 'function:' thingSubjectPort?=[thingml::State]
+;
+
+ThingWithState:
+	thingSubject=[ThingAny] thingState=ThingState
+;
+
+ThingWithFunction:
+	thingSubject=[ThingAny] thingFunction=ThingFunction
+;
+
 EffectComm:
 	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
+;
+
+EffectTrigger:
+	trigger='trigger:' actionTrigger=ActionTrigger
+;
+
+ActionTrigger:
+	performTransition='performTransition' thingAny=ThingAny | 
+	goToState='goToState' thingWithState=ThingWithState | 
+	executeFunction='executeFunction' thingWithFunction=ThingWithFunction
 ;
 
 enum ActionComm:
 	send='send' | 
 	receive='receive' |
 	sendreceive='send-receive'
+;
+
+Conditions:
+	'when' conditionExpression=ConditionsExpression
+;
+
+ConditionsExpression: OrExpression;
+
+OrExpression returns Expression:
+	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
+;
+
+AndExpression returns Expression:
+	ExpressionAttribute ({AndExpression.lhs=current} "and" rhs=ExpressionAttribute)*
+;
+
+ExpressionAttribute:
+	attribute=[ThingAny] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING)
 ;
 
 DomainId:
@@ -211,9 +262,7 @@ enum ActionBridge:
 
 /*
 // TODO add conditions to rule
-Conditions:
-	'when' conditionExpression=ConditionsExpression
-;
+
 
 // TODO add time standard declaration
 terminal TIME:

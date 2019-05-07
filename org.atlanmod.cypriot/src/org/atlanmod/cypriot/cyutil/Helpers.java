@@ -404,10 +404,11 @@ public class Helpers {
 		// ThingMLFactoryImpl());
 		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml",
 		// new ThingMLFactoryImpl());
+		System.out.println("URI : " + new_uri);
+		System.out.println("URI Resolve : " + thing.eResource().getURI());
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(thing.eResource().getURI());
 		}
-		System.out.println("URI : " + new_uri);
 		Resource r = thing.eResource().getResourceSet().getResource(new_uri, true);
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
 			return (ThingMLModel) r.getContents().get(0);
