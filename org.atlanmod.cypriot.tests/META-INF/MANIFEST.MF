@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-ClassPath: .,thingml-lang.jar
 Bundle-Name: org.atlanmod.cypriot.tests
 Bundle-Vendor: Atlanmod
 Bundle-Version: 1.0.0.qualifier
@@ -22,8 +23,7 @@ Import-Package: org.apache.log4j,
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",
  org.junit.runners;version="4.5.0",
- org.junit.runners.model;version="4.5.0",
- org.thingml.xtext
+ org.junit.runners.model;version="4.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.atlanmod.cypriot.tests;x-internal=true
 Automatic-Module-Name: org.atlanmod.cypriot.tests

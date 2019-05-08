@@ -654,7 +654,6 @@ class CypriotParsingTest {
 					instance thing1Inst:thing1
 					connector thing1.port1 over X
 				}
-				 
 			''', "UTF-8"), resourceSet.loadOptions)
 			]
 		])
