@@ -43,6 +43,7 @@ import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.helpers.CompositeStateHelper;
 import org.thingml.xtext.thingML.CompositeState;
+import org.thingml.xtext.thingML.Function;
 import org.thingml.xtext.thingML.Message;
 import org.thingml.xtext.thingML.Parameter;
 import org.thingml.xtext.thingML.Port;
@@ -331,7 +332,45 @@ public class Helpers {
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result;
 	}
+	
+	public static ArrayList<Function> getAllFunctionsThingAny(ThingAny thingAny) {
+		if (thingAny instanceof Thing) {
+			return allFunctionsThingML((Thing) thingAny);
+		} else if (thingAny instanceof InstanceThing) {
+			return allFunctionsThingML(((InstanceThing) thingAny).getThingToInstantiate());
+		}
 
+		return null;
+	}
+	
+	public static ArrayList<Function> allFunctionsThingML(Thing thing) {
+		ThingMLModel thingmlModel = null;
+		ArrayList<Function> result = new ArrayList<Function>();
+		try {
+			thingmlModel = getThingInThingML(thing);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (thingmlModel != null) {
+			ArrayList<Function> functions = ThingMLHelpers
+					.allFunctions((((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0))));
+			for (Function function : functions) {
+				result.add(function);
+			}
+		}
+		return result;
+	}
+
+	public static ArrayList<State> getAllStatesThingAny(ThingAny thingAny) {
+		if (thingAny instanceof Thing) {
+			return allStatesThingML((Thing) thingAny);
+		} else if (thingAny instanceof InstanceThing) {
+			return allStatesThingML(((InstanceThing) thingAny).getThingToInstantiate());
+		}
+
+		return null;
+	}
+	
 	public static ArrayList<Port> getAllPortsThingAny(ThingAny thingAny) {
 		if (thingAny instanceof Thing) {
 			return getAllPortsThing((Thing) thingAny);

@@ -365,7 +365,7 @@ class CypriotParsingTest {
 			thing thing1 import "thing1.thingml"
 			thing thing2 import "thing2.thingml"
 			policy anyname {
-				rule thing2 deny:receive thing1->port:port2
+				rule thing2 deny:receive thing1->port:port1
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/thing1.thingml")) => [
