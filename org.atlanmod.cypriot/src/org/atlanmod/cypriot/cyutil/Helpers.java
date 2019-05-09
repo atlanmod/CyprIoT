@@ -10,6 +10,7 @@ package org.atlanmod.cypriot.cyutil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -75,6 +76,20 @@ public class Helpers {
 		return (C) eObject;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <C> List<C> allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
+		final List<C> result = new ArrayList<C>();
+		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
+		System.out.println("Allcontent : "+it);
+		while (it.hasNext()) {
+			EObject o = it.next();
+			if (c.isInstance(o))
+				result.add((C) o);
+		}
+
+		return result;
+	}
+
 	public static CyprIoTModel findContainingModel(EObject object) {
 		return findContainer(object, CyprIoTModel.class);
 	}
@@ -90,7 +105,7 @@ public class Helpers {
 	public static Bind findContainingBind(EObject object) {
 		return findContainer(object, Bind.class);
 	}
-	
+
 	public static ThingAny findContainingThingAny(EObject object) {
 		return findContainer(object, ThingAny.class);
 	}
@@ -318,14 +333,15 @@ public class Helpers {
 	}
 
 	public static ArrayList<Port> getAllPortsThingAny(ThingAny thingAny) {
-		if(thingAny instanceof Thing) {
+		if (thingAny instanceof Thing) {
 			return getAllPortsThing((Thing) thingAny);
-		} else if(thingAny instanceof InstanceThing){
+		} else if (thingAny instanceof InstanceThing) {
 			return getAllPortsThing(((InstanceThing) thingAny).getThingToInstantiate());
 		}
-		
+
 		return null;
 	}
+
 	/**
 	 * @param thingToInstanciate
 	 * @return

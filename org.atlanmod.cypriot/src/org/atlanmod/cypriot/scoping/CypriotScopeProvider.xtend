@@ -7,7 +7,9 @@ import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.SubjectObjectOther
 import org.atlanmod.cypriot.cyprIoT.ThingAny
+import org.atlanmod.cypriot.cyprIoT.ThingWithPort
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyutil.Helpers
@@ -17,8 +19,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.SubjectObjectOther
-import org.atlanmod.cypriot.cyprIoT.ThingWithStateOrPort
 
 /**
  * This class contains custom scoping description.
@@ -66,8 +66,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)))
-		} else if (reference == cypriotInstance.thingPort_Port) {
-			return Scopes.scopeFor(Helpers.getAllPortsThingAny((context.eContainer as ThingWithStateOrPort).thing))
+		} else if (reference == cypriotInstance.getPort_Port) {
+			return Scopes.scopeFor(Helpers.getAllPortsThingAny(Helpers.allContainedCrossReferencesOfType(context.eContainer, ThingAny).get(0)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

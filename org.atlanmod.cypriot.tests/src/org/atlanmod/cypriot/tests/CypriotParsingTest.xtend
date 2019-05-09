@@ -358,9 +358,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
-	// TODO test rule with ports
-	// TODO test rule with state
+
 	@Test
 	def void RuleWithAllowReceiveBetweenThings() {
 		val result = parseHelper.parse('''

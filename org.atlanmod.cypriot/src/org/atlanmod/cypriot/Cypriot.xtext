@@ -183,31 +183,31 @@ SubjectObjectOther:
 ;
 
 ThingWithStateOrPort:
-	thing=[ThingAny] thingPortOrState=ThingPortOrState
+	ThingWithPort | ThingWithState
 ;
 
-ThingPortOrState:
-	ThingPort | ThingState
-;
-
-ThingPort:
+GetPort:
 	'->' 'port:' port=[thingml::Port]
 ;
 
-ThingState:
+GetState:
 	'->' 'state:' state=[thingml::State]
 ;
 
-ThingFunction:
+GetFunction:
 	'->' 'function:' function=[thingml::Function]
 ;
 
+ThingWithPort:
+	thing=[ThingAny] getPort=GetPort
+;
+
 ThingWithState:
-	thing=[ThingAny] thingState=ThingState
+	thing=[ThingAny] getState=GetState
 ;
 
 ThingWithFunction:
-	thing=[ThingAny] thingFunction=ThingFunction
+	thing=[ThingAny] getFunction=GetFunction
 ;
 
 EffectComm:
