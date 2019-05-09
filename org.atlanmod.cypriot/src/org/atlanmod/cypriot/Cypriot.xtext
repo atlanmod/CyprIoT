@@ -191,15 +191,15 @@ ThingPortOrState:
 ;
 
 ThingPort:
-	'->' 'port:' port?=[thingml::Port]
+	'->' 'port:' port=[thingml::Port]
 ;
 
 ThingState:
-	'->' 'state:' state?=[thingml::State]
+	'->' 'state:' state=[thingml::State]
 ;
 
 ThingFunction:
-	'->' 'function:' function?=[thingml::Function]
+	'->' 'function:' function=[thingml::Function]
 ;
 
 ThingWithState:

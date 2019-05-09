@@ -28,6 +28,7 @@ import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.ThingAny;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.URI;
@@ -88,6 +89,10 @@ public class Helpers {
 
 	public static Bind findContainingBind(EObject object) {
 		return findContainer(object, Bind.class);
+	}
+	
+	public static ThingAny findContainingThingAny(EObject object) {
+		return findContainer(object, ThingAny.class);
 	}
 
 	public static ArrayList<CyprIoTModel> allCypriotModels(CyprIoTModel model) {
@@ -312,6 +317,15 @@ public class Helpers {
 		return result;
 	}
 
+	public static ArrayList<Port> getAllPortsThingAny(ThingAny thingAny) {
+		if(thingAny instanceof Thing) {
+			return getAllPortsThing((Thing) thingAny);
+		} else if(thingAny instanceof InstanceThing){
+			return getAllPortsThing(((InstanceThing) thingAny).getThingToInstantiate());
+		}
+		
+		return null;
+	}
 	/**
 	 * @param thingToInstanciate
 	 * @return

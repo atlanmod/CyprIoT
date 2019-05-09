@@ -324,8 +324,8 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
-		@Test
+
+	@Test
 	def void RuleWithDenyReceiveBetweenAPortAndThing() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
@@ -358,7 +358,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-
+	
 	// TODO test rule with ports
 	// TODO test rule with state
 	@Test
