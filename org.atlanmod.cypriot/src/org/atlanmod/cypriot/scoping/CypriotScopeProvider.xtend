@@ -55,7 +55,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance));
 		} else if (reference == cypriotInstance.policiesEnforcement_PolicyName) {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.thingWithStateOrPort_ThingSubject) {
+		} else if (reference == cypriotInstance.thingWithStateOrPort_Thing) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
 			return Scopes.scopeFor(candidates)
@@ -65,53 +65,9 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
-		} /*else if (reference == cypriotInstance.rule_OtherCommObjects){
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, OtherCommSubjets)
-			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.rule_RuleObject) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingSubjectAny)
-			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.thingSubjectObject_ThingSubject) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingSubjectAny)
-			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.thingSubjectObject_ThingSubjectPort) {
-			if(((context as ThingSubjectObject).thingSubject instanceof Thing)) {
-				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubjectObject).thingSubject as Thing)))
-			} else {
-				return Scopes.scopeFor(Helpers.getAllPortsThing(((context as ThingSubjectObject).thingSubject as InstanceThing).thingToInstantiate))
-			}
-		} else if (reference == cypriotInstance.thingSubjectObject_ThingSubjectState) {
-			if(((context as ThingSubjectObject).thingSubject instanceof Thing)) {
-				return Scopes.scopeFor(Helpers.allStatesThingML(((context as ThingSubject).thingSubject as Thing)))
-			} else {
-				return Scopes.scopeFor(Helpers.allStatesThingML(((context as ThingSubject).thingSubject as InstanceThing).thingToInstantiate))
-			}
-		}  else if (reference == cypriotInstance.userSubject_UserSubject) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, User)
-			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.roleSubject_RoleSubject) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Role)
-			return Scopes.scopeFor(candidates)
-		}/*else if (reference == cypriotInstance.rule_ThingObjectPort) {
-			return Scopes.scopeFor(Helpers.getAllPortsThing(((context as Rule).ruleObject as Thing)))
-		} else if (reference == cypriotInstance.networkBridge_BindSubject) {
-			return Scopes.scopeFor(Helpers.allBridgeSubjects(Helpers.findContainingModel(context)));
-		} else if (reference == cypriotInstance.expressionAttribute_Attribute) {
-			return Scopes.scopeFor(Helpers.allSubjectConditions(Helpers.findContainer(context, Rule) as Rule))
-		} else if (reference == cypriotInstance.expressionAttribute_SubjectState) {
-			return Scopes.scopeFor(Helpers.allStatesThingML(((context as ExpressionAttribute).attribute as Thing)))
-		} else if (reference == cypriotInstance.expressionAttribute_SubjectProperty) {
-			return Scopes.scopeFor(Helpers.allPropertiesThingML(((context as ExpressionAttribute).attribute as Thing)))
-		} else if (reference == cypriotInstance.expressionAttribute_SubjectMessage) {
-			return Scopes.scopeFor(Helpers.allMessagesThingML(((context as ExpressionAttribute).attribute as Thing)))
-		} else if (reference == cypriotInstance.expressionAttribute_ParameterMessage) {
-			return Scopes.scopeFor(Helpers.allMessageParametersThingML(((context as ExpressionAttribute).subjectMessage as Message)))
-		} */else {
+		} else if (reference == cypriotInstance.thingFunction_Function) {
+			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
+		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
 		}

@@ -183,7 +183,7 @@ SubjectObjectOther:
 ;
 
 ThingWithStateOrPort:
-	thingSubject=[ThingAny] thingSubjectElements=ThingPortOrState
+	thing=[ThingAny] thingPortOrState=ThingPortOrState
 ;
 
 ThingPortOrState:
@@ -191,23 +191,23 @@ ThingPortOrState:
 ;
 
 ThingPort:
-	'->' 'port:' thingSubjectPort?=[thingml::Port]
+	'->' 'port:' port?=[thingml::Port]
 ;
 
 ThingState:
-	'->' 'state:' thingSubjectPort?=[thingml::State]
+	'->' 'state:' state?=[thingml::State]
 ;
 
 ThingFunction:
-	'->' 'function:' thingSubjectPort?=[thingml::State]
+	'->' 'function:' function?=[thingml::Function]
 ;
 
 ThingWithState:
-	thingSubject=[ThingAny] thingState=ThingState
+	thing=[ThingAny] thingState=ThingState
 ;
 
 ThingWithFunction:
-	thingSubject=[ThingAny] thingFunction=ThingFunction
+	thing=[ThingAny] thingFunction=ThingFunction
 ;
 
 EffectComm:
