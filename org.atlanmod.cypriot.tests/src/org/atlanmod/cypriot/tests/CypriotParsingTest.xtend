@@ -85,7 +85,7 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
-	
+
 	@Test
 	def void importCypriotFileWithUserAssignedRole() {
 		val result = parseHelper.parse('''
@@ -324,6 +324,40 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+		@Test
+	def void RuleWithDenyReceiveBetweenAPortAndThing() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing1->port:port1 deny:receive thing2
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	// TODO test rule with ports
 	// TODO test rule with state
@@ -414,52 +448,6 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	/*
-	 * // Difference between a state and a function, a state is permanent until there is a transition, a function (chunk of code) can be executed on demand. It can be executed from many states
-	 * def void RuleSubjectStateTriggerObjectState() { // Usefulness : When the temperature sensor on state high, the airconditionner must be on state work
-	 * 	val result = parseHelper.parse('''
-	 * 		thing thing1 import "thing1.thingml"
-	 * 		thing thing2 import "thing2.thingml"
-	 * 		policy anypolicy {
-	 * 			rule thing1->state:stateA trigger:goToState thing2->state:stateB
-	 * 		}
-	 * 	''')
-	 * 	result.assertNoErrors
-	 * 	var rule = result.specifyPolicies.get(0).hasRules.get(0)
-	 * 	Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
-	 * 	Assert.assertNotNull(result)
-	 * 	Assert.assertTrue(result.eResource.errors.isEmpty)
-	 * }
-
-	 * def void RuleSubjectStateTriggerObjectFunction() { // Usefulness : When the movement sensor is on state detected, the heater must stay on its state but monitor the ambiant temperature using a function
-	 * 	val result = parseHelper.parse('''
-	 * 		thing thing1 import "thing1.thingml"
-	 * 		thing thing2 import "thing2.thingml"
-	 * 		policy anypolicy {
-	 * 			rule thing1->state:stateA trigger:executeFunction thing2->function:functionA
-	 * 		}
-	 * 	''')
-	 * 	result.assertNoErrors
-	 * 	var rule = result.specifyPolicies.get(0).hasRules.get(0)
-	 * 	Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
-	 * 	Assert.assertNotNull(result)
-	 * 	Assert.assertTrue(result.eResource.errors.isEmpty)
-	 * }
-
-	 * def void RuleSubjectStateTriggerObjectTransition() { // Usefulness : It captures the aspect of the subject does not have to worry about the current state of the object
-	 * 	val result = parseHelper.parse('''
-	 * 		thing thing1 import "thing1.thingml"
-	 * 		thing thing2 import "thing2.thingml"
-	 * 		policy anypolicy {
-	 * 			rule thing1->state:stateA trigger:performTransition thing2
-	 * 		}
-	 * 	''')
-	 * 	result.assertNoErrors
-	 * 	var rule = result.specifyPolicies.get(0).hasRules.get(0)
-	 * 	Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
-	 * 	Assert.assertNotNull(result)
-	 * 	Assert.assertTrue(result.eResource.errors.isEmpty)
-	 } */
 	/*******************************
 	 * NETWORK TESTS                *
 	 *******************************/

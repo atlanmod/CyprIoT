@@ -32,29 +32,29 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 	override IScope getScope(EObject context, EReference reference) {
 
 		if (reference == cypriotInstance.user_AssignedRoles || reference == cypriotInstance.thing_AssignedRoles) {
-			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.instanceThing_ThingToInstantiate) {
-			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.instancePubSub_PubSubToInstantiate) {
-			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.instancePTP_PtPToInstantiate) {
-			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.instanceThing_Owner) {
-			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
-			return Scopes.scopeFor(Helpers.allTopicsInType(context.eContainer as PubSub));
+			return Scopes.scopeFor(Helpers.allTopicsInType(context.eContainer as PubSub))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
-			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network));
+			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network))
 		} else if (reference == cypriotInstance.toBindPubSub_TargetedPubSubInstance) {
-			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network));
+			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network))
 		} else if (reference == cypriotInstance.toBindPTP_TargetedPtpInstance) {
-			return Scopes.scopeFor(Helpers.allPtPinstances(context.eContainer.eContainer as Network));
+			return Scopes.scopeFor(Helpers.allPtPinstances(context.eContainer.eContainer as Network))
 		} else if (reference == cypriotInstance.toBindPubSub_Topics) {
-			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance));
+			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance))
 		} else if (reference == cypriotInstance.toBindPTP_BindsToConnectionPoint) {
-			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance));
+			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance))
 		} else if (reference == cypriotInstance.policiesEnforcement_PolicyName) {
-			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)));
+			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingWithStateOrPort_Thing) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
@@ -64,9 +64,9 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, SubjectObjectOther)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bind_PortToBind) {
-			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
-		} else if (reference == cypriotInstance.thingFunction_Function) {
-			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)));
+			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)))
+		} else if (reference == cypriotInstance.thingPort_Port) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingThing(context)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
