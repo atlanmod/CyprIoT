@@ -40,7 +40,34 @@ class CypriotParsingTest {
 	
 	@Inject
 	Provider<ResourceSet> resourcesetProvider;
-
+	
+	/*******************************
+	 * IMPORT TESTS                *
+	 *******************************/
+	@Test
+	def void importCypriotFileWithBind() {
+		val result = parseHelper.parse('''
+			import "import1.cy"
+			network anynet {
+				domain org.atlanmod
+				instance th1:thing1 platform JAVA
+				instance ch1:anychannel platform MQTT
+				bind th1 => ch1{anytopic}
+			}
+		''', URI.createFileURI("/test.cy"),resourcesetProvider.get => [
+			createResource(URI.createFileURI("/import1.cy")) => [
+				load(new StringInputStream('''
+				thing thing1 import "thing1.thingml"
+				channel:pubsub anychannel {
+					topic anytopic
+				}
+			''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 	/*******************************
 	 * DECLARATION TESTS            *
 	 *******************************/
@@ -352,6 +379,52 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
+	/*
+	// Difference between a state and a function, a state is permanent until there is a transition, a function (chunk of code) can be executed on demand. It can be executed from many states
+	def void RuleSubjectStateTriggerObjectState() { // Usefulness : When the temperature sensor on state high, the airconditionner must be on state work
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anypolicy {
+				rule thing1->state:stateA trigger:goToState thing2->state:stateB
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	def void RuleSubjectStateTriggerObjectFunction() { // Usefulness : When the movement sensor is on state detected, the heater must stay on its state but monitor the ambiant temperature using a function
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anypolicy {
+				rule thing1->state:stateA trigger:executeFunction thing2->function:functionA
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	def void RuleSubjectStateTriggerObjectTransition() { // Usefulness : It captures the aspect of the subject does not have to worry about the current state of the object
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anypolicy {
+				rule thing1->state:stateA trigger:performTransition thing2
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleTrigger).thingWithState.thingSubject instanceof ThingAny)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	} */
 	/*******************************
 	 * NETWORK TESTS                *
 	 *******************************/
