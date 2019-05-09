@@ -70,10 +70,27 @@ class CypriotParsingTest {
 	}
 
 	@Test
-	def void importCypriotFileWithAssignRole() {
+	def void importCypriotFileWithThingAssignedRole() {
 		val result = parseHelper.parse('''
 			import "import1.cy"
 			thing thing1 assigned anyrole import "thing1.thingml"
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/import1.cy")) => [
+				load(new StringInputStream('''
+					role anyrole
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void importCypriotFileWithUserAssignedRole() {
+		val result = parseHelper.parse('''
+			import "import1.cy"
+			user user1 assigned anyrole
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/import1.cy")) => [
 				load(new StringInputStream('''
