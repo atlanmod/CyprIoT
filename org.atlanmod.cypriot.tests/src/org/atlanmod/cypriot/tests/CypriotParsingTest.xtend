@@ -326,74 +326,6 @@ class CypriotParsingTest {
 	}
 
 	@Test
-	def void RuleWithDenyReceiveBetweenAPortAndThing() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			thing thing2 import "thing2.thingml"
-			policy anyname {
-				rule thing1->port:port1 deny:receive thing2
-			}
-		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
-			createResource(URI.createFileURI("/thing1.thingml")) => [
-				load(new StringInputStream('''
-					thing thing1{
-						message message1()
-						provided port port1 {
-							receives message1
-						}
-						statechart thing1 init state1 {
-							state state1 {}
-							state state2 {}
-						}
-					}
-					protocol X;
-					configuration thing1Cfg {
-						instance thing1Inst:thing1
-						connector thing1.port1 over X
-					}
-				''', "UTF-8"), resourceSet.loadOptions)
-			]
-		])
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
- 
-	@Test
-	def void RuleWithDenyReceiveBetweenThingAndAPort() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			thing thing2 import "thing2.thingml"
-			policy anyname {
-				rule thing2 deny:receive thing1->port:port1
-			}
-		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
-			createResource(URI.createFileURI("/thing1.thingml")) => [
-				load(new StringInputStream('''
-					thing thing1{
-						message message1()
-						provided port port1 {
-							receives message1
-						}
-						statechart thing1 init state1 {
-							state state1 {}
-							state state2 {}
-						}
-					}
-					protocol X;
-					configuration thing1Cfg {
-						instance thing1Inst:thing1
-						connector thing1.port1 over X
-					}
-				''', "UTF-8"), resourceSet.loadOptions)
-			]
-		])
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-	
-	@Test
 	def void RuleWithDenyReceiveBetweenTwoPorts() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
@@ -446,7 +378,74 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	// TODO test rule with ports
+	@Test
+	def void RuleWithDenyReceiveBetweenAPortAndThing() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing1->port:port1 deny:receive thing2
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	@Test
+	def void RuleWithDenyReceiveBetweenThingAndAPort() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing2 deny:receive thing1->port:port1
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
 	// TODO test rule with state
 	@Test
 	def void RuleWithAllowReceiveBetweenThings() {
@@ -457,6 +456,59 @@ class CypriotParsingTest {
 				rule thing1 allow:receive thing2
 			}
 		''')
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowReceiveBetweenTwoPorts() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing1->port:port1 allow:receive thing2->port:port2
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
