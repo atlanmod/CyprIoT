@@ -12,7 +12,7 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.RuleComm
-import org.atlanmod.cypriot.cyprIoT.ThingAny
+import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.validation.CypriotValidator
@@ -793,8 +793,25 @@ class CypriotParsingTest {
 		''')
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
-		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof ThingAny)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
 		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Role)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenRoleAndThing() {
+		val result = parseHelper.parse('''
+			role role1
+			thing thing1 import "thing1.thingml"
+			policy anyname {
+				rule role1 allow:send thing1
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Role)
+		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Thing)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
