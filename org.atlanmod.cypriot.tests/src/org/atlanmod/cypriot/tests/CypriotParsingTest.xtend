@@ -883,6 +883,108 @@ class CypriotParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenThingAndUser() {
+		val result = parseHelper.parse('''
+			user user1
+			thing thing1 import "thing1.thingml"
+			policy anyname {
+				rule thing1 allow:send user1
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof User)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenUserAndPort() {
+		val result = parseHelper.parse('''
+			role user1
+			thing thing1 import "thing1.thingml"
+			policy anyname {
+				rule thing1->port:port1 allow:send user1
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenUserAndThing() {
+		val result = parseHelper.parse('''
+			user user1
+			thing thing1 import "thing1.thingml"
+			policy anyname {
+				rule user1 allow:send thing1
+			}
+		''')
+		result.assertNoErrors
+		var rule = result.specifyPolicies.get(0).hasRules.get(0)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof User)
+		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Thing)
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+	
+	@Test
+	def void RuleWithAllowSendBetweenPortAndUser() {
+		val result = parseHelper.parse('''
+			user user1
+			thing thing1 import "thing1.thingml"
+			policy anyname {
+				rule user1 allow:send thing1->port:port1
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 
 	/*******************************
 	 * NETWORK TESTS                *
