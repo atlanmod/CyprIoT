@@ -7,7 +7,9 @@ generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 
 CyprIoTModel returns CyprIoTModel:
 		imports+=Import*
-		(declareThings+=Thing | 
+		(
+		declareTime+=Time |
+		declareThings+=Thing | 
 		declareChannels+=Channel|
 		specifyNetworks+=Network |
 		declareUsers+=User |
@@ -175,7 +177,7 @@ RuleBridge:
 ;
 
 BridgeSubjectObject:
-	pubsub=[PubSub] '->' 'topic:' topic=[Topic] | pubsub=[PointToPoint] '->' 'connectionPoint:' topic=[ConnectionPoint] | thingWithPort=ThingWithPort
+	 PubSubWithTopic | GetConnectionPoint | ThingWithPort
 ;
 
 CommSubjectObject :
@@ -192,6 +194,18 @@ SubjectObjectOther:
 
 ThingWithStateOrPort:
 	ThingWithPort | ThingWithState
+;
+
+GetConnectionPoint:
+	'->' 'connectionPoint:' connectionPoint=[ConnectionPoint]
+;
+
+PubSubWithTopic:
+	pubsub=[PubSub] getTopic=GetTopic
+;
+
+GetTopic:
+	'->' 'topic:' topic=[Topic]
 ;
 
 GetPort:
@@ -268,17 +282,41 @@ enum ActionBridge:
 	to='to'
 ;
 
-/*
-// TODO add conditions to rule
-
-
-// TODO add time standard declaration
-terminal TIME:
-	
+Time: // Cron syntax
+	'time' name=ID cronExpression=CronExpression
 ;
 
-// TODO add location standard declaration
-terminal LOCATION:
-	
+CronExpression:
+	seconds=CronElement
+	minutes=CronElement
+	hours=CronElement
+	days=CronElement
+	months=CronElement
+	daysOfWeek=CronElement
+	(year=CronElement)?
+	| '@' constant=ID
 ;
-*/
+
+CronElement:
+	RangeCronElement | PeriodicCronElement
+;
+
+RangeCronElement hidden():
+	TerminalCronElement ({RangeCronElement.start=current} '-' end=IntLiteral)*
+;
+
+TerminalCronElement:
+	expression=(IntLiteral | ID | '*' | '?')
+;
+
+PeriodicCronElement hidden():
+	expression=TerminalCronElement '/' elements=RangeCronList
+;
+
+RangeCronList hidden():
+	elements+=RangeCronElement (',' elements+=RangeCronElement)*
+;
+
+IntLiteral:
+	INT
+;
