@@ -158,7 +158,7 @@ Policy:
 ;
 
 Rule:
-	(RuleComm | RuleTrigger) (conditions=Conditions)?
+	(RuleComm | RuleTrigger | BridgeSubjectObject) (conditions=Conditions)?
 
 ;
 
@@ -168,6 +168,14 @@ RuleComm:
 
 RuleTrigger:
 	'rule' (name=ID ':')? thingWithState=ThingWithState effectTrigger=EffectTrigger
+;
+
+RuleBridge:
+	'rule' (name=ID ':')? thingWithState=ThingWithState effectTrigger=EffectTrigger
+;
+
+BridgeSubjectObject:
+	pubsub=[PubSub] '->' 'topic:' topic=[Topic] | pubsub=[PointToPoint] '->' 'connectionPoint:' topic=[ConnectionPoint] | thingWithPort=ThingWithPort
 ;
 
 CommSubjectObject :
