@@ -160,7 +160,7 @@ Policy:
 ;
 
 Rule:
-	(RuleComm | RuleTrigger | BridgeSubjectObject) (conditions=Conditions)?
+	(RuleComm | RuleTrigger | RuleBridge) (conditions=Conditions)?
 
 ;
 
@@ -173,7 +173,7 @@ RuleTrigger:
 ;
 
 RuleBridge:
-	'rule' (name=ID ':')? thingWithState=ThingWithState effectTrigger=EffectTrigger
+	'rule' (name=ID ':')? bridgeSubject=BridgeSubjectObject effectBridge=EffectBridge bridgeObject=BridgeSubjectObject
 ;
 
 BridgeSubjectObject:
@@ -237,7 +237,11 @@ EffectComm:
 ;
 
 EffectTrigger:
-	trigger='trigger:' actionTrigger=ActionTrigger
+	'trigger:' actionTrigger=ActionTrigger
+;
+
+EffectBridge:
+	'bridge:' actionBridge=ActionBridge
 ;
 
 ActionTrigger:
@@ -250,6 +254,11 @@ enum ActionComm:
 	send='send' | 
 	receive='receive' |
 	sendreceive='send-receive'
+;
+
+enum ActionBridge:
+	from='from'| 
+	to='to'
 ;
 
 Conditions:
@@ -276,10 +285,6 @@ DomainId:
 
 NetworkBridge:
 	'bridge' (name=ID ':')? bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
-;
-enum ActionBridge:
-	from='from'| 
-	to='to'
 ;
 
 Time: // Cron syntax
