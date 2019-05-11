@@ -88,4 +88,14 @@ class CypriotParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
+	@Test
+	def void TimeDeclaration() {
+		val result = parseHelper.parse('''
+			time time1 * 4 * * * *
+		''')
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
 }
