@@ -707,4 +707,24 @@ class CypriotRuleParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	@Test
+	def void RuleBridgeBetweenTopics() {
+		val result = parseHelper.parse('''
+			channel:pubsub anypubsub {
+				topic topic1 
+				topic topic2 subtopicOf topic1
+			}
+			channel:pubsub anypubsub2 {
+				topic topic1 
+				topic topic2 subtopicOf topic1
+			}
+			policy anyname {
+				rule anypubsub->topic:topic1 bridge:to anypubsub2->topic:topic1
+			}
+		''')
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
 }
