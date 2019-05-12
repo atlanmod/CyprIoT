@@ -83,8 +83,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, PointToPoint)
 			return Scopes.scopeFor(candidates)	
-		} else if (reference == cypriotInstance.PTPWithConnectionPoint_GetConnectionPoint) {
-			return Scopes.scopeFor(Helpers.allConnectionPointsInPTP(Helpers.allContainedCrossReferencesOfType(context.eContainer, ConnectionPoint).get(0)))
+		} else if (reference == cypriotInstance.getConnectionPoint_ConnectionPoint) {
+			return Scopes.scopeFor(Helpers.allConnectionPointsInPTP(Helpers.allContainedCrossReferencesOfType(context.eContainer, PointToPoint).get(0)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);
