@@ -200,10 +200,18 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Topic> allTopicsInType(PubSub pubSub) {
+	public static ArrayList<Topic> allTopicsInPubSub(PubSub pubSub) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 		for (Topic t : pubSub.getHasTopics()) {
 			result.add((Topic) t);
+		}
+		return result;
+	}
+	
+	public static ArrayList<ConnectionPoint> allConnectionPointsInPTP(PointToPoint ptp) {
+		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
+		for (ConnectionPoint t : ptp.getHasConnectionPoints()) {
+			result.add((ConnectionPoint) t);
 		}
 		return result;
 	}

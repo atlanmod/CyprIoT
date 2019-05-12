@@ -177,7 +177,7 @@ RuleBridge:
 ;
 
 BridgeSubjectObject:
-	 PubSubWithTopic | GetConnectionPoint | ThingWithPort
+	 PubSubWithTopic | PTPWithConnectionPoint | ThingWithPort
 ;
 
 CommSubjectObject :
@@ -194,6 +194,10 @@ SubjectObjectOther:
 
 ThingWithStateOrPort:
 	ThingWithPort | ThingWithState
+;
+
+PTPWithConnectionPoint:
+	ptp=[PointToPoint] getConnectionPoint=GetConnectionPoint
 ;
 
 GetConnectionPoint:
