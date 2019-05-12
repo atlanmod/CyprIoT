@@ -13,6 +13,11 @@ Workflow {
 			project = StandardProjectConfig {
 				baseName = "org.atlanmod.cypriot"
 				rootPath = rootPath
+				runtime = {
+				//ecoreModel = "${rootPath}/org.atlanmod.cypriot/model/"
+				
+				enabled = true
+				}
 				runtimeTest = {
 					enabled = true
 				}

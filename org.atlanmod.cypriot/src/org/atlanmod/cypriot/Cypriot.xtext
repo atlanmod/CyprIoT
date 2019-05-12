@@ -200,12 +200,24 @@ PTPWithConnectionPoint:
 	ptp=[PointToPoint] getConnectionPoint=GetConnectionPoint
 ;
 
-GetConnectionPoint:
-	'->' 'connectionPoint:' connectionPoint=[ConnectionPoint]
-;
-
 PubSubWithTopic:
 	pubsub=[PubSub] getTopic=GetTopic
+;
+
+ThingWithPort:
+	thing=[ThingAny] getPort=GetPort
+;
+
+ThingWithState:
+	thing=[ThingAny] getState=GetState
+;
+
+ThingWithFunction:
+	thing=[ThingAny] getFunction=GetFunction
+;
+
+GetConnectionPoint:
+	'->' 'connectionPoint:' connectionPoint=[ConnectionPoint]
 ;
 
 GetTopic:
@@ -222,18 +234,6 @@ GetState:
 
 GetFunction:
 	'->' 'function:' function=[thingml::Function]
-;
-
-ThingWithPort:
-	thing=[ThingAny] getPort=GetPort
-;
-
-ThingWithState:
-	thing=[ThingAny] getState=GetState
-;
-
-ThingWithFunction:
-	thing=[ThingAny] getFunction=GetFunction
 ;
 
 EffectComm:
