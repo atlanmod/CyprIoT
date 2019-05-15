@@ -892,4 +892,6 @@ class CypriotRuleParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
+	
+	// TODO test instanceThing and test inverse everything
 }

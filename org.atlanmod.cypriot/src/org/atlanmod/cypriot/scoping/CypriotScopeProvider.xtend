@@ -6,6 +6,7 @@ package org.atlanmod.cypriot.scoping
 import java.util.ArrayList
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
+import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.SubjectObjectOther
 import org.atlanmod.cypriot.cyprIoT.ThingAny
@@ -18,8 +19,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.PointToPoint
-import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 
 /**
  * This class contains custom scoping description.
