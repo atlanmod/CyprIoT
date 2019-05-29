@@ -190,5 +190,4 @@ class CypriotValidator extends AbstractCypriotValidator {
 				cypriotModel.specifyPolicies.indexOf(policy), POLICY_UNIQUENESS)
 		}
 	}
-
 }
