@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.Thing
 
 /**
  * This class contains custom scoping description.
@@ -81,6 +82,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.PTPWithConnectionPoint_Ptp) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, PointToPoint)
+			return Scopes.scopeFor(candidates)	
+		} else if (reference == cypriotInstance.actionTrigger_ThingToTransition) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
 			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.getConnectionPoint_ConnectionPoint) {
 			return Scopes.scopeFor(Helpers.allConnectionPointsInPTP(Helpers.allContainedCrossReferencesOfType(context.eContainer, PointToPoint).get(0)))

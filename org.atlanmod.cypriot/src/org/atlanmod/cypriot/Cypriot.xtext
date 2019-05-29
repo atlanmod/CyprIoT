@@ -249,9 +249,9 @@ EffectBridge:
 ;
 
 ActionTrigger:
-	performTransition='performTransition' thingAny=ThingAny | 
-	goToState='goToState' thingWithState=ThingWithState | 
-	executeFunction='executeFunction' thingWithFunction=ThingWithFunction
+	(performTransition='performTransition' thingToTransition=[ThingAny]) | 
+	(goToState='goToState' thingWithState=ThingWithState) | 
+	(executeFunction='executeFunction' thingWithFunction=ThingWithFunction)
 ;
 
 enum ActionComm:
