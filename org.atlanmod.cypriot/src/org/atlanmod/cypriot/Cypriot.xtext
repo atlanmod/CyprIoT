@@ -160,7 +160,7 @@ Policy:
 ;
 
 Rule:
-	(RuleComm | RuleTrigger | RuleBridge) (conditions=Conditions)?
+	(RuleComm | RuleTrigger | RuleBridge) /*(conditions=Conditions)?*/
 
 ;
 
@@ -197,43 +197,43 @@ ThingWithStateOrPort:
 ;
 
 PTPWithConnectionPoint:
-	ptp=[PointToPoint] getConnectionPoint=GetConnectionPoint
+	ptp=[PointToPoint] '->' getConnectionPoint=GetConnectionPoint
 ;
 
 PubSubWithTopic:
-	pubsub=[PubSub] getTopic=GetTopic
+	pubsub=[PubSub] '->' getTopic=GetTopic
 ;
 
 ThingWithPort:
-	thing=[ThingAny] getPort=GetPort
+	thing=[ThingAny] '->' getPort=GetPort
 ;
 
 ThingWithState:
-	thing=[ThingAny] getState=GetState
+	thing=[ThingAny] '->' getState=GetState
 ;
 
 ThingWithFunction:
-	thing=[ThingAny] getFunction=GetFunction
+	thing=[ThingAny] '->' getFunction=GetFunction
 ;
 
 GetConnectionPoint:
-	'->' 'connectionPoint:' connectionPoint=[ConnectionPoint]
+	'connectionPoint:' connectionPoint=[ConnectionPoint]
 ;
 
 GetTopic:
-	'->' 'topic:' topic=[Topic]
+	'topic:' topic=[Topic]
 ;
 
 GetPort:
-	'->' 'port:' port=[thingml::Port]
+	'port:' port=[thingml::Port]
 ;
 
 GetState:
-	'->' 'state:' state=[thingml::State]
+	'state:' state=[thingml::State]
 ;
 
 GetFunction:
-	'->' 'function:' function=[thingml::Function]
+	'function:' function=[thingml::Function]
 ;
 
 EffectComm:
