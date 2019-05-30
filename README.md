@@ -50,6 +50,11 @@ To run some examples of the language :
 * In the Eclipse Application launched earlier
 * Import the folder ``org.atlanmod.cypriot.examples`` as a maven project
 
+## Known issues
+
+### Eclipse
+* If you still see errors after the import, try ``Right-Click->Refresh`` or ``Right-Click->Maven->Update Project...->OK``
+* If the ``.pom`` file shows an error on ``<packaging>eclipse-plugin</packaging>``, hover the error then click on ``Discover new m2e connectors->Auto Select`` then install the required connectors and restart
 
 ## Contributors
 
