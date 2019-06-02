@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.atlanmod.cypriot.ide
+Bundle-Vendor: Atlanmod
 Bundle-SymbolicName: org.atlanmod.cypriot.ide;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.antlr.runtime,
- org.eclipse.xtext.xbase.lib,
+Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.atlanmod.cypriot,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide

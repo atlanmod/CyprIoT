@@ -20,7 +20,7 @@ thing Thing1 includes msgs {
 	}
 
 	statechart thing1 init showData{
-		state showData @ignore{
+		final state showData {
 			on entry do 
 				fridgeData!temperatureMessage(1,1) 
 				fridgeData!temperatureMessage(1,1) 

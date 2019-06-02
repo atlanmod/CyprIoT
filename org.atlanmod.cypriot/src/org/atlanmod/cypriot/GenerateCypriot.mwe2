@@ -2,7 +2,6 @@ module org.atlanmod.cypriot.GenerateCypriot
 
 import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
-import org.eclipse.emf.mwe.utils.*
 
 var rootPath = ".."
 
@@ -13,11 +12,6 @@ Workflow {
 			project = StandardProjectConfig {
 				baseName = "org.atlanmod.cypriot"
 				rootPath = rootPath
-				runtime = {
-				//ecoreModel = "${rootPath}/org.atlanmod.cypriot/model/"
-				
-				enabled = true
-				}
 				runtimeTest = {
 					enabled = true
 				}
@@ -41,9 +35,6 @@ Workflow {
 			fileExtensions = "cy"
 			serializer = {
 				generateStub = false
-			}
-			parserGenerator = {
-				debugGrammar = true
 			}
 			validator = {
 			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"

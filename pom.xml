@@ -16,6 +16,7 @@
 		<module>org.atlanmod.cypriot.tests</module>
 		<module>org.atlanmod.cypriot.generator</module>
 		<module>org.atlanmod.cypriot.examples</module>
+		
 	</modules>
 
 	<properties>

@@ -14,7 +14,7 @@ thing gateway includes msgs {
 	}
 
 	statechart thing1 init showData{
-		state showData @ignore{
+		final state showData {
 			on entry do 
 				zwavePort!temperatureMessage(1,1) 
 				zwavePort!temperatureMessage(1,1) 
