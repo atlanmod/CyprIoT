@@ -121,7 +121,6 @@ garbage/
 !org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942.jar
 !atl-emftvm-fatjar.jar
 old
-plugin.xml
 plugin.xml_gen
 .attach*
 output/
