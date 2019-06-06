@@ -62,9 +62,9 @@
 						<version>${xtext.version}</version>
 					</dependency>
 					<dependency>
-						<groupId>org.eclipse.xtext</groupId>
-						<artifactId>xtext-antlr-generator</artifactId>
-						<version>[2.1.1, 3)</version>
+						<groupId>org.xtext</groupId>
+						<artifactId>antlr-generator</artifactId>
+						<version>3.2.1</version>
 					</dependency>
 				</dependencies>
 			</plugin>
