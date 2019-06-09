@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.BridgeSubject
 
 /**
  * This class contains custom scoping description.
@@ -54,6 +55,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance))
 		} else if (reference == cypriotInstance.toBindPTP_BindsToConnectionPoint) {
 			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance))
+		} else if (reference == cypriotInstance.networkBridge_BridgeSubject) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject)
+			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.policiesEnforcement_PolicyName) {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingWithStateOrPort_Thing) {
