@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cyprIoT:CyprIoTModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyprIoT="http://www.atlanmod.org/CyprIoT">
+  <declareThings name="thing1" importPath="thing1.thingml"/>
+  <declareChannels xsi:type="cyprIoT:PubSub" name="anychannel">
+    <hasTopics name="anytopic"/>
+  </declareChannels>
+  <specifyNetworks name="anynet">
+    <domain name="org.atlanmod"/>
+    <instantiate xsi:type="cyprIoT:InstanceThing" name="th1" thingToInstantiate="//@declareThings.0" targetedPlatform="JAVA"/>
+    <instantiate xsi:type="cyprIoT:InstancePubSub" name="ch1" pubSubToInstantiate="//@declareChannels.0"/>
+    <hasBinds bindsInstanceThing="//@specifyNetworks.0/@instantiate.0" bindAction="=>">
+      <portToBind href="Tests/NetworkWithInstanceThingWithPort/thing1.thingml#//@types.0/@ports.0"/>
+      <channelToBind xsi:type="cyprIoT:ToBindPubSub" targetedPubSubInstance="//@specifyNetworks.0/@instantiate.1" topics="//@declareChannels.0/@hasTopics.0"/>
+    </hasBinds>
+  </specifyNetworks>
+</cyprIoT:CyprIoTModel>

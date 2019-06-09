@@ -1,0 +1,21 @@
+-- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
+-- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
+
+
+module Cypriot2ThingML;
+
+create OUT: ThingML from IN: CyprIoT;
+
+helper context CyprIoT!Network def : getPubSubInstance() : CyprIoT!InstancePubSub = 
+	self.instantiate->select(e | e.oclIsKindOf(CyprIoT!InstancePubSub)).first()
+	;
+
+
+rule rule1 {
+	from 
+		c :  CyprIoT!Network
+	to
+		out : ThingML!Protocol (
+			name <- c.getPubSubInstance().targetedPlatform.toString()
+		)
+}
