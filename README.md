@@ -34,9 +34,16 @@ CyprIoT is tool to compose a network of things using Model-Driven engineering te
 
 ## Installation
 
+### CLI
 * Clone the project ``git clone https://github.com/atlanmod/CyprIoT.git``
 * Run ``mvn clean install  -U`` at the root of the project	
-* Import as a maven project in Eclipse ``File -> Import -> Maven -> Existing Maven Projects -> Choose the cloned repository``
+
+### Eclipse
+* Import as a maven project in Eclipse ``File -> Import -> Maven -> Existing Maven Projects -> Choose the cloned repository``, if you have already cloned the repo
+OR
+* ``File -> Import -> Git -> Projects from Git -> Clone URI``, then complete the procedure
+* 
+* At the root of the project ``Right-Click -> Run As -> Maven clean`` then ``Maven install``
 
 ## Usage 
 

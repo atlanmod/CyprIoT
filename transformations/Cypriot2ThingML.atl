@@ -1,3 +1,4 @@
+-- @atlcompiler emftvm
 -- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
 -- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
 
