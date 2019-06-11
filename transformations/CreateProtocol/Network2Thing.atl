@@ -15,12 +15,24 @@ helper context ThingML!Configuration def : createInstances(e : ThingML!Instance)
 	self.oclType()->allInstances()->append(e)
 	;
 
+helper context ThingML!Configuration def : createConnectors(e : ThingML!ExternalConnector) : Sequence(ThingML!Connector) = 
+	self.oclType()->allInstances()->append(e)
+	;
+
+helper context ThingML!Thing def : createPorts(e : ThingML!ProvidedPort) : Sequence(ThingML!ProvidedPort) = 
+	self.oclType()->allInstances()->append(e)
+	;
+
 rule rule1 {
 	from 
 		c : CyprIoT!Network
 	to
+		port : ThingML!ProvidedPort (
+			name <- 'port1'	
+		),
 		thing : ThingML!Thing (
-			name <- 'thing_'+ c.name
+			name <- 'thing_'+ c.name,
+			ports <- thing.createPorts(port)
 		),
 		protocol : ThingML!Protocol (
 			name <- c.getPubSubInstance().first().targetedPlatform.toString().replaceAll('#', '')
@@ -29,9 +41,15 @@ rule rule1 {
 			name <- 'instance_'+ c.name,
 			type <- thing
 		),
+		connector : ThingML!ExternalConnector (
+			inst <- instance,
+			port <- port,
+			protocol <- protocol
+		),
 		configuration : ThingML!Configuration (
 			name <- 'default',
-			instances <- configuration.createInstances(instance)
+			instances <- configuration.createInstances(instance),
+			connectors <- configuration.createConnectors(connector)
 		)
 		
 }
