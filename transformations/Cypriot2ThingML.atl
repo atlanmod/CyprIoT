@@ -7,16 +7,31 @@ module Cypriot2ThingML;
 
 create OUT: ThingML from IN: CyprIoT;
 
-helper context CyprIoT!Network def : getPubSubInstance() : CyprIoT!InstancePubSub = 
-	self.instantiate->select(e | e.oclIsKindOf(CyprIoT!InstancePubSub)).first()
+helper context CyprIoT!Network def : getPubSubInstance() : Sequence(CyprIoT!InstancePubSub) = 
+	self.instantiate->select(e | e.oclIsKindOf(CyprIoT!InstancePubSub))
 	;
 
+helper context ThingML!Configuration def : createInstances(e : ThingML!Instance) : Sequence(ThingML!Instance) = 
+	self.oclType()->allInstances()->append(e)
+	;
 
 rule rule1 {
 	from 
-		c :  CyprIoT!Network
+		c : CyprIoT!Network
 	to
-		out : ThingML!Protocol (
-			name <- c.getPubSubInstance().targetedPlatform.toString()
+		thing : ThingML!Thing (
+			name <- 'thing_'+ c.name
+		),
+		protocol : ThingML!Protocol (
+			name <- c.getPubSubInstance().first().targetedPlatform.toString().replaceAll('#', '')
+		),
+		instance : ThingML!Instance (
+			name <- 'instance_'+ c.name,
+			type <- thing
+		),
+		configuration : ThingML!Configuration (
+			name <- 'default',
+			instances <- configuration.createInstances(instance)
 		)
+		
 }
