@@ -3,7 +3,7 @@
 -- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
 
 
-module Cypriot2ThingML;
+module Network2Thing;
 
 create OUT: ThingML from IN: CyprIoT;
 
@@ -25,10 +25,11 @@ helper context ThingML!Thing def : createPorts(e : ThingML!ProvidedPort) : Seque
 
 rule rule1 {
 	from 
-		c : CyprIoT!Network
+		c : CyprIoT!Network,
+		bind : CyprIoT!Bind
 	to
 		port : ThingML!ProvidedPort (
-			name <- 'port1'	
+			name <- bind.portToBind.name	
 		),
 		thing : ThingML!Thing (
 			name <- 'thing_'+ c.name,

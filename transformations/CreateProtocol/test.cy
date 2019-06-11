@@ -1,4 +1,5 @@
 thing thing1 import "thing1.thingml"
+thing thing2 import "thing2.thingml"
 channel:pubsub anychannel {
 	topic anytopic
 }

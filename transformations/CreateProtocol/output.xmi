@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <thingML:Thing name="thing_anynet">
+    <ports xsi:type="thingML:ProvidedPort" name="port1"/>
+  </thingML:Thing>
+  <thingML:Protocol name="MQTT"/>
+  <thingML:Configuration name="default">
+    <instances name="instance_anynet" type="/0"/>
+    <connectors xsi:type="thingML:ExternalConnector" inst="/2/@instances.0" port="/0/@ports.0" protocol="/1"/>
+  </thingML:Configuration>
+</xmi:XMI>
