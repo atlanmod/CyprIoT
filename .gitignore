@@ -110,7 +110,6 @@ garbage/
 # Ignore plugin.xml_gen and feature.xml_gen files, when build Eclipse Plugins.
 *.xml_gen
 
-*.project
 *.jar
 !utilities-2.0.0-SNAPSHOT.jar
 !thingml-lang.jar
