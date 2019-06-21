@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cyprIoT" nsURI="http://www.atlanmod.org/CyprIoT" nsPrefix="cyprIoT">
+  <eClassifiers xsi:type="ecore:EClass" name="CyprIoTModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="#//Import" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declareTime" upperBound="-1"
+        eType="#//Time" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declareThings" upperBound="-1"
+        eType="#//Thing" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declareChannels" upperBound="-1"
+        eType="#//Channel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specifyNetworks" upperBound="-1"
+        eType="#//Network" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declareUsers" upperBound="-1"
+        eType="#//User" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specifyPolicies" upperBound="-1"
+        eType="#//Policy" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declareRoles" upperBound="-1"
+        eType="#//Role" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Import">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//NamedElement #//SubjectObjectOther"/>
+  <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="#//NamedElement #//SubjectObjectOther">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignedRoles" unique="false"
+        upperBound="-1" eType="#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Thing" eSuperTypes="#//NamedElement #//ThingAny">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignedRoles" unique="false"
+        upperBound="-1" eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PoliciesEnforcement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="policyName" unique="false"
+        upperBound="-1" eType="#//Policy"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="combiningAlgo" eType="#//CombiningAlgo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CombiningAlgo">
+    <eLiterals name="DENY" literal="override-deny"/>
+    <eLiterals name="ALLOW" value="1" literal="override-allow"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Domain">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Network" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domain" eType="#//Domain"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasPolicyEnforcement" eType="#//PoliciesEnforcement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instantiate" upperBound="-1"
+        eType="#//Instance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasBinds" upperBound="-1"
+        eType="#//Bind" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasNetworkBridges" upperBound="-1"
+        eType="#//NetworkBridge" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Instance"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceThing" eSuperTypes="#//NamedElement #//Instance #//ThingAny">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="declareNumberOfInstances"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingToInstantiate" eType="#//Thing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetedPlatform" eType="#//Platform"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstancePubSub" eSuperTypes="#//NamedElement #//Instance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pubSubToInstantiate" eType="#//PubSub"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetedPlatform" eType="#//PubSubProtocol"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstancePTP" eSuperTypes="#//NamedElement #//Instance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ptPToInstantiate" eType="#//PointToPoint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetedPlatform" eType="#//PTPProtocol"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Channel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PubSub" eSuperTypes="#//NamedElement #//Channel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasTopics" upperBound="-1"
+        eType="#//Topic" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Topic" eSuperTypes="#//NamedElement #//BridgeSubject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptedMessages" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedRoles" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subtopicOf" unique="false"
+        upperBound="-1" eType="#//Topic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PointToPoint" eSuperTypes="#//NamedElement #//Channel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasConnectionPoints" upperBound="-1"
+        eType="#//ConnectionPoint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectionPoint" eSuperTypes="#//NamedElement #//BridgeSubject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="acceptedMessages" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assignedRoles" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Bind" eSuperTypes="#//NamedElement #//BridgeSubject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindsInstanceThing" eType="#//InstanceThing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="portToBind" eType="ecore:EClass ../ThingML.ecore#//Port"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bindAction" eType="#//BindAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="channelToBind" eType="#//ChannelToBind"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Platform">
+    <eLiterals name="POSIX" literal="CPOSIX"/>
+    <eLiterals name="JAVA" value="1" literal="JAVA"/>
+    <eLiterals name="ARDUINO" value="2" literal="ARDUINO"/>
+    <eLiterals name="JS" value="3" literal="JS"/>
+    <eLiterals name="PYTHON" value="4" literal="PYTHON"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PubSubProtocol">
+    <eLiterals name="MQTT" literal="MQTT"/>
+    <eLiterals name="AMQP" value="1" literal="AMQP"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PTPProtocol">
+    <eLiterals name="HTTP" literal="HTTP"/>
+    <eLiterals name="COAP" value="1" literal="COAP"/>
+    <eLiterals name="UPNP" value="2" literal="UPNP"/>
+    <eLiterals name="ZIGBEE" value="3" literal="ZIGBEE"/>
+    <eLiterals name="ZWAVE" value="4" literal="ZWAVE"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BindAction">
+    <eLiterals name="READ" literal="&lt;="/>
+    <eLiterals name="WRITE" value="1" literal="=>"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChannelToBind"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ToBindPubSub" eSuperTypes="#//NamedElement #//ChannelToBind">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetedPubSubInstance"
+        eType="#//InstancePubSub"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topics" unique="false"
+        upperBound="-1" eType="#//Topic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ToBindPTP" eSuperTypes="#//NamedElement #//ChannelToBind">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetedPtpInstance" eType="#//InstancePTP"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindsToConnectionPoint"
+        eType="#//ConnectionPoint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BridgeSubject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Policy" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasRules" upperBound="-1"
+        eType="#//Rule" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleComm" eSuperTypes="#//Rule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commSubject" eType="#//CommSubjectObject"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effectComm" eType="#//EffectComm"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commObject" eType="#//CommSubjectObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleTrigger" eSuperTypes="#//Rule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingWithState" eType="#//ThingWithState"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effectTrigger" eType="#//EffectTrigger"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleBridge" eSuperTypes="#//Rule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bridgeSubject" eType="#//BridgeSubjectObject"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effectBridge" eType="#//EffectBridge"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bridgeObject" eType="#//BridgeSubjectObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BridgeSubjectObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CommSubjectObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingWithStateOrPort" eType="#//ThingWithStateOrPort"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subjectOther" eType="#//SubjectObjectOther"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingAny" eSuperTypes="#//SubjectObjectOther"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubjectObjectOther"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingWithStateOrPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thing" eType="#//ThingAny"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PTPWithConnectionPoint" eSuperTypes="#//BridgeSubjectObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ptp" eType="#//PointToPoint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getConnectionPoint" eType="#//GetConnectionPoint"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PubSubWithTopic" eSuperTypes="#//BridgeSubjectObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pubsub" eType="#//PubSub"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getTopic" eType="#//GetTopic"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingWithPort" eSuperTypes="#//BridgeSubjectObject #//ThingWithStateOrPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getPort" eType="#//GetPort"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingWithState" eSuperTypes="#//ThingWithStateOrPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getState" eType="#//GetState"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingWithFunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thing" eType="#//ThingAny"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getFunction" eType="#//GetFunction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetConnectionPoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectionPoint" eType="#//ConnectionPoint"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetTopic">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topic" eType="#//Topic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="ecore:EClass ../ThingML.ecore#//Port"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="ecore:EClass ../ThingML.ecore#//State"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetFunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function" eType="ecore:EClass ../ThingML.ecore#//Function"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EffectComm">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="deny" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionComm" eType="#//ActionComm"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EffectTrigger">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actionTrigger" eType="#//ActionTrigger"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EffectBridge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionBridge" eType="#//ActionBridge"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionTrigger">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="performTransition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingToTransition" eType="#//ThingAny"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="goToState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingWithState" eType="#//ThingWithState"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executeFunction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingWithFunction" eType="#//ThingWithFunction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActionComm">
+    <eLiterals name="send" literal="send"/>
+    <eLiterals name="receive" value="1" literal="receive"/>
+    <eLiterals name="sendreceive" value="2" literal="send-receive"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActionBridge">
+    <eLiterals name="from" literal="from"/>
+    <eLiterals name="to" value="1" literal="to"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Conditions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditionExpression" eType="#//ConditionsExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionsExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Expression" eSuperTypes="#//ConditionsExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionAttribute" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" eType="#//ThingAny"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subjectState" eType="ecore:EClass ../ThingML.ecore#//State"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subjectProperty" eType="ecore:EClass ../ThingML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subjectMessage" eType="ecore:EClass ../ThingML.ecore#//Message"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterMessage" eType="ecore:EClass ../ThingML.ecore#//Parameter"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subjectContentEqual" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NetworkBridge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bridgeSubject" eType="#//BridgeSubject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bridgePort" eType="ecore:EClass ../ThingML.ecore#//Port"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionBridge" eType="#//ActionBridge"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bridgeToChannel" eType="#//ChannelToBind"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Time">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cronExpression" eType="#//CronExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CronExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="seconds" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="minutes" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hours" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="days" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="months" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="daysOfWeek" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="year" eType="#//CronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constant" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CronElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RangeCronElement" eSuperTypes="#//CronElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="start" eType="#//RangeCronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="end" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminalCronElement" eSuperTypes="#//RangeCronElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PeriodicCronElement" eSuperTypes="#//CronElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//TerminalCronElement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" eType="#//RangeCronList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RangeCronList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//RangeCronElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrExpression" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AndExpression" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" eType="#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//ExpressionAttribute"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
