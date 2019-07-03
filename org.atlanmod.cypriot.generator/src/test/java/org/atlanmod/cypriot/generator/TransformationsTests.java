@@ -1,6 +1,4 @@
-        package org.atlanmod.cypriot.generator;
-
-import static org.junit.Assert.assertTrue;
+package org.atlanmod.cypriot.generator;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -32,26 +30,22 @@ import org.junit.Test;
 public class TransformationsTests {
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	public final static String THINGML_METAMODEL = "./transformations/metamodels/ThingML.ecore";
-	public final static String CYPRIOT_METAMODEL = "./transformations/metamodels/cypriot/Cypriot.ecore";
 	public final static String TRANSFORMATION_DIRECTORY= "./transformations/";
 	public final static String MODULE_NAME= "Network2Thing";
 	public final static String INPUT_MODEL = "./transformations/models/thing1.xmi";
-	public final static String OUTPUT_MODEL = "./transformations/models/output.xmi";
 	
-//	private String inputMetamodelNsURI;
 	private String outputMetamodelNsURI;
 	
 	private String lazyMetamodelRegistration(String metamodelPath) {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		ResourceSet rs = new ResourceSetImpl();
-		// Enables extended meta-data, weird we have to do this but well...
+
 		final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(EPackage.Registry.INSTANCE);
 		rs.getLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
 		
 		Resource r = rs.getResource(URI.createFileURI(metamodelPath), true);
 		EObject eObject = r.getContents().get(0);
-		// A meta-model might have multiple packages we assume the main package is the
-		// first one listed
+		
 		if (eObject instanceof EPackage) {
 			EPackage p = (EPackage) eObject;
 			System.out.println(p.getNsURI());
@@ -66,12 +60,8 @@ public class TransformationsTests {
 	public void testBasic() {
 		
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
-//		inputMetamodelNsURI = lazyMetamodelRegistration(CYPRIOT_METAMODEL);
 		outputMetamodelNsURI = lazyMetamodelRegistration(THINGML_METAMODEL);
 		ResourceSet rs = new ResourceSetImpl();
-//		Metamodel cypriotMetamodel = EmftvmFactory.eINSTANCE.createMetamodel();
-//		cypriotMetamodel.setResource(rs.getResource(URI.createURI(inputMetamodelNsURI), true));
-//		env.registerMetaModel("CyprIoT", cypriotMetamodel);
 
 		Metamodel thingmlMetamodel = EmftvmFactory.eINSTANCE.createMetamodel();
 		thingmlMetamodel.setResource(rs.getResource(URI.createURI(outputMetamodelNsURI), true));
