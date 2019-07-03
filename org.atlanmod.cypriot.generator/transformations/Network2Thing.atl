@@ -5,41 +5,18 @@
 
 module Network2Thing;
 
-create OUT: ThingML from IN: CyprIoT;
+create OUT: ThingML refining IN: ThingML;
 
-helper context CyprIoT!Network def : getPubSubInstance() : Sequence(CyprIoT!InstancePubSub) = 
-	self.instantiate->select(e | e.oclIsKindOf(CyprIoT!InstancePubSub))
-	;
-
-helper context ThingML!Configuration def : createInstances(e : ThingML!Instance) : Sequence(ThingML!Instance) = 
-	self.oclType()->allInstances()->append(e)
-	;
-
-helper context ThingML!Configuration def : createConnectors(e : ThingML!ExternalConnector) : Sequence(ThingML!Connector) = 
-	self.oclType()->allInstances()->append(e)
-	;
-
-helper context ThingML!Thing def : createPorts(e : ThingML!ProvidedPort) : Sequence(ThingML!ProvidedPort) = 
-	self.oclType()->allInstances()->append(e)
-	;
-
-rule rule1 {
+rule copyThingMLModels {
 	from 
-		c : CyprIoT!Network
-	to
-		thing : ThingML!Thing (
-			name <- 'thing_'+ c.name
+		protoIn : ThingML!Protocol
+	to 
+		protoOut : ThingML!Protocol(
+			name <- 'MQTT',
+			annotations <- Sequence{annot}
 		),
-		protocol : ThingML!Protocol (
-			name <- c.getPubSubInstance().first().targetedPlatform.toString().replaceAll('#', '')
-		),
-		instance : ThingML!Instance (
-			name <- 'instance_'+ c.name,
-			type <- thing
-		),
-		configuration : ThingML!Configuration (
-			name <- 'default',
-			instances <- configuration.createInstances(instance)
+		annot : ThingML!PlatformAnnotation (
+			name <- 'mqtt_subscribe',
+			value <- 'topic1'
 		)
-		
 }

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
-  <thingML:Thing name="thing_anynet"/>
-  <thingML:Protocol name="MQTT"/>
-  <thingML:Configuration name="default">
-    <instances name="instance_anynet" type="/0"/>
-  </thingML:Configuration>
-</xmi:XMI>

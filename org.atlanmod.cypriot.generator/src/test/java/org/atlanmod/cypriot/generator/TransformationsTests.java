@@ -35,10 +35,10 @@ public class TransformationsTests {
 	public final static String CYPRIOT_METAMODEL = "./transformations/metamodels/cypriot/Cypriot.ecore";
 	public final static String TRANSFORMATION_DIRECTORY= "./transformations/";
 	public final static String MODULE_NAME= "Network2Thing";
-	public final static String INPUT_MODEL = "./transformations/models/test.xmi";
+	public final static String INPUT_MODEL = "./transformations/models/thing1.xmi";
 	public final static String OUTPUT_MODEL = "./transformations/models/output.xmi";
 	
-	private String inputMetamodelNsURI;
+//	private String inputMetamodelNsURI;
 	private String outputMetamodelNsURI;
 	
 	private String lazyMetamodelRegistration(String metamodelPath) {
@@ -66,12 +66,12 @@ public class TransformationsTests {
 	public void testBasic() {
 		
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
-		inputMetamodelNsURI = lazyMetamodelRegistration(CYPRIOT_METAMODEL);
+//		inputMetamodelNsURI = lazyMetamodelRegistration(CYPRIOT_METAMODEL);
 		outputMetamodelNsURI = lazyMetamodelRegistration(THINGML_METAMODEL);
 		ResourceSet rs = new ResourceSetImpl();
-		Metamodel cypriotMetamodel = EmftvmFactory.eINSTANCE.createMetamodel();
-		cypriotMetamodel.setResource(rs.getResource(URI.createURI(inputMetamodelNsURI), true));
-		env.registerMetaModel("CyprIoT", cypriotMetamodel);
+//		Metamodel cypriotMetamodel = EmftvmFactory.eINSTANCE.createMetamodel();
+//		cypriotMetamodel.setResource(rs.getResource(URI.createURI(inputMetamodelNsURI), true));
+//		env.registerMetaModel("CyprIoT", cypriotMetamodel);
 
 		Metamodel thingmlMetamodel = EmftvmFactory.eINSTANCE.createMetamodel();
 		thingmlMetamodel.setResource(rs.getResource(URI.createURI(outputMetamodelNsURI), true));
@@ -83,11 +83,7 @@ public class TransformationsTests {
 		// Models
 		Model inModel = EmftvmFactory.eINSTANCE.createModel();
 		inModel.setResource(rs.getResource(URI.createURI(INPUT_MODEL, true), true));
-		env.registerInputModel("IN", inModel);
-
-		Model outModel = EmftvmFactory.eINSTANCE.createModel();
-		outModel.setResource(rs.createResource(URI.createFileURI(OUTPUT_MODEL)));
-		env.registerOutputModel("OUT", outModel);
+		env.registerInOutModel("IN", inModel);
 
 		ModuleResolver mr = new DefaultModuleResolver(TRANSFORMATION_DIRECTORY, rs);
 		TimingData td = new TimingData();
@@ -97,11 +93,9 @@ public class TransformationsTests {
 		td.finish();
 		// Save models
 		try {
-			outModel.getResource().save(Collections.emptyMap());
+			inModel.getResource().save(Collections.emptyMap());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		log.debug("Size : " + env.getInputModels().size());
-		assertTrue(env.getInputModels().size() != 0);
 	}
 }
