@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<thingML:ThingMLModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <protocols name="MQTT">
+    <annotations name="mqtt_subscribe" value="openhabNetwork_topic1"/>
+  </protocols>
+  <configs name="thing1Cfg"/>
+</thingML:ThingMLModel>

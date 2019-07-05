@@ -144,7 +144,6 @@ class CypriotNetworkParsingTest {
 			}
 		''')
 		val network = result.specifyNetworks.get(0)
-		Assert.assertTrue(network instanceof Network)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.NETWORK_UNIQUENESS)
 		Assert.assertNotNull(network)
 		Assert.assertTrue(result.eResource.errors.isEmpty)

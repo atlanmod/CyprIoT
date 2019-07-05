@@ -5,8 +5,6 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.Role
-import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -33,10 +31,8 @@ class CypriotDeclarationParsingTest {
 		val result = parseHelper.parse('''
 			role anyrole
 		''')
-		val role = result.declareRoles.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
-		Assert.assertTrue(role instanceof Role)
 		Assert.assertTrue(result.declareRoles.get(0).name.equals("anyrole"))
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -48,7 +44,6 @@ class CypriotDeclarationParsingTest {
 			role anyrole
 		''')
 		val role = result.declareRoles.get(0)
-		Assert.assertTrue(role instanceof Role)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.ROLE_UNIQUENESS)
 		Assert.assertNotNull(role)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -80,7 +75,6 @@ class CypriotDeclarationParsingTest {
 			user anyuser
 		''')
 		val user = result.declareUsers.get(0)
-		Assert.assertTrue(user instanceof User)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.USER_UNIQUENESS)
 		Assert.assertNotNull(user)
 		Assert.assertTrue(result.eResource.errors.isEmpty)

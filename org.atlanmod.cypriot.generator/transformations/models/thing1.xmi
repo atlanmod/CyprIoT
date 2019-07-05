@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
-  <thingML:ThingMLModel>
-    <types xsi:type="thingML:Thing" name="thing1">
-      <messages name="message1"/>
-      <ports xsi:type="thingML:ProvidedPort" name="port1">
-        <receives href="thing1.thingml#|0"/>
-      </ports>
-      <behaviour name="thing1">
-        <initial href="thing1.thingml#|1"/>
-        <substate name="state1"/>
-        <substate name="state2"/>
-      </behaviour>
-    </types>
-    <protocols name="MQTT">
-      <annotations name="mqtt_subscribe" value="topic1"/>
-    </protocols>
-    <configs name="thing1Cfg">
-      <instances name="thing1Inst">
-        <type href="thing1.thingml#|2"/>
-      </instances>
-      <connectors xsi:type="thingML:ExternalConnector">
-        <inst href="thing1.thingml#|3"/>
-        <port href="thing1.thingml#|4"/>
-        <protocol href="thing1.thingml#|5"/>
-      </connectors>
-    </configs>
-  </thingML:ThingMLModel>
-  <thingML:PlatformAnnotation name="mqtt_subscribe" value="topic1"/>
-</xmi:XMI>
+<thingML:ThingMLModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thingML="http://www.thingml.org/xtext/ThingML">
+  <types xsi:type="thingML:Thing" name="thing1">
+    <messages name="message1"/>
+    <ports xsi:type="thingML:ProvidedPort" name="port1">
+      <receives href="thing1.xmi#|0"/>
+    </ports>
+    <behaviour name="thing1">
+      <initial href="thing1.xmi#|1"/>
+      <substate name="state1"/>
+      <substate name="state2"/>
+    </behaviour>
+  </types>
+  <protocols name="X"/>
+  <configs name="thing1Cfg">
+    <instances name="thing1Inst">
+      <type href="thing1.xmi#|2"/>
+    </instances>
+    <connectors xsi:type="thingML:ExternalConnector">
+      <inst href="thing1.xmi#|3"/>
+      <port href="thing1.xmi#|4"/>
+      <protocol href="thing1.xmi#|5"/>
+    </connectors>
+  </configs>
+</thingML:ThingMLModel>

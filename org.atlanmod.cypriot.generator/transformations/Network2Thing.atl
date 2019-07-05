@@ -5,11 +5,33 @@
 
 module Network2Thing;
 
-create OUT: ThingML refining IN: ThingML;
+create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
-rule copyThingMLModels {
+rule copyThingMLModel {
+	from s: ThingML!ThingMLModel
+	to t : ThingML!ThingMLModel(
+		configs <- s.configs,
+		imports <- s.imports,
+		protocols <- s.protocols,
+--		-> union((s.protocols->collect(e | Tuple{p = e, network = CyprIoT!Network.allInstances().first()}))->resolve().debug()),
+		types <- s.types
+	)
+}
+
+rule copyConfigs {
+	from s : ThingML!Configuration
+	to t : ThingML!Configuration(
+		annotations <- s.annotations,
+		connectors <- s.connectors,
+		instances <- s.instances,
+		name <- s.name,
+		propassigns <- s.propassigns
+	)
+}
+
+rule addProtocol {
 	from 
-		protoIn : ThingML!Protocol
+		p : ThingML!Protocol
 	to 
 		protoOut : ThingML!Protocol(
 			name <- 'MQTT',
@@ -17,6 +39,6 @@ rule copyThingMLModels {
 		),
 		annot : ThingML!PlatformAnnotation (
 			name <- 'mqtt_subscribe',
-			value <- 'topic1'
+			value <- CyprIoT!Network.allInstances().first().name+'_'+'topic1'
 		)
 }
