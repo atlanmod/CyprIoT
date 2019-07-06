@@ -34,11 +34,11 @@ rule addProtocol {
 		p : ThingML!Protocol
 	to 
 		protoOut : ThingML!Protocol(
-			name <- 'MQTT',
+			name <- CyprIoT!InstancePubSub.allInstances().first().targetedPlatform.toString().replaceAll('#', ''),
 			annotations <- Sequence{annot}
 		),
 		annot : ThingML!PlatformAnnotation (
 			name <- 'mqtt_subscribe',
-			value <- CyprIoT!Network.allInstances().first().name+'_'+'topic1'
+			value <- CyprIoT!Network.allInstances().first().name+'_'+CyprIoT!PubSub.allInstances().first().hasTopics.first().name
 		)
 }
