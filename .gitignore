@@ -123,4 +123,5 @@ old
 plugin.xml_gen
 .attach*
 output/
+applog.txt
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse
