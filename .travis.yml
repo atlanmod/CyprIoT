@@ -1,6 +1,5 @@
 os: linux
 sudo: false
-dist: trusty
 jdk: oraclejdk8
 language: java
 script: mvn --show-version -Dmaven.javadoc.skip=true -P update-site verify
