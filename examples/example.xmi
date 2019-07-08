@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cyprIoT:CyprIoTModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyprIoT="http://www.atlanmod.org/CyprIoT">
+  <declareThings name="thing1" importPath="thing1.thingml"/>
+  <declareThings name="thing2" importPath="thing2.thingml"/>
+  <declareThings name="thing3" importPath="thing2.thingml"/>
+  <declareChannels xsi:type="cyprIoT:PubSub" name="myChannel">
+    <hasTopics name="topic1"/>
+    <hasTopics name="topic2" topicName="myCustomTopic"/>
+  </declareChannels>
+  <specifyNetworks name="network1">
+    <domain name="org.atlanmod.cypriot.example2"/>
+    <instantiate xsi:type="cyprIoT:InstanceThing" name="myThing1" thingToInstantiate="//@declareThings.0"/>
+    <instantiate xsi:type="cyprIoT:InstanceThing" name="myThing2" thingToInstantiate="//@declareThings.1"/>
+    <instantiate xsi:type="cyprIoT:InstanceThing" name="myThing3" thingToInstantiate="//@declareThings.2"/>
+    <instantiate xsi:type="cyprIoT:InstancePubSub" name="mychannel1" pubSubToInstantiate="//@declareChannels.0"/>
+    <hasBinds bindsInstanceThing="//@specifyNetworks.0/@instantiate.0" bindAction="=>">
+      <portToBind href="example2/network.cy#|5"/>
+      <channelToBind xsi:type="cyprIoT:ToBindPubSub" targetedPubSubInstance="//@specifyNetworks.0/@instantiate.3" topics="//@declareChannels.0/@hasTopics.0"/>
+    </hasBinds>
+    <hasBinds bindsInstanceThing="//@specifyNetworks.0/@instantiate.2">
+      <portToBind href="example2/network.cy#|9"/>
+      <channelToBind xsi:type="cyprIoT:ToBindPubSub" targetedPubSubInstance="//@specifyNetworks.0/@instantiate.3" topics="//@declareChannels.0/@hasTopics.0"/>
+    </hasBinds>
+    <hasBinds bindsInstanceThing="//@specifyNetworks.0/@instantiate.1">
+      <portToBind href="example2/network.cy#|13"/>
+      <channelToBind xsi:type="cyprIoT:ToBindPubSub" targetedPubSubInstance="//@specifyNetworks.0/@instantiate.3" topics="//@declareChannels.0/@hasTopics.1"/>
+    </hasBinds>
+  </specifyNetworks>
+</cyprIoT:CyprIoTModel>
