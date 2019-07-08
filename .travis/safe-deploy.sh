@@ -38,7 +38,7 @@
 
 # # Folder to copy contents to on the target branch.  Path is relative to the root
 # # of the target branch, and must *not* end with a slash.
-# DEST_FOLDER="emfviews/snapshot"
+# DEST_FOLDER="cypriot/snapshot"
 
 # # Name of the deploy key to use.  This file is assumed to be under the .travis
 # # folder, with the `.enc' suffix.

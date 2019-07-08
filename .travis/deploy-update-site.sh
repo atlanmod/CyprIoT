@@ -14,6 +14,6 @@ export OUT_DIR="out-updates"
 #
 # We put the contents of the `static` folder into the SRC_FOLDER because the
 # DEST_FOLDER will be erased and populated by the safe-deploy script.
-cp -r update/static/. ${SRC_FOLDER}
+cp -r org.atlanmod.cypriot.update/static/. ${SRC_FOLDER}
 
 bash .travis/safe-deploy.sh
