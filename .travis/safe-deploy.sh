@@ -70,6 +70,8 @@ TARGET_BRANCH_TEMP="${TARGET_BRANCH}-temp"
 
 # Clone the existing target branch for this repo into OUT_DIR
 mkdir $OUT_DIR
+mkdir $OUT_DIR/cypriot/
+mkdir $OUT_DIR/cypriot/snapshot
 git clone $DEPLOY_REPO $OUT_DIR
 cd $OUT_DIR
 
