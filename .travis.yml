@@ -3,7 +3,7 @@ sudo: false
 dist: trusty
 jdk: oraclejdk8
 language: java
-script: mvn clean verify -U -X --show-version -Dmaven.javadoc.skip=true -P update-site
+script: mvn clean verify -X --show-version -Dmaven.javadoc.skip=true -P update-site
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
