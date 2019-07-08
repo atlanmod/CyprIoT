@@ -1,8 +1,14 @@
 package org.atlanmod.cypriot.generator.utilities;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.CypriotStandaloneSetup;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.generator.main.App;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -24,6 +30,7 @@ import org.eclipse.m2m.atl.emftvm.util.ModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.TimingData;
 
 public class Helpers {
+	static final Logger log = LogManager.getLogger(App.class.getName());
 	public final static String THINGML_METAMODEL = "./transformations/metamodels/ThingML.ecore";
 	public final static String CYPRIOT_METAMODEL = "./transformations/metamodels/cypriot/Cypriot.ecore";
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
@@ -62,6 +69,8 @@ public class Helpers {
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("emftvm", new EMFTVMResourceFactoryImpl());
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
+		//org.atlanmod.cypriot.cyutil.Helpers.loadModelFromFile(cypriotFile, CyprIoTModel.class);
+		
 		// Models
 		registerInputModelInEnvironment(inputThingML, rs, env, "TH");
 		registerInputModelInEnvironment(inputCyprIoT, rs, env, "CY");
@@ -88,10 +97,10 @@ public class Helpers {
 		env.registerOutputModel(name, outModel);
 		return outModel;
 	}
-
-	private static void registerInputModelInEnvironment(String INPUT_THINGMLMODEL, ResourceSet rs, ExecEnv env, String name) {
+	
+	private static void registerInputModelInEnvironment(String inputFilePath, ResourceSet rs, ExecEnv env, String name) {
 		Model inThingMLModel = EmftvmFactory.eINSTANCE.createModel();
-		inThingMLModel.setResource(rs.getResource(URI.createURI(INPUT_THINGMLMODEL, true), true));
+		inThingMLModel.setResource(rs.getResource(URI.createURI(inputFilePath, true), true));
 		env.registerInputModel(name, inThingMLModel);
 	}
 

@@ -7,13 +7,16 @@ module Network2Thing;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
+helper def : replaceDotsWithSlashInDomain(domain : CyprIoT!Domain) : String =
+	domain.name.replaceAll('.', '/')
+;
+
 rule copyThingMLModel {
 	from s: ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs,
 		imports <- s.imports,
 		protocols <- s.protocols,
---		-> union((s.protocols->collect(e | Tuple{p = e, network = CyprIoT!Network.allInstances().first()}))->resolve().debug()),
 		types <- s.types
 	)
 }
@@ -29,7 +32,7 @@ rule copyConfigs {
 	)
 }
 
-rule addProtocol {
+rule addSubscribeProtocol {
 	from 
 		p : ThingML!Protocol
 	to 
@@ -39,6 +42,6 @@ rule addProtocol {
 		),
 		annot : ThingML!PlatformAnnotation (
 			name <- 'mqtt_subscribe',
-			value <- CyprIoT!Network.allInstances().first().name+'_'+CyprIoT!PubSub.allInstances().first().hasTopics.first().name
+			value <- CyprIoT!PubSub.allInstances().first().hasTopics.first().name
 		)
 }

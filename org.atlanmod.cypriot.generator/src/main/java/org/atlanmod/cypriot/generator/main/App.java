@@ -2,7 +2,6 @@ package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
 
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.generator.utilities.Helpers;
@@ -34,18 +33,12 @@ public class App implements Runnable {
 	public void run() {
 		NetworkHelper.showProjectVersioInConsole();
 		
-//		String log4jConfigFile = System.getProperty("user.dir")
-//	            + File.separator + "log4j.properties";
-//		PropertyConfigurator.configure(log4jConfigFile);
-		
 		if(cypriotOutputDirectory==null) {
-			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"output.xmi");
+			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.xmi");
 			log.debug("cypriotOutputDirectory : "+cypriotOutputDirectory);
 		}
 			
-		log.debug("thingMLInputFile.getPath() : "+ thingMLInputFile.getPath());
-
-		log.debug("cypriotInputFile.getPath() : "+ cypriotInputFile.getPath());
+		log.debug("CyprIoT input file path : "+ cypriotInputFile.getAbsolutePath());
 		log.debug("thingMLInputFile.getPath() : "+ thingMLInputFile.getPath());
 		log.debug("cypriotOutputDirectory.getPath() : "+ cypriotOutputDirectory.getPath());
 		
