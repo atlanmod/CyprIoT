@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-ClassPath: .,thingml-lang.jar
 Bundle-Name: org.atlanmod.cypriot.tests
 Bundle-Vendor: Atlanmod
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.1.0.qualifier
 Bundle-SymbolicName: org.atlanmod.cypriot.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.atlanmod.cypriot,

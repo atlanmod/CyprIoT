@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="cypriot"
+      id="org.atlanmod.cypriot.feature"
       label="CyprIoT Feature"
-      version="1.0.0.qualifier">
+      version="0.1.0.qualifier">
 
    <description url="https://github.com/atlanmod/CyprIoT/">
       CyprIoT is tool to compose a network of things using Model-Driven

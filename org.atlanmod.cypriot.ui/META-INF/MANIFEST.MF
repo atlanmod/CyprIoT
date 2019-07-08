@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.atlanmod.cypriot.ui
 Bundle-Vendor: Atlanmod
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.1.0.qualifier
 Bundle-SymbolicName: org.atlanmod.cypriot.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.atlanmod.cypriot,
