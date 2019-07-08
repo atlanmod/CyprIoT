@@ -1,7 +1,7 @@
 sudo: false
 jdk: openjdk8
 language: java
-script: mvn --show-version -Dmaven.javadoc.skip=true -P update-site verify
+script: mvn --show-version --batch-mode -Dmaven.javadoc.skip=true -P update-site verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
@@ -10,4 +10,5 @@ deploy:
     skip_cleanup: true
     script: bash .travis/deploy.sh
     on:
+      tags: true
       branch: master
