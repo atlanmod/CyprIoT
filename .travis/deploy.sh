@@ -11,7 +11,7 @@ fold_end() {
   echo -e "\ntravis_fold:end:$1\r"
 }
 
-export ENCRYPTION_LABEL="b7b263ca9d8b"
+export ENCRYPTION_LABEL="9456011c8356"
 export COMMIT_AUTHOR_NAME="Travis CI"
 export COMMIT_AUTHOR_EMAIL="deploy@travis.org"
 
