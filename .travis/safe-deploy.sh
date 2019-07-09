@@ -89,8 +89,8 @@ cd ..
 # Clean out existing contents
 rm -rf ${OUT_DIR}/${DEST_FOLDER} || exit 0
 
-#mkdir ${OUT_DIR}/cypriot
-#mkdir ${OUT_DIR}/${DEST_FOLDER}
+# mkdir -p ${OUT_DIR}/cypriot
+# mkdir -p ${OUT_DIR}/${DEST_FOLDER}
 
 # Replace with fresh contents
 cp -r ${SRC_FOLDER}/. ${OUT_DIR}/${DEST_FOLDER}
