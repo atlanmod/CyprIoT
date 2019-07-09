@@ -69,15 +69,14 @@ SHA=`git rev-parse --verify HEAD`
 TARGET_BRANCH_TEMP="${TARGET_BRANCH}-temp"
 
 # Clone the existing target branch for this repo into OUT_DIR
-mkdir $OUT_DIR/cypriot/
-mkdir $OUT_DIR/cypriot/snapshot
+
 git clone $DEPLOY_REPO $OUT_DIR
 cd $OUT_DIR
 
 if [ "$KEEP_HISTORY" = true ]; then
     # Create a new empty branch if TARGET_BRANCH doesn't exist yet (should only
     # happen on first deploy)
-    git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+    git check   out $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 else
     # When not preserving history, always create an orphan branch, and unstage
     # everything, otherwise we'll keep the files from TARGET_BRANCH around
@@ -89,6 +88,9 @@ cd ..
 
 # Clean out existing contents
 rm -rf ${OUT_DIR}/${DEST_FOLDER} || exit 0
+
+mkdir ${OUT_DIR}/cypriot
+mkdir ${OUT_DIR}/${DEST_FOLDER}
 
 # Replace with fresh contents
 cp -r ${SRC_FOLDER} ${OUT_DIR}/${DEST_FOLDER}
