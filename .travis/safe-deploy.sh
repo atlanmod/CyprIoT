@@ -93,7 +93,7 @@ mkdir ${OUT_DIR}/cypriot
 mkdir ${OUT_DIR}/${DEST_FOLDER}
 
 # Replace with fresh contents
-cp -r ${SRC_FOLDER} ${OUT_DIR}/${DEST_FOLDER}
+cp -r ${SRC_FOLDER}/. ${OUT_DIR}/${DEST_FOLDER}
 
 # Now let's go have some fun with the cloned repo
 cd $OUT_DIR
