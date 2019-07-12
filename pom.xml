@@ -10,19 +10,15 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>org.atlanmod.cypriot</module>
-		<module>org.atlanmod.cypriot.ide</module>
-		<module>org.atlanmod.cypriot.ui</module>
-		<module>org.atlanmod.cypriot.tests</module>
-		<module>org.atlanmod.cypriot.generator</module>
-		<module>org.atlanmod.cypriot.feature</module>
+		<module>language</module>
+		<module>generator</module>
 	</modules>
 
 	<profiles>
 		<profile>
 			<id>update-site</id>
 			<modules>
-				<module>org.atlanmod.cypriot.update</module>
+				<module>deployment</module>
 			</modules>
 		</profile>
 	</profiles>

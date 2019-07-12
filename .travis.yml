@@ -1,7 +1,8 @@
 sudo: false
 jdk: openjdk8
 language: java
-script: mvn --show-version --batch-mode -Dmaven.javadoc.skip=true -P update-site verify
+script: mvn --show-version -Dmaven.javadoc.skip=true -P update-site verify
+  on: tags : true
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 

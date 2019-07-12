@@ -3,7 +3,7 @@
 export DEPLOY_REPO='https://github.com/atlanmod/updates'
 export TARGET_BRANCH="master"
 export KEEP_HISTORY=false
-export SRC_FOLDER="org.atlanmod.cypriot.update/target/repository"
+export SRC_FOLDER="deployment/update/target/repository"
 export DEST_FOLDER="cypriot/snapshot"
 export DEPLOY_KEY="deploy-key-updates"
 
@@ -14,6 +14,6 @@ export OUT_DIR="out-updates"
 #
 # We put the contents of the `static` folder into the SRC_FOLDER because the
 # DEST_FOLDER will be erased and populated by the safe-deploy script.
-cp -r org.atlanmod.cypriot.update/static/. ${SRC_FOLDER}
+cp -r deployment/update/static/. ${SRC_FOLDER}
 
 bash .travis/safe-deploy.sh
