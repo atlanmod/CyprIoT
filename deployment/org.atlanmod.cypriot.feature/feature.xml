@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="feature"
+      id="org.atlanmod.cypriot.feature"
       label="CyprIoT Feature"
       version="0.1.0.qualifier">
 

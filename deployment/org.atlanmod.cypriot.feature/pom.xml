@@ -6,7 +6,7 @@
     <artifactId>parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>feature</artifactId>
+  <artifactId>org.atlanmod.cypriot.feature</artifactId>
   <name>CyprIoT Feature</name>
   <packaging>eclipse-feature</packaging>
 </project>

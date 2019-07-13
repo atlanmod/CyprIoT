@@ -15,6 +15,6 @@
 	<name>CyprIoT Eclipse Deployment</name>
 	<modules>
 		<module>update</module>
-		<module>feature</module>
+		<module>org.atlanmod.cypriot.feature</module>
 	</modules>
 </project>
