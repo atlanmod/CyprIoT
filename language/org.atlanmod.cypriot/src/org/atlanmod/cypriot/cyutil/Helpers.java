@@ -218,7 +218,7 @@ public class Helpers {
 
 	public static ArrayList<Topic> allTopics(InstancePubSub pubSub) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Topic t : pubSub.getPubSubToInstantiate().getHasTopics()) {
+		for (Topic t : pubSub.getTypePubSub().getPubSubToInstantiate().getHasTopics()) {
 			result.add((Topic) t);
 		}
 		return result;
@@ -226,7 +226,7 @@ public class Helpers {
 
 	public static ArrayList<ConnectionPoint> allConnectionPoints(InstancePTP ptp) {
 		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
-		for (ConnectionPoint t : ptp.getPtPToInstantiate().getHasConnectionPoints()) {
+		for (ConnectionPoint t : ptp.getTypePTP().getPtPToInstantiate().getHasConnectionPoints()) {
 			result.add((ConnectionPoint) t);
 		}
 		return result;
@@ -249,7 +249,7 @@ public class Helpers {
 			List<Instance> instances = network.getInstantiate();
 			for (Instance instance : instances) {
 				if (instance instanceof InstanceThing) {
-					if (((InstanceThing) instance).getOwner().getName().equals(user.getName())) {
+					if (((InstanceThing) instance).getTypeThing().getOwner().getName().equals(user.getName())) {
 						result.add((InstanceThing) instance);
 					}
 				}
@@ -336,7 +336,7 @@ public class Helpers {
 	}
 
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
-		Thing thingToInstanciate = (bind.getBindsInstanceThing().getThingToInstantiate());
+		Thing thingToInstanciate = (bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate());
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result;
 	}
@@ -345,7 +345,7 @@ public class Helpers {
 		if (thingAny instanceof Thing) {
 			return allFunctionsThingML((Thing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
-			return allFunctionsThingML(((InstanceThing) thingAny).getThingToInstantiate());
+			return allFunctionsThingML(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
 
 		return null;
@@ -373,7 +373,7 @@ public class Helpers {
 		if (thingAny instanceof Thing) {
 			return allStatesThingML((Thing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
-			return allStatesThingML(((InstanceThing) thingAny).getThingToInstantiate());
+			return allStatesThingML(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
 
 		return null;
@@ -383,7 +383,7 @@ public class Helpers {
 		if (thingAny instanceof Thing) {
 			return getAllPortsThing((Thing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
-			return getAllPortsThing(((InstanceThing) thingAny).getThingToInstantiate());
+			return getAllPortsThing(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
 
 		return null;
@@ -469,8 +469,8 @@ public class Helpers {
 	}
 
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
-		System.out.println("URI : " + instanceThing.getThingToInstantiate().getImportPath());
-		Thing thingToInstantiate = instanceThing.getThingToInstantiate();
+		System.out.println("URI : " + instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
+		Thing thingToInstantiate = instanceThing.getTypeThing().getThingToInstantiate();
 		return getThingInThingML(thingToInstantiate);
 	}
 

@@ -35,13 +35,13 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 
 		if (reference == cypriotInstance.user_AssignedRoles || reference == cypriotInstance.thing_AssignedRoles) {
 			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.instanceThing_ThingToInstantiate) {
+		} else if (reference == cypriotInstance.typeThing_ThingToInstantiate) {
 			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.instancePubSub_PubSubToInstantiate) {
+		} else if (reference == cypriotInstance.typePubSub_PubSubToInstantiate) {
 			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.instancePTP_PtPToInstantiate) {
+		} else if (reference == cypriotInstance.typePTP_PtPToInstantiate) {
 			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.instanceThing_Owner) {
+		} else if (reference == cypriotInstance.typeThing_Owner) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as PubSub))

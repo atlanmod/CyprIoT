@@ -58,27 +58,42 @@ Network:
 		domain=Domain
 		(hasPolicyEnforcement=PoliciesEnforcement)?
 		(instantiate+=Instance |
-		hasBinds+=Bind 
-		|hasNetworkBridges+=NetworkBridge
+		hasBinds+=Bind |
+		hasNetworkBridges+=NetworkBridge
 		)*
 	'}'
 ;
 
 Instance:
-	InstanceThing | InstancePubSub | InstancePTP
+	InstanceThing | InstanceChannel
 ;
 
 InstanceThing :
-	'instance' name=ID  ('['declareNumberOfInstances=INT']')? ':' thingToInstantiate=[Thing] ('owner' owner=[User])? 'platform' targetedPlatform=Platform
+	'instance' name=ID  ('['declareNumberOfInstances=INT']')? ':' typeThing=TypeThing
 ;
 
+InstanceChannel:
+	InstancePubSub | InstancePTP
+;
 
 InstancePubSub :
-	'instance' name=ID ':' pubSubToInstantiate=[PubSub]   'platform' targetedPlatform=PubSubProtocol
+	'instance' name=ID ':' typePubSub=TypePubSub
 ;
 
 InstancePTP :
-	'instance' name=ID ':' ptPToInstantiate=[PointToPoint]    'platform'  targetedPlatform=PTPProtocol
+	'instance' name=ID ':' typePTP=TypePTP
+;
+
+TypeThing :
+	thingToInstantiate=[Thing] 'platform' targetedPlatform=Platform ('owner' owner=[User])?
+;
+
+TypePubSub :
+	pubSubToInstantiate=[PubSub] 'protocol' targetedProtocol=PubSubProtocol
+;
+
+TypePTP :
+	ptPToInstantiate=[PointToPoint] 'protocol'  targetedProtocol=PTPProtocol
 ;
 
 Channel:
@@ -286,7 +301,7 @@ DomainId:
 ;
 
 NetworkBridge:
-	'bridge' (name=ID ':')? bridgeSubject=[BridgeSubject] | bridgePort=[thingml::Port] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
+	'bridge' (name=ID ':')? bridgeSubject=[BridgeSubject] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
 ;
 
 Time: // Cron syntax
