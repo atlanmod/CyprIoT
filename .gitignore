@@ -125,4 +125,5 @@ plugin.xml_gen
 output/
 applog.txt
 logs
+network-gen/
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse

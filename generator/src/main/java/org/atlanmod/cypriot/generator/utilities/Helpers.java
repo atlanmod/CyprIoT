@@ -1,13 +1,11 @@
 package org.atlanmod.cypriot.generator.utilities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.main.App;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -28,6 +26,7 @@ import org.eclipse.m2m.atl.emftvm.impl.resource.EMFTVMResourceFactoryImpl;
 import org.eclipse.m2m.atl.emftvm.util.DefaultModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.ModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.TimingData;
+import org.thingml.xtext.ThingMLStandaloneSetup;
 
 public class Helpers {
 	static final Logger log = LogManager.getLogger(App.class.getName());
@@ -57,6 +56,8 @@ public class Helpers {
 	
 	public static void transform(String inputCyprIoT, String inputThingML, String outputFile) {
 
+		ThingMLStandaloneSetup.doSetup();
+		CypriotStandaloneSetup.doSetup();
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		
