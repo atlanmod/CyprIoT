@@ -30,8 +30,8 @@ import org.thingml.xtext.ThingMLStandaloneSetup;
 
 public class Helpers {
 	static final Logger log = LogManager.getLogger(App.class.getName());
-	public final static String THINGML_METAMODEL = "./transformations/metamodels/ThingML.ecore";
-	public final static String CYPRIOT_METAMODEL = "./transformations/metamodels/cypriot/Cypriot.ecore";
+	public final static String THINGML_METAMODEL = "../language/org.atlanmod.cypriot/model/ThingML.ecore";
+	public final static String CYPRIOT_METAMODEL = "../language/org.atlanmod.cypriot/model/generated/Cypriot.ecore";
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	
@@ -60,18 +60,13 @@ public class Helpers {
 		CypriotStandaloneSetup.doSetup();
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
-		
-		Helpers.lazyMetamodelRegistration(CYPRIOT_METAMODEL);
-		Helpers.lazyMetamodelRegistration(THINGML_METAMODEL);
 				
-		registerMetamodelInEnvironment("http://www.thingml.org/xtext/ThingML", env, rs, "ThingML");
-		registerMetamodelInEnvironment("http://www.atlanmod.org/CyprIoT", env, rs, "CyprIoT");
+		registerMetamodelInEnvironment(lazyMetamodelRegistration(THINGML_METAMODEL), env, rs, "ThingML");
+		registerMetamodelInEnvironment(lazyMetamodelRegistration(CYPRIOT_METAMODEL), env, rs, "CyprIoT");
 
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("emftvm", new EMFTVMResourceFactoryImpl());
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
-		//org.atlanmod.cypriot.cyutil.Helpers.loadModelFromFile(cypriotFile, CyprIoTModel.class);
-		
 		// Models
 		registerInputModelInEnvironment(inputThingML, rs, env, "TH");
 		registerInputModelInEnvironment(inputCyprIoT, rs, env, "CY");

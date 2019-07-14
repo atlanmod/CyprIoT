@@ -7,7 +7,7 @@ thing HelloThing {
 		
 		final state HelloState {
 			on entry println "Hello World!"
-		}	
+		}
 	}
 }
 
