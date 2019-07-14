@@ -3,10 +3,14 @@
  */
 package org.atlanmod.cypriot.ui.contentassist
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.
  */
-class CypriotProposalProvider extends AbstractCypriotProposalProvider {
+class CypriotProposalProvider extends AbstractCypriotProposalProvider {	
 }

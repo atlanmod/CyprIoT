@@ -36,7 +36,7 @@ class CypriotParsingTest {
 			network anynet {
 				domain org.atlanmod
 				instance th1:thing1 platform JAVA
-				instance ch1:anychannel platform MQTT
+				instance ch1:anychannel protocol MQTT
 				bind th1 => ch1{anytopic}
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [

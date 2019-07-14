@@ -78,7 +78,7 @@ class CypriotNetworkParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(thingInstanciate instanceof InstanceThing)
-		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
+		Assert.assertNotNull((thingInstanciate as InstanceThing).typeThing.thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -95,7 +95,7 @@ class CypriotNetworkParsingTest {
 		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		Assert.assertTrue(thingInstanciate instanceof InstanceThing)
 		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCETHING_UNIQUENESS)
-		Assert.assertNotNull((thingInstanciate as InstanceThing).thingToInstantiate)
+		Assert.assertNotNull((thingInstanciate as InstanceThing).typeThing.thingToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -105,14 +105,14 @@ class CypriotNetworkParsingTest {
 			channel:pubsub anypubsub {}
 			network anynet {
 				domain org.atlanmod
-				instance anypubsub1:anypubsub platform MQTT
-				instance anypubsub1:anypubsub platform MQTT
+				instance anypubsub1:anypubsub protocol MQTT
+				instance anypubsub1:anypubsub protocol MQTT
 			}
 		''')
 		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		Assert.assertTrue(thingInstanciate instanceof InstancePubSub)
 		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCEPUBSUB_UNIQUENESS)
-		Assert.assertNotNull((thingInstanciate as InstancePubSub).pubSubToInstantiate)
+		Assert.assertNotNull((thingInstanciate as InstancePubSub).typePubSub.pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -122,14 +122,14 @@ class CypriotNetworkParsingTest {
 			channel:ptp anyptp {}
 			network anynet {
 				domain org.atlanmod
-				instance ptp1:anyptp platform HTTP
-				instance ptp1:anyptp platform HTTP
+				instance ptp1:anyptp protocol HTTP
+				instance ptp1:anyptp protocol HTTP
 			}
 		''')
 		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		Assert.assertTrue(thingInstanciate instanceof InstancePTP)
 		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCEPTP_UNIQUENESS)
-		Assert.assertNotNull((thingInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertNotNull((thingInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -156,15 +156,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform MQTT
+				instance ch1:anychannel protocol MQTT
 			}
 		''')
 		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstancePubSub)
-		Assert.assertTrue((pubsubInstanciate as InstancePubSub).targetedPlatform.getName.equals("MQTT"))
-		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).pubSubToInstantiate)
+		Assert.assertTrue((pubsubInstanciate as InstancePubSub).typePubSub.targetedProtocol.getName.equals("MQTT"))
+		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).typePubSub.pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -175,15 +175,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform AMQP
+				instance ch1:anychannel protocol AMQP
 			}
 		''')
 		val pubsubInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstancePubSub)
-		Assert.assertTrue((pubsubInstanciate as InstancePubSub).targetedPlatform.getName.equals("AMQP"))
-		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).pubSubToInstantiate)
+		Assert.assertTrue((pubsubInstanciate as InstancePubSub).typePubSub.targetedProtocol.getName.equals("AMQP"))
+		Assert.assertNotNull((pubsubInstanciate as InstancePubSub).typePubSub.pubSubToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -194,15 +194,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform HTTP
+				instance ch1:anychannel protocol HTTP
 			}
 		''')
 		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		Assert.assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("HTTP"))
-		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue((ptpInstanciate as InstancePTP).typePTP.targetedProtocol.getName.equals("HTTP"))
+		Assert.assertNotNull((ptpInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -213,15 +213,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform COAP
+				instance ch1:anychannel protocol COAP
 			}
 		''')
 		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		Assert.assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("COAP"))
-		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue((ptpInstanciate as InstancePTP).typePTP.targetedProtocol.getName.equals("COAP"))
+		Assert.assertNotNull((ptpInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -232,15 +232,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform UPNP
+				instance ch1:anychannel protocol UPNP
 			}
 		''')
 		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		Assert.assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("UPNP"))
-		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue((ptpInstanciate as InstancePTP).typePTP.targetedProtocol.getName.equals("UPNP"))
+		Assert.assertNotNull((ptpInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -251,15 +251,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform ZIGBEE
+				instance ch1:anychannel protocol ZIGBEE
 			}
 		''')
 		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		Assert.assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("ZIGBEE"))
-		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue((ptpInstanciate as InstancePTP).typePTP.targetedProtocol.getName.equals("ZIGBEE"))
+		Assert.assertNotNull((ptpInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -270,15 +270,15 @@ class CypriotNetworkParsingTest {
 			}
 			network anynet {
 				domain org.atlanmod
-				instance ch1:anychannel platform ZWAVE
+				instance ch1:anychannel protocol ZWAVE
 			}
 		''')
 		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstancePTP)
-		Assert.assertTrue((ptpInstanciate as InstancePTP).targetedPlatform.getName.equals("ZWAVE"))
-		Assert.assertNotNull((ptpInstanciate as InstancePTP).ptPToInstantiate)
+		Assert.assertTrue((ptpInstanciate as InstancePTP).typePTP.targetedProtocol.getName.equals("ZWAVE"))
+		Assert.assertNotNull((ptpInstanciate as InstancePTP).typePTP.ptPToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -292,7 +292,7 @@ class CypriotNetworkParsingTest {
 			network anynet {
 				domain org.atlanmod
 				instance th1:thing1 platform JAVA
-				instance ch1:anychannel platform MQTT
+				instance ch1:anychannel protocol MQTT
 				bind th1 => ch1{anytopic}
 			}
 		''')
@@ -315,7 +315,7 @@ class CypriotNetworkParsingTest {
 			network anynet {
 				domain org.atlanmod
 				instance th1:thing1 platform JAVA
-				instance ch1:anychannel platform MQTT
+				instance ch1:anychannel protocol MQTT
 				bind th1.port1 => ch1{anytopic}
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [

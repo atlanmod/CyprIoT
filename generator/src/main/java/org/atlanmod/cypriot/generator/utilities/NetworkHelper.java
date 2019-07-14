@@ -219,7 +219,7 @@ public final class NetworkHelper {
 	 * @return The roles assigned to the instanceThing
 	 */
 	public static EList<Role> getAssignedRolesToThing(InstanceThing instance) {
-		return instance.getThingToInstantiate().getAssignedRoles();
+		return instance.getTypeThing().getThingToInstantiate().getAssignedRoles();
 	}
 
 	/**

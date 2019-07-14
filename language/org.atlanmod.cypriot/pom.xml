@@ -66,6 +66,11 @@
 						<artifactId>antlr-generator</artifactId>
 						<version>3.2.1</version>
 					</dependency>
+					<dependency>
+						<groupId>org.eclipse.platform</groupId>
+						<artifactId>org.eclipse.equinox.common</artifactId>
+						<version>3.10.200</version>
+					</dependency>
 				</dependencies>
 			</plugin>
 			<plugin>
@@ -91,6 +96,11 @@
 						<groupId>org.eclipse.emf</groupId>
 						<artifactId>org.eclipse.emf.codegen</artifactId>
 						<version>2.11.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.platform</groupId>
+						<artifactId>org.eclipse.equinox.common</artifactId>
+						<version>3.10.200</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -140,6 +150,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>
 
