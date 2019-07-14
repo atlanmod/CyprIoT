@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
-Bundle-ClassPath: .,thingml-lang.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: org.atlanmod.cypriot
 Bundle-Vendor: Atlanmod
@@ -14,7 +13,8 @@ Require-Bundle: org.eclipse.xtext,
  org.antlr.runtime,
  org.eclipse.xtext.util,
  org.eclipse.emf.common,
- org.eclipse.xtend.lib
+ org.eclipse.xtend.lib,
+ thingml
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.apache.log4j
 Export-Package: org.atlanmod.cypriot.validation,
