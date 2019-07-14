@@ -77,45 +77,24 @@
 		<!-- TODO Remove local dependencies -->
 		<dependency>
 			<groupId>org.thingml</groupId>
-			<artifactId>thingml-lang</artifactId>
+			<artifactId>thingml</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml-lang.jar</systemPath>
+			<systemPath>${project.basedir}/lib/thingml/thingml-2.0.0-SNAPSHOTjar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>thingml-official-network-plugins</groupId>
-			<artifactId>official-network-plugins-2.0.0-SNAPSHOT</artifactId>
+			<artifactId>official-network-plugins</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/official-network-plugins-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>thingml-utilities</groupId>
-			<artifactId>utilities-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/utilities-2.0.0-SNAPSHOT.jar</systemPath>
+			<systemPath>${project.basedir}/lib/thingml/official-network-plugins-2.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>thingml-framework</groupId>
-			<artifactId>compilers.framework-2.0.0-SNAPSHOT</artifactId>
+			<artifactId>compilers.framework</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/compilers.framework-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.java</groupId>
-			<artifactId>compilers.java-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/compilers.java-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.c</groupId>
-			<artifactId>compilers.c-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/compilers.c-2.0.0-SNAPSHOT.jar</systemPath>
+			<systemPath>${project.basedir}/lib/thingml/compilers.framework-2.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>
