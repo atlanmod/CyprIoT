@@ -11,6 +11,12 @@ helper def : replaceDotsWithSlashInDomain(domain : CyprIoT!Domain) : String =
 	domain.name.replaceAll('.', '/')
 ;
 
+helper context String def : removeHash() : String =
+	self.replaceAll('#', '')
+;
+
+-- /BEGIN COPIER FOR HELLO WORLD
+
 rule copyThingMLModel {
 	from s: ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -18,6 +24,123 @@ rule copyThingMLModel {
 		imports <- s.imports,
 		protocols <- s.protocols,
 		types <- s.types
+	)
+}
+
+rule copyThings {
+	from s : ThingML!Thing
+	to t : ThingML!Thing(
+		name <- s.name,
+		ports <- s.ports,
+		annotations <- s.annotations,
+		assign <- s.assign,
+		behaviour <- s.behaviour,
+		fragment <- s.fragment,
+		functions <- s.functions,
+		messages <- s.messages,
+		includes <- s.includes,
+		properties <- s.properties
+	)
+}
+
+rule copyMessage {
+	from s: ThingML!Message
+	to t : ThingML!Message(
+		name <- s.name,
+		parameters <- s.parameters,
+		annotations <- s.annotations
+	)
+}
+
+rule copyProvidedPort {
+	from s : ThingML!ProvidedPort
+	to t : ThingML!ProvidedPort(
+		name <- s.name,
+		receives <- s.receives,
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
+rule copyRequiredPort {
+	from s : ThingML!RequiredPort
+	to t : ThingML!RequiredPort(
+		name <- s.name,
+		receives <- s.receives,
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
+rule copyCompositeState {
+	from s : ThingML!CompositeState
+	to t : ThingML!CompositeState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		history <- s.history,
+		initial <- s.initial,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties,
+		region <- s.region,
+		session <- s.session,
+		substate <- s.substate
+	)
+}
+
+rule copyFinalState {
+	from s : ThingML!FinalState
+	to t : ThingML!FinalState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
+rule copyActionBlock {
+	from s : ThingML!ActionBlock
+	to t : ThingML!ActionBlock(
+		actions <- s.actions
+	)
+}
+
+rule copyPrintAction {
+	from s : ThingML!PrintAction
+	to t : ThingML!PrintAction(
+		line <- s.line,
+		msg <- s.msg
+	)
+}
+
+rule copySendAction {
+	from s : ThingML!SendAction
+	to t : ThingML!SendAction(
+		message <- s.message,
+		parameters <- s.parameters,
+		port <- s.port
+	)
+}
+
+rule copyStringLiteral {
+	from s : ThingML!StringLiteral
+	to t : ThingML!StringLiteral(
+		stringValue <- s.stringValue
+	)
+}
+
+rule copyInstances {
+	from s : ThingML!Instance
+	to t : ThingML!Instance(
+		name <- s.name,
+		type <- thisModule.resolveTemp(s.type, 't'),
+		annotations <- s.annotations
+		
 	)
 }
 
@@ -32,16 +155,28 @@ rule copyConfigs {
 	)
 }
 
-rule addSubscribeProtocol {
-	from 
-		p : ThingML!Protocol
-	to 
-		protoOut : ThingML!Protocol(
-			name <- CyprIoT!InstancePubSub.allInstances().first().targetedPlatform.toString().replaceAll('#', ''),
-			annotations <- Sequence{annot}
-		),
-		annot : ThingML!PlatformAnnotation (
-			name <- 'mqtt_subscribe',
-			value <- CyprIoT!PubSub.allInstances().first().hasTopics.first().name
-		)
-}
+-- COPIER FOR HELLO WORLD / END
+
+
+--rule createConfiguration {
+--	from 
+--		s : CyprIoT!Network in CY
+--	to 
+--		t : ThingML!Configuration(
+--			name <- s.name+'_Cfg'			
+--		) 
+--}
+
+--rule addSubscribeProtocol {
+--	from 
+--		p : ThingML!Protocol
+--	to 
+--		protoOut : ThingML!Protocol(
+--			name <- CyprIoT!InstancePubSub.allInstances().first().typePubSub.targetedProtocol.toString().removeHash(),
+--			annotations <- Sequence{annot}
+--		),
+--		annot : ThingML!PlatformAnnotation (
+--			name <- 'mqtt_subscribe',
+--			value <- CyprIoT!PubSub.allInstances().first().hasTopics.first().name
+--		)
+--}
