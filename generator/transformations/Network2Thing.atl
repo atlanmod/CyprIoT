@@ -18,12 +18,31 @@ helper context String def : removeHash() : String =
 -- /BEGIN COPIER FOR HELLO WORLD
 
 rule copyThingMLModel {
-	from s: ThingML!ThingMLModel
+	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs,
 		imports <- s.imports,
 		protocols <- s.protocols,
 		types <- s.types
+	)	
+}
+
+rule copyExternalConnector {
+	from s : ThingML!ExternalConnector
+	to t : ThingML!ExternalConnector(
+		annotations <- s.annotations,
+		inst <- s.inst,
+		name <- s.name,
+		port <- s.port,
+		protocol <- thisModule.resolveTemp(s.protocol, 't')
+	)
+}
+
+rule copyProtocol {
+	from s : ThingML!Protocol
+	to t : ThingML!Protocol(
+		annotations <- s.annotations,
+		name <- CyprIoT!InstancePubSub.allInstances().first().typePubSub.targetedProtocol.toString().removeHash()
 	)
 }
 
@@ -140,7 +159,6 @@ rule copyInstances {
 		name <- s.name,
 		type <- thisModule.resolveTemp(s.type, 't'),
 		annotations <- s.annotations
-		
 	)
 }
 
@@ -156,27 +174,3 @@ rule copyConfigs {
 }
 
 -- COPIER FOR HELLO WORLD / END
-
-
---rule createConfiguration {
---	from 
---		s : CyprIoT!Network in CY
---	to 
---		t : ThingML!Configuration(
---			name <- s.name+'_Cfg'			
---		) 
---}
-
---rule addSubscribeProtocol {
---	from 
---		p : ThingML!Protocol
---	to 
---		protoOut : ThingML!Protocol(
---			name <- CyprIoT!InstancePubSub.allInstances().first().typePubSub.targetedProtocol.toString().removeHash(),
---			annotations <- Sequence{annot}
---		),
---		annot : ThingML!PlatformAnnotation (
---			name <- 'mqtt_subscribe',
---			value <- CyprIoT!PubSub.allInstances().first().hasTopics.first().name
---		)
---}

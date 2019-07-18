@@ -14,6 +14,9 @@ thing HelloThing {
 	}
 }
 
+protocol X
+
 configuration Hello {
 	instance hello : HelloThing
+	connector hello.myport over X
 }
