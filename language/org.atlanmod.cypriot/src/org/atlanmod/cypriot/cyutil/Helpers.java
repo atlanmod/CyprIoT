@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
@@ -54,14 +56,16 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Helpers {
 
+	static final Logger log = LogManager.getLogger(Helpers.class.getName());
+
+	
 	public static CyprIoTModel getModelFromRelativeURI(CyprIoTModel cyModel, String uri) throws Exception {
 		URI new_uri;
-		System.out.println("URI : " + uri);
+		log.debug("URI of CyprIoT file : " + uri);
 		new_uri = URI.createURI(uri);
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(cyModel.eResource().getURI());
 		}
-		System.out.println("URI : " + new_uri);
 		Resource r = cyModel.eResource().getResourceSet().getResource(new_uri, true);
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof CyprIoTModel) {
 			return (CyprIoTModel) r.getContents().get(0);
@@ -82,7 +86,6 @@ public class Helpers {
 	public static <C> List<C> allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
 		final List<C> result = new ArrayList<C>();
 		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
-		System.out.println("Allcontent : "+it);
 		while (it.hasNext()) {
 			EObject o = it.next();
 			if (c.isInstance(o))
@@ -470,7 +473,7 @@ public class Helpers {
 	}
 
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
-		System.out.println("URI : " + instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
+		log.debug("URI of ThingML file of instanceThing "+instanceThing.getName()+" : " + instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
 		Thing thingToInstantiate = instanceThing.getTypeThing().getThingToInstantiate();
 		return getThingInThingML(thingToInstantiate);
 	}
@@ -482,8 +485,7 @@ public class Helpers {
 		// ThingMLFactoryImpl());
 		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml",
 		// new ThingMLFactoryImpl());
-		System.out.println("URI : " + new_uri);
-		System.out.println("URI Resolve : " + thing.eResource().getURI());
+		log.debug("URI of ThingML file : " + new_uri);
 		if (new_uri.isRelative()) {
 			new_uri = new_uri.resolve(thing.eResource().getURI());
 		}
@@ -555,7 +557,7 @@ public class Helpers {
 			noErrors = false;
 		}
 		for (Diagnostic diagnostic : resource.getErrors()) {
-			System.out.println("ERROR : "+diagnostic.getMessage());
+			log.error("ERROR : "+diagnostic.getMessage());
 		}
 		return noErrors;
 	}
