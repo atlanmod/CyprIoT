@@ -34,7 +34,7 @@ public class App implements Runnable {
 		NetworkHelper.showProjectVersioInConsole();
 		
 		if(cypriotOutputDirectory==null) {
-			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.xmi");
+			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.thingml");
 			log.debug("Output Directory : "+cypriotOutputDirectory);
 		}
 			

@@ -62,9 +62,9 @@ public class Util {
 		}
 	}
 	
-	private Model registerOutputModelInEnvironment(String OUTPUT_MODEL, ResourceSet rs, ExecEnv env, String name) {
+	private Model registerOutputModelInEnvironment(String outputModel, ResourceSet rs, ExecEnv env, String name) {
 		Model outModel = EmftvmFactory.eINSTANCE.createModel();
-		outModel.setResource(rs.createResource(URI.createFileURI(OUTPUT_MODEL)));
+		outModel.setResource(rs.createResource(URI.createFileURI(outputModel)));
 		env.registerOutputModel(name, outModel);
 		return outModel;
 	}
