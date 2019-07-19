@@ -4,8 +4,8 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.atlanmod.cypriot.generator.utilities.Helpers;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
+import org.atlanmod.cypriot.generator.utilities.Util;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -35,14 +35,23 @@ public class App implements Runnable {
 		
 		if(cypriotOutputDirectory==null) {
 			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.xmi");
-			log.debug("cypriotOutputDirectory : "+cypriotOutputDirectory);
+			log.debug("Output Directory : "+cypriotOutputDirectory);
 		}
 			
-		log.debug("CyprIoT input file path : "+ cypriotInputFile.getAbsolutePath());
-		log.debug("thingMLInputFile.getPath() : "+ thingMLInputFile.getPath());
-		log.debug("cypriotOutputDirectory.getPath() : "+ cypriotOutputDirectory.getPath());
+		log.debug("CyprIoT Input File Path : "+ cypriotInputFile.getPath());
+		log.debug("ThingML Input File Path: "+ thingMLInputFile.getPath());
 		
-		Helpers.transform(cypriotInputFile.getPath(), thingMLInputFile.getPath(), cypriotOutputDirectory.getPath());
+		Util help = new Util();
+		help.transform(cypriotOutputDirectory.getPath(), cypriotInputFile, thingMLInputFile);
+		
+//		try {
+//			Generate generator = new Generate(URI.createFileURI(cypriotInputFile.getPath()), cypriotOutputDirectory, new ArrayList<String>());
+//			generator.doGenerate(new BasicMonitor());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		/*
 		// Network Model Loading
 		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);

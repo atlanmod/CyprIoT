@@ -35,6 +35,7 @@ import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -553,6 +554,9 @@ public class Helpers {
 		if (!resource.getErrors().isEmpty()) {
 			noErrors = false;
 		}
+		for (Diagnostic diagnostic : resource.getErrors()) {
+			System.out.println("ERROR : "+diagnostic.getMessage());
+		}
 		return noErrors;
 	}
 
@@ -567,6 +571,14 @@ public class Helpers {
 		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
 		ResourceSet rs = new ResourceSetImpl();
 		return rs.createResource(xmiuri);
+	}
+	
+	public static  Resource getResourceFromModel(EObject eObject) {
+		ResourceSet myres = new ResourceSetImpl();
+        Resource res = myres.createResource(URI.createFileURI("dummy.xmi"));
+        res.getContents().add(eObject);
+        EcoreUtil.resolveAll(res);
+		return res;
 	}
 
 }

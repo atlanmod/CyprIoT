@@ -22,6 +22,14 @@
 			<name>ATL Repository</name>
 			<url>https://repo.eclipse.org/content/groups/atl</url>
 		</repository>
+		<repository>
+			<id>Eclipse - Acceleo Snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
+		</repository>
+		<repository>
+			<id>Eclipse - Acceleo Release</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
+		</repository>
 	</repositories>
 
 	<properties>
@@ -29,6 +37,61 @@
 		<emf.version>2.10.0-v20140514-1158</emf.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.core</groupId>
+			<artifactId>org.eclipse.core.runtime</artifactId>
+			<version>3.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.parser</artifactId>
+			<version>3.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.model</artifactId>
+			<version>3.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.engine</artifactId>
+			<version>3.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.common</artifactId>
+			<version>3.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>2.9.1.v20130827-0309</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<version>2.9.1.v20130827-0309</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>2.9.1.v20130827-0309</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ocl</groupId>
+			<artifactId>org.eclipse.ocl.ecore</artifactId>
+			<version>3.3.0.v20130520-1222</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ocl</groupId>
+			<artifactId>org.eclipse.ocl.common</artifactId>
+			<version>1.1.0.v20130531-0544</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.ocl</groupId>
+			<artifactId>org.eclipse.ocl</artifactId>
+			<version>3.3.0.v20130909-1552</version>
+		</dependency>
 		<dependency>
 			<groupId>org.eclipse.m2m.atl</groupId>
 			<artifactId>org.eclipse.m2m.atl.common</artifactId>
@@ -80,7 +143,7 @@
 			<artifactId>thingml</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/thingml-2.0.0-SNAPSHOTjar</systemPath>
+			<systemPath>${project.basedir}/lib/thingml/thingml-2.0.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>thingml-official-network-plugins</groupId>

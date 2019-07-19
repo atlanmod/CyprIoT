@@ -8,7 +8,7 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.atlanmod.cypriot.generator.main.App"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-d &#10;-i ../examples/0_HelloWorld/hello.cy&#10;-it ../examples/0_HelloWorld/hello.thingml"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-d &#10;-i ../examples/0_HelloWorld/hello.cy &#10;-it ../examples/0_HelloWorld/hello.thingml"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="generator"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

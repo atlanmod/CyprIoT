@@ -42,7 +42,7 @@ rule copyProtocol {
 	from s : ThingML!Protocol
 	to t : ThingML!Protocol(
 		annotations <- s.annotations,
-		name <- CyprIoT!InstancePubSub.allInstances().first().typePubSub.targetedProtocol.toString().removeHash()
+		name <- CyprIoT!InstancePubSub.allInstances().flatten().first().typePubSub.targetedProtocol.toString().removeHash()
 	)
 }
 
