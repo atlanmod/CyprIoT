@@ -126,4 +126,5 @@ output/
 applog.txt
 logs
 network-gen/
+acceleo-gen/
 # End of https://www.gitignore.io/api/java,xtext,maven,eclipse

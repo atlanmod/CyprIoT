@@ -4,8 +4,10 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.generator.utilities.AcceleoStandaloneCompiler;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 import org.atlanmod.cypriot.generator.utilities.Util;
+import org.eclipse.acceleo.parser.compiler.AcceleoCompilerHelper;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -32,6 +34,9 @@ public class App implements Runnable {
 
 	public void run() {
 		NetworkHelper.showProjectVersioInConsole();
+		
+		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
+		acceleoStandaloneCompiler.generateAcceleo();
 		
 		if(cypriotOutputDirectory==null) {
 			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.thingml");

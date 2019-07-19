@@ -502,6 +502,10 @@ public class Helpers {
 		return null;
 	}
 
+	public static <T extends EObject> T loadModelFromPath(String path, Class<T> type) {
+		File file = new File(path);
+		return Helpers.loadModelFromFile(file, type);
+	}
 	/**
 	 * Load the EMF graph of the model from a File
 	 * 

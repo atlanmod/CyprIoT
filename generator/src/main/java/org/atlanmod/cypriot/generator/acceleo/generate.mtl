@@ -1,0 +1,13 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.atlanmod.org/CyprIoT')]
+
+
+[template public generateElement(aCyprIoTModel : CyprIoTModel)]
+[comment @main /]
+[file ('openhab'.concat('.rule'), false, 'UTF-8')]
+	[for (p: Network | aCyprIoTModel.specifyNetworks) separator ('\n') ]
+		Il y a [p.name/]
+	[/for]
+[/file]
+	
+[/template]
