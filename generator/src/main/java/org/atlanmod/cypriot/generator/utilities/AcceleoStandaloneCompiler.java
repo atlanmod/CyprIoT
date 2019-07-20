@@ -15,8 +15,6 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 
     public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/generate";
     public static final String[] TEMPLATE_NAMES = { "generateElement" };
-    public static final String TARGET_FOLDER = "./acceleo-gen/";
-    public static final String MODEL_PATH = "./acceleo-gen/hello.cy";
    
 
 	
@@ -30,15 +28,16 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 		return TEMPLATE_NAMES;
 	}
 	
-	public void generateAcceleo() {
+	public void generateAcceleo(String modelPath, String targetFolderPath) {
 		
 	    List<String> arguments = new ArrayList<String>();
-		CyprIoTModel cypriotModel = Helpers.loadModelFromPath(MODEL_PATH, CyprIoTModel.class);
+		CyprIoTModel cypriotModel = Helpers.loadModelFromPath(modelPath, CyprIoTModel.class);
 		AcceleoCompilerHelper acceleoCompilerHelper = new AcceleoCompilerHelper();
 		acceleoCompilerHelper.setSourceFolder("./src/main/java/org/atlanmod/cypriot/generator/acceleo/");
-	    acceleoCompilerHelper.execute();
+	    acceleoCompilerHelper.setOutputFolder("./src/main/java/org/atlanmod/cypriot/generator/acceleo/");
+		acceleoCompilerHelper.execute();
 		
-		File targetFolder = new File(TARGET_FOLDER);
+		File targetFolder = new File(targetFolderPath);
 		try {
 			initialize(cypriotModel, targetFolder, arguments);
 			super.doGenerate(new BasicMonitor());

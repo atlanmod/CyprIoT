@@ -26,8 +26,6 @@ import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Util {
 	static final Logger log = LogManager.getLogger(App.class.getName());
-	public final static String THINGML_METAMODEL = "../language/org.atlanmod.cypriot/model/ThingML.ecore";
-	public final static String CYPRIOT_METAMODEL = "../language/org.atlanmod.cypriot/model/generated/Cypriot.ecore";
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	

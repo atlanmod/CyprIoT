@@ -5,9 +5,34 @@
 [template public generateElement(aCyprIoTModel : CyprIoTModel)]
 [comment @main /]
 [file ('openhab'.concat('.rule'), false, 'UTF-8')]
-	[for (p: Network | aCyprIoTModel.specifyNetworks) separator ('\n') ]
-		Il y a [p.name/]
-	[/for]
+
+rule "POST Temperature"
+when
+    Item temperature received update
+then
+[for (n : Network | aCyprIoTModel.specifyNetworks)]	
+var url = "[n.name/]"
+[/for]
+    var contenttype = "application/json"
+    var POSTrequest = 
+    '{
+        "metadata" : {
+            "geo" : {
+            "latitude" : 46.7696804,
+            "longitude" : -71.3029439
+            }
+        },
+        "data" : [ '[' /]  {
+            "value" : '+ temperature.state +',
+            "type" : "temperature",
+            "unit" : "C"
+        } [ ']' /]
+    }'
+    logInfo("JSON PAYLOAD", POSTrequest)
+    var output = sendHttpPostRequest(url, contenttype, POSTrequest)
+    logInfo("Test post request:", output);
+end
+
 [/file]
 	
 [/template]

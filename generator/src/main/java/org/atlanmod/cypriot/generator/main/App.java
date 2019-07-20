@@ -36,10 +36,10 @@ public class App implements Runnable {
 		NetworkHelper.showProjectVersioInConsole();
 		
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
-		acceleoStandaloneCompiler.generateAcceleo();
+		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"acceleo-gen");
 		
 		if(cypriotOutputDirectory==null) {
-			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"output.thingml");
+			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_"+thingMLInputFile.getName());
 			log.debug("Output Directory : "+cypriotOutputDirectory);
 		}
 			

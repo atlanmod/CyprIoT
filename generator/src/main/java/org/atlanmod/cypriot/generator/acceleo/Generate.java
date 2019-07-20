@@ -8,14 +8,13 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.atlanmod.cypriot.generator.utilities;
+package org.atlanmod.cypriot.generator.acceleo;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.eclipse.acceleo.engine.event.IAcceleoTextGenerationListener;
 import org.eclipse.acceleo.engine.generation.strategy.IAcceleoGenerationStrategy;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
@@ -24,7 +23,6 @@ import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.thingml.xtext.ThingMLStandaloneSetup;
 
 /**
  * Entry point of the 'Generate' generation module.
@@ -37,7 +35,7 @@ public class Generate extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "./acceleo/generate";
+    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/generate";
     
     /**
      * The name of the templates that are to be generated.
@@ -118,9 +116,9 @@ public class Generate extends AbstractAcceleoGenerator {
      * 
      * @param args
      *            Arguments of the generation.
-     * 
+     * @generated
      */
-    public static void mainAcceleo(String[] args) {
+    public static void main(String[] args) {
         try {
             if (args.length < 2) {
                 System.out.println("Arguments not valid : {model, folder}.");
@@ -381,7 +379,7 @@ public class Generate extends AbstractAcceleoGenerator {
      * 
      * @param resourceSet
      *            The resource set which registry has to be updated.
-     * 
+     * @generated
      */
     @Override
     public void registerResourceFactories(ResourceSet resourceSet) {
