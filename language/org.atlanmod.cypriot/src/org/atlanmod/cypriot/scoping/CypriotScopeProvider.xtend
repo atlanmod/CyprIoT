@@ -3,7 +3,9 @@
  */
 package org.atlanmod.cypriot.scoping
 
-import java.util.ArrayList
+import java.util.Collections
+import java.util.List
+import org.atlanmod.cypriot.cyprIoT.BridgeSubject
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
@@ -19,7 +21,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.BridgeSubject
 
 /**
  * This class contains custom scoping description.
@@ -29,8 +30,8 @@ import org.atlanmod.cypriot.cyprIoT.BridgeSubject
  */
 class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 	val cypriotInstance = CyprIoTPackage.eINSTANCE;
-	protected ArrayList<EObject> EMPTY = new ArrayList();
-
+	protected List<? extends EObject> EMPTY = Collections.EMPTY_LIST;
+	
 	override IScope getScope(EObject context, EReference reference) {
 
 		if (reference == cypriotInstance.user_AssignedRoles || reference == cypriotInstance.thing_AssignedRoles) {
@@ -104,3 +105,4 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		return Scopes.scopeFor(EMPTY);
 	}
 }
+

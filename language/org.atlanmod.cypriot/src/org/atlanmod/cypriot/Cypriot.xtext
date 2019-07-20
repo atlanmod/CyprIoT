@@ -1,4 +1,6 @@
-grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.xbase.Xbase
+grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.common.Terminals
+
+//import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 import "http://www.thingml.org/xtext/ThingML" as thingml
@@ -297,7 +299,7 @@ ExpressionAttribute:
 ;
 
 DomainId:
-	ValidID (=>'.' ValidID)+
+	VALIDID (=>'.' VALIDID)+
 ;
 
 NetworkBridge:
@@ -342,3 +344,14 @@ RangeCronList hidden():
 IntLiteral:
 	INT
 ;
+
+VALIDID:
+	ID;
+	
+// Terminals
+	
+//terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+//
+//terminal INT returns ecore::ELong: ('0'..'9')+;
+//
+//terminal STRING: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';
