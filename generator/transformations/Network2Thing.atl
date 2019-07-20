@@ -22,9 +22,17 @@ rule copyThingMLModel {
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs,
 		imports <- s.imports,
-		protocols <- s.protocols,
+		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()),
 		types <- s.types
 	)	
+}
+
+rule copyProtocol {
+	from s : ThingML!Protocol
+	to t : ThingML!Protocol(
+		annotations <- s.annotations,
+		name <- s.name
+	)
 }
 
 rule copyExternalConnector {
@@ -38,11 +46,10 @@ rule copyExternalConnector {
 	)
 }
 
-rule copyProtocol {
-	from s : ThingML!Protocol
+rule transformProtocol {
+	from s : CyprIoT!InstancePubSub
 	to t : ThingML!Protocol(
-		annotations <- s.annotations,
-		name <- CyprIoT!InstancePubSub.allInstances().flatten().first().typePubSub.targetedProtocol.toString().removeHash()
+		name <- s.typePubSub.targetedProtocol.toString().removeHash()
 	)
 }
 
