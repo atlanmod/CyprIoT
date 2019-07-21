@@ -1,7 +1,5 @@
 grammar org.atlanmod.cypriot.Cypriot with org.eclipse.xtext.common.Terminals
 
-//import "http://www.eclipse.org/emf/2002/Ecore" as ecore
-
 generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 import "http://www.thingml.org/xtext/ThingML" as thingml
 

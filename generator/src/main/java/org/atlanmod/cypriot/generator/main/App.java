@@ -16,6 +16,10 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
+    public static final String CYPRIOT_FILE ="../examples/0_HelloWorld/hello.cy" ;
+    public static final String THINGML_FILE ="../examples/0_HelloWorld/hello.thingml" ;
+   
+	
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i", "--input" }, required = false, paramLabel = "INPUT", description = "The input file for the code generator")
 	File cypriotInputFile;
@@ -34,7 +38,9 @@ public class App implements Runnable {
 
 	public void run() {
 		NetworkHelper.showProjectVersioInConsole();
-		
+		if(!CYPRIOT_FILE.equals("")) cypriotInputFile=new File(CYPRIOT_FILE);
+		if(!THINGML_FILE.equals("")) thingMLInputFile=new File(THINGML_FILE);
+
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
 		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"acceleo-gen");
 		
