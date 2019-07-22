@@ -8,6 +8,8 @@
 package org.atlanmod.cypriot.cyutil;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -520,6 +522,11 @@ public class Helpers {
 			ThingMLStandaloneSetup.doSetup();
 		}
 		Resource model = createEMFResourceFromFile(file);
+		return getModelFromResource(model, type);
+	}
+
+	public static <T extends EObject> T getModelFromResource(Resource model, Class<T> type) {
+		
 
 		try {
 			model.load(null);
@@ -587,4 +594,32 @@ public class Helpers {
 		return res;
 	}
 
+	/**
+	 * Read a file and returns its content
+	 * 
+	 * @param file File to read
+	 * @return
+	 */
+	public static String getContentFromFile(File file) {
+		String content = null;
+		FileReader reader = null;
+		try {
+			reader = new FileReader(file);
+			char[] chars = new char[(int) file.length()];
+			reader.read(chars);
+			content = new String(chars);
+			return content;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return content;
+	}
 }

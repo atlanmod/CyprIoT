@@ -29,10 +29,11 @@ public class Util {
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	
-	public void transform(String outputFile, File cypriotInputFile ,File thingMLInputFile) {
+	public Resource transform(String outputFile, File cypriotInputFile ,File thingMLInputFile) {
 		
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
+		log.debug("Output Directory after transformation : "+ outputFile);
 
 		// Models
 		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile);
@@ -52,12 +53,15 @@ public class Util {
 		td.finishLoading();
 		env.run(td);
 		td.finish();
+		Resource resource = outModel.getResource();
 		// Save models
 		try {
-			outModel.getResource().save(Collections.emptyMap());
+			resource.save(Collections.emptyMap());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return resource;
+		
 	}
 	
 	private Model registerOutputModelInEnvironment(String outputModel, ResourceSet rs, ExecEnv env, String name) {

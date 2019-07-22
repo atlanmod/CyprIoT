@@ -45,7 +45,7 @@ public class App implements Runnable {
 		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"acceleo-gen");
 		
 		if(cypriotOutputDirectory==null) {
-			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_"+thingMLInputFile.getName());
+			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_thin.xmi");
 			log.debug("Output Directory : "+cypriotOutputDirectory);
 		}
 			

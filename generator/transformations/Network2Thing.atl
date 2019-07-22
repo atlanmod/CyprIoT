@@ -35,16 +35,14 @@ rule copyProtocol {
 	)
 }
 
-rule copyExternalConnector {
-	from s : ThingML!ExternalConnector
-	to t : ThingML!ExternalConnector(
-		annotations <- s.annotations,
-		inst <- s.inst,
-		name <- s.name,
-		port <- s.port,
-		protocol <- thisModule.resolveTemp(s.protocol, 't')
-	)
-}
+--rule copyExternalConnector {
+--	from s : CyprIoT!Bind
+--	to t : ThingML!ExternalConnector(
+--		inst <- ThingML!Instance.allInstances().first(),
+--		port <- thisModule.resolveTemp(s.portToBind, 't'),
+--		protocol <- ThingML!Protocol.allInstances().first()
+--	)
+--}
 
 rule transformProtocol {
 	from s : CyprIoT!InstancePubSub

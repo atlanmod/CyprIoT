@@ -108,35 +108,6 @@ public final class NetworkHelper {
 	}
 
 	/**
-	 * Read a file and returns its content
-	 * 
-	 * @param file File to read
-	 * @return
-	 */
-	public static String getContentFromFile(File file) {
-		String content = null;
-		FileReader reader = null;
-		try {
-			reader = new FileReader(file);
-			char[] chars = new char[(int) file.length()];
-			reader.read(chars);
-			content = new String(chars);
-			return content;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return content;
-	}
-
-	/**
 	 * Append EObject names separated by a given separator ("," or ";"..etc)
 	 * 
 	 * @param list

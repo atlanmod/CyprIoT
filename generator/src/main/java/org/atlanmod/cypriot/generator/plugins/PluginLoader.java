@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 
 public class PluginLoader {
@@ -22,7 +23,7 @@ public class PluginLoader {
 		String pluginClassName;
 		
 		try {
-			properties.load(new StringReader(NetworkHelper.getContentFromFile(configFile)));
+			properties.load(new StringReader(Helpers.getContentFromFile(configFile)));
 			pluginClassName = properties.getProperty("classes");
 			List<String> classesList = Arrays.asList(pluginClassName.split(","));
 			for (String className : classesList) {
