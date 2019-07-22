@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.Bind
 
 /**
  * This class contains custom scoping description.
@@ -48,6 +49,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as PubSub))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
 			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network))
+		} else if (reference == cypriotInstance.bind_BindsInstanceThingBack) {
+			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network).filter[
+				k | !k.name.equals((context as Bind).bindsInstanceThing.name)
+			])
 		} else if (reference == cypriotInstance.toBindPubSub_TargetedPubSubInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network))
 		} else if (reference == cypriotInstance.toBindPTP_TargetedPtpInstance) {
@@ -75,8 +80,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, SubjectObjectOther)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bind_PortToBind) {
-			return Scopes.scopeFor(Helpers.allPortsThingML(Helpers.findContainingBind(context)))
-		} else if (reference == cypriotInstance.getPort_Port) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThing.typeThing.thingToInstantiate))
+		} else if (reference == cypriotInstance.bind_PortToBindBack) {
+			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThingBack.typeThing.thingToInstantiate))
+		}else if (reference == cypriotInstance.getPort_Port) {
 			return Scopes.scopeFor(Helpers.getAllPortsThingAny(Helpers.allContainedCrossReferencesOfType(context.eContainer, ThingAny).get(0)))
 		} else if (reference == cypriotInstance.getState_State) {
 			return Scopes.scopeFor(Helpers.getAllStatesThingAny(Helpers.allContainedCrossReferencesOfType(context.eContainer, ThingAny).get(0)))
