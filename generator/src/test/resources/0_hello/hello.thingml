@@ -14,8 +14,6 @@ thing HelloThing {
 	}
 }
 
-protocol AMQP
-
 configuration Hello {
 	instance hello : HelloThing
 }

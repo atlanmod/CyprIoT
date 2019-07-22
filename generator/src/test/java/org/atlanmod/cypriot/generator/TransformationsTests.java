@@ -17,6 +17,7 @@ import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.thingml.xtext.thingML.ExternalConnector;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 import com.google.inject.Inject;
@@ -36,7 +37,7 @@ public class TransformationsTests {
 	Util help;
 	
 	@Test
-	public void testBasic() throws Exception {
+	public void testHelloWorld() throws Exception {
 
 		File thingMLfile = new File(classLoader.getResource("0_hello/hello.thingml").getFile());
 		File cyprIoTfile = new File(classLoader.getResource("0_hello/hello.cy").getFile());
@@ -46,9 +47,13 @@ public class TransformationsTests {
 		
 		ThingMLModel parse = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
-		
 		validator.assertNoErrors(parse);
-		assertTrue(parse.getProtocols().size()==2);
-		assertTrue(parse.getProtocols().get(0).getName().equals("AMQP"));
+		assertTrue(parse.getProtocols().size()==1);
+		assertTrue(parse.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parse.getConfigs().get(0).getConnectors() instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
+		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+
 	}
 }
