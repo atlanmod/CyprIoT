@@ -123,13 +123,13 @@ public class MosquittoACPlugin implements Plugin {
 			} catch (IOException ioe) {
 				System.err.println("IOException: " + ioe.getMessage());
 			}
-		} else {
+		} /*else {
 			try {
 				FileUtils.writeStringToFile(fileMosquittoAcl, mosquittoAcl, Charset.forName("utf-8"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
 	@Override

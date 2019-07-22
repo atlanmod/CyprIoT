@@ -37,7 +37,7 @@ class CypriotParsingTest {
 				domain org.atlanmod
 				instance th1:thing1 platform JAVA
 				instance ch1:anychannel protocol MQTT
-				bind th1 => ch1{anytopic}
+				bind th1.port1 => ch1{anytopic}
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/import1.cy")) => [
@@ -45,6 +45,25 @@ class CypriotParsingTest {
 					thing thing1 import "thing1.thingml"
 					channel:pubsub anychannel {
 						topic anytopic
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
 					}
 				''', "UTF-8"), resourceSet.loadOptions)
 			]

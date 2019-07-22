@@ -1,0 +1,19 @@
+thing HelloThing {
+	message m()
+	provided port myport {
+		sends m
+	}
+	statechart HelloStateChart init HelloState {
+		
+		final state HelloState {
+			on entry
+				do  println  "Hello World!"
+					myport!m()
+				end
+		}
+	}
+}
+
+configuration Hello {
+	instance hello : HelloThing
+}

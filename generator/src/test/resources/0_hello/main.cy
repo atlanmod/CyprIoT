@@ -1,4 +1,4 @@
-thing hello import "hello.thingml"
+thing hello import "device1.thingml"
 
 channel:pubsub pubsub1 {
 	topic topic1
