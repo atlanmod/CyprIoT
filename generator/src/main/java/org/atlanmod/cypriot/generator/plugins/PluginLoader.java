@@ -10,7 +10,6 @@ import java.util.Properties;
 
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyutil.Helpers;
-import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 
 public class PluginLoader {
 	private File configFile;

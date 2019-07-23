@@ -17,14 +17,17 @@ Require-Bundle: org.eclipse.xtext,
  thingml
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.apache.log4j
-Export-Package: org.atlanmod.cypriot.validation,
- org.atlanmod.cypriot,
- org.atlanmod.cypriot.parser.antlr.internal,
- org.atlanmod.cypriot.cyprIoT.impl,
+Export-Package: org.atlanmod.cypriot,
  org.atlanmod.cypriot.cyprIoT,
- org.atlanmod.cypriot.scoping,
- org.atlanmod.cypriot.parser.antlr,
+ org.atlanmod.cypriot.cyprIoT.impl,
  org.atlanmod.cypriot.cyprIoT.util,
+ org.atlanmod.cypriot.cyutil,
+ org.atlanmod.cypriot.generator,
+ org.atlanmod.cypriot.jvmmodel,
+ org.atlanmod.cypriot.parser.antlr,
+ org.atlanmod.cypriot.parser.antlr.internal,
+ org.atlanmod.cypriot.scoping,
+ org.atlanmod.cypriot.serializer,
  org.atlanmod.cypriot.services,
- org.atlanmod.cypriot.serializer
+ org.atlanmod.cypriot.validation
 Automatic-Module-Name: org.atlanmod.cypriot

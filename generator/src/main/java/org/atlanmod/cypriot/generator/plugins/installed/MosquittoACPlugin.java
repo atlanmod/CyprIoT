@@ -3,11 +3,9 @@ package org.atlanmod.cypriot.generator.plugins.installed;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BindAction;
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind;

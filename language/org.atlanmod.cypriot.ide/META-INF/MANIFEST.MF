@@ -10,6 +10,7 @@ Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.atlanmod.cypriot,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide
-Export-Package: org.atlanmod.cypriot.ide.contentassist.antlr.internal,
- org.atlanmod.cypriot.ide.contentassist.antlr
+Export-Package: org.atlanmod.cypriot.ide,
+ org.atlanmod.cypriot.ide.contentassist.antlr,
+ org.atlanmod.cypriot.ide.contentassist.antlr.internal
 Automatic-Module-Name: org.atlanmod.cypriot.ide
