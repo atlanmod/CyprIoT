@@ -1,6 +1,6 @@
 thing HelloThing {
 	message m()
-	provided port myport {
+	optional required port myport {
 		sends m
 	}
 	statechart HelloStateChart init HelloState {
@@ -12,4 +12,8 @@ thing HelloThing {
 				end
 		}
 	}
+}
+
+configuration Hello {
+	instance hello : HelloThing
 }

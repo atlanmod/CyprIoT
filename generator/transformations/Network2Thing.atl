@@ -15,14 +15,22 @@ helper context String def : removeHash() : String =
 	self.replaceAll('#', '')
 ;
 
+helper context String def : transformArrowToMQTTSyntax : String =
+	if self.startsWith('=>')
+		then 'mqtt_publish_topic'
+	else 
+		'mqtt_subscribe_topic'
+	endif
+;
+
 -- /BEGIN COPIER FOR HELLO WORLD
 
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
-		configs <- s.configs,
+		configs <- s.configs->union(CyprIoT!Bind.allInstances()),
 		imports <- s.imports,
-		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()),
+		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()), -- Implicit transformation mechanism
 		types <- s.types
 	)	
 }
@@ -35,14 +43,29 @@ rule copyProtocol {
 	)
 }
 
---rule copyExternalConnector {
---	from s : CyprIoT!Bind
---	to t : ThingML!ExternalConnector(
---		inst <- ThingML!Instance.allInstances().first(),
---		port <- thisModule.resolveTemp(s.portToBind, 't'),
---		protocol <- ThingML!Protocol.allInstances().first()
---	)
---}
+rule copyExternalConnector {
+	from s : CyprIoT!Bind
+	to 
+	c : ThingML!Configuration(
+		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
+		instances <- Sequence{i},
+		connectors <- Sequence{t}
+	),
+	i : ThingML!Instance(
+		name <- s.bindsInstanceThing.name,
+		type <- ThingML!Thing.allInstances().first()
+	),
+	a : ThingML!PlatformAnnotation(
+		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
+		value <- 'org/hello/topic1'
+	),
+	t : ThingML!ExternalConnector(
+		inst <- i,
+		port <- ThingML!Port.allInstances().first(),
+		protocol <- CyprIoT!InstancePubSub.allInstances().first(),
+		annotations <- Sequence{a}
+	)
+}
 
 rule transformProtocol {
 	from s : CyprIoT!InstancePubSub

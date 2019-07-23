@@ -60,7 +60,6 @@ public class Helpers {
 
 	static final Logger log = LogManager.getLogger(Helpers.class.getName());
 
-	
 	public static CyprIoTModel getModelFromRelativeURI(CyprIoTModel cyModel, String uri) throws Exception {
 		URI new_uri;
 		log.debug("URI of CyprIoT file : " + uri);
@@ -213,7 +212,7 @@ public class Helpers {
 		}
 		return result;
 	}
-	
+
 	public static ArrayList<ConnectionPoint> allConnectionPointsInPTP(PointToPoint ptp) {
 		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
 		for (ConnectionPoint t : ptp.getHasConnectionPoints()) {
@@ -346,7 +345,7 @@ public class Helpers {
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result;
 	}
-	
+
 	public static ArrayList<Function> getAllFunctionsThingAny(ThingAny thingAny) {
 		if (thingAny instanceof Thing) {
 			return allFunctionsThingML((Thing) thingAny);
@@ -356,7 +355,7 @@ public class Helpers {
 
 		return null;
 	}
-	
+
 	public static ArrayList<Function> allFunctionsThingML(Thing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Function> result = new ArrayList<Function>();
@@ -384,7 +383,7 @@ public class Helpers {
 
 		return null;
 	}
-	
+
 	public static ArrayList<Port> getAllPortsThingAny(ThingAny thingAny) {
 		if (thingAny instanceof Thing) {
 			return getAllPortsThing((Thing) thingAny);
@@ -475,28 +474,34 @@ public class Helpers {
 	}
 
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
-		log.debug("URI of ThingML file of instanceThing "+instanceThing.getName()+" : " + instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
+		log.debug("URI of ThingML file of instanceThing " + instanceThing.getName() + " : "
+				+ instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
 		Thing thingToInstantiate = instanceThing.getTypeThing().getThingToInstantiate();
 		return getThingInThingML(thingToInstantiate);
 	}
 
 	public static ThingMLModel getThingInThingML(Thing thing) {
-		URI new_uri = URI.createFileURI(thing.getImportPath());
-		ThingMLStandaloneSetup.doSetup();
-		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,new
-		// ThingMLFactoryImpl());
-		// Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("thingml",
-		// new ThingMLFactoryImpl());
-		log.debug("URI of ThingML file : " + new_uri);
-		if (new_uri.isRelative()) {
-			new_uri = new_uri.resolve(thing.eResource().getURI());
-		}
-		Resource r = thing.eResource().getResourceSet().getResource(new_uri, true);
-		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
-			return (ThingMLModel) r.getContents().get(0);
+		if (URI.createFileURI(thing.getImportPath()).isFile()) {
+			URI new_uri = URI.createFileURI(thing.getImportPath());
+			ThingMLStandaloneSetup.doSetup();
+
+			log.debug("URI of ThingML file : " + new_uri);
+			if (new_uri.isRelative()) {
+				new_uri = new_uri.resolve(thing.eResource().getURI());
+			}
+			Resource r = thing.eResource().getResourceSet().getResource(new_uri, true);
+			if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof ThingMLModel) {
+				return (ThingMLModel) r.getContents().get(0);
+			} else {
+				try {
+					throw new Exception("No valid model found in " + thing.getImportPath());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		} else {
 			try {
-				throw new Exception("No valid model found for resource " + thing.getImportPath());
+				throw new Exception("No valid model found in " + thing.getImportPath());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -508,6 +513,7 @@ public class Helpers {
 		File file = new File(path);
 		return Helpers.loadModelFromFile(file, type);
 	}
+
 	/**
 	 * Load the EMF graph of the model from a File
 	 * 
@@ -526,7 +532,6 @@ public class Helpers {
 	}
 
 	public static <T extends EObject> T getModelFromResource(Resource model, Class<T> type) {
-		
 
 		try {
 			model.load(null);
@@ -568,7 +573,7 @@ public class Helpers {
 			noErrors = false;
 		}
 		for (Diagnostic diagnostic : resource.getErrors()) {
-			log.error("ERROR : "+diagnostic.getMessage());
+			log.error("ERROR : " + diagnostic.getMessage());
 		}
 		return noErrors;
 	}
@@ -585,12 +590,12 @@ public class Helpers {
 		ResourceSet rs = new ResourceSetImpl();
 		return rs.createResource(xmiuri);
 	}
-	
-	public static  Resource getResourceFromModel(EObject eObject) {
+
+	public static Resource getResourceFromModel(EObject eObject) {
 		ResourceSet myres = new ResourceSetImpl();
-        Resource res = myres.createResource(URI.createFileURI("dummy.xmi"));
-        res.getContents().add(eObject);
-        EcoreUtil.resolveAll(res);
+		Resource res = myres.createResource(URI.createFileURI("dummy.xmi"));
+		res.getContents().add(eObject);
+		EcoreUtil.resolveAll(res);
 		return res;
 	}
 

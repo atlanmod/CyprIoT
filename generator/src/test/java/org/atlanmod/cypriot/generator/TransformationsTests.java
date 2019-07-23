@@ -1,6 +1,5 @@
 package org.atlanmod.cypriot.generator;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -37,23 +36,63 @@ public class TransformationsTests {
 	Util help;
 	
 	@Test
-	public void testHelloWorld() throws Exception {
-
-		File thingMLfile = new File(classLoader.getResource("0_hello/hello.thingml").getFile());
-		File cyprIoTfile = new File(classLoader.getResource("0_hello/hello.cy").getFile());
+	public void test0_HelloWorld() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("0_HelloWorld/device1.thingml").getFile());
+		
 		
 		String outputFile = cyprIoTfile.getParent()+File.separator+"network-gen"+File.separator+"output.thingml";
-		Resource res = help.transform(outputFile, cyprIoTfile, thingMLfile);
+		Resource res = help.transform(outputFile, cyprIoTfile, device1);
 		
-		ThingMLModel parse = Helpers.getModelFromResource(res, ThingMLModel.class);
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
-		validator.assertNoErrors(parse);
-		assertTrue(parse.getProtocols().size()==1);
-		assertTrue(parse.getProtocols().get(0).getName().equals("MQTT"));
-		assertTrue(parse.getConfigs().get(0).getConnectors() instanceof ExternalConnector);
-		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getProtocol().getName().equals("MQTT"));
-		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
-		assertTrue(((ExternalConnector)parse.getConfigs().get(0).getConnectors()).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+		validator.assertNoErrors(parseDevice1);
+		assertTrue(parseDevice1.getProtocols().size()==1);
+		assertTrue(parseDevice1.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice1.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 
+	}
+	
+	@Test
+	public void test1_TwoThings() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("1_TwoThings/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("1_TwoThings/device1.thingml").getFile());
+		File device2 = new File(classLoader.getResource("1_TwoThings/device1.thingml").getFile());
+		
+	}
+	
+	@Test
+	public void test2_TwoWayBind() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("2_TwoWayBind/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("2_TwoWayBind/device1.thingml").getFile());
+		File device2 = new File(classLoader.getResource("2_TwoWayBind/device2.thingml").getFile());
+		
+	}
+	
+	@Test
+	public void test3_ThreeThings() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("3_ThreeThings/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("3_ThreeThings/device1.thingml").getFile());
+		File device2 = new File(classLoader.getResource("3_ThreeThings/device2.thingml").getFile());
+		File device3 = new File(classLoader.getResource("3_ThreeThings/device3.thingml").getFile());
+		
+
+	}
+	
+	@Test
+	public void test4_FourThings() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("4_FourThings/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("4_FourThings/device1.thingml").getFile());
+		File device2 = new File(classLoader.getResource("4_FourThings/device2.thingml").getFile());
+		File device3 = new File(classLoader.getResource("4_FourThings/device3.thingml").getFile());
+		File device4 = new File(classLoader.getResource("4_FourThings/device4.thingml").getFile());
 	}
 }

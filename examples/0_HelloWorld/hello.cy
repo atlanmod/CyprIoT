@@ -1,7 +1,7 @@
 thing hello import "hello.thingml"
 
 channel:pubsub pubsub1 {
-	topic topic1 ="myTopic"
+	topic topic1
 }
 
 network helloNetwork {
