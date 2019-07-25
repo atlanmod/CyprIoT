@@ -189,7 +189,7 @@ rule createExternalConnectorFromBind {
 	),
 	a : ThingML!PlatformAnnotation(
 		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- s.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString().replaceDotsWithSlashInDomain()+'/'+s.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})->refGetValue('name').toString()-- TODO More generic : cast s.channelToBind ?
+		value <- s.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString().replaceDotsWithSlashInDomain()+'/'+s.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})->refGetValue('name').toString()
 		--value <- s.channelToBind
 	),
 	t : ThingML!ExternalConnector(

@@ -57,6 +57,27 @@ public class TransformationsTests {
 	}
 	
 	@Test
+	public void test0_HelloWorld2() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld2/main.cy").getFile());
+		File device1 = new File(classLoader.getResource("0_HelloWorld2/device1.thingml").getFile());
+		
+		
+		String outputFile = cyprIoTfile.getParent()+File.separator+"network-gen"+File.separator+"output.thingml";
+		Resource res = help.transform(outputFile, cyprIoTfile, device1);
+		
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice1);
+		assertTrue(parseDevice1.getProtocols().size()==1);
+		assertTrue(parseDevice1.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice1.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+	}
+	
+	@Test
 	public void test1_TwoThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("1_TwoThings/main.cy").getFile());
