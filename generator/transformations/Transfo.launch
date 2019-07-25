@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.m2m.atl.emftvm.launcher.EMFTVMTransformation">
-<stringAttribute key="ATL File Name" value="//CyprIoT/generator/transformations/Network2Thing.atl"/>
+<stringAttribute key="ATL File Name" value="//transformations/Network2Thing.atl"/>
 <booleanAttribute key="Disable JIT compiler" value="false"/>
 <booleanAttribute key="Display Profiling Data" value="false"/>
 <booleanAttribute key="Display Timing Data" value="true"/>
@@ -9,8 +9,8 @@
 <mapAttribute key="Inout Models Output Locations"/>
 <mapAttribute key="Input Model Options"/>
 <mapAttribute key="Input Models">
-<mapEntry key="CY" value="platform:/resource/CyprIoT/examples/0_HelloWorld/hello.cy"/>
-<mapEntry key="TH" value="platform:/resource/CyprIoT/examples/0_HelloWorld/hello.thingml"/>
+<mapEntry key="CY" value="platform:/resource/examples/0_HelloWorld/hello.cy"/>
+<mapEntry key="TH" value="platform:/resource/examples/0_HelloWorld/hello.thingml"/>
 </mapAttribute>
 <mapAttribute key="Metamodel Options"/>
 <mapAttribute key="Metamodels">
@@ -18,7 +18,7 @@
 <mapEntry key="ThingML" value="http://www.thingml.org/xtext/ThingML"/>
 </mapAttribute>
 <stringAttribute key="Module Name" value="Network2Thing"/>
-<stringAttribute key="Module Path" value="/CyprIoT/generator/transformations/"/>
+<stringAttribute key="Module Path" value="/transformations/"/>
 <mapAttribute key="Output Model Options">
 <mapEntry key="OUT" value="allowIntermodelReferences derivedFile"/>
 </mapAttribute>

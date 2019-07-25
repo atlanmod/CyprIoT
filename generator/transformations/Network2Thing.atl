@@ -7,8 +7,10 @@ module Network2Thing;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
-helper def : replaceDotsWithSlashInDomain(domain : CyprIoT!Domain) : String =
-	domain.name.replaceAll('.', '/')
+-- Helpers
+
+helper context String def : replaceDotsWithSlashInDomain() : String =
+	self.replace('.', '/')
 ;
 
 helper context String def : removeHash() : String =
@@ -23,12 +25,12 @@ helper context String def : transformArrowToMQTTSyntax : String =
 	endif
 ;
 
--- /BEGIN COPIER FOR HELLO WORLD
+-- /BEGIN COPIER
 
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
-		configs <- s.configs->union(CyprIoT!Bind.allInstances()),
+		configs <- s.configs->union(CyprIoT!Bind.allInstances()), -- Implicit transformation mechanism
 		imports <- s.imports,
 		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()), -- Implicit transformation mechanism
 		types <- s.types
@@ -43,38 +45,7 @@ rule copyProtocol {
 	)
 }
 
-rule copyExternalConnector {
-	from s : CyprIoT!Bind
-	to 
-	c : ThingML!Configuration(
-		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
-		instances <- Sequence{i},
-		connectors <- Sequence{t}
-	),
-	i : ThingML!Instance(
-		name <- s.bindsInstanceThing.name,
-		type <- ThingML!Thing.allInstances().first()
-	),
-	a : ThingML!PlatformAnnotation(
-		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- 'org/hello/topic1'
-	),
-	t : ThingML!ExternalConnector(
-		inst <- i,
-		port <- ThingML!Port.allInstances().first(),
-		protocol <- CyprIoT!InstancePubSub.allInstances().first(),
-		annotations <- Sequence{a}
-	)
-}
-
-rule transformProtocol {
-	from s : CyprIoT!InstancePubSub
-	to t : ThingML!Protocol(
-		name <- s.typePubSub.targetedProtocol.toString().removeHash()
-	)
-}
-
-rule copyThings {
+rule copyThing {
 	from s : ThingML!Thing
 	to t : ThingML!Thing(
 		name <- s.name,
@@ -181,16 +152,16 @@ rule copyStringLiteral {
 	)
 }
 
-rule copyInstances {
+rule copyInstance {
 	from s : ThingML!Instance
 	to t : ThingML!Instance(
 		name <- s.name,
-		type <- thisModule.resolveTemp(s.type, 't'),
+		type <- s.type,
 		annotations <- s.annotations
 	)
 }
 
-rule copyConfigs {
+rule copyConfig {
 	from s : ThingML!Configuration
 	to t : ThingML!Configuration(
 		annotations <- s.annotations,
@@ -201,4 +172,38 @@ rule copyConfigs {
 	)
 }
 
--- COPIER FOR HELLO WORLD / END
+-- COPIER / END
+
+
+rule createExternalConnectorFromBind {
+	from s : CyprIoT!Bind
+	to 
+	c : ThingML!Configuration(
+		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
+		instances <- Sequence{i},
+		connectors <- Bag{t}
+	),
+	i : ThingML!Instance(
+		name <- s.bindsInstanceThing.name,
+		type <- ThingML!Thing.allInstances().first() -- TODO : more generic
+	),
+	a : ThingML!PlatformAnnotation(
+		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
+		value <- s.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString().replaceDotsWithSlashInDomain()+'/'+s.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})->refGetValue('name').toString()-- TODO More generic : cast s.channelToBind ?
+		--value <- s.channelToBind
+	),
+	t : ThingML!ExternalConnector(
+		inst <- i,
+		port <- ThingML!Port.allInstances().first(),
+		protocol <- CyprIoT!InstancePubSub.allInstances().first(),
+		annotations <- Sequence{a}
+	)
+}
+
+
+rule transformProtocol {
+	from s : CyprIoT!InstancePubSub
+	to t : ThingML!Protocol(
+		name <- s.typePubSub.targetedProtocol.toString().removeHash()
+	)
+}
