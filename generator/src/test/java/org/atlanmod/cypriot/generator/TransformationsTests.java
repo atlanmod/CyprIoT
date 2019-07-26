@@ -50,6 +50,10 @@ public class TransformationsTests {
 		validator.assertNoErrors(parseDevice1);
 		assertTrue(parseDevice1.getProtocols().size()==1);
 		assertTrue(parseDevice1.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
 		assertTrue(parseDevice1.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
@@ -71,6 +75,10 @@ public class TransformationsTests {
 		validator.assertNoErrors(parseDevice1);
 		assertTrue(parseDevice1.getProtocols().size()==1);
 		assertTrue(parseDevice1.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
 		assertTrue(parseDevice1.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));

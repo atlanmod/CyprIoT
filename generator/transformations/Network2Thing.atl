@@ -204,6 +204,15 @@ rule createExternalConnectorFromBind {
 rule transformProtocol {
 	from s : CyprIoT!InstancePubSub
 	to t : ThingML!Protocol(
-		name <- s.typePubSub.targetedProtocol.toString().removeHash()
+		name <- s.typePubSub.targetedProtocol.toString().removeHash(),
+		annotations <- Sequence{a1,a2}
+	),
+	a1 : ThingML!PlatformAnnotation(
+		name <- 'mqtt_broker_address',
+		value <- s.typePubSub.server.toString().split(':').first()
+	),
+	a2 : ThingML!PlatformAnnotation(
+		name <- 'mqtt_port_number',
+		value <- s.typePubSub.server.toString().split(':').last()
 	)
 }
