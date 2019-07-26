@@ -41,6 +41,8 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.typeThing_Owner) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
+		} else if (reference == cypriotInstance.typePubSub_User) {
+			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as PubSub))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
