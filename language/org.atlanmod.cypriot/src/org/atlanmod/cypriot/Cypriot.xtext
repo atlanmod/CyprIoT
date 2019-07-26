@@ -89,7 +89,7 @@ TypeThing :
 ;
 
 TypePubSub :
-	pubSubToInstantiate=[PubSub] 'protocol' targetedProtocol=PubSubProtocol ('server=' server=STRING ',' 'user=' user=[User])?
+	pubSubToInstantiate=[PubSub] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING ',' 'user=' user=[User]')')?
 ;
 
 TypePTP :
