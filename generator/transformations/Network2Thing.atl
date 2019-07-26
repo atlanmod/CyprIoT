@@ -222,7 +222,7 @@ rule createExternalConnectorFromBind {
 	c : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
 		instances <- Sequence{i},
-		connectors <- Bag{t}
+		connectors <- Sequence{t}
 	),
 	i : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
