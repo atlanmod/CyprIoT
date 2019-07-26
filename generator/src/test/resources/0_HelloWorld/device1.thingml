@@ -1,5 +1,5 @@
 thing HelloThing {
-	message m()
+	message m(mess:UInt8)
 	provided port myport {
 		sends m
 	}
@@ -8,8 +8,13 @@ thing HelloThing {
 		final state HelloState {
 			on entry
 				do  println  "Hello World!"
-					myport!m()
+					myport!m(2)
 				end
 		}
 	}
 }
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

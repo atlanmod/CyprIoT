@@ -80,6 +80,24 @@ rule copyProvidedPort {
 	)
 }
 
+rule copyParameter {
+	from s : ThingML!Parameter
+	to t : ThingML!Parameter(
+		annotations <- s.annotations,
+		name <- s.name,
+		typeRef <- s.typeRef
+	)
+}
+
+rule copyTypeRef {
+	from s : ThingML!TypeRef
+	to t : ThingML!TypeRef(
+		cardinality <- s.cardinality,
+		isArray <- s.isArray,
+		type <- s.type
+	)
+}
+
 rule copyRequiredPort {
 	from s : ThingML!RequiredPort
 	to t : ThingML!RequiredPort(
@@ -144,6 +162,20 @@ rule copySendAction {
 		port <- s.port
 	)
 }
+rule copyIntegerLiteral {
+	from s : ThingML!IntegerLiteral
+	to t : ThingML!IntegerLiteral(
+		intValue <- s.intValue
+	)
+}
+
+rule copyPlatformAnnotation {
+	from s : ThingML!PlatformAnnotation
+	to t : ThingML!PlatformAnnotation(
+		name <- s.name,
+		value <- s.value
+	)
+}
 
 rule copyStringLiteral {
 	from s : ThingML!StringLiteral
@@ -172,6 +204,15 @@ rule copyConfig {
 	)
 }
 
+rule copyDatatypes {
+	from s : ThingML!PrimitiveType
+	to t : ThingML!PrimitiveType(
+		ByteSize <- s.ByteSize,
+		annotations <- s.annotations,
+		name <- s.name
+	) 
+}
+
 -- COPIER / END
 
 
@@ -190,7 +231,6 @@ rule createExternalConnectorFromBind {
 	a : ThingML!PlatformAnnotation(
 		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
 		value <- s.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString().replaceDotsWithSlashInDomain()+'/'+s.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})->refGetValue('name').toString()
-		--value <- s.channelToBind
 	),
 	t : ThingML!ExternalConnector(
 		inst <- i,
@@ -205,7 +245,7 @@ rule transformProtocol {
 	from s : CyprIoT!InstancePubSub
 	to t : ThingML!Protocol(
 		name <- s.typePubSub.targetedProtocol.toString().removeHash(),
-		annotations <- Sequence{a1,a2}
+		annotations <- Sequence{a1,a2,a3}
 	),
 	a1 : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
@@ -214,5 +254,9 @@ rule transformProtocol {
 	a2 : ThingML!PlatformAnnotation(
 		name <- 'mqtt_port_number',
 		value <- s.typePubSub.server.toString().split(':').last()
+	),
+	a3 : ThingML!PlatformAnnotation(
+		name <- 'serializer',
+		value <- 'JSON'
 	)
 }
