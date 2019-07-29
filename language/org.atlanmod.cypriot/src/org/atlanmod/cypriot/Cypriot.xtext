@@ -121,7 +121,7 @@ ConnectionPoint:
 ;
 
 Bind:
-	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing]"." portToBind=[thingml::Port] bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?"." portToBind=[thingml::Port] bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
 ;
 
 enum Platform:
