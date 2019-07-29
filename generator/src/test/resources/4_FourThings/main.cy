@@ -12,9 +12,9 @@ channel:pubsub pubsub1 {
 network helloNetwork {
 	domain org.hello
 	instance mydevice1:device1 platform CPOSIX
-	instance mydevice2:device2 platform CPOSIX
-	instance mydevice3:device3 platform CPOSIX
-	instance mydevice4:device4 platform CPOSIX
+	instance mydevice2:device2 platform JAVA
+	instance mydevice3:device3 platform JS
+	instance mydevice4:device4 platform PYTHON
 	instance myPubsub1:pubsub1 protocol MQTT(server="mqtt.eclipse.org:1883", user=myuser)
 	bind mydevice1.myport => myPubsub1{topic1}
 	bind mydevice2.myport <= myPubsub1{topic1}

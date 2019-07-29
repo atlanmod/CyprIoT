@@ -217,7 +217,7 @@ rule copyDatatypes {
 
 
 rule createExternalConnectorFromBind {
-	from s : CyprIoT!Bind((ThingML!Port.allInstances().first().refImmediateComposite()->refGetValue('name').debug('Thing : ')=s.bindsInstanceThing.typeThing.thingToInstantiate.name.debug('CyprIoT Thing : ')).debug('bool : '))
+	from s : CyprIoT!Bind((ThingML!Port.allInstances().first().refImmediateComposite()->refGetValue('name')=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
 	to 
 	c : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',

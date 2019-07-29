@@ -3,11 +3,10 @@ package org.atlanmod.cypriot.generator;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.main.App;
 import org.atlanmod.cypriot.generator.utilities.Util;
@@ -90,9 +89,9 @@ public class TransformationsTests {
 
 		// Device 1
 
-		Resource res1 = help.transform(cyprIoTfile).get(0);
+		List<Resource> transformedFiles = help.transform(cyprIoTfile);
 
-		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res1, ThingMLModel.class);
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice1);
 		assertTrue(parseDevice1.getProtocols().size()==1);
@@ -108,9 +107,8 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 
 		// Device 2
-		Resource res2 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice2 = Helpers.getModelFromResource(res2, ThingMLModel.class);
+		ThingMLModel parseDevice2 = Helpers.getModelFromResource(transformedFiles.get(1), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice2);
 		assertTrue(parseDevice2.getProtocols().size()==1);
@@ -140,11 +138,11 @@ public class TransformationsTests {
 	public void test3_ThreeThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("3_ThreeThings/main.cy").getFile());
+		List<Resource> transformedFiles = help.transform(cyprIoTfile);
+
 		// Device 1
 
-		Resource res1 = help.transform(cyprIoTfile).get(0);
-
-		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res1, ThingMLModel.class);
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice1);
 		assertTrue(parseDevice1.getProtocols().size()==1);
@@ -160,9 +158,8 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 
 		// Device 2
-		Resource res2 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice2 = Helpers.getModelFromResource(res2, ThingMLModel.class);
+		ThingMLModel parseDevice2 = Helpers.getModelFromResource(transformedFiles.get(1), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice2);
 		assertTrue(parseDevice2.getProtocols().size()==1);
@@ -179,9 +176,8 @@ public class TransformationsTests {
 			
 
 		// Device 3
-		Resource res3 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice3 = Helpers.getModelFromResource(res3, ThingMLModel.class);
+		ThingMLModel parseDevice3 = Helpers.getModelFromResource(transformedFiles.get(2), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice3);
 		assertTrue(parseDevice3.getProtocols().size()==1);
@@ -204,11 +200,11 @@ public class TransformationsTests {
 	public void test4_FourThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("4_FourThings/main.cy").getFile());
+		List<Resource> transformedFiles = help.transform(cyprIoTfile);
+		
 		// Device 1
 
-		Resource res1 = help.transform(cyprIoTfile).get(0);
-
-		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res1, ThingMLModel.class);
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice1);
 		assertTrue(parseDevice1.getProtocols().size()==1);
@@ -224,9 +220,8 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 
 		// Device 2
-		Resource res2 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice2 = Helpers.getModelFromResource(res2, ThingMLModel.class);
+		ThingMLModel parseDevice2 = Helpers.getModelFromResource(transformedFiles.get(1), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice2);
 		assertTrue(parseDevice2.getProtocols().size()==1);
@@ -243,9 +238,8 @@ public class TransformationsTests {
 			
 
 		// Device 3
-		Resource res3 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice3 = Helpers.getModelFromResource(res3, ThingMLModel.class);
+		ThingMLModel parseDevice3 = Helpers.getModelFromResource(transformedFiles.get(2), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice3);
 		assertTrue(parseDevice3.getProtocols().size()==1);
@@ -259,10 +253,10 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
 		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
 		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
-		// Device 3
-		Resource res4 = help.transform(cyprIoTfile).get(1);
 		
-		ThingMLModel parseDevice4 = Helpers.getModelFromResource(res4, ThingMLModel.class);
+		// Device 3
+		
+		ThingMLModel parseDevice4 = Helpers.getModelFromResource(transformedFiles.get(3), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice4);
 		assertTrue(parseDevice4.getProtocols().size()==1);

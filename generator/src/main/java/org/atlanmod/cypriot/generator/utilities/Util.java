@@ -44,6 +44,7 @@ public class Util {
 			allThingMLResources.add(transformedThingMLModel);
 			log.debug("ThingML File Path : "+thingMLFile.getAbsolutePath());
 		}
+		log.debug("All ThingML files were transformed !");
 		return allThingMLResources;
 	}
 
