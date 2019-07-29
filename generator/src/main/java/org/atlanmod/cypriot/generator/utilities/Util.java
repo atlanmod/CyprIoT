@@ -11,12 +11,10 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyutil.Helpers;
-import org.atlanmod.cypriot.generator.main.App;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.m2m.atl.emftvm.EmftvmFactory;
 import org.eclipse.m2m.atl.emftvm.ExecEnv;
@@ -42,9 +40,9 @@ public class Util {
 			String outputFile1 = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
 			Resource transformedThingMLModel = transformThingMLModel(outputFile1, cypriotInputFile, thingMLFile, thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
-			log.debug("ThingML File Path : "+thingMLFile.getAbsolutePath());
+			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
 		}
-		log.debug("All ThingML files were transformed !");
+		log.debug("All Things files were transformed !");
 		return allThingMLResources;
 	}
 

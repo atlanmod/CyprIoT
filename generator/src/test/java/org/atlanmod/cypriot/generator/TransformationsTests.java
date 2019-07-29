@@ -254,7 +254,7 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
 		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 		
-		// Device 3
+		// Device 4
 		
 		ThingMLModel parseDevice4 = Helpers.getModelFromResource(transformedFiles.get(3), ThingMLModel.class);
 		
@@ -272,4 +272,97 @@ public class TransformationsTests {
 		assertTrue(((ExternalConnector)parseDevice4.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
 			
 	}
+	@Test
+	public void test5_FiveThings() throws Exception {
+		
+		File cyprIoTfile = new File(classLoader.getResource("5_FiveThings/main.cy").getFile());
+		List<Resource> transformedFiles = help.transform(cyprIoTfile);
+		
+		// Device 1
+
+		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice1);
+		assertTrue(parseDevice1.getProtocols().size()==1);
+		assertTrue(parseDevice1.getConfigs().size()==1);
+		assertTrue(parseDevice1.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice1.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
+		assertTrue(parseDevice1.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
+		assertTrue(((ExternalConnector)parseDevice1.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+
+		// Device 2
+		
+		ThingMLModel parseDevice2 = Helpers.getModelFromResource(transformedFiles.get(1), ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice2);
+		assertTrue(parseDevice2.getProtocols().size()==1);
+		assertTrue(parseDevice2.getConfigs().size()==1);
+		assertTrue(parseDevice2.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice2.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice2.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice2.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice2.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
+		assertTrue(parseDevice2.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice2.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice2.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
+		assertTrue(((ExternalConnector)parseDevice2.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+			
+
+		// Device 3
+		
+		ThingMLModel parseDevice3 = Helpers.getModelFromResource(transformedFiles.get(2), ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice3);
+		assertTrue(parseDevice3.getProtocols().size()==1);
+		assertTrue(parseDevice3.getConfigs().size()==1);
+		assertTrue(parseDevice3.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice3.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice3.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice3.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice3.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
+		assertTrue(parseDevice3.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
+		assertTrue(((ExternalConnector)parseDevice3.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+		
+		// Device 4
+		
+		ThingMLModel parseDevice4 = Helpers.getModelFromResource(transformedFiles.get(3), ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice4);
+		assertTrue(parseDevice4.getProtocols().size()==1);
+		assertTrue(parseDevice4.getConfigs().size()==1);
+		assertTrue(parseDevice4.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice4.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice4.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice4.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice4.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
+		assertTrue(parseDevice4.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice4.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice4.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_subscribe_topic"));
+		assertTrue(((ExternalConnector)parseDevice4.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+		// Device 4
+		
+		ThingMLModel parseDevice5 = Helpers.getModelFromResource(transformedFiles.get(4), ThingMLModel.class);
+		
+		validator.assertNoErrors(parseDevice5);
+		assertTrue(parseDevice5.getProtocols().size()==1);
+		assertTrue(parseDevice5.getConfigs().size()==1);
+		assertTrue(parseDevice5.getProtocols().get(0).getName().equals("MQTT"));
+		assertTrue(parseDevice5.getProtocols().get(0).getAnnotations().get(0).getName().equals("mqtt_broker_address"));
+		assertTrue(parseDevice5.getProtocols().get(0).getAnnotations().get(0).getValue().equals("mqtt.eclipse.org"));
+		assertTrue(parseDevice5.getProtocols().get(0).getAnnotations().get(1).getName().equals("mqtt_port_number"));
+		assertTrue(parseDevice5.getProtocols().get(0).getAnnotations().get(1).getValue().equals("1883"));
+		assertTrue(parseDevice5.getConfigs().get(0).getConnectors().get(0) instanceof ExternalConnector);
+		assertTrue(((ExternalConnector)parseDevice5.getConfigs().get(0).getConnectors().get(0)).getProtocol().getName().equals("MQTT"));
+		assertTrue(((ExternalConnector)parseDevice5.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getName().equals("mqtt_publish_topic"));
+		assertTrue(((ExternalConnector)parseDevice5.getConfigs().get(0).getConnectors().get(0)).getAnnotations().get(0).getValue().equals("org/hello/topic1"));
+			
+	}
 }
+
