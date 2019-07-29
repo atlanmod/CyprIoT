@@ -2,11 +2,14 @@ package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.main.App;
 import org.eclipse.emf.common.util.URI;
@@ -29,12 +32,24 @@ public class Util {
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	
-	public Resource transform(String outputFile, File cypriotInputFile ,File thingMLInputFile) {
-		
+	public List<Resource> transform(String outputFile, File cypriotInputFile) {
+		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		List<Resource> allThingMLResources = new ArrayList<Resource>();
+		for (Thing thing : cyprIoTmodel.getDeclareThings()) {
+			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
+			File thingMLFile = new File(thingPath);
+			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile);
+			allThingMLResources.add(transformedThingMLModel);
+			log.debug("ThingML File Path : "+thingMLFile.getAbsolutePath());
+		}
+		return allThingMLResources;
+	}
+
+	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile) {
+		log.debug("Input CyprIoT file path : "+ cypriotInputFile.getPath());
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : "+ outputFile);
-
 		// Models
 		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile);
 		registerCyprIoTModelInEnvironment(rs, env, "CY", cypriotInputFile);
@@ -61,7 +76,6 @@ public class Util {
 			e.printStackTrace();
 		}
 		return resource;
-		
 	}
 	
 	private Model registerOutputModelInEnvironment(String outputModel, ResourceSet rs, ExecEnv env, String name) {

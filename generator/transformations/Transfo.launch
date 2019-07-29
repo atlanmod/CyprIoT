@@ -9,8 +9,8 @@
 <mapAttribute key="Inout Models Output Locations"/>
 <mapAttribute key="Input Model Options"/>
 <mapAttribute key="Input Models">
-<mapEntry key="CY" value="platform:/resource/examples/0_HelloWorld/hello.cy"/>
-<mapEntry key="TH" value="platform:/resource/examples/0_HelloWorld/hello.thingml"/>
+<mapEntry key="CY" value="platform:/resource/generator/src/test/resources/0_HelloWorld/main.cy"/>
+<mapEntry key="TH" value="platform:/resource/generator/src/test/resources/0_HelloWorld/device1.thingml"/>
 </mapAttribute>
 <mapAttribute key="Metamodel Options"/>
 <mapAttribute key="Metamodels">

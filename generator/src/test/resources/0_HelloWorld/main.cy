@@ -1,4 +1,4 @@
-thing hello import "device1.thingml"
+thing hello import "device1.thingml" 
 
 user myuser
 
