@@ -30,7 +30,7 @@ helper context String def : transformArrowToMQTTSyntax : String =
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
-		configs <- s.configs->union(CyprIoT!Bind.allInstances()), -- Implicit transformation mechanism
+		configs <- s.configs->union(CyprIoT!Bind.allInstances()->select(e | e.bindsInstanceThing.typeThing.thingToInstantiate.name=s.types.first().name)), -- Implicit transformation mechanism
 		imports <- s.imports,
 		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()), -- Implicit transformation mechanism
 		types <- s.types
