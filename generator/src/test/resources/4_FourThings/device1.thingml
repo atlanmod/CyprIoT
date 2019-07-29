@@ -13,7 +13,3 @@ thing HelloThing {
 		}
 	}
 }
-
-configuration Hello {
-	instance hello : HelloThing
-}
