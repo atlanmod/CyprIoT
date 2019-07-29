@@ -1,12 +1,15 @@
 thing HelloThing {
 	message m(mess:UInt8)
 	provided port myport {
-		receives m
+		sends m
 	}
 	statechart HelloStateChart init HelloState {
 		
 		final state HelloState {
-			on entry do println  "Hello World!" end
+			on entry
+				do  println  "Hello World!"
+					myport!m(2)
+				end
 		}
 	}
 }

@@ -1,0 +1,28 @@
+thing HelloThing {
+	message m(mess : UInt8)
+	provided port myport {
+		sends m
+	}
+	statechart HelloStateChart init HelloState {
+		final state HelloState {
+			on entry do
+				println "Hello World!"
+				myport!m(2)
+			end
+		}
+	}
+}
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+protocol MQTT
+	@mqtt_broker_address `mqtt.eclipse.org`
+	@mqtt_port_number `1883`
+	@serializer `JSON`
+
+configuration hello_Cfg {
+	instance helloInst : HelloThing
+	connector helloInst.myport over MQTT @mqtt_publish_topic `org/hello/topic1`
+}

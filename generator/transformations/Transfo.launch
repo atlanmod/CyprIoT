@@ -9,8 +9,7 @@
 <mapAttribute key="Inout Models Output Locations"/>
 <mapAttribute key="Input Model Options"/>
 <mapAttribute key="Input Models">
-<mapEntry key="CY" value="platform:/resource/generator/src/test/resources/0_HelloWorld/main.cy"/>
-<mapEntry key="TH" value="platform:/resource/generator/src/test/resources/0_HelloWorld/device1.thingml"/>
+<mapEntry key="CY" value="platform:/resource/generator/src/test/resources/1_TwoThings/main.cy"/>
 </mapAttribute>
 <mapAttribute key="Metamodel Options"/>
 <mapAttribute key="Metamodels">
@@ -23,7 +22,7 @@
 <mapEntry key="OUT" value="allowIntermodelReferences derivedFile"/>
 </mapAttribute>
 <mapAttribute key="Output Models">
-<mapEntry key="OUT" value="platform:/resource/CyprIoT/examples/0_HelloWorld/network-gen/output.xmi"/>
+<mapEntry key="OUT" value="platform:/resource/generator/src/test/resources/1_TwoThings/output.xmi"/>
 </mapAttribute>
 <listAttribute key="Superimpose"/>
 </launchConfiguration>

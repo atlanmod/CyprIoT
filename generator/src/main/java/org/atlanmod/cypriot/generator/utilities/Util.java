@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.m2m.atl.emftvm.EmftvmFactory;
 import org.eclipse.m2m.atl.emftvm.ExecEnv;
@@ -28,30 +29,31 @@ import org.eclipse.m2m.atl.emftvm.util.TimingData;
 import org.thingml.xtext.thingML.ThingMLModel;
 
 public class Util {
-	static final Logger log = LogManager.getLogger(App.class.getName());
+	static final Logger log = LogManager.getLogger(Util.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	
-	public List<Resource> transform(String outputFile, File cypriotInputFile) {
+	public List<Resource> transform(File cypriotInputFile) {
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
 		for (Thing thing : cyprIoTmodel.getDeclareThings()) {
 			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
 			File thingMLFile = new File(thingPath);
-			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile);
+			String outputFile1 = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
+			Resource transformedThingMLModel = transformThingMLModel(outputFile1, cypriotInputFile, thingMLFile, thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
 			log.debug("ThingML File Path : "+thingMLFile.getAbsolutePath());
 		}
 		return allThingMLResources;
 	}
 
-	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile) {
+	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile, String thingName) {
 		log.debug("Input CyprIoT file path : "+ cypriotInputFile.getPath());
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : "+ outputFile);
 		// Models
-		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile);
+		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile, thingName);
 		registerCyprIoTModelInEnvironment(rs, env, "CY", cypriotInputFile);
 		
 		registerMetamodelInEnvironment("http://www.thingml.org/xtext/ThingML", env, rs, "ThingML");
@@ -59,9 +61,8 @@ public class Util {
 
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("emftvm", new EMFTVMResourceFactoryImpl());
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-
+		
 		Model outModel = registerOutputModelInEnvironment(outputFile, rs, env, "OUT");
-
 		ModuleResolver mr = new DefaultModuleResolver(TRANSFORMATION_DIRECTORY, rs);
 		TimingData td = new TimingData();
 		env.loadModule(mr, MODULE_NAME);
@@ -85,13 +86,14 @@ public class Util {
 		return outModel;
 	}
 	
-	private void registerThingMLModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File thingMLInputFile) {
-		Resource res = getResourceFromThingMLFile(thingMLInputFile);
+	private void registerThingMLModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File thingMLInputFile, String thingName) {
+		Resource res = getResourceFromThingMLFile(thingMLInputFile, thingName);
 		registerResourceInEnv(env, name, res);
 	}
 
-	private Resource getResourceFromThingMLFile(File thingMLInputFile) {
+	private Resource getResourceFromThingMLFile(File thingMLInputFile, String thingName) {
 		ThingMLModel thingmlModel = Helpers.loadModelFromFile(thingMLInputFile, ThingMLModel.class);
+		((org.thingml.xtext.thingML.Thing)thingmlModel.getTypes().get(0)).setName(thingName);
 		Resource res = Helpers.getResourceFromModel(thingmlModel);
 		return res;
 	}

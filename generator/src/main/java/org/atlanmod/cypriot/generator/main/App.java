@@ -53,7 +53,7 @@ public class App implements Runnable {
 		log.debug("ThingML Input File Path: "+ thingMLInputFile.getPath());
 		
 		Util help = new Util();
-		help.transform(cypriotOutputDirectory.getPath(), cypriotInputFile);
+		help.transform(cypriotInputFile);
 		
 //		try {
 //			Generate generator = new Generate(URI.createFileURI(cypriotInputFile.getPath()), cypriotOutputDirectory, new ArrayList<String>());
