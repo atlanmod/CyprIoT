@@ -10,6 +10,7 @@
 <mapAttribute key="Input Model Options"/>
 <mapAttribute key="Input Models">
 <mapEntry key="CY" value="platform:/resource/generator/src/test/resources/1_TwoThings/main.cy"/>
+<mapEntry key="TH" value=""/>
 </mapAttribute>
 <mapAttribute key="Metamodel Options"/>
 <mapAttribute key="Metamodels">
