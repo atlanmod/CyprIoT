@@ -46,7 +46,7 @@ public class Util {
 			log.info("Transforming thing : "+thing.getName()+"...");
 			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
 		}
-		log.info("All Things transformed.");
+		log.info("All things transformed.");
 		return allThingMLResources;
 	}
 
