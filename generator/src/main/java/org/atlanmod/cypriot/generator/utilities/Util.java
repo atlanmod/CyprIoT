@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyutil.Helpers;
@@ -35,15 +36,17 @@ public class Util {
 		log.info("Transforming things according to the network...");
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
-		for (Thing thing : cyprIoTmodel.getDeclareThings()) {
+		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
+			Thing thing = bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate();
 			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
 			File thingMLFile = new File(thingPath);
 			String outputFile1 = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
 			Resource transformedThingMLModel = transformThingMLModel(outputFile1, cypriotInputFile, thingMLFile, thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
+			log.info("Transforming thing : "+thing.getName()+"...");
 			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
 		}
-		log.info("All Things files transformed.");
+		log.info("All Things transformed.");
 		return allThingMLResources;
 	}
 
