@@ -15,7 +15,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-    public static final String CYPRIOT_FILE ="../generator/src/test/resources/1_TwoThings/main.cy" ;   
+    public static final String CYPRIOT_FILE ="../generator/src/test/resources/5_FiveThings/main.cy" ;   
 	
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i", "--input" }, required = false, paramLabel = "INPUT", description = "The input file for the code generator")
@@ -34,9 +34,6 @@ public class App implements Runnable {
 		NetworkHelper.showProjectVersioInConsole();
 		if(!CYPRIOT_FILE.equals("")) cypriotInputFile=new File(CYPRIOT_FILE);
 		
-		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
-		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"acceleo-gen");
-		
 		if(cypriotOutputDirectory==null) {
 			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_thin.thingml");
 			log.debug("Output Directory : "+cypriotOutputDirectory);
@@ -46,6 +43,9 @@ public class App implements Runnable {
 		
 		Util help = new Util();
 		help.transform(cypriotInputFile);
+		
+		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
+		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"acceleo-gen");
 		
 //		try {
 //			Generate generator = new Generate(URI.createFileURI(cypriotInputFile.getPath()), cypriotOutputDirectory, new ArrayList<String>());

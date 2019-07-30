@@ -37,15 +37,4 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<filteredResources>
-		<filter>
-			<id>1562944325788</id>
-			<name>target</name>
-			<type>10</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-xtend</arguments>
-			</matcher>
-		</filter>
-	</filteredResources>
 </projectDescription>

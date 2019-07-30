@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
@@ -12,6 +14,8 @@ import org.eclipse.acceleo.parser.compiler.AcceleoCompilerHelper;
 import org.eclipse.emf.common.util.BasicMonitor;
 
 public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
+	
+	static final Logger log = LogManager.getLogger(AcceleoStandaloneCompiler.class.getName());
 
     public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/mosquitto";
     public static final String[] TEMPLATE_NAMES = { "generateElement" };
@@ -29,7 +33,7 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 	}
 	
 	public void generateAcceleo(String modelPath, String targetFolderPath) {
-		
+		log.info("Generating textual artifacts...");
 	    List<String> arguments = new ArrayList<String>();
 		CyprIoTModel cypriotModel = Helpers.loadModelFromPath(modelPath, CyprIoTModel.class);
 		AcceleoCompilerHelper acceleoCompilerHelper = new AcceleoCompilerHelper();
@@ -45,5 +49,6 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		log.info("All textual artifacts generated.");
 	}
 }

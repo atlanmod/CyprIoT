@@ -32,6 +32,7 @@ public class Util {
 	public final static String MODULE_NAME = "Network2Thing";
 	
 	public List<Resource> transform(File cypriotInputFile) {
+		log.info("Transforming things according to the network...");
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
 		for (Thing thing : cyprIoTmodel.getDeclareThings()) {
@@ -42,7 +43,7 @@ public class Util {
 			allThingMLResources.add(transformedThingMLModel);
 			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
 		}
-		log.debug("All Things files were transformed !");
+		log.info("All Things files transformed.");
 		return allThingMLResources;
 	}
 

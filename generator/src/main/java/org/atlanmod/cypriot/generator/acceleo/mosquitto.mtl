@@ -5,6 +5,7 @@
 [comment @main /]
 [file ('mosquitto_'.concat(aNetwork.name).concat('.acl'), false, 'UTF-8')]
 topic read $SYS/#
+topic write $SYS/#
 [for (bind : Bind | aNetwork.hasBinds)]
 user [bind.bindsInstanceThing.typeThing.owner.name/]
 	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
