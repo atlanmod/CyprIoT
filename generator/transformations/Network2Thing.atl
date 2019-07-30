@@ -25,6 +25,14 @@ helper context String def : transformArrowToMQTTSyntax : String =
 	endif
 ;
 
+helper context CyprIoT!Bind def : getDomainFromBind() : String =
+	self.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString()	
+;
+
+helper context CyprIoT!Bind def : getTopicFromBind() : CyprIoT!Topic =
+	self.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})	
+;
+
 -- /BEGIN COPIER
 
 rule copyThingMLModel {
@@ -230,7 +238,7 @@ rule createExternalConnectorFromBind {
 	),
 	a : ThingML!PlatformAnnotation(
 		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- s.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString().replaceDotsWithSlashInDomain()+'/'+s.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})->refGetValue('name').toString()
+		value <- s.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+s.getTopicFromBind().name
 	),
 	t : ThingML!ExternalConnector(
 		inst <- i,
