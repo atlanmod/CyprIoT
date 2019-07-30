@@ -1,0 +1,16 @@
+[comment encoding = UTF-8 /]
+[module mosquitto('http://www.atlanmod.org/CyprIoT')]
+
+[template public generateElement(aNetwork : Network)]
+[comment @main /]
+[file ('mosquitto_'.concat(aNetwork.name).concat('.acl'), false, 'UTF-8')]
+topic read $SYS/#
+[for (bind : Bind | aNetwork.hasBinds)]
+user [bind.bindsInstanceThing.typeThing.owner.name/]
+	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+	topic [if (bind.bindAction.toString().equalsIgnoreCase('=>'))]write[/if][if (bind.bindAction.toString().equalsIgnoreCase('<='))]read[/if] [aNetwork.domain.name.replaceAll('\\.', '/')/]/[topic.name/]
+	[/for]
+[/for]
+[/file]
+
+[/template]

@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.BasicMonitor;
 
 public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 
-    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/generate";
+    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/mosquitto";
     public static final String[] TEMPLATE_NAMES = { "generateElement" };
    
 
