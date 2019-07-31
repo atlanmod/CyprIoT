@@ -17,8 +17,8 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 	
 	static final Logger log = LogManager.getLogger(AcceleoStandaloneCompiler.class.getName());
 
-    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/acceleo/mosquitto";
-    public static final String[] TEMPLATE_NAMES = { "generateElement" };
+    public static String MODULE_FILE_NAME;
+    public static String[] TEMPLATE_NAMES = { "generateElement" };
    
 
 	

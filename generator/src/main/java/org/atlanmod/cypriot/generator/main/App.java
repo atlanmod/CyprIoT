@@ -45,7 +45,12 @@ public class App implements Runnable {
 		help.transform(cypriotInputFile);
 		
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
+		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/acceleo/mosquitto";
 		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"external-gen");
+		
+		AcceleoStandaloneCompiler acceleoStandaloneCompiler2 = new AcceleoStandaloneCompiler();
+		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/acceleo/rabbit";
+		acceleoStandaloneCompiler2.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"external-gen");
 		
 //		try {
 //			Generate generator = new Generate(URI.createFileURI(cypriotInputFile.getPath()), cypriotOutputDirectory, new ArrayList<String>());

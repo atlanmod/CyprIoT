@@ -1,0 +1,20 @@
+[comment encoding = UTF-8 /]
+[module rabbit('http://www.atlanmod.org/CyprIoT')]
+
+[template public generateElement(aNetwork : Network)]
+[comment @main /]
+[file ('rabbit_'.concat(aNetwork.name).concat('.acl'), false, 'UTF-8')]
+['['/]
+[for (bind : Bind | aNetwork.hasBinds)]
+	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[topic.name/]"} 
+	[/for]
+[/for]
+[']'/]
+[/file]
+[/template]
+
+[query public readOrWrite (bind : Bind) : String = 
+	if (bind.bindAction.toString().equalsIgnoreCase('=>')) 
+	then 'write'
+	else 'read' endif/]
