@@ -55,7 +55,7 @@ public class App implements Runnable {
 			PluginLoader pluginLoader = new PluginLoader();
 			pluginLoader.setConfigFile(cypriotConfigFile);
 			pluginLoader.setModel(model);
-			pluginLoader.setOutputDirectory(cypriotOutputDirectory);
+			pluginLoader.setOutputDirectory(new File(cypriotOutputDirectory.getParent()+File.separator+"network-gen"));
 			pluginLoader.load();
 		}
 		
