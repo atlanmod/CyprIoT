@@ -8,9 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.cyutil.Helpers;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
-import org.eclipse.acceleo.parser.compiler.AcceleoCompilerHelper;
 import org.eclipse.emf.common.util.BasicMonitor;
 
 public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
@@ -32,10 +30,8 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 		return TEMPLATE_NAMES;
 	}
 	
-	public void generateAcceleo(String modelPath, String targetFolderPath) {
-		log.info("Generating textual artifacts...");
+	public void generateAcceleo(CyprIoTModel cypriotModel, String targetFolderPath) {
 	    List<String> arguments = new ArrayList<String>();
-		CyprIoTModel cypriotModel = Helpers.loadModelFromPath(modelPath, CyprIoTModel.class);
 		
 		File targetFolder = new File(targetFolderPath);
 		try {
@@ -45,6 +41,5 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		log.info("All textual artifacts generated.");
 	}
 }

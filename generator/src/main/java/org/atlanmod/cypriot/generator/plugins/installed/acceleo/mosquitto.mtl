@@ -3,7 +3,7 @@
 
 [template public generateElement(aNetwork : Network)]
 [comment @main /]
-[file ('mosquitto_'.concat(aNetwork.name).concat('.acl'), false, 'UTF-8')]
+[file ('mosquitto'.concat('.acl'), false, 'UTF-8')]
 topic read $SYS/#
 topic write $SYS/#
 [for (bind : Bind | aNetwork.hasBinds)]

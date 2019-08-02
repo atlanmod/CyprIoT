@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyutil.Helpers;
 
@@ -16,7 +18,8 @@ public class PluginLoader {
 	private File outputDirectory;
 	private CyprIoTModel model;
 	HashSet<Plugin> loaderPlugins = new HashSet<Plugin>();
-	
+	static final Logger log = LogManager.getLogger(PluginLoader.class.getName());
+
 	public void load() {
 		Properties properties = new Properties();
 		String pluginClassName;
@@ -32,22 +35,20 @@ public class PluginLoader {
 			for (Plugin plugin : loaderPlugins) {
 				loadedPlugins.append(plugin.getID()+",");
 			}
-			System.out.println("Loaded plugins : "+loadedPlugins);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-
+		log.info("All plugins loaded.");
 	}
 	
 	private void loadPlugin(String pluginClassName) throws Exception {
 		Class<?> pluginClass = getClass().getClassLoader().loadClass(pluginClassName);
 		Plugin instance = (Plugin) pluginClass.newInstance();
 		loaderPlugins.add(instance);
-		instance.attach();
+		instance.attach(log);
 		instance.generate(model, outputDirectory);
 	}
 

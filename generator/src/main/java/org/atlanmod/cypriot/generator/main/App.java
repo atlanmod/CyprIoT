@@ -4,7 +4,9 @@ import java.io.File;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.atlanmod.cypriot.generator.utilities.AcceleoStandaloneCompiler;
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyutil.Helpers;
+import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 import org.atlanmod.cypriot.generator.utilities.Util;
 
@@ -16,7 +18,8 @@ import picocli.CommandLine.Option;
 public class App implements Runnable {
 	
     public static final String CYPRIOT_FILE ="../generator/src/test/resources/5_FiveThings/main.cy" ;   
-	
+    public static final String CONFIG_FILE ="../generator/config.cfg" ;   
+
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i", "--input" }, required = false, paramLabel = "INPUT", description = "The input file for the code generator")
 	File cypriotInputFile;
@@ -33,6 +36,7 @@ public class App implements Runnable {
 	public void run() {
 		NetworkHelper.showProjectVersioInConsole();
 		if(!CYPRIOT_FILE.equals("")) cypriotInputFile=new File(CYPRIOT_FILE);
+		if(!CONFIG_FILE.equals("")) cypriotConfigFile=new File(CONFIG_FILE);
 		
 		if(cypriotOutputDirectory==null) {
 			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_thin.thingml");
@@ -44,24 +48,6 @@ public class App implements Runnable {
 		Util help = new Util();
 		help.transform(cypriotInputFile);
 		
-		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
-		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/acceleo/mosquitto";
-		acceleoStandaloneCompiler.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"external-gen");
-		
-		AcceleoStandaloneCompiler acceleoStandaloneCompiler2 = new AcceleoStandaloneCompiler();
-		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/acceleo/rabbit";
-		acceleoStandaloneCompiler2.generateAcceleo(cypriotInputFile.getPath(),cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"external-gen");
-		
-//		try {
-//			Generate generator = new Generate(URI.createFileURI(cypriotInputFile.getPath()), cypriotOutputDirectory, new ArrayList<String>());
-//			generator.doGenerate(new BasicMonitor());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		/*
-		// Network Model Loading
 		CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		
 		// Plugin Loading
@@ -72,6 +58,9 @@ public class App implements Runnable {
 			pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 			pluginLoader.load();
 		}
+		
+		/*
+
 		// Network Generation
 		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
 		networkGenerator.setBinding(new BindingTransformation());
