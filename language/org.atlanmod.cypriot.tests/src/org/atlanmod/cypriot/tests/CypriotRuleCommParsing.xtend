@@ -512,7 +512,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
-		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Role)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Role)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -563,7 +563,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Role)
-		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Thing)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -614,7 +614,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
-		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof User)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof User)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -665,7 +665,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof User)
-		Assert.assertTrue((rule as RuleComm).commObject.subjectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Thing)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
