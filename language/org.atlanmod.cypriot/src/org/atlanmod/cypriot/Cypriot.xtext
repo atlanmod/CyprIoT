@@ -178,7 +178,7 @@ Rule:
 ;
 
 RuleComm:
-	'rule' (name=ID ':')? commSubject=CommSubjectObject effectComm=EffectComm commObject=CommSubjectObject
+	'rule' (name=ID ':')? commSubject=CommSubject effectComm=EffectComm commObject=CommObject
 ;
 
 RuleTrigger:
@@ -193,15 +193,23 @@ BridgeSubjectObject:
 	 PubSubWithTopic | PTPWithConnectionPoint | ThingWithPort
 ;
 
-CommSubjectObject :
-	thingWithStateOrPort=ThingWithStateOrPort | subjectOther=[SubjectObjectOther]
+CommObject :
+	thingWithStateOrPort=ThingWithStateOrPort | objectOther=[ObjectOther]
+;
+
+ObjectOther:
+	Role | User | ThingAny | Topic | ConnectionPoint | Channel
+;
+
+CommSubject :
+	thingWithStateOrPort=ThingWithStateOrPort | subjectOther=[SubjectOther]
 ;
 
 ThingAny:
 	InstanceThing | Thing
 ;
 
-SubjectObjectOther:
+SubjectOther:
 	Role | User | ThingAny
 ;
 

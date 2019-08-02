@@ -7,7 +7,6 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
-import org.atlanmod.cypriot.cyprIoT.SubjectObjectOther
 import org.atlanmod.cypriot.cyprIoT.ThingAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
@@ -19,6 +18,8 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.atlanmod.cypriot.cyprIoT.Bind
+import org.atlanmod.cypriot.cyprIoT.SubjectOther
+import org.atlanmod.cypriot.cyprIoT.ObjectOther
 
 /**
  * This class contains custom scoping description.
@@ -73,9 +74,13 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.commSubjectObject_SubjectOther) {
+		} else if (reference == cypriotInstance.commSubject_SubjectOther) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, SubjectObjectOther)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, SubjectOther)
+			return Scopes.scopeFor(candidates)
+		} else if (reference == cypriotInstance.commObject_ObjectOther) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ObjectOther)
 			return Scopes.scopeFor(candidates)
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThing.typeThing.thingToInstantiate))
