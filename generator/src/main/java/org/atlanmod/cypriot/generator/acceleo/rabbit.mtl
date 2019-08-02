@@ -5,8 +5,9 @@
 [comment @main /]
 [file ('rabbit_'.concat(aNetwork.name).concat('.acl'), false, 'UTF-8')]
 ['['/]
+
 [for (bind : Bind | aNetwork.hasBinds)]
-	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics) separator(', ')]
 	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[topic.name/]"} 
 	[/for]
 [/for]

@@ -36,10 +36,6 @@ public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
 		log.info("Generating textual artifacts...");
 	    List<String> arguments = new ArrayList<String>();
 		CyprIoTModel cypriotModel = Helpers.loadModelFromPath(modelPath, CyprIoTModel.class);
-		AcceleoCompilerHelper acceleoCompilerHelper = new AcceleoCompilerHelper();
-		acceleoCompilerHelper.setSourceFolder("./src/main/java/org/atlanmod/cypriot/generator/acceleo/");
-	    acceleoCompilerHelper.setOutputFolder("./src/main/java/org/atlanmod/cypriot/generator/acceleo/");
-		acceleoCompilerHelper.execute();
 		
 		File targetFolder = new File(targetFolderPath);
 		try {
