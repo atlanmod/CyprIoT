@@ -116,37 +116,6 @@ rule copyRequiredPort {
 	)
 }
 
-rule copyCompositeState {
-	from s : ThingML!CompositeState
-	to t : ThingML!CompositeState(
-		name <- s.name,
-		annotations <- s.annotations,
-		entry <- s.entry,
-		exit <- s.exit,
-		history <- s.history,
-		initial <- s.initial,
-		internal <- s.internal,
-		outgoing <- s.outgoing,
-		properties <- s.properties,
-		region <- s.region,
-		session <- s.session,
-		substate <- s.substate
-	)
-}
-
-rule copyFinalState {
-	from s : ThingML!FinalState
-	to t : ThingML!FinalState(
-		name <- s.name,
-		annotations <- s.annotations,
-		entry <- s.entry,
-		exit <- s.exit,
-		internal <- s.internal,
-		outgoing <- s.outgoing,
-		properties <- s.properties
-	)
-}
-
 rule copyActionBlock {
 	from s : ThingML!ActionBlock
 	to t : ThingML!ActionBlock(
@@ -159,6 +128,15 @@ rule copyPrintAction {
 	to t : ThingML!PrintAction(
 		line <- s.line,
 		msg <- s.msg
+	)
+}
+
+rule copyReceiveMessage {
+	from s : ThingML!ReceiveMessage
+	to t : ThingML!ReceiveMessage(
+		message <- s.message,
+		name <- s.name,
+		port <- s.port
 	)
 }
 
@@ -219,6 +197,80 @@ rule copyDatatypes {
 		annotations <- s.annotations,
 		name <- s.name
 	) 
+}
+
+rule copyEventReference {
+	from s : ThingML!EventReference
+	to t : ThingML!EventReference(
+		parameter <- s.parameter,
+		receiveMsg <- s.receiveMsg
+	)
+}
+
+rule copyStateContainer {
+	from s : ThingML!StateContainer(not s.oclIsTypeOf(ThingML!CompositeState))
+	to t : ThingML!StateContainer(
+		annotations <- s.annotations,
+		history <- s.history,
+		initial <- s.initial,
+		name <- s.name,
+		substate <- s.substate
+	)
+}
+
+rule copyCompositeState {
+	from s : ThingML!CompositeState
+	to t : ThingML!CompositeState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		history <- s.history,
+		initial <- s.initial,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties,
+		region <- s.region,
+		session <- s.session,
+		substate <- s.substate
+	)
+}
+
+rule copyFinalState {
+	from s : ThingML!FinalState
+	to t : ThingML!FinalState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
+rule copyInternalTransition {
+	from s : ThingML!InternalTransition
+	to t : ThingML!InternalTransition(
+		action <- s.action,
+		annotations <- s.annotations,
+		event <- s.event,
+		guard <- s.guard,
+		name <- s.name
+	)
 }
 
 -- COPIER / END
