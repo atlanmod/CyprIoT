@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.atlanmod.cypriot.generator.plugins.installed.acceleo;
+package org.atlanmod.cypriot.generator.templates;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class Rabbit extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/plugins/installed/acceleo/rabbit";
+    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/templates/rabbit";
     
     /**
      * The name of the templates that are to be generated.

@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.atlanmod.cypriot.generator.plugins.installed.acceleo;
+package org.atlanmod.cypriot.generator.templates;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class Mosquitto extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/plugins/installed/acceleo/mosquitto";
+    public static final String MODULE_FILE_NAME = "/org/atlanmod/cypriot/generator/templates/mosquitto";
     
     /**
      * The name of the templates that are to be generated.

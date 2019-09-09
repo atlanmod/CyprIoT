@@ -1,4 +1,4 @@
-thing HelloThing {
+thing hello {
 	message m(mess : UInt8)
 	provided port myport {
 		sends m
@@ -23,6 +23,6 @@ protocol MQTT
 	@serializer `JSON`
 
 configuration hello_Cfg {
-	instance helloInst : HelloThing
+	instance helloInst : hello
 	connector helloInst.myport over MQTT @mqtt_publish_topic `org/hello/topic1`
 }

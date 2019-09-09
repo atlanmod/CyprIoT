@@ -60,7 +60,6 @@ public class App implements Runnable {
 		}
 		
 		/*
-
 		// Network Generation
 		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
 		networkGenerator.setBinding(new BindingTransformation());

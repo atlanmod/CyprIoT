@@ -43,7 +43,7 @@ public class MosquittoACPlugin implements Plugin {
 	@Override
 	public void generate(CyprIoTModel model, File outputDirectory) {
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
-		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/plugins/installed/acceleo/mosquitto";
+		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/mosquitto";
 		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory.getParent()+File.separator+"external-gen");	
 	}
 

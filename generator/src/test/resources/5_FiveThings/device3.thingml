@@ -1,15 +1,19 @@
 thing HelloThing {
-	message m()
-	optional required port myport {
-		sends m
+	message m(mess:UInt8)
+	provided port myport {
+		receives m
 	}
 	statechart HelloStateChart init HelloState {
 		
-		final state HelloState {
-			on entry
-				do  println  "Hello World!"
-					myport!m()
-				end
+		state HelloState {
+			internal event e : myport?m
+			action print e.mess
 		}
 	}
 }
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"
