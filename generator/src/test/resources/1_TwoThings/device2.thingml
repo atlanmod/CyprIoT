@@ -7,7 +7,7 @@ thing HelloThing {
 		
 		state HelloState {
 			internal event e : myport?m
-			action print e.mess
+			action println e.mess
 		}
 	}
 }
