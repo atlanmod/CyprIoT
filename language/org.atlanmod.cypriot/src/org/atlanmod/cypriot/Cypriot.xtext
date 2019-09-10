@@ -107,7 +107,7 @@ PubSub:
 ;
 
 Topic:
-	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessages+=ID ( "," assignedRoles+=[thingml::Message])* ')')*  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 PointToPoint:

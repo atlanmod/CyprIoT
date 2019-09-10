@@ -462,6 +462,17 @@ public class Helpers {
 		}
 		return result;
 	}
+	
+	public static ArrayList<Message> allMessagesInNetworkModel(ArrayList<Thing> allThings) {
+		
+		ArrayList<Message> result = new ArrayList<Message>();
+
+		for (Thing thing : allThings) {
+			result.addAll(allMessagesThingML(thing));
+		}
+		
+		return result;
+	}
 
 	public static ArrayList<Parameter> allMessageParametersThingML(Message message) {
 		ArrayList<Parameter> result = new ArrayList<Parameter>();

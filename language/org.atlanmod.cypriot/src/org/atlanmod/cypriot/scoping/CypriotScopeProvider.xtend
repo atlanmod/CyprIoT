@@ -20,6 +20,8 @@ import org.eclipse.xtext.scoping.Scopes
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.SubjectOther
 import org.atlanmod.cypriot.cyprIoT.ObjectOther
+import org.atlanmod.cypriot.cyprIoT.Thing
+import java.util.ArrayList
 
 /**
  * This class contains custom scoping description.
@@ -82,6 +84,10 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ObjectOther)
 			return Scopes.scopeFor(candidates)
+		} else if (reference == cypriotInstance.topic_AcceptedMessages) {
+			val rootElement = EcoreUtil2.getRootContainer(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, Thing)
+			return Scopes.scopeFor(Helpers.allMessagesInNetworkModel(candidates as ArrayList<Thing>))
 		} else if (reference == cypriotInstance.bind_PortToBind) {
 			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThing.typeThing.thingToInstantiate))
 		} else if (reference == cypriotInstance.bind_PortToBindBack) {
