@@ -1,0 +1,21 @@
+[comment encoding = UTF-8 /]
+[module documentation('http://www.atlanmod.org/CyprIoT')]
+
+[template public generateElement(aNetwork : Network)]
+[comment @main /]
+[file ('documentation'.concat('.md'), false, 'UTF-8')]
+# Network Informations :
+
+* Name : [aNetwork.name/]
+* Domain : [aNetwork.domain.name/]
+* Instance of things : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstanceThing))][instance.oclAsType(InstanceThing).name.concat(', ')/][/if][/for]
+* Instance of PubSub channels : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstancePubSub))][instance.oclAsType(InstancePubSub).name.concat(', ')/][/if][/for]
+* Instance of Point-To-Point channels : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstancePTP))][instance.oclAsType(InstancePTP).name.concat(', ')/][/if][/for]
+
+# Bindings
+
+[for (bind : Bind | aNetwork.hasBinds)]
+* The port [bind.portToBind.name/] of the instance  [bind.bindsInstanceThing.name/] is bound to [bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
+[/for]
+[/file]
+[/template]
