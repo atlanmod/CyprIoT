@@ -1,6 +1,6 @@
 thing HelloThing {
 	message m(mess:UInt8)
-	provided port myport {
+	required port myport {
 		sends m
 	}
 	statechart HelloStateChart init HelloState {
