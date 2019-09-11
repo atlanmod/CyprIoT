@@ -275,7 +275,7 @@ public final class NetworkHelper {
 	public static EList<Policy> getEnforcedPolicies(Network network) {
 		EList<Policy> policies = null;
 		if (NetworkHelper.isPolicyEnforced(network)) {
-			policies = network.getHasPolicyEnforcement().getPolicyName();
+			policies = network.getHasPolicyEnforcement().getHasEnforcedPolicies();
 		}
 		return policies;
 	}
