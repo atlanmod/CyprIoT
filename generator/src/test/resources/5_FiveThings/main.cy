@@ -9,7 +9,7 @@ user myuser2
 user myuser3
 
 channel:pubsub pubsub1 {
-	topic topic1
+	topic topic1(m)
 }
 
 network helloNetwork {

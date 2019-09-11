@@ -6,7 +6,7 @@ user myuser2
 user myuser3
 
 policy myPolicy {
-	rule myuser2 allow:send-receive topic1
+	rule device1 deny:send device2
 }
 
 channel:pubsub pubsub1 {

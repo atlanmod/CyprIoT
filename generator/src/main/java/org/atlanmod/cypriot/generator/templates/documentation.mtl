@@ -15,7 +15,7 @@
 # Bindings
 
 [for (bind : Bind | aNetwork.hasBinds)]
-* The port [bind.portToBind.name/] of the instance  [bind.bindsInstanceThing.name/] is bound to [bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
+* The port [bind.portToBind.name/] of the instance [bind.bindsInstanceThing.name/] is bound to [bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
 [/for]
 [/file]
 [/template]
