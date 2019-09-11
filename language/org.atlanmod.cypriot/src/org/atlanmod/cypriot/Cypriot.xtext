@@ -42,7 +42,7 @@ Thing:
 // TODO Dynamicity of the configuration
 
 PoliciesEnforcement :
-	'enforce' policyName+=[Policy] ( "," policyName+=[Policy])* combiningAlgo=CombiningAlgo
+	'enforce' hasEnforcedPolicies+=[Policy] ( "," hasEnforcedPolicies+=[Policy])* combiningAlgo=CombiningAlgo
 ;
 
 enum CombiningAlgo:

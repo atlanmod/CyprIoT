@@ -40,8 +40,8 @@ public class Util {
 			Thing thing = bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate();
 			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
 			File thingMLFile = new File(thingPath);
-			String outputFile1 = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
-			Resource transformedThingMLModel = transformThingMLModel(outputFile1, cypriotInputFile, thingMLFile, thing.getName());
+			String outputFile = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
+			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile, thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
 			log.info("Transforming thing : "+thing.getName()+"...");
 			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
