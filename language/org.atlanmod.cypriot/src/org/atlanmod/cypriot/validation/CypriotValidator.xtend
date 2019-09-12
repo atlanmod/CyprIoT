@@ -3,21 +3,22 @@
  */
 package org.atlanmod.cypriot.validation
 
+import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
+import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.cyprIoT.InstancePTP
+import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
-import org.eclipse.xtext.validation.Check
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
-import org.atlanmod.cypriot.cyprIoT.Thing
-import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
-import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Policy
-import org.atlanmod.cypriot.cyprIoT.InstancePubSub
-import org.atlanmod.cypriot.cyprIoT.InstancePTP
-import org.atlanmod.cypriot.cyprIoT.User
+import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.Topic
-import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
+import org.atlanmod.cypriot.cyprIoT.User
+import org.atlanmod.cypriot.cyutil.Helpers
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
@@ -38,6 +39,21 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val POLICY_UNIQUENESS = "Policy-Uniqueness"
 	public static val TOPIC_UNIQUENESS = "Topic-Uniqueness"
 	public static val CONNECTIONPOINT_UNIQUENESS = "ConnectionPoint-Uniqueness"
+	public static val ONLYONETHING = "OnlyOneThing"
+
+	@Check(FAST)
+	def checkNumberofThing(Thing thing) {
+		val thingml = Helpers.getThingInThingML(thing)
+		val numberThings = thingml.types.filter[k | k instanceof org.thingml.xtext.thingML.Thing].size
+		val container = thing.eContainer as CyprIoTModel
+		
+		if (numberThings!=1) {
+			val msg = "The thing " + thing.getName()+" must contain only one thing";
+			error(msg, container, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareThings,
+				container.declareThings.indexOf(thing), ONLYONETHING)
+		}
+
+	}
 
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
