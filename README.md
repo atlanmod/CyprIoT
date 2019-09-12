@@ -1,10 +1,12 @@
 ![CyprIoT Logo](logo.png)
 
 ## What is CyprIoT?
-CyprIoT is tool to compose a network of things using Model-Driven engineering techniques. A Domain-Specific language (DSL) enables you to design the network. Using code generation you can produce working code to deploy in your network.
+CyprIoT is a tool to compose a network of things using Model-Driven engineering techniques. It consists of a Domain-Specific language (DSL) that enables designing the network, and a code generator to produce the deployable code of your network.
 
 [![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+![CyprIoT DSL Demo](demo.png)
 
 ## Features
 
@@ -13,12 +15,9 @@ CyprIoT is tool to compose a network of things using Model-Driven engineering te
 
 ## Project Structure
 
-* ``org.atlanmod.cypriot`` : Provides the Xtext grammar definition
-* ``org.atlanmod.cypriot.generator`` : Code generator
-* ``org.atlanmod.cypriot.ide`` : Platform-independent IDE functionality 
-* ``org.atlanmod.cypriot.ui`` : Eclipse editor for the language
-* ``org.atlanmod.cypriot.test`` : Language unit tests
-* ``org.atlanmod.cypriot.examples`` : Few examples
+* ``language`` : Provides the langugage grammar
+* ``generator`` : Code generator
+* ``examples`` : Few examples
 
 ## Requirements
 
@@ -39,10 +38,15 @@ CyprIoT is tool to compose a network of things using Model-Driven engineering te
 * Run ``mvn clean install  -U`` at the root of the project	
 
 ### Eclipse
+## As an Eclipse Plugin
+* ``Help -> Install New Software -> Add``
+* Fill the field ``Name`` with ``CyprIoT`` 
+* Paste in the ``Location`` field this URL : ``https://www.atlanmod.org/updates/cypriot/snapshot/`` then hit ``Add``
+* Choose ``CyprIoT Feature`` then hit ``Next`` and complete the installation procedure
+## Import the source code
 * Import as a maven project in Eclipse ``File -> Import -> Maven -> Existing Maven Projects -> Choose the cloned repository``, if you have already cloned the repo
 OR
 * ``File -> Import -> Git -> Projects from Git -> Clone URI``, then complete the procedure
-* 
 * At the root of the project ``Right-Click -> Run As -> Maven clean`` then ``Maven install``
 
 ## Usage 
@@ -55,8 +59,8 @@ OR
 
 To run some examples of the language :
 
-* In the Eclipse Application launched earlier
-* Import the folder ``org.atlanmod.cypriot.examples`` as a maven project
+* Import the folder ``examples``
+* To be continued
 
 ## Known issues
 
