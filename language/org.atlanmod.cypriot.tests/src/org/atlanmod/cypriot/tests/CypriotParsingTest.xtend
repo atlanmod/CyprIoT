@@ -84,6 +84,28 @@ class CypriotParsingTest {
 					role anyrole
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						function bar() do
+							println "test"
+						end
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
 		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)

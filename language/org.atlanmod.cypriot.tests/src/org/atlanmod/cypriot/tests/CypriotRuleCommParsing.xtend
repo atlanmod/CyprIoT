@@ -37,7 +37,46 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 deny:receive thing2
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -124,6 +163,25 @@ class CypriotRuleCommParsing {
 					}
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
 		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
@@ -158,6 +216,25 @@ class CypriotRuleCommParsing {
 					}
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
 		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
@@ -172,20 +249,6 @@ class CypriotRuleCommParsing {
 			thing thing2 import "thing2.thingml"
 			policy anyname {
 				rule thing1 allow:receive thing2
-			}
-		''')
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
-	def void RuleWithAllowReceiveBetweenTwoPorts() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			thing thing2 import "thing2.thingml"
-			policy anyname {
-				rule thing1->port:port1 allow:receive thing2->port:port2
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/thing1.thingml")) => [
@@ -233,6 +296,49 @@ class CypriotRuleCommParsing {
 	}
 
 	@Test
+	def void RuleWithAllowReceiveBetweenTwoPorts() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing1->port:port1 allow:receive thing2->port:port2
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	@Test
 	def void RuleWithDenySendBetweenThings() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
@@ -240,7 +346,46 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 deny:send thing2
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -307,7 +452,46 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 allow:send thing2
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -374,20 +558,6 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 deny:send-receive thing2
 			}
-		''')
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
-	def void RuleWithDenySendReceiveBetweenTwoPorts() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			thing thing2 import "thing2.thingml"
-			policy anyname {
-				rule thing1->port:port1 deny:send-receive thing2->port:port2
-			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/thing1.thingml")) => [
 				load(new StringInputStream('''
@@ -434,6 +604,49 @@ class CypriotRuleCommParsing {
 	}
 
 	@Test
+	def void RuleWithDenySendReceiveBetweenTwoPorts() {
+		val result = parseHelper.parse('''
+			thing thing1 import "thing1.thingml"
+			thing thing2 import "thing2.thingml"
+			policy anyname {
+				rule thing1->port:port1 deny:send-receive thing2->port:port2
+			}
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
+		result.assertNoErrors
+		Assert.assertNotNull(result)
+		Assert.assertTrue(result.eResource.errors.isEmpty)
+	}
+
+	@Test
 	def void RuleWithAllowSendReceiveBetweenThings() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
@@ -441,7 +654,46 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 allow:send-receive thing2
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+			createResource(URI.createFileURI("/thing2.thingml")) => [
+				load(new StringInputStream('''
+					thing thing2{
+						message message1()
+						provided port port2 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing2Inst:thing2
+						connector thing2.port2 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -508,7 +760,27 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 allow:send role1
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
@@ -559,7 +831,27 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule role1 allow:send thing1
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Role)
@@ -610,7 +902,27 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule thing1 allow:send user1
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
@@ -661,7 +973,27 @@ class CypriotRuleCommParsing {
 			policy anyname {
 				rule user1 allow:send thing1
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							receives message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof User)
