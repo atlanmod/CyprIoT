@@ -12,6 +12,8 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.eclipse.xtext.util.StringInputStream
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
+import org.atlanmod.cypriot.validation.CypriotValidator
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotWithThingMLInjectorProvider))
@@ -59,6 +61,6 @@ class CypriotBindingsTest {
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
 		])
-		result.assertNoErrors
+		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.PORT_CHANNEL_COMPATIBILITY)
 	}
 }
