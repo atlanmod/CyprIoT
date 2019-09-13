@@ -3,6 +3,7 @@
  */
 package org.atlanmod.cypriot.validation
 
+import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -15,6 +16,7 @@ import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
@@ -40,15 +42,53 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val TOPIC_UNIQUENESS = "Topic-Uniqueness"
 	public static val CONNECTIONPOINT_UNIQUENESS = "ConnectionPoint-Uniqueness"
 	public static val ONLYONETHING = "OnlyOneThing"
+	public static val PORT_CHANNEL_COMPATIBILITY = "PortChannel-Compatibility"
+	public static val PORT_SEND_EXISTANCE = "PortSend-Existance"
+	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
+
+	@Check(FAST)
+	def checkBindPortChannelCompatibility(Bind bind) {
+		val portBind = bind.portToBind
+		val network = bind.eContainer as Network
+		val channelToBind = bind.channelToBind
+		
+		if (channelToBind instanceof ToBindPubSub) {
+			if(bind.bindAction.literal.equals("=>")) {
+				if(portBind.sends.size!==0) {
+					if (!portBind.sends.exists[m | m.name.equals((channelToBind as ToBindPubSub).topics.get(0).acceptedMessages.get(0).name)]) {
+						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_COMPATIBILITY)
+					}
+				} else {
+					val msg = "The port " + portBind.getName() + " cannot send a message.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
+				}
+			} else if (bind.bindAction.literal.equals("<=")) {
+				if(portBind.receives.size!==0) {
+					if (!portBind.receives.exists[m | m.name.equals((channelToBind as ToBindPubSub).topics.get(0).acceptedMessages.get(0).name)]) {
+						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_COMPATIBILITY)
+					}
+				} else {
+					val msg = "The port " + portBind.getName() + " cannot receive a message.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
+				}
+			}
+			
+		}
+
+	}
 
 	@Check(FAST)
 	def checkNumberofThing(Thing thing) {
 		val thingml = Helpers.getThingInThingML(thing)
-		val numberThings = thingml.types.filter[k | k instanceof org.thingml.xtext.thingML.Thing].size
+		val numberThings = thingml.types.filter[k|k instanceof org.thingml.xtext.thingML.Thing].size
 		val container = thing.eContainer as CyprIoTModel
-		
-		if (numberThings!=1) {
-			val msg = "The thing " + thing.getName()+" must contain only one thing";
+
+		if (numberThings != 1) {
+			val msg = "The thing " + thing.getName() + " must contain only one thing";
 			error(msg, container, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareThings,
 				container.declareThings.indexOf(thing), ONLYONETHING)
 		}
@@ -58,8 +98,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkInstanceThingUniqueness(InstanceThing instanceThing) {
 		val network = instanceThing.eContainer as Network
-		val allinstanceThings = network.instantiate.filter( k |
-			k instanceof InstanceThing && (k as InstanceThing).name == instanceThing.name
+		val allinstanceThings = network.instantiate.filter(
+			k |
+				k instanceof InstanceThing && (k as InstanceThing).name == instanceThing.name
 		)
 
 		if (allinstanceThings.size() > 1) {
@@ -72,8 +113,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkInstancePubSubUniqueness(InstancePubSub instancePubSub) {
 		val network = instancePubSub.eContainer as Network
-		val allinstancePubSub = network.instantiate.filter( k |
-			k instanceof InstancePubSub && (k as InstancePubSub).name == instancePubSub.name
+		val allinstancePubSub = network.instantiate.filter(
+			k |
+				k instanceof InstancePubSub && (k as InstancePubSub).name == instancePubSub.name
 		)
 
 		if (allinstancePubSub.size() > 1) {
@@ -86,8 +128,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkInstancePTPUniqueness(InstancePTP instancePTP) {
 		val network = instancePTP.eContainer as Network
-		val allinstancePTP = network.instantiate.filter( k |
-			k instanceof InstancePTP && (k as InstancePTP).name == instancePTP.name
+		val allinstancePTP = network.instantiate.filter(
+			k |
+				k instanceof InstancePTP && (k as InstancePTP).name == instancePTP.name
 		)
 
 		if (allinstancePTP.size() > 1) {
@@ -172,8 +215,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkPTPUniqueness(PointToPoint ptp) {
 		val cypriotModel = ptp.eContainer as CyprIoTModel
-		val allPTPs = cypriotModel.declareChannels.filter( k |
-			k instanceof PointToPoint && (k as PointToPoint).name == ptp.name
+		val allPTPs = cypriotModel.declareChannels.filter(
+			k |
+				k instanceof PointToPoint && (k as PointToPoint).name == ptp.name
 		)
 
 		if (allPTPs.size() > 1) {

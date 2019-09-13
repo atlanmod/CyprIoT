@@ -44,7 +44,7 @@ class CypriotParsingTest {
 				load(new StringInputStream('''
 					thing thing1 import "thing1.thingml"
 					channel:pubsub anychannel {
-						topic anytopic
+						topic anytopic(message1)
 					}
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
@@ -53,7 +53,7 @@ class CypriotParsingTest {
 					thing thing1{
 						message message1()
 						provided port port1 {
-							receives message1
+							sends message1
 						}
 						statechart thing1 init state1 {
 							state state1 {}

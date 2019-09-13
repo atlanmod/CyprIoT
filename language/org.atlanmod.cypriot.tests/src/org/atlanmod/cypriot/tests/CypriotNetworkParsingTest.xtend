@@ -306,7 +306,7 @@ class CypriotNetworkParsingTest {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
 			channel:pubsub anychannel {
-				topic anytopic
+				topic anytopic(message1)
 			}
 			network anynet {
 				domain org.atlanmod
@@ -320,7 +320,7 @@ class CypriotNetworkParsingTest {
 					thing thing1{
 						message message1()
 						provided port port1 {
-							receives message1
+							sends message1
 						}
 						statechart thing1 init state1 {
 							state state1 {}
@@ -349,7 +349,7 @@ class CypriotNetworkParsingTest {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
 			channel:pubsub anychannel {
-				topic anytopic
+				topic anytopic(message1)
 			}
 			network anynet {
 				domain org.atlanmod
@@ -363,7 +363,7 @@ class CypriotNetworkParsingTest {
 					thing thing1{
 						message message1()
 						provided port port1 {
-							receives message1
+							sends message1
 						}
 						statechart thing1 init state1 {
 							state state1 {}
