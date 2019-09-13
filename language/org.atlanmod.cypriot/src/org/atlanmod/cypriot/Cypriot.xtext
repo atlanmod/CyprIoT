@@ -36,7 +36,7 @@ User :
 Thing:
 	'thing' name=ID 
 		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
-		('import' importPath?=STRING)?
+		('import' importPath=STRING)?
 ;
 
 // TODO Dynamicity of the configuration
@@ -107,7 +107,12 @@ PubSub:
 ;
 
 Topic:
-	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessages+=[thingml::Message]')')*  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessages+=[thingml::Message] ('in' serializer=Serializer ')')?)?  ('subtopicOf' subtopicOf+=[Topic])?
+;
+
+enum Serializer:
+	POSIX='JSON' | 
+	JAVA='BINARY'
 ;
 
 PointToPoint:
