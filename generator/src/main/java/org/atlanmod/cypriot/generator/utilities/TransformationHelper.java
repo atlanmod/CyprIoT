@@ -1,6 +1,7 @@
 package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,63 +33,94 @@ public class TransformationHelper {
 	static final Logger log = LogManager.getLogger(TransformationHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
-	
+
 	public List<Resource> transform(File cypriotInputFile) {
 		log.info("Transforming things according to the network...");
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
-		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
-			InstanceThing instance = bind.getBindsInstanceThing();
-			Thing thing = instance.getTypeThing().getThingToInstantiate();
-			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
-			File thingMLFile = new File(thingPath);
-			
-			log.info("Transforming thing : "+thing.getName()+"...");
-			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
-			
-			String outputDirectory = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator;
-			String outputFile = outputDirectory+"transformed_"+thing.getName()+".thingml";
-			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile, thing.getName());
-			allThingMLResources.add(transformedThingMLModel);
-			
-			String args = "-s "+outputFile+" -o "+outputDirectory+thing.getName()+" -c auto";
-			
-			try {
-				log.info("Running ThingML generator...");
-				Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar "+args);
-				InputStream in = proc.getInputStream();
-				log.debug(NetworkHelper.convertStreamToString(in));
-				InputStream err = proc.getErrorStream();
-				if(NetworkHelper.convertStreamToString(err).equals("")) {
-					log.info("ThingML generator completed without errors for "+thing.getName()+".");
-				} else {
-					log.error(NetworkHelper.convertStreamToString(err));
-				}
+		String outputDirectory = cypriotInputFile.getParent() + File.separator + "network-gen" + File.separator;
+		new File(outputDirectory).mkdirs();
+		try {
+			String filename = outputDirectory + "setup.sh";
+			File setup = new File(filename);
+			FileWriter fw = new FileWriter(filename, true);
+			fw.write("#!/bin/bash \n");
+			fw.write("mkdir execs\n");
+			for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
+				InstanceThing instance = bind.getBindsInstanceThing();
+				Thing thing = instance.getTypeThing().getThingToInstantiate();
+				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
+				File thingMLFile = new File(thingPath);
+
+				log.info("Transforming thing : " + thing.getName() + "...");
+				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
+
+				String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
+				Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
+						thing.getName());
+				allThingMLResources.add(transformedThingMLModel);
+				String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
+				String outputGenDirectory = outputDirectory + File.separator + targetPlatform + File.separator
+						+ thing.getName();
+				String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String outputMakeDirectory = thingMLFile.getParentFile().getAbsolutePath() + File.separator
+						+ "network-gen" + File.separator + targetPlatform + File.separator + thing.getName();
+
+				try {
+					log.info("Running ThingML generator...");
+					Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
+					proc.waitFor();
+					if(targetPlatform.equals("posix") || targetPlatform.equals("posixmt")) {
+						log.debug("make -C " + outputMakeDirectory);
+						fw.write("make -C " + outputMakeDirectory+"\n");
+						fw.write("cp " + outputMakeDirectory+File.separator+thing.getName()+"_Cfg execs\n");
+					} else if (targetPlatform.equals("java")) {
+						log.debug("mvn -f " + outputMakeDirectory+" clean install");
+						fw.write("mvn -f " + outputMakeDirectory+" clean install\n");
+						fw.write("cp " + outputMakeDirectory+File.separator+"target"+File.separator+thing.getName()+"_Cfg-1.0.0-jar-with-dependencies.jar execs\n");
+					}
+					InputStream in = proc.getInputStream();
+					log.debug(NetworkHelper.convertStreamToString(in));
+					InputStream err = proc.getErrorStream();
+					if (NetworkHelper.convertStreamToString(err).equals("")) {
+						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+					} else {
+						log.error(NetworkHelper.convertStreamToString(err));
+					}
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			fw.close();
+		} catch (IOException ioe) {
+			System.err.println("IOException: " + ioe.getMessage());
 		}
 		log.info("All things transformed.");
 		return allThingMLResources;
 	}
 
-	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile, String thingName) {
-		log.debug("Input CyprIoT file path : "+ cypriotInputFile.getPath());
+	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile,
+			String thingName) {
+		log.debug("Input CyprIoT file path : " + cypriotInputFile.getPath());
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
-		log.debug("Output Directory after transformation : "+ outputFile);
+		log.debug("Output Directory after transformation : " + outputFile);
 		// Models
 		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile, thingName);
 		registerCyprIoTModelInEnvironment(rs, env, "CY", cypriotInputFile);
-		
+
 		registerMetamodelInEnvironment("http://www.thingml.org/xtext/ThingML", env, rs, "ThingML");
 		registerMetamodelInEnvironment("http://www.atlanmod.org/CyprIoT", env, rs, "CyprIoT");
 
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("emftvm", new EMFTVMResourceFactoryImpl());
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-		
+
 		Model outModel = registerOutputModelInEnvironment(outputFile, rs, env, "OUT");
 		ModuleResolver mr = new DefaultModuleResolver(TRANSFORMATION_DIRECTORY, rs);
 		TimingData td = new TimingData();
@@ -105,15 +137,16 @@ public class TransformationHelper {
 		}
 		return resource;
 	}
-	
+
 	private Model registerOutputModelInEnvironment(String outputModel, ResourceSet rs, ExecEnv env, String name) {
 		Model outModel = EmftvmFactory.eINSTANCE.createModel();
 		outModel.setResource(rs.createResource(URI.createFileURI(outputModel)));
 		env.registerOutputModel(name, outModel);
 		return outModel;
 	}
-	
-	private void registerThingMLModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File thingMLInputFile, String thingName) {
+
+	private void registerThingMLModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File thingMLInputFile,
+			String thingName) {
 		Resource res = getResourceFromThingMLFile(thingMLInputFile, thingName);
 		registerResourceInEnv(env, name, res);
 	}
@@ -122,7 +155,7 @@ public class TransformationHelper {
 		Resource res = Helpers.getResourceFromFile(thingMLInputFile, thingName);
 		return res;
 	}
-	
+
 	private void registerCyprIoTModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File cypriotInputFile) {
 		Resource res = getResourceFromCyprIoTFile(cypriotInputFile);
 		registerResourceInEnv(env, name, res);
@@ -145,5 +178,5 @@ public class TransformationHelper {
 		cypriotMetamodel.setResource(rs.getResource(URI.createURI(inputMetamodelNsURI), true));
 		env.registerMetaModel(name, cypriotMetamodel);
 	}
-	
+
 }

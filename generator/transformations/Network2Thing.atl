@@ -25,6 +25,15 @@ helper context String def : transformArrowToMQTTSyntax : String =
 	endif
 ;
 
+helper context CyprIoT!Bind def : getTopicName() : String =
+	if(self.getTopicFromBind().topicName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.getTopicFromBind().name
+	else 
+		self.getTopicFromBind().topicName
+	endif
+;
+
+
 helper context CyprIoT!Bind def : getDomainFromBind() : String =
 	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
 ;
@@ -317,27 +326,27 @@ rule createExternalConnectorFromBind {
 	to 
 	c : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
-		instances <- Sequence{i},
-		connectors <- Sequence{t},
+		instances <- Sequence{instance},
+		connectors <- Sequence{externalConnector},
 		annotations <- Sequence{compiler}
 	),
 	compiler : ThingML!PlatformAnnotation(
 		name <- 'compiler',
 		value <- s.bindsInstanceThing.typeThing.targetedPlatform.toString().removeHash().toLower()
 	),
-	i : ThingML!Instance(
+	instance : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
 		type <- ThingML!Thing.allInstances().first() -- TODO : more generic
 	),
-	a : ThingML!PlatformAnnotation(
+	annotationMqtt : ThingML!PlatformAnnotation(
 		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- s.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+s.getTopicFromBind().name
+		value <- s.getTopicName()
 	),
-	t : ThingML!ExternalConnector(
-		inst <- i,
+	externalConnector : ThingML!ExternalConnector(
+		inst <- instance,
 		port <- ThingML!Port.allInstances().first(),
 		protocol <- CyprIoT!InstancePubSub.allInstances().first(),
-		annotations <- Sequence{a}
+		annotations <- Sequence{annotationMqtt}
 	)
 }
 
@@ -346,17 +355,17 @@ rule transformProtocol {
 	from s : CyprIoT!InstancePubSub
 	to t : ThingML!Protocol(
 		name <- s.typePubSub.targetedProtocol.toString().removeHash(),
-		annotations <- Sequence{a1,a2,a3}
+		annotations <- Sequence{brokerAdress,portNumber,serializer}
 	),
-	a1 : ThingML!PlatformAnnotation(
+	brokerAdress : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
 		value <- s.typePubSub.server.toString().split(':').first()
 	),
-	a2 : ThingML!PlatformAnnotation(
+	portNumber : ThingML!PlatformAnnotation(
 		name <- 'mqtt_port_number',
 		value <- s.typePubSub.server.toString().split(':').last()
 	),
-	a3 : ThingML!PlatformAnnotation(
+	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
 		value <- 'JSON'
 	)
