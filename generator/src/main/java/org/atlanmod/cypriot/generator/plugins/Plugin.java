@@ -1,7 +1,6 @@
 package org.atlanmod.cypriot.generator.plugins;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
