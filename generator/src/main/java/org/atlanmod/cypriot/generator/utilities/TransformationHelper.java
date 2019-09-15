@@ -2,6 +2,7 @@ package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,15 +50,25 @@ public class TransformationHelper {
 			String outputFile = outputDirectory+"transformed_"+thing.getName()+".thingml";
 			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile, thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
-			String[] args=new String[6];
-			args[0] = "-s";
-			args[1] = outputFile;
-			args[2] = "-o";
-			args[3] = outputDirectory+File.separator+thing.getName();
-			args[4] = "-c";
-			args[5] = "posix";
 			
-			org.thingml.compilers.commandline.Main.main(args);
+			String args = "-s "+outputFile+" -o "+outputDirectory+thing.getName()+" -c auto";
+			
+			try {
+				log.info("Running ThingML generator...");
+				Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar "+args);
+				InputStream in = proc.getInputStream();
+				log.debug(NetworkHelper.convertStreamToString(in));
+				InputStream err = proc.getErrorStream();
+				if(NetworkHelper.convertStreamToString(err).equals("")) {
+					log.info("ThingML generator completed without errors for "+thing.getName()+".");
+				} else {
+					log.error(NetworkHelper.convertStreamToString(err));
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		log.info("All things transformed.");
 		return allThingMLResources;

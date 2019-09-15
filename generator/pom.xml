@@ -150,86 +150,11 @@
 		</dependency>
 		<!-- TODO Remove local dependencies -->
 		<dependency>
-			<groupId>compilers.framework-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.framework-2.0.0-SNAPSHOT</artifactId>
+			<groupId>thingmlcmd</groupId>
+			<artifactId>thingmlcmd</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.framework-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.java-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.java-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.java-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.javascript-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.javascript-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.javascript-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.c-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.c-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.c-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.go-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.go-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.go-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.uml-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.uml-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.uml-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.thingmltools-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.thingmltools-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.thingmltools-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>compilers.registry-2.0.0-SNAPSHOT</groupId>
-			<artifactId>compilers.registry-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/compilers.registry-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>official-network-plugins-2.0.0-SNAPSHOT</groupId>
-			<artifactId>official-network-plugins-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/official-network-plugins-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>utilities-2.0.0-SNAPSHOT</groupId>
-			<artifactId>utilities-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/utilities-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>thingml-2.0.0-SNAPSHOT</groupId>
-			<artifactId>thingml-2.0.0-SNAPSHOT</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/thingml/thingml-2.0.0-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.beust</groupId>
-			<artifactId>jcommander</artifactId>
-			<version>1.78</version>
+			<systemPath>${project.basedir}/lib/thingml/thingmlcmd.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>

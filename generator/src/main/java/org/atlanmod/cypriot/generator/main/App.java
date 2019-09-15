@@ -9,8 +9,6 @@ import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
 import org.atlanmod.cypriot.generator.utilities.TransformationHelper;
-import org.thingml.compilers.ThingMLCompiler;
-import org.thingml.compilers.commandline.Main;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -18,7 +16,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-    public static final String CYPRIOT_FILE ="../generator/src/test/resources/1_TwoThings/main.cy" ;   
+    public static final String CYPRIOT_FILE ="../generator/src/test/resources/3_ThreeThings/main.cy" ;   
     public static final String CONFIG_FILE ="../generator/config.cfg" ;   
 
 	static final Logger log = LogManager.getLogger(App.class.getName());

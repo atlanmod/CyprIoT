@@ -22,7 +22,6 @@ import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.thingml.compilers.ThingMLCompiler;
 
 public final class NetworkHelper {
 
@@ -59,7 +58,10 @@ public final class NetworkHelper {
 		}
 		return instanceThings;
 	}
-
+	static String convertStreamToString(java.io.InputStream is) {
+	    java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+	    return s.hasNext() ? s.next() : "";
+	}
 	/**
 	 * Show the version of Cypriot in the console
 	 */
