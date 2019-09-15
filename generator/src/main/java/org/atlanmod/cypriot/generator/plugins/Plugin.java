@@ -5,14 +5,11 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 public interface Plugin {
 	void attach(Logger log);
 	String getID();
 	CyprIoTModel initiliaze();
-	ArrayList<ThingMLModel> loadModel(CyprIoTModel model);
-	Boolean validate(ArrayList<ThingMLModel> thingmlModel);
 	CyprIoTModel transform(CyprIoTModel model);
 	void generate(CyprIoTModel model, File outputDirectory);
 	void verify(CyprIoTModel model);

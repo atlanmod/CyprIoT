@@ -1,6 +1,5 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-ClassPath: .,thingml-lang.jar
 Bundle-Name: org.atlanmod.cypriot.tests
 Bundle-Vendor: Atlanmod
 Bundle-Version: 0.1.0.qualifier
@@ -15,7 +14,8 @@ Require-Bundle: org.atlanmod.cypriot,
  org.eclipse.ui.workbench;resolution:=optional,
  org.objectweb.asm;resolution:=optional,
  org.eclipse.xtext.testing,
- org.eclipse.xtext.xbase.testing
+ org.eclipse.xtext.xbase.testing,
+ thingml
 Import-Package: org.apache.log4j,
  org.hamcrest.core,
  org.junit;version="4.5.0",

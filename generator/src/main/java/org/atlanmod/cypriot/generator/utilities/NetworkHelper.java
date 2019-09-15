@@ -23,12 +23,6 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.thingml.compilers.ThingMLCompiler;
-import org.thingml.xtext.thingML.CompositeState;
-import org.thingml.xtext.thingML.Configuration;
-import org.thingml.xtext.thingML.State;
-import org.thingml.xtext.thingML.Thing;
-import org.thingml.xtext.thingML.ThingMLModel;
-import org.thingml.xtext.thingML.Type;
 
 public final class NetworkHelper {
 
@@ -66,18 +60,6 @@ public final class NetworkHelper {
 		return instanceThings;
 	}
 
-	/**
-	 * @param thingmlModel
-	 * @throws RuntimeException
-	 */
-	public static void saveAsThingML(ThingMLModel thingmlModel, String location) {
-		try {
-			ThingMLCompiler.saveAsXMI(ThingMLCompiler.flattenModel(thingmlModel), location);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * Show the version of Cypriot in the console
 	 */
@@ -140,46 +122,6 @@ public final class NetworkHelper {
 			name = ((NamedElement) eObject).getName();
 		}
 		return name;
-	}
-
-	/**
-	 * Check whether there is only one Thing type
-	 * 
-	 * @param thingmlModel
-	 * @return True if there is only one Thing type, False if not.
-	 */
-	public static boolean isThingOne(ThingMLModel thingModel) {
-		List<Thing> things = new ArrayList<Thing>();
-		List<Type> alltypes = thingModel.getTypes();
-		for (Type type : alltypes) {
-			if (type instanceof Thing) {
-				things.add((Thing) type);
-			}
-		}
-		return things.size() == 1;
-	}
-
-	/**
-	 * Check whether there is only one external connector in the imported ThingML
-	 * file
-	 * 
-	 * @param thingmlModel
-	 * @return True if there is only one connector, False if not.
-	 */
-	public static boolean isConnectorOne(Configuration configuration) {
-		int connnectorsCount = configuration.getConnectors().size();
-		return connnectorsCount == 1;
-	}
-
-	/**
-	 * Check whether there is only one configuration in the imported ThingML file
-	 * 
-	 * @param thingmlModel
-	 * @return True if there is only one configuration, False if not.
-	 */
-	public static boolean isConfigOne(ThingMLModel thingmlModel) {
-		int configCount = thingmlModel.getConfigs().size();
-		return configCount == 1;
 	}
 
 	/**
@@ -278,17 +220,6 @@ public final class NetworkHelper {
 			policies = network.getHasPolicyEnforcement().getHasEnforcedPolicies();
 		}
 		return policies;
-	}
-
-	/**
-	 * @param thingModel
-	 * @return
-	 */
-	public static EList<State> getAllStateInThingMLModel(ThingMLModel thingModel) {
-		Thing thing = (Thing) thingModel.getTypes().get(0);
-		CompositeState statechart = (CompositeState) thing.getBehaviour();
-		EList<State> allStates = statechart.getSubstate();
-		return allStates;
 	}
 
 }

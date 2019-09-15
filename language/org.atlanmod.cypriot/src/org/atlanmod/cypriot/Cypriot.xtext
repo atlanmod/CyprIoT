@@ -130,11 +130,12 @@ Bind:
 ;
 
 enum Platform:
-	POSIX='CPOSIX' | 
+	POSIX='POSIX' | 
+	POSIXMT='POSIMT' |
 	JAVA='JAVA' |
 	ARDUINO='ARDUINO' |
-	JS='JS' |
-	PYTHON='PYTHON'
+	JAVASCRIPT='JAVASCRIPT' |
+	GO='GO'
 ;
 
 enum PubSubProtocol:

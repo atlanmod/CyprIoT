@@ -1,13 +1,11 @@
 package org.atlanmod.cypriot.generator.plugins.installed;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 import org.atlanmod.cypriot.generator.utilities.AcceleoStandaloneCompiler;
-import org.thingml.xtext.thingML.ThingMLModel;
 
 public class RabbitMQACPlugin implements Plugin {
 
@@ -23,16 +21,6 @@ public class RabbitMQACPlugin implements Plugin {
 
 	@Override
 	public CyprIoTModel initiliaze() {
-		return null;
-	}
-
-	@Override
-	public ArrayList<ThingMLModel> loadModel(CyprIoTModel model) {
-		return null;
-	}
-
-	@Override
-	public Boolean validate(ArrayList<ThingMLModel> thingmlModel) {
 		return null;
 	}
 

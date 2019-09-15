@@ -26,12 +26,25 @@ helper context String def : transformArrowToMQTTSyntax : String =
 ;
 
 helper context CyprIoT!Bind def : getDomainFromBind() : String =
-	self.refImmediateComposite()->refGetValue('domain')->refGetValue('name').toString()	
+	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
 ;
 
 helper context CyprIoT!Bind def : getTopicFromBind() : CyprIoT!Topic =
-	self.channelToBind->refGetValue('topics')->refInvokeOperation('get', Sequence{0})	
+	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first()	
 ;
+
+helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleComm))
+;
+
+helper context CyprIoT!Policy def : getRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleTrigger))
+;
+
+helper context CyprIoT!Policy def : getRuleBridgeFromPolicy() : Sequence(CyprIoT!RuleBridge) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleBridge))
+;
+
 
 -- /BEGIN COPIER
 
@@ -40,7 +53,7 @@ rule copyThingMLModel {
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs->union(CyprIoT!Bind.allInstances()->select(e | e.bindsInstanceThing.typeThing.thingToInstantiate.name=s.types.first().name)), -- Implicit transformation mechanism
 		imports <- s.imports,
-		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances()), -- Implicit transformation mechanism
+		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances())->union(CyprIoT!PoliciesEnforcement.allInstances()), -- Implicit transformation mechanism
 		types <- s.types
 	)	
 }
@@ -137,6 +150,29 @@ rule copyReceiveMessage {
 		message <- s.message,
 		name <- s.name,
 		port <- s.port
+	)
+}
+
+rule copyLoopAction {
+	from s : ThingML!LoopAction
+	to t : ThingML!LoopAction(
+		action <- s.action,
+		condition <- s.condition
+	)
+}
+
+rule copyBooleanLiteral {
+	from s : ThingML!BooleanLiteral
+	to t : ThingML!BooleanLiteral(
+		boolValue <- s.boolValue
+	)
+}
+
+rule copyExternStatement {
+	from s : ThingML!ExternStatement
+	to t : ThingML!ExternStatement(
+		segments <- s.segments,
+		statement <- s.statement
 	)
 }
 
@@ -277,12 +313,17 @@ rule copyInternalTransition {
 
 
 rule createExternalConnectorFromBind {
-	from s : CyprIoT!Bind((ThingML!Port.allInstances().first().refImmediateComposite()->refGetValue('name')=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
+	from s : CyprIoT!Bind((ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
 	to 
 	c : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
 		instances <- Sequence{i},
-		connectors <- Sequence{t}
+		connectors <- Sequence{t},
+		annotations <- Sequence{compiler}
+	),
+	compiler : ThingML!PlatformAnnotation(
+		name <- 'compiler',
+		value <- s.bindsInstanceThing.typeThing.targetedPlatform.toString().removeHash().toLower()
 	),
 	i : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
@@ -320,3 +361,4 @@ rule transformProtocol {
 		value <- 'JSON'
 	)
 }
+

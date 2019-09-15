@@ -36,6 +36,7 @@ import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.ThingAny;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -48,6 +49,7 @@ import org.thingml.xtext.ThingMLStandaloneSetup;
 import org.thingml.xtext.constraints.ThingMLHelpers;
 import org.thingml.xtext.helpers.CompositeStateHelper;
 import org.thingml.xtext.thingML.CompositeState;
+import org.thingml.xtext.thingML.Configuration;
 import org.thingml.xtext.thingML.Function;
 import org.thingml.xtext.thingML.Message;
 import org.thingml.xtext.thingML.Parameter;
@@ -55,11 +57,69 @@ import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.Property;
 import org.thingml.xtext.thingML.State;
 import org.thingml.xtext.thingML.ThingMLModel;
+import org.thingml.xtext.thingML.Type;
 
 public class Helpers {
 
 	static final Logger log = LogManager.getLogger(Helpers.class.getName());
+	/**
+	 * Check whether there is only one Thing type
+	 * 
+	 * @param thingmlModel
+	 * @return True if there is only one Thing type, False if not.
+	 */
+	public static boolean isThingOne(ThingMLModel thingModel) {
+		List<Thing> things = new ArrayList<Thing>();
+		List<Type> alltypes = thingModel.getTypes();
+		for (Type type : alltypes) {
+			if (type instanceof Thing) {
+				things.add((Thing) type);
+			}
+		}
+		return things.size() == 1;
+	}
+	
+	/**
+	 * Check whether there is only one external connector in the imported ThingML
+	 * file
+	 * 
+	 * @param thingmlModel
+	 * @return True if there is only one connector, False if not.
+	 */
+	public static boolean isConnectorOne(Configuration configuration) {
+		int connnectorsCount = configuration.getConnectors().size();
+		return connnectorsCount == 1;
+	}
+	
 
+	/**
+	 * @param thingModel
+	 * @return
+	 */
+	public static EList<State> getAllStateInThingMLModel(ThingMLModel thingModel) {
+		org.thingml.xtext.thingML.Thing thing = (org.thingml.xtext.thingML.Thing) thingModel.getTypes().get(0);
+		CompositeState statechart = (CompositeState) thing.getBehaviour();
+		EList<State> allStates = statechart.getSubstate();
+		return allStates;
+	}
+	
+	public static ThingMLModel setNameInThingML(File thingMLInputFile, String thingName) {
+		ThingMLModel thingmlModel = Helpers.loadModelFromFile(thingMLInputFile, ThingMLModel.class);
+		((org.thingml.xtext.thingML.Thing)thingmlModel.getTypes().get(0)).setName(thingName);
+		return thingmlModel;
+	}
+	
+	/**
+	 * Check whether there is only one configuration in the imported ThingML file
+	 * 
+	 * @param thingmlModel
+	 * @return True if there is only one configuration, False if not.
+	 */
+	public static boolean isConfigOne(ThingMLModel thingmlModel) {
+		int configCount = thingmlModel.getConfigs().size();
+		return configCount == 1;
+	}
+	
 	public static CyprIoTModel getModelFromRelativeURI(CyprIoTModel cyModel, String uri) throws Exception {
 		URI new_uri;
 		log.debug("URI of CyprIoT file : " + uri);
@@ -601,7 +661,11 @@ public class Helpers {
 		ResourceSet rs = new ResourceSetImpl();
 		return rs.createResource(xmiuri);
 	}
-
+	
+	public static Resource getResourceFromFile(File thingMLInputFile, String thingName) {
+		return Helpers.getResourceFromModel(Helpers.setNameInThingML(thingMLInputFile, thingName));
+	}
+	
 	public static Resource getResourceFromModel(EObject eObject) {
 		ResourceSet myres = new ResourceSetImpl();
 		Resource res = myres.createResource(URI.createFileURI("dummy.xmi"));

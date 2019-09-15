@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.eclipse.emf.common.util.URI;
@@ -25,10 +26,9 @@ import org.eclipse.m2m.atl.emftvm.impl.resource.EMFTVMResourceFactoryImpl;
 import org.eclipse.m2m.atl.emftvm.util.DefaultModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.ModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.TimingData;
-import org.thingml.xtext.thingML.ThingMLModel;
 
-public class Util {
-	static final Logger log = LogManager.getLogger(Util.class.getName());
+public class TransformationHelper {
+	static final Logger log = LogManager.getLogger(TransformationHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "Network2Thing";
 	
@@ -37,14 +37,27 @@ public class Util {
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
-			Thing thing = bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate();
+			InstanceThing instance = bind.getBindsInstanceThing();
+			Thing thing = instance.getTypeThing().getThingToInstantiate();
 			String thingPath = cypriotInputFile.getParentFile()+File.separator+thing.getImportPath();
 			File thingMLFile = new File(thingPath);
-			String outputFile = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"transformed_"+thing.getName()+".thingml";
-			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile, thing.getName());
-			allThingMLResources.add(transformedThingMLModel);
+			
 			log.info("Transforming thing : "+thing.getName()+"...");
 			log.debug("Thing File Path : "+thingMLFile.getAbsolutePath());
+			
+			String outputDirectory = cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator;
+			String outputFile = outputDirectory+"transformed_"+thing.getName()+".thingml";
+			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile, thing.getName());
+			allThingMLResources.add(transformedThingMLModel);
+			String[] args=new String[6];
+			args[0] = "-s";
+			args[1] = outputFile;
+			args[2] = "-o";
+			args[3] = outputDirectory+File.separator+thing.getName();
+			args[4] = "-c";
+			args[5] = "posix";
+			
+			org.thingml.compilers.commandline.Main.main(args);
 		}
 		log.info("All things transformed.");
 		return allThingMLResources;
@@ -95,9 +108,7 @@ public class Util {
 	}
 
 	private Resource getResourceFromThingMLFile(File thingMLInputFile, String thingName) {
-		ThingMLModel thingmlModel = Helpers.loadModelFromFile(thingMLInputFile, ThingMLModel.class);
-		((org.thingml.xtext.thingML.Thing)thingmlModel.getTypes().get(0)).setName(thingName);
-		Resource res = Helpers.getResourceFromModel(thingmlModel);
+		Resource res = Helpers.getResourceFromFile(thingMLInputFile, thingName);
 		return res;
 	}
 	
