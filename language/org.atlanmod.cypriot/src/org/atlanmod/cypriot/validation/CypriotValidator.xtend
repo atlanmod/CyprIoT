@@ -42,44 +42,45 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val TOPIC_UNIQUENESS = "Topic-Uniqueness"
 	public static val CONNECTIONPOINT_UNIQUENESS = "ConnectionPoint-Uniqueness"
 	public static val ONLYONETHING = "OnlyOneThing"
-	public static val PORT_CHANNEL_COMPATIBILITY = "PortChannel-Compatibility"
+	public static val PORT_CHANNEL__RECEIVE_COMPATIBILITY = "PortChannelReceive-Compatibility"
+	public static val PORT_CHANNEL_SEND_COMPATIBILITY = "PortChannelSend-Compatibility"
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existance"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
 
-	@Check(FAST)
-	def checkBindPortChannelCompatibility(Bind bind) {
-		val portBind = bind.portToBind
-		val network = bind.eContainer as Network
-		val channelToBind = bind.channelToBind
-		
-		if (channelToBind instanceof ToBindPubSub) {
-			if(bind.bindAction.literal.equals("=>")) {
-				if(portBind.sends.size!==0) {
-					if (!portBind.sends.exists[m | (channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessages.exists[a|a.name.equals(m.name)]]]) {
-						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_COMPATIBILITY)
-					}
-				} else {
-					val msg = "The port " + portBind.getName() + " cannot send a message.";
-					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
-				}
-			} else if (bind.bindAction.literal.equals("<=")) {
-				if(portBind.receives.size!==0) {
-					if (!portBind.receives.exists[m | (channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessages.exists[a|a.name.equals(m.name)]]]) {
-						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_COMPATIBILITY)
-					}
-				} else {
-					val msg = "The port " + portBind.getName() + " cannot receive a message.";
-					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
-				}
-			}
-			
-		}
-
-	}
+//	@Check(FAST)
+//	def checkBindPortChannelCompatibility(Bind bind) {
+//		val portBind = bind.portToBind
+//		val network = bind.eContainer as Network
+//		val channelToBind = bind.channelToBind
+//		
+//		if (channelToBind instanceof ToBindPubSub) {
+//			if(bind.bindAction.literal.equals("=>")) {
+//				if(portBind.sends.size!==0) {
+//					if (!(channelToBind as ToBindPubSub).topics.forall[t | portBind.sends.exists[m | t.acceptedMessage.name.equals(m.name)]]) {
+//						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+//						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_SEND_COMPATIBILITY)
+//					}
+//				} else {
+//					val msg = "The port " + portBind.getName() + " cannot send a message.";
+//					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+//					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
+//				}
+//			} else if (bind.bindAction.literal.equals("<=")) {
+//				if(portBind.receives.size!==0) {
+//					if (!(channelToBind as ToBindPubSub).topics.forall[t | portBind.receives.exists[m | t.acceptedMessage.name.equals(m.name)]]) {
+//						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+//						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL__RECEIVE_COMPATIBILITY)
+//					}
+//				} else {
+//					val msg = "The port " + portBind.getName() + " cannot receive a message.";
+//					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+//					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
+//				}
+//			}
+//			
+//		}
+//
+//	}
 
 	@Check(FAST)
 	def checkNumberofThing(Thing thing) {
