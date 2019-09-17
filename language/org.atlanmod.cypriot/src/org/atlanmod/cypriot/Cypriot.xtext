@@ -107,7 +107,7 @@ PubSub:
 ;
 
 Topic:
-	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)?')')?  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessage=[thingml::Message]')')?  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 enum Serializer:
@@ -161,7 +161,7 @@ ChannelToBind:
 ;
 
 ToBindPubSub:
-	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
+	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] '(' serializer+=Serializer ')' ( "," topics+=[Topic] '(' serializer+=Serializer ')')*'}'
 ;
 
 ToBindPTP:

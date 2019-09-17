@@ -148,7 +148,6 @@ public class Helpers {
 	public static <C> C allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
 		final List<C> result = new ArrayList<C>();
 		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
-		System.out.println("parent.eCrossReferences() : "+parent.getClass().getName());
 		while (it.hasNext()) {
 			EObject o = it.next();
 			if (c.isInstance(o))
@@ -159,8 +158,8 @@ public class Helpers {
 	}
 	
 	public static ThingAny allContainedCrossThingAny(EObject parent) {
-		System.out.println("parent :"+parent.getClass().getName());
-		return ((ThingWithPort)parent).getThing();
+		ThingAny thingAny = allContainedCrossReferencesOfType(parent, ThingAny.class);
+		return thingAny;
 	}
 	
 	public static PubSub allContainedCrossPubSub(EObject parent) {
