@@ -27,7 +27,7 @@ helper context String def : transformArrowToMQTTSyntax : String =
 
 helper context CyprIoT!Bind def : getTopicName() : String =
 	if(self.getTopicFromBind().topicName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.getTopicFromBind().name
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+self.getTopicFromBind().name
 	else 
 		self.getTopicFromBind().topicName
 	endif
