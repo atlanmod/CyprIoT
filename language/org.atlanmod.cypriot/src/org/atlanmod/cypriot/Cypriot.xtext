@@ -126,7 +126,7 @@ ConnectionPoint:
 ;
 
 Bind:
-	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?"." portToBind=[thingml::Port] bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?"." (portToBind=[thingml::Port] | noderedPort=NODEREDPORT) bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
 ;
 
 enum Platform:
@@ -135,7 +135,8 @@ enum Platform:
 	JAVA='JAVA' |
 	ARDUINO='ARDUINO' |
 	JAVASCRIPT='JAVASCRIPT' |
-	GO='GO'
+	GO='GO'|
+	NODERED='NODERED'
 ;
 
 enum PubSubProtocol:
@@ -359,7 +360,10 @@ IntLiteral:
 
 VALIDID:
 	ID;
-	
+
+NODEREDPORT:
+	ID'0..9';
+
 // Terminals
 	
 //terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
