@@ -7,7 +7,7 @@
 ['['/]
 [for (bind : Bind | aNetwork.hasBinds) separator(',') ]
 	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics) ]
-	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[topic.name/]"}
+	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]"}
 	[/for]
 [/for]
 [']'/]

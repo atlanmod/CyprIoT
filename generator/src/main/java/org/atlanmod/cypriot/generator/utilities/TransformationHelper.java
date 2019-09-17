@@ -1,7 +1,6 @@
 package org.atlanmod.cypriot.generator.utilities;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -40,66 +39,44 @@ public class TransformationHelper {
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
 		String outputDirectory = cypriotInputFile.getParent() + File.separator + "network-gen" + File.separator;
 		new File(outputDirectory).mkdirs();
-		try {
-			String filename = outputDirectory + "setup.sh";
-			File setup = new File(filename);
-			FileWriter fw = new FileWriter(filename, true);
-			fw.write("#!/bin/bash \n");
-			fw.write("mkdir execs\n");
-			for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
-				InstanceThing instance = bind.getBindsInstanceThing();
-				Thing thing = instance.getTypeThing().getThingToInstantiate();
-				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
-				File thingMLFile = new File(thingPath);
+		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
+			InstanceThing instance = bind.getBindsInstanceThing();
+			Thing thing = instance.getTypeThing().getThingToInstantiate();
+			String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
+			File thingMLFile = new File(thingPath);
 
-				log.info("Transforming thing : " + thing.getName() + "...");
-				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
+			log.info("Transforming thing : " + thing.getName() + "...");
+			log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
 
-				String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
-				Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
-						thing.getName());
-				allThingMLResources.add(transformedThingMLModel);
-				String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
-				String outputGenDirectory = outputDirectory + File.separator + targetPlatform + File.separator
-						+ thing.getName();
-				String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
-				
-				String outputMakeDirectory = thingMLFile.getParentFile().getAbsolutePath() + File.separator
-						+ "network-gen" + File.separator + targetPlatform + File.separator + thing.getName();
+			String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
+			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
+					thing.getName());
+			allThingMLResources.add(transformedThingMLModel);
+			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
+			String outputGenDirectory = outputDirectory + File.separator +"devices"+ File.separator
+					+ thing.getName() + File.separator + targetPlatform;
+			String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 
-				try {
-					log.info("Running ThingML generator...");
-					Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
-					proc.waitFor();
-					if(targetPlatform.equals("posix") || targetPlatform.equals("posixmt")) {
-						log.debug("make -C " + outputMakeDirectory);
-						fw.write("make -C " + outputMakeDirectory+"\n");
-						fw.write("cp " + outputMakeDirectory+File.separator+thing.getName()+"_Cfg execs\n");
-					} else if (targetPlatform.equals("java")) {
-						log.debug("mvn -f " + outputMakeDirectory+" clean install");
-						fw.write("mvn -f " + outputMakeDirectory+" clean install\n");
-						fw.write("cp " + outputMakeDirectory+File.separator+"target"+File.separator+thing.getName()+"_Cfg-1.0.0-jar-with-dependencies.jar execs\n");
-					}
-					InputStream in = proc.getInputStream();
-					log.debug(NetworkHelper.convertStreamToString(in));
-					InputStream err = proc.getErrorStream();
-					if (NetworkHelper.convertStreamToString(err).equals("")) {
-						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
-					} else {
-						log.error(NetworkHelper.convertStreamToString(err));
-					}
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			try {
+				log.info("Running ThingML generator...");
+				Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
+				proc.waitFor();
+				InputStream in = proc.getInputStream();
+				log.debug(NetworkHelper.convertStreamToString(in));
+				InputStream err = proc.getErrorStream();
+				if (NetworkHelper.convertStreamToString(err).equals("")) {
+					log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+				} else {
+					log.error("There was errors in ThingML generation." + NetworkHelper.convertStreamToString(err));
 				}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			fw.close();
-		} catch (IOException ioe) {
-			System.err.println("IOException: " + ioe.getMessage());
 		}
 		log.info("All things transformed.");
 		return allThingMLResources;

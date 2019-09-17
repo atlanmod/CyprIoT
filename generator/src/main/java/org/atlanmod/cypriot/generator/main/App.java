@@ -17,7 +17,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-    public static final String CYPRIOT_FILE ="../generator/src/test/resources/4_FourThings/main.cy" ;   
+    public static final String CYPRIOT_FILE ="../generator/src/test/resources/5_FiveThings/main.cy" ;   
     public static final String CONFIG_FILE ="../generator/config.cfg" ;   
 
 	static final Logger log = LogManager.getLogger(App.class.getName());
@@ -39,12 +39,11 @@ public class App implements Runnable {
 		if(!CONFIG_FILE.equals("")) cypriotConfigFile=new File(CONFIG_FILE);
 		
 		if(cypriotOutputDirectory==null) {
-			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen"+File.separator+"tr_thin.thingml");
+			cypriotOutputDirectory = new File (cypriotInputFile.getParent()+File.separator+"network-gen");
 			log.debug("Output Directory : "+cypriotOutputDirectory);
 		}
-			
-		log.debug("CyprIoT Input File Path : "+ cypriotInputFile.getPath());
 		
+		log.debug("CyprIoT Input File Path : "+ cypriotInputFile.getPath());
 		TransformationHelper transformationHelper = new TransformationHelper();
 		transformationHelper.transform(cypriotInputFile);
 		
@@ -55,7 +54,7 @@ public class App implements Runnable {
 			PluginLoader pluginLoader = new PluginLoader();
 			pluginLoader.setConfigFile(cypriotConfigFile);
 			pluginLoader.setModel(model);
-			pluginLoader.setOutputDirectory(new File(cypriotOutputDirectory.getParent()+File.separator+"network-gen"));
+			pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 			pluginLoader.load();
 		}
 		/*

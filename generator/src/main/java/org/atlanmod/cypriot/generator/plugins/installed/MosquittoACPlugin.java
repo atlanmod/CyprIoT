@@ -11,12 +11,12 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public String getID() {
-		return "mosquittoPlugin";
+		return "mosquittoAC";
 	}
 
 	@Override
 	public void attach(Logger log) {
-		log.info("Loading Mosquitto Access Control plugin...");
+		log.info("Loading "+getID()+" plugin...");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class MosquittoACPlugin implements Plugin {
 	public void generate(CyprIoTModel model, File outputDirectory) {
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
 		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/mosquitto";
-		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory.getParent()+File.separator+"external-gen");	
+		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"external-gen");	
 	}
 
 	@Override

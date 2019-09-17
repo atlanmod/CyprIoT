@@ -34,6 +34,7 @@ import org.atlanmod.cypriot.cyprIoT.PubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.Thing;
 import org.atlanmod.cypriot.cyprIoT.ThingAny;
+import org.atlanmod.cypriot.cyprIoT.ThingWithPort;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.EList;
@@ -144,16 +145,32 @@ public class Helpers {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <C> List<C> allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
+	public static <C> C allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
 		final List<C> result = new ArrayList<C>();
 		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
+		System.out.println("parent.eCrossReferences() : "+parent.getClass().getName());
 		while (it.hasNext()) {
 			EObject o = it.next();
 			if (c.isInstance(o))
 				result.add((C) o);
 		}
 
-		return result;
+		return result.get(0);
+	}
+	
+	public static ThingAny allContainedCrossThingAny(EObject parent) {
+		System.out.println("parent :"+parent.getClass().getName());
+		return ((ThingWithPort)parent).getThing();
+	}
+	
+	public static PubSub allContainedCrossPubSub(EObject parent) {
+		PubSub pubsub = allContainedCrossReferencesOfType(parent, PubSub.class);
+	return pubsub;
+	}
+	
+	public static PointToPoint allContainedCrossPTP(EObject parent) {
+		PointToPoint ptp = allContainedCrossReferencesOfType(parent, PointToPoint.class);
+	return ptp;
 	}
 
 	public static CyprIoTModel findContainingModel(EObject object) {

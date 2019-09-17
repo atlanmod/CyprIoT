@@ -11,12 +11,12 @@ public class RabbitMQACPlugin implements Plugin {
 
 	@Override
 	public String getID() {
-		return "rabbitPlugin";
+		return "rabbitAC";
 	}
 
 	@Override
 	public void attach(Logger log) {
-		log.info("Loading RabbitMQ Access Control plugin...");
+		log.info("Loading "+getID()+" plugin...");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class RabbitMQACPlugin implements Plugin {
 	public void generate(CyprIoTModel model, File outputDirectory) {
 		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
 		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/rabbit";
-		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory.getParent()+File.separator+"external-gen");
+		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"external-gen");
 	}
 
 	@Override

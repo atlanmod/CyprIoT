@@ -110,7 +110,27 @@ class CypriotNetworkParsingTest {
 				instance th1:thing1 platform JAVA
 				instance th1:thing1 platform JAVA
 			}
-		''')
+		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
+			createResource(URI.createFileURI("/thing1.thingml")) => [
+				load(new StringInputStream('''
+					thing thing1{
+						message message1()
+						provided port port1 {
+							sends message1
+						}
+						statechart thing1 init state1 {
+							state state1 {}
+							state state2 {}
+						}
+					}
+					protocol X;
+					configuration thing1Cfg {
+						instance thing1Inst:thing1
+						connector thing1.port1 over X
+					}
+				''', "UTF-8"), resourceSet.loadOptions)
+			]
+		])
 		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		Assert.assertTrue(thingInstanciate instanceof InstanceThing)
 		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCETHING_UNIQUENESS)

@@ -9,7 +9,7 @@ topic write $SYS/#
 [for (bind : Bind | aNetwork.hasBinds)]
 user [bind.bindsInstanceThing.typeThing.owner.name/]
 	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
-	topic [readOrWrite(bind)/] [aNetwork.domain.name.replaceAll('\\.', '/')/]/[topic.name/]
+	topic [readOrWrite(bind)/] [aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]
 	[/for]
 [/for]
 [/file]
