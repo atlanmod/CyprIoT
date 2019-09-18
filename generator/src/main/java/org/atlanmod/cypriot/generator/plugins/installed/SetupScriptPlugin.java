@@ -39,7 +39,7 @@ public class SetupScriptPlugin implements Plugin {
 	public void generate(CyprIoTModel cyprIoTmodel, File outputDirectory) {
 		try {
 			String filename = outputDirectory+ File.separator + "setup.sh";
-			File setup = new File(filename);
+			new File(filename);
 			FileWriter fw = new FileWriter(filename, true);
 			fw.write("#!/bin/bash \n");
 			fw.write("mkdir execs\n");

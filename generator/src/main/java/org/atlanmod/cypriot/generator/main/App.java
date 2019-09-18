@@ -1,14 +1,13 @@
 package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.plugins.PluginLoader;
-import org.atlanmod.cypriot.generator.utilities.NetworkHelper;
-import org.atlanmod.cypriot.generator.utilities.TransformationHelper;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -17,7 +16,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-    public static final String CYPRIOT_FILE ="../generator/src/test/resources/1_TwoThings/main.cy" ;   
+    public static final String CYPRIOT_FILE ="../generator/src/test/resources/0_HelloWorld/main.cy" ;   
     public static final String CONFIG_FILE ="../generator/config.cfg" ;   
 
 	static final Logger log = LogManager.getLogger(App.class.getName());
@@ -57,16 +56,15 @@ public class App implements Runnable {
 			pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 			pluginLoader.load();
 		}
-		/*
-		// Network Generation
-		NetworkGenerator networkGenerator = new NetworkGenerator(model, cypriotOutputDirectory);
-		networkGenerator.setBinding(new BindingTransformation());
-		networkGenerator.setEnfocePolicy(new PolicyEnforcementTransformation());
-		networkGenerator.generate();
-		*/
 	}
 
 	public static void main(String[] args) {
-		CommandLine.run(new App(), System.out, args);		
+		long startTime = System.nanoTime();
+		CommandLine.run(new App(), System.out, args);
+		long endTime = System.nanoTime();
+		long durationInNano = (endTime - startTime);
+		long durationInMillis = TimeUnit.NANOSECONDS.toMillis(durationInNano);
+		double executionTime = durationInMillis / 1000.0;
+		log.info("Execution time : "+executionTime+"s");
 	}
 }

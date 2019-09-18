@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.utilities;
+package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
 import java.io.IOException;

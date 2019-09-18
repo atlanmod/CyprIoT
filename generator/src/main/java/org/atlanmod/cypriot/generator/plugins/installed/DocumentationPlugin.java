@@ -4,8 +4,8 @@ import java.io.File;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
+import org.atlanmod.cypriot.generator.main.AcceleoStandaloneCompiler;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
-import org.atlanmod.cypriot.generator.utilities.AcceleoStandaloneCompiler;
 
 public class DocumentationPlugin implements Plugin {
 

@@ -1,4 +1,4 @@
-package org.atlanmod.cypriot.generator.utilities;
+package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,20 +41,21 @@ public class TransformationHelper {
 		new File(outputDirectory).mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 			InstanceThing instance = bind.getBindsInstanceThing();
-			Thing thing = instance.getTypeThing().getThingToInstantiate();
-			String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
-			File thingMLFile = new File(thingPath);
-
-			log.info("Transforming thing : " + thing.getName() + "...");
-			log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
-
-			String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
-			Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
-					thing.getName());
-			allThingMLResources.add(transformedThingMLModel);
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
-			if(!targetPlatform.equals("nodered")) {
-				String outputGenDirectory = outputDirectory + File.separator +"devices"+ File.separator
+			Thing thing = instance.getTypeThing().getThingToInstantiate();
+			if (!(targetPlatform.equals("nodered") || thing.getImportPath().isEmpty())) {
+				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
+				File thingMLFile = new File(thingPath);
+
+				log.info("Transforming thing : " + thing.getName() + "...");
+				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
+
+				String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
+				Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
+						thing.getName());
+				allThingMLResources.add(transformedThingMLModel);
+
+				String outputGenDirectory = outputDirectory + File.separator + "devices" + File.separator
 						+ thing.getName() + File.separator + targetPlatform;
 				String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 

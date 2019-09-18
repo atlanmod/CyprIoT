@@ -5,13 +5,8 @@
 [comment @main /]
 [file ('nodered'.concat('.json'), false, 'UTF-8')]
 [for (bind : Bind | aNetwork.hasBinds)]
-[if(bind.bindsInstanceThing.typeThing.targetedPlatform='NODERED')]
+[if(bind.bindsInstanceThing.typeThing.targetedPlatform.toString()='NODERED')]
 		['['/]
-   {
-      "id":"1cd8511c.sdsdfs",
-      "type":"tab",
-      "label":"Flow 1"
-   },
 [for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
    {
       "id":"[bind.bindsInstanceThing.name/].[bind.bindsInstanceThing.typeThing.thingToInstantiate.name/]",
@@ -45,11 +40,11 @@
       [']'/]
    },
    {
-      "id":"a32da4d2.d0b408",
+      "id":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/].[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.pubSubToInstantiate.name/]",
       "type":"mqtt-broker",
       "z":"",
-      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.tokenize(':').at(0)/]",
-      "port":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.tokenize(':').at(1)/]",
+      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.strtok(':', 0)/]",
+      "port":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.strtok(':', 1)/]",
       "clientid":"",
       "usetls":false,
       "compatmode":true,
