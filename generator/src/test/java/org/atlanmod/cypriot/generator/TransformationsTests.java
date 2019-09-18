@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.atlanmod.cypriot.generator.main.App;
-import org.atlanmod.cypriot.generator.utilities.TransformationHelper;
+import org.atlanmod.cypriot.generator.main.TransformationHelper;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
