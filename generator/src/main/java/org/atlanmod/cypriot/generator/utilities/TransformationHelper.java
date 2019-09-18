@@ -53,29 +53,31 @@ public class TransformationHelper {
 					thing.getName());
 			allThingMLResources.add(transformedThingMLModel);
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
-			String outputGenDirectory = outputDirectory + File.separator +"devices"+ File.separator
-					+ thing.getName() + File.separator + targetPlatform;
-			String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
+			if(!targetPlatform.equals("nodered")) {
+				String outputGenDirectory = outputDirectory + File.separator +"devices"+ File.separator
+						+ thing.getName() + File.separator + targetPlatform;
+				String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 
-			try {
-				log.info("Running ThingML generator...");
-				Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
-				proc.waitFor();
-				InputStream in = proc.getInputStream();
-				log.debug(NetworkHelper.convertStreamToString(in));
-				InputStream err = proc.getErrorStream();
-				if (NetworkHelper.convertStreamToString(err).equals("")) {
-					log.info("ThingML generator completed without errors for " + thing.getName() + ".");
-				} else {
-					log.error("There was errors in ThingML generation." + NetworkHelper.convertStreamToString(err));
+				try {
+					log.info("Running ThingML generator...");
+					Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
+					proc.waitFor();
+					InputStream in = proc.getInputStream();
+					log.debug(NetworkHelper.convertStreamToString(in));
+					InputStream err = proc.getErrorStream();
+					if (NetworkHelper.convertStreamToString(err).equals("")) {
+						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+					} else {
+						log.error("There was errors in ThingML generation." + NetworkHelper.convertStreamToString(err));
+					}
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		log.info("All things transformed.");

@@ -126,7 +126,7 @@ ConnectionPoint:
 ;
 
 Bind:
-	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?"." (portToBind=[thingml::Port] | noderedPort=NODEREDPORT) bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?(('.' portToBind=[thingml::Port])  | noderedPort=NODEREDPORT) bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
 ;
 
 enum Platform:
@@ -361,8 +361,8 @@ IntLiteral:
 VALIDID:
 	ID;
 
-NODEREDPORT:
-	ID'0..9';
+terminal NODEREDPORT:
+	'.node'('1'..'9')+;
 
 // Terminals
 	

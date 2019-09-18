@@ -16,7 +16,7 @@ public class DocumentationPlugin implements Plugin {
 
 	@Override
 	public void attach(Logger log) {
-		log.info("Loading Documentation plugin...");
+		log.info("Loading "+getID()+" plugin...");
 	}
 
 	@Override
