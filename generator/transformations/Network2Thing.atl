@@ -62,7 +62,7 @@ rule copyThingMLModel {
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs->union(CyprIoT!Bind.allInstances()->select(e | e.bindsInstanceThing.typeThing.thingToInstantiate.name=s.types.first().name)), -- Implicit transformation mechanism
 		imports <- s.imports,
-		protocols <- s.protocols->union(CyprIoT!InstancePubSub.allInstances())->union(CyprIoT!PoliciesEnforcement.allInstances()), -- Implicit transformation mechanism
+		protocols <- s.protocols->union(CyprIoT!Bind.allInstances()->collect(b | thisModule.resolveTemp(b, 'protocol'))), -- Implicit transformation mechanism
 		types <- s.types
 	)	
 }
@@ -345,29 +345,23 @@ rule createExternalConnectorFromBind {
 	externalConnector : ThingML!ExternalConnector(
 		inst <- instance,
 		port <- ThingML!Port.allInstances().first(),
-		protocol <- CyprIoT!InstancePubSub.allInstances().first(),
+		protocol <- protocol,
 		annotations <- Sequence{annotationMqtt}
-	)
-}
-
-
-rule transformProtocol {
-	from s : CyprIoT!InstancePubSub
-	to t : ThingML!Protocol(
-		name <- s.typePubSub.targetedProtocol.toString().removeHash(),
+	),
+	protocol : ThingML!Protocol(
+		name <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.targetedProtocol.toString().removeHash(),
 		annotations <- Sequence{brokerAdress,portNumber,serializer}
 	),
 	brokerAdress : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
-		value <- s.typePubSub.server.toString().split(':').first()
+		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.server.toString().split(':').first()
 	),
 	portNumber : ThingML!PlatformAnnotation(
 		name <- 'mqtt_port_number',
-		value <- s.typePubSub.server.toString().split(':').last()
+		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.server.toString().split(':').last()
 	),
 	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
-		value <- 'JSON'
+		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).serializer.first().toString().removeHash().toLower()
 	)
 }
-
