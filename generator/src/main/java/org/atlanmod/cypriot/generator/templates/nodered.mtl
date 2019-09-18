@@ -1,0 +1,73 @@
+[comment encoding = UTF-8 /]
+[module nodered('http://www.atlanmod.org/CyprIoT')]
+
+[template public generateElement(aNetwork : Network)]
+[comment @main /]
+[file ('nodered'.concat('.json'), false, 'UTF-8')]
+[for (bind : Bind | aNetwork.hasBinds)]
+[if(bind.bindsInstanceThing.typeThing.targetedPlatform='NODERED')]
+		['['/]
+   {
+      "id":"1cd8511c.sdsdfs",
+      "type":"tab",
+      "label":"Flow 1"
+   },
+[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+   {
+      "id":"[bind.bindsInstanceThing.name/].[bind.bindsInstanceThing.typeThing.thingToInstantiate.name/]",
+      "type":"[mqttInOut(bind)/]",
+      "z":"1cd8511c.sdsdfs",
+      "name":"",
+      "topic":"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]",
+      "qos":"0",
+      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/].[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.pubSubToInstantiate.name/]",
+      "x":391,
+      "y":308,
+      "wires":['['/]
+         ['['/]
+            "8fa573b8.513f78"
+        [']'/]
+      [']'/]
+   },
+[/for]
+   {
+      "id":"8fa573b8.513f78",
+      "type":"debug",
+      "z":"1cd8511c.sdsdfs",
+      "name":"",
+      "active":true,
+      "console":"false",
+      "complete":"payload",
+      "x":686.9000244140625,
+      "y":304.79998779296875,
+      "wires":['['/]
+
+      [']'/]
+   },
+   {
+      "id":"a32da4d2.d0b408",
+      "type":"mqtt-broker",
+      "z":"",
+      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.tokenize(':').at(0)/]",
+      "port":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.tokenize(':').at(1)/]",
+      "clientid":"",
+      "usetls":false,
+      "compatmode":true,
+      "keepalive":"60",
+      "cleansession":true,
+      "willTopic":"",
+      "willQos":"0",
+      "willPayload":"",
+      "birthTopic":"",
+      "birthQos":"0",
+      "birthPayload":""
+   }
+	[']'/]
+[/if]
+[/for]
+[/file]
+[/template]
+[query public mqttInOut (bind : Bind) : String = 
+	if (bind.bindAction.toString().equalsIgnoreCase('=>')) 
+	then 'mqtt out'
+	else 'mqtt in' endif/]
