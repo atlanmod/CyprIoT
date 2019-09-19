@@ -35,6 +35,8 @@ helper def : firstEnforcedPolicy() : CyprIoT!Policy = CyprIoT!PoliciesEnforcemen
 
 helper def : firstRuleInPolicyFromPoliciesEnforcement() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
 
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
+
 helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
 
 helper def : isPolicyEnforcingThingSubject() : Boolean = CyprIoT!PoliciesEnforcement.allInstances().first().isThingInSubject();
@@ -52,22 +54,24 @@ helper def : isObjectPubSub() : Boolean = thisModule.firstRuleInPolicyFromPolici
 helper def : bindAction() : String = CyprIoT!Network.allInstances().first().hasBinds.first().bindAction.toString();
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
-		thisModule.isObjectPubSub() and
 		self.isContainerExternalConnector() and 
 		thisModule.isPolicyEnforcingThingSubject() and 
 		thisModule.isPolicyEnforcingThingInBind() and 
 		thisModule.isPolicyDeny() and
+		thisModule.isObjectPubSub() and
+		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
 		thisModule.bindAction() = '#=>' and
 		thisModule.isRuleSend() and
 		self.name='mqtt_publish_topic'
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
-		thisModule.isObjectPubSub() and
 		self.isContainerExternalConnector() and 
 		thisModule.isPolicyEnforcingThingSubject() and 
 		thisModule.isPolicyEnforcingThingInBind() and 
 		thisModule.isPolicyDeny() and
+		thisModule.isObjectPubSub() and
+		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
 		thisModule.bindAction() = '#<=' and
 		thisModule.isRuleReceive() and
 		self.name='mqtt_subscribe_topic'
