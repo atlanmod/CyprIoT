@@ -1,0 +1,97 @@
+-- @atlcompiler emftvm
+-- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
+-- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
+
+
+module RuleComm;
+
+create OUT: ThingML from TH: ThingML, CY : CyprIoT;
+
+uses Copier;
+
+rule copyThingMLModel {
+	from s : ThingML!ThingMLModel
+	to t : ThingML!ThingMLModel(
+		configs <- s.configs,
+		imports <- s.imports,
+		protocols <- s.protocols,
+		types <- s.types
+	)	
+}
+
+helper context CyprIoT!PoliciesEnforcement def : isThingInSubject() : Boolean =
+	(self.hasEnforcedPolicies.first().hasRules.first().oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclAsType(CyprIoT!ThingAny).name=thisModule.nameOfInputThing())
+;
+
+helper context CyprIoT!PoliciesEnforcement def : isThingInBind() : Boolean =
+	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())
+;
+
+helper context ThingML!PlatformAnnotation def : isContainerExternalConnector() : Boolean = 
+	self.refImmediateComposite().oclIsTypeOf(ThingML!ExternalConnector)
+;	
+
+helper def : firstEnforcedPolicy() : CyprIoT!Policy = CyprIoT!PoliciesEnforcement.allInstances().first().hasEnforcedPolicies.first();
+
+helper def : firstRuleInPolicyFromPoliciesEnforcement() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
+
+helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
+
+helper def : isPolicyEnforcingThingSubject() : Boolean = CyprIoT!PoliciesEnforcement.allInstances().first().isThingInSubject();
+
+helper def : isPolicyEnforcingThingInBind() : String = CyprIoT!PoliciesEnforcement.allInstances().first().isThingInBind();
+
+helper def : isPolicyDeny() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.deny;
+
+helper def : isRuleSend() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#send';
+
+helper def : isRuleReceive() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#receive';
+
+helper def : isObjectPubSub() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).commObject.objectOther.oclIsTypeOf(CyprIoT!PubSub);
+
+helper def : bindAction() : String = CyprIoT!Network.allInstances().first().hasBinds.first().bindAction.toString();
+
+helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
+		thisModule.isObjectPubSub() and
+		self.isContainerExternalConnector() and 
+		thisModule.isPolicyEnforcingThingSubject() and 
+		thisModule.isPolicyEnforcingThingInBind() and 
+		thisModule.isPolicyDeny() and
+		thisModule.bindAction() = '#=>' and
+		thisModule.isRuleSend() and
+		self.name='mqtt_publish_topic'
+;
+
+helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
+		thisModule.isObjectPubSub() and
+		self.isContainerExternalConnector() and 
+		thisModule.isPolicyEnforcingThingSubject() and 
+		thisModule.isPolicyEnforcingThingInBind() and 
+		thisModule.isPolicyDeny() and
+		thisModule.bindAction() = '#<=' and
+		thisModule.isRuleReceive() and
+		self.name='mqtt_subscribe_topic'
+;
+
+rule copyExternalConnector {
+	from s : ThingML!ExternalConnector
+	to t : ThingML!ExternalConnector(
+		annotations <- s.annotations,
+		inst <- s.inst,
+		name <- s.name,
+		port <- s.port,
+		protocol <- s.protocol
+	)
+}
+
+rule enforcePlatformAnnotation {
+	from s : ThingML!PlatformAnnotation(
+		not(s.isContainerExternalConnector())
+		or
+		not(s.enforceDenySubscribe() or	s.enforceDenyPublish())
+		)
+	to  t : ThingML!PlatformAnnotation(
+		name <- s.name,
+		value <- s.value
+	)
+}

@@ -1,0 +1,319 @@
+-- @atlcompiler emftvm
+-- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
+-- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
+
+
+module Copier;
+
+create OUT: ThingML from TH: ThingML, CY : CyprIoT;
+
+-- Helpers
+
+helper context String def : replaceDotsWithSlashInDomain() : String =
+	self.replace('.', '/')
+;
+
+helper context String def : removeHash() : String =
+	self.replaceAll('#', '')
+;
+
+helper context String def : transformArrowToMQTTSyntax : String =
+	if self.startsWith('=>')
+		then 'mqtt_publish_topic'
+	else 
+		'mqtt_subscribe_topic'
+	endif
+;
+
+helper context CyprIoT!Bind def : getTopicName() : String =
+	if(self.getTopicFromBind().topicName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+self.getTopicFromBind().name
+	else 
+		self.getTopicFromBind().topicName
+	endif
+;
+
+
+helper context CyprIoT!Bind def : getDomainFromBind() : String =
+	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
+;
+
+helper context CyprIoT!Bind def : getTopicFromBind() : CyprIoT!Topic =
+	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first()	
+;
+
+helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleComm))
+;
+
+helper context CyprIoT!Policy def : getRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleTrigger))
+;
+
+helper context CyprIoT!Policy def : getRuleBridgeFromPolicy() : Sequence(CyprIoT!RuleBridge) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleBridge))
+;
+
+
+-- Copier
+
+rule copyThingMLModel {
+	from s : ThingML!ThingMLModel
+	to t : ThingML!ThingMLModel(
+		configs <- s.configs->union(CyprIoT!Bind.allInstances()->select(e | e.bindsInstanceThing.typeThing.thingToInstantiate.name=s.types.first().name)), -- Implicit transformation mechanism
+		imports <- s.imports,
+		protocols <- s.protocols->union(CyprIoT!Bind.allInstances()->collect(b | thisModule.resolveTemp(b, 'protocol'))), -- Implicit transformation mechanism
+		types <- s.types
+	)	
+}
+
+rule copyProtocol {
+	from s : ThingML!Protocol
+	to t : ThingML!Protocol(
+		annotations <- s.annotations,
+		name <- s.name
+	)
+}
+
+rule copyThing {
+	from s : ThingML!Thing
+	to t : ThingML!Thing(
+		name <- s.name,
+		ports <- s.ports,
+		annotations <- s.annotations,
+		assign <- s.assign,
+		behaviour <- s.behaviour,
+		fragment <- s.fragment,
+		functions <- s.functions,
+		messages <- s.messages,
+		includes <- s.includes,
+		properties <- s.properties
+	)
+}
+
+rule copyMessage {
+	from s: ThingML!Message
+	to t : ThingML!Message(
+		name <- s.name,
+		parameters <- s.parameters,
+		annotations <- s.annotations
+	)
+}
+
+rule copyProvidedPort {
+	from s : ThingML!ProvidedPort
+	to t : ThingML!ProvidedPort(
+		name <- s.name,
+		receives <- s.receives,
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
+rule copyParameter {
+	from s : ThingML!Parameter
+	to t : ThingML!Parameter(
+		annotations <- s.annotations,
+		name <- s.name,
+		typeRef <- s.typeRef
+	)
+}
+
+rule copyTypeRef {
+	from s : ThingML!TypeRef
+	to t : ThingML!TypeRef(
+		cardinality <- s.cardinality,
+		isArray <- s.isArray,
+		type <- s.type
+	)
+}
+
+rule copyRequiredPort {
+	from s : ThingML!RequiredPort
+	to t : ThingML!RequiredPort(
+		name <- s.name,
+		receives <- s.receives,
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
+rule copyActionBlock {
+	from s : ThingML!ActionBlock
+	to t : ThingML!ActionBlock(
+		actions <- s.actions
+	)
+}
+
+rule copyPrintAction {
+	from s : ThingML!PrintAction
+	to t : ThingML!PrintAction(
+		line <- s.line,
+		msg <- s.msg
+	)
+}
+
+rule copyReceiveMessage {
+	from s : ThingML!ReceiveMessage
+	to t : ThingML!ReceiveMessage(
+		message <- s.message,
+		name <- s.name,
+		port <- s.port
+	)
+}
+
+rule copyLoopAction {
+	from s : ThingML!LoopAction
+	to t : ThingML!LoopAction(
+		action <- s.action,
+		condition <- s.condition
+	)
+}
+
+rule copyBooleanLiteral {
+	from s : ThingML!BooleanLiteral
+	to t : ThingML!BooleanLiteral(
+		boolValue <- s.boolValue
+	)
+}
+
+rule copyExternStatement {
+	from s : ThingML!ExternStatement
+	to t : ThingML!ExternStatement(
+		segments <- s.segments,
+		statement <- s.statement
+	)
+}
+
+rule copySendAction {
+	from s : ThingML!SendAction
+	to t : ThingML!SendAction(
+		message <- s.message,
+		parameters <- s.parameters,
+		port <- s.port
+	)
+}
+rule copyIntegerLiteral {
+	from s : ThingML!IntegerLiteral
+	to t : ThingML!IntegerLiteral(
+		intValue <- s.intValue
+	)
+}
+
+--rule copyPlatformAnnotation {
+--	from s : ThingML!PlatformAnnotation
+--	to t : ThingML!PlatformAnnotation(
+--		name <- s.name,
+--		value <- s.value
+--	)
+--}
+
+rule copyStringLiteral {
+	from s : ThingML!StringLiteral
+	to t : ThingML!StringLiteral(
+		stringValue <- s.stringValue
+	)
+}
+
+rule copyInstance {
+	from s : ThingML!Instance
+	to t : ThingML!Instance(
+		name <- s.name,
+		type <- s.type,
+		annotations <- s.annotations
+	)
+}
+
+rule copyConfig {
+	from s : ThingML!Configuration
+	to t : ThingML!Configuration(
+		annotations <- s.annotations,
+		connectors <- s.connectors,
+		instances <- s.instances,
+		name <- s.name,
+		propassigns <- s.propassigns
+	)
+}
+
+rule copyDatatypes {
+	from s : ThingML!PrimitiveType
+	to t : ThingML!PrimitiveType(
+		ByteSize <- s.ByteSize,
+		annotations <- s.annotations,
+		name <- s.name
+	) 
+}
+
+rule copyEventReference {
+	from s : ThingML!EventReference
+	to t : ThingML!EventReference(
+		parameter <- s.parameter,
+		receiveMsg <- s.receiveMsg
+	)
+}
+
+rule copyStateContainer {
+	from s : ThingML!StateContainer(not s.oclIsTypeOf(ThingML!CompositeState))
+	to t : ThingML!StateContainer(
+		annotations <- s.annotations,
+		history <- s.history,
+		initial <- s.initial,
+		name <- s.name,
+		substate <- s.substate
+	)
+}
+
+rule copyCompositeState {
+	from s : ThingML!CompositeState
+	to t : ThingML!CompositeState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		history <- s.history,
+		initial <- s.initial,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties,
+		region <- s.region,
+		session <- s.session,
+		substate <- s.substate
+	)
+}
+
+rule copyFinalState {
+	from s : ThingML!FinalState
+	to t : ThingML!FinalState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
+rule copyInternalTransition {
+	from s : ThingML!InternalTransition
+	to t : ThingML!InternalTransition(
+		action <- s.action,
+		annotations <- s.annotations,
+		event <- s.event,
+		guard <- s.guard,
+		name <- s.name
+	)
+}

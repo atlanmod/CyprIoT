@@ -31,7 +31,7 @@ import org.eclipse.m2m.atl.emftvm.util.TimingData;
 public class TransformationHelper {
 	static final Logger log = LogManager.getLogger(TransformationHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
-	public final static String MODULE_NAME = "Network2Thing";
+	public final static String MODULE_NAME = "RuleComm";
 
 	public List<Resource> transform(File cypriotInputFile) {
 		log.info("Transforming things according to the network...");
