@@ -90,6 +90,8 @@ public class TransformationHelper {
 	}
 
 	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile) {
+		
+		log.info("Executing ATL module : "+ moduleName);
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : " + outputFile);

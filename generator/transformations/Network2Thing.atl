@@ -50,6 +50,6 @@ rule createExternalConnectorFromBind {
 	),
 	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
-		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).serializer.first().toString().removeHash().toLower()
+		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first().serializer.toString().removeHash().toLower()
 	)
 }
