@@ -4,6 +4,7 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
+
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -15,16 +16,13 @@ import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.PubSub
 import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.Rule
+import org.atlanmod.cypriot.cyprIoT.RuleComm
 import org.atlanmod.cypriot.cyprIoT.Thing
-//import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
-import org.atlanmod.cypriot.cyprIoT.Rule
-import org.atlanmod.cypriot.cyprIoT.RuleComm
-import org.atlanmod.cypriot.cyprIoT.SubjectOther
-import org.atlanmod.cypriot.cyprIoT.ThingAny
 
 /**
  * This class contains custom validation rules. 
@@ -89,23 +87,15 @@ class CypriotValidator extends AbstractCypriotValidator {
 
 	@Check(FAST)
 	def checkConflictingRules(Rule rule) {
-		val ok = (rule instanceof RuleComm) && ((rule as RuleComm).commSubject.subjectOther instanceof Thing)
-			&& ((rule as RuleComm).commObject.objectOther instanceof PubSub);
-			println("(rule instanceof RuleComm) : "+(rule instanceof RuleComm))
-			println("((rule as RuleComm).commSubject instanceof Thing) : "+((rule as RuleComm).commSubject.subjectOther instanceof Thing))
-			println("((rule as RuleComm).commObject instanceof PubSub) : "+((rule as RuleComm).commObject.objectOther instanceof PubSub))
-		if((rule instanceof RuleComm) && ((rule as RuleComm).commSubject.subjectOther instanceof ThingAny)
-			&& ((rule as RuleComm).commObject.objectOther instanceof PubSub)
-		) {
+		if((rule instanceof RuleComm)) {
 			
 		val policy = rule.eContainer as Policy
 		val allRules = policy.hasRules.filter[ r | 
-			r instanceof RuleComm 
-			&& ((r as RuleComm).commSubject.subjectOther instanceof Thing)
-			&& (((r as RuleComm).commSubject.subjectOther as Thing).name.equals(((rule as RuleComm).commSubject.subjectOther  as Thing).name))
+			r instanceof RuleComm
+			&& ((r as RuleComm).commSubject.subjectOther.name.equals((rule as RuleComm).commSubject.subjectOther.name))
 			&& ((r as RuleComm).effectComm.actionComm.literal.equals((rule as RuleComm).effectComm.actionComm.literal))
-			&& (((r as RuleComm).commSubject.subjectOther as Thing).name.equals(((rule as RuleComm).commSubject.subjectOther  as Thing).name))
-			&& (((r as RuleComm).commObject.objectOther as PubSub).name.equals(((rule as RuleComm).commObject.objectOther  as PubSub).name))
+			&& ((r as RuleComm).commSubject.subjectOther.name.equals((rule as RuleComm).commSubject.subjectOther.name))
+			&& ((r as RuleComm).commObject.objectOther.name.equals((rule as RuleComm).commObject.objectOther.name))
 		]
 
 		if (allRules.size() > 1) {
