@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
-	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule |
+	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule | ThingAny | SubjectOther | ObjectOther |
 	";" name=ID
 ;
 

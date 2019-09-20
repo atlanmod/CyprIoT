@@ -21,6 +21,10 @@ import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
+import org.atlanmod.cypriot.cyprIoT.Rule
+import org.atlanmod.cypriot.cyprIoT.RuleComm
+import org.atlanmod.cypriot.cyprIoT.SubjectOther
+import org.atlanmod.cypriot.cyprIoT.ThingAny
 
 /**
  * This class contains custom validation rules. 
@@ -46,6 +50,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_CHANNEL_SEND_COMPATIBILITY = "PortChannelSend-Compatibility"
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existance"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
+	public static val CONFLICTING_RULES = "Conflicting-Rules"
 
 //	@Check(FAST)
 //	def checkBindPortChannelCompatibility(Bind bind) {
@@ -81,6 +86,35 @@ class CypriotValidator extends AbstractCypriotValidator {
 //		}
 //
 //	}
+
+	@Check(FAST)
+	def checkConflictingRules(Rule rule) {
+		val ok = (rule instanceof RuleComm) && ((rule as RuleComm).commSubject.subjectOther instanceof Thing)
+			&& ((rule as RuleComm).commObject.objectOther instanceof PubSub);
+			println("(rule instanceof RuleComm) : "+(rule instanceof RuleComm))
+			println("((rule as RuleComm).commSubject instanceof Thing) : "+((rule as RuleComm).commSubject.subjectOther instanceof Thing))
+			println("((rule as RuleComm).commObject instanceof PubSub) : "+((rule as RuleComm).commObject.objectOther instanceof PubSub))
+		if((rule instanceof RuleComm) && ((rule as RuleComm).commSubject.subjectOther instanceof ThingAny)
+			&& ((rule as RuleComm).commObject.objectOther instanceof PubSub)
+		) {
+			
+		val policy = rule.eContainer as Policy
+		val allRules = policy.hasRules.filter[ r | 
+			r instanceof RuleComm 
+			&& ((r as RuleComm).commSubject.subjectOther instanceof Thing)
+			&& (((r as RuleComm).commSubject.subjectOther as Thing).name.equals(((rule as RuleComm).commSubject.subjectOther  as Thing).name))
+			&& ((r as RuleComm).effectComm.actionComm.literal.equals((rule as RuleComm).effectComm.actionComm.literal))
+			&& (((r as RuleComm).commSubject.subjectOther as Thing).name.equals(((rule as RuleComm).commSubject.subjectOther  as Thing).name))
+			&& (((r as RuleComm).commObject.objectOther as PubSub).name.equals(((rule as RuleComm).commObject.objectOther  as PubSub).name))
+		]
+
+		if (allRules.size() > 1) {
+			val msg = "There are conflicting or duplicate rules.";
+			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules,
+				policy.hasRules.indexOf(rule), CONFLICTING_RULES)
+		}
+	}
+	}
 
 	@Check(FAST)
 	def checkNumberofThing(Thing thing) {
