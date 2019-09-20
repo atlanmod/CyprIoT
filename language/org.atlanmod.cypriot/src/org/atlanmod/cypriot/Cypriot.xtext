@@ -20,7 +20,7 @@ Import:
 
 NamedElement:
 	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
-	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | Topic |
+	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | 
 	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule | ThingAny | SubjectOther | ObjectOther |
 	";" name=ID
 ;
@@ -107,12 +107,12 @@ PubSub:
 ;
 
 Topic:
-	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessage=[thingml::Message]')')?  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 enum Serializer:
-	POSIX='JSON' | 
-	JAVA='BINARY'
+	JSON='JSON' | 
+	BINARY='BINARY'
 ;
 
 PointToPoint:
@@ -162,7 +162,7 @@ ChannelToBind:
 ;
 
 ToBindPubSub:
-	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] '(' serializer+=Serializer ')' ( "," topics+=[Topic] '(' serializer+=Serializer ')')*'}'
+	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
 ;
 
 ToBindPTP:
