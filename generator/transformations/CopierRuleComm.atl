@@ -3,7 +3,7 @@
 -- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
 
 
-module Copier;
+module CopierRuleComm;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
@@ -200,13 +200,13 @@ rule copyIntegerLiteral {
 	)
 }
 
-rule copyPlatformAnnotation {
-	from s : ThingML!PlatformAnnotation
-	to t : ThingML!PlatformAnnotation(
-		name <- s.name,
-		value <- s.value
-	)
-}
+--rule copyPlatformAnnotation {
+--	from s : ThingML!PlatformAnnotation
+--	to t : ThingML!PlatformAnnotation(
+--		name <- s.name,
+--		value <- s.value
+--	)
+--}
 
 rule copyStringLiteral {
 	from s : ThingML!StringLiteral

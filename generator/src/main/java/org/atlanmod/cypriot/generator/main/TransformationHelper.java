@@ -51,8 +51,12 @@ public class TransformationHelper {
 				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
 
 				String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
-				Resource transformedThingMLModel = transformThingMLModel(outputFile, cypriotInputFile, thingMLFile,
-						thing.getName());
+				Resource resThingML = getResourceFromThingMLFile(thingMLFile, thing.getName());
+				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
+				
+				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile);
+				transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
+				
 				allThingMLResources.add(transformedThingMLModel);
 
 				String outputGenDirectory = outputDirectory + File.separator + "devices" + File.separator
@@ -85,16 +89,15 @@ public class TransformationHelper {
 		return allThingMLResources;
 	}
 
-	private Resource transformThingMLModel(String outputFile, File cypriotInputFile, File thingMLInputFile,
-			String thingName) {
-		log.debug("Input CyprIoT file path : " + cypriotInputFile.getPath());
+	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile) {
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : " + outputFile);
 		// Models
-		registerThingMLModelInEnvironment(rs, env, "TH", thingMLInputFile, thingName);
-		registerCyprIoTModelInEnvironment(rs, env, "CY", cypriotInputFile);
+		registerResourceInEnv(env, "TH", thingMLRes);
 
+		registerResourceInEnv(env, "CY", cypriotRes);
+		
 		registerMetamodelInEnvironment("http://www.thingml.org/xtext/ThingML", env, rs, "ThingML");
 		registerMetamodelInEnvironment("http://www.atlanmod.org/CyprIoT", env, rs, "CyprIoT");
 
@@ -104,7 +107,7 @@ public class TransformationHelper {
 		Model outModel = registerOutputModelInEnvironment(outputFile, rs, env, "OUT");
 		ModuleResolver mr = new DefaultModuleResolver(TRANSFORMATION_DIRECTORY, rs);
 		TimingData td = new TimingData();
-		env.loadModule(mr, MODULE_NAME);
+		env.loadModule(mr, moduleName);
 		td.finishLoading();
 		env.run(td);
 		td.finish();
@@ -125,20 +128,9 @@ public class TransformationHelper {
 		return outModel;
 	}
 
-	private void registerThingMLModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File thingMLInputFile,
-			String thingName) {
-		Resource res = getResourceFromThingMLFile(thingMLInputFile, thingName);
-		registerResourceInEnv(env, name, res);
-	}
-
 	private Resource getResourceFromThingMLFile(File thingMLInputFile, String thingName) {
 		Resource res = Helpers.getResourceFromFile(thingMLInputFile, thingName);
 		return res;
-	}
-
-	private void registerCyprIoTModelInEnvironment(ResourceSet rs, ExecEnv env, String name, File cypriotInputFile) {
-		Resource res = getResourceFromCyprIoTFile(cypriotInputFile);
-		registerResourceInEnv(env, name, res);
 	}
 
 	private void registerResourceInEnv(ExecEnv env, String name, Resource res) {
