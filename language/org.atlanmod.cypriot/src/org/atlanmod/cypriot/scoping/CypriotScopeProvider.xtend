@@ -1,12 +1,17 @@
 package org.atlanmod.cypriot.scoping
 
+import java.util.ArrayList
 import java.util.Collections
 import java.util.List
+import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
+import org.atlanmod.cypriot.cyprIoT.ObjectOther
 import org.atlanmod.cypriot.cyprIoT.PointToPoint
 import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.SubjectOther
+import org.atlanmod.cypriot.cyprIoT.Thing
 import org.atlanmod.cypriot.cyprIoT.ThingAny
 import org.atlanmod.cypriot.cyprIoT.ToBindPTP
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
@@ -17,12 +22,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.Bind
-import org.atlanmod.cypriot.cyprIoT.SubjectOther
-import org.atlanmod.cypriot.cyprIoT.ObjectOther
-import org.atlanmod.cypriot.cyprIoT.Thing
-import java.util.ArrayList
-import org.atlanmod.cypriot.cyprIoT.Rule
 
 /**
  * This class contains custom scoping description.
@@ -44,8 +43,6 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.typePTP_PtPToInstantiate) {
 			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.typeThing_Owner) {
-			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.typePubSub_User) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.topic_SubtopicOf) {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as PubSub))
