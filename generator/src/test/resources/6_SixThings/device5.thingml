@@ -1,6 +1,6 @@
 thing HelloThing {
 	message m(mess:UInt8)
-	required port sendInfo @sync_send "true"{
+	required port myport @sync_send "true" {
 		sends m
 	}
 	statechart HelloStateChart init HelloState {
@@ -8,7 +8,7 @@ thing HelloThing {
 		final state HelloState {
 			on entry
 				do  println  "Hello World!"
-					sendInfo!m(362)
+					myport!m(2002)
 				end
 		}
 	}

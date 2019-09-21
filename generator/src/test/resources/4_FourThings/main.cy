@@ -6,18 +6,19 @@ thing device4 import "device4.thingml"
 user myuser
 
 channel:pubsub pubsub1 {
-	topic topic1
+	topic topic1(m) 
 }
 
 network helloNetwork {
 	domain org.hello
-	instance mydevice1:device1 platform CPOSIX
-	instance mydevice2:device2 platform JAVA
-	instance mydevice3:device3 platform JS
-	instance mydevice4:device4 platform PYTHON
-	instance myPubsub1:pubsub1 protocol MQTT(server="mqtt.eclipse.org:1883", user=myuser)
+	instance mydevice1:device1 platform POSIX
+	instance mydevice2:device2 platform POSIX
+	instance mydevice3:device3 platform POSIX
+	instance mydevice4:device4 platform POSIX
+	instance myPubsub1:pubsub1 protocol MQTT(server="mqtt.eclipse.org:1883")
 	bind mydevice1.myport => myPubsub1{topic1}
 	bind mydevice2.myport <= myPubsub1{topic1}
 	bind mydevice3.myport <= myPubsub1{topic1}
 	bind mydevice4.myport <= myPubsub1{topic1}
+	
 }

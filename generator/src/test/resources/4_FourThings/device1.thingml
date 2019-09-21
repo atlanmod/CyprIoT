@@ -1,13 +1,15 @@
 thing HelloThing {
 	message m(mess:UInt8)
-	provided port myport {
-		receives m
+	required port myport @sync_send "true"{
+		sends m
 	}
 	statechart HelloStateChart init HelloState {
 		
-		state HelloState {
-			internal event e : myport?m
-			action println e.mess
+		final state HelloState {
+			on entry
+				do  println  "Sending..."
+					myport!m(1)
+				end
 		}
 	}
 }

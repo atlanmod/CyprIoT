@@ -3,6 +3,9 @@ thing HelloThing {
 	provided port myport {
 		receives m
 	}
+	provided port myportOut {
+		receives m
+	}
 	statechart HelloStateChart init HelloState {
 		
 		state HelloState {

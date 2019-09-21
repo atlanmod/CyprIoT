@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 
 public class SetupScriptPlugin implements Plugin {
@@ -45,7 +45,7 @@ public class SetupScriptPlugin implements Plugin {
 			fw.write("mkdir execs\n");
 			for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 				InstanceThing instance = bind.getBindsInstanceThing();
-				Thing thing = instance.getTypeThing().getThingToInstantiate();
+				TypeThing thing = instance.getTypeThing().getThingToInstantiate();
 				String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
 				String outputMakeDirectory = outputDirectory.getAbsolutePath()+ File.separator +"devices"+ File.separator
 						+ thing.getName() + File.separator + targetPlatform;

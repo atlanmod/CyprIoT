@@ -1,16 +1,27 @@
-thing HelloThing {
-	message m()
-	optional required port myport {
-		sends m
+thing device2 {
+	message m(mess : UInt8)
+	provided port myport {
+		receives m
 	}
-
 	statechart HelloStateChart init HelloState {
-		
-		final state HelloState {
-			on entry
-				do  println  "Hello World!"
-					myport!m()
-				end
+		state HelloState {
+			internal
+			event e : myport?m
+			action println e.mess
 		}
 	}
+}
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+protocol MQTT
+	@mqtt_broker_address `mqtt.eclipse.org`
+	@mqtt_port_number `1883`
+	@serializer `JSON`
+
+configuration device2_Cfg @compiler `java` {
+	instance mydevice2 : device2
+	connector mydevice2.myport over MQTT @mqtt_subscribe_topic `ThingML`
 }

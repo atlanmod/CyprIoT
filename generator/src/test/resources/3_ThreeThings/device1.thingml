@@ -1,12 +1,12 @@
 thing HelloThing {
 	message m(mess:UInt8)
-	provided port myport {
+	provided port receiveInfo {
 		receives m
 	}
 	statechart HelloStateChart init HelloState {
 		
 		state HelloState {
-			internal event e : myport?m
+			internal event e : receiveInfo?m
 			action println e.mess
 		}
 	}

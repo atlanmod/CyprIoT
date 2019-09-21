@@ -1,21 +1,23 @@
-thing HelloThing {
-	message m(mess:UInt8)
-	provided port myport @sync_send "true"{
+thing device1 {
+	message m(mess : String)
+	required port myport @sync_send `true` {
 		sends m
 	}
 	statechart HelloStateChart init HelloState {
-		
 		final state HelloState {
-			on entry
-				do  println  "Hello World!"
-					myport!m(2)
-				end
+			on entry do
+				println "Hello World!"
+				myport!m("okokoko")
+			end
 		}
 	}
 }
 
-datatype UInt8<1>
-    @type_checker "Integer"
-	@c_type "uint8_t"
-	@java_type "byte"
-	@js_type "byte"
+datatype String<20>
+	@serializable
+	@c_type "char *"
+	@arduino_type "String"
+	@java_type "String"
+    @js_type "String"
+    @go_type "string";
+
