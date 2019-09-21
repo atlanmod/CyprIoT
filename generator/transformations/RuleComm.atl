@@ -9,6 +9,7 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses CopierRuleComm;
 
+
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -19,11 +20,24 @@ rule copyThingMLModel {
 	)	
 }
 
-helper context CyprIoT!PoliciesEnforcement def : isThingInSubject() : Boolean =
+-- TypeThing case
+helper def : rulesContainingThingInSubject() : Sequence(CyprIoT!RuleComm) =
+	thisModule.allEnforcedPolicies()->collect(p | p.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleComm) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclIsTypeOf(CyprIoT!TypeThing) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing()))->flatten()
+;
+
+helper context Sequence(CyprIoT!RuleComm) def : rulesComm() : Sequence(Sequence(String)) =
+	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.deny,r.effectComm.actionComm,r.commObject.objectOther.name})
+;
+
+helper def : BingsContainingThing() : Sequence(Sequence(String)) =
+	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindAction,i.portToBind,i.channelToBind.oclType()})
+;
+
+helper context CyprIoT!PoliciesEnforcement def : isThingInFirstRuleSubject() : Boolean =
 	(self.hasEnforcedPolicies.first().hasRules.first().oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclAsType(CyprIoT!ThingAny).name=thisModule.nameOfInputThing())
 ;
 
-helper context CyprIoT!PoliciesEnforcement def : isThingInBind() : Boolean =
+helper context CyprIoT!PoliciesEnforcement def : isThingInFirstBind() : Boolean =
 	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())
 ;
 
@@ -33,47 +47,77 @@ helper context ThingML!PlatformAnnotation def : isContainerExternalConnector() :
 
 helper def : firstEnforcedPolicy() : CyprIoT!Policy = CyprIoT!PoliciesEnforcement.allInstances().first().hasEnforcedPolicies.first();
 
-helper def : firstRuleInPolicyFromPoliciesEnforcement() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
+helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
 
 helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
+helper def : firstPoliciesEnforcement() : CyprIoT!PoliciesEnforcement = CyprIoT!PoliciesEnforcement.allInstances().first();
+
+helper def : allPoliciesEnforcement() : Sequence(CyprIoT!PoliciesEnforcement) = CyprIoT!PoliciesEnforcement.allInstances();
+
+helper def : allEnforcedPolicies() : Sequence(CyprIoT!Policy) = thisModule.firstPoliciesEnforcement().hasEnforcedPolicies;
+
 helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
 
-helper def : isPolicyEnforcingThingSubject() : Boolean = CyprIoT!PoliciesEnforcement.allInstances().first().isThingInSubject();
+helper def : isFirstRuleOfFirstPolicyEnforcingThing() : Boolean = thisModule.firstPoliciesEnforcement().isThingInFirstRuleSubject();
 
-helper def : isPolicyEnforcingThingInBind() : String = CyprIoT!PoliciesEnforcement.allInstances().first().isThingInBind();
+helper def : isThingInFirstBindFromFirstEnforcedPolicy() : String = thisModule.firstPoliciesEnforcement().isThingInFirstBind();
 
-helper def : isPolicyDeny() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.deny;
+helper def : isFirstRuleOfFirstPolicyDeny() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.deny;
 
-helper def : isRuleSend() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#send';
+helper def : isFirstRuleOfFirstPolicySend() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#send';
 
-helper def : isRuleReceive() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#receive';
+helper def : isFirstRuleOfFirstPolicyReceive() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString()='#receive';
 
-helper def : isObjectPubSubInRule() : Boolean = thisModule.firstRuleInPolicyFromPoliciesEnforcement().oclAsType(CyprIoT!RuleComm).commObject.objectOther.oclIsTypeOf(CyprIoT!PubSub);
+helper def : isObjectPubSubInFirstRule() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).commObject.objectOther.oclIsTypeOf(CyprIoT!TypePubSub);
 
 helper def : bindAction() : String = CyprIoT!Network.allInstances().first().hasBinds.first().bindAction.toString();
 
+helper context ThingML!PlatformAnnotation def : noEnforcing() : Boolean = not(self.enforceDenySubscribe() or self.enforceDenyPublish());
+
+--helper def : iterateOverEnforcement() : Boolean =
+--
+--	let allEnforcements : Sequence(CyprIoT!PoliciesEnforcement) =
+--		CyprIoT!PoliciesEnforcement.allInstances()->asSequence() in
+--	allEnforcements->iterate(p; y : CyprIoT!PoliciesEnforcement = allEnforcements->first() |
+--		p.hasEnforcedPolicies.first()
+--	)
+--		
+--;
+--
+--helper context ThingML!PlatformAnnotation def : enforceDenyPublishAny() : Boolean =
+--		self.isContainerExternalConnector() and 
+--		thisModule.isAnyRuleOfAnyPolicyEnforcingThing() and 
+--		thisModule.isThingInAnyBindFromAnyEnforcedPolicy() and 
+--		thisModule.isAnyRuleOfAnyPolicyDeny() and
+--		thisModule.isObjectPubSubInAnyRule() and
+--		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
+--		thisModule.bindAction() = '#=>' and
+--		thisModule.isFirstRuleOfFirstPolicySend() and
+--		self.name='mqtt_publish_topic'
+--;
+
 helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
 		self.isContainerExternalConnector() and 
-		thisModule.isPolicyEnforcingThingSubject() and 
-		thisModule.isPolicyEnforcingThingInBind() and 
-		thisModule.isPolicyDeny() and
-		thisModule.isObjectPubSubInRule() and
+		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
+		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
+		thisModule.isFirstRuleOfFirstPolicyDeny() and
+		thisModule.isObjectPubSubInFirstRule() and
 		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
 		thisModule.bindAction() = '#=>' and
-		thisModule.isRuleSend() and
+		thisModule.isFirstRuleOfFirstPolicySend() and
 		self.name='mqtt_publish_topic'
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
 		self.isContainerExternalConnector() and 
-		thisModule.isPolicyEnforcingThingSubject() and 
-		thisModule.isPolicyEnforcingThingInBind() and 
-		thisModule.isPolicyDeny() and
-		thisModule.isObjectPubSubInRule() and
+		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
+		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
+		thisModule.isFirstRuleOfFirstPolicyDeny() and
+		thisModule.isObjectPubSubInFirstRule() and
 		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
 		thisModule.bindAction() = '#<=' and
-		thisModule.isRuleReceive() and
+		thisModule.isFirstRuleOfFirstPolicyReceive() and
 		self.name='mqtt_subscribe_topic'
 ;
 
@@ -90,9 +134,13 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
+		thisModule.rulesContainingThingInSubject().rulesComm().debug('ruleComm').isEmpty()
+		or
+		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
+		or
 		not(s.isContainerExternalConnector())
 		or
-		not(s.enforceDenySubscribe() or	s.enforceDenyPublish())
+		s.noEnforcing()
 		)
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,

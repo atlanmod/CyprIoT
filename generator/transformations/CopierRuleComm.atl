@@ -26,10 +26,10 @@ helper context String def : transformArrowToMQTTSyntax : String =
 ;
 
 helper context CyprIoT!Bind def : getTopicName() : String =
-	if(self.getTopicFromBind().topicName.oclIsUndefined()) 
+	if(self.getTopicFromBind().customName.oclIsUndefined()) 
 		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+self.getTopicFromBind().name
 	else 
-		self.getTopicFromBind().topicName
+		self.getTopicFromBind().customName
 	endif
 ;
 
@@ -200,6 +200,29 @@ rule copyIntegerLiteral {
 	)
 }
 
+rule copyCharLiteral {
+	from s : ThingML!CharLiteral
+	to t : ThingML!CharLiteral(
+		charValue <- s.charValue	
+	)
+}
+rule copyConditionalAction {
+	from s : ThingML!ConditionalAction
+	to t : ThingML!ConditionalAction(
+		action <- s.action,
+		condition <- s.condition,
+		elseAction <- s.elseAction
+	)
+}
+
+rule copyEqualsExpression {
+	from s : ThingML!EqualsExpression
+	to t : ThingML!EqualsExpression(
+		lhs <- s.lhs,
+		rhs <- s.rhs
+	)
+}
+
 --rule copyPlatformAnnotation {
 --	from s : ThingML!PlatformAnnotation
 --	to t : ThingML!PlatformAnnotation(
@@ -239,6 +262,23 @@ rule copyDatatypes {
 	from s : ThingML!PrimitiveType
 	to t : ThingML!PrimitiveType(
 		ByteSize <- s.ByteSize,
+		annotations <- s.annotations,
+		name <- s.name
+	) 
+}
+
+--rule copyCastExpression {
+--	from s : ThingML!CastExpression
+--	to t : ThingML!CastExpression(
+--		isArray <- s.isArray,
+--		term <- s.term,
+--		type <- s.type
+--	)
+--}
+
+rule copyObjects {
+	from s : ThingML!ObjectType
+	to t : ThingML!ObjectType(
 		annotations <- s.annotations,
 		name <- s.name
 	) 
