@@ -4,8 +4,8 @@ import com.google.inject.Inject
 import com.google.inject.Provider
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.cyprIoT.PointToPoint
-import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.TypePointToPoint
+import org.atlanmod.cypriot.cyprIoT.TypePubSub
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
@@ -186,7 +186,7 @@ class CypriotDeclarationParsingTest {
 				topic topic2 subtopicOf topic1
 			}
 		''')
-		val topics = (result.declareChannels.get(0) as PubSub).hasTopics
+		val topics = (result.declareChannels.get(0) as TypePubSub).hasTopics
 		val subtopics = topics.get(1).subtopicOf
 		result.assertNoErrors
 		Assert.assertEquals("topic1", topics.get(0).name)
@@ -204,7 +204,7 @@ class CypriotDeclarationParsingTest {
 			channel:pubsub anypubsub {}
 		''')
 		val pubsub = result.declareChannels.get(0)
-		Assert.assertTrue(pubsub instanceof PubSub)
+		Assert.assertTrue(pubsub instanceof TypePubSub)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PUBSUB_UNIQUENESS)
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -218,8 +218,8 @@ class CypriotDeclarationParsingTest {
 				topic anytopic
 			}
 		''')
-		val pubsub = (result.declareChannels.get(0) as PubSub).hasTopics.get(0)
-		result.assertError(CyprIoTPackage::eINSTANCE.pubSub, CypriotValidator.TOPIC_UNIQUENESS)
+		val pubsub = (result.declareChannels.get(0) as TypePubSub).hasTopics.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.typePubSub, CypriotValidator.TOPIC_UNIQUENESS)
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -243,7 +243,7 @@ class CypriotDeclarationParsingTest {
 			channel:ptp anyptp {}
 		''')
 		val ptp = result.declareChannels.get(0)
-		Assert.assertTrue(ptp instanceof PointToPoint)
+		Assert.assertTrue(ptp instanceof TypePointToPoint)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PTP_UNIQUENESS)
 		Assert.assertNotNull(ptp)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -257,8 +257,8 @@ class CypriotDeclarationParsingTest {
 				ConnectionPoint anycp
 			}
 		''')
-		val ptp = (result.declareChannels.get(0) as PointToPoint).hasConnectionPoints.get(0)
-		result.assertError(CyprIoTPackage::eINSTANCE.pointToPoint, CypriotValidator.CONNECTIONPOINT_UNIQUENESS)
+		val ptp = (result.declareChannels.get(0) as TypePointToPoint).hasConnectionPoints.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.typePointToPoint, CypriotValidator.CONNECTIONPOINT_UNIQUENESS)
 		Assert.assertNotNull(ptp)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}

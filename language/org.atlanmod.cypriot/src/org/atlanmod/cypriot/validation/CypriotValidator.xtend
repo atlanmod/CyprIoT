@@ -12,13 +12,13 @@ import org.atlanmod.cypriot.cyprIoT.InstancePTP
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
-import org.atlanmod.cypriot.cyprIoT.PointToPoint
+import org.atlanmod.cypriot.cyprIoT.TypePointToPoint
 import org.atlanmod.cypriot.cyprIoT.Policy
-import org.atlanmod.cypriot.cyprIoT.PubSub
+import org.atlanmod.cypriot.cyprIoT.TypePubSub
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleComm
-import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
@@ -107,7 +107,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkNumberofThing(Thing thing) {
+	def checkNumberofThing(TypeThing thing) {
 		val thingml = Helpers.getThingInThingML(thing)
 		val numberThings = thingml.types.filter[k|k instanceof org.thingml.xtext.thingML.Thing].size
 		val container = thing.eContainer as CyprIoTModel
@@ -202,7 +202,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkThingUniqueness(Thing thing) {
+	def checkThingUniqueness(TypeThing thing) {
 		val cypriotModel = thing.eContainer as CyprIoTModel
 		val allThings = cypriotModel.declareThings.filter(k|k.name == thing.name)
 
@@ -214,9 +214,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkPubSubUniqueness(PubSub pubsub) {
+	def checkPubSubUniqueness(TypePubSub pubsub) {
 		val cypriotModel = pubsub.eContainer as CyprIoTModel
-		val allPubSubs = cypriotModel.declareChannels.filter(k|k instanceof PubSub && (k as PubSub).name == pubsub.name)
+		val allPubSubs = cypriotModel.declareChannels.filter(k|k instanceof TypePubSub && (k as TypePubSub).name == pubsub.name)
 
 		if (allPubSubs.size() > 1) {
 			val msg = "The channel PubSub '" + pubsub.getName() + "' is already declared.";
@@ -227,22 +227,22 @@ class CypriotValidator extends AbstractCypriotValidator {
 
 	@Check(FAST)
 	def checkInstanceTopicUniqueness(Topic topic) {
-		val pubsub = topic.eContainer as PubSub
+		val pubsub = topic.eContainer as TypePubSub
 		val allTopics = pubsub.hasTopics.filter(k|k.name == topic.name)
 
 		if (allTopics.size() > 1) {
 			val msg = "The topic '" + topic.getName() + "' is already declared.";
-			error(msg, pubsub, CyprIoTPackage.eINSTANCE.pubSub_HasTopics, pubsub.hasTopics.indexOf(topic),
+			error(msg, pubsub, CyprIoTPackage.eINSTANCE.typePubSub_HasTopics, pubsub.hasTopics.indexOf(topic),
 				TOPIC_UNIQUENESS)
 		}
 	}
 
 	@Check(FAST)
-	def checkPTPUniqueness(PointToPoint ptp) {
+	def checkPTPUniqueness(TypePointToPoint ptp) {
 		val cypriotModel = ptp.eContainer as CyprIoTModel
 		val allPTPs = cypriotModel.declareChannels.filter(
 			k |
-				k instanceof PointToPoint && (k as PointToPoint).name == ptp.name
+				k instanceof TypePointToPoint && (k as TypePointToPoint).name == ptp.name
 		)
 
 		if (allPTPs.size() > 1) {
@@ -254,12 +254,12 @@ class CypriotValidator extends AbstractCypriotValidator {
 
 	@Check(FAST)
 	def checkInstanceConnectionPointUniqueness(ConnectionPoint connectionPoint) {
-		val ptp = connectionPoint.eContainer as PointToPoint
+		val ptp = connectionPoint.eContainer as TypePointToPoint
 		val allTopics = ptp.hasConnectionPoints.filter(k|k.name == connectionPoint.name)
 
 		if (allTopics.size() > 1) {
 			val msg = "The connection point '" + connectionPoint.getName() + "' is already declared.";
-			error(msg, ptp, CyprIoTPackage.eINSTANCE.pointToPoint_HasConnectionPoints,
+			error(msg, ptp, CyprIoTPackage.eINSTANCE.typePointToPoint_HasConnectionPoints,
 				ptp.hasConnectionPoints.indexOf(connectionPoint), CONNECTIONPOINT_UNIQUENESS)
 		}
 	}

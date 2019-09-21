@@ -16,7 +16,7 @@ import org.atlanmod.cypriot.cyprIoT.PubSubProtocol
 class CypriotProposalProvider extends AbstractCypriotProposalProvider {
 	
 	
-	override completeTypePubSub_TargetedProtocol(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override completePubSubToInstanciate_TargetedProtocol(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		PubSubProtocol.VALUES.forEach[v |
 			val String completion = v.literal
 			acceptor.accept(createCompletionProposal(completion,context))

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.cyutil.Helpers;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -42,7 +42,7 @@ public class TransformationHelper {
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 			InstanceThing instance = bind.getBindsInstanceThing();
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
-			Thing thing = instance.getTypeThing().getThingToInstantiate();
+			TypeThing thing = instance.getTypeThing().getThingToInstantiate();
 			if (!(targetPlatform.equals("nodered") || thing.getImportPath().isEmpty())) {
 				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
 				File thingMLFile = new File(thingPath);
@@ -70,10 +70,12 @@ public class TransformationHelper {
 					InputStream in = proc.getInputStream();
 					log.debug(NetworkHelper.convertStreamToString(in));
 					InputStream err = proc.getErrorStream();
-					if (NetworkHelper.convertStreamToString(err).equals("")) {
-						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+					String errors = NetworkHelper.convertStreamToString(err);
+					if (!errors.equals("")) {
+						log.error("There was errors in ThingML generation.");
+						log.error(errors);
 					} else {
-						log.error("There was errors in ThingML generation." + NetworkHelper.convertStreamToString(err));
+						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
 					}
 
 				} catch (IOException e) {
@@ -91,7 +93,7 @@ public class TransformationHelper {
 
 	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile) {
 		
-		log.info("Executing ATL module : "+ moduleName);
+		log.info("Applying ATL transformation module : "+ moduleName);
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : " + outputFile);

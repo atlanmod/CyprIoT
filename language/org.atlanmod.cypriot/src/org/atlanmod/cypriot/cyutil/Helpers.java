@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
-import org.atlanmod.cypriot.cyprIoT.Channel;
+import org.atlanmod.cypriot.cyprIoT.TypeChannel;
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Import;
@@ -28,13 +28,12 @@ import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.cyprIoT.PointToPoint;
+import org.atlanmod.cypriot.cyprIoT.TypePointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
-import org.atlanmod.cypriot.cyprIoT.PubSub;
+import org.atlanmod.cypriot.cyprIoT.TypePubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.cyprIoT.Thing;
+import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.cyprIoT.ThingAny;
-import org.atlanmod.cypriot.cyprIoT.ThingWithPort;
 import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.EList;
@@ -57,6 +56,7 @@ import org.thingml.xtext.thingML.Parameter;
 import org.thingml.xtext.thingML.Port;
 import org.thingml.xtext.thingML.Property;
 import org.thingml.xtext.thingML.State;
+import org.thingml.xtext.thingML.Thing;
 import org.thingml.xtext.thingML.ThingMLModel;
 import org.thingml.xtext.thingML.Type;
 
@@ -70,11 +70,11 @@ public class Helpers {
 	 * @return True if there is only one Thing type, False if not.
 	 */
 	public static boolean isThingOne(ThingMLModel thingModel) {
-		List<Thing> things = new ArrayList<Thing>();
+		List<TypeThing> things = new ArrayList<TypeThing>();
 		List<Type> alltypes = thingModel.getTypes();
 		for (Type type : alltypes) {
-			if (type instanceof Thing) {
-				things.add((Thing) type);
+			if (type instanceof TypeThing) {
+				things.add((TypeThing) type);
 			}
 		}
 		return things.size() == 1;
@@ -98,7 +98,7 @@ public class Helpers {
 	 * @return
 	 */
 	public static EList<State> getAllStateInThingMLModel(ThingMLModel thingModel) {
-		org.thingml.xtext.thingML.Thing thing = (org.thingml.xtext.thingML.Thing) thingModel.getTypes().get(0);
+		Thing thing = (Thing) thingModel.getTypes().get(0);
 		CompositeState statechart = (CompositeState) thing.getBehaviour();
 		EList<State> allStates = statechart.getSubstate();
 		return allStates;
@@ -106,7 +106,7 @@ public class Helpers {
 	
 	public static ThingMLModel setNameInThingML(File thingMLInputFile, String thingName) {
 		ThingMLModel thingmlModel = Helpers.loadModelFromFile(thingMLInputFile, ThingMLModel.class);
-		((org.thingml.xtext.thingML.Thing)thingmlModel.getTypes().get(0)).setName(thingName);
+		((Thing)thingmlModel.getTypes().get(0)).setName(thingName);
 		return thingmlModel;
 	}
 	
@@ -162,13 +162,13 @@ public class Helpers {
 		return thingAny;
 	}
 	
-	public static PubSub allContainedCrossPubSub(EObject parent) {
-		PubSub pubsub = allContainedCrossReferencesOfType(parent, PubSub.class);
+	public static TypePubSub allContainedCrossPubSub(EObject parent) {
+		TypePubSub pubsub = allContainedCrossReferencesOfType(parent, TypePubSub.class);
 	return pubsub;
 	}
 	
-	public static PointToPoint allContainedCrossPTP(EObject parent) {
-		PointToPoint ptp = allContainedCrossReferencesOfType(parent, PointToPoint.class);
+	public static TypePointToPoint allContainedCrossPTP(EObject parent) {
+		TypePointToPoint ptp = allContainedCrossReferencesOfType(parent, TypePointToPoint.class);
 	return ptp;
 	}
 
@@ -176,12 +176,12 @@ public class Helpers {
 		return findContainer(object, CyprIoTModel.class);
 	}
 
-	public static Thing findContainingThing(EObject object) {
-		return findContainer(object, Thing.class);
+	public static TypeThing findContainingThing(EObject object) {
+		return findContainer(object, TypeThing.class);
 	}
 
-	public static PubSub findContainingPubSub(EObject object) {
-		return findContainer(object, PubSub.class);
+	public static TypePubSub findContainingPubSub(EObject object) {
+		return findContainer(object, TypePubSub.class);
 	}
 
 	public static Bind findContainingBind(EObject object) {
@@ -247,41 +247,41 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Thing> allThings(CyprIoTModel model) {
-		ArrayList<Thing> result = new ArrayList<Thing>();
+	public static ArrayList<TypeThing> allThings(CyprIoTModel model) {
+		ArrayList<TypeThing> result = new ArrayList<TypeThing>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
-			for (Thing t : m.getDeclareThings()) {
-				result.add((Thing) t);
+			for (TypeThing t : m.getDeclareThings()) {
+				result.add((TypeThing) t);
 			}
 		}
 		return result;
 	}
 
-	public static ArrayList<PubSub> allPusSub(CyprIoTModel model) {
-		ArrayList<PubSub> result = new ArrayList<PubSub>();
+	public static ArrayList<TypePubSub> allPusSub(CyprIoTModel model) {
+		ArrayList<TypePubSub> result = new ArrayList<TypePubSub>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
-			for (Channel t : m.getDeclareChannels()) {
-				if (t instanceof PubSub) {
-					result.add((PubSub) t);
+			for (TypeChannel t : m.getDeclareChannels()) {
+				if (t instanceof TypePubSub) {
+					result.add((TypePubSub) t);
 				}
 			}
 		}
 		return result;
 	}
 
-	public static ArrayList<PointToPoint> allReqRep(CyprIoTModel model) {
-		ArrayList<PointToPoint> result = new ArrayList<PointToPoint>();
+	public static ArrayList<TypePointToPoint> allReqRep(CyprIoTModel model) {
+		ArrayList<TypePointToPoint> result = new ArrayList<TypePointToPoint>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
-			for (Channel t : m.getDeclareChannels()) {
-				if (t instanceof PointToPoint) {
-					result.add((PointToPoint) t);
+			for (TypeChannel t : m.getDeclareChannels()) {
+				if (t instanceof TypePointToPoint) {
+					result.add((TypePointToPoint) t);
 				}
 			}
 		}
 		return result;
 	}
 
-	public static ArrayList<Topic> allTopicsInPubSub(PubSub pubSub) {
+	public static ArrayList<Topic> allTopicsInPubSub(TypePubSub pubSub) {
 		ArrayList<Topic> result = new ArrayList<Topic>();
 		for (Topic t : pubSub.getHasTopics()) {
 			result.add((Topic) t);
@@ -289,7 +289,7 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<ConnectionPoint> allConnectionPointsInPTP(PointToPoint ptp) {
+	public static ArrayList<ConnectionPoint> allConnectionPointsInPTP(TypePointToPoint ptp) {
 		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
 		for (ConnectionPoint t : ptp.getHasConnectionPoints()) {
 			result.add((ConnectionPoint) t);
@@ -417,14 +417,14 @@ public class Helpers {
 	}
 
 	public static ArrayList<Port> allPortsThingML(Bind bind) {
-		Thing thingToInstanciate = (bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate());
+		TypeThing thingToInstanciate = (bind.getBindsInstanceThing().getTypeThing().getThingToInstantiate());
 		ArrayList<Port> result = getAllPortsThing(thingToInstanciate);
 		return result;
 	}
 
 	public static ArrayList<Function> getAllFunctionsThingAny(ThingAny thingAny) {
-		if (thingAny instanceof Thing) {
-			return allFunctionsThingML((Thing) thingAny);
+		if (thingAny instanceof TypeThing) {
+			return allFunctionsThingML((TypeThing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
 			return allFunctionsThingML(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
@@ -432,7 +432,7 @@ public class Helpers {
 		return null;
 	}
 
-	public static ArrayList<Function> allFunctionsThingML(Thing thing) {
+	public static ArrayList<Function> allFunctionsThingML(TypeThing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Function> result = new ArrayList<Function>();
 		try {
@@ -442,7 +442,7 @@ public class Helpers {
 		}
 		if (thingmlModel != null) {
 			ArrayList<Function> functions = ThingMLHelpers
-					.allFunctions((((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0))));
+					.allFunctions((((Thing) thingmlModel.getTypes().get(0))));
 			for (Function function : functions) {
 				result.add(function);
 			}
@@ -451,8 +451,8 @@ public class Helpers {
 	}
 
 	public static ArrayList<State> getAllStatesThingAny(ThingAny thingAny) {
-		if (thingAny instanceof Thing) {
-			return allStatesThingML((Thing) thingAny);
+		if (thingAny instanceof TypeThing) {
+			return allStatesThingML((TypeThing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
 			return allStatesThingML(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
@@ -461,8 +461,8 @@ public class Helpers {
 	}
 
 	public static ArrayList<Port> getAllPortsThingAny(ThingAny thingAny) {
-		if (thingAny instanceof Thing) {
-			return getAllPortsThing((Thing) thingAny);
+		if (thingAny instanceof TypeThing) {
+			return getAllPortsThing((TypeThing) thingAny);
 		} else if (thingAny instanceof InstanceThing) {
 			return getAllPortsThing(((InstanceThing) thingAny).getTypeThing().getThingToInstantiate());
 		}
@@ -474,16 +474,16 @@ public class Helpers {
 	 * @param thingToInstanciate
 	 * @return
 	 */
-	public static ArrayList<Port> getAllPortsThing(Thing thingToInstanciate) {
+	public static ArrayList<Port> getAllPortsThing(TypeThing thingToInstanciate) {
 		ThingMLModel thingmlModel;
 		ArrayList<Port> result = new ArrayList<Port>();
 		thingmlModel = getThingInThingML(thingToInstanciate);
 		if (thingmlModel != null)
-			result = ThingMLHelpers.allPorts((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0));
+			result = ThingMLHelpers.allPorts((Thing) thingmlModel.getTypes().get(0));
 		return result;
 	}
 
-	public static ArrayList<State> allStatesThingML(Thing thing) {
+	public static ArrayList<State> allStatesThingML(TypeThing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<State> result = new ArrayList<State>();
 		try {
@@ -493,7 +493,7 @@ public class Helpers {
 		}
 		if (thingmlModel != null) {
 			CompositeState compositeState = ThingMLHelpers
-					.allStateMachines((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)).get(0);
+					.allStateMachines((Thing) thingmlModel.getTypes().get(0)).get(0);
 			ArrayList<State> states = new ArrayList<State>(
 					CompositeStateHelper.allContainedStatesExludingSessions(compositeState));
 			for (State state : states) {
@@ -503,7 +503,7 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Property> allPropertiesThingML(Thing thing) {
+	public static ArrayList<Property> allPropertiesThingML(TypeThing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Property> result = new ArrayList<Property>();
 		try {
@@ -513,7 +513,7 @@ public class Helpers {
 		}
 		if (thingmlModel != null) {
 			ArrayList<Property> properties = ThingMLHelpers
-					.allProperties(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+					.allProperties(((Thing) thingmlModel.getTypes().get(0)));
 			for (Property property : properties) {
 				result.add(property);
 			}
@@ -521,7 +521,7 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<Message> allMessagesThingML(Thing thing) {
+	public static ArrayList<Message> allMessagesThingML(TypeThing thing) {
 		ThingMLModel thingmlModel = null;
 		ArrayList<Message> result = new ArrayList<Message>();
 		try {
@@ -531,7 +531,7 @@ public class Helpers {
 		}
 		if (thingmlModel != null) {
 			ArrayList<Message> messages = ThingMLHelpers
-					.allMessages(((org.thingml.xtext.thingML.Thing) thingmlModel.getTypes().get(0)));
+					.allMessages(((Thing) thingmlModel.getTypes().get(0)));
 			for (Message message : messages) {
 				result.add(message);
 			}
@@ -539,11 +539,11 @@ public class Helpers {
 		return result;
 	}
 	
-	public static ArrayList<Message> allMessagesInNetworkModel(ArrayList<Thing> allThings) {
+	public static ArrayList<Message> allMessagesInNetworkModel(ArrayList<TypeThing> allThings) {
 		
 		ArrayList<Message> result = new ArrayList<Message>();
 
-		for (Thing thing : allThings) {
+		for (TypeThing thing : allThings) {
 			result.addAll(allMessagesThingML(thing));
 		}
 		
@@ -563,11 +563,11 @@ public class Helpers {
 	public static ThingMLModel getThingMLFromURI(InstanceThing instanceThing) throws Exception {
 		log.debug("URI of ThingML file of instanceThing " + instanceThing.getName() + " : "
 				+ instanceThing.getTypeThing().getThingToInstantiate().getImportPath());
-		Thing thingToInstantiate = instanceThing.getTypeThing().getThingToInstantiate();
+		TypeThing thingToInstantiate = instanceThing.getTypeThing().getThingToInstantiate();
 		return getThingInThingML(thingToInstantiate);
 	}
 
-	public static ThingMLModel getThingInThingML(Thing thing) {
+	public static ThingMLModel getThingInThingML(TypeThing thing) {
 		if (URI.createFileURI(thing.getImportPath()).isFile()) {
 			URI new_uri = URI.createFileURI(thing.getImportPath());
 			ThingMLStandaloneSetup.doSetup();

@@ -16,7 +16,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-    public static final String CYPRIOT_FILE ="../generator/src/test/resources/0_HelloWorld/main.cy" ;   
+    public static final String CYPRIOT_FILE ="../generator/src/test/resources/1_TwoThings/main.cy" ;   
     public static final String CONFIG_FILE ="../generator/config.cfg" ;   
 
 	static final Logger log = LogManager.getLogger(App.class.getName());

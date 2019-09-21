@@ -5,7 +5,7 @@ import com.google.inject.Provider
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.RuleComm
-import org.atlanmod.cypriot.cyprIoT.Thing
+import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyprIoT.User
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -783,7 +783,7 @@ class CypriotRuleCommParsing {
 		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
-		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof TypeThing)
 		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Role)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -855,7 +855,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Role)
-		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof TypeThing)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -925,7 +925,7 @@ class CypriotRuleCommParsing {
 		])
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
-		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof TypeThing)
 		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof User)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -997,7 +997,7 @@ class CypriotRuleCommParsing {
 		result.assertNoErrors
 		var rule = result.specifyPolicies.get(0).hasRules.get(0)
 		Assert.assertTrue((rule as RuleComm).commSubject.subjectOther instanceof User)
-		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof Thing)
+		Assert.assertTrue((rule as RuleComm).commObject.objectOther instanceof TypeThing)
 		Assert.assertNotNull(result)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
