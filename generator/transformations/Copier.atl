@@ -26,10 +26,18 @@ helper context String def : transformArrowToMQTTSyntax : String =
 ;
 
 helper context CyprIoT!Bind def : getTopicName() : String =
-	if(self.getTopicFromBind().topicName.oclIsUndefined()) 
+	if(self.getTopicFromBind().customName.oclIsUndefined()) 
 		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+self.getTopicFromBind().name
 	else 
-		self.getTopicFromBind().topicName
+		self.getTopicFromBind().customName
+	endif
+;
+
+helper context CyprIoT!Bind def : getTopicPathName(t : CyprIoT!Topic) : String =
+	if(t.customName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+t.name
+	else 
+		t.customName
 	endif
 ;
 
@@ -40,6 +48,10 @@ helper context CyprIoT!Bind def : getDomainFromBind() : String =
 
 helper context CyprIoT!Bind def : getTopicFromBind() : CyprIoT!Topic =
 	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first()	
+;
+
+helper context CyprIoT!Bind def : getAllTopicsFromBind() : Sequence(CyprIoT!Topic) =
+	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics
 ;
 
 helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
@@ -62,7 +74,7 @@ rule copyThingMLModel {
 	to t : ThingML!ThingMLModel(
 		configs <- s.configs->union(CyprIoT!Bind.allInstances()->select(e | e.bindsInstanceThing.typeThing.thingToInstantiate.name=s.types.first().name)), -- Implicit transformation mechanism
 		imports <- s.imports,
-		protocols <- s.protocols->union(CyprIoT!Bind.allInstances()->collect(b | thisModule.resolveTemp(b, 'protocol'))), -- Implicit transformation mechanism
+		protocols <- s.protocols->union(CyprIoT!Bind.allInstances()->select(s | ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name)->collect(b | thisModule.resolveTemp(b, 'protocol'))), -- Implicit transformation mechanism
 		types <- s.types
 	)	
 }
@@ -125,6 +137,23 @@ rule copyTypeRef {
 		cardinality <- s.cardinality,
 		isArray <- s.isArray,
 		type <- s.type
+	)
+}
+
+rule copyConditionalAction {
+	from s : ThingML!ConditionalAction
+	to t : ThingML!ConditionalAction(
+		action <- s.action,
+		condition <- s.condition,
+		elseAction <- s.elseAction
+	)
+}
+
+rule copyEqualsExpression {
+	from s : ThingML!EqualsExpression
+	to t : ThingML!EqualsExpression(
+		lhs <- s.lhs,
+		rhs <- s.rhs
 	)
 }
 
@@ -200,6 +229,13 @@ rule copyIntegerLiteral {
 	)
 }
 
+rule copyCharLiteral {
+	from s : ThingML!CharLiteral
+	to t : ThingML!CharLiteral(
+		charValue <- s.charValue	
+	)
+}
+
 rule copyPlatformAnnotation {
 	from s : ThingML!PlatformAnnotation
 	to t : ThingML!PlatformAnnotation(
@@ -243,6 +279,25 @@ rule copyDatatypes {
 		name <- s.name
 	) 
 }
+
+rule copyObjects {
+	from s : ThingML!ObjectType
+	to t : ThingML!ObjectType(
+		annotations <- s.annotations,
+		name <- s.name
+	) 
+}
+
+
+
+--rule copyCastExpression {
+--	from s : ThingML!CastExpression
+--	to t : ThingML!CastExpression(
+--		isArray <- s.isArray,
+--		term <- s.term,
+--		type <- s.type
+--	)
+--}
 
 rule copyEventReference {
 	from s : ThingML!EventReference

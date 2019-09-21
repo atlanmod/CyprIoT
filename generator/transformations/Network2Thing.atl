@@ -9,8 +9,14 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
 
+helper def : id : Integer = 0;
+helper def : position : Integer = 0;
+
 rule createExternalConnectorFromBind {
 	from s : CyprIoT!Bind((ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
+	using {
+		protocolName : String = s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.targetedProtocol.toString().removeHash();
+	}
 	to 
 	c : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
@@ -26,18 +32,14 @@ rule createExternalConnectorFromBind {
 		name <- s.bindsInstanceThing.name,
 		type <- ThingML!Thing.allInstances().first() -- TODO : more generic
 	),
-	annotationMqtt : ThingML!PlatformAnnotation(
-		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- s.getTopicName()
-	),
 	externalConnector : ThingML!ExternalConnector(
 		inst <- instance,
-		port <- ThingML!Port.allInstances().first(),
+		port <- ThingML!Port.allInstances()->select(p | p.name=s.portToBind.name).first(),
 		protocol <- protocol,
-		annotations <- Sequence{annotationMqtt}
+		annotations <- s.getAllTopicsFromBind()->collect(t | thisModule.multipleTopics(s, t))
 	),
-	protocol : ThingML!Protocol(
-		name <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.targetedProtocol.toString().removeHash(),
+	protocol : ThingML!Protocol (
+		name <- protocolName,
 		annotations <- Sequence{brokerAdress,portNumber,serializer}
 	),
 	brokerAdress : ThingML!PlatformAnnotation(
@@ -51,5 +53,19 @@ rule createExternalConnectorFromBind {
 	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
 		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first().serializer.toString().removeHash().toLower()
+	)
+	do {
+		if(thisModule.id>=1){
+			protocol.name <- protocolName+thisModule.id.toString();
+		}
+		thisModule.id <- thisModule.id + 1;
+	}
+}
+
+lazy rule multipleTopics {
+	from s : CyprIoT!Bind, t : CyprIoT!Topic
+	to annotationMqtt : ThingML!PlatformAnnotation(
+		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
+		value <- s.getTopicPathName(t)
 	)
 }
