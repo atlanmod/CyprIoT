@@ -7,8 +7,8 @@ CyprIoTModel returns CyprIoTModel:
 		imports+=Import*
 		(
 		declareTime+=Time |
-		declareThings+=Thing | 
-		declareChannels+=Channel|
+		declareThings+=TypeThing | 
+		declareChannels+=TypeChannel|
 		specifyNetworks+=Network |
 		declareUsers+=User |
 		specifyPolicies+=Policy |
@@ -19,9 +19,9 @@ Import:
 ;
 
 NamedElement:
-	User | Role | Thing | Network | Topic | PointToPoint | PubSub |
+	User | Role | TypeThing | Network | Topic | TypePointToPoint | TypePubSub |
 	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | 
-	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule | ThingAny | SubjectOther | ObjectOther |
+	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule | ThingAny | SubjectOther | ObjectOther | ChannelToBind |
 	";" name=ID
 ;
 
@@ -33,7 +33,7 @@ User :
 	'user' name=ID(':' password=STRING)? ('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 ;
 
-Thing:
+TypeThing:
 	'thing' name=ID 
 		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 		('import' importPath=STRING)?
@@ -42,12 +42,7 @@ Thing:
 // TODO Dynamicity of the configuration
 
 PoliciesEnforcement :
-	'enforce' hasEnforcedPolicies+=[Policy] ( "," hasEnforcedPolicies+=[Policy])* combiningAlgo=CombiningAlgo
-;
-
-enum CombiningAlgo:
-	DENY='override-deny' | 
-	ALLOW='override-allow'
+	'enforce' hasEnforcedPolicies+=[Policy] ( "," hasEnforcedPolicies+=[Policy])*
 ;
 
 Domain:
@@ -69,7 +64,7 @@ Instance:
 ;
 
 InstanceThing :
-	'instance' name=ID  ('['declareNumberOfInstances=INT']')? ':' typeThing=TypeThing
+	'instance' name=ID  ('['declareNumberOfInstances=INT']')? ':' typeThing=ThingToInstanciate
 ;
 
 InstanceChannel:
@@ -77,37 +72,37 @@ InstanceChannel:
 ;
 
 InstancePubSub :
-	'instance' name=ID ':' typePubSub=TypePubSub
+	'instance' name=ID ':' typePubSub=PubSubToInstanciate
 ;
 
 InstancePTP :
-	'instance' name=ID ':' typePTP=TypePTP
+	'instance' name=ID ':' typePTP=PTPToInstanciate
 ;
 
-TypeThing :
-	thingToInstantiate=[Thing] 'platform' targetedPlatform=Platform ('owner' owner=[User])?
+ThingToInstanciate :
+	thingToInstantiate=[TypeThing] 'platform' targetedPlatform=Platform ('owner' owner=[User])?
 ;
 
-TypePubSub :
-	pubSubToInstantiate=[PubSub] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING')')?
+PubSubToInstanciate :
+	pubSubToInstantiate=[TypePubSub] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING')')?
 ;
 
-TypePTP :
-	ptPToInstantiate=[PointToPoint] 'protocol'  targetedProtocol=PTPProtocol
+PTPToInstanciate :
+	ptPToInstantiate=[TypePointToPoint] 'protocol'  targetedProtocol=PTPProtocol
 ;
 
-Channel:
-	PubSub | PointToPoint
+TypeChannel:
+	TypePubSub | TypePointToPoint
 ;
 
-PubSub:
+TypePubSub:
 	'channel:pubsub' name=ID '{'
 		(hasTopics+=Topic)*
 	'}'
 ;
 
 Topic:
-	'topic'  name=ID ('=' topicName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subtopicOf' subtopicOf+=[Topic])?
+	'topic'  name=ID ('=' customName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subtopicOf' subtopicOf+=[Topic])?
 ;
 
 enum Serializer:
@@ -115,7 +110,7 @@ enum Serializer:
 	BINARY='BINARY'
 ;
 
-PointToPoint:
+TypePointToPoint:
 	'channel:ptp' name=ID '{'
 		(hasConnectionPoints+=ConnectionPoint)*
 	'}'
@@ -205,7 +200,7 @@ CommObject :
 ;
 
 ObjectOther:
-	Role | User | ThingAny | Topic | ConnectionPoint | Channel
+	Role | User | ThingAny | Topic | ConnectionPoint | TypeChannel
 ;
 
 CommSubject :
@@ -213,7 +208,7 @@ CommSubject :
 ;
 
 ThingAny:
-	InstanceThing | Thing
+	InstanceThing | TypeThing
 ;
 
 SubjectOther:
@@ -225,11 +220,11 @@ ThingWithStateOrPort:
 ;
 
 PTPWithConnectionPoint:
-	ptp=[PointToPoint] '->' getConnectionPoint=GetConnectionPoint
+	ptp=[TypePointToPoint] '->' getConnectionPoint=GetConnectionPoint
 ;
 
 PubSubWithTopic:
-	pubsub=[PubSub] '->' getTopic=GetTopic
+	pubsub=[TypePubSub] '->' getTopic=GetTopic
 ;
 
 ThingWithPort:
