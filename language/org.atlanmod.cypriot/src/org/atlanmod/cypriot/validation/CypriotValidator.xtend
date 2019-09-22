@@ -23,6 +23,8 @@ import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
+import org.atlanmod.cypriot.cyprIoT.Bind
+import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
 
 /**
  * This class contains custom validation rules. 
@@ -50,40 +52,42 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
 	public static val CONFLICTING_RULES = "Conflicting-Rules"
 
-//	@Check(FAST)
-//	def checkBindPortChannelCompatibility(Bind bind) {
-//		val portBind = bind.portToBind
-//		val network = bind.eContainer as Network
-//		val channelToBind = bind.channelToBind
-//		
-//		if (channelToBind instanceof ToBindPubSub) {
-//			if(bind.bindAction.literal.equals("=>")) {
-//				if(portBind.sends.size!==0) {
-//					if (!(channelToBind as ToBindPubSub).topics.forall[t | portBind.sends.exists[m | t.acceptedMessage.name.equals(m.name)]]) {
-//						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-//						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_SEND_COMPATIBILITY)
-//					}
-//				} else {
-//					val msg = "The port " + portBind.getName() + " cannot send a message.";
-//					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-//					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
-//				}
-//			} else if (bind.bindAction.literal.equals("<=")) {
-//				if(portBind.receives.size!==0) {
-//					if (!(channelToBind as ToBindPubSub).topics.forall[t | portBind.receives.exists[m | t.acceptedMessage.name.equals(m.name)]]) {
-//						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-//						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL__RECEIVE_COMPATIBILITY)
-//					}
-//				} else {
-//					val msg = "The port " + portBind.getName() + " cannot receive a message.";
-//					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-//					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
-//				}
-//			}
-//			
-//		}
-//
-//	}
+	@Check(FAST)
+	def checkBindPortChannelCompatibility(Bind bind) {
+		val portBind = bind.portToBind
+		val network = bind.eContainer as Network
+		val channelToBind = bind.channelToBind
+		
+		if (channelToBind instanceof ToBindPubSub) {
+			if(bind.bindAction.literal.equals("=>")) {
+				if(portBind.sends.size!==0) {
+					println("bool "+(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.sends.get(0).name)])			
+					if (!(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.sends.get(0).name)]) {
+						println("portBind.sends.size!==0")
+						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_SEND_COMPATIBILITY)
+					}
+				} else {
+					val msg = "The port " + portBind.getName() + " cannot send a message.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
+				}
+			} else if (bind.bindAction.literal.equals("<=")) {
+				if(portBind.receives.size!==0) {
+					if (!(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.receives.get(0).name)]) {
+						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL__RECEIVE_COMPATIBILITY)
+					}
+				} else {
+					val msg = "The port " + portBind.getName() + " cannot receive a message.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
+					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
+				}
+			}
+			
+		}
+
+	}
 
 	@Check(FAST)
 	def checkConflictingRules(Rule rule) {
