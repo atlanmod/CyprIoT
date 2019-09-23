@@ -9,8 +9,7 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
 
-helper def : id : Integer = 0;
-helper def : position : Integer = 0;
+helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {
 	from s : CyprIoT!Bind((ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
@@ -18,7 +17,7 @@ rule createExternalConnectorFromBind {
 		protocolName : String = s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.targetedProtocol.toString().removeHash();
 	}
 	to 
-	c : ThingML!Configuration(
+	configuration : ThingML!Configuration(
 		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
 		instances <- Sequence{instance},
 		connectors <- Sequence{externalConnector},
@@ -55,10 +54,10 @@ rule createExternalConnectorFromBind {
 		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first().serializer.toString().removeHash().toLower()
 	)
 	do {
-		if(thisModule.id>=1){
-			protocol.name <- protocolName+thisModule.id.toString();
+		if(thisModule.mqttNumber>=1){
+			protocol.name <- protocolName+thisModule.mqttNumber.toString();
 		}
-		thisModule.id <- thisModule.id + 1;
+		thisModule.mqttNumber <- thisModule.mqttNumber + 1;
 	}
 }
 
