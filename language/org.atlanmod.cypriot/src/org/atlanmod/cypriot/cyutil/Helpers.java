@@ -7,9 +7,12 @@
  */
 package org.atlanmod.cypriot.cyutil;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -19,7 +22,6 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
-import org.atlanmod.cypriot.cyprIoT.TypeChannel;
 import org.atlanmod.cypriot.cyprIoT.ConnectionPoint;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Import;
@@ -28,13 +30,14 @@ import org.atlanmod.cypriot.cyprIoT.InstancePTP;
 import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.cyprIoT.TypePointToPoint;
 import org.atlanmod.cypriot.cyprIoT.Policy;
-import org.atlanmod.cypriot.cyprIoT.TypePubSub;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.cyprIoT.ThingAny;
 import org.atlanmod.cypriot.cyprIoT.Topic;
+import org.atlanmod.cypriot.cyprIoT.TypeChannel;
+import org.atlanmod.cypriot.cyprIoT.TypePointToPoint;
+import org.atlanmod.cypriot.cyprIoT.TypePubSub;
+import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -636,6 +639,25 @@ public class Helpers {
 		}
 		return null;
 	}
+
+    public static void writeStringOnFile(String fileName, String message) {
+        FileWriter w = null;
+        try {
+            w = new FileWriter(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(w);
+        PrintWriter wr = new PrintWriter(bw);
+
+        try {
+            wr.write(message);
+            wr.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	/**
 	 * Utility function to check if a file exist in the given path

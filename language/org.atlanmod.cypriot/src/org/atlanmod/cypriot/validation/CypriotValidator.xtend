@@ -61,9 +61,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 		if (channelToBind instanceof ToBindPubSub) {
 			if(bind.bindAction.literal.equals("=>")) {
 				if(portBind.sends.size!==0) {
-					println("bool "+(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.sends.get(0).name)])			
 					if (!(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.sends.get(0).name)]) {
-						println("portBind.sends.size!==0")
 						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
 						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_SEND_COMPATIBILITY)
 					}

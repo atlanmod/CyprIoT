@@ -40,8 +40,8 @@ public class TransformationsTests {
 	public void test0_HelloWorld() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld/main.cy").getFile());
-		
-		Resource res = transformationHelper.transform(cyprIoTfile).get(0);
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
+		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false).get(0);
 		
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
@@ -63,8 +63,8 @@ public class TransformationsTests {
 	public void test0_HelloWorld2() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld2/main.cy").getFile());	
-		
-		Resource res = transformationHelper.transform(cyprIoTfile).get(0);
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
+		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false).get(0);
 		
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
@@ -86,11 +86,11 @@ public class TransformationsTests {
 	public void test1_TwoThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("1_TwoThings/main.cy").getFile());
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
 
 		// Device 1
 
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile);
-
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false);
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice1);
@@ -138,7 +138,8 @@ public class TransformationsTests {
 	public void test3_ThreeThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("3_ThreeThings/main.cy").getFile());
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile);
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false);
 
 		// Device 1
 
@@ -200,7 +201,8 @@ public class TransformationsTests {
 	public void test4_FourThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("4_FourThings/main.cy").getFile());
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile);
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false);
 		
 		// Device 1
 
@@ -276,7 +278,8 @@ public class TransformationsTests {
 	public void test5_FiveThings() throws Exception {
 		
 		File cyprIoTfile = new File(classLoader.getResource("5_FiveThings/main.cy").getFile());
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile);
+		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false);
 		
 		// Device 1
 

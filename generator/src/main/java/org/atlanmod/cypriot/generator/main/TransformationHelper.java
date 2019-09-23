@@ -33,12 +33,11 @@ public class TransformationHelper {
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	public final static String MODULE_NAME = "RuleComm";
 
-	public List<Resource> transform(File cypriotInputFile) {
+	public List<Resource> transform(File cypriotInputFile,File outputDirectory, boolean isEnforcing, boolean isCompiling) {
 		log.info("Transforming things according to the network...");
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
-		String outputDirectory = cypriotInputFile.getParent() + File.separator + "network-gen" + File.separator;
-		new File(outputDirectory).mkdirs();
+		outputDirectory.mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 			InstanceThing instance = bind.getBindsInstanceThing();
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
@@ -50,41 +49,44 @@ public class TransformationHelper {
 				log.info("Transforming thing : " + thing.getName() + "...");
 				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
 
-				String outputFile = outputDirectory + "transformed_" + thing.getName() + ".thingml";
+				String outputFile = outputDirectory.getPath()+ File.separator + "transformed_" + thing.getName() + ".thingml";
 				Resource resThingML = getResourceFromThingMLFile(thingMLFile, thing.getName());
 				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
 				
 				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile);
-				transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
-				
-				allThingMLResources.add(transformedThingMLModel);
-
-				String outputGenDirectory = outputDirectory + File.separator + "devices" + File.separator
-						+ thing.getName() + File.separator + targetPlatform;
-				String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
-
-				try {
-					log.info("Running ThingML generator...");
-					Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
-					proc.waitFor();
-					InputStream in = proc.getInputStream();
-					log.debug(NetworkHelper.convertStreamToString(in));
-					InputStream err = proc.getErrorStream();
-					String errors = NetworkHelper.convertStreamToString(err);
-					if (!errors.equals("")) {
-						log.error("There was errors in ThingML generation.");
-						log.error(errors);
-					} else {
-						log.info("ThingML generator completed without errors for " + thing.getName() + ".");
-					}
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(isEnforcing) {
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
 				}
+				allThingMLResources.add(transformedThingMLModel);
+				if(isCompiling) {
+					String outputGenDirectory = outputDirectory.getPath()+ File.separator + "devices" + File.separator
+							+ thing.getName() + File.separator + targetPlatform;
+					String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
+
+					try {
+						log.info("Running ThingML generator...");
+						Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
+						proc.waitFor();
+						InputStream in = proc.getInputStream();
+						log.debug(NetworkHelper.convertStreamToString(in));
+						InputStream err = proc.getErrorStream();
+						String errors = NetworkHelper.convertStreamToString(err);
+						if (!errors.equals("")) {
+							log.error("There was errors in ThingML generation.");
+							log.error(errors);
+						} else {
+							log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+						}
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 			}
 		}
 		log.info("All things transformed.");
