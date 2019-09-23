@@ -9,13 +9,16 @@ topic write $SYS/#
 [for (bind : Bind | aNetwork.hasBinds)]
 user [bind.bindsInstanceThing.typeThing.owner.name/]
 	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
-	topic [readOrWrite(bind)/] [aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]
+	topic [readOrWrite(bind)/] [replaceDomainDotsWithHash(aNetwork)/]/[addPubSubInTopic(bind)/]/[topic.name/]
 	[/for]
 [/for]
 [/file]
 
 [/template]
-
+[query public addPubSubInTopic (bind : Bind) : String = 
+	bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
+[query public replaceDomainDotsWithHash (aNetwork : Network) : String = 
+	aNetwork.domain.name.replaceAll('\\.', '/')/]
 [query public readOrWrite (bind : Bind) : String = 
 	if (bind.bindAction.toString().equalsIgnoreCase('=>')) 
 	then 'write'
