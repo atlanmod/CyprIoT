@@ -134,10 +134,6 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
-		thisModule.rulesContainingThingInSubject().rulesComm().debug('ruleComm').isEmpty()
-		or
-		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
-		or
 		not(s.isContainerExternalConnector())
 		or
 		s.noEnforcing()

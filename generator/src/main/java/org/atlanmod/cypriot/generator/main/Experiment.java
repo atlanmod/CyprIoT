@@ -45,7 +45,6 @@ public class Experiment {
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
-				log.info("alphabet : "+alphabet);
 				if ((j & 1) == 0) {
 					cypriotFile.append("thing " + alphabet + " import \"s.thingml\"\n");
 				} else {

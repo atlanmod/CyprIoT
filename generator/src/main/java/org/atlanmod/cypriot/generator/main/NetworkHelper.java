@@ -3,6 +3,7 @@ package org.atlanmod.cypriot.generator.main;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,9 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BindAction;
-import org.atlanmod.cypriot.cyprIoT.ChannelToBind;
-import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Network;
-import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
 import org.atlanmod.cypriot.cyprIoT.Topic;
@@ -25,20 +23,6 @@ import org.eclipse.emf.ecore.EObject;
 
 public final class NetworkHelper {
 
-	public enum TopicTypes {
-		PUBTOPIC, SUBTOPIC
-	}
-
-	public enum GeneratorPlatform {
-		CPOSIX, JAVA, ARDUINO, JAVASCRIPT
-	}
-
-	public enum CommunicationPlatform {
-		MQTT, COAP, HTTP
-	}
-
-	private NetworkHelper() {
-	}
 
 	/**
 	 * Return EObject of a given type contained by a given EObject
@@ -58,7 +42,7 @@ public final class NetworkHelper {
 		}
 		return instanceThings;
 	}
-	static String convertStreamToString(java.io.InputStream is) {
+	static String convertStreamToString(InputStream is) {
 	    @SuppressWarnings("resource")
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
 	    return s.hasNext() ? s.next() : "";
@@ -156,32 +140,6 @@ public final class NetworkHelper {
 	}
 
 	/**
-	 * Find the PubSub binds using ThingInstance as subject
-	 * 
-	 * @param instanceThing
-	 * @param network
-	 * @return
-	 */
-	public static List<Bind> pubSubBindsContainingThingInstances(InstanceThing instanceThing, Network network) {
-		ArrayList<Bind> binds = new ArrayList<Bind>();
-		for (Bind bind : network.getHasBinds()) {
-			ChannelToBind channelToBind = bind.getChannelToBind();
-			if (isChannelToBindPubSub(channelToBind) && isInstanceThingInBind(instanceThing, bind)) {
-				binds.add(bind);
-			}
-		}
-		return binds;
-	}
-
-	/**
-	 * @param channelToBind
-	 * @return
-	 */
-	public static boolean isChannelToBindPubSub(ChannelToBind channelToBind) {
-		return channelToBind instanceof ToBindPubSub;
-	}
-
-	/**
 	 * @param instanceThing
 	 * @param bind
 	 * @return
@@ -199,30 +157,6 @@ public final class NetworkHelper {
 			allModelsInNetwork.add(instanceThing);
 		}
 		return allModelsInNetwork;
-	}
-
-	/**
-	 * @param networkModel
-	 * @return
-	 */
-	public static EList<Network> getAllNetworksInModel(CyprIoTModel networkModel) {
-		return networkModel.getSpecifyNetworks();
-	}
-
-	/**
-	 * @param networkModel
-	 * @return
-	 */
-	public static boolean isPolicyEnforced(Network network) {
-		return network.getHasPolicyEnforcement() != null;
-	}
-
-	public static EList<Policy> getEnforcedPolicies(Network network) {
-		EList<Policy> policies = null;
-		if (NetworkHelper.isPolicyEnforced(network)) {
-			policies = network.getHasPolicyEnforcement().getHasEnforcedPolicies();
-		}
-		return policies;
 	}
 
 }
