@@ -106,7 +106,7 @@ xtend-gen/
 thingml-gen/
 gen/
 garbage/
-
+Experiment/
 # Ignore plugin.xml_gen and feature.xml_gen files, when build Eclipse Plugins.
 *.xml_gen
 
@@ -115,6 +115,7 @@ garbage/
 
 !org.eclipse.m2m.atl.emftvm_3.6.0.v201501081942.jar
 !atl-emftvm-fatjar.jar
+!Experiment/**/*.txt
 old
 plugin.xml_gen
 .attach*

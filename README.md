@@ -68,6 +68,16 @@ To run some examples of the language :
 * If you still see errors after the import, try ``Right-Click -> Refresh`` or ``Right-Click -> Maven -> Update Project... -> OK``
 * If the ``.pom`` file shows an error on ``<packaging>eclipse-plugin</packaging>``, hover the error then click on ``Discover new m2e connectors -> Auto Select`` then install the required connectors and restart
 
+## Research Papers
+
+* **CyprIoT: framework for modelling and controlling network-based IoT applications.**
+Berrouyne I, Adda M, Mottu JM, Royer JC, Tisi M. 
+InProceedings of the 34th ACM/SIGAPP Symposium on Applied Computing 2019 Apr 8 (pp. 832-841). ACM.
+
+* **Towards Model-Based Communication Control for the Internet of Things.**
+Berrouyne I, Adda M, Mottu JM, Royer JC, Tisi M. 
+InFederation of International Conferences on Software Technologies: Applications and Foundations 2018 Jun 25 (pp. 644-655). Springer, Cham.
+
 ## Contributors
 
 * imberium
