@@ -14,9 +14,8 @@ import org.atlanmod.cypriot.cyprIoT.BindAction;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Network;
+import org.atlanmod.cypriot.cyprIoT.Path;
 import org.atlanmod.cypriot.cyprIoT.Role;
-import org.atlanmod.cypriot.cyprIoT.ToBindPubSub;
-import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -125,12 +124,12 @@ public final class NetworkHelper {
 	 * @param bindPubSubs
 	 * @return
 	 */
-	public static List<Topic> getAllTopicsOfType(List<Bind> bindPubSubs, BindAction bindAction) {
-		ArrayList<Topic> topics = new ArrayList<Topic>();
+	public static List<Path> getAllTopicsOfType(List<Bind> bindPubSubs, BindAction bindAction) {
+		ArrayList<Path> topics = new ArrayList<Path>();
 		for (Bind bind : bindPubSubs) {
 			if (bind.getBindAction() == bindAction) {
-				EList<Topic> allTopics = ((ToBindPubSub) bind.getChannelToBind()).getTopics();
-				for (Topic topic : allTopics) {
+				EList<Path> allTopics = bind.getChannelToBind().getPaths();
+				for (Path topic : allTopics) {
 					topics.add(topic);
 				}
 			}

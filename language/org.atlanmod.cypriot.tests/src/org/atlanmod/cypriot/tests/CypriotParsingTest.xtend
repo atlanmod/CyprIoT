@@ -43,8 +43,8 @@ class CypriotParsingTest {
 			createResource(URI.createFileURI("/import1.cy")) => [
 				load(new StringInputStream('''
 					thing thing1 import "thing1.thingml"
-					channel:pubsub anychannel {
-						topic anytopic(message1:JSON)
+					channel anychannel {
+						path anytopic(message1:JSON)
 					}
 				''', "UTF-8"), resourceSet.loadOptions)
 			]
@@ -132,7 +132,7 @@ class CypriotParsingTest {
 	@Test
 	def void TimeDeclaration() {
 		val result = parseHelper.parse('''
-			time time1 * 4 * * * *
+			time time1: * 4 * * * *
 		''')
 		result.assertNoErrors
 		Assert.assertNotNull(result)

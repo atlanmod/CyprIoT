@@ -6,8 +6,8 @@
 [file ('rabbit'.concat('.acl'), false, 'UTF-8')]
 ['['/]
 [for (bind : Bind | aNetwork.hasBinds) separator(',') ]
-	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics) ]
-	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]"}
+	[for (topic : Path | bind.channelToBind.paths) ]
+	{"[bind.bindsInstanceThing.typeThing.owner.name/]",[readOrWrite(bind)/],"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.targetedChannelInstance.name/]/[topic.name/]"}
 	[/for]
 [/for]
 [']'/]

@@ -29,16 +29,16 @@ class CypriotRuleBridgeParsing {
 	@Test
 	def void RuleBridgeBetweenTopics() {
 		val result = parseHelper.parse('''
-			channel:pubsub anypubsub {
-				topic topic1 
-				topic topic2 subtopicOf topic1
+			channel anypubsub {
+				path topic1 
+				path topic2 subpathOf topic1
 			}
-			channel:pubsub anypubsub2 {
-				topic topic1 
-				topic topic2 subtopicOf topic1
+			channel anypubsub2 {
+				path topic1 
+				path topic2 subpathOf topic1
 			}
 			policy anyname {
-				rule anypubsub->topic:topic1 bridge:to anypubsub2->topic:topic1
+				rule anypubsub->path:topic1 bridge:to anypubsub2->path:topic1
 			}
 		''')
 		result.assertNoErrors
@@ -103,87 +103,11 @@ class CypriotRuleBridgeParsing {
 	def void RuleBridgeBetweenPortAndTopic() {
 		val result = parseHelper.parse('''
 			thing thing1 import "thing1.thingml"
-			channel:pubsub anypubsub {
-				topic topic1 
+			channel anypubsub {
+				path topic1 
 			}
 			policy anyname {
-				rule thing1->port:port1 bridge:to anypubsub->topic:topic1
-			}
-		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
-			createResource(URI.createFileURI("/thing1.thingml")) => [
-				load(new StringInputStream('''
-					thing thing1{
-						message message1()
-						provided port port1 {
-							receives message1
-						}
-						statechart thing1 init state1 {
-							state state1 {}
-							state state2 {}
-						}
-					}
-					protocol X;
-					configuration thing1Cfg {
-						instance thing1Inst:thing1
-						connector thing1.port1 over X
-					}
-				''', "UTF-8"), resourceSet.loadOptions)
-			]
-		])
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-	
-	@Test
-	def void RuleBridgeBetweenPortAndConnectionPoint() {
-		val result = parseHelper.parse('''
-			thing thing1 import "thing1.thingml"
-			channel:ptp ptp1 {
-				ConnectionPoint connexion 
-			}
-			policy anyname {
-				rule thing1->port:port1 bridge:to ptp1->connectionPoint:connexion
-			}
-		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
-			createResource(URI.createFileURI("/thing1.thingml")) => [
-				load(new StringInputStream('''
-					thing thing1{
-						message message1()
-						provided port port1 {
-							receives message1
-						}
-						statechart thing1 init state1 {
-							state state1 {}
-							state state2 {}
-						}
-					}
-					protocol X;
-					configuration thing1Cfg {
-						instance thing1Inst:thing1
-						connector thing1.port1 over X
-					}
-				''', "UTF-8"), resourceSet.loadOptions)
-			]
-		])
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-	
-	@Test
-	def void RuleBridgeBetweenTopicAndConnectionPoint() {
-		val result = parseHelper.parse('''
-			channel:pubsub anypubsub {
-				topic topic1 
-			}
-			
-			channel:ptp ptp1 {
-				ConnectionPoint connexion 
-			}
-			
-			policy anyname {
-				rule anypubsub->topic:topic1 bridge:to ptp1->connectionPoint:connexion
+				rule thing1->port:port1 bridge:to anypubsub->path:topic1
 			}
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/thing1.thingml")) => [

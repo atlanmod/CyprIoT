@@ -8,14 +8,13 @@
 
 * Name : [aNetwork.name/]
 * Domain : [aNetwork.domain.name/]
-* Instance of things : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstanceThing))][instance.oclAsType(InstanceThing).name.concat(', ')/][/if][/for]
-* Instance of PubSub channels : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstancePubSub))][instance.oclAsType(InstancePubSub).name.concat(', ')/][/if][/for]
-* Instance of Point-To-Point channels : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstancePTP))][instance.oclAsType(InstancePTP).name.concat(', ')/][/if][/for]
+* Instances of things : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstanceThing))][instance.oclAsType(InstanceThing).name.concat(', ')/][/if][/for]
+* Instances of channels : [for (instance : Instance | aNetwork.instantiate)][if(instance.oclIsKindOf(InstanceChannel))][instance.oclAsType(InstanceChannel).name.concat(', ')/][/if][/for]
 
 # Bindings
 
 [for (bind : Bind | aNetwork.hasBinds)]
-* The port [bind.portToBind.name/] of the instance [bind.bindsInstanceThing.name/] is bound to [bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
+* The port [bind.portToBind.name/] of the instance [bind.bindsInstanceThing.name/] is bound to [bind.channelToBind.targetedChannelInstance.name/]
 [/for]
 [/file]
 [/template]

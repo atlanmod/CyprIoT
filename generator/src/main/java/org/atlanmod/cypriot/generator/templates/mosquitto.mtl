@@ -8,7 +8,7 @@ topic read $SYS/#
 topic write $SYS/#
 [for (bind : Bind | aNetwork.hasBinds)]
 user [bind.bindsInstanceThing.typeThing.owner.name/]
-	[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+	[for (topic : Path | bind.channelToBind.paths)]
 	topic [readOrWrite(bind)/] [replaceDomainDotsWithHash(aNetwork)/]/[addPubSubInTopic(bind)/]/[topic.name/]
 	[/for]
 [/for]
@@ -16,7 +16,7 @@ user [bind.bindsInstanceThing.typeThing.owner.name/]
 
 [/template]
 [query public addPubSubInTopic (bind : Bind) : String = 
-	bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]
+	bind.channelToBind.targetedChannelInstance.name/]
 [query public replaceDomainDotsWithHash (aNetwork : Network) : String = 
 	aNetwork.domain.name.replaceAll('\\.', '/')/]
 [query public readOrWrite (bind : Bind) : String = 

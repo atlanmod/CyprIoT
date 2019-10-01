@@ -5,16 +5,14 @@ import java.util.Collections
 import java.util.List
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject
+import org.atlanmod.cypriot.cyprIoT.ChannelToBind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.ObjectOther
-import org.atlanmod.cypriot.cyprIoT.TypePointToPoint
-import org.atlanmod.cypriot.cyprIoT.TypePubSub
 import org.atlanmod.cypriot.cyprIoT.SubjectOther
-import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyprIoT.ThingAny
-import org.atlanmod.cypriot.cyprIoT.ToBindPTP
-import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
+import org.atlanmod.cypriot.cyprIoT.TypeChannel
+import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.emf.ecore.ENamedElement
 import org.eclipse.emf.ecore.EObject
@@ -38,28 +36,22 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingToInstanciate_ThingToInstantiate) {
 			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.pubSubToInstanciate_PubSubToInstantiate) {
+		} else if (reference == cypriotInstance.channelToInstanciate_PubSubToInstantiate) {
 			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.PTPToInstanciate_PtPToInstantiate) {
-			return Scopes.scopeFor(Helpers.allReqRep(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingToInstanciate_Owner) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.topic_SubtopicOf) {
-			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as TypePubSub))
+		} else if (reference == cypriotInstance.path_SubpathOf) {
+			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as TypeChannel))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
 			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThingBack) {
 			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network).filter[
 				k | !k.name.equals((context as Bind).bindsInstanceThing.name)
 			])
-		} else if (reference == cypriotInstance.toBindPubSub_TargetedPubSubInstance) {
+		} else if (reference == cypriotInstance.channelToBind_TargetedChannelInstance) {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network))
-		} else if (reference == cypriotInstance.toBindPTP_TargetedPtpInstance) {
-			return Scopes.scopeFor(Helpers.allPtPinstances(context.eContainer.eContainer as Network))
-		} else if (reference == cypriotInstance.toBindPubSub_Topics) {
-			return Scopes.scopeFor(Helpers.allTopics((context as ToBindPubSub).targetedPubSubInstance))
-		} else if (reference == cypriotInstance.toBindPTP_BindsToConnectionPoint) {
-			return Scopes.scopeFor(Helpers.allConnectionPoints((context as ToBindPTP).targetedPtpInstance))
+		} else if (reference == cypriotInstance.channelToBind_Paths) {
+			return Scopes.scopeFor(Helpers.allTopics((context as ChannelToBind).targetedChannelInstance))
 		} else if (reference == cypriotInstance.networkBridge_BridgeSubject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject)
@@ -82,7 +74,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ObjectOther)
 			return Scopes.scopeFor(candidates)
-		} else if (reference == cypriotInstance.topic_AcceptedMessage) {
+		} else if (reference == cypriotInstance.path_AcceptedMessage) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeThing)
 			return Scopes.scopeFor(Helpers.allMessagesInNetworkModel(candidates as ArrayList<TypeThing>))
@@ -96,22 +88,16 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.getAllStatesThingAny(Helpers.allContainedCrossThingAny(context.eContainer)))
 		} else if (reference == cypriotInstance.getFunction_Function) {
 			return Scopes.scopeFor(Helpers.getAllFunctionsThingAny(Helpers.allContainedCrossThingAny(context.eContainer)))
-		} else if (reference == cypriotInstance.pubSubWithTopic_Pubsub) {
+		} else if (reference == cypriotInstance.channelWithPath_Channel) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypePubSub)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeChannel)
 			return Scopes.scopeFor(candidates)	
-		} else if (reference == cypriotInstance.getTopic_Topic) {
+		} else if (reference == cypriotInstance.getPath_Path) {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(Helpers.allContainedCrossPubSub(context.eContainer)))
-		} else if (reference == cypriotInstance.PTPWithConnectionPoint_Ptp) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypePointToPoint)
-			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.actionTrigger_ThingToTransition) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
 			return Scopes.scopeFor(candidates)	
-		} else if (reference == cypriotInstance.getConnectionPoint_ConnectionPoint) {
-			return Scopes.scopeFor(Helpers.allConnectionPointsInPTP(Helpers.allContainedCrossPTP(context.eContainer)))
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

@@ -19,9 +19,9 @@ Import:
 ;
 
 NamedElement:
-	User | Role | TypeThing | Network | Topic | TypePointToPoint | TypePubSub |
-	InstanceThing | InstancePubSub | InstancePTP | ConnectionPoint | 
-	Bind |  Policy | ToBindPTP | ToBindPubSub | Rule | ThingAny | SubjectOther | ObjectOther | ChannelToBind |
+	User | Role | TypeThing | Network | Path | TypeChannel |
+	InstanceThing | InstanceChannel | 
+	Bind |  Policy | ChannelToBind | Rule | ThingAny | SubjectOther | ObjectOther |
 	";" name=ID
 ;
 
@@ -68,56 +68,30 @@ InstanceThing :
 ;
 
 InstanceChannel:
-	InstancePubSub | InstancePTP
-;
-
-InstancePubSub :
-	'instance' name=ID ':' typePubSub=PubSubToInstanciate
-;
-
-InstancePTP :
-	'instance' name=ID ':' typePTP=PTPToInstanciate
+	'instance' name=ID ':' typeChannel=ChannelToInstanciate
 ;
 
 ThingToInstanciate :
 	thingToInstantiate=[TypeThing] 'platform' targetedPlatform=Platform ('owner' owner=[User])?
 ;
 
-PubSubToInstanciate :
-	pubSubToInstantiate=[TypePubSub] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING')')?
-;
-
-PTPToInstanciate :
-	ptPToInstantiate=[TypePointToPoint] 'protocol'  targetedProtocol=PTPProtocol
+ChannelToInstanciate :
+	pubSubToInstantiate=[TypeChannel] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING')')?
 ;
 
 TypeChannel:
-	TypePubSub | TypePointToPoint
-;
-
-TypePubSub:
-	'channel:pubsub' name=ID '{'
-		(hasTopics+=Topic)*
+	'channel' name=ID '{'
+		(hasPaths+=Path)*
 	'}'
 ;
 
-Topic:
-	'topic'  name=ID ('=' customName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subtopicOf' subtopicOf+=[Topic])?
+Path:
+	'path'  name=ID ('=' customName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subpathOf' subpathOf+=[Path])?
 ;
 
 enum Serializer:
 	JSON='JSON' | 
 	BINARY='BINARY'
-;
-
-TypePointToPoint:
-	'channel:ptp' name=ID '{'
-		(hasConnectionPoints+=ConnectionPoint)*
-	'}'
-;
-
-ConnectionPoint:
-	'ConnectionPoint'  name=ID ('(' acceptedMessages+=ID ( "," assignedRoles+=ID)* ')')*
 ;
 
 Bind:
@@ -136,10 +110,7 @@ enum Platform:
 
 enum PubSubProtocol:
 	MQTT='MQTT' | 
-	AMQP='AMQP' 
-;
-
-enum PTPProtocol:
+	AMQP='AMQP' |
 	HTTP='HTTP' | 
 	COAP='COAP' |
 	UPNP='UPNP' |
@@ -153,19 +124,11 @@ enum BindAction:
 ;
 
 ChannelToBind:
-	ToBindPubSub | ToBindPTP
-;
-
-ToBindPubSub:
-	 targetedPubSubInstance=[InstancePubSub] '{' topics+=[Topic] ( "," topics+=[Topic])*'}'
-;
-
-ToBindPTP:
-	targetedPtpInstance=[InstancePTP] '.' (bindsToConnectionPoint=[ConnectionPoint] /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/)
+	 targetedChannelInstance=[InstanceChannel] '{' paths+=[Path] ( "," paths+=[Path])*'}' /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/
 ;
 
 BridgeSubject:
-	Bind | Topic | ConnectionPoint
+	Bind | Path
 ;
 
 Policy:
@@ -192,7 +155,7 @@ RuleBridge:
 ;
 
 BridgeSubjectObject:
-	 PubSubWithTopic | PTPWithConnectionPoint | ThingWithPort
+	 ChannelWithPath | ThingWithPort
 ;
 
 CommObject :
@@ -200,7 +163,7 @@ CommObject :
 ;
 
 ObjectOther:
-	Role | User | ThingAny | Topic | ConnectionPoint | TypeChannel
+	Role | User | ThingAny | Path | TypeChannel
 ;
 
 CommSubject :
@@ -219,12 +182,8 @@ ThingWithStateOrPort:
 	ThingWithPort | ThingWithState
 ;
 
-PTPWithConnectionPoint:
-	ptp=[TypePointToPoint] '->' getConnectionPoint=GetConnectionPoint
-;
-
-PubSubWithTopic:
-	pubsub=[TypePubSub] '->' getTopic=GetTopic
+ChannelWithPath:
+	channel=[TypeChannel] '->' getPath=GetPath
 ;
 
 ThingWithPort:
@@ -239,12 +198,8 @@ ThingWithFunction:
 	thing=[ThingAny] '->' getFunction=GetFunction
 ;
 
-GetConnectionPoint:
-	'connectionPoint:' connectionPoint=[ConnectionPoint]
-;
-
-GetTopic:
-	'topic:' topic=[Topic]
+GetPath:
+	'path:' path=[Path]
 ;
 
 GetPort:
@@ -315,7 +270,7 @@ NetworkBridge:
 ;
 
 Time: // Cron syntax
-	'time' name=ID cronExpression=CronExpression
+	'time' name=ID ':'cronExpression=CronExpression
 ;
 
 CronExpression:

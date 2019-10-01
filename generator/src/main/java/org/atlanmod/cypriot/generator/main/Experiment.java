@@ -15,12 +15,12 @@ import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 
 public class Experiment {
 	static final Logger log = LogManager.getLogger(Experiment.class.getName());
-	public static int maxNumberOfNodes = 50;
+	public static int maxNumberOfNodes = 2;
 	public static int NumberOfTimes = 1;
 	public static boolean isMosquitto = true;
 	public static boolean isRabbit = true;
 	public static final String mainDir = "../generator/src/test/resources/Experiment/";
-	public static String outDir = mainDir + "experiment4/";
+	public static String outDir = mainDir + "experiment5/";
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final String sendThingml = mainDir + "s.thingml";
 	public static final String receiveThingml = mainDir + "r.thingml";
@@ -54,7 +54,7 @@ public class Experiment {
 			}
 
 			cypriotFile.append("channel:pubsub a {\n" + "	topic a(m:JSON)\n" + "}\n"
-					+ "network helloNetwork {\n" + "	domain a.a.a\n");
+					+ "network n {\n" + "	domain a.a.a\n");
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));

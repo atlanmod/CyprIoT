@@ -7,15 +7,15 @@
 [for (bind : Bind | aNetwork.hasBinds)]
 [if(bind.bindsInstanceThing.typeThing.targetedPlatform.toString()='NODERED')]
 		['['/]
-[for (topic : Topic | bind.channelToBind.oclAsType(ToBindPubSub).topics)]
+[for (topic : Path | bind.channelToBind.paths)]
    {
       "id":"[bind.bindsInstanceThing.name/].[bind.bindsInstanceThing.typeThing.thingToInstantiate.name/]",
       "type":"[mqttInOut(bind)/]",
       "z":"1cd8511c.sdsdfs",
       "name":"",
-      "topic":"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/]/[topic.name/]",
+      "topic":"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.targetedChannelInstance.name/]/[topic.name/]",
       "qos":"0",
-      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/].[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.pubSubToInstantiate.name/]",
+      "broker":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name/]",
       "x":391,
       "y":308,
       "wires":['['/]
@@ -40,11 +40,11 @@
       [']'/]
    },
    {
-      "id":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.name/].[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.pubSubToInstantiate.name/]",
+      "id":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name/]",
       "type":"mqtt-broker",
       "z":"",
-      "broker":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.strtok(':', 0)/]",
-      "port":"[bind.channelToBind.oclAsType(ToBindPubSub).targetedPubSubInstance.typePubSub.server.strtok(':', 1)/]",
+      "broker":"[bind.channelToBind.targetedChannelInstance.typeChannel.server.strtok(':', 0)/]",
+      "port":"[bind.channelToBind.targetedChannelInstance.typeChannel.server.strtok(':', 1)/]",
       "clientid":"",
       "usetls":false,
       "compatmode":true,

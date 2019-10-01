@@ -4,27 +4,23 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
-
-import org.atlanmod.cypriot.cyprIoT.ConnectionPoint
+import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.cyprIoT.InstancePTP
-import org.atlanmod.cypriot.cyprIoT.InstancePubSub
+import org.atlanmod.cypriot.cyprIoT.InstanceChannel
 import org.atlanmod.cypriot.cyprIoT.InstanceThing
 import org.atlanmod.cypriot.cyprIoT.Network
-import org.atlanmod.cypriot.cyprIoT.TypePointToPoint
+import org.atlanmod.cypriot.cyprIoT.Path
 import org.atlanmod.cypriot.cyprIoT.Policy
-import org.atlanmod.cypriot.cyprIoT.TypePubSub
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleComm
+import org.atlanmod.cypriot.cyprIoT.TypeChannel
 import org.atlanmod.cypriot.cyprIoT.TypeThing
-import org.atlanmod.cypriot.cyprIoT.Topic
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
-import org.atlanmod.cypriot.cyprIoT.Bind
-import org.atlanmod.cypriot.cyprIoT.ToBindPubSub
+import org.thingml.xtext.thingML.Thing
 
 /**
  * This class contains custom validation rules. 
@@ -57,61 +53,63 @@ class CypriotValidator extends AbstractCypriotValidator {
 		val portBind = bind.portToBind
 		val network = bind.eContainer as Network
 		val channelToBind = bind.channelToBind
-		
-		if (channelToBind instanceof ToBindPubSub) {
-			if(bind.bindAction.literal.equals("=>")) {
-				if(portBind.sends.size!==0) {
-					if (!(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.sends.get(0).name)]) {
-						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL_SEND_COMPATIBILITY)
-					}
-				} else {
-					val msg = "The port " + portBind.getName() + " cannot send a message.";
-					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-					network.hasBinds.indexOf(bind), PORT_SEND_EXISTANCE)
+
+		if (bind.bindAction.literal.equals("=>")) {
+			if (portBind.sends.size !== 0) {
+				if (!channelToBind.paths.forall[t|t.acceptedMessage.name.equals(portBind.sends.get(0).name)]) {
+					val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+						PORT_CHANNEL_SEND_COMPATIBILITY)
 				}
-			} else if (bind.bindAction.literal.equals("<=")) {
-				if(portBind.receives.size!==0) {
-					if (!(channelToBind as ToBindPubSub).topics.forall[t | t.acceptedMessage.name.equals(portBind.receives.get(0).name)]) {
-						val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
-						error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind), PORT_CHANNEL__RECEIVE_COMPATIBILITY)
-					}
-				} else {
-					val msg = "The port " + portBind.getName() + " cannot receive a message.";
-					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds,
-					network.hasBinds.indexOf(bind), PORT_RECEIVES_EXISTANCE)
-				}
+			} else {
+				val msg = "The port " + portBind.getName() + " cannot send a message.";
+				error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+					PORT_SEND_EXISTANCE)
 			}
-			
+		} else if (bind.bindAction.literal.equals("<=")) {
+			if (portBind.receives.size !== 0) {
+				if (!channelToBind.paths.forall[t|t.acceptedMessage.name.equals(portBind.receives.get(0).name)]) {
+					val msg = "The port " + portBind.getName() + " is incompatible with at least one topic.";
+					error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+						PORT_CHANNEL__RECEIVE_COMPATIBILITY)
+				}
+			} else {
+				val msg = "The port " + portBind.getName() + " cannot receive a message.";
+				error(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+					PORT_RECEIVES_EXISTANCE)
+			}
 		}
 
 	}
 
 	@Check(FAST)
 	def checkConflictingRules(Rule rule) {
-		if((rule instanceof RuleComm)) {
-			
-		val policy = rule.eContainer as Policy
-		val allRules = policy.hasRules.filter[ r | 
-			r instanceof RuleComm
-			&& ((r as RuleComm).commSubject.subjectOther.name.equals((rule as RuleComm).commSubject.subjectOther.name))
-			&& ((r as RuleComm).effectComm.actionComm.literal.equals((rule as RuleComm).effectComm.actionComm.literal))
-			&& ((r as RuleComm).commSubject.subjectOther.name.equals((rule as RuleComm).commSubject.subjectOther.name))
-			&& ((r as RuleComm).commObject.objectOther.name.equals((rule as RuleComm).commObject.objectOther.name))
-		]
+		if ((rule instanceof RuleComm)) {
 
-		if (allRules.size() > 1) {
-			val msg = "There are conflicting or duplicate rules.";
-			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules,
-				policy.hasRules.indexOf(rule), CONFLICTING_RULES)
+			val policy = rule.eContainer as Policy
+			val allRules = policy.hasRules.filter [ r |
+				r instanceof RuleComm &&
+					((r as RuleComm).commSubject.subjectOther.name.equals(
+						(rule as RuleComm).commSubject.subjectOther.name)) &&
+					((r as RuleComm).effectComm.actionComm.literal.equals(
+						(rule as RuleComm).effectComm.actionComm.literal)) &&
+					((r as RuleComm).commSubject.subjectOther.name.equals(
+						(rule as RuleComm).commSubject.subjectOther.name)) &&
+					((r as RuleComm).commObject.objectOther.name.equals((rule as RuleComm).commObject.objectOther.name))
+			]
+
+			if (allRules.size() > 1) {
+				val msg = "There are conflicting or duplicate rules.";
+				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
+					CONFLICTING_RULES)
+			}
 		}
-	}
 	}
 
 	@Check(FAST)
 	def checkNumberofThing(TypeThing thing) {
 		val thingml = Helpers.getThingInThingML(thing)
-		val numberThings = thingml.types.filter[k|k instanceof org.thingml.xtext.thingML.Thing].size
+		val numberThings = thingml.types.filter[k|k instanceof Thing].size
 		val container = thing.eContainer as CyprIoTModel
 
 		if (numberThings != 1) {
@@ -138,32 +136,17 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkInstancePubSubUniqueness(InstancePubSub instancePubSub) {
+	def checkInstancePubSubUniqueness(InstanceChannel instancePubSub) {
 		val network = instancePubSub.eContainer as Network
 		val allinstancePubSub = network.instantiate.filter(
 			k |
-				k instanceof InstancePubSub && (k as InstancePubSub).name == instancePubSub.name
+				k instanceof InstanceChannel && (k as InstanceChannel).name == instancePubSub.name
 		)
 
 		if (allinstancePubSub.size() > 1) {
 			val msg = "The instance '" + instancePubSub.getName() + "' is already declared.";
 			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate,
 				network.instantiate.indexOf(instancePubSub), INSTANCEPUBSUB_UNIQUENESS)
-		}
-	}
-
-	@Check(FAST)
-	def checkInstancePTPUniqueness(InstancePTP instancePTP) {
-		val network = instancePTP.eContainer as Network
-		val allinstancePTP = network.instantiate.filter(
-			k |
-				k instanceof InstancePTP && (k as InstancePTP).name == instancePTP.name
-		)
-
-		if (allinstancePTP.size() > 1) {
-			val msg = "The instance '" + instancePTP.getName() + "' is already declared.";
-			error(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate, network.instantiate.indexOf(instancePTP),
-				INSTANCEPTP_UNIQUENESS)
 		}
 	}
 
@@ -216,9 +199,11 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkPubSubUniqueness(TypePubSub pubsub) {
+	def checkPubSubUniqueness(TypeChannel pubsub) {
 		val cypriotModel = pubsub.eContainer as CyprIoTModel
-		val allPubSubs = cypriotModel.declareChannels.filter(k|k instanceof TypePubSub && (k as TypePubSub).name == pubsub.name)
+		val allPubSubs = cypriotModel.declareChannels.filter( k |
+			k instanceof TypeChannel && (k as TypeChannel).name == pubsub.name
+		)
 
 		if (allPubSubs.size() > 1) {
 			val msg = "The channel PubSub '" + pubsub.getName() + "' is already declared.";
@@ -228,41 +213,14 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkInstanceTopicUniqueness(Topic topic) {
-		val pubsub = topic.eContainer as TypePubSub
-		val allTopics = pubsub.hasTopics.filter(k|k.name == topic.name)
+	def checkInstanceTopicUniqueness(Path topic) {
+		val pubsub = topic.eContainer as TypeChannel
+		val allTopics = pubsub.hasPaths.filter(k|k.name == topic.name)
 
 		if (allTopics.size() > 1) {
 			val msg = "The topic '" + topic.getName() + "' is already declared.";
-			error(msg, pubsub, CyprIoTPackage.eINSTANCE.typePubSub_HasTopics, pubsub.hasTopics.indexOf(topic),
+			error(msg, pubsub, CyprIoTPackage.eINSTANCE.typeChannel_HasPaths, pubsub.hasPaths.indexOf(topic),
 				TOPIC_UNIQUENESS)
-		}
-	}
-
-	@Check(FAST)
-	def checkPTPUniqueness(TypePointToPoint ptp) {
-		val cypriotModel = ptp.eContainer as CyprIoTModel
-		val allPTPs = cypriotModel.declareChannels.filter(
-			k |
-				k instanceof TypePointToPoint && (k as TypePointToPoint).name == ptp.name
-		)
-
-		if (allPTPs.size() > 1) {
-			val msg = "The channel Point-To-Point '" + ptp.getName() + "' is already declared.";
-			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels,
-				cypriotModel.declareChannels.indexOf(ptp), PTP_UNIQUENESS)
-		}
-	}
-
-	@Check(FAST)
-	def checkInstanceConnectionPointUniqueness(ConnectionPoint connectionPoint) {
-		val ptp = connectionPoint.eContainer as TypePointToPoint
-		val allTopics = ptp.hasConnectionPoints.filter(k|k.name == connectionPoint.name)
-
-		if (allTopics.size() > 1) {
-			val msg = "The connection point '" + connectionPoint.getName() + "' is already declared.";
-			error(msg, ptp, CyprIoTPackage.eINSTANCE.typePointToPoint_HasConnectionPoints,
-				ptp.hasConnectionPoints.indexOf(connectionPoint), CONNECTIONPOINT_UNIQUENESS)
 		}
 	}
 

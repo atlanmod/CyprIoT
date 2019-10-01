@@ -22,21 +22,17 @@ import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
-import org.atlanmod.cypriot.cyprIoT.ConnectionPoint;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Import;
 import org.atlanmod.cypriot.cyprIoT.Instance;
-import org.atlanmod.cypriot.cyprIoT.InstancePTP;
-import org.atlanmod.cypriot.cyprIoT.InstancePubSub;
+import org.atlanmod.cypriot.cyprIoT.InstanceChannel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.cyprIoT.Network;
+import org.atlanmod.cypriot.cyprIoT.Path;
 import org.atlanmod.cypriot.cyprIoT.Policy;
 import org.atlanmod.cypriot.cyprIoT.Role;
 import org.atlanmod.cypriot.cyprIoT.ThingAny;
-import org.atlanmod.cypriot.cyprIoT.Topic;
 import org.atlanmod.cypriot.cyprIoT.TypeChannel;
-import org.atlanmod.cypriot.cyprIoT.TypePointToPoint;
-import org.atlanmod.cypriot.cyprIoT.TypePubSub;
 import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.cyprIoT.User;
 import org.eclipse.emf.common.util.EList;
@@ -165,14 +161,9 @@ public class Helpers {
 		return thingAny;
 	}
 	
-	public static TypePubSub allContainedCrossPubSub(EObject parent) {
-		TypePubSub pubsub = allContainedCrossReferencesOfType(parent, TypePubSub.class);
+	public static TypeChannel allContainedCrossPubSub(EObject parent) {
+		TypeChannel pubsub = allContainedCrossReferencesOfType(parent, TypeChannel.class);
 	return pubsub;
-	}
-	
-	public static TypePointToPoint allContainedCrossPTP(EObject parent) {
-		TypePointToPoint ptp = allContainedCrossReferencesOfType(parent, TypePointToPoint.class);
-	return ptp;
 	}
 
 	public static CyprIoTModel findContainingModel(EObject object) {
@@ -183,8 +174,8 @@ public class Helpers {
 		return findContainer(object, TypeThing.class);
 	}
 
-	public static TypePubSub findContainingPubSub(EObject object) {
-		return findContainer(object, TypePubSub.class);
+	public static TypeChannel findContainingPubSub(EObject object) {
+		return findContainer(object, TypeChannel.class);
 	}
 
 	public static Bind findContainingBind(EObject object) {
@@ -260,58 +251,30 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<TypePubSub> allPusSub(CyprIoTModel model) {
-		ArrayList<TypePubSub> result = new ArrayList<TypePubSub>();
+	public static ArrayList<TypeChannel> allPusSub(CyprIoTModel model) {
+		ArrayList<TypeChannel> result = new ArrayList<TypeChannel>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
 			for (TypeChannel t : m.getDeclareChannels()) {
-				if (t instanceof TypePubSub) {
-					result.add((TypePubSub) t);
+				if (t instanceof TypeChannel) {
+					result.add((TypeChannel) t);
 				}
 			}
 		}
 		return result;
 	}
 
-	public static ArrayList<TypePointToPoint> allReqRep(CyprIoTModel model) {
-		ArrayList<TypePointToPoint> result = new ArrayList<TypePointToPoint>();
-		for (CyprIoTModel m : allCypriotModels(model)) {
-			for (TypeChannel t : m.getDeclareChannels()) {
-				if (t instanceof TypePointToPoint) {
-					result.add((TypePointToPoint) t);
-				}
-			}
+	public static ArrayList<Path> allTopicsInPubSub(TypeChannel pubSub) {
+		ArrayList<Path> result = new ArrayList<Path>();
+		for (Path t : pubSub.getHasPaths()) {
+			result.add((Path) t);
 		}
 		return result;
 	}
-
-	public static ArrayList<Topic> allTopicsInPubSub(TypePubSub pubSub) {
-		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Topic t : pubSub.getHasTopics()) {
-			result.add((Topic) t);
-		}
-		return result;
-	}
-
-	public static ArrayList<ConnectionPoint> allConnectionPointsInPTP(TypePointToPoint ptp) {
-		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
-		for (ConnectionPoint t : ptp.getHasConnectionPoints()) {
-			result.add((ConnectionPoint) t);
-		}
-		return result;
-	}
-
-	public static ArrayList<Topic> allTopics(InstancePubSub pubSub) {
-		ArrayList<Topic> result = new ArrayList<Topic>();
-		for (Topic t : pubSub.getTypePubSub().getPubSubToInstantiate().getHasTopics()) {
-			result.add((Topic) t);
-		}
-		return result;
-	}
-
-	public static ArrayList<ConnectionPoint> allConnectionPoints(InstancePTP ptp) {
-		ArrayList<ConnectionPoint> result = new ArrayList<ConnectionPoint>();
-		for (ConnectionPoint t : ptp.getTypePTP().getPtPToInstantiate().getHasConnectionPoints()) {
-			result.add((ConnectionPoint) t);
+	
+	public static ArrayList<Path> allTopics(InstanceChannel pubSub) {
+		ArrayList<Path> result = new ArrayList<Path>();
+		for (Path t : pubSub.getTypeChannel().getPubSubToInstantiate().getHasPaths()) {
+			result.add((Path) t);
 		}
 		return result;
 	}
@@ -377,20 +340,11 @@ public class Helpers {
 	 * result.add(rule.getRuleSubject()); return result; }
 	 */
 
-	public static ArrayList<InstancePubSub> allPubSubinstances(Network network) {
-		ArrayList<InstancePubSub> result = new ArrayList<InstancePubSub>();
+	public static ArrayList<InstanceChannel> allPubSubinstances(Network network) {
+		ArrayList<InstanceChannel> result = new ArrayList<InstanceChannel>();
 		for (Instance t : network.getInstantiate()) {
-			if (t instanceof InstancePubSub)
-				result.add((InstancePubSub) t);
-		}
-		return result;
-	}
-
-	public static ArrayList<InstancePTP> allPtPinstances(Network network) {
-		ArrayList<InstancePTP> result = new ArrayList<InstancePTP>();
-		for (Instance t : network.getInstantiate()) {
-			if (t instanceof InstancePTP)
-				result.add((InstancePTP) t);
+			if (t instanceof InstanceChannel)
+				result.add((InstanceChannel) t);
 		}
 		return result;
 	}
@@ -547,7 +501,7 @@ public class Helpers {
 		ArrayList<Message> result = new ArrayList<Message>();
 
 		for (TypeThing thing : allThings) {
-			result.addAll(allMessagesThingML(thing));
+			if(thing.getImportPath()!=null)	result.addAll(allMessagesThingML(thing));
 		}
 		
 		return result;

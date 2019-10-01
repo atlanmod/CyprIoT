@@ -4,10 +4,9 @@ import com.google.inject.Inject
 import com.google.inject.Provider
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
-import org.atlanmod.cypriot.cyprIoT.TypePointToPoint
-import org.atlanmod.cypriot.cyprIoT.TypePubSub
 import org.atlanmod.cypriot.validation.CypriotValidator
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.util.ParseHelper
@@ -16,7 +15,6 @@ import org.eclipse.xtext.util.StringInputStream
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.eclipse.emf.ecore.resource.ResourceSet
 
 @RunWith(XtextRunner)
 @InjectWith(typeof(CypriotWithThingMLInjectorProvider))
@@ -181,13 +179,13 @@ class CypriotDeclarationParsingTest {
 	@Test
 	def void PubSubDeclaration() {
 		val result = parseHelper.parse('''
-			channel:pubsub anypubsub {
-				topic topic1 
-				topic topic2 subtopicOf topic1
+			channel anypubsub {
+				path topic1 
+				path topic2 subpathOf topic1
 			}
 		''')
-		val topics = (result.declareChannels.get(0) as TypePubSub).hasTopics
-		val subtopics = topics.get(1).subtopicOf
+		val topics = result.declareChannels.get(0).hasPaths
+		val subtopics = topics.get(1).subpathOf
 		result.assertNoErrors
 		Assert.assertEquals("topic1", topics.get(0).name)
 		Assert.assertEquals("topic1", subtopics.get(0).name)
@@ -200,11 +198,10 @@ class CypriotDeclarationParsingTest {
 	@Test
 	def void DuplicatePubSubDeclaration() {
 		val result = parseHelper.parse('''
-			channel:pubsub anypubsub {}
-			channel:pubsub anypubsub {}
+			channel anypubsub {}
+			channel anypubsub {}
 		''')
 		val pubsub = result.declareChannels.get(0)
-		Assert.assertTrue(pubsub instanceof TypePubSub)
 		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PUBSUB_UNIQUENESS)
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
@@ -213,13 +210,13 @@ class CypriotDeclarationParsingTest {
 	@Test
 	def void DuplicateTopicsDeclaration() {
 		val result = parseHelper.parse('''
-			channel:pubsub anypubsub {
-				topic anytopic
-				topic anytopic
+			channel anypubsub {
+				path anytopic
+				path anytopic
 			}
 		''')
-		val pubsub = (result.declareChannels.get(0) as TypePubSub).hasTopics.get(0)
-		result.assertError(CyprIoTPackage::eINSTANCE.typePubSub, CypriotValidator.TOPIC_UNIQUENESS)
+		val pubsub = result.declareChannels.get(0).hasPaths.get(0)
+		result.assertError(CyprIoTPackage::eINSTANCE.typeChannel, CypriotValidator.TOPIC_UNIQUENESS)
 		Assert.assertNotNull(pubsub)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
@@ -227,8 +224,8 @@ class CypriotDeclarationParsingTest {
 	@Test
 	def void PtPDeclaration() {
 		val result = parseHelper.parse('''
-			channel:ptp Rest {
-				ConnectionPoint speed
+			channel Rest {
+				path speed
 			}
 		''')
 		result.assertNoErrors
@@ -236,30 +233,4 @@ class CypriotDeclarationParsingTest {
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
-	@Test
-	def void DuplicatePTPDeclaration() {
-		val result = parseHelper.parse('''
-			channel:ptp anyptp {}
-			channel:ptp anyptp {}
-		''')
-		val ptp = result.declareChannels.get(0)
-		Assert.assertTrue(ptp instanceof TypePointToPoint)
-		result.assertError(CyprIoTPackage::eINSTANCE.cyprIoTModel, CypriotValidator.PTP_UNIQUENESS)
-		Assert.assertNotNull(ptp)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
-	def void DuplicateConnectionPointsDeclaration() {
-		val result = parseHelper.parse('''
-			channel:ptp anyptp {
-				ConnectionPoint anycp
-				ConnectionPoint anycp
-			}
-		''')
-		val ptp = (result.declareChannels.get(0) as TypePointToPoint).hasConnectionPoints.get(0)
-		result.assertError(CyprIoTPackage::eINSTANCE.typePointToPoint, CypriotValidator.CONNECTIONPOINT_UNIQUENESS)
-		Assert.assertNotNull(ptp)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
 }
