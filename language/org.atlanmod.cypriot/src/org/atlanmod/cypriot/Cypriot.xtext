@@ -80,9 +80,9 @@ ChannelToInstanciate :
 ;
 
 TypeChannel:
-	'channel' name=ID '{'
+	'channel' name=ID (('import' importPath=STRING) | ('{'
 		(hasPaths+=Path)*
-	'}'
+	'}'))
 ;
 
 Path:
