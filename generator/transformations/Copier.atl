@@ -25,17 +25,17 @@ helper context String def : transformArrowToMQTTSyntax : String =
 	endif
 ;
 
-helper context CyprIoT!Bind def : getTopicName() : String =
-	if(self.getTopicFromBind().customName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+self.getTopicFromBind().name
+helper context CyprIoT!Bind def : getPathName() : String =
+	if(self.getPathFromBind().customName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+self.getPathFromBind().name
 	else 
-		self.getTopicFromBind().customName
+		self.getPathFromBind().customName
 	endif
 ;
 
-helper context CyprIoT!Bind def : getTopicPathName(t : CyprIoT!Topic) : String =
+helper context CyprIoT!Bind def : getFullPathName(t : CyprIoT!Path) : String =
 	if(t.customName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.name+'/'+t.name
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+t.name
 	else 
 		t.customName
 	endif
@@ -46,12 +46,12 @@ helper context CyprIoT!Bind def : getDomainFromBind() : String =
 	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
 ;
 
-helper context CyprIoT!Bind def : getTopicFromBind() : CyprIoT!Topic =
-	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first()	
+helper context CyprIoT!Bind def : getPathFromBind() : CyprIoT!Path =
+	self.channelToBind.paths.first()	
 ;
 
-helper context CyprIoT!Bind def : getAllTopicsFromBind() : Sequence(CyprIoT!Topic) =
-	self.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics
+helper context CyprIoT!Bind def : getAllPathsFromBind() : Sequence(CyprIoT!Path) =
+	self.channelToBind.paths
 ;
 
 helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =

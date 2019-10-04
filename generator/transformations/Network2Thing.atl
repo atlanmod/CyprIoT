@@ -14,7 +14,7 @@ helper def : mqttNumber : Integer = 0;
 rule createExternalConnectorFromBind {
 	from s : CyprIoT!Bind((ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
 	using {
-		protocolName : String = s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.targetedProtocol.toString().removeHash();
+		protocolName : String = s.channelToBind.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash();
 	}
 	to 
 	configuration : ThingML!Configuration(
@@ -35,7 +35,7 @@ rule createExternalConnectorFromBind {
 		inst <- instance,
 		port <- ThingML!Port.allInstances()->select(p | p.name=s.portToBind.name).first(),
 		protocol <- protocol,
-		annotations <- s.getAllTopicsFromBind()->collect(t | thisModule.multipleTopics(s, t))
+		annotations <- s.getAllPathsFromBind()->collect(t | thisModule.multiplePaths(s, t))
 	),
 	protocol : ThingML!Protocol (
 		name <- protocolName,
@@ -43,15 +43,15 @@ rule createExternalConnectorFromBind {
 	),
 	brokerAdress : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
-		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.server.toString().split(':').first()
+		value <- s.channelToBind.targetedChannelInstance.typeChannel.server.toString().split(':').first()
 	),
 	portNumber : ThingML!PlatformAnnotation(
 		name <- 'mqtt_port_number',
-		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).targetedPubSubInstance.typePubSub.server.toString().split(':').last()
+		value <- s.channelToBind.targetedChannelInstance.typeChannel.server.toString().split(':').last()
 	),
 	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
-		value <- s.channelToBind.oclAsType(CyprIoT!ToBindPubSub).topics.first().serializer.toString().removeHash().toLower()
+		value <- s.channelToBind.paths.first().serializer.toString().removeHash().toLower()
 	)
 	do {
 		if(thisModule.mqttNumber>=1){
@@ -61,10 +61,10 @@ rule createExternalConnectorFromBind {
 	}
 }
 
-lazy rule multipleTopics {
-	from s : CyprIoT!Bind, t : CyprIoT!Topic
+lazy rule multiplePaths {
+	from s : CyprIoT!Bind, t : CyprIoT!Path
 	to annotationMqtt : ThingML!PlatformAnnotation(
 		name <- s.bindAction.toString().removeHash().transformArrowToMQTTSyntax,
-		value <- s.getTopicPathName(t)
+		value <- s.getFullPathName(t)
 	)
 }
