@@ -9,6 +9,14 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
 
+rule copyPlatformAnnotation {
+	from s : ThingML!PlatformAnnotation
+	to t : ThingML!PlatformAnnotation(
+		name <- s.name,
+		value <- s.value
+	)
+}
+
 helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {

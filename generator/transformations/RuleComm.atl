@@ -7,7 +7,7 @@ module RuleComm;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
-uses CopierRuleComm;
+uses Copier;
 
 
 rule copyThingMLModel {
@@ -26,11 +26,11 @@ helper def : rulesContainingThingInSubject() : Sequence(CyprIoT!RuleComm) =
 ;
 
 helper context Sequence(CyprIoT!RuleComm) def : rulesComm() : Sequence(Sequence(String)) =
-	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.deny,r.effectComm.actionComm,r.commObject.objectOther.name})
+	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.actionComm,r.commObject.objectOther.name})
 ;
 
 helper def : BingsContainingThing() : Sequence(Sequence(String)) =
-	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindAction,i.portToBind,i.channelToBind.oclType()})
+	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.bindAction,i.portToBind,i.channelToBind.paths})
 ;
 
 helper context CyprIoT!PoliciesEnforcement def : isThingInFirstRuleSubject() : Boolean =
@@ -103,7 +103,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
 		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
 		thisModule.isFirstRuleOfFirstPolicyDeny() and
 		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
+		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
 		thisModule.bindAction() = '#=>' and
 		thisModule.isFirstRuleOfFirstPolicySend() and
 		self.name='mqtt_publish_topic'
@@ -115,7 +115,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean
 		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
 		thisModule.isFirstRuleOfFirstPolicyDeny() and
 		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getTopicName() and
+		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
 		thisModule.bindAction() = '#<=' and
 		thisModule.isFirstRuleOfFirstPolicyReceive() and
 		self.name='mqtt_subscribe_topic'
@@ -124,7 +124,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- Sequence{}->union(ThingML!PlatformAnnotation.allInstances()->select(a | a.isContainerExternalConnector() and not(a.enforceDenySubscribe() or a.enforceDenyPublish()))),
+		annotations <- if(not(CyprIoT!PoliciesEnforcement.allInstances().isEmpty())) then Sequence{}->union(ThingML!PlatformAnnotation.allInstances()->select(a | a.isContainerExternalConnector() and not(a.enforceDenySubscribe() or a.enforceDenyPublish()))) else Sequence{} endif,
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
@@ -134,6 +134,10 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
+		thisModule.rulesContainingThingInSubject().rulesComm().debug('ruleComm').isEmpty()
+		or
+		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
+		or
 		not(s.isContainerExternalConnector())
 		or
 		s.noEnforcing()

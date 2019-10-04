@@ -236,14 +236,6 @@ rule copyCharLiteral {
 	)
 }
 
-rule copyPlatformAnnotation {
-	from s : ThingML!PlatformAnnotation
-	to t : ThingML!PlatformAnnotation(
-		name <- s.name,
-		value <- s.value
-	)
-}
-
 rule copyStringLiteral {
 	from s : ThingML!StringLiteral
 	to t : ThingML!StringLiteral(
