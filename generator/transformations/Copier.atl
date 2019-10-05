@@ -7,68 +7,6 @@ module Copier;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
--- Helpers
-
-helper context String def : replaceDotsWithSlashInDomain() : String =
-	self.replace('.', '/')
-;
-
-helper context String def : removeHash() : String =
-	self.replaceAll('#', '')
-;
-
-helper context String def : transformArrowToMQTTSyntax : String =
-	if self.startsWith('=>')
-		then 'mqtt_publish_topic'
-	else 
-		'mqtt_subscribe_topic'
-	endif
-;
-
-helper context CyprIoT!Bind def : getPathName() : String =
-	if(self.getPathFromBind().customName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+self.getPathFromBind().name
-	else 
-		self.getPathFromBind().customName
-	endif
-;
-
-helper context CyprIoT!Bind def : getFullPathName(t : CyprIoT!Path) : String =
-	if(t.customName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+t.name
-	else 
-		t.customName
-	endif
-;
-
-
-helper context CyprIoT!Bind def : getDomainFromBind() : String =
-	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
-;
-
-helper context CyprIoT!Bind def : getPathFromBind() : CyprIoT!Path =
-	self.channelToBind.paths.first()	
-;
-
-helper context CyprIoT!Bind def : getAllPathsFromBind() : Sequence(CyprIoT!Path) =
-	self.channelToBind.paths
-;
-
-helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
-	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleComm))
-;
-
-helper context CyprIoT!Policy def : getRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
-	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleTrigger))
-;
-
-helper context CyprIoT!Policy def : getRuleBridgeFromPolicy() : Sequence(CyprIoT!RuleBridge) =
-	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleBridge))
-;
-
-
--- Copier
-
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(

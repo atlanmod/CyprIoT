@@ -1,0 +1,143 @@
+-- @atlcompiler emftvm
+-- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
+-- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
+
+
+module Helpers;
+
+create OUT: ThingML from TH: ThingML, CY : CyprIoT;
+
+helper context String def : replaceDotsWithSlashInDomain() : String =
+	self.replace('.', '/')
+;
+
+helper context String def : removeHash() : String =
+	self.replaceAll('#', '')
+;
+
+helper context String def : transformArrowToMQTTSyntax : String =
+	if self.startsWith('=>')
+		then 'mqtt_publish_topic'
+	else 
+		'mqtt_subscribe_topic'
+	endif
+;
+
+helper context CyprIoT!Bind def : getPathName() : String =
+	if(self.getPathFromBind().customName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+self.getPathFromBind().name
+	else 
+		self.getPathFromBind().customName
+	endif
+;
+
+helper context CyprIoT!Bind def : getFullPathName(t : CyprIoT!Path) : String =
+	if(t.customName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+t.name
+	else 
+		t.customName
+	endif
+;
+
+
+helper context CyprIoT!Bind def : getDomainFromBind() : String =
+	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
+;
+
+helper context CyprIoT!Bind def : getPathFromBind() : CyprIoT!Path =
+	self.channelToBind.paths.first()	
+;
+
+helper context CyprIoT!Bind def : getAllPathsFromBind() : Sequence(CyprIoT!Path) =
+	self.channelToBind.paths
+;
+
+helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleComm))
+;
+
+helper context CyprIoT!Policy def : getRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleTrigger))
+;
+
+helper context CyprIoT!Policy def : getRuleBridgeFromPolicy() : Sequence(CyprIoT!RuleBridge) =
+	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleBridge))
+;
+
+helper context String def : convertArrowToSendOrReceive() : String =
+	if self.startsWith('#=>')
+		then 'send'
+	else 
+		'receive'
+	endif
+;
+
+helper context String def : mirrorSendOrReceive() : String =
+	if self.startsWith('send')
+		then 'receive'
+	else 
+		'send'
+	endif
+;
+
+helper def : rulesTriggerContainingThingInSubject() : Sequence(CyprIoT!RuleTrigger) =
+	thisModule.allEnforcedPolicies()->collect(p | p.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleTrigger) and r.oclAsType(CyprIoT!RuleTrigger).thingWithState.thing.name=thisModule.nameOfInputThing()))->flatten()
+;
+
+helper def : rulesContainingThingInSubject() : Sequence(CyprIoT!RuleComm) =
+	thisModule.allEnforcedPolicies()->collect(p | p.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleComm) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclIsTypeOf(CyprIoT!TypeThing) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing()))->flatten()
+;
+
+helper context Sequence(CyprIoT!RuleComm) def : rulesComm() : Sequence(Sequence(String)) =
+	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.actionComm.toString().removeHash(),r.commObject.objectOther})
+;
+
+helper def : BingsContainingThing() : Sequence(Sequence(String)) =
+	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.BingsContainingThingObject(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
+;
+
+helper def : BingsContainingThingObject(pathName : String, commAction : String) : Sequence(Sequence(String)) =
+	CyprIoT!Bind.allInstances()->select(b | not(b.channelToBind.paths->select(p | p.name=pathName).isEmpty()) and b.bindAction.toString().convertArrowToSendOrReceive()=commAction)
+;
+
+helper context CyprIoT!PoliciesEnforcement def : isThingInFirstRuleSubject() : Boolean =
+	(self.hasEnforcedPolicies.first().hasRules.first().oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclAsType(CyprIoT!ThingAny).name=thisModule.nameOfInputThing())
+;
+
+helper context CyprIoT!PoliciesEnforcement def : isThingInFirstBind() : Boolean =
+	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())
+;
+
+helper context ThingML!PlatformAnnotation def : isContainerExternalConnector() : Boolean = 
+	self.refImmediateComposite().oclIsTypeOf(ThingML!ExternalConnector)
+;
+
+helper def : firstEnforcedPolicy() : CyprIoT!Policy = CyprIoT!PoliciesEnforcement.allInstances().first().hasEnforcedPolicies.first();
+
+helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
+
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
+
+helper def : firstPoliciesEnforcement() : CyprIoT!PoliciesEnforcement = CyprIoT!PoliciesEnforcement.allInstances().first();
+
+helper def : allPoliciesEnforcement() : Sequence(CyprIoT!PoliciesEnforcement) = CyprIoT!PoliciesEnforcement.allInstances();
+
+helper def : allEnforcedPolicies() : Sequence(CyprIoT!Policy) = thisModule.firstPoliciesEnforcement().hasEnforcedPolicies;
+
+helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
+
+helper def : isFirstRuleOfFirstPolicyEnforcingThing() : Boolean = thisModule.firstPoliciesEnforcement().isThingInFirstRuleSubject();
+
+helper def : isThingInFirstBindFromFirstEnforcedPolicy() : String = thisModule.firstPoliciesEnforcement().isThingInFirstBind();
+
+helper def : isFirstRuleOfFirstPolicyDeny() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.deny;
+
+helper def : isFirstRuleOfFirstPolicySend() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString().removeHash()='send';
+
+helper def : isFirstRuleOfFirstPolicyReceive() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).effectComm.actionComm.toString().removeHash()='receive';
+
+helper def : isObjectPubSubInFirstRule() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().oclAsType(CyprIoT!RuleComm).commObject.objectOther.oclIsTypeOf(CyprIoT!TypePubSub);
+
+helper def : bindAction() : String = CyprIoT!Network.allInstances().first().hasBinds.first().bindAction.toString();
+
+helper context ThingML!PlatformAnnotation def : noEnforcing() : Boolean = not(self.enforceDenySubscribe() or self.enforceDenyPublish());

@@ -3,7 +3,7 @@
 -- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
 
 
-module RuleComm;
+module RuleTrigger;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
@@ -19,7 +19,6 @@ rule copyThingMLModel {
 		types <- s.types
 	)	
 }
-
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
 		self.isContainerExternalConnector() and 
@@ -48,7 +47,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- if(not(CyprIoT!PoliciesEnforcement.allInstances().isEmpty())) then Sequence{}->union(ThingML!PlatformAnnotation.allInstances()->select(a | a.isContainerExternalConnector() and not(a.enforceDenySubscribe() or a.enforceDenyPublish()))) else Sequence{} endif,
+		annotations <- s.annotations,
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
@@ -58,13 +57,7 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
-		thisModule.rulesContainingThingInSubject().rulesComm().debug('ruleComm').isEmpty()
-		or
-		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
-		or
-		not(s.isContainerExternalConnector())
-		or
-		s.noEnforcing()
+		thisModule.rulesTriggerContainingThingInSubject().debug('ruleComm').isEmpty()
 		)
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,

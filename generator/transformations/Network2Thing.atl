@@ -8,6 +8,9 @@ module Network2Thing;
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
+uses Helpers;
+
+-- Copy All Platform Annotations here to avoid conflicts in RuleComm.atl
 
 rule copyPlatformAnnotation {
 	from s : ThingML!PlatformAnnotation
