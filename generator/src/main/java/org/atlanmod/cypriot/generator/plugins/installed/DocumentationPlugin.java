@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
-import org.atlanmod.cypriot.generator.main.AcceleoStandaloneCompiler;
+import org.atlanmod.cypriot.generator.main.M2THelper;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 
 public class DocumentationPlugin implements Plugin {
@@ -31,8 +31,8 @@ public class DocumentationPlugin implements Plugin {
 
 	@Override
 	public void generate(CyprIoTModel model, File outputDirectory) {
-		AcceleoStandaloneCompiler acceleoStandaloneCompiler = new AcceleoStandaloneCompiler();
-		AcceleoStandaloneCompiler.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/documentation";
+		M2THelper acceleoStandaloneCompiler = new M2THelper();
+		M2THelper.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/documentation";
 		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"external-gen");	
 	}
 

@@ -16,11 +16,12 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 
-	public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/0_HelloWorld/main.cy";
-	public static final boolean enforcing = false;
-	public static final boolean compiling = true;
+	public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
+	public static final boolean compiling = false;
+	public static final boolean isEnforcing = false;
+	public static final boolean isTrigger = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
-	public static final boolean experimentMode = true;
+	public static final boolean experimentMode = false;
 
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i",
@@ -54,8 +55,8 @@ public class App implements Runnable {
 			Experiment.make();
 		} else {
 			log.debug("CyprIoT Input File Path : " + cypriotInputFile.getPath());
-			TransformationHelper transformationHelper = new TransformationHelper();
-			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory, enforcing, compiling);
+			M2MHelper transformationHelper = new M2MHelper();
+			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, compiling);
 
 			CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 

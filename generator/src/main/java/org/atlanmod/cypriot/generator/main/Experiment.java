@@ -15,12 +15,21 @@ import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 
 public class Experiment {
 	static final Logger log = LogManager.getLogger(Experiment.class.getName());
+	// Parameters 
 	public static int maxNumberOfNodes = 2;
-	public static int NumberOfTimes = 1;
+	public static int NumberOfPaths = 2;
+	public static int NumberOfChannels = 2;
+	public static int channelsHeterogeneityNumber = 2;
+	public static int thingsHeterogeneityNumber = 2;
+	public static int messagesHeterogeneityNumber = 2;
+	public static int serializationHeterogeneityNumber = 2;
+	public static int NumberOfExecutionTimes = 1;
 	public static boolean isMosquitto = true;
 	public static boolean isRabbit = true;
+	public static boolean isDocumentation = true;
+	
 	public static final String mainDir = "../generator/src/test/resources/Experiment/";
-	public static String outDir = mainDir + "experiment5/";
+	public static String outDir = mainDir + "experiment1/";
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final String sendThingml = mainDir + "s.thingml";
 	public static final String receiveThingml = mainDir + "r.thingml";
@@ -53,7 +62,7 @@ public class Experiment {
 				cypriotFile.append("user " + alphabet + "\n");
 			}
 
-			cypriotFile.append("channel:pubsub a {\n" + "	topic a(m:JSON)\n" + "}\n"
+			cypriotFile.append("channel a {\n" + "	path a(m:JSON)\n" + "}\n"
 					+ "network n {\n" + "	domain a.a.a\n");
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
@@ -81,9 +90,9 @@ public class Experiment {
 			File outputDir = new File(outDir + i);
 
 			long startTime = System.nanoTime();
-			for (int n = 1; n <= NumberOfTimes; n++) {
-				TransformationHelper transformationHelper = new TransformationHelper();
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false);
+			for (int n = 1; n <= NumberOfExecutionTimes; n++) {
+				M2MHelper transformationHelper = new M2MHelper();
+				transformationHelper.transform(cypriotGetFile, outputDir, false, false, false);
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
