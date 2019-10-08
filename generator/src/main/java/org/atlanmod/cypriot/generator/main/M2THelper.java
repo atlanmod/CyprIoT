@@ -11,9 +11,9 @@ import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
 import org.eclipse.emf.common.util.BasicMonitor;
 
-public class AcceleoStandaloneCompiler extends AbstractAcceleoGenerator {
+public class M2THelper extends AbstractAcceleoGenerator {
 	
-	static final Logger log = LogManager.getLogger(AcceleoStandaloneCompiler.class.getName());
+	static final Logger log = LogManager.getLogger(M2THelper.class.getName());
 
     public static String MODULE_FILE_NAME;
     public static String[] TEMPLATE_NAMES = { "generateElement" };

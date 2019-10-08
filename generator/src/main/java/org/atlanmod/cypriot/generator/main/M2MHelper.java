@@ -28,12 +28,11 @@ import org.eclipse.m2m.atl.emftvm.util.DefaultModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.ModuleResolver;
 import org.eclipse.m2m.atl.emftvm.util.TimingData;
 
-public class TransformationHelper {
-	static final Logger log = LogManager.getLogger(TransformationHelper.class.getName());
+public class M2MHelper {
+	static final Logger log = LogManager.getLogger(M2MHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
-	public final static String MODULE_NAME = "RuleComm";
-
-	public List<Resource> transform(File cypriotInputFile,File outputDirectory, boolean isEnforcing, boolean isCompiling) {
+	
+	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isEnforcing, boolean isTrigger,  boolean isCompiling) {
 		log.info("Transforming things according to the network...");
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
@@ -56,6 +55,9 @@ public class TransformationHelper {
 				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile);
 				if(isEnforcing) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
+				}
+				if(isTrigger) {
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile);
 				}
 				allThingMLResources.add(transformedThingMLModel);
 				if(isCompiling) {
