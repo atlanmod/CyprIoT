@@ -66,6 +66,14 @@ helper context CyprIoT!RuleComm def : isRuleReceive() : Boolean = self.effectCom
 
 helper context CyprIoT!RuleComm def : isRuleDeny() : Boolean = self.effectComm.deny;
 
+helper context CyprIoT!RuleComm def : isThingInRuleSubject() : Boolean =
+	self.commSubject.subjectOther.oclAsType(CyprIoT!TypeThing).name=thisModule.nameOfInputThing()	
+;
+
+helper context CyprIoT!Bind def : isThingInBind() : Boolean =
+	self.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing()
+;
+
 --Subjects checks
 
 helper context CyprIoT!RuleComm def : isSubjectOfRuleThingAny() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!ThingAny);
@@ -73,7 +81,6 @@ helper context CyprIoT!RuleComm def : isSubjectOfRuleThingAny() : Boolean = self
 helper context CyprIoT!RuleComm def : isSubjectOfRuleTypeThing() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!TypeThing);
 
 helper context CyprIoT!RuleComm def : isSubjectOfRuleInstanceThing() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!InstanceThing);
-
 
 helper context CyprIoT!RuleComm def : isSubjectOfRuleRole() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!Role);
 
@@ -92,6 +99,7 @@ helper context CyprIoT!RuleComm def : isObjectOfRuleThingAny() : Boolean = self.
 helper context CyprIoT!RuleComm def : isObjectOfRulePath() : Boolean = self.commObject.objectOther.oclIsTypeOf(CyprIoT!Path);
 
 -- First of ... (for simplicity and debugging)
+
 helper def : firstEnforcedPolicy() : CyprIoT!Policy = thisModule.enforcedPoliciesInFirstNetwork().first();
 
 helper def : enforcedPoliciesInFirstNetwork() : Sequence(CyprIoT!Policy) = thisModule.firstNetwork().collectEnforcedPoliciesInNetwork();
@@ -107,13 +115,14 @@ helper def : rulesContainingThingInSubjectInFirstNetwork() : Sequence(CyprIoT!Ru
 ;
 
 -- Checks of first (for simplicity and debugging)
+
 helper context CyprIoT!PoliciesEnforcement def : isThingInFirstBind() : Boolean =
-	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())
+	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().isThingInBind())
 ;
 
 helper context CyprIoT!Policy def : isThingInFirstRuleSubject() : Boolean =
-	if(self.firstRuleOfPolicyAsRuleComm().isSubjectOfRuleThingAny())
-		then (self.firstRuleOfPolicyAsRuleComm().commSubject.subjectOther.oclAsType(CyprIoT!ThingAny).name=thisModule.nameOfInputThing())	
+	if(self.firstRuleOfPolicyAsRuleComm().isSubjectOfRuleTypeThing())
+		then (self.firstRuleOfPolicyAsRuleComm().isThingInRuleSubject())	
 	else false endif
 ;
 
