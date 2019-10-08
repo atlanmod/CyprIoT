@@ -13,11 +13,9 @@ uses Helpers;
 -- Get the name of the thing being transformed
 helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
 
--- Contains
+helper context CyprIoT!Network def : enforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
 
-helper def : rulesContainingThingInSubject() : Sequence(CyprIoT!RuleComm) =
-	thisModule.enforcedPoliciesInFirstNetwork()->collect(p | p.getRuleCommFromPolicy()->select(r | r.oclAsType(CyprIoT!RuleComm).isSubjectOfRuleTypeThing() and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing()))->flatten()
-;
+-- Contains
 
 helper def : BingsContainingThing() : Sequence(Sequence(String)) =
 	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.BingsContainingThingObject(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
@@ -32,8 +30,28 @@ helper context Sequence(CyprIoT!RuleComm) def : collectRulesCommElements() : Seq
 	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.actionComm.toString().removeHash(),r.commObject.objectOther})
 ;
 
-helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
+helper context CyprIoT!Policy def : collectRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
 	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleComm))
+;
+
+helper context Sequence(CyprIoT!RuleComm) def : collectRulesCommWithThingInSubject() : Sequence(CyprIoT!RuleComm) =
+	self->select(r | r.oclAsType(CyprIoT!RuleComm).isSubjectOfRuleTypeThing() and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing())->flatten()
+;
+
+helper context CyprIoT!Policy def : collectRulesCommWithThingInSubjectFromPolicy() : Sequence(CyprIoT!RuleComm) =
+	self.collectRuleCommFromPolicy().collectRulesCommWithThingInSubject()
+;
+
+helper context Sequence(CyprIoT!Policy) def : rulesContainingThingInSubjectInPolicies() : Sequence(CyprIoT!RuleComm) =
+	self->collect(p | p.collectRulesCommWithThingInSubjectFromPolicy())->flatten()
+;
+
+helper context CyprIoT!Network def : rulesContainingThingInSubjectInEnforcedPolicies() : Sequence(CyprIoT!RuleComm) =
+	self.enforcedPoliciesInNetwork().rulesContainingThingInSubjectInPolicies()
+;
+
+helper def : rulesContainingThingInSubjectInFirstNetwork() : Sequence(CyprIoT!RuleComm) =
+	thisModule.enforcedPoliciesInFirstNetwork().rulesContainingThingInSubjectInPolicies()
 ;
 
 -- Checks
@@ -75,7 +93,7 @@ helper context CyprIoT!RuleComm def : isObjectOfRulePath() : Boolean = self.comm
 -- First of ... (for simplicity and debugging)
 helper def : firstEnforcedPolicy() : CyprIoT!Policy = thisModule.enforcedPoliciesInFirstNetwork().first();
 
-helper def : enforcedPoliciesInFirstNetwork() : Sequence(CyprIoT!Policy) = thisModule.firstNetwork().hasPolicyEnforcement.hasEnforcedPolicies;
+helper def : enforcedPoliciesInFirstNetwork() : Sequence(CyprIoT!Policy) = thisModule.firstNetwork().enforcedPoliciesInNetwork();
 
 helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
 
@@ -166,7 +184,7 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
-		thisModule.rulesContainingThingInSubject().collectRulesCommElements().debug('ruleComm').isEmpty()
+		thisModule.rulesContainingThingInSubjectInFirstNetwork().collectRulesCommElements().debug('ruleComm').isEmpty()
 		or
 		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
 		or
