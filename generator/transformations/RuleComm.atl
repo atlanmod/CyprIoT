@@ -13,7 +13,8 @@ uses Helpers;
 -- Get the name of the thing being transformed
 helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
 
-helper context CyprIoT!Network def : enforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
+-- Get the network to make (support for first network only)
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
 -- Contains
 
@@ -26,6 +27,10 @@ helper context CyprIoT!Network def : bindsContainingThingObjectInNetwork(pathNam
 ;
 
 -- Collects
+
+helper context CyprIoT!Network def : collectEnforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
+
+
 helper context Sequence(CyprIoT!RuleComm) def : collectRulesCommElements() : Sequence(Sequence(String)) =
 	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.actionComm.toString().removeHash(),r.commObject.objectOther})
 ;
@@ -47,7 +52,7 @@ helper context Sequence(CyprIoT!Policy) def : rulesContainingThingInSubjectInPol
 ;
 
 helper context CyprIoT!Network def : rulesContainingThingInSubjectInEnforcedPolicies() : Sequence(CyprIoT!RuleComm) =
-	self.enforcedPoliciesInNetwork().rulesContainingThingInSubjectInPolicies()
+	self.collectEnforcedPoliciesInNetwork().rulesContainingThingInSubjectInPolicies()
 ;
 
 -- Checks
@@ -89,11 +94,9 @@ helper context CyprIoT!RuleComm def : isObjectOfRulePath() : Boolean = self.comm
 -- First of ... (for simplicity and debugging)
 helper def : firstEnforcedPolicy() : CyprIoT!Policy = thisModule.enforcedPoliciesInFirstNetwork().first();
 
-helper def : enforcedPoliciesInFirstNetwork() : Sequence(CyprIoT!Policy) = thisModule.firstNetwork().enforcedPoliciesInNetwork();
+helper def : enforcedPoliciesInFirstNetwork() : Sequence(CyprIoT!Policy) = thisModule.firstNetwork().collectEnforcedPoliciesInNetwork();
 
 helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!Rule = thisModule.firstEnforcedPolicy().hasRules.first();
-
-helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
 helper def : firstBind() : CyprIoT!Bind = thisModule.firstNetwork().hasBinds.first();
 
@@ -170,11 +173,8 @@ helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean
 
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
-	using {
-			
-	}
 	to t : ThingML!ExternalConnector(
-		annotations <- if(not(CyprIoT!PoliciesEnforcement.allInstances().isEmpty())) then Sequence{}->union(s.annotations->select(a | not(a.enforceDenySubscribe() or a.enforceDenyPublish()))) else Sequence{} endif,
+		annotations <- if(not(thisModule.firstNetwork().hasPolicyEnforcement.oclIsUndefined())) then s.annotations->select(a | not(a.enforceDenySubscribe() or a.enforceDenyPublish()))else Sequence{} endif,
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
