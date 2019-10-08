@@ -23,7 +23,7 @@ rule copyPlatformAnnotation {
 helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {
-	from s : CyprIoT!Bind((ThingML!Thing.allInstances().first().name=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
+	from s : CyprIoT!Bind((thisModule.nameOfInputThing()=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
 	using {
 		protocolName : String = s.channelToBind.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash();
 	}
@@ -40,7 +40,7 @@ rule createExternalConnectorFromBind {
 	),
 	instance : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
-		type <- ThingML!Thing.allInstances().first() -- TODO : more generic
+		type <- thisModule.inputThing()
 	),
 	externalConnector : ThingML!ExternalConnector(
 		inst <- instance,
