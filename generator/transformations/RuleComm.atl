@@ -17,12 +17,12 @@ helper context CyprIoT!Network def : enforcedPoliciesInNetwork() : Sequence(Cypr
 
 -- Contains
 
-helper def : BingsContainingThing() : Sequence(Sequence(String)) =
-	CyprIoT!Bind.allInstances()->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.BingsContainingThingObject(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
+helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(Sequence(String)) =
+	self.hasBinds->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.firstNetwork().bindsContainingThingObjectInNetwork(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
 ;
 
-helper def : BingsContainingThingObject(pathName : String, commAction : String) : Sequence(Sequence(String)) =
-	CyprIoT!Bind.allInstances()->select(b | not(b.channelToBind.paths->select(p | p.name=pathName).isEmpty()) and b.bindAction.toString().convertArrowToSendOrReceive()=commAction)
+helper context CyprIoT!Network def : bindsContainingThingObjectInNetwork(pathName : String, commAction : String) : Sequence(Sequence(String)) =
+	self.hasBinds->select(b | not(b.channelToBind.paths->select(p | p.name=pathName).isEmpty()) and b.bindAction.toString().convertArrowToSendOrReceive()=commAction)
 ;
 
 -- Collects
@@ -48,10 +48,6 @@ helper context Sequence(CyprIoT!Policy) def : rulesContainingThingInSubjectInPol
 
 helper context CyprIoT!Network def : rulesContainingThingInSubjectInEnforcedPolicies() : Sequence(CyprIoT!RuleComm) =
 	self.enforcedPoliciesInNetwork().rulesContainingThingInSubjectInPolicies()
-;
-
-helper def : rulesContainingThingInSubjectInFirstNetwork() : Sequence(CyprIoT!RuleComm) =
-	thisModule.enforcedPoliciesInFirstNetwork().rulesContainingThingInSubjectInPolicies()
 ;
 
 -- Checks
@@ -102,6 +98,10 @@ helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().f
 helper def : firstBind() : CyprIoT!Bind = thisModule.firstNetwork().hasBinds.first();
 
 helper context CyprIoT!Policy def : firstRuleOfPolicyAsRuleComm() : CyprIoT!RuleComm = self.hasRules.first().oclAsType(CyprIoT!RuleComm);
+
+helper def : rulesContainingThingInSubjectInFirstNetwork() : Sequence(CyprIoT!RuleComm) =
+	thisModule.enforcedPoliciesInFirstNetwork().rulesContainingThingInSubjectInPolicies()
+;
 
 -- Checks of first (for simplicity and debugging)
 helper context CyprIoT!PoliciesEnforcement def : isThingInFirstBind() : Boolean =
@@ -186,7 +186,7 @@ rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
 		thisModule.rulesContainingThingInSubjectInFirstNetwork().collectRulesCommElements().debug('ruleComm').isEmpty()
 		or
-		not(thisModule.BingsContainingThing().debug('bind').isEmpty())
+		not(thisModule.firstNetwork().bindsContainingThingInNetwork().debug('bind').isEmpty())
 		or
 		not(s.isContainerExternalConnector())
 		or
