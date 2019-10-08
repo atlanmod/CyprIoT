@@ -14,12 +14,9 @@ uses Helpers;
 helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
 
 -- Contains
-helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
-	self.hasRules->collect(r | r.oclIsKindOf(CyprIoT!RuleComm))
-;
 
 helper def : rulesContainingThingInSubject() : Sequence(CyprIoT!RuleComm) =
-	thisModule.enforcedPoliciesInFirstNetwork()->collect(p | p.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleComm) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.oclIsTypeOf(CyprIoT!TypeThing) and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing()))->flatten()
+	thisModule.enforcedPoliciesInFirstNetwork()->collect(p | p.getRuleCommFromPolicy()->select(r | r.oclAsType(CyprIoT!RuleComm).isSubjectOfRuleTypeThing() and r.oclAsType(CyprIoT!RuleComm).commSubject.subjectOther.name=thisModule.nameOfInputThing()))->flatten()
 ;
 
 helper def : BingsContainingThing() : Sequence(Sequence(String)) =
@@ -35,8 +32,12 @@ helper context Sequence(CyprIoT!RuleComm) def : collectRulesCommElements() : Seq
 	self->collect(r | Sequence{r.commSubject.subjectOther.name ,r.effectComm.allow,r.effectComm.actionComm.toString().removeHash(),r.commObject.objectOther})
 ;
 
+helper context CyprIoT!Policy def : getRuleCommFromPolicy() : Sequence(CyprIoT!RuleComm) =
+	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleComm))
+;
+
 -- Checks
-helper context ThingML!PlatformAnnotation def : isContainerExternalConnector() : Boolean = 
+helper context ThingML!PlatformAnnotation def : isAnnotationContainerExternalConnector() : Boolean = 
 	self.refImmediateComposite().oclIsTypeOf(ThingML!ExternalConnector)
 ;
 
@@ -49,6 +50,11 @@ helper context CyprIoT!RuleComm def : isRuleDeny() : Boolean = self.effectComm.d
 --Subjects checks
 
 helper context CyprIoT!RuleComm def : isSubjectOfRuleThingAny() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!ThingAny);
+
+helper context CyprIoT!RuleComm def : isSubjectOfRuleTypeThing() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!TypeThing);
+
+helper context CyprIoT!RuleComm def : isSubjectOfRuleInstanceThing() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!InstanceThing);
+
 
 helper context CyprIoT!RuleComm def : isSubjectOfRuleRole() : Boolean = self.commSubject.subjectOther.oclIsTypeOf(CyprIoT!Role);
 
@@ -121,7 +127,7 @@ rule copyThingMLModel {
 
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
-		self.isContainerExternalConnector() and 
+		self.isAnnotationContainerExternalConnector() and 
 		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
 		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
 		thisModule.isFirstRuleOfFirstPolicyDeny() and
@@ -133,7 +139,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
-		self.isContainerExternalConnector() and 
+		self.isAnnotationContainerExternalConnector() and 
 		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
 		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
 		thisModule.isFirstRuleOfFirstPolicyDeny() and
