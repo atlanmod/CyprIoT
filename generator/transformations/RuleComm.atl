@@ -10,12 +10,6 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 uses Copier;
 uses Helpers;
 
--- Get the name of the thing being transformed
-helper def : nameOfInputThing() : String = ThingML!Thing.allInstances().first().name;
-
--- Get the network to make (support for first network only)
-helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
-
 -- Contains
 
 helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(Sequence(String)) =
@@ -117,7 +111,7 @@ helper def : rulesContainingThingInSubjectInFirstNetwork() : Sequence(CyprIoT!Ru
 -- Checks of first (for simplicity and debugging)
 
 helper context CyprIoT!PoliciesEnforcement def : isThingInFirstBind() : Boolean =
-	(self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().isThingInBind())
+	self.refImmediateComposite().oclAsType(CyprIoT!Network).hasBinds.first().isThingInBind()
 ;
 
 helper context CyprIoT!Policy def : isThingInFirstRuleSubject() : Boolean =
