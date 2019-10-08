@@ -7,6 +7,16 @@ module Helpers;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
+-- Get the name of the thing being transformed
+
+helper def : inputThing() : String = ThingML!Thing.allInstances().first();
+
+helper def : nameOfInputThing() : String = thisModule.inputThing().name;
+
+-- Get the network to make (support for first network only for the moment)
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
+
+
 helper context String def : convertArrowToSendOrReceive() : String =
 	if self.startsWith('#=>')
 		then 'send'
@@ -55,17 +65,40 @@ helper context CyprIoT!Bind def : getFullPathName(t : CyprIoT!Path) : String =
 	endif
 ;
 
+helper context CyprIoT!Bind def : getThingFromBind() : CyprIoT!TypeThing =
+	self.bindsInstanceThing.typeThing.thingToInstantiate
+;
+
+helper context CyprIoT!Bind def : getThingNameFromBind() : String =
+	self.getThingFromBind().name
+;
+
+helper context CyprIoT!Bind def : getTypeChannelFromBind() : CyprIoT!ChannelToInstanciate =
+	self.channelToBind.targetedChannelInstance.typeChannel
+;
+
+helper context CyprIoT!Bind def : getServerFromBind() : String =
+	self.getTypeChannelFromBind().server.toString().split(':').first()
+;
+
+helper context CyprIoT!Bind def : getPortNumberFromBind() : String =
+	self.getTypeChannelFromBind().server.toString().split(':').last()
+;
+
+helper context CyprIoT!Bind def : getTargetedProtocolFromBind() : String =
+	self.getTypeChannelFromBind().targetedProtocol.toString().removeHash()
+;
 
 helper context CyprIoT!Bind def : getDomainFromBind() : String =
 	self.refImmediateComposite().oclAsType(CyprIoT!Network).domain.name
 ;
 
-helper context CyprIoT!Bind def : getPathFromBind() : CyprIoT!Path =
-	self.channelToBind.paths.first()	
-;
-
 helper context CyprIoT!Bind def : getAllPathsFromBind() : Sequence(CyprIoT!Path) =
 	self.channelToBind.paths
+;
+
+helper context CyprIoT!Bind def : getTargetedPlatfomFromBind() : String =
+	self.bindsInstanceThing.typeThing.targetedPlatform.toString().removeHash().toLower()
 ;
 
 -- Rule Trigger

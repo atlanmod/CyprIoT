@@ -23,9 +23,9 @@ rule copyPlatformAnnotation {
 helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {
-	from s : CyprIoT!Bind((thisModule.nameOfInputThing()=s.bindsInstanceThing.typeThing.thingToInstantiate.name))
+	from s : CyprIoT!Bind((thisModule.nameOfInputThing()=s.getThingNameFromBind()))
 	using {
-		protocolName : String = s.channelToBind.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash();
+		protocolName : String = s.getTargetedProtocolFromBind();
 	}
 	to 
 	configuration : ThingML!Configuration(
@@ -36,7 +36,7 @@ rule createExternalConnectorFromBind {
 	),
 	compiler : ThingML!PlatformAnnotation(
 		name <- 'compiler',
-		value <- s.bindsInstanceThing.typeThing.targetedPlatform.toString().removeHash().toLower()
+		value <- s.getTargetedPlatfomFromBind()
 	),
 	instance : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
@@ -54,15 +54,15 @@ rule createExternalConnectorFromBind {
 	),
 	brokerAdress : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
-		value <- s.channelToBind.targetedChannelInstance.typeChannel.server.toString().split(':').first()
+		value <- s.getServerFromBind()
 	),
 	portNumber : ThingML!PlatformAnnotation(
 		name <- 'mqtt_port_number',
-		value <- s.channelToBind.targetedChannelInstance.typeChannel.server.toString().split(':').last()
+		value <- s.getPortNumberFromBind()
 	),
 	serializer : ThingML!PlatformAnnotation(
 		name <- 'serializer',
-		value <- s.channelToBind.paths.first().serializer.toString().removeHash().toLower()
+		value <- s.getAllPathsFromBind().first().serializer.toString().removeHash().toLower() -- Create new protocol in ThingML when multiple type of serializers
 	)
 	do {
 		if(thisModule.mqttNumber>=1){
