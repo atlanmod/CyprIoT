@@ -17,6 +17,14 @@ rule copyThingMLModel {
 	)	
 }
 
+rule copyPlatformAnnotation {
+	from s : ThingML!PlatformAnnotation
+	to t : ThingML!PlatformAnnotation(
+		name <- s.name,
+		value <- s.value
+	)
+}
+
 rule copyProtocol {
 	from s : ThingML!Protocol
 	to t : ThingML!Protocol(

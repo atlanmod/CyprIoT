@@ -138,7 +138,6 @@ helper def : actionOfFirstBind() : String = thisModule.firstBind().bindAction.to
 
 helper context ThingML!PlatformAnnotation def : noEnforcing() : Boolean = not(self.enforceDenySubscribe() or self.enforceDenyPublish());
 
-
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -149,35 +148,10 @@ rule copyThingMLModel {
 	)	
 }
 
-
-helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
-		self.isAnnotationContainerExternalConnector() and 
-		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
-		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
-		thisModule.isFirstRuleOfFirstPolicyDeny() and
-		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
-		thisModule.actionOfFirstBind().toString().removeHash() = '=>' and
-		thisModule.isFirstRuleOfFirstPolicySend() and
-		self.name='mqtt_publish_topic'
-;
-
-helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
-		self.isAnnotationContainerExternalConnector() and 
-		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
-		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
-		thisModule.isFirstRuleOfFirstPolicyDeny() and
-		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
-		thisModule.actionOfFirstBind().toString().removeHash() = '<=' and
-		thisModule.isFirstRuleOfFirstPolicyReceive() and
-		self.name='mqtt_subscribe_topic'
-;
-
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- if(not(thisModule.firstNetwork().hasPolicyEnforcement.oclIsUndefined())) then s.annotations->select(a | not(a.enforceDenySubscribe() or a.enforceDenyPublish()))else Sequence{} endif,
+		annotations <- s.annotations->collect(a | if(a.isAnnotationContainerExternalConnector()) then thisModule.enforcePlatformAnnotation(a) else Sequence{} endif)->flatten(),
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
@@ -185,16 +159,8 @@ rule copyExternalConnector {
 	)
 }
 
-rule enforcePlatformAnnotation {
-	from s : ThingML!PlatformAnnotation(
-		thisModule.rulesContainingThingInSubjectInFirstNetwork().collectRulesCommElements().debug('ruleComm').isEmpty()
-		or
-		not(thisModule.firstNetwork().bindsContainingThingInNetwork().debug('bind').isEmpty())
-		or
-		not(s.isContainerExternalConnector())
-		or
-		s.noEnforcing()
-		)
+lazy rule enforcePlatformAnnotation {
+	from s : ThingML!PlatformAnnotation(s.isAnnotationContainerExternalConnector())
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,
 		value <- s.value

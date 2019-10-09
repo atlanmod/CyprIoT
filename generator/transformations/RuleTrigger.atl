@@ -20,30 +20,6 @@ rule copyThingMLModel {
 	)	
 }
 
-helper context ThingML!PlatformAnnotation def : enforceDenyPublish() : Boolean =
-		self.isContainerExternalConnector() and 
-		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
-		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
-		thisModule.isFirstRuleOfFirstPolicyDeny() and
-		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
-		thisModule.bindAction().toString().removeHash() = '=>' and
-		thisModule.isFirstRuleOfFirstPolicySend() and
-		self.name='mqtt_publish_topic'
-;
-
-helper context ThingML!PlatformAnnotation def : enforceDenySubscribe() : Boolean =
-		self.isContainerExternalConnector() and 
-		thisModule.isFirstRuleOfFirstPolicyEnforcingThing() and 
-		thisModule.isThingInFirstBindFromFirstEnforcedPolicy() and 
-		thisModule.isFirstRuleOfFirstPolicyDeny() and
-		thisModule.isObjectPubSubInFirstRule() and
-		self.value = thisModule.firstNetwork().hasBinds.first().getPathName() and
-		thisModule.bindAction().toString().removeHash() = '<=' and
-		thisModule.isFirstRuleOfFirstPolicyReceive() and
-		self.name='mqtt_subscribe_topic'
-;
-
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
@@ -57,7 +33,7 @@ rule copyExternalConnector {
 
 rule enforcePlatformAnnotation {
 	from s : ThingML!PlatformAnnotation(
-		thisModule.rulesTriggerContainingThingInSubject().debug('ruleComm').isEmpty()
+		not(thisModule.rulesTriggerContainingThingInSubject().debug('ruleTrigger').isEmpty())
 		)
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,

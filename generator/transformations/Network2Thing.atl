@@ -10,16 +10,6 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 uses Copier;
 uses Helpers;
 
--- Copy All Platform Annotations here to avoid conflicts in RuleComm.atl
-
-rule copyPlatformAnnotation {
-	from s : ThingML!PlatformAnnotation
-	to t : ThingML!PlatformAnnotation(
-		name <- s.name,
-		value <- s.value
-	)
-}
-
 helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {
