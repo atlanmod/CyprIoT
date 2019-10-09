@@ -42,7 +42,14 @@ TypeThing:
 // TODO Dynamicity of the configuration
 
 PoliciesEnforcement :
-	'enforce' hasEnforcedPolicies+=[Policy] ( "," hasEnforcedPolicies+=[Policy])*
+	'enforce' hasEnforcedPolicies+=[Policy] (strategy+=EnforcementStrategies)? ( "," hasEnforcedPolicies+=[Policy] (strategy+=EnforcementStrategies)?)*
+;
+
+enum EnforcementStrategies:
+	BESTEFFORT='Best-Effort' | 
+	NOTRUST='No-Trust' |
+	TRUSTD1='Trust-D1' | // A thing trust the thing with deep 1 that it is not going to send to unless it is permitted, we tolerate that that this thing can communicate with a denied thing
+	TRUSTD2='Trust-D2' // A thing trust the things with deep 1 and 2 that they are not going to send to unless they are permitted
 ;
 
 Domain:
