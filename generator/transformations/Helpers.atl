@@ -13,10 +13,6 @@ helper def : inputThing() : String = ThingML!Thing.allInstances().first();
 
 helper def : nameOfInputThing() : String = thisModule.inputThing().name;
 
--- Get the network to make (support for first network only for the moment)
-helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
-
-
 helper context String def : convertArrowToSendOrReceive() : String =
 	if self.startsWith('#=>')
 		then 'send'
