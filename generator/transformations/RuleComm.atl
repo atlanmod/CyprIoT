@@ -9,6 +9,8 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
 uses Helpers;
+-- Get the network to make (support for first network only for the moment)
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
 -- Contains
 
@@ -138,6 +140,12 @@ helper def : actionOfFirstBind() : String = thisModule.firstBind().bindAction.to
 
 helper context ThingML!PlatformAnnotation def : noEnforcing() : Boolean = not(self.enforceDenySubscribe() or self.enforceDenyPublish());
 
+helper context ThingML!PlatformAnnotation def : enforceMe() : Boolean = 
+	thisModule.firstNetwork().bindsContainingThingInNetwork().first()
+;
+
+
+
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -160,7 +168,7 @@ rule copyExternalConnector {
 }
 
 lazy rule enforcePlatformAnnotation {
-	from s : ThingML!PlatformAnnotation(s.isAnnotationContainerExternalConnector())
+	from s : ThingML!PlatformAnnotation(s.value='what to compare')
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,
 		value <- s.value
