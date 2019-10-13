@@ -155,11 +155,27 @@ helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprI
 	(rulecomm.effectComm.deny).debug('deny') and 
 	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().channelToBind.paths->exists(t | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(rulecomm.commObject.objectOther.oclAsType(CyprIoT!Path)))).debug('topic compare')
 ;
-helper context ThingML!PlatformAnnotation def : enforceDenyPathBoolean() : Boolean =
+helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()
-			->exists(r | self.enforceDenyPath(r).debug('--rule--'))).debug('annotation'))
+			->exists(r | 
+				self.enforceDenyPath(r) or 
+				self.enforceDenyChannel(r)
+				)).debug('annotation'))
 ;
+
+helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : CyprIoT!RuleComm) : Boolean =
+	-- Check bind device is equal to subject in rule
+	-- check => in bind is equal to deny:send in rule
+	-- check topicname in connector is equal to topicname in rule
+	rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	rulecomm.isObjectOfRuleTypeChannel().debug('isObjectOfRuleTypeChannel') and
+	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
+	(rulecomm.effectComm.deny).debug('deny') and
+	rulecomm.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(t | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(t)).debug('topic compare')
+;
+
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -182,7 +198,7 @@ rule copyExternalConnector {
 }
 
 lazy rule enforcePlatformAnnotation {
-	from s : ThingML!PlatformAnnotation(s.enforceDenyPathBoolean())
+	from s : ThingML!PlatformAnnotation(s.enforceAnyCommRule())
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,
 		value <- s.value
