@@ -14,8 +14,8 @@ helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().f
 
 -- Contains
 
-helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(Sequence(String)) =
-	self.hasBinds->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.firstNetwork().bindsContainingThingObjectInNetwork(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
+helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = -- Sequence(Sequence(String)) =
+	self.hasBinds->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())-- ->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.firstNetwork().bindsContainingThingObjectInNetwork(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
 ;
 
 helper context CyprIoT!Network def : bindsContainingThingObjectInNetwork(pathName : String, commAction : String) : Sequence(Sequence(String)) =
@@ -144,8 +144,22 @@ helper context ThingML!PlatformAnnotation def : enforceMe() : Boolean =
 	thisModule.firstNetwork().bindsContainingThingInNetwork().first()
 ;
 
-
-
+helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprIoT!RuleComm) : Boolean =
+	-- Check bind device is equal to subject in rule
+	-- check => in bind is equal to deny:send in rule
+	-- check topicname in connector is equal to topicname in rule
+	rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	rulecomm.isObjectOfRulePath().debug('isObjectOfRulePath') and
+	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
+	(rulecomm.effectComm.deny).debug('deny') and 
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().channelToBind.paths->exists(t | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(rulecomm.commObject.objectOther.oclAsType(CyprIoT!Path)))).debug('topic compare')
+;
+helper context ThingML!PlatformAnnotation def : enforceDenyPathBoolean() : Boolean =
+	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
+		->forAll(p | p.collectRuleCommFromPolicy()
+			->exists(r | self.enforceDenyPath(r).debug('--rule--'))).debug('annotation'))
+;
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -159,7 +173,7 @@ rule copyThingMLModel {
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- s.annotations->collect(a | if(a.isAnnotationContainerExternalConnector()) then thisModule.enforcePlatformAnnotation(a) else Sequence{} endif)->flatten(),
+		annotations <- s.annotations->collect(a | if(thisModule.enforcePlatformAnnotation(a).debug('oclIsUndefined').oclIsUndefined()) then Sequence{} else thisModule.enforcePlatformAnnotation(a) endif)->flatten(),
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
@@ -168,7 +182,7 @@ rule copyExternalConnector {
 }
 
 lazy rule enforcePlatformAnnotation {
-	from s : ThingML!PlatformAnnotation(s.value='what to compare')
+	from s : ThingML!PlatformAnnotation(s.enforceDenyPathBoolean())
 	to  t : ThingML!PlatformAnnotation(
 		name <- s.name,
 		value <- s.value
