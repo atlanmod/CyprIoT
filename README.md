@@ -4,6 +4,7 @@
 CyprIoT is a tool to compose a network of things using Model-Driven engineering techniques. It consists of a Domain-Specific language (DSL) that enables designing the network, and a code generator to produce the deployable code of your network.
 
 [![Build Status](https://travis-ci.org/atlanmod/CyprIoT.svg?branch=master)](https://travis-ci.org/atlanmod/CyprIoT)
+[![Plugin](https://img.shields.io/badge/plugin--blue.svg)](https://www.atlanmod.org/updates/cypriot/snapshot/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ![CyprIoT DSL Demo](demo.gif)
@@ -11,7 +12,8 @@ CyprIoT is a tool to compose a network of things using Model-Driven engineering 
 ## Features
 
 * Model a network of heterogeneous devices using a DSL, formalized using Xtext [here](https://github.com/atlanmod/CyprIoT/tree/master/org.atlanmod.cypriot/src/org/atlanmod/cypriot)
-* Generate code working code of the network from the model
+* Generate working code of the network from the model
+* Specify and enforce a policy into the network
 
 ## Project Structure
 
