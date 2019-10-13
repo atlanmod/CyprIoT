@@ -53,11 +53,11 @@ helper context CyprIoT!Bind def : getPathName() : String =
 	endif
 ;
 
-helper context CyprIoT!Bind def : getFullPathName(t : CyprIoT!Path) : String =
-	if(t.customName.oclIsUndefined()) 
-		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+t.name
+helper context CyprIoT!Bind def : getFullPathName(p : CyprIoT!Path) : String =
+	if(p.customName.oclIsUndefined()) 
+		then self.getDomainFromBind().replaceDotsWithSlashInDomain()+'/'+self.channelToBind.targetedChannelInstance.name+'/'+p.name
 	else 
-		t.customName
+		p.customName
 	endif
 ;
 

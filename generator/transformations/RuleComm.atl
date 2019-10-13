@@ -145,35 +145,36 @@ helper context ThingML!PlatformAnnotation def : enforceMe() : Boolean =
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprIoT!RuleComm) : Boolean =
-	-- Check bind device is equal to subject in rule
-	-- check => in bind is equal to deny:send in rule
-	-- check topicname in connector is equal to topicname in rule
-	rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	(rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule')) or
+	(rulecomm.isSubjectOfRuleRole().debug('isSubjectOfRuleRole') and
+	not(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindsInstanceThing.typeThing.thingToInstantiate.assignedRoles.oclIsUndefined()).debug('role oclundef') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindsInstanceThing.typeThing.thingToInstantiate.assignedRoles->exists(r | r.name.debug('rolename')=rulecomm.commSubject.subjectOther.name.debug('rolenamesubjectOther'))).debug('exists role')) and
 	rulecomm.isObjectOfRulePath().debug('isObjectOfRulePath') and
-	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule') and
 	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
 	(rulecomm.effectComm.deny).debug('deny') and 
 	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().channelToBind.paths->exists(t | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(rulecomm.commObject.objectOther.oclAsType(CyprIoT!Path)))).debug('topic compare')
 ;
+
+helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : CyprIoT!RuleComm) : Boolean =
+	(rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule')) or
+	(rulecomm.isSubjectOfRuleRole().debug('isSubjectOfRuleRole') and
+	not(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindsInstanceThing.typeThing.thingToInstantiate.assignedRoles.oclIsUndefined()).debug('role oclundef') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindsInstanceThing.typeThing.thingToInstantiate.assignedRoles->exists(r | r.name=rulecomm.commSubject.subjectOther.name)).debug('exists role')) and
+	rulecomm.isObjectOfRuleTypeChannel().debug('isObjectOfRuleTypeChannel') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
+	(rulecomm.effectComm.deny).debug('deny') and
+	rulecomm.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(p | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(p)).debug('topic compare')
+;
+
 helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()
 			->exists(r | 
 				self.enforceDenyPath(r) or 
 				self.enforceDenyChannel(r)
-				)).debug('annotation'))
-;
-
-helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : CyprIoT!RuleComm) : Boolean =
-	-- Check bind device is equal to subject in rule
-	-- check => in bind is equal to deny:send in rule
-	-- check topicname in connector is equal to topicname in rule
-	rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
-	rulecomm.isObjectOfRuleTypeChannel().debug('isObjectOfRuleTypeChannel') and
-	(thisModule.nameOfInputThing()=rulecomm.commSubject.subjectOther.name).debug('thing in rule') and
-	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
-	(rulecomm.effectComm.deny).debug('deny') and
-	rulecomm.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(t | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(t)).debug('topic compare')
+				)).debug('isEnforcing'))
 ;
 
 rule copyThingMLModel {
