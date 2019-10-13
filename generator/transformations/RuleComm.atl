@@ -92,6 +92,10 @@ helper context CyprIoT!RuleComm def : isObjectOfRuleUser() : Boolean = self.comm
 
 helper context CyprIoT!RuleComm def : isObjectOfRuleThingAny() : Boolean = self.commObject.objectOther.oclIsTypeOf(CyprIoT!ThingAny);
 
+helper context CyprIoT!RuleComm def : isObjectOfRuleTypeThing() : Boolean = self.commObject.objectOther.oclIsTypeOf(CyprIoT!TypeThing);
+
+helper context CyprIoT!RuleComm def : isObjectOfRuleInstanceThing() : Boolean = self.commObject.objectOther.oclIsTypeOf(CyprIoT!InstanceThing);
+
 helper context CyprIoT!RuleComm def : isObjectOfRulePath() : Boolean = self.commObject.objectOther.oclIsTypeOf(CyprIoT!Path);
 
 -- First of ... (for simplicity and debugging)
@@ -168,12 +172,22 @@ helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : Cy
 	rulecomm.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(p | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(p)).debug('topic compare')
 ;
 
+helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectThings(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleTypeThing().debug('isSubjectOfRuleTypeThing') and
+	rulecomm.isObjectOfRuleTypeThing().debug('isObjectOfRuleTypeThing') and
+	(rulecomm.effectComm.deny).debug('deny') and
+	(thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive()=rulecomm.effectComm.actionComm.toString().removeHash()).debug('bindvsrule action') and
+	thisModule.firstNetwork().hasBinds->exists(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=rulecomm.commObject.objectOther.name and b.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive()=thisModule.firstNetwork().bindsContainingThingInNetwork().first().bindAction.toString().convertArrowToSendOrReceive() and b.channelToBind.paths->exists(p | self.value=thisModule.firstNetwork().bindsContainingThingInNetwork().first().getFullPathName(p)))
+;
+
+-- Problem with order of rules : What to do ?
 helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()
 			->exists(r | 
 				self.enforceDenyPath(r) or 
-				self.enforceDenyChannel(r)
+				self.enforceDenyChannel(r) or
+				self.enforceSubjectAndObjectThings(r)
 				)).debug('isEnforcing'))
 ;
 
