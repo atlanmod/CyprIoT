@@ -163,6 +163,17 @@ helper context CyprIoT!RuleComm def : isInputThingInSubjectRoles() : Boolean = s
 
 helper context CyprIoT!RuleComm def : isActionInBindAndRuleMatching() : Boolean = thisModule.bindOfInputThing().actionOfBindConverted()=self.effectComm.actionComm.toString().removeHash();
 
+helper context CyprIoT!RuleComm def : isAnnotationPathMatchesRulePath(annotation : ThingML!PlatformAnnotation) : Boolean = annotation.value=self.getFullPathOfRule();
+
+helper context CyprIoT!RuleComm def : isAnnotationPathMatchesRuleChannel(annotation : ThingML!PlatformAnnotation) : Boolean = self.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(p | annotation.value=thisModule.bindOfInputThing().getFullPathName(p));
+
+helper context CyprIoT!RuleComm def : isAnyBindMirrorActionInputThing(annotation : ThingML!PlatformAnnotation) : Boolean = thisModule.firstNetwork().hasBinds->exists(b | b.typeThingOfBind().name=self.commObject.objectOther.name and b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.channelToBind.paths->exists(p | annotation.value=thisModule.bindOfInputThing().getFullPathName(p)));
+
+
+helper context CyprIoT!RuleComm def : getFullPathOfRule() : String = thisModule.bindOfInputThing().getFullPathName(self.commObject.objectOther.oclAsType(CyprIoT!Path));
+
+helper context ThingML!ExternalConnector def : addAnnotationsAfterEnforcements() : Sequence(ThingML!PlatformAnnotation) = self.annotations->collect(a | if(thisModule.enforcePlatformAnnotation(a).oclIsUndefined()) then Sequence{} else thisModule.enforcePlatformAnnotation(a) endif)->flatten();
+
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprIoT!RuleComm) : Boolean =
 	rulecomm.isInputThingInSubject() or
@@ -170,7 +181,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprI
 	rulecomm.effectComm.deny and 
 	rulecomm.isActionInBindAndRuleMatching() and
 	rulecomm.isObjectOfRulePath() and
-	(thisModule.bindOfInputThing().channelToBind.paths->exists(t | self.value=thisModule.bindOfInputThing().getFullPathName(rulecomm.commObject.objectOther.oclAsType(CyprIoT!Path))))
+	rulecomm.isAnnotationPathMatchesRulePath(self)
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : CyprIoT!RuleComm) : Boolean =
@@ -179,7 +190,7 @@ helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : Cy
 	rulecomm.effectComm.deny and
 	rulecomm.isActionInBindAndRuleMatching() and
 	rulecomm.isObjectOfRuleTypeChannel() and
-	rulecomm.commObject.objectOther.oclAsType(CyprIoT!TypeChannel).hasPaths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p))
+	rulecomm.isAnnotationPathMatchesRuleChannel(self)
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectThings(rulecomm : CyprIoT!RuleComm) : Boolean =
@@ -187,7 +198,7 @@ helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectThings(ru
 	rulecomm.isObjectOfRuleTypeThing() and
 	rulecomm.effectComm.deny and
 	rulecomm.isActionInBindAndRuleMatching() and
-	thisModule.firstNetwork().hasBinds->exists(b | b.typeThingOfBind().name=rulecomm.commObject.objectOther.name and b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
+	rulecomm.isAnyBindMirrorActionInputThing(self)
 ;
 
 -- Problem with order of rules : What to do ?
@@ -214,7 +225,7 @@ rule copyThingMLModel {
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- s.annotations->collect(a | if(thisModule.enforcePlatformAnnotation(a).oclIsUndefined()) then Sequence{} else thisModule.enforcePlatformAnnotation(a) endif)->flatten(),
+		annotations <- s.addAnnotationsAfterEnforcements(),
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
