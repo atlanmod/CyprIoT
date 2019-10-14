@@ -163,6 +163,9 @@ helper context CyprIoT!RuleComm def : isInputThingInSubjectRoles() : Boolean = s
 
 helper context CyprIoT!RuleComm def : isInputThingInSubjectRole() : Boolean = thisModule.inputThingFromBind().assignedRoles->exists(r | r.name=self.commSubject.subjectOther.name);
 
+helper context CyprIoT!RuleComm def : isInputThingInObjectRole() : Boolean = thisModule.inputThingFromBind().assignedRoles->exists(r | r.name=self.commObject.objectOther.name);
+
+
 helper context CyprIoT!RuleComm def : isActionInBindAndRuleMatching() : Boolean = thisModule.bindOfInputThing().actionOfBindConverted()=self.effectComm.actionComm.toString().removeHash();
 
 helper context CyprIoT!RuleComm def : isAnnotationPathMatchesRulePath(annotation : ThingML!PlatformAnnotation) : Boolean = annotation.value=self.getFullPathOfRule();
@@ -216,7 +219,15 @@ helper context ThingML!PlatformAnnotation def : enforceRoleAndThing(rulecomm : C
 	rulecomm.isObjectOfRuleTypeThing() and
 	rulecomm.effectComm.deny and
 	rulecomm.isActionInBindAndRuleMatching() and
-	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().name=rulecomm.commObject.objectOther.name and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p))).debug('6')
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().name=rulecomm.commObject.objectOther.name and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
+;
+
+helper context ThingML!PlatformAnnotation def : enforceThingAndRole(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleTypeThing() and
+	rulecomm.isObjectOfRuleRole() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().assignedRoles->exists(r | r.name=rulecomm.commObject.objectOther.name) and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
 ;
 
 -- Problem with order of rules : What to do ?
@@ -228,7 +239,8 @@ helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 				self.enforceDenyChannel(r) or
 				self.enforceSubjectAndObjectThings(r) or 
 				self.enforceRoles(r) or
-				self.enforceRoleAndThing(r)
+				self.enforceRoleAndThing(r) or
+				self.enforceThingAndRole(r)
 				)).debug('isEnforcing'))
 ;
 
