@@ -13,13 +13,13 @@ uses Helpers;
 helper def : mqttNumber : Integer = 0;
 
 rule createExternalConnectorFromBind {
-	from s : CyprIoT!Bind((thisModule.nameOfInputThing()=s.getThingNameFromBind()))
+	from s : CyprIoT!Bind(s.isBindMatchesInputThing())
 	using {
 		protocolName : String = s.getTargetedProtocolFromBind();
 	}
 	to 
 	configuration : ThingML!Configuration(
-		name <- s.bindsInstanceThing.typeThing.thingToInstantiate.name+'_Cfg',
+		name <- s.getInstanceThingNameFromBind()+'_Cfg',
 		instances <- Sequence{instance},
 		connectors <- Sequence{externalConnector},
 		annotations <- Sequence{compiler}

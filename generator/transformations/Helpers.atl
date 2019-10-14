@@ -61,6 +61,18 @@ helper context CyprIoT!Bind def : getFullPathName(p : CyprIoT!Path) : String =
 	endif
 ;
 
+helper context CyprIoT!Bind def : isBindMatchesInputThing() : Boolean =
+	self.getInstanceThingNameFromBind()=thisModule.nameOfInputThing()
+;
+
+helper context CyprIoT!Bind def : getInstanceThingFromBind() : CyprIoT!InstanceThing =
+	self.bindsInstanceThing
+;
+
+helper context CyprIoT!Bind def : getInstanceThingNameFromBind() : String =
+	self.getInstanceThingFromBind().name
+;
+
 helper context CyprIoT!Bind def : getThingFromBind() : CyprIoT!TypeThing =
 	self.bindsInstanceThing.typeThing.thingToInstantiate
 ;

@@ -14,8 +14,8 @@ helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().f
 
 -- Contains
 
-helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = -- Sequence(Sequence(String)) =
-	self.hasBinds->select(b | b.bindsInstanceThing.typeThing.thingToInstantiate.name=thisModule.nameOfInputThing())-- ->collect(i | Sequence{i.bindsInstanceThing.typeThing.thingToInstantiate.name,i.portToBind.name,i.bindAction.toString().convertArrowToSendOrReceive(),i.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name,i.channelToBind.paths, thisModule.firstNetwork().bindsContainingThingObjectInNetwork(i.channelToBind.paths.first().name,i.bindAction.toString().convertArrowToSendOrReceive().mirrorSendOrReceive())})
+helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = 
+	self.hasBinds->select(b | b.isBindMatchesInputThing())
 ;
 
 helper context CyprIoT!Network def : bindsContainingThingObjectInNetwork(pathName : String, commAction : String) : Sequence(Sequence(String)) =
