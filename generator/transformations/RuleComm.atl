@@ -202,12 +202,21 @@ helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectThings(ru
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceRoles(rulecomm : CyprIoT!RuleComm) : Boolean =
-	rulecomm.isSubjectOfRuleRole().debug('1') and
-	rulecomm.isInputThingInSubjectRole().debug('2') and
-	rulecomm.isObjectOfRuleRole().debug('3') and
-	rulecomm.effectComm.deny.debug('4') and
-	rulecomm.isActionInBindAndRuleMatching().debug('5') and
-	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().assignedRoles->exists(r | r.name=rulecomm.commObject.objectOther.name) and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p))).debug('6')
+	rulecomm.isSubjectOfRuleRole() and
+	rulecomm.isInputThingInSubjectRole() and
+	rulecomm.isObjectOfRuleRole() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().assignedRoles->exists(r | r.name=rulecomm.commObject.objectOther.name) and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
+;
+
+helper context ThingML!PlatformAnnotation def : enforceRoleAndThing(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleRole() and
+	rulecomm.isInputThingInSubjectRole() and
+	rulecomm.isObjectOfRuleTypeThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().name=rulecomm.commObject.objectOther.name and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p))).debug('6')
 ;
 
 -- Problem with order of rules : What to do ?
@@ -218,7 +227,8 @@ helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 				self.enforceDenyPath(r) or 
 				self.enforceDenyChannel(r) or
 				self.enforceSubjectAndObjectThings(r) or 
-				self.enforceRoles(r)
+				self.enforceRoles(r) or
+				self.enforceRoleAndThing(r)
 				)).debug('isEnforcing'))
 ;
 
