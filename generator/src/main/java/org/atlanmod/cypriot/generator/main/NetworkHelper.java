@@ -1,11 +1,14 @@
 package org.atlanmod.cypriot.generator.main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -16,13 +19,25 @@ import org.atlanmod.cypriot.cyprIoT.NamedElement;
 import org.atlanmod.cypriot.cyprIoT.Network;
 import org.atlanmod.cypriot.cyprIoT.Path;
 import org.atlanmod.cypriot.cyprIoT.Role;
+import org.atlanmod.cypriot.cyutil.Helpers;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 public final class NetworkHelper {
 
-
+	public static String extractNotepadHighlights() {
+		String syntax  = Helpers.getContentFromFile(new File("../language/org.atlanmod.cypriot/src/org/atlanmod/cypriot/Cypriot.xtext"));	
+		Pattern pattern = Pattern.compile("\'(.*?)\'", Pattern.DOTALL);
+		Matcher matcher = pattern.matcher(syntax);
+		StringBuilder keywords = new StringBuilder();
+		while (matcher.find()) {
+			if(matcher.group(1).length()>1) {
+				keywords.append("\""+matcher.group(1)+"\" ");
+			}
+		}
+		return keywords.toString();
+	}
 	/**
 	 * Return EObject of a given type contained by a given EObject
 	 * 
@@ -50,7 +65,7 @@ public final class NetworkHelper {
 	 * Show the version of Cypriot in the console
 	 */
 	public static void showProjectVersioInConsole() {
-		System.out.println("CyprIoT v" + getProjectVersionFromMaven());
+		System.out.println("CyprIoT v" + getProjectVersionFromMaven().replaceAll("-SNAPSHOT", ""));
 	}
 
 	/**

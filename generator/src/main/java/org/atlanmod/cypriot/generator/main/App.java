@@ -18,8 +18,8 @@ public class App implements Runnable {
 
 	public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
 	public static final boolean compiling = false;
-	public static final boolean isEnforcing = true;
-	public static final boolean isTrigger = false;
+	public static final boolean isEnforcing = false;
+	public static final boolean isTrigger = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final boolean experimentMode = false;
 

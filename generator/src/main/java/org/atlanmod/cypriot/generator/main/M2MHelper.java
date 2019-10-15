@@ -39,30 +39,31 @@ public class M2MHelper {
 		outputDirectory.mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 			InstanceThing instance = bind.getBindsInstanceThing();
+			String instanceName = instance.getName();
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
 			TypeThing thing = instance.getTypeThing().getThingToInstantiate();
 			if (!(targetPlatform.equals("nodered") || thing.getImportPath().isEmpty())) {
 				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
 				File thingMLFile = new File(thingPath);
 
-				log.info("Transforming thing : " + thing.getName() + "...");
+				log.info("Transforming thing : " + instanceName + "...");
 				log.debug("Thing File Path : " + thingMLFile.getAbsolutePath());
 
-				String outputFile = outputDirectory.getPath()+ File.separator + "transformed_" + thing.getName() + ".thingml";
-				Resource resThingML = getResourceFromThingMLFile(thingMLFile, thing.getName());
+				String outputFile = outputDirectory.getPath()+ File.separator + "transformed_" + instanceName + ".thingml";
+				Resource resThingML = getResourceFromThingMLFile(thingMLFile, instanceName);
 				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
 				
 				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile);
 				if(isEnforcing) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
 				}
-				if(isTrigger) {
+				if(isTrigger && instanceName.equals("mydevice2")) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile);
 				}
 				allThingMLResources.add(transformedThingMLModel);
 				if(isCompiling) {
 					String outputGenDirectory = outputDirectory.getPath()+ File.separator + "devices" + File.separator
-							+ thing.getName() + File.separator + targetPlatform;
+							+ instanceName + File.separator + targetPlatform;
 					String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 
 					try {
@@ -77,7 +78,7 @@ public class M2MHelper {
 							log.error("There was errors in ThingML generation.");
 							log.error(errors);
 						} else {
-							log.info("ThingML generator completed without errors for " + thing.getName() + ".");
+							log.info("ThingML generator completed without errors for " + instanceName + ".");
 						}
 
 					} catch (IOException e) {
