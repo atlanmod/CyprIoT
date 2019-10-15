@@ -10,6 +10,25 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 uses Copier;
 uses Helpers;
 
+-- Get the network to make (support for first network only for the moment)
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
+
+helper context CyprIoT!Network def : collectEnforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
+
+helper context CyprIoT!Policy def : collectRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
+	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleTrigger))
+;
+
+helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!RuleTrigger = 
+	thisModule.firstNetwork().collectEnforcedPoliciesInNetwork().first().collectRuleTriggerFromPolicy().first()
+	;
+
+helper def : bindOfInputThing() : CyprIoT!Bind = thisModule.firstNetwork().bindsContainingThingInNetwork().first();
+
+helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = 
+	self.hasBinds->select(b | b.isBindMatchesInputThing())
+;
+
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -31,12 +50,70 @@ rule copyExternalConnector {
 	)
 }
 
-rule enforcePlatformAnnotation {
-	from s : ThingML!PlatformAnnotation(
-		not(thisModule.rulesTriggerContainingThingInSubject().debug('ruleTrigger').isEmpty())
-		)
-	to  t : ThingML!PlatformAnnotation(
+rule copyThing {
+	from s : ThingML!Thing
+	to t : ThingML!Thing(
 		name <- s.name,
-		value <- s.value
+		ports <- s.ports,
+		annotations <- s.annotations,
+		assign <- s.assign,
+		behaviour <- s.behaviour,
+		fragment <- s.fragment,
+		functions <- s.functions,
+		messages <- s.messages->union(CyprIoT!RuleTrigger.allInstances()),
+		includes <- s.includes,
+		properties <- s.properties
 	)
 }
+
+rule triggerMess {
+	from s : CyprIoT!RuleTrigger
+	to triggerMessage : ThingML!Message(
+		name <- 'triggerMessage',
+		parameters <- Sequence{parameter}
+	),
+	parameter : ThingML!Parameter(
+		name <- 'param1',
+		typeRef <- typeRef
+	),
+	typeRef : ThingML!TypeRef(
+		isArray <- false,
+		type <- ThingML!PrimitiveType.allInstances().first()
+	)	
+}
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to 
+	t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().thingWithState.thing.name=thisModule.nameOfInputThing()) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
+		properties <- s.properties
+	),
+	transition : ThingML!Transition(
+		target <- ThingML!State.allInstances()->select(t | t.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name).first(),
+		event <- receive,
+		guard <- expression 
+	),
+	expression : ThingML!EqualsExpression(
+		lhs <- reference,
+		rhs <- integer
+	),
+	reference : ThingML!EventReference(
+		receiveMsg <- receive,
+		parameter <- ThingML!Parameter.allInstances().first()
+	),
+	integer : ThingML!StringLiteral(
+		stringValue <- '1'
+	),
+	receive : ThingML!ReceiveMessage(
+		port <- ThingML!Thing.allInstances().first().ports.first(),
+		message <- ThingML!Message.allInstances().first(),-- thisModule.resolveTemp(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy(), 'triggerMessage').debug('resolv'),
+		name <- 'trigger'
+	)
+}
+
