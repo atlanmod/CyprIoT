@@ -176,6 +176,8 @@ helper context CyprIoT!RuleComm def : isAnnotationPathMatchesRuleChannel(annotat
 
 helper context CyprIoT!RuleComm def : isAnyBindMirrorActionInputThing(annotation : ThingML!PlatformAnnotation) : Boolean = thisModule.firstNetwork().hasBinds->exists(b | b.typeThingOfBind().name=self.commObject.objectOther.name and b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.channelToBind.paths->exists(p | annotation.value=thisModule.bindOfInputThing().getFullPathName(p)));
 
+helper context CyprIoT!RuleComm def : isAnyBindMirrorActionInputInstanceThing(annotation : ThingML!PlatformAnnotation) : Boolean = thisModule.firstNetwork().hasBinds->exists(b | b.getInstanceThingNameFromBind()=self.commObject.objectOther.name and b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.channelToBind.paths->exists(p | annotation.value=thisModule.bindOfInputThing().getFullPathName(p)));
+
 helper context CyprIoT!RuleComm def : getFullPathOfRule() : String = thisModule.bindOfInputThing().getFullPathName(self.commObject.objectOther.oclAsType(CyprIoT!Path));
 
 helper context ThingML!ExternalConnector def : addAnnotationsAfterEnforcements() : Sequence(ThingML!PlatformAnnotation) = self.annotations->collect(a | if(thisModule.enforcePlatformAnnotation(a).oclIsUndefined()) then Sequence{} else thisModule.enforcePlatformAnnotation(a) endif)->flatten();
@@ -200,6 +202,30 @@ helper context ThingML!PlatformAnnotation def : enforceDenyChannel(rulecomm : Cy
 
 helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectThings(rulecomm : CyprIoT!RuleComm) : Boolean =
 	rulecomm.isSubjectOfRuleTypeThing() and
+	rulecomm.isObjectOfRuleTypeThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	rulecomm.isAnyBindMirrorActionInputThing(self)
+;
+
+helper context ThingML!PlatformAnnotation def : enforceSubjectAndObjectInstanceThings(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleInstanceThing() and
+	rulecomm.isObjectOfRuleInstanceThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	rulecomm.isAnyBindMirrorActionInputInstanceThing(self)
+;
+
+helper context ThingML!PlatformAnnotation def : enforceSubjectThingAndObjectInstanceThing(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleTypeThing() and
+	rulecomm.isObjectOfRuleInstanceThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	rulecomm.isAnyBindMirrorActionInputInstanceThing(self)
+;
+
+helper context ThingML!PlatformAnnotation def : enforceSubjectInstanceThingAndObjectThing(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleInstanceThing() and
 	rulecomm.isObjectOfRuleTypeThing() and
 	rulecomm.effectComm.deny and
 	rulecomm.isActionInBindAndRuleMatching() and
@@ -237,12 +263,15 @@ helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()
 			->exists(r | 
-				self.enforceDenyPath(r) or 
-				self.enforceDenyChannel(r) or
-				self.enforceSubjectAndObjectThings(r) or 
-				self.enforceRoles(r) or
-				self.enforceRoleAndThing(r) or
-				self.enforceThingAndRole(r)
+				self.enforceDenyPath(r).debug('enforceDenyPath') or 
+				self.enforceDenyChannel(r).debug('enforceDenyChannel') or
+				self.enforceSubjectAndObjectThings(r).debug('enforceSubjectAndObjectThings') or 
+				self.enforceSubjectAndObjectInstanceThings(r).debug('enforceSubjectAndObjectInstanceThings') or
+				self.enforceRoles(r).debug('enforceRoles') or
+				self.enforceRoleAndThing(r).debug('enforceRoleAndThing') or
+				self.enforceThingAndRole(r).debug('enforceThingAndRole') or
+				self.enforceSubjectInstanceThingAndObjectThing(r).debug('enforceSubjectInstanceThingAndObjectThing') or
+				self.enforceSubjectThingAndObjectInstanceThing(r).debug('enforceSubjectThingAndObjectInstanceThing')
 				)).debug('isEnforcing'))
 ;
 
