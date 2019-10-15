@@ -9,6 +9,20 @@ create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 
 uses Copier;
 uses Helpers;
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
 -- Get the network to make (support for first network only for the moment)
 helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 

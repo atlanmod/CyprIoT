@@ -12,6 +12,20 @@ uses Helpers;
 
 helper def : mqttNumber : Integer = 0;
 
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+
 rule createExternalConnectorFromBind {
 	from s : CyprIoT!Bind(s.isBindMatchesInputThing())
 	using {
