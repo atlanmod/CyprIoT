@@ -187,7 +187,7 @@ helper context ThingML!ExternalConnector def : addAnnotationsAfterEnforcements()
 
 helper context ThingML!PlatformAnnotation def : enforceDenyPath(rulecomm : CyprIoT!RuleComm) : Boolean =
 	((rulecomm.isInputThingInstanceInSubject() or rulecomm.isTypeInputThingInSubject()) or
-	rulecomm.isInputThingInSubjectRoles() or rulecomm.isInputThingOwnedByUser().debug('1')) and
+	rulecomm.isInputThingInSubjectRoles() or rulecomm.isInputThingOwnedByUser()) and
 	rulecomm.effectComm.deny and 
 	rulecomm.isActionInBindAndRuleMatching() and
 	rulecomm.isObjectOfRulePath() and
@@ -254,8 +254,26 @@ helper context ThingML!PlatformAnnotation def : enforceRoleAndThing(rulecomm : C
 ;
 
 helper context ThingML!PlatformAnnotation def : enforceRoleAndInstanceThing(rulecomm : CyprIoT!RuleComm) : Boolean =
-	rulecomm.isSubjectOfRuleRole() and
+	rulecomm.isSubjectOfRuleUser() and
 	rulecomm.isInputThingInSubjectRole() and
+	rulecomm.isObjectOfRuleInstanceThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.getInstanceThingNameFromBind()=rulecomm.commObject.objectOther.name and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
+;
+
+helper context ThingML!PlatformAnnotation def : enforceUserAndThing(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleUser() and
+	rulecomm.isInputThingOwnedByUser() and
+	rulecomm.isObjectOfRuleTypeThing() and
+	rulecomm.effectComm.deny and
+	rulecomm.isActionInBindAndRuleMatching() and
+	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.typeThingOfBind().name=rulecomm.commObject.objectOther.name and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
+;
+
+helper context ThingML!PlatformAnnotation def : enforceUserAndInstanceThing(rulecomm : CyprIoT!RuleComm) : Boolean =
+	rulecomm.isSubjectOfRuleUser() and
+	rulecomm.isInputThingOwnedByUser() and
 	rulecomm.isObjectOfRuleInstanceThing() and
 	rulecomm.effectComm.deny and
 	rulecomm.isActionInBindAndRuleMatching() and
@@ -311,7 +329,9 @@ helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 				self.enforceSubjectInstanceThingAndObjectThing(r).debug('enforceSubjectInstanceThingAndObjectThing') or
 				self.enforceSubjectThingAndObjectInstanceThing(r).debug('enforceSubjectThingAndObjectInstanceThing') or
 				self.enforceThingAndUser(r).debug('enforceThingAndUser') or 
-				self.enforceInstanceThingAndUser(r).debug('enforceInstanceThingAndUser')
+				self.enforceInstanceThingAndUser(r).debug('enforceInstanceThingAndUser') or
+				self.enforceUserAndThing(r).debug('enforceUserAndThing') or
+				self.enforceUserAndInstanceThing(r).debug('enforceUserAndInstanceThing')
 				)).debug('isEnforcing'))
 ;
 
