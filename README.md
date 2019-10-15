@@ -51,6 +51,11 @@ OR
 * ``File -> Import -> Git -> Projects from Git -> Clone URI``, then complete the procedure
 * At the root of the project ``Right-Click -> Run As -> Maven clean`` then ``Maven install``
 
+### Notepad++ Syntax Highlighting
+* Open Notepad++
+* ``Language -> Define your language... -> Import``, then select the file ``cypriot-notepad++.xml`` provided in this repository
+* Open any file with ``.cy`` extension to have syntax highlighting for CyprIoT
+
 ## Usage 
 
 * Right-Click on ``org.atlanmod.cypriot`` package
