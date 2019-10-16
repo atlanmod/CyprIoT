@@ -53,12 +53,12 @@ public class M2MHelper {
 				Resource resThingML = getResourceFromThingMLFile(thingMLFile, instanceName);
 				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
 				
-				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile);
+				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile,instanceName);
 				if(isEnforcing) {
-					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile);
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile,instanceName);
 				}
 				if(isTrigger && instanceName.equals("mydevice2")) {
-					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile);
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile,instanceName);
 				}
 				allThingMLResources.add(transformedThingMLModel);
 				if(isCompiling) {
@@ -96,9 +96,9 @@ public class M2MHelper {
 		return allThingMLResources;
 	}
 
-	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile) {
+	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile, String instanceName) {
 		
-		log.info("Applying ATL transformation module : "+ moduleName);
+		log.info("=> "+instanceName+" : "+"Applying "+moduleName+" transformation module");
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : " + outputFile);

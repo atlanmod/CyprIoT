@@ -356,25 +356,25 @@ helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()
 			->exists(r | 
-				self.enforceDenyPath(r).debug('enforceDenyPath') or 
-				self.enforceDenyChannel(r).debug('enforceDenyChannel') or
-				self.enforceSubjectAndObjectThings(r).debug('enforceSubjectAndObjectThings') or 
-				self.enforceSubjectAndObjectInstanceThings(r).debug('enforceSubjectAndObjectInstanceThings') or
-				self.enforceRoles(r).debug('enforceRoles') or
-				self.enforceRoleAndThing(r).debug('enforceRoleAndThing') or
-				self.enforceRoleAndInstanceThing(r).debug('enforceRoleAndInstanceThing') or
-				self.enforceThingAndRole(r).debug('enforceThingAndRole') or
-				self.enforceInstanceThingAndRole(r).debug('enforceInstanceThingAndRole') or
-				self.enforceSubjectInstanceThingAndObjectThing(r).debug('enforceSubjectInstanceThingAndObjectThing') or
-				self.enforceSubjectThingAndObjectInstanceThing(r).debug('enforceSubjectThingAndObjectInstanceThing') or
-				self.enforceThingAndUser(r).debug('enforceThingAndUser') or 
-				self.enforceInstanceThingAndUser(r).debug('enforceInstanceThingAndUser') or
-				self.enforceUserAndThing(r).debug('enforceUserAndThing') or
-				self.enforceUserAndInstanceThing(r).debug('enforceUserAndInstanceThing') or
-				self.enforceUsers(r).debug('enforceUsers') or
-				self.enforceUserAndRole(r).debug('enforceUserAndRole') or 
-				self.enforceRoleAndUser(r).debug('enforceRoleAndUser')
-				)).debug('isEnforcing'))
+				self.enforceDenyPath(r) or 
+				self.enforceDenyChannel(r) or
+				self.enforceSubjectAndObjectThings(r) or 
+				self.enforceSubjectAndObjectInstanceThings(r) or
+				self.enforceRoles(r) or
+				self.enforceRoleAndThing(r) or
+				self.enforceRoleAndInstanceThing(r) or
+				self.enforceThingAndRole(r) or
+				self.enforceInstanceThingAndRole(r) or
+				self.enforceSubjectInstanceThingAndObjectThing(r) or
+				self.enforceSubjectThingAndObjectInstanceThing(r) or
+				self.enforceThingAndUser(r) or 
+				self.enforceInstanceThingAndUser(r) or
+				self.enforceUserAndThing(r) or
+				self.enforceUserAndInstanceThing(r) or
+				self.enforceUsers(r) or
+				self.enforceUserAndRole(r) or 
+				self.enforceRoleAndUser(r)
+				)))
 ;
 
 rule copyThingMLModel {
