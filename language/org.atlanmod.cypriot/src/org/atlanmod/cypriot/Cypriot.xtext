@@ -234,7 +234,7 @@ EffectBridge:
 ;
 
 ActionTrigger:
-	(performTransition='performTransition' thingToTransition=[ThingAny]) | 
+	(performTransition='performTransition' thingToTransition=[ThingAny] ('('transitionRank=INT')')?) | 
 	(goToState='goToState' thingWithState=ThingWithState) | 
 	(executeFunction='executeFunction' thingWithFunction=ThingWithFunction)
 ;
