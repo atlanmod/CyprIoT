@@ -17,6 +17,26 @@ rule copyThingMLModel {
 	)	
 }
 
+rule copyFunction {
+	from s : ThingML!Function
+	to t : ThingML!Function(
+		abstract <- s.abstract,
+		annotations <- s.annotations,
+		body <- s.body,
+		name <- s.name,
+		parameters <- s.parameters,
+		typeRef <- s.typeRef
+	)
+}
+
+rule copyFunctionCallStatement {
+	from s : ThingML!FunctionCallStatement
+	to t : ThingML!FunctionCallStatement(
+		function <- s.function,
+		parameters <- s.parameters
+	)
+}
+
 rule copyPlatformAnnotation {
 	from s : ThingML!PlatformAnnotation
 	to t : ThingML!PlatformAnnotation(

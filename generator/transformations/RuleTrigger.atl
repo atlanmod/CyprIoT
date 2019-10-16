@@ -80,8 +80,8 @@ rule copyRequiredPort {
 	from s : ThingML!RequiredPort
 	to t : ThingML!RequiredPort(
 		name <- s.name,
-		receives <- if(thisModule.isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
-		sends <- if(thisModule.isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
+		receives <- if(thisModule.isGoToState() and thisModule.isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
+		sends <- if(thisModule.isGoToState() and thisModule.isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
 		annotations <- s.annotations
 	)
 }
@@ -96,11 +96,16 @@ helper context ThingML!State def : isStateNameEqualToRuleTriggerObjectState() : 
 
 helper context ThingML!State def : isStateNameEqualToRuleTriggerSubjectState() : Boolean = self.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().thingWithState.getState.state.name;
 
+helper def : getFunctionToExecute() : ThingML!Function = ThingML!Function.allInstances()->select(f | f.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name).first();
+
+helper def : isGoToState() : Boolean = not(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.goToState.oclIsUndefined());
+
+helper def : isExecuteFunction() : Boolean = not(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.executeFunction.oclIsUndefined());
 
 rule triggerMess {
 	from s : CyprIoT!RuleTrigger
 	to triggerMessage : ThingML!Message(
-		name <- thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name
+		name <- if(thisModule.isGoToState()) then thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name else thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name endif
 	)	
 }
 
@@ -111,30 +116,40 @@ rule copyState {
 		annotations <- s.annotations,
 		entry <- if(thisModule.isInputThingInRuleTriggerSubject() and s.isStateNameEqualToRuleTriggerSubjectState()) then thisModule.groupActionOnEntry(s).debug('2')  else s.entry.debug(s.name) endif,
 		exit <- s.exit,
-		internal <- s.internal,
+		internal <- if(thisModule.isExecuteFunction() and not(thisModule.isInputThingInRuleTriggerSubject())) 
+							then s.internal->union(Sequence{transitionInternal.debug('ecex')}) else s.internal endif,
 		name <- s.name,
-		outgoing <- if(thisModule.isInputThingInRuleTriggerObject() and not(s.isStateNameEqualToRuleTriggerObjectState())) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
+		outgoing <- if(thisModule.isGoToState() and 
+						thisModule.isInputThingInRuleTriggerObject() and 
+						not(s.isStateNameEqualToRuleTriggerObjectState()))
+					then s.outgoing->union(Sequence{transition})
+						else s.outgoing endif,
 		properties <- s.properties
 	),
 	transition : ThingML!Transition(
-		target <- if(thisModule.isInputThingInRuleTriggerObject()) then ThingML!State.allInstances()->select(t | t.isStateNameEqualToRuleTriggerObjectState()).first() else ThingML!State.allInstances().first() endif,
+		target <- if(thisModule.isGoToState() and thisModule.isInputThingInRuleTriggerObject()) then ThingML!State.allInstances()->select(t | t.isStateNameEqualToRuleTriggerObjectState()).first() else ThingML!State.allInstances().first() endif,
 		event <- receive
-	),
-	reference : ThingML!EventReference(
-		receiveMsg <- receive
 	),
 	receive : ThingML!ReceiveMessage(
 		port <- ThingML!Thing.allInstances().first().ports.first(),
 		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
 		name <- 'trigger'
+	),
+	transitionInternal : ThingML!InternalTransition(
+		event <- receive,
+		action <- action
+	),
+	action : ThingML!FunctionCallStatement(
+		function <- if(not(thisModule.isInputThingInRuleTriggerSubject())) then thisModule.getFunctionToExecute() else OclUndefined endif
 	)
 }
+
 
 lazy rule groupActionOnEntry {
 	from s : ThingML!State
 	to 
 	groupAction : ThingML!ActionBlock(
-		actions <- if(not(s.entry.oclIsUndefined())) then Sequence{s.entry,action} else Sequence{action} endif
+		actions <- if(not(s.entry.oclIsUndefined())) then Sequence{action,s.entry} else Sequence{action} endif
 	),
 	action : ThingML!SendAction(
 		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
