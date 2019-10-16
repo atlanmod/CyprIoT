@@ -57,7 +57,7 @@ public class M2MHelper {
 				if(isEnforcing) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile,instanceName);
 				}
-				if(isTrigger && instanceName.equals("mydevice2")) {
+				if(isTrigger) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile,instanceName);
 				}
 				allThingMLResources.add(transformedThingMLModel);
