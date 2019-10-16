@@ -66,10 +66,30 @@ rule copyThing {
 	)
 }
 
+rule copyProvidedPort {
+	from s : ThingML!ProvidedPort
+	to t : ThingML!ProvidedPort(
+		name <- s.name,
+		receives <- s.receives->union(CyprIoT!RuleTrigger.allInstances()),
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
+rule copyRequiredPort {
+	from s : ThingML!RequiredPort
+	to t : ThingML!RequiredPort(
+		name <- s.name,
+		receives <- s.receives->union(CyprIoT!RuleTrigger.allInstances()),
+		sends <- s.sends,
+		annotations <- s.annotations
+	)
+}
+
 rule triggerMess {
 	from s : CyprIoT!RuleTrigger
 	to triggerMessage : ThingML!Message(
-		name <- 'triggerMessage',
+		name <- thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name,
 		parameters <- Sequence{parameter}
 	),
 	parameter : ThingML!Parameter(
@@ -91,7 +111,7 @@ rule copyState {
 		exit <- s.exit,
 		internal <- s.internal,
 		name <- s.name,
-		outgoing <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().thingWithState.thing.name=thisModule.nameOfInputThing()) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
+		outgoing <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
 		properties <- s.properties
 	),
 	transition : ThingML!Transition(
@@ -105,14 +125,14 @@ rule copyState {
 	),
 	reference : ThingML!EventReference(
 		receiveMsg <- receive,
-		parameter <- ThingML!Parameter.allInstances().first()
+		parameter <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'parameter').debug()
 	),
 	integer : ThingML!StringLiteral(
 		stringValue <- '1'
 	),
 	receive : ThingML!ReceiveMessage(
 		port <- ThingML!Thing.allInstances().first().ports.first(),
-		message <- ThingML!Message.allInstances().first(),-- thisModule.resolveTemp(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy(), 'triggerMessage').debug('resolv'),
+		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage').debug(),-- thisModule.resolveTemp(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy(), 'triggerMessage').debug('resolv'),
 		name <- 'trigger'
 	)
 }
