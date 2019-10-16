@@ -80,11 +80,22 @@ rule copyRequiredPort {
 	from s : ThingML!RequiredPort
 	to t : ThingML!RequiredPort(
 		name <- s.name,
-		receives <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
-		sends <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
+		receives <- if(thisModule.isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
+		sends <- if(thisModule.isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
 		annotations <- s.annotations
 	)
 }
+
+
+helper def : isInputThingInRuleTriggerObject() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+
+helper def : isInputThingInRuleTriggerSubject() : Boolean = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+
+
+helper context ThingML!State def : isStateNameEqualToRuleTriggerObjectState() : Boolean = self.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name;
+
+helper context ThingML!State def : isStateNameEqualToRuleTriggerSubjectState() : Boolean = self.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().thingWithState.getState.state.name;
+
 
 rule triggerMess {
 	from s : CyprIoT!RuleTrigger
@@ -98,15 +109,15 @@ rule copyState {
 	to 
 	t : ThingML!State(
 		annotations <- s.annotations,
-		entry <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name) then s.entry else groupAction endif,
+		entry <- if(thisModule.isInputThingInRuleTriggerSubject() and s.isStateNameEqualToRuleTriggerSubjectState()) then thisModule.groupActionOnEntry(s).debug('2')  else s.entry.debug(s.name) endif,
 		exit <- s.exit,
 		internal <- s.internal,
 		name <- s.name,
-		outgoing <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name and not(s.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name)) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
+		outgoing <- if(thisModule.isInputThingInRuleTriggerObject() and not(s.isStateNameEqualToRuleTriggerObjectState())) then s.outgoing->union(Sequence{transition}) else s.outgoing endif,
 		properties <- s.properties
 	),
 	transition : ThingML!Transition(
-		target <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name) then ThingML!State.allInstances()->select(t | t.name=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithState.getState.state.name).first() else ThingML!State.allInstances().first() endif,
+		target <- if(thisModule.isInputThingInRuleTriggerObject()) then ThingML!State.allInstances()->select(t | t.isStateNameEqualToRuleTriggerObjectState()).first() else ThingML!State.allInstances().first() endif,
 		event <- receive
 	),
 	reference : ThingML!EventReference(
@@ -116,13 +127,19 @@ rule copyState {
 		port <- ThingML!Thing.allInstances().first().ports.first(),
 		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
 		name <- 'trigger'
+	)
+}
+
+lazy rule groupActionOnEntry {
+	from s : ThingML!State
+	to 
+	groupAction : ThingML!ActionBlock(
+		actions <- if(not(s.entry.oclIsUndefined())) then Sequence{s.entry,action} else Sequence{action} endif
 	),
 	action : ThingML!SendAction(
 		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
 		port <- ThingML!Port.allInstances().first()
-	),
-	groupAction : ThingML!ActionBlock(
-		actions <- if(s.entry.oclIsUndefined()) then Sequence{action} else Sequence{s.entry,action} endif
 	)
+	
 }
 
