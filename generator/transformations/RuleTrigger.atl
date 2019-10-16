@@ -125,17 +125,17 @@ rule copyState {
 	to 
 	t : ThingML!State(
 		annotations <- s.annotations,
-		entry <- if(thisModule.isInputThingInRuleTriggerSubject() and s.isStateNameEqualToRuleTriggerSubjectState()) then thisModule.groupActionOnEntry(s).debug('2')  else s.entry.debug(s.name) endif,
+		entry <- if(thisModule.isInputThingInRuleTriggerSubject() and s.isStateNameEqualToRuleTriggerSubjectState()) then thisModule.groupActionOnEntry(s) else s.entry endif,
 		exit <- s.exit,
 		internal <- if(thisModule.isExecuteFunction() and not(thisModule.isInputThingInRuleTriggerSubject())) 
-							then s.internal->union(Sequence{transitionInternal.debug('ecex')}) else s.internal endif,
+							then s.internal->union(Sequence{transitionInternal}) else s.internal endif,
 		name <- s.name,
 		outgoing <- if(thisModule.isGoToState() and 
 						thisModule.isInputThingInRuleTriggerObject() and 
 						not(s.isStateNameEqualToRuleTriggerObjectState()))
 							then s.outgoing->union(Sequence{transition})
 						else if(thisModule.isPerformTransition() and not(thisModule.isInputThingInRuleTriggerSubject())) then
-						s.outgoing->union(if(ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.transitionRank.debug('rank')=0) 
+						s.outgoing->union(if(ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.transitionRank=0) 
 							then 
 							Sequence{ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(1)} 
 							else if(ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and not(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.transitionRank=0) and ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()<=thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.transitionRank) 
