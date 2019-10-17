@@ -128,6 +128,9 @@ public class Helpers {
 			new_uri = new_uri.resolve(cyModel.eResource().getURI());
 		}
 		Resource r = cyModel.eResource().getResourceSet().getResource(new_uri, true);
+		if (!checkProblemsInEMFResource(r)) {
+			throw new Exception();
+		}
 		if (r != null && r.getContents().size() > 0 && r.getContents().get(0) instanceof CyprIoTModel) {
 			return (CyprIoTModel) r.getContents().get(0);
 		} else {
@@ -582,7 +585,7 @@ public class Helpers {
 	}
 
 	public static <T extends EObject> T getModelFromResource(Resource model, Class<T> type) {
-
+		
 		try {
 			model.load(null);
 			EcoreUtil.resolveAll(model);
@@ -638,12 +641,28 @@ public class Helpers {
 	 */
 	public static boolean checkProblemsInEMFResource(Resource resource) {
 		boolean noErrors = true;
-		if (!resource.getErrors().isEmpty()) {
-			noErrors = false;
+
+		if (resource.getWarnings().size() > 0) {
+			for (Diagnostic diagnostic : resource.getWarnings()) {
+				String location = diagnostic.getLocation();
+        		if (location == null) {
+        			location = resource.getURI().toFileString();
+        		}
+				log.warn("Warning in file  " + location + " (" + diagnostic.getLine() + ", " + diagnostic.getColumn() + "): " + diagnostic.getMessage());
+			}
 		}
-		for (Diagnostic diagnostic : resource.getErrors()) {
-			log.error("ERROR : " + diagnostic.getMessage());
+		if (resource.getErrors().size() > 0) {
+			log.error("CyprIoT Model contains " + resource.getErrors().size() + " errors.");
+			for (Diagnostic diagnostic : resource.getErrors()) {
+				String location = diagnostic.getLocation();
+        		if (location == null) {
+        			location = resource.getURI().toFileString();
+        		}
+        		log.error("Error in file  " + location + " (" + diagnostic.getLine() + ", " + diagnostic.getColumn() + "): " + diagnostic.getMessage());
+			}
+			return false;
 		}
+
 		return noErrors;
 	}
 

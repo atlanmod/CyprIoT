@@ -48,8 +48,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val ONLYONETHING = "OnlyOneThing"
 	public static val PORT_CHANNEL__RECEIVE_COMPATIBILITY = "PortChannelReceive-Compatibility"
 	public static val PORT_CHANNEL_SEND_COMPATIBILITY = "PortChannelSend-Compatibility"
-	public static val PORT_SEND_EXISTANCE = "PortSend-Existance"
-	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
+	public static val PORT_SEND_EXISTANCE = "PortSend-Existence"
+	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existence"
 	public static val CONFLICTING_RULES = "Conflicting-Rules"
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
