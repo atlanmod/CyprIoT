@@ -67,7 +67,8 @@ public class M2MHelper {
 					String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
 
 					try {
-						log.info("Running ThingML generator...");
+						log.info(" * "+instanceName+" : Running ThingML generator...");
+						
 						Process proc = Runtime.getRuntime().exec("java -jar lib/thingml/thingmlcmd.jar " + args);
 						proc.waitFor();
 						InputStream in = proc.getInputStream();
@@ -75,10 +76,10 @@ public class M2MHelper {
 						InputStream err = proc.getErrorStream();
 						String errors = NetworkHelper.convertStreamToString(err);
 						if (!errors.equals("")) {
-							log.error("There was errors in ThingML generation.");
+							log.error("✘ There was errors in ThingML generation.");
 							log.error(errors);
 						} else {
-							log.info("ThingML generator completed without errors for " + instanceName + ".");
+							log.info("✔ ThingML generator completed without errors for " + instanceName + ".");
 						}
 
 					} catch (IOException e) {
@@ -98,7 +99,7 @@ public class M2MHelper {
 
 	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile, String instanceName) {
 		
-		log.info("=> "+instanceName+" : "+"Applying "+moduleName+" transformation module");
+		log.info(" * "+instanceName+" : Applying "+moduleName+" transformation module");
 		ResourceSet rs = new ResourceSetImpl();
 		ExecEnv env = EmftvmFactory.eINSTANCE.createExecEnv();
 		log.debug("Output Directory after transformation : " + outputFile);

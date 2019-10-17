@@ -39,6 +39,25 @@ rule copyThingMLModel {
 	)	
 }
 
+
+rule copyCompositeState {
+	from s : ThingML!CompositeState
+	to t : ThingML!CompositeState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		history <- s.history,
+		initial <- s.initial,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties,
+		region <- s.region,
+		session <- s.session,
+		substate <- s.substate
+	)
+}
+
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
@@ -165,8 +184,18 @@ rule copyState {
 		action <- action
 	),
 	action : ThingML!FunctionCallStatement(
-		function <- if(not(thisModule.isInputThingInRuleTriggerSubject()) and thisModule.isExecuteFunction()) then thisModule.getFunctionToExecute() else OclUndefined endif
+		function <- if(not(thisModule.isInputThingInRuleTriggerSubject()) and thisModule.isExecuteFunction()) then thisModule.getFunctionToExecute() else OclUndefined endif,
+		parameters <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.oclIsUndefined()) then OclUndefined
+						else thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters->collect( p | thisModule.multipleParameters(p)) endif
 	)	
+}
+
+lazy rule multipleParameters {
+	from s: String
+	to 
+	expression : ThingML!IntegerLiteral(
+		intValue <- s.toInteger().refInvokeOperation('longValue', Sequence{}) -- bug : use of reflexivity to convert integer to long 
+	)
 }
 
 lazy rule multipleTransition {
