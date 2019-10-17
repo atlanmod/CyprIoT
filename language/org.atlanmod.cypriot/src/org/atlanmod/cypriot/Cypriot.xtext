@@ -218,7 +218,7 @@ GetState:
 ;
 
 GetFunction:
-	'function:' function=[thingml::Function] ('(' parameters+=STRING (parameters+=STRING)* ')')?
+	'function:' function=[thingml::Function] ('(' parameters+=STRING (',' parameters+=STRING)* ')')?
 ;
 
 EffectComm:

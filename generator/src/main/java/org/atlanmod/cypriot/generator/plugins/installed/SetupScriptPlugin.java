@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
-import org.atlanmod.cypriot.cyprIoT.TypeThing;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
 
 public class SetupScriptPlugin implements Plugin {
@@ -45,24 +44,25 @@ public class SetupScriptPlugin implements Plugin {
 			fw.write("mkdir execs\n");
 			for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 				InstanceThing instance = bind.getBindsInstanceThing();
-				TypeThing thing = instance.getTypeThing().getThingToInstantiate();
+				String instanceName = instance.getName();
 				String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
 				String outputMakeDirectory = outputDirectory.getAbsolutePath()+ File.separator +"devices"+ File.separator
-						+ thing.getName() + File.separator + targetPlatform;
+						+ instanceName + File.separator + targetPlatform;
 
 				try {
 					if(targetPlatform.equals("posix") || targetPlatform.equals("posixmt")) {
 						fw.write("make -C " + outputMakeDirectory+"\n");
-						fw.write("cp " + outputMakeDirectory+File.separator+thing.getName()+"_Cfg execs\n");
+						fw.write("cp " + outputMakeDirectory+File.separator+instanceName+"_Cfg execs\n");
 					} else if (targetPlatform.equals("java")) {
 						fw.write("mvn -f " + outputMakeDirectory+" clean install\n");
-						fw.write("cp " + outputMakeDirectory+File.separator+"target"+File.separator+thing.getName()+"_Cfg-1.0.0-jar-with-dependencies.jar execs\n");
+						fw.write("cp " + outputMakeDirectory+File.separator+"target"+File.separator+instanceName+"_Cfg-1.0.0-jar-with-dependencies.jar execs\n");
 					}
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				fw.write("gnome-terminal -x ."+File.separator+"execs"+File.separator+instanceName+"_Cfg\n");
 			}
 			fw.close();
 		} catch (IOException ioe) {

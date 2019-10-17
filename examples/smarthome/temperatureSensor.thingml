@@ -4,13 +4,14 @@ thing temperatureSensor {
 	required port myport {
 		sends m
 	}
-	statechart HelloStateChart init state1 {
-		state state1 {
-			on entry myport!m(1)
-			transition -> HelloState
+	statechart temperatureSensorBehavior init isLow {
+		state isLow {
+			on entry println "isLow"
+			transition -> isHigh
 		}
-		state HelloState {
-			on entry
+		state isHigh {
+			on entry println "isHigh"
+			on exit
 				do  while(true) do 
 						println  "Sending..."
 						myport!m(0)
@@ -21,7 +22,7 @@ thing temperatureSensor {
 						`sleep(5);`
 						myport!m(3)
 					end
-				end
+				end			 
 		}
 	}
 }

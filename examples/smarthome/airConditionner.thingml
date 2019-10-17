@@ -3,19 +3,14 @@ thing airConditionner {
 	provided port myport {
 		receives m
 	}
-	function myfunction() do
-	
-	end
-	statechart HelloStateChart init HelloState {
-		state state2 {
-			on entry println "state2"
-			transition ->HelloState
-				event e : myport?m
-				guard e.mess==2
+	statechart HelloStateChart init isOff {
+		state isOff {
+			on entry println "isOff"
+			transition ->idle
 		}
 		
-		state HelloState {
-			on entry println "HelloState"
+		state isOn {
+			on entry println "isOn"
 			internal event e : myport?m
 			action if(e.mess==0) 
 					do 
@@ -33,18 +28,15 @@ thing airConditionner {
 					do 
 						println "I am smart and I know it, ho ! hooo !"
 					end
-			transition ->state4
+			transition ->idle
 				event e : myport?m
 				guard e.mess==0
-			transition ->state2
-				event e : myport?m
-				guard e.mess==2
 		}
-		state state4 {
-			on entry println "state4"
-			transition ->state2
+		state idle {
+			on entry println "idle"
+			transition ->isOn
 				event e : myport?m
-				guard e.mess==2
+				guard e.mess==0
 		}
 	}
 }
