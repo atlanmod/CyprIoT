@@ -4,6 +4,7 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
+
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -15,13 +16,13 @@ import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.Role
 import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleComm
+import org.atlanmod.cypriot.cyprIoT.RuleTrigger
 import org.atlanmod.cypriot.cyprIoT.TypeChannel
 import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
 import org.thingml.xtext.thingML.Thing
-import org.atlanmod.cypriot.cyprIoT.RuleTrigger
 
 /**
  * This class contains custom validation rules. 
@@ -87,15 +88,12 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkFunctionNumberOfParameters(Rule rule) {
 		if ((rule instanceof RuleTrigger)) {
-
 			val policy = rule.eContainer as Policy
 			val allRules = policy.hasRules.filter [ r |
 				val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name
 				val functionInThg = Helpers.allFunctionsThingML((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
 				val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
 				val parameterCountInThg = functionInThg.filter[f | f.name.equals(functionName)].get(0).parameters.size
-				println("size : "+parameterCountInThg)
-				println("size2 : "+functionInTrigger)
 				r instanceof RuleTrigger && 
 				(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing && 
 				functionInTrigger!=parameterCountInThg
@@ -226,27 +224,27 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 
 	@Check(FAST)
-	def checkPubSubUniqueness(TypeChannel pubsub) {
-		val cypriotModel = pubsub.eContainer as CyprIoTModel
+	def checkChannelUniqueness(TypeChannel channel) {
+		val cypriotModel = channel.eContainer as CyprIoTModel
 		val allPubSubs = cypriotModel.declareChannels.filter( k |
-			k instanceof TypeChannel && (k as TypeChannel).name == pubsub.name
+			k instanceof TypeChannel && (k as TypeChannel).name == channel.name
 		)
 
 		if (allPubSubs.size() > 1) {
-			val msg = "The channel PubSub '" + pubsub.getName() + "' is already declared.";
+			val msg = "The channel  '" + channel.getName() + "' is already declared.";
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_DeclareChannels,
-				cypriotModel.declareChannels.indexOf(pubsub), PUBSUB_UNIQUENESS)
+				cypriotModel.declareChannels.indexOf(channel), PUBSUB_UNIQUENESS)
 		}
 	}
 
 	@Check(FAST)
-	def checkInstanceTopicUniqueness(Path topic) {
-		val pubsub = topic.eContainer as TypeChannel
-		val allTopics = pubsub.hasPaths.filter(k|k.name == topic.name)
+	def checkInstancePathUniqueness(Path path) {
+		val channel = path.eContainer as TypeChannel
+		val allTopics = channel.hasPaths.filter(k|k.name == path.name)
 
 		if (allTopics.size() > 1) {
-			val msg = "The topic '" + topic.getName() + "' is already declared.";
-			error(msg, pubsub, CyprIoTPackage.eINSTANCE.typeChannel_HasPaths, pubsub.hasPaths.indexOf(topic),
+			val msg = "The path '" + path.getName() + "' is already declared.";
+			error(msg, channel, CyprIoTPackage.eINSTANCE.typeChannel_HasPaths, channel.hasPaths.indexOf(path),
 				TOPIC_UNIQUENESS)
 		}
 	}
