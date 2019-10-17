@@ -276,6 +276,21 @@ rule copyStateContainer {
 	)
 }
 
+rule copyPlusExpression {
+	from s : ThingML!PlusExpression
+	to t : ThingML!PlusExpression(
+		lhs <- s.lhs,
+		rhs <- s.rhs
+	)
+}
+
+rule copyPropertyReference {
+	from s : ThingML!PropertyReference
+	to t : ThingML!PropertyReference(
+		property <- s.property	
+	)
+}
+
 rule copyCompositeState {
 	from s : ThingML!CompositeState
 	to t : ThingML!CompositeState(

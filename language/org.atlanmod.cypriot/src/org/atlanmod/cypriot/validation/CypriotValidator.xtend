@@ -23,6 +23,8 @@ import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
 import org.thingml.xtext.thingML.Thing
+import org.eclipse.xtext.EcoreUtil2
+import org.thingml.xtext.thingML.ExternStatement
 
 /**
  * This class contains custom validation rules. 
@@ -51,6 +53,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val CONFLICTING_RULES = "Conflicting-Rules"
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
+
+	public static val WARNING_EMBEDDED = "Warning-Embedded"
 	@Check(FAST)
 	def checkBindPortChannelCompatibility(Bind bind) {
 		val portBind = bind.portToBind
@@ -259,5 +263,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 			error(msg, cypriotModel, CyprIoTPackage.eINSTANCE.cyprIoTModel_SpecifyPolicies,
 				cypriotModel.specifyPolicies.indexOf(policy), POLICY_UNIQUENESS)
 		}
+	}
+	
+	@Check(FAST)
+	def checkEmbededCode(InstanceThing instanceThing) {
+		val network = instanceThing.eContainer as Network
+		val thingmlModel = Helpers.getThingMLFromURI(instanceThing)
+		val candidates = EcoreUtil2.getAllContentsOfType(thingmlModel, ExternStatement)
+		if (candidates.size>0) {
+			val msg = "The instance '" + instanceThing.getName() + "' contains embedded code, it may not be compatible with the specified platform.";
+			warning(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate,
+				network.instantiate.indexOf(instanceThing), WARNING_EMBEDDED)
+			return
+		}	
 	}
 }
