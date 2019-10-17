@@ -397,9 +397,15 @@ public class Helpers {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ArrayList<Type> things = new ArrayList<Type>();
+		for (Type type : thingmlModel.getTypes()) {
+			if(type instanceof Thing) {
+				things.add(type);
+			}
+		}
 		if (thingmlModel != null) {
 			ArrayList<Function> functions = ThingMLHelpers
-					.allFunctions((((Thing) thingmlModel.getTypes().get(0))));
+					.allFunctions((((Thing) things.get(0))));
 			for (Function function : functions) {
 				result.add(function);
 			}

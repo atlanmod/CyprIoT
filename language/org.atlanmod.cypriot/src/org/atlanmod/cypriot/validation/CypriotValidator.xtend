@@ -86,17 +86,22 @@ class CypriotValidator extends AbstractCypriotValidator {
 	
 	@Check(FAST)
 	def checkFunctionNumberOfParameters(Rule rule) {
-		if ((rule instanceof RuleComm)) {
+		if ((rule instanceof RuleTrigger)) {
 
 			val policy = rule.eContainer as Policy
 			val allRules = policy.hasRules.filter [ r |
+				val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name
+				val functionInThg = Helpers.allFunctionsThingML((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
+				val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
+				val parameterCountInThg = functionInThg.filter[f | f.name.equals(functionName)].get(0).parameters.size
+				println("size : "+parameterCountInThg)
+				println("size2 : "+functionInTrigger)
 				r instanceof RuleTrigger && 
-				(r as RuleTrigger).thingWithState.thing instanceof Thing && 
-				(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
-					==Helpers.allFunctionsThingML(((r as RuleTrigger).thingWithState.thing as TypeThing)).filter[f | f.name.equals((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name)].get(0).parameters.size
+				(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing && 
+				functionInTrigger!=parameterCountInThg
 				]
 
-			if (allRules.size() > 1) {
+			if (allRules.size() > 0) {
 				val msg = "The number of parameters in executeFunction does not match with the number of parameters of the function.";
 				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
 					FUNCTION_PARAMETERS)
@@ -110,7 +115,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 
 			val policy = rule.eContainer as Policy
 			val allRules = policy.hasRules.filter [ r |
-				r instanceof RuleComm &&
+					r instanceof RuleComm &&
 					((r as RuleComm).commSubject.subjectOther.name.equals(
 						(rule as RuleComm).commSubject.subjectOther.name)) &&
 					((r as RuleComm).effectComm.actionComm.literal.equals(
