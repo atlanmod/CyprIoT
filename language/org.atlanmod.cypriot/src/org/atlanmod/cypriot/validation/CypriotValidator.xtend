@@ -21,6 +21,7 @@ import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
 import org.eclipse.xtext.validation.Check
 import org.thingml.xtext.thingML.Thing
+import org.atlanmod.cypriot.cyprIoT.RuleTrigger
 
 /**
  * This class contains custom validation rules. 
@@ -47,6 +48,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existance"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existance"
 	public static val CONFLICTING_RULES = "Conflicting-Rules"
+	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
 	@Check(FAST)
 	def checkBindPortChannelCompatibility(Bind bind) {
@@ -80,6 +82,26 @@ class CypriotValidator extends AbstractCypriotValidator {
 			}
 		}
 
+	}
+	
+	@Check(FAST)
+	def checkFunctionNumberOfParameters(Rule rule) {
+		if ((rule instanceof RuleComm)) {
+
+			val policy = rule.eContainer as Policy
+			val allRules = policy.hasRules.filter [ r |
+				r instanceof RuleTrigger && 
+				(r as RuleTrigger).thingWithState.thing instanceof Thing && 
+				(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
+					==Helpers.allFunctionsThingML(((r as RuleTrigger).thingWithState.thing as TypeThing)).filter[f | f.name.equals((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name)].get(0).parameters.size
+				]
+
+			if (allRules.size() > 1) {
+				val msg = "The number of parameters in executeFunction does not match with the number of parameters of the function.";
+				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
+					FUNCTION_PARAMETERS)
+			}
+		}
 	}
 
 	@Check(FAST)
