@@ -1,0 +1,33 @@
+thing temperatureSensor {
+	message m(mess : UInt8)
+	message m2(mess : UInt8)
+	required port myport {
+		sends m
+	}
+	statechart HelloStateChart init state1 {
+		state state1 {
+			on entry myport!m(1)
+			transition -> HelloState
+		}
+		state HelloState {
+			on entry
+				do  while(true) do 
+						println  "Sending..."
+						myport!m(0)
+						`sleep(5);`
+						myport!m(1)
+						`sleep(5);`
+						myport!m(2)
+						`sleep(5);`
+						myport!m(3)
+					end
+				end
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"
