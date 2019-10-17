@@ -155,8 +155,13 @@ rule copyState {
 		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
 		name <- 'trigger'
 	),
+	receive2 : ThingML!ReceiveMessage(
+		port <- ThingML!Thing.allInstances().first().ports.first(),
+		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
+		name <- 'trigger'
+	),
 	transitionInternal : ThingML!InternalTransition(
-		event <- receive,
+		event <- receive2,
 		action <- action
 	),
 	action : ThingML!FunctionCallStatement(
