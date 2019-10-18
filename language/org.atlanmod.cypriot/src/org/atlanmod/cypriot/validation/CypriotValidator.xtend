@@ -14,17 +14,16 @@ import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.Path
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.Role
-import org.atlanmod.cypriot.cyprIoT.Rule
 import org.atlanmod.cypriot.cyprIoT.RuleComm
 import org.atlanmod.cypriot.cyprIoT.RuleTrigger
 import org.atlanmod.cypriot.cyprIoT.TypeChannel
 import org.atlanmod.cypriot.cyprIoT.TypeThing
 import org.atlanmod.cypriot.cyprIoT.User
 import org.atlanmod.cypriot.cyutil.Helpers
-import org.eclipse.xtext.validation.Check
-import org.thingml.xtext.thingML.Thing
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.validation.Check
 import org.thingml.xtext.thingML.ExternStatement
+import org.thingml.xtext.thingML.Thing
 
 /**
  * This class contains custom validation rules. 
@@ -32,7 +31,8 @@ import org.thingml.xtext.thingML.ExternStatement
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class CypriotValidator extends AbstractCypriotValidator {
-
+	
+	//Errors
 	public static val ROLE_UNIQUENESS = "Role-Uniqueness"
 	public static val USER_UNIQUENESS = "User-Uniqueness"
 	public static val INSTANCETHING_UNIQUENESS = "InstanceThing-Uniqueness"
@@ -50,7 +50,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_CHANNEL_SEND_COMPATIBILITY = "PortChannelSend-Compatibility"
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existence"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existence"
-	public static val CONFLICTING_RULES = "Conflicting-Rules"
+	public static val DUPLICATE_RULES = "Duplicate-Rules"
+	
+	// Warning
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
 
@@ -90,17 +92,19 @@ class CypriotValidator extends AbstractCypriotValidator {
 	}
 	
 	@Check(FAST)
-	def checkFunctionNumberOfParameters(Rule rule) {
-		if ((rule instanceof RuleTrigger)) {
+	def checkFunctionNumberOfParameters(RuleTrigger rule) {
 			val policy = rule.eContainer as Policy
 			val allRules = policy.hasRules.filter [ r |
-				val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name
-				val functionInThg = Helpers.allFunctionsThingML((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
-				val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
-				val parameterCountInThg = functionInThg.filter[f | f.name.equals(functionName)].get(0).parameters.size
-				r instanceof RuleTrigger && 
-				(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing && 
-				functionInTrigger!=parameterCountInThg
+				if(r instanceof RuleTrigger) {
+					val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name
+					val functionInThg = Helpers.allFunctionsThingML((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
+					val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
+					val parameterCountInThg = functionInThg.filter[f | f.name.equals(functionName)].get(0).parameters.size
+					r instanceof RuleTrigger && 
+					(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing && 
+					functionInTrigger!=parameterCountInThg					
+				}
+
 				]
 
 			if (allRules.size() > 0) {
@@ -108,33 +112,47 @@ class CypriotValidator extends AbstractCypriotValidator {
 				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
 					FUNCTION_PARAMETERS)
 			}
-		}
 	}
 
 	@Check(FAST)
-	def checkConflictingRules(Rule rule) {
-		if ((rule instanceof RuleComm)) {
-
+	def checkDuplicateCommRules(RuleComm rule) {
 			val policy = rule.eContainer as Policy
 			val allRules = policy.hasRules.filter [ r |
-					r instanceof RuleComm &&
-					((r as RuleComm).commSubject.subjectOther.name.equals(
-						(rule as RuleComm).commSubject.subjectOther.name)) &&
-					((r as RuleComm).effectComm.actionComm.literal.equals(
-						(rule as RuleComm).effectComm.actionComm.literal)) &&
-					((r as RuleComm).commSubject.subjectOther.name.equals(
-						(rule as RuleComm).commSubject.subjectOther.name)) &&
-					((r as RuleComm).commObject.objectOther.name.equals((rule as RuleComm).commObject.objectOther.name))
+				if(r instanceof RuleComm) {
+						val thisRule = r as RuleComm
+						val inputRule = rule as RuleComm
+						var nameOfThisSubject = thisRule.commSubject.subjectOther.name
+						var nameOfThisObject = thisRule.commObject.objectOther.name
+						var actionOfThisRule = thisRule.effectComm.actionComm.literal
+						var isAllowThisRule = thisRule.effectComm.allow
+						var nameOfInputSubject = inputRule.commSubject.subjectOther.name
+						var nameOfInputObject = inputRule.commObject.objectOther.name
+						var actionOfInputRule = inputRule.effectComm.actionComm.literal
+						var isAllowInputRule = inputRule.effectComm.allow
+						r instanceof RuleComm &&
+						nameOfThisSubject.equals(nameOfInputSubject) &&
+						actionOfThisRule.equals(actionOfInputRule) &&
+						isAllowThisRule==isAllowInputRule &&
+						nameOfThisSubject.equals(nameOfInputSubject) &&
+						nameOfThisObject.equals(nameOfInputObject)
+				}
+
 			]
 
 			if (allRules.size() > 1) {
-				val msg = "There are conflicting or duplicate rules.";
+				val rulesstr= new StringBuilder()
+				var i=0
+				for(rr : allRules) {
+					rulesstr.append(policy.hasRules.indexOf(rr))
+					if(i==0) rulesstr.append(", ")
+					i++
+				}
+				val msg = "Rules at positions "+rulesstr+" are duplicates.";
 				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
-					CONFLICTING_RULES)
+					DUPLICATE_RULES)
 			}
-		}
 	}
-
+	
 	@Check(FAST)
 	def checkNumberofThing(TypeThing thing) {
 		val thingml = Helpers.getThingInThingML(thing)
