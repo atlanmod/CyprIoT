@@ -4,7 +4,6 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
-
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -31,8 +30,8 @@ import org.thingml.xtext.thingML.Thing
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class CypriotValidator extends AbstractCypriotValidator {
-	
-	//Errors
+
+	// Errors
 	public static val ROLE_UNIQUENESS = "Role-Uniqueness"
 	public static val USER_UNIQUENESS = "User-Uniqueness"
 	public static val INSTANCETHING_UNIQUENESS = "InstanceThing-Uniqueness"
@@ -51,12 +50,13 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existence"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existence"
 	public static val DUPLICATE_RULES = "Duplicate-Rules"
-	
+	public static val CONFLICTING_RULES = "Conflicting-Rules"
+
 	// Warning
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
-
 	public static val WARNING_EMBEDDED = "Warning-Embedded"
+
 	@Check(FAST)
 	def checkBindPortChannelCompatibility(Bind bind) {
 		val portBind = bind.portToBind
@@ -90,69 +90,99 @@ class CypriotValidator extends AbstractCypriotValidator {
 		}
 
 	}
-	
+
 	@Check(FAST)
 	def checkFunctionNumberOfParameters(RuleTrigger rule) {
-			val policy = rule.eContainer as Policy
-			val allRules = policy.hasRules.filter [ r |
-				if(r instanceof RuleTrigger) {
-					val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name
-					val functionInThg = Helpers.allFunctionsThingML((r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
-					val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.size
-					val parameterCountInThg = functionInThg.filter[f | f.name.equals(functionName)].get(0).parameters.size
-					r instanceof RuleTrigger && 
-					(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing && 
-					functionInTrigger!=parameterCountInThg					
-				}
-
-				]
-
-			if (allRules.size() > 0) {
-				val msg = "The number of parameters in executeFunction does not match with the number of parameters of the function.";
-				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
-					FUNCTION_PARAMETERS)
+		val policy = rule.eContainer as Policy
+		val allRules = policy.hasRules.filter [ r |
+			if (r instanceof RuleTrigger) {
+				val functionName = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.
+					function.name
+				val functionInThg = Helpers.allFunctionsThingML(
+					(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing as TypeThing)
+				val functionInTrigger = (r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.getFunction.
+					parameters.size
+				val parameterCountInThg = functionInThg.filter[f|f.name.equals(functionName)].get(0).parameters.size
+				r instanceof RuleTrigger &&
+					(r as RuleTrigger).effectTrigger.actionTrigger.thingWithFunction.thing instanceof TypeThing &&
+					functionInTrigger != parameterCountInThg
 			}
+
+		]
+
+		if (allRules.size() > 0) {
+			val msg = "The number of parameters in executeFunction does not match with the number of parameters of the function.";
+			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
+				FUNCTION_PARAMETERS)
+		}
 	}
 
 	@Check(FAST)
 	def checkDuplicateCommRules(RuleComm rule) {
-			val policy = rule.eContainer as Policy
-			val allRules = policy.hasRules.filter [ r |
-				if(r instanceof RuleComm) {
-						val thisRule = r as RuleComm
-						val inputRule = rule as RuleComm
-						var nameOfThisSubject = thisRule.commSubject.subjectOther.name
-						var nameOfThisObject = thisRule.commObject.objectOther.name
-						var actionOfThisRule = thisRule.effectComm.actionComm.literal
-						var isAllowThisRule = thisRule.effectComm.allow
-						var nameOfInputSubject = inputRule.commSubject.subjectOther.name
-						var nameOfInputObject = inputRule.commObject.objectOther.name
-						var actionOfInputRule = inputRule.effectComm.actionComm.literal
-						var isAllowInputRule = inputRule.effectComm.allow
-						r instanceof RuleComm &&
-						nameOfThisSubject.equals(nameOfInputSubject) &&
-						actionOfThisRule.equals(actionOfInputRule) &&
-						isAllowThisRule==isAllowInputRule &&
-						nameOfThisSubject.equals(nameOfInputSubject) &&
-						nameOfThisObject.equals(nameOfInputObject)
-				}
-
-			]
-
-			if (allRules.size() > 1) {
-				val rulesstr= new StringBuilder()
-				var i=0
-				for(rr : allRules) {
-					rulesstr.append(policy.hasRules.indexOf(rr))
-					if(i==0) rulesstr.append(", ")
-					i++
-				}
-				val msg = "Rules at positions "+rulesstr+" are duplicates.";
-				error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
-					DUPLICATE_RULES)
+		val policy = rule.eContainer as Policy
+		val allRules = policy.hasRules.filter [ r |
+			if (r instanceof RuleComm) {
+				val thisRule = r as RuleComm
+				val inputRule = rule as RuleComm
+				var isAllowThisRule = thisRule.effectComm.allow
+				var isAllowInputRule = inputRule.effectComm.allow
+				isCommRulesDuplicates(r, rule) &&
+				isAllowThisRule == isAllowInputRule
 			}
+
+		]
+
+		if (allRules.size() > 1) {
+			val rulesstr = new StringBuilder()
+			var i = 0
+			for (rr : allRules) {
+				rulesstr.append(policy.hasRules.indexOf(rr))
+				if(i == 0) rulesstr.append(", ")
+				i++
+			}
+			val msg = "Rules at positions " + rulesstr + " are duplicates.";
+			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule), DUPLICATE_RULES)
+		}
 	}
-	
+
+	protected def boolean isCommRulesDuplicates(RuleComm r, RuleComm rule) {
+		val thisRule = r as RuleComm
+		val inputRule = rule as RuleComm
+		var nameOfThisSubject = thisRule.commSubject.subjectOther.name
+		var nameOfThisObject = thisRule.commObject.objectOther.name
+		var actionOfThisRule = thisRule.effectComm.actionComm.literal
+		var nameOfInputSubject = inputRule.commSubject.subjectOther.name
+		var nameOfInputObject = inputRule.commObject.objectOther.name
+		var actionOfInputRule = inputRule.effectComm.actionComm.literal
+		r instanceof RuleComm && nameOfThisSubject.equals(nameOfInputSubject) &&
+			actionOfThisRule.equals(actionOfInputRule) &&
+			nameOfThisSubject.equals(nameOfInputSubject) && nameOfThisObject.equals(nameOfInputObject)
+	}
+
+	@Check(FAST)
+	def checkConflictingCommRules(RuleComm rule) {
+		val policy = rule.eContainer as Policy
+		val allRules = policy.hasRules.filter [ r |
+			if (r instanceof RuleComm) {
+				isCommRulesDuplicates(rule, r)
+			}
+
+		]
+		println(allRules.size())
+		if (allRules.size() > 1) {
+			val rulesstr = new StringBuilder()
+			var i = 0
+			for (rr : allRules) {
+				rulesstr.append(policy.hasRules.indexOf(rr))
+				if(i == 0) rulesstr.append(", ")
+				i++
+			}
+			val msg = "Rules at positions " + rulesstr + " are conflicting.";
+			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
+				CONFLICTING_RULES)
+		}
+	}
+
 	@Check(FAST)
 	def checkNumberofThing(TypeThing thing) {
 		val thingml = Helpers.getThingInThingML(thing)
@@ -248,8 +278,9 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def checkChannelUniqueness(TypeChannel channel) {
 		val cypriotModel = channel.eContainer as CyprIoTModel
-		val allPubSubs = cypriotModel.declareChannels.filter( k |
-			k instanceof TypeChannel && (k as TypeChannel).name == channel.name
+		val allPubSubs = cypriotModel.declareChannels.filter(
+			k |
+				k instanceof TypeChannel && (k as TypeChannel).name == channel.name
 		)
 
 		if (allPubSubs.size() > 1) {
@@ -282,17 +313,18 @@ class CypriotValidator extends AbstractCypriotValidator {
 				cypriotModel.specifyPolicies.indexOf(policy), POLICY_UNIQUENESS)
 		}
 	}
-	
+
 	@Check(FAST)
 	def checkEmbededCode(InstanceThing instanceThing) {
 		val network = instanceThing.eContainer as Network
 		val thingmlModel = Helpers.getThingMLFromURI(instanceThing)
 		val candidates = EcoreUtil2.getAllContentsOfType(thingmlModel, ExternStatement)
-		if (candidates.size>0) {
-			val msg = "The instance '" + instanceThing.getName() + "' contains embedded code, it may not be compatible with the specified platform.";
+		if (candidates.size > 0) {
+			val msg = "The instance '" + instanceThing.getName() +
+				"' contains embedded code, it may not be compatible with the specified platform.";
 			warning(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate,
 				network.instantiate.indexOf(instanceThing), WARNING_EMBEDDED)
 			return
-		}	
+		}
 	}
 }
