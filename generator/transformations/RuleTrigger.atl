@@ -185,7 +185,7 @@ rule copyState {
 	),
 	action : ThingML!FunctionCallStatement(
 		function <- if(not(thisModule.isInputThingInRuleTriggerSubject()) and thisModule.isExecuteFunction()) then thisModule.getFunctionToExecute() else OclUndefined endif,
-		parameters <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.oclIsUndefined()) then OclUndefined
+		parameters <- if(thisModule.isExecuteFunction() and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.oclIsUndefined()) then OclUndefined
 						else thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters->collect( p | thisModule.multipleParameters(p)) endif
 	)	
 }

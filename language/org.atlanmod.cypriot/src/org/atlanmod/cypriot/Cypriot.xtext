@@ -186,7 +186,7 @@ SubjectOther:
 ;
 
 ThingWithStateOrPort:
-	ThingWithPort | ThingWithState
+	ThingWithPort | ThingWithState | ThingWithProperty
 ;
 
 ChannelWithPath:
@@ -199,6 +199,10 @@ ThingWithPort:
 
 ThingWithState:
 	thing=[ThingAny] '->' getState=GetState
+;
+
+ThingWithProperty:
+	thing=[ThingAny] '->' getProperty=GetProperty '=' propertyValue=STRING
 ;
 
 ThingWithFunction:
@@ -217,9 +221,15 @@ GetState:
 	'state:' state=[thingml::State]
 ;
 
-GetFunction:
-	'function:' function=[thingml::Function] ('(' parameters+=STRING (',' parameters+=STRING)* ')')?
+GetProperty:
+	'property:' state=[thingml::Property]
 ;
+
+GetFunction:
+	'function:' function=[thingml::Function] ('(' (parameters+=STRING | propertyParameters+= [thingml::Property] ) (',' (parameters+=STRING| propertyParameters+= [thingml::Property]))* ')')? // TODO to finish 
+;
+
+
 
 EffectComm:
 	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
