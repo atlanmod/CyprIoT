@@ -56,6 +56,21 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
 	public static val WARNING_EMBEDDED = "Warning-Embedded"
+	
+	// Info
+	public static val IDENTIFY_BIND = "Identify-Bind"
+
+	@Check(FAST)
+	def identifyBindForBidge(Bind bind) {
+		val network = bind.eContainer as Network
+		println("bind.name : "+bind.name)
+		if(bind.name===null){
+			val msg = "Identify you bind to use it in the bridge, syntax : bind <ID>: <device>.<port> ...";
+			info(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+					IDENTIFY_BIND)
+		}
+		
+	}
 
 	@Check(FAST)
 	def checkBindPortChannelCompatibility(Bind bind) {
