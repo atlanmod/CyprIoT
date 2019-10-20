@@ -4,6 +4,7 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
+
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -65,7 +66,16 @@ class CypriotValidator extends AbstractCypriotValidator {
 		val network = bind.eContainer as Network
 		println("bind.name : "+bind.name)
 		if(bind.name===null){
-			val msg = "Identify you bind to use it in the bridge, syntax : bind <ID>: <device>.<port> ...";
+			val pathsOfBind = new StringBuilder()
+			var i = 0
+			for (path : bind.channelToBind.paths) {
+				pathsOfBind.append(path.name)
+				if(i > 0)  pathsOfBind.append(", ")
+				i++
+			}
+			val msg = "Identify this bind to use it in the bridge, syntax : \n bind <ID>:"+ bind.bindsInstanceThing.name+"."
+						+bind.portToBind.name+" "+bind.bindAction.literal+" "
+						+bind.channelToBind.targetedChannelInstance.name+"{"+pathsOfBind+"}";
 			info(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
 					IDENTIFY_BIND)
 		}
@@ -183,13 +193,12 @@ class CypriotValidator extends AbstractCypriotValidator {
 			}
 
 		]
-		println(allRules.size())
 		if (allRules.size() > 1) {
 			val rulesstr = new StringBuilder()
 			var i = 0
 			for (rr : allRules) {
 				rulesstr.append(policy.hasRules.indexOf(rr))
-				if(i == 0) rulesstr.append(", ")
+				if(i > 0) rulesstr.append(", ")
 				i++
 			}
 			val msg = "Rules at positions " + rulesstr + " are conflicting.";
