@@ -18,7 +18,7 @@ public class App implements Runnable {
 	
 	public static final String CYPRIOT_FILE = "../examples/smarthome/main.cy";
 	//public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
-	public static final boolean isTrigger = false;
+	public static final boolean isTrigger = true;
 	public static final boolean isBridge = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final boolean experimentMode = false;
@@ -39,7 +39,7 @@ public class App implements Runnable {
 	boolean isGenerate=true;
 	
 	@Option(names = { "-e", "--enforce" }, description = "Enforce communication control rules")
-	boolean isEnforcing=false;
+	boolean isEnforcing=true;
 	
 	@Option(names = { "-d", "--disable-plugins" }, description = "Disable plugins")
 	boolean isPluginEnabled=true;

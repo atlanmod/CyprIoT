@@ -126,20 +126,17 @@ lazy rule groupActionTransition {
 	)
 	
 }
--- Add sends to same port when receive as action in the transition
--- Add sends to the port
 
 rule bridgePaths {
 	from s : CyprIoT!NetworkBridge (s.bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing())
 	to t : ThingML!ExternalConnector(
 		annotations <- ThingML!ExternalConnector.allInstances().first().annotations->collect(a | thisModule.addAnnotations(a)),
 		inst <- ThingML!ExternalConnector.allInstances().first().inst,
-		name <- 'bridge_'+ThingML!ExternalConnector.allInstances().first().inst.name+'_'+ThingML!ExternalConnector.allInstances().first().port.name,
 		port <- port,
 		protocol <- proto
 	),
 	proto : ThingML!Protocol(
-		name <- s.bridgeToChannel.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash(),
+		name <- s.bridgeToChannel.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash()+'1',
 		annotations <- Sequence{brokerAdress,portNumber,serializer}
 		
 	),

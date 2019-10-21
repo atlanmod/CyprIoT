@@ -3,6 +3,12 @@ package org.atlanmod.cypriot.generator.plugins.installed;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -38,7 +44,8 @@ public class SetupScriptPlugin implements Plugin {
 	public void generate(CyprIoTModel cyprIoTmodel, File outputDirectory) {
 		try {
 			String filename = outputDirectory+ File.separator + "setup.sh";
-			new File(filename);
+			File setupFile = new File(filename);
+			setupFile.createNewFile();
 			FileWriter fw = new FileWriter(filename, true);
 			fw.write("#!/bin/bash \n");
 			fw.write("mkdir execs\n");
@@ -65,6 +72,13 @@ public class SetupScriptPlugin implements Plugin {
 				fw.write("gnome-terminal -x ."+File.separator+"execs"+File.separator+instanceName+"_Cfg\n");
 			}
 			fw.close();
+
+			Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
+			perms.add(PosixFilePermission.OWNER_READ);
+			perms.add(PosixFilePermission.OWNER_WRITE);
+			perms.add(PosixFilePermission.OWNER_EXECUTE);
+
+			Files.setPosixFilePermissions(setupFile.toPath(), perms);
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
 		}
