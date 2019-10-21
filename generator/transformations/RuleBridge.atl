@@ -95,28 +95,42 @@ rule copyExternalConnector {
 rule copyTransition {
 	from s : ThingML!Transition
 	to t : ThingML!Transition(
-		action <- sendAction,
+		action <- if(thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclIsTypeOf(CyprIoT!Bind) 
+				and thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing() 
+				and not(s.event.oclIsUndefined()) 
+				and s.event.oclAsType(ThingML!ReceiveMessage).port.name=ThingML!Port.allInstances().first().name 
+				and s.event.oclAsType(ThingML!ReceiveMessage).message.name=ThingML!Port.allInstances().first().receives.first().name) 
+			then thisModule.groupActionTransition(s,s.event.oclAsType(ThingML!ReceiveMessage)) 
+			else s.action endif,
 		annotations <- s.annotations,
 		event <- s.event,
 		guard <- s.guard,
 		name <- s.name,
 		target <- s.target
+	)
+}
+lazy rule groupActionTransition {
+	from s : ThingML!Transition, r : ThingML!ReceiveMessage
+	to 
+	groupAction : ThingML!ActionBlock(
+		actions <- if(not(s.action.oclIsUndefined())) then Sequence{sendAction,s.action} else Sequence{sendAction} endif
 	),
 	sendAction : ThingML!SendAction(
 		message <- 	ThingML!Port.allInstances().first().receives.first(),
-		port <- thisModule.resolveTemp(CyprIoT!NetworkBridge.allInstances().first(), 'port').debug('port'),
-		parameters <- Sequence{integer}
+		port <- thisModule.resolveTemp(CyprIoT!NetworkBridge.allInstances().first(), 'port'),
+		parameters <- Sequence{eventRef}
 	),
-	integer : ThingML!IntegerLiteral(
-		intValue <- '1'.toInteger().refInvokeOperation('longValue', Sequence{})
+	eventRef : ThingML!EventReference(
+		receiveMsg <- r,
+		parameter <- r.message.parameters.first()
 	)
+	
 }
-
 -- Add sends to same port when receive as action in the transition
 -- Add sends to the port
 
 rule bridgePaths {
-	from s : CyprIoT!NetworkBridge (s.bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind().debug('1')=thisModule.nameOfInputThing().debug('2'))
+	from s : CyprIoT!NetworkBridge (s.bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing())
 	to t : ThingML!ExternalConnector(
 		annotations <- ThingML!ExternalConnector.allInstances().first().annotations->collect(a | thisModule.addAnnotations(a)),
 		inst <- ThingML!ExternalConnector.allInstances().first().inst,
