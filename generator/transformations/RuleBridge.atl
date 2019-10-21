@@ -24,6 +24,22 @@ rule copyThingMLModel {
 	)	
 }
 
+rule copyThing {
+	from s : ThingML!Thing
+	to t : ThingML!Thing(
+		name <- s.name,
+		ports <- if(thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing()) then CyprIoT!NetworkBridge.allInstances()->collect(b | thisModule.resolveTemp(b, 'port'))->union(s.ports) else s.ports endif,
+		annotations <- s.annotations,
+		assign <- s.assign,
+		behaviour <- s.behaviour,
+		fragment <- s.fragment,
+		functions <- s.functions,
+		messages <- s.messages,
+		includes <- s.includes,
+		properties <- s.properties
+	)
+}
+
 rule copyConfig {
 	from s : ThingML!Configuration
 	to t : ThingML!Configuration(
@@ -79,12 +95,20 @@ rule copyExternalConnector {
 rule copyTransition {
 	from s : ThingML!Transition
 	to t : ThingML!Transition(
-		action <- s.action,
+		action <- sendAction,
 		annotations <- s.annotations,
 		event <- s.event,
 		guard <- s.guard,
 		name <- s.name,
 		target <- s.target
+	),
+	sendAction : ThingML!SendAction(
+		message <- 	ThingML!Port.allInstances().first().receives.first(),
+		port <- thisModule.resolveTemp(CyprIoT!NetworkBridge.allInstances().first(), 'port').debug('port'),
+		parameters <- Sequence{integer}
+	),
+	integer : ThingML!IntegerLiteral(
+		intValue <- '1'.toInteger().refInvokeOperation('longValue', Sequence{})
 	)
 }
 
@@ -97,13 +121,18 @@ rule bridgePaths {
 		annotations <- ThingML!ExternalConnector.allInstances().first().annotations->collect(a | thisModule.addAnnotations(a)),
 		inst <- ThingML!ExternalConnector.allInstances().first().inst,
 		name <- 'bridge_'+ThingML!ExternalConnector.allInstances().first().inst.name+'_'+ThingML!ExternalConnector.allInstances().first().port.name,
-		port <- ThingML!ExternalConnector.allInstances().first().port,
+		port <- port,
 		protocol <- proto
 	),
 	proto : ThingML!Protocol(
 		name <- s.bridgeToChannel.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash(),
 		annotations <- Sequence{brokerAdress,portNumber,serializer}
 		
+	),
+	port : ThingML!RequiredPort(
+		name <- 'bridge_'+s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()+'_port',
+		sends <- ThingML!Port.allInstances().first().receives,
+		optional <- true		
 	),
 	brokerAdress : ThingML!PlatformAnnotation(
 		name <- 'mqtt_broker_address',
