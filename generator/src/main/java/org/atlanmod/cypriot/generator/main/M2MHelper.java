@@ -32,9 +32,11 @@ public class M2MHelper {
 	static final Logger log = LogManager.getLogger(M2MHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	
-	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isEnforcing, boolean isTrigger,  boolean isCompiling) {
-		log.info("Transforming things according to the network...");
+	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isEnforcing, boolean isTrigger, boolean isBridge, boolean isCompiling) {
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
+		log.info("Transforming things according to the network : "+networkName+"...");
+
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
 		outputDirectory.mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
@@ -59,6 +61,9 @@ public class M2MHelper {
 				}
 				if(isTrigger) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile,instanceName);
+				}
+				if(isBridge) {
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleBridge", outputFile,instanceName);
 				}
 				allThingMLResources.add(transformedThingMLModel);
 				if(isCompiling) {

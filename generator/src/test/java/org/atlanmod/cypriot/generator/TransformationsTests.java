@@ -41,7 +41,7 @@ public class TransformationsTests {
 		
 		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld/main.cy").getFile());
 		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
-		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false).get(0);
+		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false).get(0);
 		
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
@@ -64,7 +64,7 @@ public class TransformationsTests {
 		
 		File cyprIoTfile = new File(classLoader.getResource("0_HelloWorld2/main.cy").getFile());	
 		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
-		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false).get(0);
+		Resource res = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false).get(0);
 		
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(res, ThingMLModel.class);
 		
@@ -90,7 +90,7 @@ public class TransformationsTests {
 
 		// Device 1
 
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false);
 		ThingMLModel parseDevice1 = Helpers.getModelFromResource(transformedFiles.get(0), ThingMLModel.class);
 		
 		validator.assertNoErrors(parseDevice1);
@@ -139,7 +139,7 @@ public class TransformationsTests {
 		
 		File cyprIoTfile = new File(classLoader.getResource("3_ThreeThings/main.cy").getFile());
 		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false);
 
 		// Device 1
 
@@ -202,7 +202,7 @@ public class TransformationsTests {
 		
 		File cyprIoTfile = new File(classLoader.getResource("4_FourThings/main.cy").getFile());
 		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false);
 		
 		// Device 1
 
@@ -279,7 +279,7 @@ public class TransformationsTests {
 		
 		File cyprIoTfile = new File(classLoader.getResource("5_FiveThings/main.cy").getFile());
 		File outputDirectory = new File(cyprIoTfile.getParent() + File.separator + "network-gen" + File.separator);
-		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false);
+		List<Resource> transformedFiles = transformationHelper.transform(cyprIoTfile,outputDirectory,false,false,false,false);
 		
 		// Device 1
 

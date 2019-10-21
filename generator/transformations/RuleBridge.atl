@@ -1,0 +1,128 @@
+-- @atlcompiler emftvm
+-- @nsURI ThingML=http://www.thingml.org/xtext/ThingML
+-- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
+
+
+module RuleBridge;
+
+create OUT: ThingML from TH: ThingML, CY : CyprIoT;
+
+uses Copier;
+uses Helpers;
+
+-- Get the network to make (support for first network only for the moment)
+helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
+
+
+rule copyThingMLModel {
+	from s : ThingML!ThingMLModel
+	to t : ThingML!ThingMLModel(
+		configs <- s.configs,
+		imports <- s.imports,
+		protocols <- if(thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing()) then CyprIoT!NetworkBridge.allInstances()->collect(b | thisModule.resolveTemp(b, 'proto'))->union(s.protocols) else s.protocols endif ,
+		types <- s.types
+	)	
+}
+
+rule copyConfig {
+	from s : ThingML!Configuration
+	to t : ThingML!Configuration(
+		annotations <- s.annotations,
+		connectors <- if(thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and thisModule.firstNetwork().hasNetworkBridges.first().bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()=thisModule.nameOfInputThing()) then s.connectors->union(CyprIoT!NetworkBridge.allInstances()) else s.connectors endif ,
+		instances <- s.instances,
+		name <- s.name,
+		propassigns <- s.propassigns
+	)	
+}
+
+rule copyState {
+	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to t : ThingML!State(
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		internal <- s.internal,
+		name <- s.name,
+		outgoing <- s.outgoing,
+		properties <- s.properties
+	)
+}
+rule copyCompositeState {
+	from s : ThingML!CompositeState
+	to t : ThingML!CompositeState(
+		name <- s.name,
+		annotations <- s.annotations,
+		entry <- s.entry,
+		exit <- s.exit,
+		history <- s.history,
+		initial <- s.initial,
+		internal <- s.internal,
+		outgoing <- s.outgoing,
+		properties <- s.properties,
+		region <- s.region,
+		session <- s.session,
+		substate <- s.substate
+	)
+}
+
+rule copyExternalConnector {
+	from s : ThingML!ExternalConnector
+	to t : ThingML!ExternalConnector(
+		annotations <- s.annotations,
+		inst <- s.inst,
+		name <- s.name,
+		port <- s.port,
+		protocol <- s.protocol
+	)
+}
+
+rule copyTransition {
+	from s : ThingML!Transition
+	to t : ThingML!Transition(
+		action <- s.action,
+		annotations <- s.annotations,
+		event <- s.event,
+		guard <- s.guard,
+		name <- s.name,
+		target <- s.target
+	)
+}
+
+-- Add sends to same port when receive as action in the transition
+-- Add sends to the port
+
+rule bridgePaths {
+	from s : CyprIoT!NetworkBridge (s.bridgeSubject.oclIsTypeOf(CyprIoT!Bind) and s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind().debug('1')=thisModule.nameOfInputThing().debug('2'))
+	to t : ThingML!ExternalConnector(
+		annotations <- ThingML!ExternalConnector.allInstances().first().annotations->collect(a | thisModule.addAnnotations(a)),
+		inst <- ThingML!ExternalConnector.allInstances().first().inst,
+		name <- 'bridge_'+ThingML!ExternalConnector.allInstances().first().inst.name+'_'+ThingML!ExternalConnector.allInstances().first().port.name,
+		port <- ThingML!ExternalConnector.allInstances().first().port,
+		protocol <- proto
+	),
+	proto : ThingML!Protocol(
+		name <- s.bridgeToChannel.targetedChannelInstance.typeChannel.targetedProtocol.toString().removeHash(),
+		annotations <- Sequence{brokerAdress,portNumber,serializer}
+		
+	),
+	brokerAdress : ThingML!PlatformAnnotation(
+		name <- 'mqtt_broker_address',
+		value <- s.bridgeToChannel.targetedChannelInstance.typeChannel.server.toString().split(':').first()
+	),
+	portNumber : ThingML!PlatformAnnotation(
+		name <- 'mqtt_port_number',
+		value <- s.bridgeToChannel.targetedChannelInstance.typeChannel.server.toString().split(':').last()
+	),
+	serializer : ThingML!PlatformAnnotation(
+		name <- 'serializer',
+		value <- 'json' -- Create new protocol in ThingML when multiple type of serializers
+	)
+}
+
+lazy rule addAnnotations {
+	from s : ThingML!PlatformAnnotation
+	to t : ThingML!PlatformAnnotation(
+		name <- s.name.mirrorMqttPubSub(),
+		value <- s.value
+	)
+}

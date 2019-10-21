@@ -29,6 +29,14 @@ helper context String def : mirrorSendOrReceive() : String =
 	endif
 ;
 
+helper context String def : mirrorMqttPubSub() : String =
+	if self.startsWith('mqtt_publish_topic')
+		then 'mqtt_subscribe_topic'
+	else 
+		'mqtt_publish_topic'
+	endif
+;
+
 helper context String def : replaceDotsWithSlashInDomain() : String =
 	self.replace('.', '/')
 ;

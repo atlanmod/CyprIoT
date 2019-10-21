@@ -92,7 +92,7 @@ public class Experiment {
 			long startTime = System.nanoTime();
 			for (int n = 1; n <= NumberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false, false);
+				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, false);
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);

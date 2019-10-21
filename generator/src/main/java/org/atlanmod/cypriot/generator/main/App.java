@@ -16,9 +16,10 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-	//public static final String CYPRIOT_FILE = "../examples/smarthome/main.cy";
-	public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
-	public static final boolean isTrigger = true;
+	public static final String CYPRIOT_FILE = "../examples/smarthome/main.cy";
+	//public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
+	public static final boolean isTrigger = false;
+	public static final boolean isBridge = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final boolean experimentMode = false;
 
@@ -35,10 +36,10 @@ public class App implements Runnable {
 	File cypriotConfigFile;
 	
 	@Option(names = { "-g", "--generate" }, description = "Generate code")
-	boolean isGenerate=false;
+	boolean isGenerate=true;
 	
 	@Option(names = { "-e", "--enforce" }, description = "Enforce communication control rules")
-	boolean isEnforcing=true;
+	boolean isEnforcing=false;
 	
 	@Option(names = { "-d", "--disable-plugins" }, description = "Disable plugins")
 	boolean isPluginEnabled=true;
@@ -61,12 +62,12 @@ public class App implements Runnable {
 		} else {
 			log.debug("CyprIoT Input File Path : " + cypriotInputFile.getPath());
 			M2MHelper transformationHelper = new M2MHelper();
-			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isGenerate);
+			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate);
 
 			CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 
 			// Plugin Loading
-			if (!isPluginEnabled) {
+			if (isPluginEnabled) {
 				PluginLoader pluginLoader = new PluginLoader();
 				pluginLoader.setConfigFile(cypriotConfigFile);
 				pluginLoader.setModel(model);
