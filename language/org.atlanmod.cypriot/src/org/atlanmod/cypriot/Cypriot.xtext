@@ -162,7 +162,7 @@ RuleBridge:
 ;
 
 BridgeSubjectObject:
-	 ChannelWithPath | ThingWithPort
+	 ChannelWithPath
 ;
 
 CommObject :

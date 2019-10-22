@@ -3,7 +3,7 @@
 -- @nsURI CyprIoT=http://www.atlanmod.org/CyprIoT
 
 
-module RuleBridge;
+module NetworkBridge;
 
 create OUT: ThingML from TH: ThingML, CY : CyprIoT;
 

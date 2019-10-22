@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -36,8 +37,17 @@ public class M2MHelper {
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		log.info("Transforming things according to the network : "+networkName+"...");
-
+		
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
+		if(outputDirectory.exists()) {
+			try {
+				FileUtils.deleteDirectory(outputDirectory);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 		outputDirectory.mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
 			InstanceThing instance = bind.getBindsInstanceThing();
@@ -63,7 +73,7 @@ public class M2MHelper {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleTrigger", outputFile,instanceName);
 				}
 				if(isBridge) {
-					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleBridge", outputFile,instanceName);
+					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "NetworkBridge", outputFile,instanceName);
 				}
 				allThingMLResources.add(transformedThingMLModel);
 				if(isCompiling) {
@@ -81,10 +91,10 @@ public class M2MHelper {
 						InputStream err = proc.getErrorStream();
 						String errors = NetworkHelper.convertStreamToString(err);
 						if (!errors.equals("")) {
-							log.error("✘ There was errors in ThingML generation.");
+							log.error(" ✘ "+instanceName+ " : There was errors in ThingML generation.");
 							log.error(errors);
 						} else {
-							log.info("✔ ThingML generator completed without errors for " + instanceName + ".");
+							log.info(" ✔ "+instanceName+" : ThingML generator completed without errors.");
 						}
 
 					} catch (IOException e) {

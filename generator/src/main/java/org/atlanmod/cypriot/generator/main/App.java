@@ -50,10 +50,11 @@ public class App implements Runnable {
 			cypriotInputFile = new File(CYPRIOT_FILE);
 		if (!CONFIG_FILE.equals(""))
 			cypriotConfigFile = new File(CONFIG_FILE);
-
+		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		if (cypriotOutputDirectory == null) {
 			cypriotOutputDirectory = new File(
-					cypriotInputFile.getParent() + File.separator + "network-gen" + File.separator);
+					cypriotInputFile.getParent() + File.separator + networkName + File.separator);
 			log.debug("Output Directory : " + cypriotOutputDirectory);
 		}
 
@@ -64,13 +65,11 @@ public class App implements Runnable {
 			M2MHelper transformationHelper = new M2MHelper();
 			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate);
 
-			CyprIoTModel model = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
-
 			// Plugin Loading
 			if (isPluginEnabled) {
 				PluginLoader pluginLoader = new PluginLoader();
 				pluginLoader.setConfigFile(cypriotConfigFile);
-				pluginLoader.setModel(model);
+				pluginLoader.setModel(cyprIoTmodel);
 				pluginLoader.setOutputDirectory(cypriotOutputDirectory);
 				pluginLoader.load();
 			}
