@@ -81,10 +81,20 @@ rule copyCompositeState {
 	)
 }
 
+helper context CyprIoT!Network def : collectEnforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
+helper context CyprIoT!Policy def : collectRuleBridgeFromPolicy() : Sequence(CyprIoT!RuleBridge) =
+	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleBridge))
+;
+
+helper context ThingML!ExternalConnector def : applyRuleBridge(annotation : ThingML!PlatformAnnotation) : Sequence(ThingML!PlatformAnnotation) = thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()->collect(p | p.collectRuleBridgeFromPolicy()->collect(r | if(r.isAnnotationPathMatchesRuleBridge(annotation)) then thisModule.multiplePaths(r.bridgeSubject.oclAsType(CyprIoT!ChannelWithPath).getPath.path,r,thisModule.firstNetwork()) else Sequence{} endif))->flatten()->union(self.annotations);
+
+helper context CyprIoT!RuleBridge def : isAnnotationPathMatchesRuleBridge(annotation : ThingML!PlatformAnnotation) : Boolean =  self.bridgeSubject.oclAsType(CyprIoT!ChannelWithPath).channel.oclIsTypeOf(CyprIoT!TypeChannel) and annotation.name='mqtt_publish_topic' and not(annotation.value=self.getFullPathNameBridge(thisModule.firstNetwork(),self.bridgeSubject.oclAsType(CyprIoT!ChannelWithPath).getPath.path)) and thisModule.firstNetwork().instantiate->exists(s | s.oclIsTypeOf(CyprIoT!InstanceChannel) and s.oclAsType(CyprIoT!InstanceChannel).typeChannel.pubSubToInstantiate.name=self.bridgeSubject.oclAsType(CyprIoT!ChannelWithPath).channel.name) and annotation.value=self.getFullPathNameBridge(thisModule.firstNetwork(),self.bridgeSubject.oclAsType(CyprIoT!ChannelWithPath).getPath.path);
+
+
 rule copyExternalConnector {
 	from s : ThingML!ExternalConnector
 	to t : ThingML!ExternalConnector(
-		annotations <- s.annotations,
+		annotations <- s.annotations->collect(a | s.applyRuleBridge(a))->flatten(),
 		inst <- s.inst,
 		name <- s.name,
 		port <- s.port,
@@ -164,5 +174,13 @@ lazy rule addAnnotations {
 	to t : ThingML!PlatformAnnotation(
 		name <- s.name.mirrorMqttPubSub(),
 		value <- s.value
+	)
+}
+
+lazy rule multiplePaths {
+	from t : CyprIoT!Path, r : CyprIoT!RuleBridge, n : CyprIoT!Network
+	to annotationMqtt : ThingML!PlatformAnnotation(
+		name <- 'mqtt_publish_topic',
+		value <- r.getFullPathNameBridge(n,t)
 	)
 }
