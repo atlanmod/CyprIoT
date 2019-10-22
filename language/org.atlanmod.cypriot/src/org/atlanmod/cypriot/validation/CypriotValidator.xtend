@@ -123,9 +123,19 @@ class CypriotValidator extends AbstractCypriotValidator {
 	@Check(FAST)
 	def samePathRuleBridge(RuleBridge rule) {
 		val policy = rule.eContainer as Policy
-		if ((rule.bridgeSubject as ChannelWithPath).channel.eClass.isInstance((rule.bridgeObject as ChannelWithPath).channel)
+		if (((rule.bridgeSubject as ChannelWithPath).channel.eClass.isInstance((rule.bridgeObject as ChannelWithPath).channel)
 			&& (rule.bridgeSubject as ChannelWithPath).channel.name.equals((rule.bridgeObject as ChannelWithPath).channel.name)
+			&& (rule.bridgeSubject as ChannelWithPath).getPath.path.name.equals((rule.bridgeObject as ChannelWithPath).getPath.path.name))
+			|| (((rule.bridgeSubject as ChannelWithPath).channel instanceof InstanceChannel 
+				&& (rule.bridgeObject as ChannelWithPath).channel.eClass.isInstance(((rule.bridgeSubject as ChannelWithPath).channel as InstanceChannel).typeChannel.pubSubToInstantiate)
+				&& ((rule.bridgeSubject as ChannelWithPath).channel as InstanceChannel).typeChannel.pubSubToInstantiate.name.equals((rule.bridgeObject as ChannelWithPath).channel.name)
+				|| (rule.bridgeObject as ChannelWithPath).channel instanceof InstanceChannel 
+				&& (rule.bridgeSubject as ChannelWithPath).channel.eClass.isInstance(((rule.bridgeObject as ChannelWithPath).channel as InstanceChannel).typeChannel.pubSubToInstantiate)
+				&& (rule.bridgeSubject as ChannelWithPath).channel.name.equals(((rule.bridgeObject as ChannelWithPath).channel as InstanceChannel).typeChannel.pubSubToInstantiate.name)
+			) 
+			
 			&& (rule.bridgeSubject as ChannelWithPath).getPath.path.name.equals((rule.bridgeObject as ChannelWithPath).getPath.path.name)
+			)
 		) {
 			val msg = "The rule cannot be applied for the same paths.";
 			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
