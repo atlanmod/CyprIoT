@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.atlanmod.cypriot.cyprIoT.ChannelAny
 
 /**
  * This class contains custom scoping description.
@@ -79,21 +80,27 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeThing)
 			return Scopes.scopeFor(Helpers.allMessagesInNetworkModel(candidates as ArrayList<TypeThing>))
 		} else if (reference == cypriotInstance.bind_PortToBind) {
-			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThing.typeThing.thingToInstantiate))
+			val cross = Helpers.findContainingBind(context).bindsInstanceThing.typeThing.thingToInstantiate
+			return Scopes.scopeFor(Helpers.getAllPortsThing(cross))
 		} else if (reference == cypriotInstance.bind_PortToBindBack) {
-			return Scopes.scopeFor(Helpers.getAllPortsThing(Helpers.findContainingBind(context).bindsInstanceThingBack.typeThing.thingToInstantiate))
+			val cross = Helpers.findContainingBind(context).bindsInstanceThingBack.typeThing.thingToInstantiate
+			return Scopes.scopeFor(Helpers.getAllPortsThing(cross))
 		}else if (reference == cypriotInstance.getPort_Port) {
-			return Scopes.scopeFor(Helpers.getAllPortsThingAny(Helpers.allContainedCrossThingAny(context.eContainer)))
+			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
+			return Scopes.scopeFor(Helpers.getAllPortsThingAny(cross))
 		} else if (reference == cypriotInstance.getState_State) {
-			return Scopes.scopeFor(Helpers.getAllStatesThingAny(Helpers.allContainedCrossThingAny(context.eContainer)))
+			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
+			return Scopes.scopeFor(Helpers.getAllStatesThingAny(cross))
 		} else if (reference == cypriotInstance.getFunction_Function) {
-			return Scopes.scopeFor(Helpers.getAllFunctionsThingAny(Helpers.allContainedCrossThingAny(context.eContainer)))
+			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
+			return Scopes.scopeFor(Helpers.getAllFunctionsThingAny(cross))
 		} else if (reference == cypriotInstance.channelWithPath_Channel) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeChannel)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ChannelAny)
 			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.getPath_Path) {
-			return Scopes.scopeFor(Helpers.allTopicsInPubSub(Helpers.allContainedCrossPubSub(context.eContainer)))
+			val cross = Helpers.allContainedCrossPubSub(context.eContainer)
+			return Scopes.scopeFor(Helpers.allTopicsInPubSub(cross))
 		} else if (reference == cypriotInstance.actionTrigger_ThingToTransition) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
