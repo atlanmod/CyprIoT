@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | TypeThing | Network | Path | TypeChannel |
 	InstanceThing | InstanceChannel | 
-	Bind |  Policy | ChannelToBind | Rule | ThingAny | SubjectOther | ObjectOther |
+	Bind |  Policy | ChannelToBind | Rule | ThingAny | ChannelAny | SubjectOther | ObjectOther |
 	";" name=ID
 ;
 
@@ -135,7 +135,7 @@ ChannelToBind:
 ;
 
 BridgeSubject:
-	Bind | Path
+	Bind
 ;
 
 Policy:
@@ -181,6 +181,10 @@ ThingAny:
 	InstanceThing | TypeThing
 ;
 
+ChannelAny:
+	InstanceChannel | TypeChannel
+;
+
 SubjectOther:
 	Role | User | ThingAny
 ;
@@ -190,7 +194,7 @@ ThingWithStateOrPort:
 ;
 
 ChannelWithPath:
-	channel=[TypeChannel] '->' getPath=GetPath
+	channel=[ChannelAny] '->' getPath=GetPath
 ;
 
 ThingWithPort:
@@ -256,7 +260,6 @@ enum ActionComm:
 ;
 
 enum ActionBridge:
-	from='from'| 
 	to='to'
 ;
 

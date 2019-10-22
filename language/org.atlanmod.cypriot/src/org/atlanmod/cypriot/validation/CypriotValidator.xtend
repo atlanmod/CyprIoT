@@ -4,7 +4,6 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
-
 import org.atlanmod.cypriot.cyprIoT.Bind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
@@ -57,29 +56,30 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val FUNCTION_PARAMETERS = "Function-Parameters"
 
 	public static val WARNING_EMBEDDED = "Warning-Embedded"
-	
+
 	// Info
 	public static val IDENTIFY_BIND = "Identify-Bind"
 
 	@Check(FAST)
 	def identifyBindForBidge(Bind bind) {
 		val network = bind.eContainer as Network
-		println("bind.name : "+bind.name)
-		if(bind.name===null){
-			val pathsOfBind = new StringBuilder()
-			var i = 0
-			for (path : bind.channelToBind.paths) {
-				pathsOfBind.append(path.name)
-				if(i > 0)  pathsOfBind.append(", ")
-				i++
-			}
-			val msg = "Identify this bind to use it in the bridge, syntax : \n bind <ID>:"+ bind.bindsInstanceThing.name+"."
-						+bind.portToBind.name+" "+bind.bindAction.literal+" "
-						+bind.channelToBind.targetedChannelInstance.name+"{"+pathsOfBind+"}";
-			info(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
+		if (bind.bindAction.literal.equals("<=")) {
+			if (bind.name === null) {
+				val pathsOfBind = new StringBuilder()
+				var i = 0
+				for (path : bind.channelToBind.paths) {
+					pathsOfBind.append(path.name)
+					if(i > 0) pathsOfBind.append(", ")
+					i++
+				}
+
+				val msg = "Identify this bind to use it in the bridge, syntax : \n bind <ID>:" +
+					bind.bindsInstanceThing.name + "." + bind.portToBind.name + " " + bind.bindAction.literal + " " +
+					bind.channelToBind.targetedChannelInstance.name + "{" + pathsOfBind + "}";
+				info(msg, network, CyprIoTPackage.eINSTANCE.network_HasBinds, network.hasBinds.indexOf(bind),
 					IDENTIFY_BIND)
+			}
 		}
-		
 	}
 
 	@Check(FAST)
@@ -151,8 +151,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 				val inputRule = rule as RuleComm
 				var isAllowThisRule = thisRule.effectComm.allow
 				var isAllowInputRule = inputRule.effectComm.allow
-				isCommRulesDuplicates(r, rule) &&
-				isAllowThisRule == isAllowInputRule
+				isCommRulesDuplicates(r, rule) && isAllowThisRule == isAllowInputRule
 			}
 
 		]
@@ -180,8 +179,8 @@ class CypriotValidator extends AbstractCypriotValidator {
 		var nameOfInputObject = inputRule.commObject.objectOther.name
 		var actionOfInputRule = inputRule.effectComm.actionComm.literal
 		r instanceof RuleComm && nameOfThisSubject.equals(nameOfInputSubject) &&
-			actionOfThisRule.equals(actionOfInputRule) &&
-			nameOfThisSubject.equals(nameOfInputSubject) && nameOfThisObject.equals(nameOfInputObject)
+			actionOfThisRule.equals(actionOfInputRule) && nameOfThisSubject.equals(nameOfInputSubject) &&
+			nameOfThisObject.equals(nameOfInputObject)
 	}
 
 	@Check(FAST)

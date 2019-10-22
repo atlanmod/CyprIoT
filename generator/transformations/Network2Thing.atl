@@ -36,11 +36,15 @@ rule createExternalConnectorFromBind {
 		name <- s.getInstanceThingNameFromBind()+'_Cfg',
 		instances <- Sequence{instance},
 		connectors <- Sequence{externalConnector},
-		annotations <- Sequence{compiler}
+		annotations <- Sequence{compiler,debug}
 	),
 	compiler : ThingML!PlatformAnnotation(
 		name <- 'compiler',
 		value <- s.getTargetedPlatfomFromBind()
+	),
+	debug : ThingML!PlatformAnnotation(
+		name <- 'debug',
+		value <- 'true'
 	),
 	instance : ThingML!Instance(
 		name <- s.bindsInstanceThing.name,
