@@ -148,15 +148,17 @@ public class Helpers {
 
 	@SuppressWarnings("unchecked")
 	public static <C> C allContainedCrossReferencesOfType(EObject parent, Class<?> c) {
-		final List<C> result = new ArrayList<C>();
+		List<C> result = new ArrayList<C>();
 		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
 		while (it.hasNext()) {
 			EObject o = it.next();
 			if (c.isInstance(o))
 				result.add((C) o);
 		}
-
-		return result.get(0);
+		if(result.size()>0) {
+			return (C) result.get(0);
+		}
+		return null;
 	}
 	
 	public static ThingAny allContainedCrossThingAny(EObject parent) {
@@ -164,9 +166,33 @@ public class Helpers {
 		return thingAny;
 	}
 	
+	public static TypeChannel allContainedCrossTypeChannel(EObject parent) {
+		TypeChannel typeChannel = allContainedCrossReferencesOfType(parent, TypeChannel.class);
+		return typeChannel;
+	}
+	
+	public static InstanceChannel allContainedCrossInstanceChannel(EObject parent) {
+		InstanceChannel instanceChannel = allContainedCrossReferencesOfType(parent, InstanceChannel.class);
+		return instanceChannel;
+	}
+	
 	public static TypeChannel allContainedCrossPubSub(EObject parent) {
-		TypeChannel pubsub = allContainedCrossReferencesOfType(parent, TypeChannel.class);
-	return pubsub;
+		TypeChannel typeChannel=null;
+		List<TypeChannel> result = new ArrayList<TypeChannel>();
+		ListIterator<EObject> it = parent.eCrossReferences().listIterator();
+		while (it.hasNext()) {
+			EObject o = it.next();
+			if (o instanceof TypeChannel)
+				result.add((TypeChannel) o);
+		}
+		if(result.size()!=0) {
+			typeChannel = allContainedCrossTypeChannel(parent);
+		} else {
+			if(allContainedCrossInstanceChannel(parent)!=null)
+			typeChannel = allContainedCrossInstanceChannel(parent).getTypeChannel().getPubSubToInstantiate();
+		}
+		
+		return typeChannel;
 	}
 
 	public static CyprIoTModel findContainingModel(EObject object) {

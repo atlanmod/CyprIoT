@@ -4,7 +4,9 @@
 package org.atlanmod.cypriot.validation
 
 //import org.atlanmod.cypriot.cyprIoT.Bind
+
 import org.atlanmod.cypriot.cyprIoT.Bind
+import org.atlanmod.cypriot.cyprIoT.ChannelWithPath
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.InstanceChannel
@@ -13,6 +15,7 @@ import org.atlanmod.cypriot.cyprIoT.Network
 import org.atlanmod.cypriot.cyprIoT.Path
 import org.atlanmod.cypriot.cyprIoT.Policy
 import org.atlanmod.cypriot.cyprIoT.Role
+import org.atlanmod.cypriot.cyprIoT.RuleBridge
 import org.atlanmod.cypriot.cyprIoT.RuleComm
 import org.atlanmod.cypriot.cyprIoT.RuleTrigger
 import org.atlanmod.cypriot.cyprIoT.TypeChannel
@@ -50,6 +53,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 	public static val PORT_SEND_EXISTANCE = "PortSend-Existence"
 	public static val PORT_RECEIVES_EXISTANCE = "PortReceies-Existence"
 	public static val DUPLICATE_RULES = "Duplicate-Rules"
+	public static val SAME_PATHS_RULEBRIDGE = "SamePaths-RuleBridge"
 	public static val CONFLICTING_RULES = "Conflicting-Rules"
 
 	// Warning
@@ -114,6 +118,19 @@ class CypriotValidator extends AbstractCypriotValidator {
 			}
 		}
 
+	}
+
+	@Check(FAST)
+	def samePathRuleBridge(RuleBridge rule) {
+		val policy = rule.eContainer as Policy
+		if ((rule.bridgeSubject as ChannelWithPath).channel.eClass.isInstance((rule.bridgeObject as ChannelWithPath).channel)
+			&& (rule.bridgeSubject as ChannelWithPath).channel.name.equals((rule.bridgeObject as ChannelWithPath).channel.name)
+			&& (rule.bridgeSubject as ChannelWithPath).getPath.path.name.equals((rule.bridgeObject as ChannelWithPath).getPath.path.name)
+		) {
+			val msg = "The rule cannot be applied for the same paths.";
+			error(msg, policy, CyprIoTPackage.eINSTANCE.policy_HasRules, policy.hasRules.indexOf(rule),
+				SAME_PATHS_RULEBRIDGE)
+		}
 	}
 
 	@Check(FAST)

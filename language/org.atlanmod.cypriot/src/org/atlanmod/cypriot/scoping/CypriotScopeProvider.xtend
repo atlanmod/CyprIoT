@@ -100,7 +100,7 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.getPath_Path) {
 			val cross = Helpers.allContainedCrossPubSub(context.eContainer)
-			return Scopes.scopeFor(Helpers.allTopicsInPubSub(cross))
+			if(cross!==null) return Scopes.scopeFor(Helpers.allTopicsInPubSub(cross))
 		} else if (reference == cypriotInstance.actionTrigger_ThingToTransition) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
