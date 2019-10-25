@@ -13,18 +13,11 @@ uses Helpers;
 -- Get the network to make (support for first network only for the moment)
 helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
-helper context CyprIoT!Network def : collectEnforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = self.hasPolicyEnforcement.hasEnforcedPolicies;
+helper context CyprIoT!Network def : collectEnforcedPoliciesInNetwork() : Sequence(CyprIoT!Policy) = 
+	self.hasPolicyEnforcement.hasEnforcedPolicies;
 
 helper context CyprIoT!Policy def : collectRuleTriggerFromPolicy() : Sequence(CyprIoT!RuleTrigger) =
 	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleTrigger))
-;
-
-helper context CyprIoT!Network def : collectEnforcedEnforcedTriggerRulesInNetwork() : Sequence(CyprIoT!RuleTrigger) = 
-	self.collectEnforcedPoliciesInNetwork()->collect(p | p.collectRuleTriggerFromPolicy())->flatten()
-;
-
-helper def : collectTriggerRulesInMyNetwork() : Sequence(CyprIoT!RuleTrigger) = 
-	thisModule.firstNetwork().collectEnforcedEnforcedTriggerRulesInNetwork()
 ;
 
 helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!RuleTrigger = 
@@ -37,6 +30,37 @@ helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(
 	self.hasBinds->select(b | b.isBindMatchesInputThing())
 ;
 
+-- Clean helpers
+
+helper context CyprIoT!Network def : collectEnforcedEnforcedTriggerRulesInNetwork() : Sequence(CyprIoT!RuleTrigger) = 
+	self.collectEnforcedPoliciesInNetwork()->collect(p | p.collectRuleTriggerFromPolicy())->flatten()
+;
+
+helper def : collectTriggerRulesInMyNetwork() : Sequence(CyprIoT!RuleTrigger) = 
+	thisModule.firstNetwork().collectEnforcedEnforcedTriggerRulesInNetwork()
+;
+
+helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerObject() : Boolean = self.effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+
+helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerSubject() : Boolean = self.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+
+helper context ThingML!State def : isStateNameEqualToRuleTriggerObjectState(k : CyprIoT!RuleTrigger) : Boolean = self.name=k.effectTrigger.actionTrigger.thingWithState.getState.state.name;
+
+helper context ThingML!State def : isStateNameEqualToRuleTriggerSubjectState(k : CyprIoT!RuleTrigger) : Boolean = self.name=k.thingWithState.getState.state.name;
+
+helper context CyprIoT!RuleTrigger def : getFunctionToExecute() : ThingML!Function = ThingML!Function.allInstances()->select(f | f.name=self.effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name).first();
+
+helper context CyprIoT!RuleTrigger def : isGoToState() : Boolean = not(self.effectTrigger.actionTrigger.goToState.oclIsUndefined());
+
+helper context CyprIoT!RuleTrigger def : isExecuteFunction() : Boolean = not(self.effectTrigger.actionTrigger.executeFunction.oclIsUndefined());
+
+helper context CyprIoT!RuleTrigger def : isPerformTransition() : Boolean = not(self.effectTrigger.actionTrigger.performTransition.oclIsUndefined());
+
+helper context CyprIoT!RuleTrigger def : triggerObjectStateName() : String = self.effectTrigger.actionTrigger.thingWithState.getState.state.name;
+
+helper context CyprIoT!RuleTrigger def : triggerObjectFunctionName() : String = self.effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name;
+
+
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel
 	to t : ThingML!ThingMLModel(
@@ -47,11 +71,9 @@ rule copyThingMLModel {
 	)	
 }
 
+
 rule copyCompositeState {
 	from s : ThingML!CompositeState
-	using {
-		sub : Sequence(ThingML!State) = s.substate->collect(k | thisModule.collectTriggerRulesInMyNetwork()->collect(b | if(not(thisModule.triggerState(b,k).oclIsUndefined().debug('x2'))) then thisModule.triggerState(b,k).debug('x') else s.substate endif)).debug('n')->flatten().debug('f');
-	}
 	to t : ThingML!CompositeState(
 		name <- s.name,
 		annotations <- s.annotations,
@@ -64,8 +86,8 @@ rule copyCompositeState {
 		properties <- s.properties,
 		region <- s.region,
 		session <- s.session,
-		substate <- sub
-		)
+		substate <- s.substate
+	)
 }
 
 rule copyExternalConnector {
@@ -83,7 +105,7 @@ rule copyThing {
 	from s : ThingML!Thing
 	to t : ThingML!Thing(
 		name <- s.name,
-		ports <- s.ports, -- ->collect(k | thisModule.collectTriggerRulesInMyNetwork()->collect(b | if(not(thisModule.triggerRequiredPort(b,k).oclIsUndefined())) then thisModule.triggerRequiredPort(b,k) else s.ports endif))->flatten(),
+		ports <- s.ports,
 		annotations <- s.annotations,
 		assign <- s.assign,
 		behaviour <- s.behaviour,
@@ -105,122 +127,121 @@ rule copyProvidedPort {
 	)
 }
 
-rule triggerRequiredPort {
-	from k : CyprIoT!RuleTrigger, s : ThingML!RequiredPort
+rule copyRequiredPort {
+	from s : ThingML!RequiredPort
 	to t : ThingML!RequiredPort(
 		name <- s.name,
-		receives <- if(k.isGoToState() and k.isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
-		sends <- if(k.isGoToState() and k.isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
+		receives <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isGoToState() and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
+		sends <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isGoToState() and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
 		annotations <- s.annotations
 	)
 }
 
--- done
-helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerObject() : Boolean = self.effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+helper context ThingML!State def : setInternals() : Sequence(ThingML!InternalTransition) = 
+	thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  internals : Sequence(ThingML!InternalTransition) = self.internal |
+		if(r.isExecuteFunction() 
+				and not(r.isInputThingInRuleTriggerSubject())) 
+					then internals->union(Sequence{thisModule.getInternalTransition(self,r)}) 
+					else internals endif	
+	)
+;
+helper context ThingML!State def : setOutgoing() : Sequence(ThingML!Transition) = 
+	thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  transitions : Sequence(ThingML!Transition) = self.outgoing |
+	
+if(r.isGoToState() and 
+	r.isInputThingInRuleTriggerObject() and 
+	not(self.isStateNameEqualToRuleTriggerObjectState(r)))
+		then transitions->union(Sequence{thisModule.getTransition(self,r)})
+	else if(r.isPerformTransition() and not(r.isInputThingInRuleTriggerSubject())) then
+	transitions->union(if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and r.effectTrigger.actionTrigger.transitionRank=0) 
+		then 
+		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(1)} 
+		else if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and not(r.effectTrigger.actionTrigger.transitionRank=0) and ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()<=r.effectTrigger.actionTrigger.transitionRank) 
+		then 
+		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(r.effectTrigger.actionTrigger.transitionRank)} 
+		else Sequence{} endif endif
+	)
+	else transitions endif endif
+	)
+;
 
--- done
-helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerSubject() : Boolean = self.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+helper context ThingML!State def : setOnEntry() : ThingML!Action = 
+thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  action : ThingML!Action = self.entry |
+	if(r.isInputThingInRuleTriggerSubject() and self.isStateNameEqualToRuleTriggerSubjectState(r)) 
+		then thisModule.groupActionOnEntry(action, r) 
+		else action endif
+	)
+;
 
--- done
-helper context ThingML!State def : isStateNameEqualToRuleTriggerObjectState(t : CyprIoT!RuleTrigger) : Boolean = self.name=t.effectTrigger.actionTrigger.thingWithState.getState.state.name;
+helper context CyprIoT!RuleTrigger def : setTransitionTarget() : ThingML!State = 
 
--- done
-helper context ThingML!State def : isStateNameEqualToRuleTriggerSubjectState(t : CyprIoT!RuleTrigger) : Boolean = self.name=t.thingWithState.getState.state.name;
-
--- done
-helper context CyprIoT!RuleTrigger def : getFunctionToExecute() : ThingML!Function = ThingML!Function.allInstances()->select(f | f.name=self.effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name).first();
-
--- done
-helper context CyprIoT!RuleTrigger def : isGoToState() : Boolean = not(self.effectTrigger.actionTrigger.goToState.oclIsUndefined());
-
--- done
-helper context CyprIoT!RuleTrigger def : isExecuteFunction() : Boolean = not(self.effectTrigger.actionTrigger.executeFunction.oclIsUndefined());
-
--- done
-helper context CyprIoT!RuleTrigger def : isPerformTransition() : Boolean = not(self.effectTrigger.actionTrigger.performTransition.oclIsUndefined());
-
--- done
-helper context CyprIoT!RuleTrigger def : triggerObjectStateName() : String = self.effectTrigger.actionTrigger.thingWithState.getState.state.name;
-
--- done
-helper context CyprIoT!RuleTrigger def : triggerObjectFunctionName() : String = thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().effectTrigger.actionTrigger.thingWithFunction.getFunction.function.name;
-
-
+if(self.isGoToState() 
+		and self.isInputThingInRuleTriggerObject()) 
+	then ThingML!State.allInstances()->select(t | t.isStateNameEqualToRuleTriggerObjectState(self)).first() 
+	else ThingML!State.allInstances().first() endif
+;
 rule triggerMess {
 	from s : CyprIoT!RuleTrigger
 	to triggerMessage : ThingML!Message(
 		name <- if(s.isGoToState()) 
 					then s.triggerObjectStateName()
-					else if(s.isExecuteFunction()) then s.triggerObjectFunctionName() 
+					else if(s.isExecuteFunction()) 
+						then s.triggerObjectFunctionName() 
 					else 'perfomTransition'
 					endif endif
 	)	
 }
 
 rule copyState {
-	from s : ThingML!State(not (s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
-	to t : ThingML!State(
+	from s : ThingML!State( not(s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+	to 
+	t : ThingML!State(
 		annotations <- s.annotations,
-		entry <- s.entry,
+		entry <- s.setOnEntry(),
 		exit <- s.exit,
-		internal <- s.internal,
+		internal <- s.setInternals(),
 		name <- s.name,
-		outgoing <- s.outgoing,
+		outgoing <- s.setOutgoing(),
 		properties <- s.properties
 	)
 }
 
-
-lazy rule triggerState {
-	from k : CyprIoT!RuleTrigger , s : ThingML!State( not(s.oclIsTypeOf(ThingML!CompositeState) or s.oclIsTypeOf(ThingML!FinalState)))
+lazy rule getTransition {
+	from s : ThingML!State , k : CyprIoT!RuleTrigger
 	to 
-	t : ThingML!State(
-		annotations <- s.annotations,
-		entry <- if(k.isInputThingInRuleTriggerSubject() and s.isStateNameEqualToRuleTriggerSubjectState(k)) 
-					then thisModule.groupActionOnEntry(s) else s.entry endif,
-		exit <- s.exit,
-		internal <- if(k.isExecuteFunction() and not(k.isInputThingInRuleTriggerSubject())) 
-							then s.internal->union(Sequence{transitionInternal}) else s.internal endif,
-		name <- s.name,
-		outgoing <- if(k.isGoToState() and 
-						k.isInputThingInRuleTriggerObject() and 
-						not(s.isStateNameEqualToRuleTriggerObjectState(k)))
-							then s.outgoing->union(Sequence{transition})
-						else if(k.isPerformTransition() and not(k.isInputThingInRuleTriggerSubject())) then
-						s.outgoing->union(if(ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and k.effectTrigger.actionTrigger.transitionRank=0) 
-							then 
-							Sequence{ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(1)} 
-							else if(ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and not(k.effectTrigger.actionTrigger.transitionRank=0) and ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()<=k.effectTrigger.actionTrigger.transitionRank) 
-							then 
-							Sequence{ThingML!Transition.allInstances()->select(i | s.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(k.effectTrigger.actionTrigger.transitionRank)} 
-							else Sequence{} endif endif
-						)
-						else s.outgoing endif endif,
-		properties <- s.properties
-	),
 	transition : ThingML!Transition(
-		target <- if(k.isGoToState() and k.isInputThingInRuleTriggerObject()) then ThingML!State.allInstances()->select(t | t.isStateNameEqualToRuleTriggerObjectState(k)).first() else ThingML!State.allInstances().first() endif,
+		target <- k.setTransitionTarget(),
 		event <- receive
 	),
 	receive : ThingML!ReceiveMessage(
 		port <- ThingML!Thing.allInstances().first().ports.first(),
-		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
+		message <- thisModule.resolveTemp(k, 'triggerMessage'),
 		name <- 'trigger'
 	),
-	receive2 : ThingML!ReceiveMessage(
-		port <- ThingML!Thing.allInstances().first().ports.first(),
-		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
-		name <- 'trigger'
-	),
+	action2 : ThingML!FunctionCallStatement(
+		function <- if(not(k.isInputThingInRuleTriggerSubject()) and k.isExecuteFunction()) then k.getFunctionToExecute() else OclUndefined endif,
+		parameters <- if(k.isExecuteFunction() and not(k.effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.oclIsUndefined())) then k.effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters->collect( p | thisModule.multipleParameters(p))
+						else Sequence{} endif
+	)
+}
+
+lazy rule getInternalTransition {
+	from s : ThingML!State , k : CyprIoT!RuleTrigger
+	to 
 	transitionInternal : ThingML!InternalTransition(
 		event <- receive2,
 		action <- action
+	),
+	receive2 : ThingML!ReceiveMessage(
+		port <- ThingML!Thing.allInstances().first().ports.first(),
+		message <- thisModule.resolveTemp(k, 'triggerMessage'),
+		name <- 'trigger'
 	),
 	action : ThingML!FunctionCallStatement(
 		function <- if(not(k.isInputThingInRuleTriggerSubject()) and k.isExecuteFunction()) then k.getFunctionToExecute() else OclUndefined endif,
 		parameters <- if(k.isExecuteFunction() and not(k.effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters.oclIsUndefined())) then k.effectTrigger.actionTrigger.thingWithFunction.getFunction.parameters->collect( p | thisModule.multipleParameters(p))
 						else Sequence{} endif
-	)	
+	)
 }
 
 lazy rule multipleParameters {
@@ -246,13 +267,13 @@ lazy rule multipleTransition {
 }
 
 lazy rule groupActionOnEntry {
-	from s : ThingML!State
+	from s : ThingML!Action , k : CyprIoT!RuleTrigger
 	to 
 	groupAction : ThingML!ActionBlock(
-		actions <- if(not(s.entry.oclIsUndefined())) then Sequence{action,s.entry} else Sequence{action} endif
+		actions <- if(not(s.oclIsUndefined())) then Sequence{action,s} else Sequence{action} endif
 	),
 	action : ThingML!SendAction(
-		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
+		message <- thisModule.resolveTemp(k, 'triggerMessage'),
 		port <- ThingML!Port.allInstances().first()
 	)
 	
