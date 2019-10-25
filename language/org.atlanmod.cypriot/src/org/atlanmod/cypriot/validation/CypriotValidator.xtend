@@ -371,7 +371,7 @@ class CypriotValidator extends AbstractCypriotValidator {
 		val candidates = EcoreUtil2.getAllContentsOfType(thingmlModel, ExternStatement)
 		if (candidates.size > 0) {
 			val msg = "The instance '" + instanceThing.getName() +
-				"' contains embedded code, it may not be compatible with the specified platform.";
+				"' contains embedded code, make sure it is compatible with the specified platform.";
 			warning(msg, network, CyprIoTPackage.eINSTANCE.network_Instantiate,
 				network.instantiate.indexOf(instanceThing), WARNING_EMBEDDED)
 			return
