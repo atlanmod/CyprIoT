@@ -131,11 +131,25 @@ rule copyRequiredPort {
 	from s : ThingML!RequiredPort
 	to t : ThingML!RequiredPort(
 		name <- s.name,
-		receives <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isGoToState() and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isInputThingInRuleTriggerObject()) then s.receives->union(CyprIoT!RuleTrigger.allInstances()) else s.receives endif,
-		sends <- if(thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isGoToState() and thisModule.firstRuleInPolicyFromFirstEnforcedPolicy().isInputThingInRuleTriggerObject()) then s.sends else s.sends->union(CyprIoT!RuleTrigger.allInstances()) endif,
+		receives <- s.setReceivesPort(),
+		sends <- s.setSendsPort(),
 		annotations <- s.annotations
 	)
 }
+
+helper context ThingML!RequiredPort def : setReceivesPort() : Sequence(ThingML!Message) = 
+thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  receives : Sequence(ThingML!Message) = self.receives |
+	if(r.isGoToState() and r.isInputThingInRuleTriggerObject()) 
+				then receives->union(CyprIoT!RuleTrigger.allInstances()) else receives endif
+			)
+;
+
+helper context ThingML!RequiredPort def : setSendsPort() : Sequence(ThingML!Message) = 
+thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  sends : Sequence(ThingML!Message) = self.sends |
+	if(r.isGoToState() and r.isInputThingInRuleTriggerObject()) 
+		then sends else sends->union(CyprIoT!RuleTrigger.allInstances()) endif
+)
+;
 
 helper context ThingML!State def : setInternals() : Sequence(ThingML!InternalTransition) = 
 	thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  internals : Sequence(ThingML!InternalTransition) = self.internal |
