@@ -36,6 +36,9 @@ helper def : collectTriggerRulesInMyNetwork() : Sequence(CyprIoT!RuleTrigger) =
 	thisModule.firstNetwork().collectEnforcedEnforcedTriggerRulesInNetwork()
 ;
 
+helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerFunctionObject() : Boolean = self.effectTrigger.actionTrigger.thingWithFunction.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
+
+
 helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerObject() : Boolean = self.effectTrigger.actionTrigger.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
 
 helper context CyprIoT!RuleTrigger def : isInputThingInRuleTriggerSubject() : Boolean = self.thingWithState.thing.name=thisModule.bindOfInputThing().bindsInstanceThing.typeThing.thingToInstantiate.name;
@@ -150,7 +153,7 @@ thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  sends : Sequence(Thing
 helper context ThingML!State def : setInternals() : Sequence(ThingML!InternalTransition) = 
 	thisModule.collectTriggerRulesInMyNetwork()->iterate(r ;  internals : Sequence(ThingML!InternalTransition) = self.internal |
 		if(r.isExecuteFunction() 
-				and not(r.isInputThingInRuleTriggerSubject())) 
+				and r.isInputThingInRuleTriggerFunctionObject()) 
 					then internals->union(Sequence{thisModule.getInternalTransition(self,r)}) 
 					else internals endif	
 	)
