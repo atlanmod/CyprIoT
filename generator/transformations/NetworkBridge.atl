@@ -151,7 +151,7 @@ rule bridgePaths {
 		
 	),
 	port : ThingML!RequiredPort(
-		name <- 'bridge_'+s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()+'_port',
+		name <- 'bridge_'+s.bridgeSubject.oclAsType(CyprIoT!Bind).getInstanceThingNameFromBind()+'_'+s.bridgeSubject.oclAsType(CyprIoT!Bind).portToBind.name,
 		sends <- ThingML!Port.allInstances().first().receives,
 		optional <- true		
 	),

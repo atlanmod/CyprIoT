@@ -20,10 +20,6 @@ helper context CyprIoT!Policy def : collectRuleTriggerFromPolicy() : Sequence(Cy
 	self.hasRules->select(r | r.oclIsTypeOf(CyprIoT!RuleTrigger))
 ;
 
-helper def : firstRuleInPolicyFromFirstEnforcedPolicy() : CyprIoT!RuleTrigger = 
-	thisModule.firstNetwork().collectEnforcedPoliciesInNetwork().first().collectRuleTriggerFromPolicy().first()
-	;
-
 helper def : bindOfInputThing() : CyprIoT!Bind = thisModule.firstNetwork().bindsContainingThingInNetwork().first();
 
 helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = 
@@ -165,14 +161,14 @@ helper context ThingML!State def : setOutgoing() : Sequence(ThingML!Transition) 
 if(r.isGoToState() and 
 	r.isInputThingInRuleTriggerObject() and 
 	not(self.isStateNameEqualToRuleTriggerObjectState(r)))
-		then transitions->union(Sequence{thisModule.getTransition(self,r)})
+		then if(transitions->exists(tr | tr.guard.oclIsUndefined() and tr.event.oclIsUndefined())) then transitions else transitions->union(Sequence{thisModule.getTransition(self,r)}) endif
 	else if(r.isPerformTransition() and not(r.isInputThingInRuleTriggerSubject())) then
-	transitions->union(if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and r.effectTrigger.actionTrigger.transitionRank=0) 
+	transitions->union(if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a,r)).asOrderedSet().size()>0 and r.effectTrigger.actionTrigger.transitionRank=0) 
 		then 
-		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(1)} 
-		else if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()>0 and not(r.effectTrigger.actionTrigger.transitionRank=0) and ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().size()<=r.effectTrigger.actionTrigger.transitionRank) 
+		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a,r)).asOrderedSet().at(1)} 
+		else if(ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a,r)).asOrderedSet().size()>0 and not(r.effectTrigger.actionTrigger.transitionRank=0) and ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a,r)).asOrderedSet().size()<=r.effectTrigger.actionTrigger.transitionRank) 
 		then 
-		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a)).asOrderedSet().at(r.effectTrigger.actionTrigger.transitionRank)} 
+		Sequence{ThingML!Transition.allInstances()->select(i | self.name=i.refImmediateComposite().oclAsType(ThingML!State).name)->collect(a | thisModule.multipleTransition(a,r)).asOrderedSet().at(r.effectTrigger.actionTrigger.transitionRank)} 
 		else Sequence{} endif endif
 	)
 	else transitions endif endif
@@ -267,7 +263,7 @@ lazy rule multipleParameters {
 }
 
 lazy rule multipleTransition {
-	from s: ThingML!Transition
+	from s: ThingML!Transition , k : CyprIoT!RuleTrigger
 	to 
 	performTransition : ThingML!Transition(
 		target <- s.target,
@@ -275,7 +271,7 @@ lazy rule multipleTransition {
 	),
 	receive : ThingML!ReceiveMessage(
 		port <- ThingML!Thing.allInstances().first().ports.first(),
-		message <- thisModule.resolveTemp(CyprIoT!RuleTrigger.allInstances().first(), 'triggerMessage'),
+		message <- thisModule.resolveTemp(k, 'triggerMessage'),
 		name <- 'trigger'
 	)
 }
