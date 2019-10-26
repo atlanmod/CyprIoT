@@ -33,7 +33,7 @@ public class DocumentationPlugin implements Plugin {
 	public void generate(CyprIoTModel model, File outputDirectory) {
 		M2THelper acceleoStandaloneCompiler = new M2THelper();
 		M2THelper.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/documentation";
-		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"external-gen");	
+		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"externals");	
 	}
 
 	@Override

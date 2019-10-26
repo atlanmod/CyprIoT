@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -40,7 +41,7 @@ public class Experiment {
 	static List<Integer> thingMLAddedCharactersRabbit = new ArrayList<Integer>();
 	static List<String> executionTimes = new ArrayList<String>();
 
-	public static void make() {
+	public static void make(ExecutorService executorService) {
 		int charStart = 97;
 		copyFileToDirectory(sendThingml, outDir);
 		copyFileToDirectory(receiveThingml, outDir);
@@ -92,7 +93,7 @@ public class Experiment {
 			long startTime = System.nanoTime();
 			for (int n = 1; n <= NumberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, false);
+				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, false,executorService);
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
@@ -128,7 +129,7 @@ public class Experiment {
 			pluginLoader.setConfigFile(new File(CONFIG_FILE));
 			pluginLoader.setModel(model);
 			pluginLoader.setOutputDirectory(outputDir);
-			pluginLoader.load();
+			pluginLoader.load(executorService);
 			if (isMosquitto) {
 				int getMosquittoACLCount = removeSpace(Helpers.getContentFromFile(new File(
 						outputDir.getPath() + File.separator + "external-gen" + File.separator + "mosquitto.acl")))

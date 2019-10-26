@@ -13,6 +13,13 @@ uses Helpers;
 -- Get the network to make (support for first network only for the moment)
 helper def : firstNetwork() : CyprIoT!Network = CyprIoT!Network.allInstances().first();
 
+helper def : bindOfInputThing() : CyprIoT!Bind = thisModule.firstNetwork().bindsContainingThingInNetwork().first();
+
+helper context CyprIoT!Network def : bindsContainingThingInNetwork() : Sequence(CyprIoT!Bind) = 
+	self.hasBinds->select(b | b.isBindMatchesInputThing())
+;
+
+--helper def : isBindOk() : Boolean = thisModule.bindOfInputThing().bindsInstanceThing.name=
 
 rule copyThingMLModel {
 	from s : ThingML!ThingMLModel

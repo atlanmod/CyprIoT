@@ -1,6 +1,8 @@
 package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +24,7 @@ public class App implements Runnable {
 	public static final boolean isBridge = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final boolean experimentMode = false;
-
+	ExecutorService executorService = Executors.newCachedThreadPool();
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i",
 			"--input" }, required = false, paramLabel = "INPUT", description = "The input file for the code generator")
@@ -36,7 +38,7 @@ public class App implements Runnable {
 	File cypriotConfigFile;
 	
 	@Option(names = { "-g", "--generate" }, description = "Generate code")
-	boolean isGenerate=true;
+	boolean isGenerate=false;
 	
 	@Option(names = { "-e", "--enforce" }, description = "Enforce communication control rules")
 	boolean isEnforcing=true;
@@ -59,11 +61,11 @@ public class App implements Runnable {
 		}
 
 		if (experimentMode) {
-			Experiment.make();
+			Experiment.make(executorService);
 		} else {
 			log.debug("CyprIoT Input File Path : " + cypriotInputFile.getPath());
 			M2MHelper transformationHelper = new M2MHelper();
-			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate);
+			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate,executorService);
 
 			// Plugin Loading
 			if (isPluginEnabled) {
@@ -71,10 +73,16 @@ public class App implements Runnable {
 				pluginLoader.setConfigFile(cypriotConfigFile);
 				pluginLoader.setModel(cyprIoTmodel);
 				pluginLoader.setOutputDirectory(cypriotOutputDirectory);
-				pluginLoader.load();
+				pluginLoader.load(executorService);
 			}
 		}
-
+		executorService.shutdown();
+		try {
+			executorService.awaitTermination(5, TimeUnit.MINUTES);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

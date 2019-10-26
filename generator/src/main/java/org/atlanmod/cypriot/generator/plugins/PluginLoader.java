@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +21,7 @@ public class PluginLoader {
 	HashSet<Plugin> loaderPlugins = new HashSet<Plugin>();
 	static final Logger log = LogManager.getLogger(PluginLoader.class.getName());
 
-	public void load() {
+	public void load(ExecutorService executorService) {
 		Properties properties = new Properties();
 		String pluginClassName;
 		
@@ -28,16 +29,25 @@ public class PluginLoader {
 			properties.load(new StringReader(Helpers.getContentFromFile(configFile)));
 			pluginClassName = properties.getProperty("classes");
 			List<String> classesList = Arrays.asList(pluginClassName.split(","));
-			for (String className : classesList) {
-				loadPlugin(className);
+			for (final String className : classesList) {
+				Thread pluginThread = new Thread(){
+				    public void run(){
+				    	try {
+							loadPlugin(className);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    }
+				  };
+				  executorService.submit(pluginThread);
+				  
 			}
 			StringBuilder loadedPlugins = new StringBuilder();
 			for (Plugin plugin : loaderPlugins) {
 				loadedPlugins.append(plugin.getID()+",");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
