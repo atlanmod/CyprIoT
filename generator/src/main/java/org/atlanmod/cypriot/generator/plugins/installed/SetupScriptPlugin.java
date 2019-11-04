@@ -43,7 +43,7 @@ public class SetupScriptPlugin implements Plugin {
 	@Override
 	public void generate(CyprIoTModel cyprIoTmodel, File outputDirectory) {
 		try {
-			String filename = outputDirectory+ File.separator + "setup.sh";
+			String filename = outputDirectory+ File.separator + ".."+ File.separator +"setup.sh";
 			File setupFile = new File(filename);
 			setupFile.createNewFile();
 			FileWriter fw = new FileWriter(filename, true);
@@ -82,19 +82,15 @@ public class SetupScriptPlugin implements Plugin {
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
 		}
-		
 	}
 
 	@Override
 	public void verify(CyprIoTModel model) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void deploy(CyprIoTModel model) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stubs
 	}
-
 }

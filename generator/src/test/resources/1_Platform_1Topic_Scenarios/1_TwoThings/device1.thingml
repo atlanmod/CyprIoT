@@ -4,9 +4,12 @@ thing HelloThing {
 	required port myport {
 		sends m
 	}
-	statechart HelloStateChart init HelloState {
-		
-		final state HelloState {
+	statechart HelloStateChart init state1 {
+		state state1 {
+			on entry `sleep(10);`
+			transition -> HelloState
+		}
+		state HelloState {
 			on entry
 				do  while(true) do 
 						println  "Sending..."

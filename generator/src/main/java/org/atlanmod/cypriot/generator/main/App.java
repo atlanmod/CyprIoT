@@ -24,7 +24,9 @@ public class App implements Runnable {
 	public static final boolean isBridge = true;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
 	public static final boolean experimentMode = false;
-	ExecutorService executorService = Executors.newCachedThreadPool();
+	//ExecutorService executorService = Executors.newCachedThreadPool();
+	ExecutorService executorService = Executors.newFixedThreadPool(1);
+
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i",
 			"--input" }, required = false, paramLabel = "INPUT", description = "The input file for the code generator")
@@ -53,6 +55,7 @@ public class App implements Runnable {
 		if (!CONFIG_FILE.equals(""))
 			cypriotConfigFile = new File(CONFIG_FILE);
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		
 		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		if (cypriotOutputDirectory == null) {
 			cypriotOutputDirectory = new File(
@@ -65,7 +68,7 @@ public class App implements Runnable {
 		} else {
 			log.debug("CyprIoT Input File Path : " + cypriotInputFile.getPath());
 			M2MHelper transformationHelper = new M2MHelper();
-			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate,executorService);
+			transformationHelper.transform(cyprIoTmodel, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate,executorService,cypriotInputFile.getParentFile().toString());
 
 			// Plugin Loading
 			if (isPluginEnabled) {
@@ -73,12 +76,13 @@ public class App implements Runnable {
 				pluginLoader.setConfigFile(cypriotConfigFile);
 				pluginLoader.setModel(cyprIoTmodel);
 				pluginLoader.setOutputDirectory(cypriotOutputDirectory);
-				pluginLoader.load(executorService);
+				pluginLoader.load();
 			}
 		}
 		executorService.shutdown();
 		try {
 			executorService.awaitTermination(5, TimeUnit.MINUTES);
+			log.info("All things transformed.");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

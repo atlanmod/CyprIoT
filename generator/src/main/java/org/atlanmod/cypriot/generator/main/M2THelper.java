@@ -30,10 +30,9 @@ public class M2THelper extends AbstractAcceleoGenerator {
 		return TEMPLATE_NAMES;
 	}
 	
-	public void generateAcceleo(CyprIoTModel cypriotModel, String targetFolderPath) {
+	public void generateAcceleo(CyprIoTModel cypriotModel, File targetFolder) {
 	    List<String> arguments = new ArrayList<String>();
 		
-		File targetFolder = new File(targetFolderPath);
 		try {
 			initialize(cypriotModel, targetFolder, arguments);
 			super.doGenerate(new BasicMonitor());

@@ -1,7 +1,7 @@
 thing HelloThing {
 	message m(mess : UInt8)
 	message m2(mess : UInt8)
-	required port a {
+	required port myport {
 		sends m
 	}
 	statechart HelloStateChart init HelloState {
@@ -10,13 +10,13 @@ thing HelloThing {
 			on entry
 				do  while(true) do 
 						println  "Sending..."
-						a!m(0)
+						myport!m(0)
 						`sleep(5);`
-						a!m(1)
+						myport!m(1)
 						`sleep(5);`
-						a!m(2)
+						myport!m(2)
 						`sleep(5);`
-						a!m(3)
+						myport!m(3)
 					end
 				end
 		}

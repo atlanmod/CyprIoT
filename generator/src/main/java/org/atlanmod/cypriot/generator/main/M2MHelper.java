@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +32,8 @@ import org.eclipse.m2m.atl.emftvm.util.TimingData;
 class MyThread extends Thread { 
 	Logger log;
 	Bind bind;
-	File cypriotInputFile;
+	CyprIoTModel cypriotModel;
+	String parentPah;
 	boolean isEnforcing;
 	File outputDirectory;
 	String TRANSFORMATION_DIRECTORY = "./transformations/";
@@ -41,7 +41,7 @@ class MyThread extends Thread {
 	boolean isBridge;
 	boolean isCompiling;
 	boolean isTrigger;
-	  public MyThread (Logger log, Bind bind, File cypriotInputFile,
+	  public MyThread (Logger log, Bind bind, CyprIoTModel cypriotModel,String parentPah,
 		boolean isEnforcing,
 		File outputDirectory,
 		String TRANSFORMATION_DIRECTORY,
@@ -51,7 +51,8 @@ class MyThread extends Thread {
 		boolean isTrigger) { 
 	    this.log=log;
 	    this.bind=bind;
-	    this.cypriotInputFile=cypriotInputFile;
+	    this.cypriotModel=cypriotModel;
+	    this.parentPah=parentPah;
 	    this.isEnforcing=isEnforcing;
 	    this.outputDirectory=outputDirectory;
 	    this.TRANSFORMATION_DIRECTORY=TRANSFORMATION_DIRECTORY;
@@ -67,7 +68,7 @@ class MyThread extends Thread {
 			String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
 			TypeThing thing = instance.getTypeThing().getThingToInstantiate();
 			if (!(targetPlatform.equals("nodered") || thing.getImportPath().isEmpty())) {
-				String thingPath = cypriotInputFile.getParentFile() + File.separator + thing.getImportPath();
+				String thingPath = parentPah + File.separator + thing.getImportPath();
 				File thingMLFile = new File(thingPath);
 
 				log.info("Transforming thing : " + instanceName + "...");
@@ -75,7 +76,7 @@ class MyThread extends Thread {
 
 				String outputFile = outputDirectory.getPath()+ File.separator + "transformed_" + instanceName + ".thingml";
 				Resource resThingML = getResourceFromThingMLFile(thingMLFile, instanceName);
-				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
+				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotModel);
 				
 				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile,instanceName);
 				if(isEnforcing) {
@@ -91,7 +92,7 @@ class MyThread extends Thread {
 				if(isCompiling) {
 					String outputGenDirectory = outputDirectory.getPath()+ File.separator + "devices" + File.separator
 							+ instanceName + File.separator + targetPlatform;
-					final String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
+					final String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform+";";
 					    	try {
 								log.info(" * "+instanceName+" : Running ThingML generator...");
 								
@@ -170,8 +171,7 @@ class MyThread extends Thread {
 			env.registerInputModel(name, inThingMLModel);
 		}
 
-		private Resource getResourceFromCyprIoTFile(File cypriotInputFile) {
-			CyprIoTModel cypriotModel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+		private Resource getResourceFromCyprIoTFile(CyprIoTModel cypriotModel) {
 			Resource res = Helpers.getResourceFromModel(cypriotModel);
 			return res;
 		}
@@ -186,8 +186,7 @@ public class M2MHelper {
 	static final Logger log = LogManager.getLogger(M2MHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	
-	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isEnforcing, boolean isTrigger, boolean isBridge, boolean isCompiling,ExecutorService executorService) {
-		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
+	public List<Resource> transform(CyprIoTModel cyprIoTmodel,File outputDirectory,boolean isEnforcing, boolean isTrigger, boolean isBridge, boolean isCompiling,ExecutorService executorService,String parentPah) {
 		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
@@ -206,12 +205,10 @@ public class M2MHelper {
 		log.info("Transforming things according to the network : "+networkName+"...");
 		
 		for (Bind bind : allBinds) {
-			MyThread temp= new MyThread(log, bind, cypriotInputFile, isEnforcing, outputDirectory, TRANSFORMATION_DIRECTORY, allThingMLResources, isBridge, isCompiling, isTrigger);
+			MyThread temp= new MyThread(log, bind, cyprIoTmodel,parentPah, isEnforcing, outputDirectory, TRANSFORMATION_DIRECTORY, allThingMLResources, isBridge, isCompiling, isTrigger);
 	        //temp.start();
 	        executorService.submit(temp);
 		}
-
-		log.info("All things transformed.");
 		return allThingMLResources;
 	}
 

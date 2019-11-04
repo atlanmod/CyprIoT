@@ -21,45 +21,39 @@ public class PluginLoader {
 	HashSet<Plugin> loaderPlugins = new HashSet<Plugin>();
 	static final Logger log = LogManager.getLogger(PluginLoader.class.getName());
 
-	public void load(ExecutorService executorService) {
+	public void load() {
 		Properties properties = new Properties();
 		String pluginClassName;
-		
+
 		try {
 			properties.load(new StringReader(Helpers.getContentFromFile(configFile)));
 			pluginClassName = properties.getProperty("classes");
 			List<String> classesList = Arrays.asList(pluginClassName.split(","));
 			for (final String className : classesList) {
-				Thread pluginThread = new Thread(){
-				    public void run(){
-				    	try {
-							loadPlugin(className);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				    }
-				  };
-				  executorService.submit(pluginThread);
-				  
+				loadPlugin(className);
 			}
 			StringBuilder loadedPlugins = new StringBuilder();
 			for (Plugin plugin : loaderPlugins) {
-				loadedPlugins.append(plugin.getID()+",");
+				loadedPlugins.append(plugin.getID() + ",");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 		log.info("All plugins loaded.");
 	}
-	
+
 	private void loadPlugin(String pluginClassName) throws Exception {
 		Class<?> pluginClass = getClass().getClassLoader().loadClass(pluginClassName);
 		Plugin instance = (Plugin) pluginClass.newInstance();
 		loaderPlugins.add(instance);
 		instance.attach(log);
-		instance.generate(model, outputDirectory);
+		File externals = new File(outputDirectory + File.separator + "externals");
+		externals.mkdirs();
+		instance.generate(model, externals);
 	}
 
 	/**

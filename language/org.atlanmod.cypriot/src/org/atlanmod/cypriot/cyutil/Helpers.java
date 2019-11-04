@@ -607,9 +607,17 @@ public class Helpers {
 			ThingMLStandaloneSetup.doSetup();
 		}
 		Resource model = createEMFResourceFromFile(file);
-		return getModelFromResource(model, type);
+		T modelFromResource = getModelFromResource(model, type);
+		return modelFromResource;
 	}
-
+	
+	public static Resource createEMFResourceFromFile(File file) {
+		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
+		ResourceSet rs = new ResourceSetImpl();
+		Resource createResource = rs.createResource(xmiuri);
+		return createResource;
+	}
+	
 	public static <T extends EObject> T getModelFromResource(Resource model, Class<T> type) {
 		
 		try {
@@ -690,19 +698,6 @@ public class Helpers {
 		}
 
 		return noErrors;
-	}
-
-	/**
-	 * Create a Xtext resource from a file
-	 * 
-	 * @param file
-	 * @param log
-	 * @return
-	 */
-	public static Resource createEMFResourceFromFile(File file) {
-		URI xmiuri = URI.createFileURI(file.getAbsolutePath());
-		ResourceSet rs = new ResourceSetImpl();
-		return rs.createResource(xmiuri);
 	}
 	
 	public static Resource getResourceFromFile(File thingMLInputFile, String thingName) {

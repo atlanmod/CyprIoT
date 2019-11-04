@@ -1,13 +1,12 @@
-thing A import "a.thingml"
+thing hello import "device1.thingml"
 
-user a
-channel:pubsub a {
-	topic a(m:JSON)
+channel pubsub1 {
+	path topic1(m:JSON)
 }
 
 network helloNetwork {
-	domain a.a.a
-	instance A:A platform POSIX owner a
-	instance a:a protocol MQTT(server="mqtt.eclipse.org:1883")
-	bind A.a => a{a}
+	domain org.hello
+	instance helloInst:hello platform POSIX
+	instance myPubsub1:pubsub1 protocol MQTT(server="mqtt.eclipse.org:1883")
+	bind helloInst.myport => myPubsub1{topic1}
 }

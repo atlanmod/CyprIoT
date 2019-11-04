@@ -1,7 +1,7 @@
 thing hello import "device1.thingml"
 
-channel:pubsub pubsub1 {
-	topic topic1(m:JSON)
+channel pubsub1 {
+	path topic1(m:JSON)
 }
 
 network helloNetwork {

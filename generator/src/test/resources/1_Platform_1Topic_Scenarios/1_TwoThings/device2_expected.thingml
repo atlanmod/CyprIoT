@@ -3,19 +3,15 @@ thing HelloThing {
 	provided port myport {
 		receives m
 	}
-	function turnTemperatureTo(mess : UInt8) do
-		println "Turning the temperature to : " , mess , "°C "
-	end
 	statechart HelloStateChart init HelloState {
 		state state2 {
 			on entry println "state2"
-			transition ->HelloState
+			transition ->state4
 				event e : myport?m
-				guard e.mess==2
+				guard e.mess==4
 		}
 		
 		state HelloState {
-			on entry println "HelloState"
 			internal event e : myport?m
 			action if(e.mess==0) 
 					do 
@@ -35,16 +31,16 @@ thing HelloThing {
 					end
 			transition ->state4
 				event e : myport?m
-				guard e.mess==0
+				guard e.mess==1
 			transition ->state2
 				event e : myport?m
 				guard e.mess==2
+			transition ->state4
+				event e : myport?m
+				guard e.mess==4
 		}
-		state state4 {
-			on entry println "state4"
-			transition ->state2
-				event e : myport?m
-				guard e.mess==2
+		final state state4 {
+			on entry println "state2"
 		}
 	}
 }

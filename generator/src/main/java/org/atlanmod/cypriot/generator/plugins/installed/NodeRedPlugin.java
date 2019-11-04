@@ -33,7 +33,7 @@ public class NodeRedPlugin implements Plugin {
 	public void generate(CyprIoTModel model, File outputDirectory) {
 		M2THelper acceleoStandaloneCompiler = new M2THelper();
 		M2THelper.MODULE_FILE_NAME="/org/atlanmod/cypriot/generator/templates/nodered";
-		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory+File.separator+"devices");	
+		acceleoStandaloneCompiler.generateAcceleo(model,outputDirectory);	
 	}
 
 	@Override

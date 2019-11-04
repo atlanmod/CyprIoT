@@ -5,8 +5,8 @@ thing device4 import "device4.thingml"
 thing device5 import "device5.thingml"
 thing device6 import "device6.thingml"
 
-channel:pubsub pubsub1 {
-	topic topic1(m:JSON)
+channel pubsub1 {
+	path topic1(m:JSON)
 }
 
 network helloNetwork {

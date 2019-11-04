@@ -91,9 +91,10 @@ public class Experiment {
 			File outputDir = new File(outDir + i);
 
 			long startTime = System.nanoTime();
+			CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotGetFile, CyprIoTModel.class);
 			for (int n = 1; n <= NumberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, false,executorService);
+				transformationHelper.transform(cyprIoTmodel, outputDir, false, false,false, false,executorService,cypriotGetFile.getParentFile().toString());
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
@@ -129,7 +130,7 @@ public class Experiment {
 			pluginLoader.setConfigFile(new File(CONFIG_FILE));
 			pluginLoader.setModel(model);
 			pluginLoader.setOutputDirectory(outputDir);
-			pluginLoader.load(executorService);
+			pluginLoader.load();
 			if (isMosquitto) {
 				int getMosquittoACLCount = removeSpace(Helpers.getContentFromFile(new File(
 						outputDir.getPath() + File.separator + "external-gen" + File.separator + "mosquitto.acl")))

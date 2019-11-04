@@ -3,8 +3,8 @@ thing device2 import "device2.thingml"
 thing device3 import "device3.thingml"
 thing device4 import "device4.thingml"
 
-channel:pubsub pubsub1 {
-	topic topic1(m) 
+channel pubsub1 {
+	path topic1(m) 
 }
 
 network helloNetwork {
