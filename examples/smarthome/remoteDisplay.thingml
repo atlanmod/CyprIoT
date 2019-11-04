@@ -1,0 +1,62 @@
+thing remoteDisplay {
+	// By declaring a port with a giving message, the thing manifest its interest into this information, 
+	// it does not know how it is going to receive, this is the job of the network designer
+	// Giving such responsibility to the network designer, offer the thing designer more control on the behavior
+	// of the thing. For instance, the thing designer could expect a giving message and provide a given treatment to it
+	message temperatureSensorMessage(temperatureValue: UInt8)
+	provided port receivingTemperaturePort {
+		receives temperatureSensorMessage
+	}
+	
+	message intrusionMessage(isIntrusion: UInt8)
+	provided port receivingIntrusionPort {
+		receives intrusionMessage
+	}
+	
+	message alarmMessage(temperatureValue: UInt8)
+	provided port defaultReceivingPort {
+		receives alarmMessage
+	}
+	
+	message smokeDetectorMessage(isSmoking: UInt8)
+	provided port receivingSmokePort {
+		receives smokeDetectorMessage
+	}
+	
+	message rainSensorMessage(isRaining: UInt8)
+	provided port receivingRainPort {
+		receives rainSensorMessage
+	}
+	
+	message locationMessage(locationLattitude: UInt8, locationLongitude : UInt8)
+	provided port receivingLocationPort {
+		receives locationMessage
+	}
+	
+	message pressMessage(isPressed: UInt8)
+	provided port receivingOnePressPort {
+		receives pressMessage
+	}
+	
+	message motionSensorMessage(isMotion: UInt8)
+	provided port receivingMotionPort {
+		receives motionSensorMessage
+	}
+	
+	message lightSensorMessage(lightValue: UInt8)
+	provided port receivingSensedLightPort {
+		receives lightSensorMessage
+	}
+	
+	statechart remoteDisplayBehavior init displayEvents {
+		state displayEvents {
+			on entry println "displayEvents"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

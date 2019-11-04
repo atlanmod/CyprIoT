@@ -1,11 +1,12 @@
-thing smokeDetector {
+thing alarm {
 	
-	message smokeDetectorMessage(isSmoking: UInt8)
-	provided port sendingSmokePort {
-		sends smokeDetectorMessage
+	message alarmMessage(temperatureValue: UInt8)
+	provided port defaultReceivingPort {
+		receives alarmMessage
+		sends alarmMessage
 	}
 	
-	statechart smokeDetectorBehavior init isOff {
+	statechart alarmBehavior init isOff {
 		state isOff {
 			on entry println "isOff"
 		}

@@ -1,0 +1,60 @@
+thing gateway {
+	message temperatureSensorMessage(temperatureValue: UInt8)
+	provided port receivingTemperaturePort {
+		receives temperatureSensorMessage
+	}
+	
+	message intrusionMessage(isIntrusion: UInt8)
+	provided port sendingIntrusionPort {
+		receives intrusionMessage
+	}
+	
+	message alarmMessage(temperatureValue: UInt8)
+	provided port defaultReceivingPort {
+		receives alarmMessage
+	}
+	
+	message smokeDetectorMessage(isSmoking: UInt8)
+	provided port sendingSmokePort {
+		sends smokeDetectorMessage
+	}
+	
+	message rainSensorMessage(isRaining: UInt8)
+	provided port sendingRainPort {
+		sends rainSensorMessage
+	}
+	
+	message locationMessage(locationLattitude: UInt8, locationLongitude : UInt8)
+	provided port sendingLocationPort {
+		sends locationMessage
+	}
+	
+	message pressMessage(isPressed: UInt8)
+	provided port sendingOnePressPort {
+		sends pressMessage
+	}
+	
+	message motionSensorMessage(isMotion: UInt8)
+	provided port sendingMotionPort {
+		sends motionSensorMessage
+	}
+	
+	message lightSensorMessage(lightValue: UInt8)
+		provided port sendingSensedLightPort {
+			sends lightSensorMessage
+	}
+	statechart gatewayBehavior init inHome {
+		state inHome {
+			on entry println "inHome"
+		}
+		state outHome {
+			on entry println "outHome"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

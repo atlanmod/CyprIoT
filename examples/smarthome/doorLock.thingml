@@ -1,0 +1,22 @@
+thing doorLock {
+	
+	message doorLockMessage(lockState: UInt8)
+	provided port defaultReceivingPort {
+		receives doorLockMessage
+	}
+	
+	statechart doorLockBehavior init close {
+		state close {
+			on entry println "close"
+		}
+		state open {
+			on entry println "open"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

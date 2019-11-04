@@ -1,0 +1,22 @@
+thing motionSensor {
+	property ID : String = "room1"
+	message motionSensorMessage(isMotion: UInt8)
+	provided port sendingMotionPort {
+		sends motionSensorMessage
+	}
+	statechart motionSensorBehavior init isOff {
+		state isOff {
+			on entry println "isOff"
+		}
+		state isOn {
+			on entry println "isOn"
+		}
+	}
+}
+datatype String<8>
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

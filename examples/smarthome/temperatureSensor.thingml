@@ -1,28 +1,17 @@
 thing temperatureSensor {
-	message m(mess : UInt8)
-	message m2(mess : UInt8)
-	required port myport {
-		sends m
+	
+	message temperatureSensorMessage(temperatureValue: UInt8)
+	provided port sendingTemperaturePort {
+		sends temperatureSensorMessage
 	}
-	statechart temperatureSensorBehavior init isLow {
-		state isLow {
-			on entry println "isLow"
-			transition -> isHigh
+	
+	function sense() do end
+	statechart temperatureSensorBehavior init isSensing {
+		state isSensing {
+			on entry println "isSensing", sense()
 		}
-		state isHigh {
-			on entry println "isHigh"
-			on exit
-				do  while(true) do 
-						println  "Sending..."
-						myport!m(0)
-						`sleep(5);`
-						myport!m(1)
-						`sleep(5);`
-						myport!m(2)
-						`sleep(5);`
-						myport!m(3)
-					end
-				end			 
+		state idle {
+			on entry println "idle"
 		}
 	}
 }

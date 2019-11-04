@@ -1,0 +1,27 @@
+thing smartLight {
+	message lightSensorMessage(lightValue: UInt8)
+	provided port receivingSensedLightPort {
+		receives lightSensorMessage
+	}
+	
+	message smartLightMessage(smartLightValue: UInt8)
+	provided port receivingSmartLightPort {
+		sends smartLightMessage
+	}
+	
+	property intensity : UInt8
+	function setIntensity(value : UInt8) do end
+	statechart smartLightBehavior init isOn {
+		state isOn {
+			on entry println "isOn" , setIntensity(intensity)
+		}
+		state isOff {
+			on entry println "isOff"
+		}
+	}
+}
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

@@ -1,0 +1,20 @@
+thing securityCamera {
+	message intrusionMessage(isIntrusion: UInt8)
+	provided port sendingIntrusionPort {
+		sends intrusionMessage
+	}
+	statechart securityCameraBehavior init idle {
+		state idle {
+			on entry println "idle"
+		}
+		state intrustion {
+			on entry println "intrustion"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

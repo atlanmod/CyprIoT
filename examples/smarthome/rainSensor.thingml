@@ -1,0 +1,25 @@
+thing rainSensor {
+	
+	message rainSensorMessage(isRaining: UInt8)
+	provided port sendingRainPort {
+		sends rainSensorMessage
+	}
+	
+	statechart rainSensorBehavior init isRaining {
+		state isRaining {
+			on entry println "isRaining"
+		}
+		state notRaining {
+			on entry println "notRaining"
+		}
+		state changeBattery {
+			on entry println "changeBattery"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

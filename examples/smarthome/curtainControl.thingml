@@ -1,0 +1,24 @@
+thing curtainControl {
+	
+	message curtainControlMessage(valueMessage: UInt8)
+	provided port defaultReceivingPort {
+		receives curtainControlMessage
+	}
+	
+	property preferedLevel : UInt8
+	function openToLevel(value : UInt8) do end
+	statechart curtainControlBehavior init open {
+		state open {
+			on entry println "open", openToLevel(preferedLevel)
+		}
+		state close {
+			on entry println "close"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

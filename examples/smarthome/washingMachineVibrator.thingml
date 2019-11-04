@@ -1,0 +1,22 @@
+thing washingMachineVibrator {
+	
+	message vibrationMessage(isSmoking: UInt8)
+	provided port sendingVibrationPort {
+		sends vibrationMessage
+	}
+	
+	statechart washingMachineVibratorBehavior init idle {
+		state idle {
+			on entry println "idle"
+		}
+		state isVibrating {
+			on entry println "isVibrating"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

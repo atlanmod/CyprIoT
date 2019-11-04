@@ -1,0 +1,21 @@
+thing phoneApp {
+	property locationLattitude : UInt8
+	property locationLongitude : UInt8
+
+	message locationMessage(locationLattitude: UInt8, locationLongitude : UInt8)
+	provided port sendingLocationPort {
+		sends locationMessage
+	}
+	
+	statechart phoneAppBehavior init idle {
+		state idle {
+			on entry println "idle"
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

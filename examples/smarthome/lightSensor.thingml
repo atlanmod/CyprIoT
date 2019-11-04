@@ -1,0 +1,20 @@
+thing lightSensor {
+	message lightSensorMessage(lightValue: UInt8)
+	provided port sendingSensedLightPort {
+		sends lightSensorMessage
+	}
+	function sense() do end
+	statechart lightSensorBehavior init isSensing {
+		state isSensing {
+			on entry println "isSensing" , sense()
+		}
+		state idle {
+			on entry println "idle"
+		}
+	}
+}
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"
