@@ -35,8 +35,8 @@ User :
 
 TypeThing:
 	'thing' name=ID 
-		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 		('import' importPath=STRING)?
+		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 ;
 
 // TODO Dynamicity of the configuration
@@ -286,7 +286,7 @@ DomainId:
 ;
 
 NetworkBridge:
-	'bridge' (name=ID ':')? bridgeSubject=[BridgeSubject] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
+	'forward' (name=ID ':')? bridgeSubject=[BridgeSubject] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
 ;
 
 Time: // Cron syntax
