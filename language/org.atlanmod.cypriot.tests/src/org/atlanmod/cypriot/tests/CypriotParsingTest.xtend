@@ -77,7 +77,7 @@ class CypriotParsingTest {
 	def void importCypriotFileWithThingAssignedRole() {
 		val result = parseHelper.parse('''
 			import "import1.cy"
-			thing thing1 assigned anyrole import "thing1.thingml"
+			thing thing1 import "thing1.thingml" assigned anyrole
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/import1.cy")) => [
 				load(new StringInputStream('''

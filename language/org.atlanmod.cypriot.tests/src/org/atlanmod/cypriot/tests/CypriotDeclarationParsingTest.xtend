@@ -90,8 +90,8 @@ class CypriotDeclarationParsingTest {
 		val result = parseHelper.parse('''
 			role sensor
 			thing Hello 
-				assigned sensor
 				import "Hello.thingml"
+				assigned sensor
 		''', URI.createFileURI("/test.cy"), resourcesetProvider.get => [
 			createResource(URI.createFileURI("/Hello.thingml")) => [
 				load(new StringInputStream('''
