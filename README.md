@@ -77,6 +77,10 @@ To run some examples of the language :
 
 ## Research Papers
 
+* **A Model-Driven Approach to Unravel the Interoperability Problem of the Internet of Things.**
+Berrouyne I, Adda M, Mottu JM, Royer JC, Tisi M.
+InProceedings of Advanced Information Networking and Applications 2020 Apr 15, Springer
+
 * **CyprIoT: framework for modelling and controlling network-based IoT applications.**
 Berrouyne I, Adda M, Mottu JM, Royer JC, Tisi M. 
 InProceedings of the 34th ACM/SIGAPP Symposium on Applied Computing 2019 Apr 8 (pp. 832-841). ACM.

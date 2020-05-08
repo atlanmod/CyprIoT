@@ -1,8 +1,6 @@
 package org.atlanmod.cypriot.generator.main;
 
 import java.io.File;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,12 +18,10 @@ public class App implements Runnable {
 	
 	public static final String CYPRIOT_FILE = "../examples/smarthome/main.cy";
 	//public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
-	public static final boolean isTrigger = true;
-	public static final boolean isBridge = true;
+	public static final boolean isTrigger = false;
+	public static final boolean isBridge = false;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
-	public static final boolean experimentMode = false;
-	//ExecutorService executorService = Executors.newCachedThreadPool();
-	ExecutorService executorService = Executors.newFixedThreadPool(1);
+	public static final boolean experimentMode = true;
 
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i",
@@ -40,7 +36,7 @@ public class App implements Runnable {
 	File cypriotConfigFile;
 	
 	@Option(names = { "-g", "--generate" }, description = "Generate code")
-	boolean isGenerate=false;
+	boolean isGenerate=true;
 	
 	@Option(names = { "-e", "--enforce" }, description = "Enforce communication control rules")
 	boolean isEnforcing=true;
@@ -55,7 +51,6 @@ public class App implements Runnable {
 		if (!CONFIG_FILE.equals(""))
 			cypriotConfigFile = new File(CONFIG_FILE);
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
-		
 		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		if (cypriotOutputDirectory == null) {
 			cypriotOutputDirectory = new File(
@@ -64,11 +59,11 @@ public class App implements Runnable {
 		}
 
 		if (experimentMode) {
-			Experiment.make(executorService);
+			Experiment.make();
 		} else {
 			log.debug("CyprIoT Input File Path : " + cypriotInputFile.getPath());
 			M2MHelper transformationHelper = new M2MHelper();
-			transformationHelper.transform(cyprIoTmodel, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate,executorService,cypriotInputFile.getParentFile().toString());
+			transformationHelper.transform(cypriotInputFile, cypriotOutputDirectory,isEnforcing,isTrigger, isBridge, isGenerate);
 
 			// Plugin Loading
 			if (isPluginEnabled) {
@@ -79,14 +74,7 @@ public class App implements Runnable {
 				pluginLoader.load();
 			}
 		}
-		executorService.shutdown();
-		try {
-			executorService.awaitTermination(5, TimeUnit.MINUTES);
-			log.info("All things transformed.");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 
 	public static void main(String[] args) {

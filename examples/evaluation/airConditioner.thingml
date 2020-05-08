@@ -20,9 +20,6 @@ thing heater {
 		}
 		state isOn {
 			on entry println "isOn", turnTemperatureTo(preferedTemperature)
-			internal event e : receivingTemperaturePort?temperatureSensorMessage
-			action turnTemperatureTo(e.temperatureValue)
-		
 		}
 	}
 }

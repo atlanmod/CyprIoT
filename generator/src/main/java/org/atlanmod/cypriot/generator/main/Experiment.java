@@ -16,18 +16,20 @@ import org.atlanmod.cypriot.generator.plugins.PluginLoader;
 
 public class Experiment {
 	static final Logger log = LogManager.getLogger(Experiment.class.getName());
+	
 	// Parameters 
-	public static int maxNumberOfNodes = 2;
-	public static int NumberOfPaths = 2;
-	public static int NumberOfChannels = 2;
-	public static int channelsHeterogeneityNumber = 2;
-	public static int thingsHeterogeneityNumber = 2;
-	public static int messagesHeterogeneityNumber = 2;
-	public static int serializationHeterogeneityNumber = 2;
-	public static int NumberOfExecutionTimes = 1;
+	public static int numberOfNodes = 1;
+	public static int numberOfPaths = 1;
+	public static int numberOfChannels = 1;
+	public static int numberOfExecutionTimes = 1; // To experiment improve results
+	
+	// Plugins
 	public static boolean isMosquitto = true;
 	public static boolean isRabbit = true;
 	public static boolean isDocumentation = true;
+	
+	// Switches
+	public static boolean onlyMaxNodes=true;
 	
 	public static final String mainDir = "../generator/src/test/resources/Experiment/";
 	public static String outDir = mainDir + "experiment1/";
@@ -40,12 +42,15 @@ public class Experiment {
 	static List<Integer> thingMLAddedCharactersMosquitto = new ArrayList<Integer>();
 	static List<Integer> thingMLAddedCharactersRabbit = new ArrayList<Integer>();
 	static List<String> executionTimes = new ArrayList<String>();
-
-	public static void make(ExecutorService executorService) {
-		int charStart = 97;
+	static int charStart = 97;
+	public static void make() {
+		
 		copyFileToDirectory(sendThingml, outDir);
 		copyFileToDirectory(receiveThingml, outDir);
-		for (int i = 1; i <= maxNumberOfNodes; i++) {
+		for (int i = 1; i <= numberOfNodes; i++) {
+			if(onlyMaxNodes) {
+				i=numberOfNodes;
+			}
 			log.info("Experiment n° : " + i);
 			String fileId = i + ".cy";
 			int alphabets = charStart + i;
@@ -62,9 +67,8 @@ public class Experiment {
 				}
 				cypriotFile.append("user " + alphabet + "\n");
 			}
-
-			cypriotFile.append("channel a {\n" + "	path a(m:JSON)\n" + "}\n"
-					+ "network n {\n" + "	domain a.a.a\n");
+			cypriotFile.append(getMultipleGroupElements(numberOfChannels,numberOfPaths,"(m:BINARY)"));
+			cypriotFile.append("network n {\n" + "	domain a.a.a\n");
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
@@ -75,10 +79,15 @@ public class Experiment {
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
-				if ((j & 1) == 0) {
-					cypriotFile.append("	bind " + alphabet + ".a => a{a}\n");
-				} else {
-					cypriotFile.append("	bind " + alphabet + ".a <= a{a}\n");
+				int alphabetsPath = charStart + numberOfPaths;
+				for (int x = charStart; x < alphabetsPath; x++) {
+					String alphabetPath = String.valueOf((char) x);
+					if(j>122) alphabetPath = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
+					if ((j & 1) == 0) {
+						cypriotFile.append("	bind " + alphabet + ".a => a{"+alphabetPath+"}\n");
+					} else {
+						cypriotFile.append("	bind " + alphabet + ".a <= a{"+alphabetPath+"}\n");
+					}
 				}
 			}
 
@@ -91,10 +100,10 @@ public class Experiment {
 			File outputDir = new File(outDir + i);
 
 			long startTime = System.nanoTime();
-			CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotGetFile, CyprIoTModel.class);
-			for (int n = 1; n <= NumberOfExecutionTimes; n++) {
+			//CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotGetFile, CyprIoTModel.class);
+			for (int n = 1; n <= numberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
-				transformationHelper.transform(cyprIoTmodel, outputDir, false, false,false, false,executorService,cypriotGetFile.getParentFile().toString());
+				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, true);
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
@@ -133,14 +142,14 @@ public class Experiment {
 			pluginLoader.load();
 			if (isMosquitto) {
 				int getMosquittoACLCount = removeSpace(Helpers.getContentFromFile(new File(
-						outputDir.getPath() + File.separator + "external-gen" + File.separator + "mosquitto.acl")))
+						outputDir.getPath() + File.separator + "externals" + File.separator + "mosquitto.acl")))
 								.length();
 				thingMLAddedCharactersMosquitto.add(addedCharactersToThingML + getMosquittoACLCount);
 				
 			}
 			if (isRabbit) {
 				int getRabbitCount = removeSpace(Helpers.getContentFromFile(new File(
-						outputDir.getPath() + File.separator + "external-gen" + File.separator + "rabbit.acl")))
+						outputDir.getPath() + File.separator + "externals" + File.separator + "rabbit.acl")))
 								.length();
 				thingMLAddedCharactersRabbit.add(addedCharactersToThingML + getRabbitCount);
 			}
@@ -160,7 +169,28 @@ public class Experiment {
 		log.info("Results : \n"+results);
 		Helpers.writeStringOnFile(outDir + "results.txt", results.toString());
 	}
-
+	private static String getMultipleElements(int numberOfPaths,String extra) {
+		StringBuilder cypriotFile = new StringBuilder();;
+			int alphabetsPath = charStart + numberOfPaths;
+			for (int j = charStart; j < alphabetsPath; j++) {
+				String alphabetPath = String.valueOf((char) j);
+				if(j>122) alphabetPath = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
+				cypriotFile.append("\n	path "+alphabetPath+extra);
+		}
+		return cypriotFile.toString();
+	}
+	
+	private static String getMultipleGroupElements(int numberOfGroup,int numberInside,String extraInside) {
+		StringBuilder cypriotFile = new StringBuilder();;
+			int alphabetsPath = charStart + numberOfGroup;
+			for (int j = charStart; j < alphabetsPath; j++) {
+				String alphabetPath = String.valueOf((char) j);
+				cypriotFile.append("channel "+alphabetPath+" {");
+				cypriotFile.append(getMultipleElements(numberInside,extraInside));
+				cypriotFile.append("\n}\n");
+		}
+		return cypriotFile.toString();
+	}
 	public static String removeSpace(String str) {
 		return str.replaceAll("\\s+", "");
 	}

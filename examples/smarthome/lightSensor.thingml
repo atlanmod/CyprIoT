@@ -4,12 +4,21 @@ thing lightSensor {
 		sends lightSensorMessage
 	}
 	function sense() do end
-	statechart lightSensorBehavior init isSensing {
-		state isSensing {
-			on entry println "isSensing" , sense()
-		}
+	statechart lightSensorBehavior init idle {
 		state idle {
 			on entry println "idle"
+			transition -> isLow
+		}
+		state isLow {
+			on entry println "low" , sense()
+			transition -> isMedium
+		}
+		state isMedium {
+			on entry println "medium" , sense()
+			transition -> isHigh
+		}
+		state isHigh {
+			on entry println "high" , sense()
 		}
 	}
 }

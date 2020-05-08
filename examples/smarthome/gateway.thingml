@@ -1,9 +1,14 @@
 thing gateway {
 	message temperatureSensorMessage(temperatureValue: UInt8)
-	provided port receivingTemperaturePort {
+	provided port temperaturePort {
 		receives temperatureSensorMessage
+		sends temperatureSensorMessage
 	}
-	
+	message logsMessage(temperatureValue: UInt8)
+	provided port manufacturerLogsPort {
+		receives logsMessage
+		sends logsMessage
+	}
 	message intrusionMessage(isIntrusion: UInt8)
 	provided port sendingIntrusionPort {
 		receives intrusionMessage
@@ -40,8 +45,9 @@ thing gateway {
 	}
 	
 	message lightSensorMessage(lightValue: UInt8)
-		provided port sendingSensedLightPort {
+		provided port sensedLightPort {
 			sends lightSensorMessage
+			receives lightSensorMessage
 	}
 	statechart gatewayBehavior init inHome {
 		state inHome {

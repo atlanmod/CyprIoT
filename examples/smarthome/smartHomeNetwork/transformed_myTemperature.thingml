@@ -1,0 +1,34 @@
+thing myTemperature {
+	message temperatureSensorMessage(temperatureValue : UInt8)
+	message logsMessage(temperatureValue : UInt8)
+	provided port sendingTemperaturePort {
+		sends temperatureSensorMessage
+	}
+	provided port manufacturerLogsPort {
+		sends logsMessage receives logsMessage
+	}
+	function sense() do
+	end
+	statechart temperatureSensorBehavior init isSensing {
+		state isSensing {
+			on entry println "isSensing" , sense()
+		}
+		state idle {
+			on entry println "idle"
+		}
+	}
+}
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+protocol ZIGBEE
+	@mqtt_broker_address `OclUndefined`
+	@mqtt_port_number `OclUndefined`
+	@serializer `json`
+
+configuration myTemperature_Cfg @compiler `posix` @debug `true` {
+	instance myTemperature : myTemperature
+	connector myTemperature.sendingTemperaturePort over ZIGBEE @mqtt_publish_topic `org/atlanmod/smarthome/myZigbeeChannel/sensedTemperature`
+}

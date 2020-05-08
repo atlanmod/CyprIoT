@@ -53,7 +53,7 @@ public class SetupScriptPlugin implements Plugin {
 				InstanceThing instance = bind.getBindsInstanceThing();
 				String instanceName = instance.getName();
 				String targetPlatform = instance.getTypeThing().getTargetedPlatform().getLiteral().toLowerCase();
-				String outputMakeDirectory = outputDirectory.getAbsolutePath()+ File.separator +"devices"+ File.separator
+				String outputMakeDirectory = outputDirectory.getAbsolutePath()+ File.separator + ".."+ File.separator +"devices"+ File.separator
 						+ instanceName + File.separator + targetPlatform;
 
 				try {

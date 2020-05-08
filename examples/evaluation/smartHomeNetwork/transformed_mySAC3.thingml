@@ -1,0 +1,47 @@
+thing mySAC3 {
+	message temperatureSensorMessage(temperatureValue : UInt8)
+	optional required port bridge_mySAC3_receivingTemperaturePort {
+		sends temperatureSensorMessage
+	}
+	provided port receivingTemperaturePort {
+		receives temperatureSensorMessage
+	}
+	property preferedTemperature : UInt8
+	function turnTemperatureTo(value : UInt8) do
+		preferedTemperature = value
+	end
+	statechart heaterBehavior init isOff {
+		state isOff {
+			on entry println "isOff"
+			transition -> isOn
+			event e : receivingTemperaturePort?temperatureSensorMessage
+			action do
+				bridge_mySAC3_receivingTemperaturePort!temperatureSensorMessage(e.temperatureValue)
+				turnTemperatureTo(e.temperatureValue)
+			end
+		}
+		state isOn {
+			on entry println "isOn" , turnTemperatureTo(preferedTemperature)
+		}
+	}
+}
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+protocol MQTT1
+	@mqtt_broker_address `mqtt.eclipse.org`
+	@mqtt_port_number `1883`
+	@serializer `json`
+
+protocol MQTT
+	@mqtt_broker_address `mqtt.atlanmod.org`
+	@mqtt_port_number `1883`
+	@serializer `json`
+
+configuration mySAC3_Cfg @compiler `posix` @debug `true` {
+	instance mySAC3 : mySAC3
+	connector mySAC3.receivingTemperaturePort over MQTT @mqtt_subscribe_topic `org/atlanmod/smarthome/myMQTT/testPath`
+	connector mySAC3.bridge_mySAC3_receivingTemperaturePort over MQTT1 @mqtt_publish_topic `org/atlanmod/smarthome/myMQTT/testPath`
+}

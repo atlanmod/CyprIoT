@@ -14,7 +14,7 @@ thing temperatureSensor {
 		state isSensing {
 			on entry println "isSensing", sense()
 		}
-		state idle {
+		state isHigh {
 			on entry println "idle"
 		}
 	}

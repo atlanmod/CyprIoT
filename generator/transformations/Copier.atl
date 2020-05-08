@@ -148,6 +148,34 @@ rule copyPrintAction {
 	)
 }
 
+rule copyProperty {
+	from s : ThingML!Property
+	to t : ThingML!Property(
+		annotations <- s.annotations,
+		init <- s.init,
+		name <- s.name,
+		readonly <- s.readonly,
+		typeRef <- s.typeRef
+	)
+}
+
+rule copyVariableAssignment {
+	from s : ThingML!VariableAssignment
+	to t : ThingML!VariableAssignment(
+		expression <- s.expression,
+		index <- s.index,
+		property <- s.property
+	)
+}
+
+rule copyFunctionCallExpression {
+	from s : ThingML!FunctionCallExpression
+	to t : ThingML!FunctionCallExpression(
+		function <- s.function,
+		parameters <- s.parameters
+	)
+}
+
 rule copyReceiveMessage {
 	from s : ThingML!ReceiveMessage
 	to t : ThingML!ReceiveMessage(

@@ -1,4 +1,4 @@
-thing heater {
+thing airConditionner {
 	
 	message temperatureSensorMessage(temperatureValue: UInt8)
 	provided port receivingTemperaturePort {
@@ -11,7 +11,7 @@ thing heater {
 		preferedTemperature = value
 	end
 	
-	statechart heaterBehavior init isOff {
+	statechart airConditionnerBehavior init isOff {
 		state isOff {
 			on entry println "isOff"
 			transition ->isOn
