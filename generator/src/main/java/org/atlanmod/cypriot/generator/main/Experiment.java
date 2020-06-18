@@ -18,18 +18,20 @@ public class Experiment {
 	static final Logger log = LogManager.getLogger(Experiment.class.getName());
 	
 	// Parameters 
-	public static int numberOfNodes = 1;
+	public static int numberOfNodes = 2;
 	public static int numberOfPaths = 1;
 	public static int numberOfChannels = 1;
 	public static int numberOfExecutionTimes = 1; // To experiment improve results
+	public static String targetPlatform = "POSIX";
 	
 	// Plugins
-	public static boolean isMosquitto = true;
-	public static boolean isRabbit = true;
-	public static boolean isDocumentation = true;
+	public static boolean isMosquitto = false;
+	public static boolean isRabbit = false;
+	public static boolean isDocumentation = false;
 	
 	// Switches
-	public static boolean onlyMaxNodes=true;
+	public static boolean onlyMaxNodes = true;
+	public static boolean isGenerateCode = true;
 	
 	public static final String mainDir = "../generator/src/test/resources/Experiment/";
 	public static String outDir = mainDir + "experiment1/";
@@ -43,10 +45,13 @@ public class Experiment {
 	static List<Integer> thingMLAddedCharactersRabbit = new ArrayList<Integer>();
 	static List<String> executionTimes = new ArrayList<String>();
 	static int charStart = 97;
+	
 	public static void make() {
 		
 		copyFileToDirectory(sendThingml, outDir);
 		copyFileToDirectory(receiveThingml, outDir);
+		int countCyLoc=0;
+
 		for (int i = 1; i <= numberOfNodes; i++) {
 			if(onlyMaxNodes) {
 				i=numberOfNodes;
@@ -72,10 +77,10 @@ public class Experiment {
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
-				cypriotFile.append("	instance " + alphabet + ":" + alphabet + " platform POSIX owner  "+ alphabet + "\n");
+				cypriotFile.append("	instance " + alphabet + ":" + alphabet + " platform "+targetPlatform+" owner  "+ alphabet + "\n");
 			}
 			cypriotFile.append("	instance a:a protocol MQTT(server=\"mqtt.eclipse.org:1883\")\n");
-
+			countCyLoc++;
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
@@ -85,8 +90,10 @@ public class Experiment {
 					if(j>122) alphabetPath = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
 					if ((j & 1) == 0) {
 						cypriotFile.append("	bind " + alphabet + ".a => a{"+alphabetPath+"}\n");
+						countCyLoc++;
 					} else {
 						cypriotFile.append("	bind " + alphabet + ".a <= a{"+alphabetPath+"}\n");
+						countCyLoc++;
 					}
 				}
 			}
@@ -103,7 +110,8 @@ public class Experiment {
 			//CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotGetFile, CyprIoTModel.class);
 			for (int n = 1; n <= numberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false, true);
+				
+				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false,isGenerateCode);
 			}
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
@@ -158,6 +166,7 @@ public class Experiment {
 			thingMLAddedCharacters.add(addedCharactersToThingML);
 
 		}
+		
 		StringBuilder results = new StringBuilder();
 
 		results.append(listToString(nodesNumber, "nodeNumber"));
@@ -166,9 +175,12 @@ public class Experiment {
 		results.append(listToString(thingMLAddedCharactersMosquitto, "thingMLAddedCharactersMosquitto"));
 		results.append(listToString(thingMLAddedCharactersRabbit, "thingMLAddedCharactersRabbit"));
 		results.append(listToString(executionTimes, "executionTimes"));
+		
 		log.info("Results : \n"+results);
+		log.info("CyLoc : "+countCyLoc);
 		Helpers.writeStringOnFile(outDir + "results.txt", results.toString());
 	}
+	
 	private static String getMultipleElements(int numberOfPaths,String extra) {
 		StringBuilder cypriotFile = new StringBuilder();;
 			int alphabetsPath = charStart + numberOfPaths;

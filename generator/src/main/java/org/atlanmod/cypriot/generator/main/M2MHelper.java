@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -80,7 +81,7 @@ public class M2MHelper {
 					String outputGenDirectory = outputDirectory.getPath()+ File.separator + "devices" + File.separator
 							+ instanceName + File.separator + targetPlatform;
 					String args = "-s " + outputFile + " -o " + outputGenDirectory + " -c " + targetPlatform;
-
+								 
 					try {
 						log.info(" * "+instanceName+" : Running ThingML generator...");
 						
@@ -95,6 +96,10 @@ public class M2MHelper {
 							log.error(errors);
 						} else {
 							log.info(" ✔ "+instanceName+" : ThingML generator completed without errors.");
+							File codeDir = new File(outputGenDirectory);
+							log.info("Removing empty lines..."+codeDir.getAbsolutePath());
+							StringBuilder allLocs = new StringBuilder();    
+							listFilesForFolder(codeDir,codeDir,allLocs);
 						}
 
 					} catch (IOException e) {
@@ -175,5 +180,31 @@ public class M2MHelper {
 		cypriotMetamodel.setResource(rs.getResource(URI.createURI(inputMetamodelNsURI), true));
 		env.registerMetaModel(name, cypriotMetamodel);
 	}
-
+	
+	public void listFilesForFolder(final File folder, final File racine,StringBuilder allLocs) {
+		   for (final File fileEntry : folder.listFiles()) {
+	        if (fileEntry.isDirectory()) {
+	            listFilesForFolder(fileEntry,racine,allLocs);
+	        } else {
+	        	 	
+	        	if(fileEntry.getName().contains("MQTT")) {
+	        		allLocs.append("\n"+Helpers.getContentFromFile(fileEntry));
+	        	}
+	        }
+	    }
+	    Helpers.writeStringOnFile(racine.getAbsolutePath()+File.separator+"allLocs.txt", filterString(allLocs.toString()));
+	}
+	
+	private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+	
+	private String filterString(String code) {
+		  String partialFiltered = code.replaceAll("(/\\*([^*]|[\\r\\n]|(\\*+([^*/]|[\\r\\n])))*\\*+/)|(//.*)","");
+		  return partialFiltered.replaceAll("(?m)^\\s*$[\n\r]{1,}", "").trim();
+	}
+	
 }
