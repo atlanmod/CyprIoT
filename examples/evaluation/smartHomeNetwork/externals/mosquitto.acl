@@ -1,0 +1,6 @@
+topic read $SYS/#
+topic write $SYS/#
+user invalid
+	topic write org/atlanmod/smarthome/myMQTT/testPath
+user invalid
+	topic read org/atlanmod/smarthome/myMQTT/testPath

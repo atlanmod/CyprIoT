@@ -16,7 +16,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-	public static final String CYPRIOT_FILE = "../examples/smarthome/main.cy";
+	public static final String CYPRIOT_FILE = "../examples/evaluation/main.cy";
 	//public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
 	public static final boolean isTrigger = false;
 	public static final boolean isBridge = false;

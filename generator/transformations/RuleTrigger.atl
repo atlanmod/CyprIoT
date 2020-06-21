@@ -121,7 +121,7 @@ rule copyProvidedPort {
 	to t : ThingML!ProvidedPort(
 		name <- s.name,
 		receives <- s.receives->union(CyprIoT!RuleTrigger.allInstances()),
-		sends <- s.sends,
+		sends <- s.sends->union(CyprIoT!RuleTrigger.allInstances()),
 		annotations <- s.annotations
 	)
 }

@@ -1,0 +1,4 @@
+[
+	{"invalid",write,"org/atlanmod/smarthome/myMQTT/testPath"}
+,	{"invalid",read,"org/atlanmod/smarthome/myMQTT/testPath"}
+]

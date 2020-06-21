@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.monitor.FileEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.Bind;
@@ -34,20 +35,13 @@ public class M2MHelper {
 	static final Logger log = LogManager.getLogger(M2MHelper.class.getName());
 	public final static String TRANSFORMATION_DIRECTORY = "./transformations/";
 	
-	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isEnforcing, boolean isTrigger, boolean isBridge, boolean isCompiling) {
+	public List<Resource> transform(File cypriotInputFile,File outputDirectory,boolean isComm, boolean isTrigger, boolean isBridge, boolean isCompiling) {
 		CyprIoTModel cyprIoTmodel = Helpers.loadModelFromFile(cypriotInputFile, CyprIoTModel.class);
 		String networkName = cyprIoTmodel.getSpecifyNetworks().get(0).getName();
 		log.info("Transforming things according to the network : "+networkName+"...");
 		
 		List<Resource> allThingMLResources = new ArrayList<Resource>();
-		if(outputDirectory.exists()) {
-			try {
-				FileUtils.deleteDirectory(outputDirectory);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
+		//createOutputDirectoryIfNotExists(outputDirectory);
 		
 		outputDirectory.mkdirs();
 		for (Bind bind : cyprIoTmodel.getSpecifyNetworks().get(0).getHasBinds()) {
@@ -67,7 +61,7 @@ public class M2MHelper {
 				Resource resCyprIoT = getResourceFromCyprIoTFile(cypriotInputFile);
 				
 				Resource transformedThingMLModel = transformThingMLModel(resCyprIoT, resThingML, "Network2Thing", outputFile,instanceName);
-				if(isEnforcing) {
+				if(isComm) {
 					transformedThingMLModel = transformThingMLModel(resCyprIoT, transformedThingMLModel, "RuleComm", outputFile,instanceName);
 				}
 				if(isTrigger) {
@@ -97,7 +91,7 @@ public class M2MHelper {
 						} else {
 							log.info(" ✔ "+instanceName+" : ThingML generator completed without errors.");
 							File codeDir = new File(outputGenDirectory);
-							log.info("Removing empty lines..."+codeDir.getAbsolutePath());
+							log.info("Removing empty lines...");
 							StringBuilder allLocs = new StringBuilder();    
 							listFilesForFolder(codeDir,codeDir,allLocs);
 						}
@@ -115,6 +109,17 @@ public class M2MHelper {
 		}
 		log.info("All things transformed.");
 		return allThingMLResources;
+	}
+
+	private void createOutputDirectoryIfNotExists(File outputDirectory) {
+		if(outputDirectory.exists()) {
+			try {
+				FileUtils.deleteDirectory(outputDirectory);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	private Resource transformThingMLModel(Resource cypriotRes, Resource thingMLRes, String moduleName, String outputFile, String instanceName) {
@@ -182,17 +187,21 @@ public class M2MHelper {
 	}
 	
 	public void listFilesForFolder(final File folder, final File racine,StringBuilder allLocs) {
-		   for (final File fileEntry : folder.listFiles()) {
+		for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry,racine,allLocs);
 	        } else {
 	        	 	
-	        	if(fileEntry.getName().contains("MQTT")) {
+	        	if(!fileEntry.getName().contains(".thingml")) {
 	        		allLocs.append("\n"+Helpers.getContentFromFile(fileEntry));
 	        	}
 	        }
 	    }
-	    Helpers.writeStringOnFile(racine.getAbsolutePath()+File.separator+"allLocs.txt", filterString(allLocs.toString()));
+		
+		String allLoc = filterString(allLocs.toString());
+	    Helpers.writeStringOnFile(racine.getAbsolutePath()+File.separator+"allLocs.c",allLoc);
+	    String[] lines = allLoc.split("\r\n|\r|\n");
+		log.info(" lines : "+lines.length);
 	}
 	
 	private static String getFileExtension(File file) {

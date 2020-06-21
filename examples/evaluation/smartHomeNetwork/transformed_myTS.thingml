@@ -1,11 +1,12 @@
-thing myTS3 {
+thing myTS {
 	message temperatureSensorMessage(temperatureValue : UInt8)
 	message logsMessage(temperatureValue : UInt8)
+	message turnTemperatureTo()
 	provided port sendingTemperaturePort {
-		sends temperatureSensorMessage
+		sends temperatureSensorMessage receives turnTemperatureTo
 	}
 	provided port manufacturerLogsPort {
-		sends logsMessage receives logsMessage
+		sends logsMessage receives logsMessage receives turnTemperatureTo
 	}
 	function sense() do
 	end
@@ -28,7 +29,7 @@ protocol MQTT
 	@mqtt_port_number `1883`
 	@serializer `json`
 
-configuration myTS3_Cfg @compiler `posix` @debug `true` {
-	instance myTS3 : myTS3
-	connector myTS3.sendingTemperaturePort over MQTT @mqtt_publish_topic `org/atlanmod/smarthome/myMQTT/testPath`
+configuration myTS_Cfg @compiler `posix` @debug `true` {
+	instance myTS : myTS
+	connector myTS.sendingTemperaturePort over MQTT @mqtt_publish_topic `org/atlanmod/smarthome/myMQTT/testPath`
 }

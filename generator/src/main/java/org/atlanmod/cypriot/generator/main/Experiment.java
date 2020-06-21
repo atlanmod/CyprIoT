@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -22,7 +21,6 @@ public class Experiment {
 	public static int numberOfPaths = 1;
 	public static int numberOfChannels = 1;
 	public static int numberOfExecutionTimes = 1; // To experiment improve results
-	public static String targetPlatform = "POSIX";
 	
 	// Plugins
 	public static boolean isMosquitto = false;
@@ -48,10 +46,46 @@ public class Experiment {
 	
 	public static void make() {
 		
+		File outFolder = new File("/home/imad/dev/workspace/phd/CyprIoT/generator/../generator/src/test/resources/Experiment/experiment1/");
+		
+		if(outFolder.exists()) {
+			try {
+				FileUtils.deleteDirectory(outFolder);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
 		copyFileToDirectory(sendThingml, outDir);
 		copyFileToDirectory(receiveThingml, outDir);
-		int countCyLoc=0;
+//		generateForPlatform("JAVA",true,false);
+//		generateForPlatform("JAVA",false,false);
+		generateForPlatform("JAVA",false,true);
+		
+//		generateForPlatform("POSIX",true,false);
+//		generateForPlatform("POSIX",false,false);
+		generateForPlatform("POSIX",false,true);
+		
+		
+//		generateForPlatform("ARDUINO",true,false);
+//		generateForPlatform("ARDUINO",false,false);
+		generateForPlatform("ARDUINO",false,true);
+		
+		StringBuilder results = new StringBuilder();
 
+		results.append(listToString(nodesNumber, "nodeNumber"));
+		results.append(listToString(cypriotCharacters, "cypriotCharacters"));
+		results.append(listToString(thingMLAddedCharacters, "thingMLAddedCharacters"));
+		results.append(listToString(thingMLAddedCharactersMosquitto, "thingMLAddedCharactersMosquitto"));
+		results.append(listToString(thingMLAddedCharactersRabbit, "thingMLAddedCharactersRabbit"));
+		results.append(listToString(executionTimes, "executionTimes"));
+		
+		log.info("Results : \n"+results);
+		Helpers.writeStringOnFile(outDir + "results.txt", results.toString());
+	}
+
+	private static void generateForPlatform(String targetPlatform, boolean isBridge, boolean isTrigger) {
 		for (int i = 1; i <= numberOfNodes; i++) {
 			if(onlyMaxNodes) {
 				i=numberOfNodes;
@@ -72,15 +106,35 @@ public class Experiment {
 				}
 				cypriotFile.append("user " + alphabet + "\n");
 			}
+			
+			if(isBridge) {
+				cypriotFile.append("policy bridgePolicy {}");
+				cypriotFile.append("channel mqttChannel2 {\n" + 
+						"	path forwardPath\n" + 
+						"}\n");
+			}
+			
+			if(isTrigger) {
+				cypriotFile.append("policy smartPolicy {\n" + 
+						"	rule b->state:isHigh trigger:executeFunction a->function:turnTemperatureTo(\"25\")\n" + 
+						"	//rule b->state:isHigh trigger:goToState a->state:isOn\n" + 
+						"}\n");
+			}
+			
 			cypriotFile.append(getMultipleGroupElements(numberOfChannels,numberOfPaths,"(m:BINARY)"));
 			cypriotFile.append("network n {\n" + "	domain a.a.a\n");
+			if(isBridge) {
+				cypriotFile.append("	enforce bridgePolicy\n");
+			}
+			if(isTrigger) {
+				cypriotFile.append("	enforce smartPolicy\n");
+			}
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
 				cypriotFile.append("	instance " + alphabet + ":" + alphabet + " platform "+targetPlatform+" owner  "+ alphabet + "\n");
 			}
 			cypriotFile.append("	instance a:a protocol MQTT(server=\"mqtt.eclipse.org:1883\")\n");
-			countCyLoc++;
 			for (int j = charStart; j < alphabets; j++) {
 				String alphabet = String.valueOf((char) j);
 				if(j>122) alphabet = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
@@ -90,14 +144,15 @@ public class Experiment {
 					if(j>122) alphabetPath = String.valueOf((char) (j-26)).concat(String.valueOf(j-122));
 					if ((j & 1) == 0) {
 						cypriotFile.append("	bind " + alphabet + ".a => a{"+alphabetPath+"}\n");
-						countCyLoc++;
 					} else {
-						cypriotFile.append("	bind " + alphabet + ".a <= a{"+alphabetPath+"}\n");
-						countCyLoc++;
+						cypriotFile.append("	bind myBind:" + alphabet + ".a <= a{"+alphabetPath+"}\n");
 					}
 				}
 			}
-
+			if(isBridge) {
+				cypriotFile.append("\n instance myMQTT2:mqttChannel2 protocol MQTT(server=\"mqtt.eclipse.org:1883\")");
+				cypriotFile.append("\n forward myBind to myMQTT2{forwardPath}");
+			}
 			cypriotFile.append("}");
 
 			new File(outDir).mkdirs();
@@ -111,8 +166,9 @@ public class Experiment {
 			for (int n = 1; n <= numberOfExecutionTimes; n++) {
 				M2MHelper transformationHelper = new M2MHelper();
 				
-				transformationHelper.transform(cypriotGetFile, outputDir, false, false,false,isGenerateCode);
+				transformationHelper.transform(cypriotGetFile, outputDir, false, isTrigger,isBridge,isGenerateCode);
 			}
+			
 			long endTime = System.nanoTime();
 			long durationInNano = (endTime - startTime);
 			long durationInMillis = TimeUnit.NANOSECONDS.toMillis(durationInNano);
@@ -164,21 +220,7 @@ public class Experiment {
 			nodesNumber.add(i);
 			cypriotCharacters.add(removedSpace.length());
 			thingMLAddedCharacters.add(addedCharactersToThingML);
-
 		}
-		
-		StringBuilder results = new StringBuilder();
-
-		results.append(listToString(nodesNumber, "nodeNumber"));
-		results.append(listToString(cypriotCharacters, "cypriotCharacters"));
-		results.append(listToString(thingMLAddedCharacters, "thingMLAddedCharacters"));
-		results.append(listToString(thingMLAddedCharactersMosquitto, "thingMLAddedCharactersMosquitto"));
-		results.append(listToString(thingMLAddedCharactersRabbit, "thingMLAddedCharactersRabbit"));
-		results.append(listToString(executionTimes, "executionTimes"));
-		
-		log.info("Results : \n"+results);
-		log.info("CyLoc : "+countCyLoc);
-		Helpers.writeStringOnFile(outDir + "results.txt", results.toString());
 	}
 	
 	private static String getMultipleElements(int numberOfPaths,String extra) {

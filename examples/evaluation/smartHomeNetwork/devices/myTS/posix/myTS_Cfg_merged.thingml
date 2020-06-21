@@ -1,0 +1,35 @@
+thing myTS {
+	message temperatureSensorMessage(temperatureValue : UInt8)
+	message logsMessage(temperatureValue : UInt8)
+	message turnTemperatureTo()
+	provided port sendingTemperaturePort {
+		sends temperatureSensorMessage receives turnTemperatureTo
+	}
+	provided port manufacturerLogsPort {
+		sends logsMessage receives logsMessage receives turnTemperatureTo
+	}
+	function sense() do
+	end
+	statechart temperatureSensorBehavior init isSensing {
+		state isSensing {
+			on entry println "isSensing" , sense()
+		}
+		state isHigh {
+			on entry println "idle"
+		}
+	}
+}
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+protocol MQTT
+	@mqtt_broker_address `mqtt.atlanmod.org`
+	@mqtt_port_number `1883`
+	@serializer `json`
+
+configuration myTS_Cfg @compiler `posix` @debug `true` {
+	instance myTS : myTS
+	connector myTS.sendingTemperaturePort over MQTT @mqtt_publish_topic `org/atlanmod/smarthome/myMQTT/testPath`
+}
