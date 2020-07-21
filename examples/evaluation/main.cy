@@ -13,7 +13,6 @@ policy smartPolicy {
 	rule myTS->state:isHigh trigger:executeFunction mySAC->function:turnTemperatureTo("25")
 	//rule myTS->state:isHigh trigger:goToState mySAC->state:isOn
 }
-
 network smartHomeNetwork {
 	domain org.atlanmod.smarthome
 	enforce smartPolicy

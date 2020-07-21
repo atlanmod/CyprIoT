@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.atlanmod.cypriot.cyprIoT.PubSubProtocol
+import org.atlanmod.cypriot.cyprIoT.ChannelProtocol
 
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
@@ -17,7 +17,7 @@ class CypriotProposalProvider extends AbstractCypriotProposalProvider {
 	
 	
 	override completeChannelToInstanciate_TargetedProtocol(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		PubSubProtocol.VALUES.forEach[v |
+		ChannelProtocol.VALUES.forEach[v |
 			val String completion = v.literal
 			acceptor.accept(createCompletionProposal(completion,context))
 		]

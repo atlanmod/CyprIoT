@@ -1,27 +1,56 @@
-thing temperatureSensor {
+thing temperatureSensor 
+@c_header "#include <DHT.h>"
+@c_header "dht sensor;"
+{
+	
+	property currentTemperature : UInt8 // variable storing the current temperature
+	property sensorPin : UInt8 = 8 // the pin where to read the data
+	property samplingRate : UInt8 = 3000 // the sampling rate
 	
 	message temperatureSensorMessage(temperatureValue: UInt8)
+	
 	provided port sendingTemperaturePort {
-		sends temperatureSensorMessage
+		sends temperatureSensorMessage // the sending port
 	}
-	message logsMessage(temperatureValue: UInt8)
-	provided port manufacturerLogsPort {
-		receives logsMessage
-		sends logsMessage
-	}
-	function sense() do end
-	statechart temperatureSensorBehavior init isSensing {
-		state isSensing {
-			on entry println "isSensing", sense()
+	
+	function sense() do
+		`sensor.read11(`&sensorPin&`)` // embedding arduino code to read the temperature; &sensorPin& sets the value 8 in the low-level code
+		currentTemperature = `sensor.temperature` // assiging the temperature value to the currentTemperature property
+	end
+	
+	statechart temperatureSensorBehavior init initialize {
+		state initialize {
+			on entry do 
+				println "initialize"
+				`sensor.begin();`
+			end
+			transition -> senseTemperature
 		}
-		state idle {
-			on entry println "idle"
+		state senseTemperature {
+			on entry do
+				println "senseTemperature"
+				sense()
+			end
+			transition -> regulateSampling
+		}
+		state regulateSampling {
+			on entry do 
+				println "regulateSampling"
+				`delay(`&samplingRate&`)` // setting the sampling rate
+			end
+			transition -> sendTemperature
+		}
+		state sendTemperature {
+			on entry do
+				println "sendTemperature" 
+				sendingTemperaturePort!temperatureSensorMessage(currentTemperature) // sending the current temperature via the sending port
+			end
 		}
 	}
 }
 
-datatype UInt8<1>
-    @type_checker "Integer"
+datatype UInt8<1> // Mapping the type into their low-level equivalent
+	@type_checker "Integer"
 	@c_type "uint8_t"
 	@java_type "byte"
 	@js_type "byte"

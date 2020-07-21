@@ -351,7 +351,6 @@ helper context ThingML!PlatformAnnotation def : enforceInstanceThingAndUser(rule
 	thisModule.firstNetwork().hasBinds->exists(b | b.actionOfBindConverted().mirrorSendOrReceive()=thisModule.bindOfInputThing().actionOfBindConverted() and b.bindsInstanceThing.typeThing.owner.name=rulecomm.commObject.objectOther.name and thisModule.bindOfInputThing().isThingInBind() and b.channelToBind.paths->exists(p | self.value=thisModule.bindOfInputThing().getFullPathName(p)))
 ;
 
--- Problem with order of rules : What to do ?
 helper context ThingML!PlatformAnnotation def : enforceAnyCommRule() : Boolean =
 	not(thisModule.firstNetwork().collectEnforcedPoliciesInNetwork()
 		->forAll(p | p.collectRuleCommFromPolicy()

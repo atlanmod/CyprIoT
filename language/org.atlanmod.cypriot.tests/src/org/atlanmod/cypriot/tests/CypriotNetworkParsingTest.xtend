@@ -149,7 +149,7 @@ class CypriotNetworkParsingTest {
 		val thingInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
 		Assert.assertTrue(thingInstanciate instanceof InstanceChannel)
 		result.assertError(CyprIoTPackage::eINSTANCE.network, CypriotValidator.INSTANCEPUBSUB_UNIQUENESS)
-		Assert.assertNotNull((thingInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((thingInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -184,7 +184,7 @@ class CypriotNetworkParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstanceChannel)
 		Assert.assertTrue((pubsubInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("MQTT"))
-		Assert.assertNotNull((pubsubInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((pubsubInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -203,7 +203,7 @@ class CypriotNetworkParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(pubsubInstanciate instanceof InstanceChannel)
 		Assert.assertTrue((pubsubInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("AMQP"))
-		Assert.assertNotNull((pubsubInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((pubsubInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -222,7 +222,7 @@ class CypriotNetworkParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstanceChannel)
 		Assert.assertTrue((ptpInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("HTTP"))
-		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -241,7 +241,7 @@ class CypriotNetworkParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstanceChannel)
 		Assert.assertTrue((ptpInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("COAP"))
-		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -260,7 +260,7 @@ class CypriotNetworkParsingTest {
 		Assert.assertNotNull(result)
 		Assert.assertTrue(ptpInstanciate instanceof InstanceChannel)
 		Assert.assertTrue((ptpInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("UPNP"))
-		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 
@@ -278,7 +278,7 @@ class CypriotNetworkParsingTest {
 		result.assertNoErrors
 		Assert.assertNotNull(result)
 		Assert.assertTrue((ptpInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("ZIGBEE"))
-		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.pubSubToInstantiate)
+		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
 		Assert.assertTrue(result.eResource.errors.isEmpty)
 	}
 

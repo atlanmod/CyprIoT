@@ -4,7 +4,7 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import org.atlanmod.cypriot.cyprIoT.Bind
-import org.atlanmod.cypriot.cyprIoT.BridgeSubject
+import org.atlanmod.cypriot.cyprIoT.ForwardSubject
 import org.atlanmod.cypriot.cyprIoT.ChannelToBind
 import org.atlanmod.cypriot.cyprIoT.CyprIoTPackage
 import org.atlanmod.cypriot.cyprIoT.Network
@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.atlanmod.cypriot.cyprIoT.ChannelAny
-
 /**
  * This class contains custom scoping description.
  * 
@@ -37,11 +35,11 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allRoles(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingToInstanciate_ThingToInstantiate) {
 			return Scopes.scopeFor(Helpers.allThings(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.channelToInstanciate_PubSubToInstantiate) {
+		} else if (reference == cypriotInstance.channelToInstanciate_ChannelToInstantiate) {
 			return Scopes.scopeFor(Helpers.allPusSub(Helpers.findContainingModel(context)))
 		} else if (reference == cypriotInstance.thingToInstanciate_Owner) {
 			return Scopes.scopeFor(Helpers.allUsers(Helpers.findContainingModel(context)))
-		} else if (reference == cypriotInstance.path_SubpathOf) {
+		} else if (reference == cypriotInstance.path_Fork) {
 			return Scopes.scopeFor(Helpers.allTopicsInPubSub(context.eContainer as TypeChannel))
 		} else if (reference == cypriotInstance.bind_BindsInstanceThing) {
 			return Scopes.scopeFor(Helpers.allThinginstances(context.eContainer as Network))
@@ -53,9 +51,9 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 			return Scopes.scopeFor(Helpers.allPubSubinstances(context.eContainer.eContainer as Network))
 		} else if (reference == cypriotInstance.channelToBind_Paths) {
 			return Scopes.scopeFor(Helpers.allTopics((context as ChannelToBind).targetedChannelInstance))
-		} else if (reference == cypriotInstance.networkBridge_BridgeSubject) {
+		} else if (reference == cypriotInstance.networkForward_ForwardSubject) {
 			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ForwardSubject)
 			return Scopes.scopeFor(candidates)	
 		} else if (reference == cypriotInstance.policiesEnforcement_HasEnforcedPolicies) {
 			return Scopes.scopeFor(Helpers.allPolicies(Helpers.findContainingModel(context)))
@@ -85,26 +83,15 @@ class CypriotScopeProvider extends AbstractCypriotScopeProvider {
 		} else if (reference == cypriotInstance.bind_PortToBindBack) {
 			val cross = Helpers.findContainingBind(context).bindsInstanceThingBack.typeThing.thingToInstantiate
 			return Scopes.scopeFor(Helpers.getAllPortsThing(cross))
-		}else if (reference == cypriotInstance.getPort_Port) {
+		}else if (reference == cypriotInstance.thingWithPort_Port) {
 			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
 			return Scopes.scopeFor(Helpers.getAllPortsThingAny(cross))
-		} else if (reference == cypriotInstance.getState_State) {
+		} else if (reference == cypriotInstance.thingWithState_State) {
 			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
 			return Scopes.scopeFor(Helpers.getAllStatesThingAny(cross))
-		} else if (reference == cypriotInstance.getFunction_Function) {
+		} else if (reference == cypriotInstance.thingWithFunction_Function) {
 			val cross = Helpers.allContainedCrossThingAny(context.eContainer)
 			return Scopes.scopeFor(Helpers.getAllFunctionsThingAny(cross))
-		} else if (reference == cypriotInstance.channelWithPath_Channel) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ChannelAny)
-			return Scopes.scopeFor(candidates)	
-		} else if (reference == cypriotInstance.getPath_Path) {
-			val cross = Helpers.allContainedCrossPubSub(context.eContainer)
-			if(cross!==null) return Scopes.scopeFor(Helpers.allTopicsInPubSub(cross))
-		} else if (reference == cypriotInstance.actionTrigger_ThingToTransition) {
-			val rootElement = EcoreUtil2.getRootContainer(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, ThingAny)
-			return Scopes.scopeFor(candidates)	
 		} else {
 			System.err.println("INFO: Resolving reference : " + reference.name + " in Class " +
 				(reference.eContainer as ENamedElement).getName);

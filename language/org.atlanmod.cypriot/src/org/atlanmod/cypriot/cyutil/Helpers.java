@@ -21,7 +21,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.atlanmod.cypriot.CypriotStandaloneSetup;
 import org.atlanmod.cypriot.cyprIoT.Bind;
-import org.atlanmod.cypriot.cyprIoT.BridgeSubject;
+import org.atlanmod.cypriot.cyprIoT.ForwardSubject;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.Import;
 import org.atlanmod.cypriot.cyprIoT.Instance;
@@ -189,7 +189,7 @@ public class Helpers {
 			typeChannel = allContainedCrossTypeChannel(parent);
 		} else {
 			if(allContainedCrossInstanceChannel(parent)!=null)
-			typeChannel = allContainedCrossInstanceChannel(parent).getTypeChannel().getPubSubToInstantiate();
+			typeChannel = allContainedCrossInstanceChannel(parent).getTypeChannel().getChannelToInstantiate();
 		}
 		
 		return typeChannel;
@@ -302,7 +302,7 @@ public class Helpers {
 	
 	public static ArrayList<Path> allTopics(InstanceChannel pubSub) {
 		ArrayList<Path> result = new ArrayList<Path>();
-		for (Path t : pubSub.getTypeChannel().getPubSubToInstantiate().getHasPaths()) {
+		for (Path t : pubSub.getTypeChannel().getChannelToInstantiate().getHasPaths()) {
 			result.add((Path) t);
 		}
 		return result;
@@ -378,13 +378,13 @@ public class Helpers {
 		return result;
 	}
 
-	public static ArrayList<BridgeSubject> allBridgeSubjects(CyprIoTModel model) {
-		ArrayList<BridgeSubject> result = new ArrayList<BridgeSubject>();
+	public static ArrayList<ForwardSubject> allBridgeSubjects(CyprIoTModel model) {
+		ArrayList<ForwardSubject> result = new ArrayList<ForwardSubject>();
 		for (CyprIoTModel m : allCypriotModels(model)) {
 			EObject rootElement = EcoreUtil2.getRootContainer(m);
-			List<BridgeSubject> subjects = EcoreUtil2.getAllContentsOfType(rootElement, BridgeSubject.class);
-			for (BridgeSubject bridgeSubject : subjects) {
-				if (bridgeSubject instanceof BridgeSubject) {
+			List<ForwardSubject> subjects = EcoreUtil2.getAllContentsOfType(rootElement, ForwardSubject.class);
+			for (ForwardSubject bridgeSubject : subjects) {
+				if (bridgeSubject instanceof ForwardSubject) {
 					result.add(bridgeSubject);
 				}
 			}

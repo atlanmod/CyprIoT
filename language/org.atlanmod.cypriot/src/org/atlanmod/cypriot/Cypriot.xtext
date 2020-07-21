@@ -4,15 +4,15 @@ generate cyprIoT "http://www.atlanmod.org/CyprIoT"
 import "http://www.thingml.org/xtext/ThingML" as thingml
 
 CyprIoTModel returns CyprIoTModel:
-		imports+=Import*
-		(
-		declareTime+=Time |
-		declareThings+=TypeThing | 
-		declareChannels+=TypeChannel|
-		specifyNetworks+=Network |
-		declareUsers+=User |
-		specifyPolicies+=Policy |
-		declareRoles+=Role)*;
+	imports+=Import*
+	(declareTime+=Time |
+	declareThings+=TypeThing | 
+	declareChannels+=TypeChannel|
+	specifyNetworks+=Network |
+	declareUsers+=User |
+	specifyPolicies+=Policy |
+	declareRoles+=Role
+	)*;
 
 Import:
 	'import' importURI=STRING 
@@ -21,7 +21,7 @@ Import:
 NamedElement:
 	User | Role | TypeThing | Network | Path | TypeChannel |
 	InstanceThing | InstanceChannel | 
-	Bind |  Policy | ChannelToBind | Rule | ThingAny | ChannelAny | SubjectOther | ObjectOther |
+	Bind | ChannelToBind | ObjectOther | TypeChannel | InstanceChannel | User | Role | Path | Policy | Rule | ThingAny | SubjectOther | ObjectOther |
 	";" name=ID
 ;
 
@@ -39,7 +39,31 @@ TypeThing:
 		('assigned' assignedRoles+=[Role] ( "," assignedRoles+=[Role])*)?
 ;
 
-// TODO Dynamicity of the configuration
+TypeChannel:
+	'channel' name=ID (('import' importPath=STRING) | ('{'
+		(hasPaths+=Path)*
+	'}'))
+;
+
+Path:
+	'path'  name=ID ('=' customName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('fork' fork+=[Path])?
+;
+
+enum Serializer:
+	JSON='JSON' | 
+	BINARY='BINARY'
+;
+
+Network:
+	'network' name=ID '{'
+		domain=Domain
+		(hasPolicyEnforcement=PoliciesEnforcement)?
+		(instantiate+=Instance |
+		hasBinds+=Bind |
+		hasNetworkForwards+=NetworkForward
+		)*
+	'}'
+;
 
 PoliciesEnforcement :
 	'enforce' hasEnforcedPolicies+=[Policy] (strategy+=EnforcementStrategies)? ( "," hasEnforcedPolicies+=[Policy] (strategy+=EnforcementStrategies)?)*
@@ -47,23 +71,20 @@ PoliciesEnforcement :
 
 enum EnforcementStrategies:
 	BESTEFFORT='Best-Effort' | 
-	NOTRUST='No-Trust' |
-	TRUSTD1='Trust-D1' | // A thing trust the thing with deep 1 that it is not going to send to unless it is permitted, we tolerate that that this thing can communicate with a denied thing
-	TRUSTD2='Trust-D2' // A thing trust the things with deep 1 and 2 that they are not going to send to unless they are permitted
+	DENYFIRST='Deny-First' |
+	ALLOWFIRST='Allow-First'
 ;
 
 Domain:
 	'domain' name=DomainId
 ;
-Network:
-	'network' name=ID '{'
-		domain=Domain
-		(hasPolicyEnforcement=PoliciesEnforcement)?
-		(instantiate+=Instance |
-		hasBinds+=Bind |
-		hasNetworkBridges+=NetworkBridge
-		)*
-	'}'
+
+DomainId:
+	VALIDID (=>'.' VALIDID)+
+;
+
+NetworkForward:
+	'forward' (name=ID ':')? forwardSubject=[ForwardSubject] 'to' forwardToChannel=ChannelToBind
 ;
 
 Instance:
@@ -83,26 +104,11 @@ ThingToInstanciate :
 ;
 
 ChannelToInstanciate :
-	pubSubToInstantiate=[TypeChannel] 'protocol' targetedProtocol=PubSubProtocol ('(''server=' server=STRING')')?
-;
-
-TypeChannel:
-	'channel' name=ID (('import' importPath=STRING) | ('{'
-		(hasPaths+=Path)*
-	'}'))
-;
-
-Path:
-	'path'  name=ID ('=' customName=STRING)? ('(' acceptedMessage=[thingml::Message] (':' serializer=Serializer)? ')')?  ('subpathOf' subpathOf+=[Path])?
-;
-
-enum Serializer:
-	JSON='JSON' | 
-	BINARY='BINARY'
+	channelToInstantiate=[TypeChannel] 'protocol' targetedProtocol=ChannelProtocol ('(''server=' server=STRING')')?
 ;
 
 Bind:
-	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')?(('.' portToBind=[thingml::Port])  | noderedPort=NODEREDPORT) bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
+	'bind'	(name=ID ':')? bindsInstanceThing=[InstanceThing] ('['thingPosition=INT']')? ('.' portToBind=[thingml::Port]) bindAction=BindAction channelToBind=ChannelToBind ((bindActionBack=BindAction) bindsInstanceThingBack=[InstanceThing]"." portToBindBack=[thingml::Port])?
 ;
 
 enum Platform:
@@ -111,16 +117,14 @@ enum Platform:
 	JAVA='JAVA' |
 	ARDUINO='ARDUINO' |
 	JAVASCRIPT='JAVASCRIPT' |
-	GO='GO'|
-	NODERED='NODERED'
+	GO='GO'
 ;
 
-enum PubSubProtocol:
+enum ChannelProtocol:
 	MQTT='MQTT' | 
 	AMQP='AMQP' |
 	HTTP='HTTP' | 
 	COAP='COAP' |
-	UPNP='UPNP' |
 	ZIGBEE='ZIGBEE' |
 	ZWAVE='ZWAVE'
 ;
@@ -131,12 +135,21 @@ enum BindAction:
 ;
 
 ChannelToBind:
-	 targetedChannelInstance=[InstanceChannel] '{' paths+=[Path] ( "," paths+=[Path])*'}' /* TODO | filterConnectionPointsUsingRegex=RegularExpression*/
+	 targetedChannelInstance=[InstanceChannel] '{' paths+=[Path] ( "," paths+=[Path])*'}'
 ;
 
-BridgeSubject:
+ForwardSubject:
 	Bind
 ;
+
+IntLiteral:
+	INT
+;
+
+VALIDID:
+	ID;
+
+// Policy
 
 Policy:
 	'policy' name=ID '{'
@@ -145,7 +158,7 @@ Policy:
 ;
 
 Rule:
-	(RuleComm | RuleTrigger | RuleBridge) /*(conditions=Conditions)?*/
+	(RuleComm | RuleTrigger) conditions=Conditions
 
 ;
 
@@ -157,20 +170,12 @@ RuleTrigger:
 	'rule' (name=ID ':')? thingWithState=ThingWithState effectTrigger=EffectTrigger
 ;
 
-RuleBridge:
-	'rule' (name=ID ':')? bridgeSubject=BridgeSubjectObject effectBridge=EffectBridge bridgeObject=BridgeSubjectObject
-;
-
-BridgeSubjectObject:
-	 ChannelWithPath
-;
-
 CommObject :
 	thingWithStateOrPort=ThingWithStateOrPort | objectOther=[ObjectOther]
 ;
 
 ObjectOther:
-	Role | User | ThingAny | Path | TypeChannel
+	Role | User | InstanceThing | TypeThing | Path | TypeChannel
 ;
 
 CommSubject :
@@ -181,59 +186,25 @@ ThingAny:
 	InstanceThing | TypeThing
 ;
 
-ChannelAny:
-	InstanceChannel | TypeChannel
-;
-
 SubjectOther:
-	Role | User | ThingAny
+	Role | User | InstanceThing | TypeThing
 ;
 
 ThingWithStateOrPort:
-	ThingWithPort | ThingWithState | ThingWithProperty
-;
-
-ChannelWithPath:
-	channel=[ChannelAny] '->' getPath=GetPath
+	ThingWithPort | ThingWithState
 ;
 
 ThingWithPort:
-	thing=[ThingAny] '->' getPort=GetPort
+	thing=[ThingAny] '->' 'port:' port=[thingml::Port]
 ;
 
 ThingWithState:
-	thing=[ThingAny] '->' getState=GetState
-;
-
-ThingWithProperty:
-	thing=[ThingAny] '->' getProperty=GetProperty '=' propertyValue=STRING
+	thing=[ThingAny] '->' 'state:' state=[thingml::State]
 ;
 
 ThingWithFunction:
-	thing=[ThingAny] '->' getFunction=GetFunction
+	thing=[ThingAny] '->' 'function:' function=[thingml::Function] ('(' (parameters+=STRING) (',' (parameters+=STRING))* ')')?
 ;
-
-GetPath:
-	'path:' path=[Path]
-;
-
-GetPort:
-	'port:' port=[thingml::Port]
-;
-
-GetState:
-	'state:' state=[thingml::State]
-;
-
-GetProperty:
-	'property:' state=[thingml::Property]
-;
-
-GetFunction:
-	'function:' function=[thingml::Function] ('(' (parameters+=STRING | propertyParameters+= [thingml::Property] ) (',' (parameters+=STRING| propertyParameters+= [thingml::Property]))* ')')? // TODO to finish 
-;
-
-
 
 EffectComm:
 	(deny?='deny:' | allow?='allow:') actionComm=ActionComm
@@ -243,12 +214,7 @@ EffectTrigger:
 	'trigger:' actionTrigger=ActionTrigger
 ;
 
-EffectBridge:
-	'bridge:' actionBridge=ActionBridge
-;
-
 ActionTrigger:
-	(performTransition='performTransition' thingToTransition=[ThingAny] ('rank='transitionRank=INT)?) | 
 	(goToState='goToState' thingWithState=ThingWithState) | 
 	(executeFunction='executeFunction' thingWithFunction=ThingWithFunction)
 ;
@@ -259,37 +225,11 @@ enum ActionComm:
 	sendreceive='send-receive'
 ;
 
-enum ActionBridge:
-	to='to'
-;
-
 Conditions:
-	'when' conditionExpression=ConditionsExpression
+	'when' conditionExpression=Time
 ;
 
-ConditionsExpression: OrExpression;
-
-OrExpression returns Expression:
-	AndExpression ({OrExpression.lhs=current} "or" rhs=AndExpression)*
-;
-
-AndExpression returns Expression:
-	ExpressionAttribute ({AndExpression.lhs=current} "and" rhs=ExpressionAttribute)*
-;
-
-ExpressionAttribute:
-	attribute=[ThingAny] '->' ((currentState?='currentState:' | nextState?='nextState:') subjectState=[thingml::State] | ( 'property:' subjectProperty=[thingml::Property] | 'message:' subjectMessage=[thingml::Message]'.'parameterMessage=[thingml::Parameter]) '=' subjectContentEqual=STRING)
-;
-
-DomainId:
-	VALIDID (=>'.' VALIDID)+
-;
-
-NetworkBridge:
-	'forward' (name=ID ':')? bridgeSubject=[BridgeSubject] actionBridge=ActionBridge bridgeToChannel=ChannelToBind
-;
-
-Time: // Cron syntax
+Time:
 	'time' name=ID ':'cronExpression=CronExpression
 ;
 
@@ -323,21 +263,3 @@ PeriodicCronElement hidden():
 RangeCronList hidden():
 	elements+=RangeCronElement (',' elements+=RangeCronElement)*
 ;
-
-IntLiteral:
-	INT
-;
-
-VALIDID:
-	ID;
-
-terminal NODEREDPORT:
-	'.node'('1'..'9')+;
-
-// Terminals
-	
-//terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
-//
-//terminal INT returns ecore::ELong: ('0'..'9')+;
-//
-//terminal STRING: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"';

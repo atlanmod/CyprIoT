@@ -185,7 +185,7 @@ class CypriotDeclarationParsingTest {
 			}
 		''')
 		val topics = result.declareChannels.get(0).hasPaths
-		val subtopics = topics.get(1).subpathOf
+		val subtopics = topics.get(1).fork
 		result.assertNoErrors
 		Assert.assertEquals("topic1", topics.get(0).name)
 		Assert.assertEquals("topic1", subtopics.get(0).name)
