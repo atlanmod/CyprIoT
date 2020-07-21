@@ -49,11 +49,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext.version}/</url>
 		</repository>
-		<repository>
-			<id>ThingML Update Site</id>
-			<layout>p2</layout>
-			<url>http://thingml.org/dist/update2/</url>
-		</repository>
 	</repositories>
 
 	<build>

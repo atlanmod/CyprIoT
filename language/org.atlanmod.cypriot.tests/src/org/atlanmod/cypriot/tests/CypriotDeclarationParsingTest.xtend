@@ -181,7 +181,7 @@ class CypriotDeclarationParsingTest {
 		val result = parseHelper.parse('''
 			channel anypubsub {
 				path topic1 
-				path topic2 subpathOf topic1
+				path topic2 fork topic1
 			}
 		''')
 		val topics = result.declareChannels.get(0).hasPaths

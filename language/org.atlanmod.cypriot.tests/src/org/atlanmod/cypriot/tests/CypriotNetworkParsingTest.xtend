@@ -246,25 +246,6 @@ class CypriotNetworkParsingTest {
 	}
 
 	@Test
-	def void NetworkWithAnInstancePTPChannelUPNP() {
-		val result = parseHelper.parse('''
-			channel anychannel {
-			}
-			network anynet {
-				domain org.atlanmod
-				instance ch1:anychannel protocol UPNP
-			}
-		''')
-		val ptpInstanciate = result.specifyNetworks.get(0).instantiate.get(0)
-		result.assertNoErrors
-		Assert.assertNotNull(result)
-		Assert.assertTrue(ptpInstanciate instanceof InstanceChannel)
-		Assert.assertTrue((ptpInstanciate as InstanceChannel).typeChannel.targetedProtocol.getName.equals("UPNP"))
-		Assert.assertNotNull((ptpInstanciate as InstanceChannel).typeChannel.channelToInstantiate)
-		Assert.assertTrue(result.eResource.errors.isEmpty)
-	}
-
-	@Test
 	def void NetworkWithAnInstancePTPChannelZIGBEE() {
 		val result = parseHelper.parse('''
 			channel anychannel {
