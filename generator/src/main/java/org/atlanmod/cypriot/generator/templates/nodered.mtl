@@ -15,7 +15,7 @@
       "name":"",
       "topic":"[aNetwork.domain.name.replaceAll('\\.', '/')/]/[bind.channelToBind.targetedChannelInstance.name/]/[topic.name/]",
       "qos":"0",
-      "broker":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name/]",
+      "broker":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.channelToInstantiate.name/]",
       "x":391,
       "y":308,
       "wires":['['/]
@@ -40,7 +40,7 @@
       [']'/]
    },
    {
-      "id":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.pubSubToInstantiate.name/]",
+      "id":"[bind.channelToBind.targetedChannelInstance.name/].[bind.channelToBind.targetedChannelInstance.typeChannel.channelToInstantiate.name/]",
       "type":"mqtt-broker",
       "z":"",
       "broker":"[bind.channelToBind.targetedChannelInstance.typeChannel.server.strtok(':', 0)/]",

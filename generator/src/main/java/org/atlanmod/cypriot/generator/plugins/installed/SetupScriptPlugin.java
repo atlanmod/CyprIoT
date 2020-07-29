@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.atlanmod.cypriot.cyprIoT.Bind;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.cyprIoT.InstanceThing;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 public class SetupScriptPlugin implements Plugin {
 
@@ -31,6 +33,11 @@ public class SetupScriptPlugin implements Plugin {
 	@Override
 	public CyprIoTModel initiliaze() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ArrayList<ThingMLModel> load(CyprIoTModel model) {
 		return null;
 	}
 

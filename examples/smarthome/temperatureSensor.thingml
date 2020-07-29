@@ -45,6 +45,7 @@ thing temperatureSensor
 				println "sendTemperature" 
 				sendingTemperaturePort!temperatureSensorMessage(currentTemperature) // sending the current temperature via the sending port
 			end
+			transition -> senseTemperature
 		}
 	}
 }

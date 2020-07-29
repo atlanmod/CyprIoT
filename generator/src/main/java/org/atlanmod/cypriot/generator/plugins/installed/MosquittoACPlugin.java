@@ -1,11 +1,13 @@
 package org.atlanmod.cypriot.generator.plugins.installed;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.Logger;
 import org.atlanmod.cypriot.cyprIoT.CyprIoTModel;
 import org.atlanmod.cypriot.generator.main.M2THelper;
 import org.atlanmod.cypriot.generator.plugins.Plugin;
+import org.thingml.xtext.thingML.ThingMLModel;
 
 public class MosquittoACPlugin implements Plugin {
 
@@ -21,6 +23,11 @@ public class MosquittoACPlugin implements Plugin {
 
 	@Override
 	public CyprIoTModel initiliaze() {
+		return null;
+	}
+	
+	@Override
+	public ArrayList<ThingMLModel> load(CyprIoTModel model) {
 		return null;
 	}
 

@@ -18,13 +18,6 @@ Import:
 	'import' importURI=STRING 
 ;
 
-NamedElement:
-	User | Role | TypeThing | Network | Path | TypeChannel |
-	InstanceThing | InstanceChannel | 
-	Bind | ChannelToBind | ObjectOther | TypeChannel | InstanceChannel | User | Role | Path | Policy | Rule | ThingAny | SubjectOther | ObjectOther |
-	";" name=ID
-;
-
 Role:
 	'role' name=ID
 ;
@@ -262,4 +255,11 @@ PeriodicCronElement hidden():
 
 RangeCronList hidden():
 	elements+=RangeCronElement (',' elements+=RangeCronElement)*
+;
+
+NamedElement:
+	User | Role | TypeThing | Network | Path | TypeChannel |
+	InstanceThing | InstanceChannel | 
+	Bind | ChannelToBind | ObjectOther | TypeChannel | InstanceChannel | User | Role | Path | Policy | Rule | ThingAny | SubjectOther | ObjectOther |
+	";" name=ID
 ;

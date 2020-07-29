@@ -21,7 +21,7 @@ public class App implements Runnable {
 	public static final boolean isTrigger = false;
 	public static final boolean isBridge = false;
 	public static final String CONFIG_FILE = "../generator/config.cfg";
-	public static final boolean experimentMode = true;
+	public static final boolean experimentMode = false;
 
 	static final Logger log = LogManager.getLogger(App.class.getName());
 	@Option(names = { "-i",
