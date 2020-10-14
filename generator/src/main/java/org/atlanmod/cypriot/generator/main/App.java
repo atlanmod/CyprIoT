@@ -16,7 +16,7 @@ import picocli.CommandLine.Option;
 @Command(name = "cypriot", mixinStandardHelpOptions = true)
 public class App implements Runnable {
 	
-	public static final String CYPRIOT_FILE = "../examples/evaluation/main.cy";
+	public static final String CYPRIOT_FILE = "../examples/demo-models2020/main.cy";
 	//public static final String CYPRIOT_FILE = "../generator/src/test/resources/1_Platform_1Topic_Scenarios/1_TwoThings/main.cy";
 	public static final boolean isTrigger = false;
 	public static final boolean isBridge = false;
@@ -39,7 +39,7 @@ public class App implements Runnable {
 	boolean isGenerate=true;
 	
 	@Option(names = { "-e", "--enforce" }, description = "Enforce communication control rules")
-	boolean isEnforcing=true;
+	boolean isEnforcing=false;
 	
 	@Option(names = { "-d", "--disable-plugins" }, description = "Disable plugins")
 	boolean isPluginEnabled=true;

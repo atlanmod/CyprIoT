@@ -82,7 +82,7 @@ network smartHomeNetwork {
 	
 	// Sending Sensed Temperature to Air Conditioner
 	bind myTemperature.sendingTemperaturePort => temperatureZigbeeChannel{sensedTemperature}
-	bind myTemperature.manufacturerLogsPort => myZigbeeChanel{maintenanceLogs}
+//	bind myTemperature.manufacturerLogsPort => myZigbeeChanel{maintenanceLogs}
 	bind myAirConditioner.receivingTemperaturePort <= temperatureZigbeeChannel{sensedTemperature}
 	
 	// Receive temperature in Zwave channel

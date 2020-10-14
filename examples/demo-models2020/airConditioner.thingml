@@ -1,0 +1,31 @@
+thing heater {
+	
+	message temperatureSensorMessage(temperatureValue: UInt8)
+	provided port receivingTemperaturePort {
+		receives temperatureSensorMessage
+	}
+	
+	property preferedTemperature : UInt8
+	
+	function turnTemperatureTo(value : UInt8) do 
+		preferedTemperature = value
+	end
+	
+	statechart heaterBehavior init isOff {
+		state isOff {
+			on entry println "isOff"
+			transition ->isOn
+			event e : receivingTemperaturePort?temperatureSensorMessage
+			action turnTemperatureTo(e.temperatureValue)
+		}
+		state isOn {
+			on entry println "isOn", turnTemperatureTo(preferedTemperature)
+		}
+	}
+}
+
+datatype UInt8<1>
+    @type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"

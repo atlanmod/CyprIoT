@@ -69,13 +69,13 @@ helper context CyprIoT!Bind def : getFullPathName(p : CyprIoT!Path) : String =
 	endif
 ;
 
-helper context CyprIoT!RuleBridge def : getFullPathNameBridge(n : CyprIoT!Network,p : CyprIoT!Path) : String =
-	if(p.customName.oclIsUndefined()) 
-		then n.domain.name.replaceDotsWithSlashInDomain()+'/'+self.bridgeObject.oclAsType(CyprIoT!ChannelWithPath).channel.name+'/'+p.name
-	else 
-		p.customName
-	endif
-;
+--helper context CyprIoT!RuleBridge def : getFullPathNameBridge(n : CyprIoT!Network,p : CyprIoT!Path) : String =
+--	if(p.customName.oclIsUndefined()) 
+--		then n.domain.name.replaceDotsWithSlashInDomain()+'/'+self.bridgeObject.oclAsType(CyprIoT!ChannelWithPath).channel.name+'/'+p.name
+--	else 
+--		p.customName
+--	endif
+--;
 
 helper context CyprIoT!Bind def : isBindMatchesInputThing() : Boolean =
 	self.getInstanceThingNameFromBind()=thisModule.nameOfInputThing()

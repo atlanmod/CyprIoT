@@ -91,7 +91,7 @@ public class M2MHelper {
 						} else {
 							log.info(" ✔ "+instanceName+" : ThingML generator completed without errors.");
 							File codeDir = new File(outputGenDirectory);
-							log.info("Removing empty lines...");
+							log.debug("Removing empty lines...");
 							StringBuilder allLocs = new StringBuilder();    
 							listFilesForFolder(codeDir,codeDir,allLocs);
 						}
@@ -201,7 +201,7 @@ public class M2MHelper {
 		String allLoc = filterString(allLocs.toString());
 	    Helpers.writeStringOnFile(racine.getAbsolutePath()+File.separator+"allLocs.c",allLoc);
 	    String[] lines = allLoc.split("\r\n|\r|\n");
-		log.info(" lines : "+lines.length);
+		log.debug(" lines : "+lines.length);
 	}
 	
 	private static String getFileExtension(File file) {
