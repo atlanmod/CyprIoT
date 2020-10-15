@@ -1,4 +1,4 @@
-thing airConditionner {
+thing display {
 	message temperatureSensorMessage(temperatureValue: UInt8)
 	provided port receivingTemperaturePort {
 		receives temperatureSensorMessage
@@ -8,7 +8,7 @@ thing airConditionner {
 	
 	function turnTemperatureTo(value : UInt8) do 
 		preferedTemperature = value
-		println "Air Conditioner receiving : ", preferedTemperature
+		println "Display receiving : ", preferedTemperature
 	end
 	
 	statechart behavior init recState {

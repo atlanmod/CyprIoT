@@ -1,27 +1,28 @@
 thing temperatureSensor {
-	
 	message temperatureSensorMessage(temperatureValue: UInt8)
 	provided port sendingTemperaturePort {
 		sends temperatureSensorMessage
 	}
-	message logsMessage(temperatureValue: UInt8)
-	provided port manufacturerLogsPort {
-		receives logsMessage
-		sends logsMessage
-	}
-	function sense() do end
 	statechart temperatureSensorBehavior init isSensing {
 		state isSensing {
-			on entry println "isSensing", sense()
-		}
-		state isHigh {
-			on entry println "idle"
+			on entry
+				do
+				while(true) do
+					println  "Sending..."
+					sendingTemperaturePort!temperatureSensorMessage(0)
+				`sleep(5);`
+					sendingTemperaturePort!temperatureSensorMessage(1)
+				`sleep(5);`
+					sendingTemperaturePort!temperatureSensorMessage(2)
+				`sleep(5);`
+					sendingTemperaturePort!temperatureSensorMessage(3)
+				end
+			end
 		}
 	}
 }
-
 datatype UInt8<1>
-    @type_checker "Integer"
+	@type_checker "Integer"
 	@c_type "uint8_t"
 	@java_type "byte"
 	@js_type "byte"
