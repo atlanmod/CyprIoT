@@ -1,5 +1,8 @@
+
 thing airConditionner {
+	
 	message temperatureSensorMessage(temperatureValue: UInt8)
+	
 	provided port receivingTemperaturePort {
 		receives temperatureSensorMessage
 	}

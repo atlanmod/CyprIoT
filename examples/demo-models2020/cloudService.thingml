@@ -1,7 +1,7 @@
 thing cloudService {
-	message temperatureSensorMessage(temperatureValue: UInt8)
+	message cloudMessage(temperatureValue: UInt8)
 	provided port receivingTemperaturePort {
-		receives temperatureSensorMessage
+		receives cloudMessage
 	}
 	
 	property preferedTemperature : UInt8
@@ -14,10 +14,10 @@ thing cloudService {
 	statechart behavior init recState {
 		state recState {
 			on entry println "Receiving..."
-			internal event e : receivingTemperaturePort?temperatureSensorMessage
+			internal event e : receivingTemperaturePort?cloudMessage
 			action turnTemperatureTo(e.temperatureValue)
 		}
-	}
+	}m
 }
 
 datatype UInt8<1>

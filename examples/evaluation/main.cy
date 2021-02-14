@@ -10,6 +10,6 @@ network smartNetwork {
 	instance myTS:temperatureSensor platform POSIX
 	instance myAC:airConditioner platform JAVA
 	instance myMQTT:mqttChannel protocol MQTT
-	bind myTS.sendingTemperaturePort => myMQTT{samplePath}
+	bind myTS.receivingTemperaturePort => myMQTT{samplePath}
 	bind myAC.receivingTemperaturePort <= myMQTT{samplePath}
 }

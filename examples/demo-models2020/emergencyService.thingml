@@ -1,24 +1,4 @@
-thing emergencyService {
-	message temperatureSensorMessage(temperatureValue: UInt8)
-	provided port receivingTemperaturePort {
-		receives temperatureSensorMessage
-	}
-	
-	property preferedTemperature : UInt8
-	
-	function turnTemperatureTo(value : UInt8) do 
-		preferedTemperature = value
-		println "Emergency service receiving : ", preferedTemperature
-	end
-	
-	statechart behavior init recState {
-		state recState {
-			on entry println "Receiving..."
-			internal event e : receivingTemperaturePort?temperatureSensorMessage
-			action turnTemperatureTo(e.temperatureValue)
-		}
-	}
-}
+
 
 datatype UInt8<1>
     @type_checker "Integer"

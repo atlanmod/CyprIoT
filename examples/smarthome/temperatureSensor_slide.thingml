@@ -1,0 +1,79 @@
+thing temperatureSensor 
+@c_header "#include <DHT.h>"
+@c_header "dht sensor;"
+{
+	
+	property currentTemperature : UInt8
+	property sensorPin : UInt8 = 8
+	property samplingRate : UInt8 = 3000
+	
+	message temperatureSensorMessage(temperatureValue: UInt8)
+	
+	provided port sendingTemperaturePort {
+		sends temperatureSensorMessage
+	}
+	
+	function sense() do
+		`sensor.read11(`&sensorPin&`)`
+		currentTemperature = `sensor.temperature`
+	end
+	
+	statechart temperatureSensorBehavior init initialize {
+		state initialize {
+			on entry do 
+				println "initialize"
+				`sensor.begin();`
+			end
+			transition -> regulateSampling
+		}
+		
+		 
+		state senseTemperature {
+			on entry do
+				println "senseTemperature"
+				sense()
+			end
+		}
+	state regulateSampling {
+		on entry do 
+			println "regulateSampling"
+			`delay(`&samplingRate&`)`
+		end
+		transition -> sendTemperature
+	}
+	state sendTemperature @ignore "sink"{
+		on entry do
+			println "sendTemperature" 
+			sendingTemperaturePort!temperatureSensorMessage(currentTemperature)
+		end
+		transition -> senseTemperature
+	}
+  }
+}
+
+datatype UInt8<1> // Mapping the types into their low-level equivalent
+	@type_checker "Integer"
+	@c_type "uint8_t"
+	@java_type "byte"
+	@js_type "byte"
+
+
+protocol MQTT
+	@mqtt_broker_address `mqtt.atlanmod.org`
+	@mqtt_port_number `1883`
+	@serializer `json`
+
+configuration myTS_Cfg @compiler `posix` @debug `true` {
+	instance myTS : temperatureSensor
+	connector myTS.sendingTemperaturePort 
+			over MQTT @mqtt_publish_topic `org/atlanmod/mynetwork/temperaturePath`
+}
+
+
+
+
+ 
+ 
+   
+ 
+	

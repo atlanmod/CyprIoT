@@ -1,5 +1,5 @@
-thing temperatureSensor import "temperatureSensor.thingml"
-thing airConditioner import "airConditioner.thingml"
+thing temperatureSensor import "temperatureSensor.thingml" assigned sensor
+thing airConditioner import "airConditioner.thingml" assigned actuator
 thing remoteDisplay import "remoteDisplay.thingml"
 thing securityCamera import "securityCamera.thingml" assigned sensitive
 thing lightSensor import "lightSensor.thingml"
@@ -7,15 +7,23 @@ thing smartLight import "smartLight.thingml"
 thing gateway import "gateway.thingml"
 
 role sensitive
+role sensor
+role actuator
 
-policy smartPolicy {
+policy myPolicy {
+	rule temperatureSensor deny:send airConditioner              s
+	rule temperatureSensor allow:send actuator                    s
+}
+
+
+
 	//rule temperatureSensor->state:isHigh trigger:executeFunction airConditionner->function:turnTemperatureTo("20")
 	//rule myTemperatureSensor deny:send myAirConditionner
 	//rule temperatureSensor->state:isHigh trigger:goToState airConditionner->state:isOn
 	//rule temperatureSensor->state:isHigh trigger:goToState car->state:isOff
 	//rule temperatureSensor->state:isLow trigger:goToState airConditionner->state:isOff
 	//rule myPubsub1->path:topic2 bridge:to pubsub1->path:topic1 // Ok when path are on the same channel not instance
-}
+
 
 policy commControlPolicy {
 	rule myAirConditioner deny:send room1LightSensor	

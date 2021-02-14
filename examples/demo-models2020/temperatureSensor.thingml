@@ -7,15 +7,18 @@ thing temperatureSensor {
 		state isSensing {
 			on entry
 				do
+				println  "Temperature sensor"
 				while(true) do
-					println  "Sending..."
-					sendingTemperaturePort!temperatureSensorMessage(0)
-				`sleep(5);`
-					sendingTemperaturePort!temperatureSensorMessage(1)
-				`sleep(5);`
-					sendingTemperaturePort!temperatureSensorMessage(2)
-				`sleep(5);`
-					sendingTemperaturePort!temperatureSensorMessage(3)
+					println  "Sending temperature..."
+					sendingTemperaturePort!temperatureSensorMessage(25)
+					`sleep(5);`
+					println  "Sending temperature..."
+					sendingTemperaturePort!temperatureSensorMessage(27)
+					`sleep(5);`
+					println  "Sending temperature..."
+					sendingTemperaturePort!temperatureSensorMessage(29)
+					`sleep(5);`
+					sendingTemperaturePort!temperatureSensorMessage(30)
 				end
 			end
 		}

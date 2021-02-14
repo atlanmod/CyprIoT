@@ -40,7 +40,7 @@ thing temperatureSensor
 			end
 			transition -> sendTemperature
 		}
-		state sendTemperature {
+		state sendTemperature @ignore "sink"{
 			on entry do
 				println "sendTemperature" 
 				sendingTemperaturePort!temperatureSensorMessage(currentTemperature) // sending the current temperature via the sending port

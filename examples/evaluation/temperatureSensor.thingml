@@ -1,8 +1,8 @@
 thing temperatureSensor {
 	
 	message temperatureSensorMessage(temperatureValue: UInt8)
-	provided port sendingTemperaturePort {
-		sends temperatureSensorMessage
+	provided port receivingTemperaturePort {
+		receives temperatureSensorMessage
 	}
 	message logsMessage(temperatureValue: UInt8)
 	provided port manufacturerLogsPort {
